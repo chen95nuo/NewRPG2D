@@ -62,7 +62,7 @@ namespace Assets.Script.Battle
             RoleMoveMoment.SetCurrentRole(this);
             RoleProperty = new ValueProperty();
             RoleProperty.SetCurrentRole(this);
-            RoleProperty.InitRoleValue(100f, 100f);
+            //RoleProperty.InitRoleValue(100f, 100f);
             RoleProperty.SetMoveSeed(10f);
             AttackSkillIdArray = new int[3];
         }

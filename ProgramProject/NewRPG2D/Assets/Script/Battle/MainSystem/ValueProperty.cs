@@ -5,6 +5,25 @@ using System.Text;
 
 namespace Assets.Script.Battle
 {
+    public struct PropertyData
+    {
+        public float Hp;
+        public float Mp;
+        public float Attack;
+        public float Defense;
+        public float Speed;
+        public float AttackSpeed;
+        public float AttackCritial;
+        public float MoveSpeed;
+        public float HitEnemyHeal;
+        public float ReduceCD;
+        public float FireHurt;
+        public float DizzyChance;
+        public float ReflectHurt;
+        public float HealTeam;
+        public float BloodHurt;
+    }
+
     public class ValueProperty
     {
         public float RoleHp { get; private set; }
@@ -19,10 +38,10 @@ namespace Assets.Script.Battle
             currenRole = mRole;
         }
 
-        public void InitRoleValue(float Hp, float Mp)
+        public void InitRoleValue(PropertyData rolePropertyData)
         {
-            RoleHp = Hp;
-            RoleMp = Mp;
+            RoleHp = rolePropertyData.Hp;
+            RoleMp = rolePropertyData.Mp;
         }
 
         public void SetMoveSeed(float moveSpeed)

@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0p3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -287,6 +289,8 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\RoleAnimationSys.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\BaseSystem.cs" />
+    <Compile Include="Assets\Script\Battle\MainSystem\BufferMoment.cs" />
+    <Compile Include="Assets\Script\Battle\MainSystem\DamageMoment.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\GameRoleMgr.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\MoveMoment.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\ResourceLoadSystem\ResourcesLoadSys.cs" />
