@@ -5,30 +5,17 @@ using System.Text;
 
 namespace Assets.Script.Battle
 {
-    public struct PropertyData
-    {
-        public float Hp;
-        public float Mp;
-        public float Attack;
-        public float Defense;
-        public float Speed;
-        public float AttackSpeed;
-        public float AttackCritial;
-        public float MoveSpeed;
-        public float HitEnemyHeal;
-        public float ReduceCD;
-        public float FireHurt;
-        public float DizzyChance;
-        public float ReflectHurt;
-        public float HealTeam;
-        public float BloodHurt;
-    }
-
     public class ValueProperty
     {
+        public RolePropertyEnum RoleProperty;  //自己的属性
+        public RolePropertyEnum AttackProperty; //克制的属性
+        public RolePropertyEnum DefenseProperty; // 被克制的属性
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
-        public float Attack;
+        public float Attack { get; private set; }
+        public float Defense { get; private set; }
+        public float Prompt { get; private set; }   //敏捷
+        public float CriticalPercent { get; private set; }  //暴击
         public float MoveSpeed { get; private set; }
 
         private RoleBase currenRole;
@@ -42,6 +29,10 @@ namespace Assets.Script.Battle
         {
             RoleHp = rolePropertyData.Hp;
             RoleMp = rolePropertyData.Mp;
+            Attack = rolePropertyData.Attack;
+            Defense = rolePropertyData.Defense;
+            Prompt = rolePropertyData.Prompt;
+            CriticalPercent = rolePropertyData.AttackCritial;
         }
 
         public void SetMoveSeed(float moveSpeed)

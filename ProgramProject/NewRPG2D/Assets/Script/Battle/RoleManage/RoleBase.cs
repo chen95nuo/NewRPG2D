@@ -20,15 +20,15 @@ namespace Assets.Script.Battle
         public Transform RoleTransform { get; private set; }
         public int AnimationId { get; private set; }
         public int CurrentAttackSkillId { get; private set; }
+        public bool IsDead { get; private set; }
 
         public RoleRender MonoRoleRender { get; private set; }
         public RoleAnimationSys RoleAnimation { get; private set; }
         public MoveMoment RoleMoveMoment { get; private set; }
-        public ValueProperty RoleProperty { get; private set; }
+        public ValueProperty RolePropertyValue { get; private set; }
         public FsmStateMachine<RoleBase> RoleActionMachine;
         public Dictionary<int, FsmState<RoleBase>> RoleActionStateDic; //存放动作状态
 
-        public float MoveSpeed { get; private set; }
 
         private int[] AttackSkillIdArray;
 
