@@ -26,6 +26,7 @@ namespace Assets.Script.Battle
         public RoleAnimationSys RoleAnimation { get; private set; }
         public MoveMoment RoleMoveMoment { get; private set; }
         public ValueProperty RolePropertyValue { get; private set; }
+        public DamageMoment RoleDamageMoment { get; private set; }
         public FsmStateMachine<RoleBase> RoleActionMachine;
         public Dictionary<int, FsmState<RoleBase>> RoleActionStateDic; //存放动作状态
 
@@ -60,10 +61,12 @@ namespace Assets.Script.Battle
             RoleAnimation.SetCurrentRole(this);
             RoleMoveMoment = new MoveMoment();
             RoleMoveMoment.SetCurrentRole(this);
-            RoleProperty = new ValueProperty();
-            RoleProperty.SetCurrentRole(this);
+            RolePropertyValue = new ValueProperty();
+            RolePropertyValue.SetCurrentRole(this);
             //RoleProperty.InitRoleValue(100f, 100f);
-            RoleProperty.SetMoveSeed(10f);
+            RolePropertyValue.SetMoveSeed(10f);
+            RoleDamageMoment = new DamageMoment();
+            RoleDamageMoment.SetCurrentRole(this);
             AttackSkillIdArray = new int[3];
         }
 

@@ -25,7 +25,17 @@ namespace Assets.Script.Battle
             float hurtValue = hurtInfo.HurtValue;
             RolePropertyDamage(attackProperty, targeProperty, ref hurtValue);
             CriticalDamage(attackProperty, targeProperty, ref hurtValue);
+            switch (hurtInfo.HurtType)
+            {
+                case HurtTypeEnum.Physic:
+                    FinallyPhysicDamage(attackProperty, targeProperty, ref hurtValue);
+                    break;
+                case HurtTypeEnum.Real:
+                    FinallyRealDamage(attackProperty, targeProperty, ref hurtValue);
+                    break;
+            }
 
+            hurtInfo.TargeRole.RolePropertyValue.SetHp(hurtValue);
         }
 
         private void RolePropertyDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
@@ -51,7 +61,7 @@ namespace Assets.Script.Battle
             }
         }
 
-        private void FinallyDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
+        private void FinallyPhysicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
             float promptOffeset = attackProperty.Prompt - targeProperty.Prompt;
             float hurtPercentRange = 0, hurtPercentRangeMin = 0f, hurtPercentRangeMax = 0f;
@@ -69,8 +79,19 @@ namespace Assets.Script.Battle
                                        BattleStaticAndEnum.RolePromptOffsetMax;
             }
             hurtPercentRange = Random.Range(hurtPercentRangeMin, hurtPercentRangeMax);
+            float defensePercentRange = UnityEngine.Random.Range(BattleStaticAndEnum.RoleDefenseRangePercentMin,
+                            BattleStaticAndEnum.RoleDefenseRangePercentMax);
 
+            hurtValue = hurtValue*BattleStaticAndEnum.RoleHurtPercent*hurtPercentRange -
+                        targeProperty.Defense*BattleStaticAndEnum.RoleDefensePercent*defensePercentRange;
 
+            hurtValue = Mathf.Max(1, hurtValue);
+
+        }
+
+        private void FinallyRealDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
+        {
+           
 
         }
     }
