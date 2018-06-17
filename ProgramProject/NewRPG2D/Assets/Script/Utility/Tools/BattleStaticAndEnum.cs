@@ -27,11 +27,11 @@ namespace Assets.Script.Battle
         public RolePropertyEnum RoleProperty;  //自己的属性
         public RolePropertyEnum AttackProperty; //克制的属性
         public RolePropertyEnum DefenseProperty; // 被克制的属性
-        public float Hp;
-        public float Mp;
-        public float Attack;
-        public float Defense;
-        public float Prompt;
+        public PropertyAddtion Hp;
+        public PropertyAddtion Mp;
+        public PropertyAddtion Attack;
+        public PropertyAddtion Defense;
+        public PropertyAddtion Prompt;
         public float AttackSpeed;
         public float AttackCritial;
         public float MoveSpeed;
@@ -41,7 +41,21 @@ namespace Assets.Script.Battle
         public float DizzyChance;
         public float ReflectHurt;
         public float HealTeam;
-        public float BloodHurt;
+        public float HealPerSecond;
+    }
+
+    public struct PropertyAddtion
+    {
+        public int BaseValue;
+        public float GrowValueMin;
+        public float GrowValueMax;
+
+        public PropertyAddtion(int baseValue, float growValueMin, float growValueMax)
+        {
+            BaseValue = baseValue;
+            GrowValueMin = growValueMin;
+            GrowValueMax = growValueMax;
+        }
     }
 
     public struct HurtInfo
@@ -64,6 +78,18 @@ namespace Assets.Script.Battle
     public enum RolePropertyEnum
     {
 
+    }
+
+    public enum AttackTypeEnum
+    {
+    }
+
+    public enum ActorTypeEnum
+    {
+    }
+
+    public enum SkillTypeEnum
+    {
     }
 
     #endregion

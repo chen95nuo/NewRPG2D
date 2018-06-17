@@ -287,6 +287,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\RoleData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\RolePropertyData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\SkillData.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\RoleAnimationSys.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\BaseSystem.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\BufferMoment.cs" />
@@ -296,6 +299,7 @@
     <Compile Include="Assets\Script\Battle\MainSystem\ResourceLoadSystem\ResourcesLoadSys.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\ValueProperty.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\WeaponMoment.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\MainHeroRole.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\RoleBase.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\RoleRender.cs" />
     <Compile Include="Assets\Script\GameLogic.cs" />
@@ -327,5 +331,6 @@
     <None Include="Assets\StreamingAssets\Config\RoleData.xml" />
     <None Include="Assets\StreamingAssets\Config\RolePropertyData.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -27,10 +27,10 @@ namespace Assets.Script.Battle
 
         public void InitRoleValue(PropertyData rolePropertyData)
         {
-            RoleHp = rolePropertyData.Hp;
-            RoleMp = rolePropertyData.Mp;
-            Attack = rolePropertyData.Attack;
-            Defense = rolePropertyData.Defense;
+            RoleHp = rolePropertyData.Hp.BaseValue;
+            RoleMp = rolePropertyData.Mp.BaseValue;
+            Attack = rolePropertyData.Attack.BaseValue;
+            Defense = rolePropertyData.Defense.BaseValue;
             Prompt = rolePropertyData.Prompt;
             CriticalPercent = rolePropertyData.AttackCritial;
         }
@@ -44,10 +44,26 @@ namespace Assets.Script.Battle
             RoleHp -= HpChange;
             return RoleHp > 0;
         }
+
         public bool SetMp(float MpChange)
         {
             RoleMp -= MpChange;
             return RoleMp > 0;
+        }
+
+        public void SetAttack(float attackChange)
+        {
+            Attack += attackChange;
+        }
+
+        public void SetDefense(float defenseChange)
+        {
+            Defense += defenseChange;
+        }
+
+        public void SetPrompt(float promptChange)
+        {
+            Prompt += promptChange;
         }
     }
 }

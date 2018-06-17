@@ -18,18 +18,11 @@ namespace Assets.Script.Utility
 
         public enum XmlName
         {
-            Items,
-            Weapon,
-            Armor,
-            RoleAnimation,
-            FXData,
-            SkillData,
-            SoundData,
-            BufferData,
-            Monsters,
-            SkillMeleeData,
-            SkillShotData,
-            Max,
+           RoleData,
+           RolePropertyData,
+           SkillData,
+           Max,
+           BufferData,
         }
 
         public static XmlData GetXmlData(XmlName name)
