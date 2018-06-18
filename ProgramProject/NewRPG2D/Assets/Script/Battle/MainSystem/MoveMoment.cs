@@ -24,7 +24,7 @@ namespace Assets.Script.Battle
             {
                 return;
             }
-            nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RoleProperty.MoveSpeed);
+            nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
             if (MapColliderMgr.instance.CheckCollider(nextPosition))
             {
                 roleTransform.position = nextPosition;

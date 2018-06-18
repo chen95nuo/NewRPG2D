@@ -31,7 +31,7 @@ namespace Assets.Script.Battle
             RoleMp = rolePropertyData.Mp.BaseValue;
             Attack = rolePropertyData.Attack.BaseValue;
             Defense = rolePropertyData.Defense.BaseValue;
-            Prompt = rolePropertyData.Prompt;
+            Prompt = rolePropertyData.Prompt.BaseValue;
             CriticalPercent = rolePropertyData.AttackCritial;
         }
 
