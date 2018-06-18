@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Assets.Script.Battle;
 
 [ExecuteInEditMode]
 public class RoleRender : MonoBehaviour
 {
-    public bool _isStatic;
-    public int _x, _y, _z;
-
+    //public UnityArmatureComponent roleAnimation;
     private Transform _trans;
     private Transform _renderTrans;
     private RoleBase currentRole;
@@ -18,10 +13,11 @@ public class RoleRender : MonoBehaviour
     void Awake()
     {
         _trans = transform;
-        _renderTrans = _trans.Find("Render");
     }
 
     public void SetRoleBaseInfo (RoleBase roleBase) {
         currentRole = roleBase;
     }
 }
+
+
