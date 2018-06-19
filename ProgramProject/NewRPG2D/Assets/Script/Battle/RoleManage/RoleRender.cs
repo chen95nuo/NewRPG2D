@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using Assets.Script.Battle;
+using DragonBones;
+using Transform = UnityEngine.Transform;
 
-[ExecuteInEditMode]
 public class RoleRender : MonoBehaviour
 {
-    //public UnityArmatureComponent roleAnimation;
+    public UnityArmatureComponent roleAnimation;
     private Transform _trans;
     private Transform _renderTrans;
     private RoleBase currentRole;
@@ -15,7 +16,8 @@ public class RoleRender : MonoBehaviour
         _trans = transform;
     }
 
-    public void SetRoleBaseInfo (RoleBase roleBase) {
+    public void SetRoleBaseInfo(RoleBase roleBase)
+    {
         currentRole = roleBase;
     }
 }

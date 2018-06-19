@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DragonBones;
 using UnityEngine;
+using Transform = UnityEngine.Transform;
 
 namespace Assets.Script.Battle
 {
@@ -14,7 +16,7 @@ namespace Assets.Script.Battle
     public abstract class RoleBase
     {
         public int InstanceId { get; private set; }
-        public Animator RoleAnimator { get; private set; }
+        public UnityArmatureComponent RoleAnimator { get; private set; }
         public int TeamId { get; private set; }
         public RoleTypeEnum RoleType { get; private set; }
         public Transform RoleTransform { get; private set; }
@@ -51,7 +53,7 @@ namespace Assets.Script.Battle
 
         public void InitComponent()
         {
-            RoleAnimator = MonoRoleRender.GetComponentInChildren<Animator>();
+            RoleAnimator = MonoRoleRender.roleAnimation;
             RoleTransform = MonoRoleRender.transform;
         }
 
