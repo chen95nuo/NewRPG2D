@@ -7,7 +7,7 @@ namespace Assets.Script.Battle
     {
         private Transform roleTransform;
         private RoleBase mCurrentRole;
-        private Vector3 addOffesetVector3;
+        private Vector3 addOffesetVector3, currentTargetPosition;
         private SwitchRoleActionParam switchActionParam;
 
         public void SetCurrentRole(RoleBase mRole)
@@ -20,10 +20,11 @@ namespace Assets.Script.Battle
         private Vector3 nextPosition = Vector3.zero;
         public void Update(float deltaTime)
         {
-            if (addOffesetVector3.magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
+            if ((roleTransform.position - currentTargetPosition).magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
             {
                 return;
             }
+
             nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
             if (MapColliderMgr.instance.CheckCollider(nextPosition))
             {
@@ -36,6 +37,12 @@ namespace Assets.Script.Battle
 
         }
 
+        public void SetTargetPosition(Vector3 targetPosition)
+        {
+            currentTargetPosition = targetPosition;
+            SetOffesetVector3((roleTransform.position - currentTargetPosition).normalized);
+        }
+
         public void SetOffesetVector3(Vector3 OffesetVec)
         {
             if (OffesetVec.x < -StaticAndConstParamter.JOYSTICK_TIME)
@@ -46,19 +53,19 @@ namespace Assets.Script.Battle
             {
                 roleTransform.right = Vector3.left;
             }
-            //CheckOffesetVail(ref OffesetVec);
+
             addOffesetVector3 = OffesetVec;
 
-            if (addOffesetVector3.magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
-            {
-                switchActionParam.NextAction = RoleActionEnum.Idle;
-            }
-            else
-            {
-                switchActionParam.NextAction = RoleActionEnum.Run;
-            }
+            //if (addOffesetVector3.magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
+            //{
+            //    switchActionParam.NextAction = RoleActionEnum.Idle;
+            //}
+            //else
+            //{
+            //    switchActionParam.NextAction = RoleActionEnum.Run;
+            //}
 
-            EventManager.instance.SendEvent(EventDefineEnum.SwitchRoleAction, switchActionParam);
+            //EventManager.instance.SendEvent(EventDefineEnum.SwitchRoleAction, switchActionParam);
         }
 
         private void CheckOffesetVail(ref Vector3 OffesetVec)

@@ -8,7 +8,7 @@ public class StaticAndConstParamter
 {
     public const float FORWARD_THRESHOLD = 0.05f;
     public const float JOYSTICK_TIME = 0.01f;
-    public const float MOVE_SPEED_MIN_THRESHOLD = 0.02f;
+    public const float MOVE_SPEED_MIN_THRESHOLD = 0.2f;
     public const float MOVE_SPEED_MAX_THRESHOLD = 1.0f;
     public const float GRAVITY = -9.8f;
     public const float CheckFallHeight = 1.5f;

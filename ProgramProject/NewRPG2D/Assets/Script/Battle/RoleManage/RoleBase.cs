@@ -23,7 +23,9 @@ namespace Assets.Script.Battle
         public int AnimationId { get; private set; }
         public int CurrentAttackSkillId { get; private set; }
         public bool IsDead { get; private set; }
+        public bool IsCanControl { get; private set; }
 
+        public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
         public RoleAnimationSys RoleAnimation { get; private set; }
         public MoveMoment RoleMoveMoment { get; private set; }
@@ -69,6 +71,8 @@ namespace Assets.Script.Battle
             RolePropertyValue.SetMoveSeed(10f);
             RoleDamageMoment = new DamageMoment();
             RoleDamageMoment.SetCurrentRole(this);
+            RoleSearchTarget = new SearchTarget();
+            RoleSearchTarget.SetCurrentRole(this);
             AttackSkillIdArray = new int[3];
         }
 

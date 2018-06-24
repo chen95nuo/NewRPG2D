@@ -15,8 +15,10 @@ namespace Assets.Script
     public class GameLogic : MonoBehaviour
     {
 
+        private LayerMask inputLayerMask;
         public float audioTime = 0.5f;
         public static GameLogic Instance = null;
+
 
         public void Awake()
         {
@@ -52,6 +54,7 @@ namespace Assets.Script
             CTimerManager.CreateInstance();
             ResourcesLoadSys.GetInstance();
             MapColliderMgr.CreateInstance();
+            InputContorlMgr.CreateInstance();
         }
 
         /// <summary>
@@ -63,6 +66,8 @@ namespace Assets.Script
 
         public void InitData()
         {
+            InputContorlMgr.instance.SetMainCamera(Camera.main);
+            InputContorlMgr.instance.SetLayMask(inputLayerMask);
         }
 
         /// <summary>
@@ -109,6 +114,10 @@ namespace Assets.Script
                 {
                     ResourcesLoadSys.instance.Update(Time.smoothDeltaTime);
                 }
+                if (InputContorlMgr.HasInstance())
+                {
+                    InputContorlMgr.instance.Update(Time.deltaTime);
+                }
             }
         }
 
@@ -132,6 +141,7 @@ namespace Assets.Script
             ReadXmlNewMgr.DestroyInstance();
             ResourcesLoadSys.DestroyInstance();
             MapColliderMgr.DestroyInstance();
+            InputContorlMgr.DestroyInstance();
         }
 
     }
