@@ -9,6 +9,9 @@ namespace Assets.Script.Battle
         private RoleBase mCurrentRole, targetRole;
         private Transform roleTransform;
 
+        private SkillSlotTypeEnum cacheSkillSlot;
+        private float attackDistance;
+
         public void SetCurrentRole(RoleBase mRole)
         {
             mCurrentRole = mRole;
@@ -22,8 +25,18 @@ namespace Assets.Script.Battle
 
         public void Update()
         {
-            if (targetRole != null && targetRole.IsDead)
+            if (targetRole != null && targetRole.IsDead ==false)
             {
+                if (mCurrentRole.CurrentSlot != cacheSkillSlot)
+                {
+                    cacheSkillSlot = mCurrentRole.CurrentSlot;
+                    attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
+                }
+
+                if (Vector3.Distance(targetRole.RoleTransform.position, roleTransform.position) > attackDistance)
+                {
+
+                }
                 //没到攻击距离时往目标走，
             }
             else

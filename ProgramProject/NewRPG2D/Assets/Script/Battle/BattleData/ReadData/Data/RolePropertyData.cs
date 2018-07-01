@@ -7,20 +7,18 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    class RolePropertyData : XmlData
+    class RolePropertyData : ItemBaseData
     {
-        public int ID;
         public string Name;
         public PropertyData RoleBaseData;
-        public override ReadXmlDataMgr.XmlName ItemXmlName
+        public override XmlName ItemXmlName
         {
-            get { return ReadXmlDataMgr.XmlName.RolePropertyData; }
+            get { return XmlName.RolePropertyData; }
         }
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
             RoleBaseData = new PropertyData();
-            ID = ReadXmlDataMgr.IntParse(node, "ID");
             Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
             RoleBaseData.RoleProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "RoleProperty");

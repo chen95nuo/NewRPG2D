@@ -17,7 +17,7 @@ namespace Assets.Script.Utility
 {
     public class XmlData
     {
-        public virtual ReadXmlDataMgr.XmlName ItemXmlName
+        public virtual XmlName ItemXmlName
         {
             get { return 0; }
         }
@@ -34,17 +34,17 @@ namespace Assets.Script.Utility
         public override void Init()
         {
             base.Init();
-            int maxEnum = (int)ReadXmlDataMgr.XmlName.Max;
+            int maxEnum = (int)XmlName.Max;
             AllXmlDataDic = new Dictionary<int, XmlData[]>(maxEnum);
             for (int i = 0; i < maxEnum; i++)
             {
-                GameLogic.Instance.StartCoroutine(LoadConfig((ReadXmlDataMgr.XmlName)i));
+                GameLogic.Instance.StartCoroutine(LoadConfig((XmlName)i));
             }
          
         }
 
         private XmlNode LoadConfigNode;
-        private IEnumerator LoadConfig(ReadXmlDataMgr.XmlName name)
+        private IEnumerator LoadConfig(XmlName name)
         {
             XmlNode node = null;
             yield return GameLogic.Instance.StartCoroutine(ReadTxt(name));
@@ -73,7 +73,7 @@ namespace Assets.Script.Utility
             AllXmlDataDic = null;
         }
 
-        public MemoryStream LoadFile(ReadXmlDataMgr.XmlName name)
+        public MemoryStream LoadFile(XmlName name)
         {
             string mPath = ReadXmlDataMgr.GetXmlPath(name);
             StreamReader reader = new StreamReader(mPath);
@@ -83,7 +83,7 @@ namespace Assets.Script.Utility
             return new MemoryStream(binary);
         }
 
-        IEnumerator ReadTxt(ReadXmlDataMgr.XmlName name)
+        IEnumerator ReadTxt(XmlName name)
         {
             string mPath = ReadXmlDataMgr.GetXmlPath(name);
             string content;

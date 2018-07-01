@@ -67,6 +67,15 @@ namespace Assets.Script.Battle
     }
 
     #region Enum
+
+    public enum SkillSlotTypeEnum
+    {
+        NormalAttack,
+        Skill1,
+        Skill2,
+        Max,
+    }
+
     public enum HurtTypeEnum
     {
         Physic,

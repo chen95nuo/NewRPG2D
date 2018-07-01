@@ -9,9 +9,8 @@ using UnityEngine;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class SkillData : XmlData
+    public class SkillData : ItemBaseData
     {
-        public int ID;
         public int SkillId;
         public int SkillLevel;
         public int SkillMaxLevel;
@@ -26,14 +25,13 @@ namespace Assets.Script.Battle.BattleData
         public int EffectId3;
         public int EffectId4;
 
-        public override ReadXmlDataMgr.XmlName ItemXmlName
+        public override XmlName ItemXmlName
         {
-            get { return ReadXmlDataMgr.XmlName.SkillData; }
+            get { return XmlName.SkillData; }
         }
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
-            ID = ReadXmlDataMgr.IntParse(node, "ID");
             ReadXmlDataMgr.StrParse(node, "Description");
             SkillId = ReadXmlDataMgr.IntParse(node, "SkillID");
             SkillLevel = ReadXmlDataMgr.IntParse(node, "SkillLevel");

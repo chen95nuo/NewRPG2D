@@ -58,9 +58,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Battle\BattleData\ReadData\RoleData.cs" />
-    <Compile Include="Assets\Script\Battle\BattleData\ReadData\RolePropertyData.cs" />
-    <Compile Include="Assets\Script\Battle\BattleData\ReadData\SkillData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\ItemBaseData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\RoleData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\RolePropertyData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\SkillData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\ItemDataBaseMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RoleDataMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RolePropertyDataMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\SkillDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\RoleAnimationSys.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\BaseSystem.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\GameRoleMgr.cs" />
@@ -74,6 +79,8 @@
     <Compile Include="Assets\Script\Battle\RoleManage\RoleBase.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\RoleRender.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\SearchTarget.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\SkillCompoment.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\SkillLevelComponent.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\ValueProperty.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\WeaponMoment.cs" />
     <Compile Include="Assets\Script\DragonBones\animation\Animation.cs" />

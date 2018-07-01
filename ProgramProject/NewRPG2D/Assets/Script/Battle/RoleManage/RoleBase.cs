@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Battle.BattleData;
+using Assets.Script.Utility;
 using DragonBones;
 using UnityEngine;
 using Transform = UnityEngine.Transform;
@@ -10,18 +12,20 @@ namespace Assets.Script.Battle
     {
         public int InstanceId;
         public int TeamId;
+        public int RoleId;
         public RoleTypeEnum RoleType;
     }
 
     public abstract class RoleBase
     {
         public int InstanceId { get; private set; }
+        public int RoleId { get; private set; }
         public UnityArmatureComponent RoleAnimator { get; private set; }
         public int TeamId { get; private set; }
         public RoleTypeEnum RoleType { get; private set; }
         public Transform RoleTransform { get; private set; }
         public int AnimationId { get; private set; }
-        public int CurrentAttackSkillId { get; private set; }
+        public SkillSlotTypeEnum CurrentSlot { get; private set; }
         public bool IsDead { get; private set; }
         public bool IsCanControl { get; private set; }
 
@@ -31,10 +35,11 @@ namespace Assets.Script.Battle
         public MoveMoment RoleMoveMoment { get; private set; }
         public ValueProperty RolePropertyValue { get; private set; }
         public DamageMoment RoleDamageMoment { get; private set; }
+        public SkillCompoment RoleSkill { get; private set; }
         public FsmStateMachine<RoleBase> RoleActionMachine;
         public Dictionary<int, FsmState<RoleBase>> RoleActionStateDic; //存放动作状态
 
-
+        protected RoleData CurrentRoleData;
         private int[] AttackSkillIdArray;
 
         public void SetRoleInfo(RoleInfo info, RoleRender roleRender)
@@ -44,6 +49,7 @@ namespace Assets.Script.Battle
             InitFSM();
             InitData();
             SetRoleInfo(info);
+            InitSkill();
         }
 
         public virtual void SetRoleInfo(RoleInfo info)
@@ -51,6 +57,8 @@ namespace Assets.Script.Battle
             InstanceId = info.InstanceId;
             TeamId = info.TeamId;
             RoleType = info.RoleType;
+            RoleId = info.RoleId;
+            CurrentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(RoleId);
         }
 
         public void InitComponent()
@@ -73,6 +81,9 @@ namespace Assets.Script.Battle
             RoleDamageMoment.SetCurrentRole(this);
             RoleSearchTarget = new SearchTarget();
             RoleSearchTarget.SetCurrentRole(this);
+            RoleSkill = new SkillCompoment();
+            RoleSkill.SetCurrentRole(this);
+
             AttackSkillIdArray = new int[3];
         }
 
@@ -80,6 +91,14 @@ namespace Assets.Script.Battle
         {
             RoleActionStateDic = new Dictionary<int, FsmState<RoleBase>>(10);
             RoleActionMachine = new FsmStateMachine<RoleBase>(this);
+        }
+
+        private void InitSkill()
+        {
+            RoleSkill.InitSkill(SkillSlotTypeEnum.NormalAttack, CurrentRoleData.NormalAttackId);
+            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill1, CurrentRoleData.SkillDataId01);
+            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, CurrentRoleData.SkillDataId02);
+            CurrentSlot = SkillSlotTypeEnum.NormalAttack;
         }
 
         public void SetRoleActionState(RoleActionEnum state)

@@ -10,21 +10,22 @@ using System.Xml;
 
 namespace Assets.Script.Utility
 {
+    /// <summary>
+    /// 配置表名
+    /// </summary>
+    public enum XmlName
+    {
+        RoleData,
+        RolePropertyData,
+        SkillData,
+        Max,
+        BufferData,
+    }
+
+
     public class ReadXmlDataMgr
     {
-        /// <summary>
-        /// 配置表名
-        /// </summary>
-
-        public enum XmlName
-        {
-           RoleData,
-           RolePropertyData,
-           SkillData,
-           Max,
-           BufferData,
-        }
-
+       
         public static XmlData GetXmlData(XmlName name)
         {
             switch (name)
