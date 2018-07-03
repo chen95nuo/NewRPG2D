@@ -123,15 +123,6 @@ namespace Assets.Script.Battle
             }
         }
 
-        public int SetCurrentAttackSkillId(int attackIndex)
-        {
-            CurrentAttackSkillId = AttackSkillIdArray[attackIndex];
-            if (attackIndex++ >= AttackSkillIdArray.Length)
-            {
-                attackIndex = 0;
-            }
-            return attackIndex;
-        }
 
         public virtual void UpdateLogic(float deltaTime)
         {
