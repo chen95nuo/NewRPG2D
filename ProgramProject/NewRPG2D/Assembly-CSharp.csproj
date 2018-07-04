@@ -58,6 +58,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Eason\Scripts\GameData\BagMenuData.cs" />
+    <Compile Include="Assets\Eason\Scripts\GameData\ItemData.cs" />
+    <Compile Include="Assets\Eason\Scripts\GameData\MenuData.cs" />
+    <Compile Include="Assets\Eason\Scripts\GameManager\GameMain.cs" />
+    <Compile Include="Assets\Eason\Scripts\UI\UIBagPage.cs" />
+    <Compile Include="Assets\Eason\Scripts\UI\UIMainPage.cs" />
+    <Compile Include="Assets\Eason\Scripts\UIFramework\Source\TTUIBind.cs" />
+    <Compile Include="Assets\Eason\Scripts\UIFramework\Source\TTUIPage.cs" />
+    <Compile Include="Assets\Eason\Scripts\UIFramework\Source\TTUIRoot.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\ItemBaseData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\RoleData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\RolePropertyData.cs" />
@@ -161,6 +170,7 @@
     <None Include="Assets\Script\DragonBones\Resources\Shaders\DB_BlendMode_UIGrab.shader" />
     <None Include="Assets\StreamingAssets\Config\SkillData.xml" />
     <None Include="Assets\StreamingAssets\Config\RoleData.xml" />
+    <None Include="Assets\StreamingAssets\Json\BagMenuData.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/NewRPG2D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
