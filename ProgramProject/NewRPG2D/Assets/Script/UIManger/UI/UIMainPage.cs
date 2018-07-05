@@ -15,10 +15,9 @@ public class UIMainPage : TTUIPage
     public override void Awake(GameObject go)
     {
 
-        this.gameObject.transform.Find("DownBackGround/btn_Pack").GetComponent<Button>().onClick.AddListener(() =>
-        {
-            ShowPage<UIBagPage>();
-        });
-
+        this.gameObject.transform.Find("DownBackGround/btn_Pack").GetComponent<Button>().onClick.AddListener(ShowPage<UIBagPage>);
     }
+
+
+
 }

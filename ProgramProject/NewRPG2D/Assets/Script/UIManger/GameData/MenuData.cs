@@ -5,13 +5,16 @@ using System.Collections;
 public class MenuData
 {
     [SerializeField]
-    private int menuNumb;
+    private int menuNumber;
 
     [SerializeField]
     private int id;
 
     [SerializeField]
     private string name;
+
+    [SerializeField]
+    private int parentNumber;
 
     public int Id
     {
@@ -24,7 +27,7 @@ public class MenuData
     {
         get
         {
-            return menuNumb;
+            return menuNumber;
         }
     }
     public string Name
@@ -35,19 +38,27 @@ public class MenuData
         }
     }
 
-    public MenuData() { }
-    public MenuData(int menuNumb)
+    public int ParentNumber
     {
-        this.menuNumb = menuNumb;
+        get
+        {
+            return parentNumber;
+        }
     }
-    public MenuData(int menuNumb, int id)
+
+    public MenuData() { }
+    public MenuData(string name)
     {
-        this.menuNumb = menuNumb;
+        this.name = name;
+    }
+    public MenuData(int parentNumber, int id)
+    {
+        this.parentNumber = parentNumber;
         this.id = id;
     }
     public MenuData(int menuNumb, int id, string name)
     {
-        this.menuNumb = menuNumb;
+        this.menuNumber = menuNumb;
         this.id = id;
         this.name = name;
     }

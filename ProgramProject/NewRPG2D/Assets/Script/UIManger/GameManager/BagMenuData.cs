@@ -42,18 +42,41 @@ public class BagMenuData
     /// <summary>
     /// 查找菜单数据
     /// </summary>
-    /// <param name="menuNumb">菜单层级</param>
-    /// <param name="id">菜单序号</param>
+    /// <param name="name"></param>
     /// <returns></returns>
-    public MenuData GetMenu(int menuNumb, int id)
+    public MenuData GetMenu(string name)
     {
         for (int i = 0; i < menu.Count; i++)
         {
-            if (menu[i].MenuNumb == menuNumb && menu[i].Id == id)
+            if (menu[i].Name == name)
             {
                 return menu[i];
             }
         }
         return null;
     }
+    public MenuData GetMenu(int parentNumber, int id)
+    {
+        for (int i = 0; i < menu.Count; i++)
+        {
+            if (menu[i].ParentNumber == parentNumber && menu[i].Id == id)
+            {
+                return menu[i];
+            }
+        }
+        return null;
+    }
+
+    public MenuData GetMenu(string name, int parentNumber)
+    {
+        for (int i = 0; i < menu.Count; i++)
+        {
+            if (menu[i].ParentNumber == parentNumber && menu[i].Name == name)
+            {
+                return menu[i];
+            }
+        }
+        return null;
+    }
+
 }

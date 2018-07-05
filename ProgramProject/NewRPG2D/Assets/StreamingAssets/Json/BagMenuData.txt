@@ -1,29 +1,70 @@
 ﻿{
     "menu":[
         {
-            "menuNumb":0,
+            "menuNumber":0,
             "id":0,
-            "name":"蛋"
+            "name":"蛋",
+	    "parentNumber":0
         },
         {
-            "menuNumb":0,
+            "menuNumber":0,
             "id":1,
-            "name":"道具"
+            "name":"道具",
+	    "parentNumber":0
         },
         {
-            "menuNumb":0,
+            "menuNumber":0,
             "id":2,
-            "name":"装备"
+            "name":"装备",
+	    "parentNumber":0
+        },
+        {
+            "menuNumber":1,
+            "id":0,
+            "name":"星级",
+	    "parentNumber":1
+        },
+        {
+            "menuNumber":1,
+            "id":1,
+            "name":"时间",
+	    "parentNumber":1
         },
         {
             "menuNumb":1,
             "id":0,
-            "name":"星级"
+            "name":"稀有度",
+	    "parentNumber":2
+        },
+	{
+            "menuNumber":1,
+            "id":1,
+            "name":"可使用",
+	    "parentNumber":2
         },
         {
-            "menuNumb":1,
+            "menuNumber":1,
+            "id":0,
+            "name":"武器",
+	    "parentNumber":3
+        },
+        {
+            "menuNumber":1,
             "id":1,
-            "name":"时间"
+            "name":"护甲",
+	    "parentNumber":3
+        },
+        {
+            "menuNumber":1,
+            "id":2,
+            "name":"项链",
+	    "parentNumber":3
+        },
+        {
+            "menuNumber":1,
+            "id":3,
+            "name":"戒指",
+	    "parentNumber":3
         }
     ]
 }
