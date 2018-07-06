@@ -15,7 +15,10 @@ public class EquipData
     private string spriteName;//物品的图片名称
 
     [SerializeField]
-    private EquipType itemType;//装备的类型
+    private ItemType itemType;//道具的类型
+
+    [SerializeField]
+    private EquipType equipType;//装备的类型
 
     [SerializeField]
     private int quality;//品质
@@ -59,7 +62,7 @@ public class EquipData
         }
     }
 
-    public EquipType ItemType
+    public ItemType ItemType
     {
         get
         {
@@ -115,6 +118,19 @@ public class EquipData
         }
     }
 
+    public EquipType EquipType
+    {
+        get
+        {
+            return equipType;
+        }
+
+        set
+        {
+            equipType = value;
+        }
+    }
+
     public EquipData() { }
 
     public EquipData(int id, string sprite)
@@ -123,7 +139,7 @@ public class EquipData
         this.spriteName = sprite;
     }
 
-    public EquipData(int id, string sprite, EquipType type)
+    public EquipData(int id, string sprite, ItemType type)
     {
         this.id = id;
         this.spriteName = sprite;

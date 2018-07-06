@@ -24,7 +24,10 @@ public class ItemData
     private int quality;//道具品质
 
     [SerializeField]
-    private int itemType;//物品类型
+    private ItemType itemType;//物品类型
+
+    [SerializeField]
+    private int propType;
 
     [SerializeField]
     private int price;//物品价格
@@ -70,7 +73,7 @@ public class ItemData
         }
     }
 
-    public int ItemType
+    public ItemType ItemType
     {
         get
         {
@@ -118,6 +121,14 @@ public class ItemData
         }
     }
 
+    public int PropType
+    {
+        get
+        {
+            return propType;
+        }
+    }
+
     public ItemData() { }
 
     public ItemData(int id)
@@ -130,7 +141,7 @@ public class ItemData
         this.id = id;
         this.spriteName = sprite;
     }
-    public ItemData(int id, string sprite, int type)
+    public ItemData(int id, string sprite, ItemType type)
     {
         this.id = id;
         this.spriteName = sprite;

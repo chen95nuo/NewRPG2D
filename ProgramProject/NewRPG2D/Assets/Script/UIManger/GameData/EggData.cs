@@ -18,10 +18,16 @@ public class EggData
     private ItemType itemType;//物品的类型
 
     [SerializeField]
-    private int level;//物品的级别
+    private string attribute;//物品的属性
 
     [SerializeField]
-    private int quality;//品质
+    private int quality;//物品的品质
+
+    [SerializeField]
+    private int starsLevel;//物品的星级
+
+    [SerializeField]
+    private int itemNumber;//物品的数量
 
     [SerializeField]
     private bool isKnown;//是否存于图鉴中
@@ -61,11 +67,11 @@ public class EggData
         }
     }
 
-    public int Level
+    public string Attribute
     {
         get
         {
-            return level;
+            return attribute;
         }
     }
 
@@ -90,6 +96,22 @@ public class EggData
         get
         {
             return hatchingTime;
+        }
+    }
+
+    public int StarsLevel
+    {
+        get
+        {
+            return starsLevel;
+        }
+    }
+
+    public int ItemNumber
+    {
+        get
+        {
+            return itemNumber;
         }
     }
 

@@ -16,6 +16,9 @@ public class MenuData
     [SerializeField]
     private int parentNumber;
 
+    [SerializeField]
+    private string use;
+
     public int Id
     {
         get
@@ -43,6 +46,14 @@ public class MenuData
         get
         {
             return parentNumber;
+        }
+    }
+
+    public string Use
+    {
+        get
+        {
+            return use;
         }
     }
 
