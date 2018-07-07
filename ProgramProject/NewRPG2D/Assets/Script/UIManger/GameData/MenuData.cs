@@ -19,6 +19,9 @@ public class MenuData
     [SerializeField]
     private string use;
 
+    [SerializeField]
+    private MenuType menuType;
+
     public int Id
     {
         get
@@ -54,6 +57,14 @@ public class MenuData
         get
         {
             return use;
+        }
+    }
+
+    public MenuType MenuType
+    {
+        get
+        {
+            return menuType;
         }
     }
 

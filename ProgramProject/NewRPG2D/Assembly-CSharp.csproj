@@ -70,7 +70,6 @@
     <Compile Include="Assets\Script\Battle\MainSystem\BaseSystem.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\GameRoleMgr.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\InputContorlMgr.cs" />
-    <Compile Include="Assets\Script\Battle\MainSystem\ResourceLoadSystem\ResourcesLoadSys.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BufferMoment.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\DamageMoment.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\EnemyHeroRole.cs" />
@@ -134,10 +133,9 @@
     <Compile Include="Assets\Script\GameLogic.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\EggData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\EquipData.cs" />
-    <Compile Include="Assets\Script\UIManger\GameData\EquipType.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ItemData.cs" />
-    <Compile Include="Assets\Script\UIManger\GameData\ItemType.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\MenuData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\TypeManger.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagEggData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagEquipData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagItemData.cs" />
@@ -145,7 +143,9 @@
     <Compile Include="Assets\Script\UIManger\GameManager\GameMain.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagItem.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIBagItemMessage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagPage.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIBagPopUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMainPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMenuItem.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIBind.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="Assets\Script\Utility\EventMgr\TSimpleNotifier.cs" />
     <Compile Include="Assets\Script\Utility\MapColliderMgr.cs" />
     <Compile Include="Assets\Script\Utility\MiniJSON.cs" />
+    <Compile Include="Assets\Script\Utility\ResourceLoadMgr\ResourcesLoadMgr.cs" />
     <Compile Include="Assets\Script\Utility\Timer\CTimer.cs" />
     <Compile Include="Assets\Script\Utility\Timer\CTimerManager.cs" />
     <Compile Include="Assets\Script\Utility\Tools\BattleStaticAndEnum.cs" />

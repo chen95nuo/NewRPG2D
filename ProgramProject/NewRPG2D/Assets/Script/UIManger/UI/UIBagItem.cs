@@ -7,6 +7,8 @@ public class UIBagItem : MonoBehaviour
 {
 
     public List<UIBagGrid> grids;
+    public List<UIBagGrid> gridsSpare;//备用的格子
+    public Transform objctPool;
     private int gridsFirstCount;
     public GameObject bagGrid;
     public ItemType itemType;
@@ -17,23 +19,7 @@ public class UIBagItem : MonoBehaviour
 
         bagGrid.SetActive(false);
 
-        float index = transform.GetComponent<GridLayoutGroup>().cellSize.y + transform.GetComponent<GridLayoutGroup>().spacing.y;
-
-
-        //预载足够数量的空格等待使用
-        float hight = 0;
-        while (hight < transform.parent.parent.GetComponent<RectTransform>().sizeDelta.y)
-        {
-            GameObject go = Instantiate(bagGrid, transform) as GameObject;
-            go.SetActive(true);
-            grids.Add(go.GetComponent<UIBagGrid>());
-            if (grids.Count % 4 == 0)
-            {
-                hight += index;
-            }
-        }
-        gridsFirstCount = grids.Count;
-
+        PreloadingGrids();
 
         BagEggData.Instance.updateEggsEvent += UpdateEggs;//更新蛋的界面
         BagItemData.Instance.updateItemsEvent += UpdateProp;//更新道具
@@ -52,7 +38,26 @@ public class UIBagItem : MonoBehaviour
         BagEquipData.Instance.updateEquipsEvent -= UpdateEquip;
     }
 
+    /// <summary>
+    /// 预载足够数量的空格等待使用
+    /// </summary>
+    private void PreloadingGrids()
+    {
+        float index = transform.GetComponent<GridLayoutGroup>().cellSize.y + transform.GetComponent<GridLayoutGroup>().spacing.y;
 
+        float hight = 0;
+        while (hight < transform.parent.parent.GetComponent<RectTransform>().sizeDelta.y)
+        {
+            GameObject go = Instantiate(bagGrid, transform) as GameObject;
+            go.SetActive(true);
+            grids.Add(go.GetComponent<UIBagGrid>());
+            if (grids.Count % 4 == 0)
+            {
+                hight += index;
+            }
+        }
+        gridsFirstCount = grids.Count;
+    }
 
     public void UpdateEggs()
     {
@@ -90,54 +95,101 @@ public class UIBagItem : MonoBehaviour
             grids[i].UpdateItem(BagEquipData.Instance.equips[i]);
         }
     }
+    public void UpdateEquip(EquipType type)
+    {
+        if (itemType != ItemType.Equip)
+            return;
+
+        GridsControl(BagEquipData.Instance.equips.Count);
+        int index = 0;
+        for (int i = 0; i < BagEquipData.Instance.equips.Count; i++)
+        {
+            if (BagEquipData.Instance.equips[i].EquipType == type)
+            {
+                grids[index].UpdateItem(BagEquipData.Instance.equips[i]);
+                index++;
+            }
+        }
+        GridsControl(index);
+    }
 
 
     /// <summary>
     /// 控制背包格子数量
     /// </summary>
-    /// <param name="number">道具数量</param>
+    /// <param name="number"></param>
+    /// <param name="isReset"></param>
     void GridsControl(int number)
     {
-        if (number > gridsFirstCount && number > grids.Count)
+        int index = number + (4 - (number % 4)); //计算整行
+        if (index > gridsFirstCount && index > grids.Count + gridsSpare.Count)
         {
-            while (grids.Count < number + (4 - (number % 4)))
+            //需求超过默认，需求超过总数量，需要生成
+            if (gridsSpare.Count > 0)
+            {
+                for (int i = gridsSpare.Count; i > 0; i--)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+            while (grids.Count < index)
             {
                 GameObject go = Instantiate(bagGrid, transform) as GameObject;
                 go.SetActive(true);
                 grids.Add(go.GetComponent<UIBagGrid>());
+            }
+
+            for (int i = number; i < grids.Count; i++)
+            {
+                grids[i].UpdateItem(-1, ItemType.Nothing);
+            }
+        }
+        else if (grids.Count + gridsSpare.Count >= index && grids.Count < index)
+        {
+            //总数大于需求，但是需求中有一部分被隐藏，需要隐藏超过需求的，显示需求以内的
+
+            int data = index - grids.Count;
+            for (int i = 0; i < data; i++)
+            {
+                gridsSpare[0].transform.SetParent(transform);
+                grids.Add(gridsSpare[0]);
+                gridsSpare.Remove(gridsSpare[0]);
             }
             for (int i = number; i < grids.Count; i++)
             {
                 grids[i].UpdateItem(-1, ItemType.Nothing);
             }
         }
-        else if (number <= gridsFirstCount)
+        else if (grids.Count + gridsSpare.Count >= index && grids.Count > index && index > gridsFirstCount)
         {
+            for (int i = grids.Count; i > index; i--)
+            {
+                grids[i - 1].transform.SetParent(objctPool);
+                gridsSpare.Add(grids[i - 1]);
+                grids.Remove(grids[i - 1]);
+            }
+            for (int i = number; i < grids.Count; i++)
+            {
+                grids[i].UpdateItem(-1, ItemType.Nothing);
+            }
+        }
+        else if (index <= gridsFirstCount)
+        {
+            //需求没有超过默认
             if (grids.Count > gridsFirstCount)
             {
                 for (int i = grids.Count; i > gridsFirstCount; i--)
                 {
-                    Destroy(grids[i - 1].gameObject);
-                    grids.RemoveAt(i - 1);
+                    grids[i - 1].transform.SetParent(objctPool);
+                    gridsSpare.Add(grids[i - 1]);
+                    grids.Remove(grids[i - 1]);
                 }
             }
             for (int i = number; i < grids.Count; i++)
             {
                 grids[i].UpdateItem(-1, ItemType.Nothing);
-            }
-        }
-        else if (number > gridsFirstCount && number < grids.Count)
-        {
-            for (int i = grids.Count; i > number; i--)
-            {
-                Destroy(grids[i - 1].gameObject);
-                grids.RemoveAt(i - 1);
-            }
-            while (grids.Count < number + (4 - (number % 4)))
-            {
-                GameObject go = Instantiate(bagGrid, transform) as GameObject;
-                go.SetActive(true);
-                grids.Add(go.GetComponent<UIBagGrid>());
             }
         }
     }

@@ -36,6 +36,9 @@ public class EquipData
     private string affix_3;//词缀 3
 
     [SerializeField]
+    private string affix_4;//词缀 4
+
+    [SerializeField]
     private string describe;//描述
 
     public string Name
@@ -128,6 +131,14 @@ public class EquipData
         set
         {
             equipType = value;
+        }
+    }
+
+    public string Affix_4
+    {
+        get
+        {
+            return affix_4;
         }
     }
 

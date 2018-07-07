@@ -15,8 +15,11 @@ public class UIBagPage : TTUIPage
     private UIBagItem updateBagItem = null;
 
     public Button[] firstMenu;
-
     public int firstLoad = 2;
+
+    private bool itemSort = true;
+
+    private MenuData data;
 
     public UIBagPage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
     {
@@ -24,6 +27,18 @@ public class UIBagPage : TTUIPage
     }
 
     public override void Awake(GameObject go)
+    {
+        //初始化
+        AwakeInitialization();
+    }
+
+    public override void Refresh()
+    {
+
+
+    }
+
+    private void AwakeInitialization()
     {
         this.bagMenu_1 = transform.Find("Menu_1").gameObject;
         this.bagMenu_2 = transform.Find("Menu_2").gameObject;
@@ -44,13 +59,6 @@ public class UIBagPage : TTUIPage
         firstMenu = bagMenu_1.GetComponentsInChildren<Button>();
 
         bagMenu_1.transform.GetChild(firstLoad).GetComponent<Button>().onClick.Invoke();
-    }
-
-    public override void Refresh()
-    {
-        //默认如何排序?
-        //bagMenu_2.SetActive(false);
-
     }
 
     /// <summary>
@@ -92,7 +100,7 @@ public class UIBagPage : TTUIPage
     /// </summary>
     public void OnClickMenu()
     {
-        MenuData data;
+
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name != "btn_Pack")
         {
             string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
@@ -152,39 +160,66 @@ public class UIBagPage : TTUIPage
     /// </summary>
     public void ItemSortEvent()
     {
-        Debug.Log("按照首选项排序");
+        //Debug.Log("按照首选项排序");
+        itemSort = !itemSort;
+        ItemSortEvent(data);
     }
     public void ItemSortEvent(MenuData data)
     {
-        Debug.Log("将" + BagMenuData.Instance.GetMenu(0, data.ParentNumber - 1).Name + "按照" + data.Name + "排序");
+        //Debug.Log("将" + BagMenuData.Instance.GetMenu(0, data.ParentNumber - 1).Name + "按照" + data.Name + "排序");
 
-
-        updateBagItem.grids.Sort(new BagGridConparer().Compare);
-
-        updateBagItem.grids.Sort(delegate (UIBagGrid x, UIBagGrid y)
-            {
-                int a = y.eggStarsNumb.CompareTo(x.eggStarsNumb);
-                return a;
-            });
-
-        updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => -x.eggStarsNumb.CompareTo(y.eggStarsNumb));
-
-        for (int i = 0; i < updateBagItem.grids.Count; i++)
+        switch (data.MenuType)
         {
-            if (updateBagItem.grids[i].equipType != EquipType.Armor)
-            {
-                
-            }
-            
+            case MenuType.Nothing:
+                break;
+            case MenuType.stars:
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.stars, y.stars));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.stars, y.stars));
+                break;
+            case MenuType.hatchingTime:
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.hatchingTime, y.hatchingTime));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.hatchingTime, y.hatchingTime));
+                break;
+            case MenuType.quality:
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
+                break;
+            case MenuType.isUse:
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.isUse, y.isUse));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.isUse, y.isUse));
+                break;
+            case MenuType.equipType:
+                updateBagItem.UpdateEquip((EquipType)data.Id + 1);
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
+                break;
+            default:
+                break;
         }
 
+        //updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => (x.stars).CompareTo(y.stars));
+
+
+        //updateBagItem.grids.Sort();
 
         //排序后刷新格子内容
         for (int i = 0; i < updateBagItem.grids.Count; i++)
         {
             updateBagItem.grids[i].transform.SetSiblingIndex(i + 1);
         }
-        
+
+
+
     }
 
 
@@ -198,75 +233,52 @@ public class UIBagPage : TTUIPage
         {
             case ItemType.Egg:
                 //背包加载蛋
-                Debug.Log("加载背包中的" + data.Name);
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateEggs();
+                itemSort = true;
                 break;
             case ItemType.Prop:
-                Debug.Log("加载背包中的" + data.Name);
+                //背包加载道具
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateProp();
-                //背包加载道具
+                itemSort = true;
                 break;
             case ItemType.Equip:
-                Debug.Log("加载背包中的" + data.Name);
+                //背包加载装备
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateEquip();
-                //背包加载装备
+                itemSort = true;
                 break;
             default:
                 break;
         }
     }
 
-    public class BagGridConparer : IComparer<UIBagGrid>
+
+    public class BagGridConparer : IComparer<int>
     {
-        public int Compare(UIBagGrid x, UIBagGrid y)
+        //倒序
+        public int Compare(int x, int y)
         {
-            if (x.eggStarsNumb == 0) return 1;
-            if (y.eggStarsNumb == 0) return -1;
-            {
-                Debug.Log(x.eggStarsNumb);
-                if (x.eggStarsNumb > y.eggStarsNumb) return 1;
-                if (x.eggStarsNumb < y.eggStarsNumb) return -1;
-                if (x.eggStarsNumb == y.eggStarsNumb) return 0;
-            }
+            if (x == 0) return 1;
+            if (y == 0) return -1;
+
+
+            if (x > y) return -1;
+            if (x < y) return 1;
+
             return 0;
         }
-        public int Compare1(UIBagGrid x, UIBagGrid y)
+        //顺序
+        public int Compare1(int x, int y)
         {
-            if (x.eggHatchingTime == 0) return 1;
-            if (y.eggHatchingTime == 0) return -1;
-            {
-                Debug.Log(x.eggHatchingTime);
-                if (x.eggHatchingTime > y.eggHatchingTime) return 1;
-                if (x.eggHatchingTime < y.eggHatchingTime) return -1;
-                if (x.eggHatchingTime == y.eggHatchingTime) return 0;
-            }
-            return 0;
-        }
-        public int Compare2(UIBagGrid x, UIBagGrid y)
-        {
-            if (x.quality == 0) return 1;
-            if (y.quality == 0) return -1;
-            {
-                Debug.Log(x.quality);
-                if (x.quality > y.quality) return 1;
-                if (x.quality < y.quality) return -1;
-                if (x.quality == y.quality) return 0;
-            }
-            return 0;
-        }
-        public int Compare3(UIBagGrid x, UIBagGrid y)
-        {
-            if (x.isUse == 0) return 1;
-            if (y.isUse == 0) return -1;
-            {
-                Debug.Log(x.isUse);
-                if (x.isUse > y.isUse) return 1;
-                if (x.isUse < y.isUse) return -1;
-                if (x.isUse == y.isUse) return 0;
-            }
+            if (x == 0) return 1;
+            if (y == 0) return -1;
+
+
+            if (x > y) return 1;
+            if (x < y) return -1;
+
             return 0;
         }
     }
