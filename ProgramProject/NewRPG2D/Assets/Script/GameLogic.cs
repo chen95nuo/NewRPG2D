@@ -52,7 +52,7 @@ namespace Assets.Script
             EventManager.CreateInstance();
             ReadXmlNewMgr.CreateInstance();
             CTimerManager.CreateInstance();
-            ResourcesLoadSys.GetInstance();
+            ResourcesLoadMgr.GetInstance();
             MapColliderMgr.CreateInstance();
             InputContorlMgr.CreateInstance();
         }
@@ -110,9 +110,9 @@ namespace Assets.Script
                 {
                     CTimerManager.instance.Update(Time.smoothDeltaTime);
                 }
-                if (ResourcesLoadSys.HasInstance())
+                if (ResourcesLoadMgr.HasInstance())
                 {
-                    ResourcesLoadSys.instance.Update(Time.smoothDeltaTime);
+                    ResourcesLoadMgr.instance.Update(Time.smoothDeltaTime);
                 }
                 if (InputContorlMgr.HasInstance())
                 {
@@ -139,7 +139,7 @@ namespace Assets.Script
             StringHelper.DestroyInstance();
             EventManager.DestroyInstance();
             ReadXmlNewMgr.DestroyInstance();
-            ResourcesLoadSys.DestroyInstance();
+            ResourcesLoadMgr.DestroyInstance();
             MapColliderMgr.DestroyInstance();
             InputContorlMgr.DestroyInstance();
         }
