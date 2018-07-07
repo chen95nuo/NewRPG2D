@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Script.Utility;
 using UnityEngine;
 
 namespace Assets.Script.Battle
@@ -23,7 +24,7 @@ namespace Assets.Script.Battle
         public void AddHeroRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition, ushort instanceId, uint playerId, float angle, bool isMaster = false)
         {
             string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "Role/Hero/HeroRole";// + perfabpath ;
-            GameObject perfab = ResourcesLoadSys.instance.PopObjFromPool(itemModelName, indexName);
+            GameObject perfab = ResourcesLoadMgr.instance.PopObjFromPool(itemModelName, indexName);
             Debug.Log("PlayerController addrole:" + instanceId);
         }
 

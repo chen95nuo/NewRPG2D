@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Script.Utility
 {
-    public class ResourcesLoadSys : TSingleton <ResourcesLoadSys>
+    public class ResourcesLoadMgr : TSingleton <ResourcesLoadMgr>
     {
         private Dictionary<string, List<GameObject>> GameObjectPoolDic;
         private Transform poolTransform;
