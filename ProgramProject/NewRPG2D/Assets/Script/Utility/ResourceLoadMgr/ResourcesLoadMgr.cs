@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Script.Battle
+namespace Assets.Script.Utility
 {
-    public class ResourcesLoadSys : BaseSystem<ResourcesLoadSys>
+    public class ResourcesLoadSys : TSingleton <ResourcesLoadSys>
     {
         private Dictionary<string, List<GameObject>> GameObjectPoolDic;
         private Transform poolTransform;
-        public override void Initialize()
+        public override void Init()
         {
+            base.Init();
             GameObjectPoolDic = new Dictionary<string, List<GameObject>>(10);
             InitPool();
         }
@@ -19,8 +20,9 @@ namespace Assets.Script.Battle
             base.Update(deltaTime);
         }
 
-        public override void ReDispose()
+        public override void Dispose()
         {
+            base.Dispose();
             using (var prefab = GameObjectPoolDic.GetEnumerator())
             {
                 if (prefab.MoveNext())
@@ -32,8 +34,13 @@ namespace Assets.Script.Battle
 
         private void InitPool()
         {
-            poolTransform = new GameObject("GameObjectPool").transform;
-            UnityEngine.Object.DontDestroyOnLoad(poolTransform);
+            GameObject poolObj = GameObject.Find("GameObjectPool");
+            if (poolObj  == null)
+            {
+                poolObj = new GameObject("GameObjectPool");
+                UnityEngine.Object.DontDestroyOnLoad(poolObj);
+            }
+            poolTransform = poolObj.transform;
             poolTransform.gameObject.CustomSetActive(false);
         }
 
