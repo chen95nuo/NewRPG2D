@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 
 namespace Assets.Script.Battle
 {
-    public class BattleStaticAndEnum
+    public struct BattleStaticAndEnum
     {
         public const float RolePropertyAttackAddtion = 1.15f; //属性克制攻击伤害加成
         public const float RoleCriticalAttackAddtion = 1.5f;  //暴击攻击伤害加成
@@ -20,6 +21,17 @@ namespace Assets.Script.Battle
         public const float RoleDefensePercent = 0.25f;   //防御格挡比
         public const float RoleDefenseRangePercentMin = 0.75f;  //防御浮动最小值
         public const float RoleDefenseRangePercentMax = 1.0f;  //防御浮动最大值
+    }
+
+    public struct RoleAnimationName
+    {
+        public const string Move = "run";
+        public const string Idle = "steady";
+        public const string NormalAttack = "normalAttack";
+        public const string Skill1 = "normalSkill";
+        public const string Skill2 = "uniqueAttack";
+        public const string Hit = "hit";
+        public const string Death = "death";
     }
 
     public struct PropertyData
@@ -68,6 +80,23 @@ namespace Assets.Script.Battle
 
     #region Enum
 
+    public enum ActorStateEnum
+    {
+        Idle,
+        NormalAttack,
+        Skill1,
+        Skill2,
+    }
+
+    public enum RoleTypeEnum
+    {
+        Hero,
+        Monster,
+        Boss,
+        Item,
+    }
+
+
     public enum SkillSlotTypeEnum
     {
         NormalAttack,
@@ -86,19 +115,34 @@ namespace Assets.Script.Battle
 
     public enum RolePropertyEnum
     {
-
+        Frie,
+        Light,
+        Dark,
+        Water,
     }
 
     public enum AttackTypeEnum
     {
+        ShortRange, //近战
+        LongRange,  //远程
     }
 
     public enum ActorTypeEnum
     {
+        Actor,
+        Monster,
     }
 
     public enum SkillTypeEnum
     {
+        NextAttack,
+        ToSelf,
+        ToMyTeam,
+        ToEnemy,
+        ToAllRandom,
+        ToMyTeamRandom,
+        ToEnemyRandom,
+        NoTarget,
     }
 
     #endregion

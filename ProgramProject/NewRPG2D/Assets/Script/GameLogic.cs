@@ -53,7 +53,7 @@ namespace Assets.Script
             ReadXmlNewMgr.CreateInstance();
             CTimerManager.CreateInstance();
             ResourcesLoadMgr.GetInstance();
-            MapColliderMgr.CreateInstance();
+           // MapColliderMgr.CreateInstance();
             InputContorlMgr.CreateInstance();
         }
 
@@ -140,7 +140,7 @@ namespace Assets.Script
             EventManager.DestroyInstance();
             ReadXmlNewMgr.DestroyInstance();
             ResourcesLoadMgr.DestroyInstance();
-            MapColliderMgr.DestroyInstance();
+       //     MapColliderMgr.DestroyInstance();
             InputContorlMgr.DestroyInstance();
         }
 

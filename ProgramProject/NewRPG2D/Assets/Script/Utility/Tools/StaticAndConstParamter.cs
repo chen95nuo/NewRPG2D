@@ -47,13 +47,7 @@ public enum RoleBehaviorEnum
     ChangeWeapon,
 }
 
-public enum RoleTypeEnum
-{
-    Hero,
-    Monster,
-    Boss,
-    Item,
-}
+
 
 public enum ItemTypeEnum
 {

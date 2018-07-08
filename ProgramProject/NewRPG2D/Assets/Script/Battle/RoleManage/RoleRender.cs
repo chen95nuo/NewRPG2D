@@ -44,7 +44,11 @@ public class RoleRender : MonoBehaviour
 
         CurrentRole.RoleSearchTarget.SetTarget(targetRole);
         DebugHelper.Log(" attack  " + targetRole.InstanceId);
+    }
 
+    public void PlayAnimation(string animationName)
+    {
+        roleAnimation.animation.Play(animationName);
     }
 
 }

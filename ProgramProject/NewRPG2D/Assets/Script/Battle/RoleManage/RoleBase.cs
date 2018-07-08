@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.Battle.BattleData.ReadData;
 using Assets.Script.Utility;
 using DragonBones;
 using UnityEngine;
@@ -75,7 +76,7 @@ namespace Assets.Script.Battle
             RoleMoveMoment.SetCurrentRole(this);
             RolePropertyValue = new ValueProperty();
             RolePropertyValue.SetCurrentRole(this);
-            //RoleProperty.InitRoleValue(100f, 100f);
+            InitRoleProperty();
             RolePropertyValue.SetMoveSeed(10f);
             RoleDamageMoment = new DamageMoment();
             RoleDamageMoment.SetCurrentRole(this);
@@ -101,7 +102,13 @@ namespace Assets.Script.Battle
             CurrentSlot = SkillSlotTypeEnum.NormalAttack;
         }
 
-        public void SetRoleActionState(RoleActionEnum state)
+        private void InitRoleProperty()
+        {
+            RolePropertyData data = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(CurrentRoleData.PropertyId);
+            RolePropertyValue.InitRoleValue(data.RoleBaseData);
+        }
+
+        public void SetRoleActionState(ActorStateEnum state)
         {
             if (RoleActionStateDic.ContainsKey((int)state))
             {
