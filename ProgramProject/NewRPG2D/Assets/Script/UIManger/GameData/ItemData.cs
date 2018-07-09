@@ -27,7 +27,7 @@ public class ItemData
     private ItemType itemType;//物品类型
 
     [SerializeField]
-    private int propType;
+    private PropType propType;
 
     [SerializeField]
     private int price;//物品价格
@@ -121,7 +121,7 @@ public class ItemData
         }
     }
 
-    public int PropType
+    public PropType PropType
     {
         get
         {

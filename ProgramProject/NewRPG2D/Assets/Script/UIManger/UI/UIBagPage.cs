@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TinyTeam.UI;
 using UnityEngine.UI;
-using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class UIBagPage : TTUIPage
 {
@@ -45,7 +45,8 @@ public class UIBagPage : TTUIPage
         this.bagItem_1 = bagMenu_1.transform.Find("btn_menu_1").gameObject;
         this.bagItem_2 = bagMenu_2.transform.Find("btn_menu_2").gameObject;
 
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(TTUIPage.ClosePage);
+
+        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(CloseBagPage);
         this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
 
         bagMenu_2.SetActive(false);
@@ -160,14 +161,11 @@ public class UIBagPage : TTUIPage
     /// </summary>
     public void ItemSortEvent()
     {
-        //Debug.Log("按照首选项排序");
         itemSort = !itemSort;
         ItemSortEvent(data);
     }
     public void ItemSortEvent(MenuData data)
     {
-        //Debug.Log("将" + BagMenuData.Instance.GetMenu(0, data.ParentNumber - 1).Name + "按照" + data.Name + "排序");
-
         switch (data.MenuType)
         {
             case MenuType.Nothing:
@@ -185,16 +183,18 @@ public class UIBagPage : TTUIPage
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.hatchingTime, y.hatchingTime));
                 break;
             case MenuType.quality:
+                updateBagItem.UpdateProp();
                 if (itemSort)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
                 break;
             case MenuType.isUse:
+                updateBagItem.UpdateProp(PropType.OnlyUse, PropType.AllOn);
                 if (itemSort)
-                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.isUse, y.isUse));
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.propType, y.propType));
                 else
-                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.isUse, y.isUse));
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.propType, y.propType));
                 break;
             case MenuType.equipType:
                 updateBagItem.UpdateEquip((EquipType)data.Id + 1);
@@ -207,19 +207,11 @@ public class UIBagPage : TTUIPage
                 break;
         }
 
-        //updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => (x.stars).CompareTo(y.stars));
-
-
-        //updateBagItem.grids.Sort();
-
         //排序后刷新格子内容
         for (int i = 0; i < updateBagItem.grids.Count; i++)
         {
             updateBagItem.grids[i].transform.SetSiblingIndex(i + 1);
         }
-
-
-
     }
 
 
@@ -253,6 +245,13 @@ public class UIBagPage : TTUIPage
                 break;
         }
     }
+
+    public void CloseBagPage()
+    {
+        TTUIPage.ClosePage("UIBagItemMessage");
+        TTUIPage.ClosePage();
+    }
+
 
 
     public class BagGridConparer : IComparer<int>

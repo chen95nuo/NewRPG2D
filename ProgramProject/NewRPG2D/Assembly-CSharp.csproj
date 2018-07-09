@@ -82,6 +82,11 @@
     <Compile Include="Assets\Script\Battle\RoleManage\SkillLevelComponent.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\ValueProperty.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\WeaponMoment.cs" />
+    <Compile Include="Assets\Script\Battle\RoleState\RoleBaseSkillState.cs" />
+    <Compile Include="Assets\Script\Battle\RoleState\RoleIdleState.cs" />
+    <Compile Include="Assets\Script\Battle\RoleState\RoleNormalAttackState.cs" />
+    <Compile Include="Assets\Script\Battle\RoleState\RoleSkill1State.cs" />
+    <Compile Include="Assets\Script\Battle\RoleState\RoleSkill2State.cs" />
     <Compile Include="Assets\Script\DragonBones\animation\Animation.cs" />
     <Compile Include="Assets\Script\DragonBones\animation\AnimationState.cs" />
     <Compile Include="Assets\Script\DragonBones\animation\BaseTimelineState.cs" />
@@ -146,8 +151,9 @@
     <Compile Include="Assets\Script\UIManger\UI\UIBagItemMessage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagPopUp.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UICardStoreHouse.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMainPage.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\UIMenuItem.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIRoleInformation.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIBind.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIPage.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIRoot.cs" />

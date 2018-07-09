@@ -21,6 +21,9 @@ public class EquipData
     private EquipType equipType;//装备的类型
 
     [SerializeField]
+    private string equipTypeName;//装备类型名称
+
+    [SerializeField]
     private int quality;//品质
 
     [SerializeField]
@@ -139,6 +142,14 @@ public class EquipData
         get
         {
             return affix_4;
+        }
+    }
+
+    public string EquipTypeName
+    {
+        get
+        {
+            return equipTypeName;
         }
     }
 

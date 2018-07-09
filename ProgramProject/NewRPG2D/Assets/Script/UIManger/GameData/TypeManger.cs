@@ -30,3 +30,12 @@ public enum MenuType
     isUse,//可用级别
     equipType//装备类型
 }
+
+public enum PropType
+{
+    Nothing,//无
+    AllOff,//全不显示
+    OnlyUse,//只能用
+    OnlySell,//只能卖
+    AllOn//能用也能卖
+}

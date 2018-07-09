@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyTeam.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,10 @@ public class UIBagGrid : MonoBehaviour
     public ItemType itemType;
 
     public GameObject type;
+
+    public EggData eggData;
+    public ItemData propData;
+    public EquipData equipData;
 
 
 
@@ -29,7 +34,7 @@ public class UIBagGrid : MonoBehaviour
     public int hatchingTime;//孵化时间
     public int stars;//星星数量
     public int quality;//稀有度
-    public int isUse;//可否使用
+    public int propType;//可否使用
     public EquipType equipType;//武器类型
 
     #endregion
@@ -41,6 +46,7 @@ public class UIBagGrid : MonoBehaviour
     {
         UpdateItem(-1, ItemType.Nothing);
         chickButton = GetComponent<Button>();
+        chickButton.onClick.AddListener(TTUIPage.ShowPage<UIBagItemMessage>);
     }
 
     // Update is called once per frame
@@ -57,12 +63,13 @@ public class UIBagGrid : MonoBehaviour
         hatchingTime = 0;
         stars = 0;
         quality = 0;
-        isUse = 0;
+        propType = 0;
         equipType = 0;
     }
 
     public void UpdateItem(EggData data)
     {
+        eggData = data;
         itemID = data.Id;
         itemType = data.ItemType;
         type.gameObject.SetActive(true);
@@ -82,6 +89,7 @@ public class UIBagGrid : MonoBehaviour
 
     public void UpdateItem(ItemData data)
     {
+        propData = data;
         itemID = data.Id;
         itemType = data.ItemType;
         type.gameObject.SetActive(true);
@@ -94,10 +102,11 @@ public class UIBagGrid : MonoBehaviour
         otherNumber.text = data.Number.ToString();
 
         quality = data.Quality;
-        isUse = data.PropType;
+        propType = (int)data.PropType;
     }
     public void UpdateItem(EquipData data)
     {
+        equipData = data;
         itemID = data.Id;
         itemType = data.ItemType;
         type.gameObject.SetActive(true);

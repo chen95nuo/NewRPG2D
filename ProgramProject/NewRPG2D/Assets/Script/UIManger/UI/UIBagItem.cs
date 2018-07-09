@@ -50,6 +50,7 @@ public class UIBagItem : MonoBehaviour
         {
             GameObject go = Instantiate(bagGrid, transform) as GameObject;
             go.SetActive(true);
+            go.name = bagGrid.name;
             grids.Add(go.GetComponent<UIBagGrid>());
             if (grids.Count % 4 == 0)
             {
@@ -82,6 +83,23 @@ public class UIBagItem : MonoBehaviour
         {
             grids[i].UpdateItem(BagItemData.Instance.items[i]);
         }
+    }
+    public void UpdateProp(PropType propType, PropType propType1)
+    {
+        if (itemType != ItemType.Prop)
+            return;
+
+        GridsControl(BagItemData.Instance.items.Count);
+        int index = 0;
+        for (int i = 0; i < BagItemData.Instance.items.Count; i++)
+        {
+            if (BagItemData.Instance.items[i].PropType == propType || BagItemData.Instance.items[i].PropType == propType1)
+            {
+                grids[index].UpdateItem(BagItemData.Instance.items[i]);
+                index++;
+            }
+        }
+        GridsControl(index);
     }
     public void UpdateEquip()
     {
@@ -137,6 +155,7 @@ public class UIBagItem : MonoBehaviour
             while (grids.Count < index)
             {
                 GameObject go = Instantiate(bagGrid, transform) as GameObject;
+                go.name = bagGrid.name;
                 go.SetActive(true);
                 grids.Add(go.GetComponent<UIBagGrid>());
             }
