@@ -189,7 +189,7 @@ public class UIBagPopUp : MonoBehaviour
 
     public void PopUpMoveTo(RectTransform rect, ItemType type)
     {
-        if (rect.anchoredPosition.x > Screen.width * 0.5f)
+        if (rect.anchoredPosition.x > Screen.width * 0.75f)
         {
             switch (type)
             {

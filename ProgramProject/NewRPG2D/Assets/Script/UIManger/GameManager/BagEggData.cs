@@ -42,7 +42,7 @@ public class BagEggData
     }
     public List<EggData> eggs; //背包中所有的蛋
 
-    public event Action updateEggsEvent;//当数据发生变化时执行
+
 
     /// <summary>
     /// 查找蛋数据
@@ -70,10 +70,7 @@ public class BagEggData
         eggs.Add(data);
 
         //数据改变，调用事件
-        if (null != updateEggsEvent)
-        {
-            updateEggsEvent();
-        }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
     }
 
     /// <summary>
@@ -89,10 +86,7 @@ public class BagEggData
             eggs[index] = data;
 
             //数据改变，调用事件
-            if (null != updateEggsEvent)
-            {
-                updateEggsEvent();
-            }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
         }
     }
 
@@ -110,10 +104,7 @@ public class BagEggData
             eggs.Remove(data);
 
             //数据改变，调用事件
-            if (null != updateEggsEvent)
-            {
-                updateEggsEvent();
-            }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
         }
 
     }
@@ -123,7 +114,7 @@ public class BagEggData
     /// </summary>
     public void SaveData()
     {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/BagEggData.txt",false, Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/BagEggData.txt", false, Encoding.UTF8);
 
         try
         {

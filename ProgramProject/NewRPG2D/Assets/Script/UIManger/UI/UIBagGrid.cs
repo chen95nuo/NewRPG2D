@@ -20,22 +20,26 @@ public class UIBagGrid : MonoBehaviour
 
     #region 获取各种信息......
 
-    public GameObject egg;
-    public Image eggBG;//边框
-    public Image eggImage;//图片
-    public Image eggStars;//星星
-    public Image eggAttribute;//属性
-    public Text eggNumber;//数量
-    public Text eggNeedTime;//孵化时间
-    public GameObject other;
-    public Image otherBG;//边框
-    public Image otherImage;//图片
-    public Text otherNumber;//数量
+    public BagEggGrid eggGrid;
+    public BagOtherGrid otherGrid;
+    public BagRoleGrid roleGrid;
+
+    [System.NonSerialized]
     public int hatchingTime;//孵化时间
+    [System.NonSerialized]
     public int stars;//星星数量
+    [System.NonSerialized]
     public int quality;//稀有度
+    [System.NonSerialized]
     public int propType;//可否使用
+    [System.NonSerialized]
     public EquipType equipType;//武器类型
+    [System.NonSerialized]
+    public int grow;//成长
+    [System.NonSerialized]
+    public int level;//等级
+    [System.NonSerialized]
+    public int goodFeeling;//好感度
 
     #endregion
 
@@ -44,17 +48,36 @@ public class UIBagGrid : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        UpdateItem(-1, ItemType.Nothing);
         chickButton = GetComponent<Button>();
-        chickButton.onClick.AddListener(TTUIPage.ShowPage<UIBagItemMessage>);
-    }
 
+
+
+    }
+    void Start()
+    {
+        if (itemType == ItemType.Role)
+        {
+            Debug.Log(itemType);
+            chickButton.onClick.AddListener(ShowRolePage);
+            return;
+        }
+        else if (itemID >= 0)
+        {
+            chickButton.onClick.AddListener(TTUIPage.ShowPage<UIBagItemMessage>);
+            return;
+        }
+        UpdateItem(-1, ItemType.Nothing);
+    }
     // Update is called once per frame
     void Update()
     {
 
     }
 
+    public void ShowRolePage()
+    {
+        TTUIPage.ShowPage<UIRolePage>();
+    }
     public void UpdateItem(int itemID, ItemType type)
     {
         this.itemID = itemID;
@@ -74,14 +97,14 @@ public class UIBagGrid : MonoBehaviour
         itemType = data.ItemType;
         type.gameObject.SetActive(true);
 
-        egg.SetActive(true);
-        other.SetActive(false);
-        eggBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        eggAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/egg/attribute/" + data.Attribute);
-        eggNumber.text = data.ItemNumber.ToString();
-        eggImage.sprite = Resources.Load<Sprite>("UITexture/Icon/egg/" + data.Id + "/" + data.Name);
-        eggStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.StarsLevel);
-        HatchTime((int)data.HatchingTime, eggNeedTime);
+        eggGrid.egg.SetActive(true);
+        otherGrid.other.SetActive(false);
+        eggGrid.eggBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+        eggGrid.eggAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
+        eggGrid.eggNumber.text = data.ItemNumber.ToString();
+        eggGrid.eggImage.sprite = Resources.Load<Sprite>("UITexture/Icon/egg/" + data.Name);
+        eggGrid.eggStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.StarsLevel);
+        HatchTime((int)data.HatchingTime, eggGrid.eggNeedTime);
 
         hatchingTime = (int)data.HatchingTime;
         stars = data.StarsLevel;
@@ -94,12 +117,12 @@ public class UIBagGrid : MonoBehaviour
         itemType = data.ItemType;
         type.gameObject.SetActive(true);
 
-        egg.SetActive(false);
-        other.SetActive(true);
-        otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
-        otherNumber.gameObject.SetActive(true);
-        otherNumber.text = data.Number.ToString();
+        eggGrid.egg.SetActive(false);
+        otherGrid.other.SetActive(true);
+        otherGrid.otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+        otherGrid.otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
+        otherGrid.otherNumber.gameObject.SetActive(true);
+        otherGrid.otherNumber.text = data.Number.ToString();
 
         quality = data.Quality;
         propType = (int)data.PropType;
@@ -111,14 +134,37 @@ public class UIBagGrid : MonoBehaviour
         itemType = data.ItemType;
         type.gameObject.SetActive(true);
 
-        egg.SetActive(false);
-        other.SetActive(true);
-        otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.SpriteName);
-        otherNumber.gameObject.SetActive(false);
+        eggGrid.egg.SetActive(false);
+        otherGrid.other.SetActive(true);
+        otherGrid.otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+        otherGrid.otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.SpriteName);
+        otherGrid.otherNumber.gameObject.SetActive(false);
 
         quality = data.Quality;
         equipType = data.EquipType;
+    }
+    public void UpdateItem(CardData data)
+    {
+        itemID = data.Id;
+        itemType = data.ItemType;
+
+        roleGrid.roleBG.sprite = Resources.Load<Sprite>("UITexture/Icon/roleQuality/" + data.Quality);
+        roleGrid.roleImage.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
+        roleGrid.roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
+        roleGrid.roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
+        if (data.TypeMessage1 == null)
+            roleGrid.roleTypeBG.gameObject.SetActive(false);
+        else
+        {
+            roleGrid.roleTypeBG.gameObject.SetActive(true);
+            roleGrid.roleType.text = data.TypeMessage1;
+        }
+        roleGrid.roleLevel.text = data.Level.ToString();
+
+        level = data.Level;
+        stars = data.Stars;
+        grow = data.Quality;
+        goodFeeling = data.GoodFeeling;
     }
 
 
@@ -131,4 +177,34 @@ public class UIBagGrid : MonoBehaviour
         text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
 
+    [System.Serializable]
+    public class BagEggGrid
+    {
+        public GameObject egg;
+        public Image eggBG;//边框
+        public Image eggImage;//图片
+        public Image eggStars;//星星
+        public Image eggAttribute;//属性
+        public Text eggNumber;//数量
+        public Text eggNeedTime;//孵化时间
+    }
+    [System.Serializable]
+    public class BagOtherGrid
+    {
+        public GameObject other;
+        public Image otherBG;//边框
+        public Image otherImage;//图片
+        public Text otherNumber;//数量
+    }
+    [System.Serializable]
+    public class BagRoleGrid
+    {
+        public Image roleBG;//边框
+        public Image roleImage;//图片
+        public Image roleStars;//星星
+        public Text roleType;//当前状态
+        public Image roleTypeBG;//状态背景
+        public Text roleLevel;//等级
+        public Image roleAttribute;//属性
+    }
 }

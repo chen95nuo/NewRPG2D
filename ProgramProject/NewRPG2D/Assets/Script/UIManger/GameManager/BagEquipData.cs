@@ -41,8 +41,6 @@ public class BagEquipData
 
     public List<EquipData> equips;//背包中的道具
 
-    public event Action updateEquipsEvent;//当数据发生变化时执行
-
     /// <summary>
     /// 查找道具的数据
     /// </summary>
@@ -69,10 +67,7 @@ public class BagEquipData
         equips.Add(data);
 
         //数据改变，调用事件
-        if (null != updateEquipsEvent)
-        {
-            updateEquipsEvent();
-        }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEquipsEvent);
     }
 
     /// <summary>
@@ -88,10 +83,7 @@ public class BagEquipData
             equips[index] = data;
 
             //数据改变，调用事件
-            if (null != updateEquipsEvent)
-            {
-                updateEquipsEvent();
-            }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEquipsEvent);
         }
     }
 
@@ -109,10 +101,7 @@ public class BagEquipData
             equips.Remove(data);
 
             //数据改变，调用事件
-            if (null != updateEquipsEvent)
-            {
-                updateEquipsEvent();
-            }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEquipsEvent);
         }
 
     }

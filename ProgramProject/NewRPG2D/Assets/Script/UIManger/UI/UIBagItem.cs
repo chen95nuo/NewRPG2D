@@ -19,11 +19,19 @@ public class UIBagItem : MonoBehaviour
 
         bagGrid.SetActive(false);
 
-        PreloadingGrids();
+        if (itemType != ItemType.Role)
+        {
+            PreloadingGrids();
+        }
+        else
+        {
+            UpdateRole();
+        }
 
-        BagEggData.Instance.updateEggsEvent += UpdateEggs;//更新蛋的界面
-        BagItemData.Instance.updateItemsEvent += UpdateProp;//更新道具
-        BagEquipData.Instance.updateEquipsEvent += UpdateEquip;//更新装备
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);//更新鸡蛋
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);//更新道具
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEquipsEvent, UpdateEquip);//更新装备
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateRolesEvent, UpdateRole);//更新角色
     }
 
     void Start()
@@ -33,9 +41,10 @@ public class UIBagItem : MonoBehaviour
 
     void OnDestroy()
     {
-        BagEggData.Instance.updateEggsEvent -= UpdateEggs;
-        BagItemData.Instance.updateItemsEvent -= UpdateProp;
-        BagEquipData.Instance.updateEquipsEvent -= UpdateEquip;
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateEquipsEvent, UpdateEquip);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateRolesEvent, UpdateRole);
     }
 
     /// <summary>
@@ -129,6 +138,65 @@ public class UIBagItem : MonoBehaviour
             }
         }
         GridsControl(index);
+    }
+    public void UpdateRole()
+    {
+        if (itemType != ItemType.Role)
+            return;
+
+        GridsControl(BagRoleData.Instance.roles.Count, ItemType.Role);
+
+        for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
+        {
+            grids[i].UpdateItem(BagRoleData.Instance.roles[i]);
+        }
+    }
+
+    void GridsControl(int number, ItemType type)
+    {
+        if (number > grids.Count + gridsSpare.Count)
+        {
+            if (gridsSpare.Count > 0)
+            {
+                for (int i = 0; i < gridsSpare.Count; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+            while (grids.Count < number)
+            {
+                GameObject go = Instantiate(bagGrid, transform) as GameObject;
+                go.name = bagGrid.name;
+                go.SetActive(true);
+                grids.Add(go.GetComponent<UIBagGrid>());
+
+            }
+        }
+
+        else if (number < grids.Count + gridsSpare.Count)
+        {
+            if (number < grids.Count)
+            {
+                for (int i = grids.Count; i > number; i--)
+                {
+                    grids[i - 1].transform.SetParent(objctPool);
+                    gridsSpare.Add(grids[i - 1]);
+                    grids.Remove(grids[i - 1]);
+                }
+            }
+            else
+            {
+                int data = number - grids.Count;
+                for (int i = 0; i < data; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+        }
     }
 
 

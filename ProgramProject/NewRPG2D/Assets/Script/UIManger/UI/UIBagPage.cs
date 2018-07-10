@@ -13,6 +13,7 @@ public class UIBagPage : TTUIPage
     private GameObject bagItem_2 = null;
     private GameObject bagItem = null;
     private UIBagItem updateBagItem = null;
+    private UIBagItem updateBagRole;
 
     public Button[] firstMenu;
     public int firstLoad = 2;
@@ -68,7 +69,7 @@ public class UIBagPage : TTUIPage
     /// <param name="parentName"></param>
     /// <param name="obj"></param>
     /// <param name="objParent"></param>
-    private void CreateMenu(int ParentNumber, GameObject obj, Transform objParent)
+    public void CreateMenu(int ParentNumber, GameObject obj, Transform objParent)
     {
         for (int i = 0; i < BagMenuData.Instance.menu.Count; i++)
         {
@@ -151,8 +152,14 @@ public class UIBagPage : TTUIPage
         }
         else
         {
+            Debug.Log(data.Id);
             //底层选项触发排序
-            ItemSortEvent(data);
+            if (data.ParentNumber >= 10)
+            {
+                ItemSortEvent(data, ItemType.Role, EventSystem.current.currentSelectedGameObject.transform.parent.parent.transform);
+            }
+            else
+                ItemSortEvent(data);
         }
     }
 
@@ -162,7 +169,17 @@ public class UIBagPage : TTUIPage
     public void ItemSortEvent()
     {
         itemSort = !itemSort;
-        ItemSortEvent(data);
+        if (data.ParentNumber >= 10)
+        {
+            return;
+        }
+        else
+            ItemSortEvent(data);
+    }
+    public void ItemSortEvent(Transform tr)
+    {
+        itemSort = !itemSort;
+        ItemSortEvent(data, ItemType.Role, tr);
     }
     public void ItemSortEvent(MenuData data)
     {
@@ -213,7 +230,46 @@ public class UIBagPage : TTUIPage
             updateBagItem.grids[i].transform.SetSiblingIndex(i + 1);
         }
     }
-
+    public void ItemSortEvent(MenuData data, ItemType type, Transform go)
+    {
+        updateBagRole = go.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
+        Debug.Log(go.Find("ItemList/Viewport/Content").name);
+        Debug.Log(updateBagRole.name);
+        switch (data.Id)
+        {
+            case 0:
+                if (itemSort)
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.level, y.level));
+                else
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.level, y.level));
+                break;
+            case 1:
+                if (itemSort)
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.stars, y.stars));
+                else
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.stars, y.stars));
+                break;
+            case 2:
+                if (itemSort)
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.grow, y.grow));
+                else
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.grow, y.grow));
+                break;
+            case 3:
+                if (itemSort)
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.goodFeeling, y.goodFeeling));
+                else
+                    updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.goodFeeling, y.goodFeeling));
+                break;
+            default:
+                break;
+        }
+        //排序后刷新格子内容
+        for (int i = 0; i < updateBagRole.grids.Count; i++)
+        {
+            updateBagRole.grids[i].transform.SetSiblingIndex(i + 1);
+        }
+    }
 
     /// <summary>
     /// 加载该选项背包物品
@@ -248,8 +304,9 @@ public class UIBagPage : TTUIPage
 
     public void CloseBagPage()
     {
+
         TTUIPage.ClosePage("UIBagItemMessage");
-        TTUIPage.ClosePage();
+        TTUIPage.ClosePage("UIBagPage");
     }
 
 

@@ -78,5 +78,4 @@ public class BagMenuData
         }
         return null;
     }
-
 }

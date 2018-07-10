@@ -8,7 +8,8 @@ public enum ItemType
     Nothing,//无
     Egg,//蛋
     Prop,//道具
-    Equip//装备
+    Equip,//装备
+    Role//角色
 }
 
 public enum EquipType
@@ -28,7 +29,8 @@ public enum MenuType
     hatchingTime,//孵化时间
     quality,//品质
     isUse,//可用级别
-    equipType//装备类型
+    equipType,//装备类型
+    roleType//角色排序
 }
 
 public enum PropType
@@ -38,4 +40,13 @@ public enum PropType
     OnlyUse,//只能用
     OnlySell,//只能卖
     AllOn//能用也能卖
+}
+
+public enum UIEventDefineEnum
+{
+    UpdateEggsEvent,
+    UpdatePropsEvent,
+    UpdateEquipsEvent,
+    UpdateRolesEvent,
+    EventMax
 }

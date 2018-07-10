@@ -839,7 +839,7 @@ MonoBehaviour:
   grids: []
   gridsSpare: []
   objctPool: {fileID: 224555332690740194}
-  bagGrid: {fileID: 0}
+  bagGrid: {fileID: 1904096213593514}
   itemType: 0
 --- !u!114 &114295465511139762
 MonoBehaviour:
@@ -1289,22 +1289,27 @@ MonoBehaviour:
     affix_3: 
     affix_4: 
     describe: 
-  egg: {fileID: 1918785142895066}
-  eggBG: {fileID: 114567169248976126}
-  eggImage: {fileID: 114299607962651160}
-  eggStars: {fileID: 114198666518955664}
-  eggAttribute: {fileID: 114549923507002324}
-  eggNumber: {fileID: 114741594073076264}
-  eggNeedTime: {fileID: 114331901968179014}
-  other: {fileID: 1358942024761436}
-  otherBG: {fileID: 114307356654153104}
-  otherImage: {fileID: 114133723731270774}
-  otherNumber: {fileID: 114645945114569120}
-  hatchingTime: 0
-  stars: 0
-  quality: 0
-  isUse: 0
-  equipType: 0
+  eggGrid:
+    egg: {fileID: 1918785142895066}
+    eggBG: {fileID: 114567169248976126}
+    eggImage: {fileID: 114299607962651160}
+    eggStars: {fileID: 114198666518955664}
+    eggAttribute: {fileID: 114549923507002324}
+    eggNumber: {fileID: 114741594073076264}
+    eggNeedTime: {fileID: 114331901968179014}
+  otherGrid:
+    other: {fileID: 1358942024761436}
+    otherBG: {fileID: 114307356654153104}
+    otherImage: {fileID: 114133723731270774}
+    otherNumber: {fileID: 114645945114569120}
+  roleGrid:
+    roleBG: {fileID: 0}
+    roleImage: {fileID: 0}
+    roleStars: {fileID: 0}
+    roleType: {fileID: 0}
+    roleTypeBG: {fileID: 0}
+    roleLevel: {fileID: 0}
+    roleAttribute: {fileID: 0}
 --- !u!114 &114693810085120374
 MonoBehaviour:
   m_ObjectHideFlags: 1
