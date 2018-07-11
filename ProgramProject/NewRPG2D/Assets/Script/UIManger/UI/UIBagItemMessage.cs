@@ -46,6 +46,8 @@ public class UIBagItemMessage : TTUIPage
                     pickUpMessage.updateMessage(information.equipData);
                     pickUpMessage.PopUpMoveTo(rect, information.equipData.ItemType);
                     break;
+                case ItemType.Role:
+                    break;
                 default:
                     break;
             }

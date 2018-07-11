@@ -87,7 +87,6 @@ public class BagRoleData
         }
     }
 
-
     /// <summary>
     /// 删除背包物品的数据
     /// </summary>

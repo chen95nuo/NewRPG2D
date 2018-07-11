@@ -12,7 +12,10 @@ public class CardData
     private int id;//物品id
 
     [SerializeField]
-    private string TypeMessage; //状态信息
+    private string typeMessage; //状态信息
+
+    [SerializeField]
+    private bool fighting;
 
     [SerializeField]
     private int level;//等级
@@ -78,11 +81,11 @@ public class CardData
         }
     }
 
-    public string TypeMessage1
+    public string TypeMessage
     {
         get
         {
-            return TypeMessage;
+            return typeMessage;
         }
     }
 
@@ -211,6 +214,14 @@ public class CardData
         get
         {
             return itemType;
+        }
+    }
+
+    public bool Fighting
+    {
+        get
+        {
+            return fighting;
         }
     }
 

@@ -12,6 +12,12 @@ public enum ItemType
     Role//角色
 }
 
+public enum GridType
+{
+    Nothing,
+    Use,
+}
+
 public enum EquipType
 {
     Nothing,//空
@@ -48,5 +54,6 @@ public enum UIEventDefineEnum
     UpdatePropsEvent,
     UpdateEquipsEvent,
     UpdateRolesEvent,
+    UpdateMaterialEvent,
     EventMax
 }

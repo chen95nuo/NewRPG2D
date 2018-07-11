@@ -152,6 +152,29 @@ public class UIBagItem : MonoBehaviour
         }
     }
 
+    public void UpdateRole(CardData data, CardData[] datas)
+    {
+        if (itemType != ItemType.Role)
+        {
+            return;
+        }
+
+        GridsControl(BagRoleData.Instance.roles.Count, ItemType.Role);
+        int index = 0;
+        for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
+        {
+            if (BagRoleData.Instance.roles[i] != data
+                && BagRoleData.Instance.roles[i] != datas[0]
+                && BagRoleData.Instance.roles[i] != datas[1]
+                && BagRoleData.Instance.roles[i] != datas[2])
+            {
+                grids[index].UpdateItem(BagRoleData.Instance.roles[i]);
+                index++;
+            }
+        }
+        GridsControl(index, ItemType.Role);
+    }
+
     void GridsControl(int number, ItemType type)
     {
         if (number > grids.Count + gridsSpare.Count)
@@ -174,7 +197,6 @@ public class UIBagItem : MonoBehaviour
 
             }
         }
-
         else if (number < grids.Count + gridsSpare.Count)
         {
             if (number < grids.Count)
@@ -195,6 +217,28 @@ public class UIBagItem : MonoBehaviour
                     grids.Add(gridsSpare[0]);
                     gridsSpare.Remove(gridsSpare[0]);
                 }
+            }
+        }
+        else
+        {
+            if (number > grids.Count)
+            {
+                Debug.Log("number > grids.Count");
+                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
+                int data = number - grids.Count;
+                for (int i = 0; i < data; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+                Debug.Log("OVER");
+                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
+            }
+            else
+            {
+                Debug.Log("else");
+                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
             }
         }
     }

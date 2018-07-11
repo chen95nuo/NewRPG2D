@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIMainPage : TTUIPage
 {
-    public UIMainPage() : base(UIType.Normal, UIMode.HideOther, UICollider.None)
+    public UIMainPage() : base(UIType.Normal, UIMode.NoNeedBack, UICollider.None)
     {
         uiPath = "UIPrefab/UIMain";
     }

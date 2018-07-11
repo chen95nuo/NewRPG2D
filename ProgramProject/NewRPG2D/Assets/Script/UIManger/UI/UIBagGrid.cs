@@ -9,14 +9,14 @@ public class UIBagGrid : MonoBehaviour
 
     public int itemID = -1;
     public ItemType itemType;
+    public GridType gridType;
 
     public GameObject type;
 
     public EggData eggData;
     public ItemData propData;
     public EquipData equipData;
-
-
+    public CardData roleData;
 
     #region 获取各种信息......
 
@@ -51,17 +51,20 @@ public class UIBagGrid : MonoBehaviour
         chickButton = GetComponent<Button>();
 
 
-
     }
     void Start()
     {
-        if (itemType == ItemType.Role)
+        if (itemType == ItemType.Role && gridType != GridType.Use)
         {
-            Debug.Log(itemType);
             chickButton.onClick.AddListener(ShowRolePage);
             return;
         }
-        else if (itemID >= 0)
+        else if (itemType == ItemType.Role && gridType == GridType.Use)
+        {
+            chickButton.onClick.AddListener(ShowMaterialHouse);
+            return;
+        }
+        else if (itemID >= 0 && itemType != ItemType.Role)
         {
             chickButton.onClick.AddListener(TTUIPage.ShowPage<UIBagItemMessage>);
             return;
@@ -78,6 +81,15 @@ public class UIBagGrid : MonoBehaviour
     {
         TTUIPage.ShowPage<UIRolePage>();
     }
+
+    public void ShowMaterialHouse()
+    {
+        if (!roleData.Fighting)
+        {
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
+        }
+    }
+
     public void UpdateItem(int itemID, ItemType type)
     {
         this.itemID = itemID;
@@ -145,6 +157,7 @@ public class UIBagGrid : MonoBehaviour
     }
     public void UpdateItem(CardData data)
     {
+        roleData = data;
         itemID = data.Id;
         itemType = data.ItemType;
 
@@ -152,12 +165,17 @@ public class UIBagGrid : MonoBehaviour
         roleGrid.roleImage.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
         roleGrid.roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
         roleGrid.roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
-        if (data.TypeMessage1 == null)
+        if (data.TypeMessage == null)
             roleGrid.roleTypeBG.gameObject.SetActive(false);
         else
         {
             roleGrid.roleTypeBG.gameObject.SetActive(true);
-            roleGrid.roleType.text = data.TypeMessage1;
+            roleGrid.roleType.text = data.TypeMessage;
+        }
+        if (data.Fighting)
+        {
+            roleGrid.roleTypeBG.gameObject.SetActive(true);
+            roleGrid.roleType.text = "探险中...";
         }
         roleGrid.roleLevel.text = data.Level.ToString();
 

@@ -152,7 +152,6 @@ public class UIBagPage : TTUIPage
         }
         else
         {
-            Debug.Log(data.Id);
             //底层选项触发排序
             if (data.ParentNumber >= 10)
             {
@@ -233,8 +232,6 @@ public class UIBagPage : TTUIPage
     public void ItemSortEvent(MenuData data, ItemType type, Transform go)
     {
         updateBagRole = go.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
-        Debug.Log(go.Find("ItemList/Viewport/Content").name);
-        Debug.Log(updateBagRole.name);
         switch (data.Id)
         {
             case 0:
