@@ -9,7 +9,7 @@ public class UIRolePage : TTUIPage
     private GameObject currentBtn;
     private UIRoleInformation pickUpRoleMessage;
     private UIRoleStrengthen pickUpRoleStrentthen;
-    public UIRolePage() : base(UIType.Normal, UIMode.HideOther, UICollider.None)
+    public UIRolePage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
     {
         uiPath = "UIPrefab/UIRoleInformation";
     }
@@ -53,7 +53,7 @@ public class UIRolePage : TTUIPage
     {
         if (pickUpRoleMessage.roleData.Fighting)
         {
-            //弹出提示正在探险
+            Debug.Log("正在探险");
             return;
         }
         pickUpRoleStrentthen.UpdateRole(pickUpRoleMessage);

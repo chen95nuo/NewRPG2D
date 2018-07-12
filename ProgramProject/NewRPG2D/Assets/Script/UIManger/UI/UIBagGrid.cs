@@ -50,7 +50,7 @@ public class UIBagGrid : MonoBehaviour
     {
         chickButton = GetComponent<Button>();
 
-
+        chickButton.onClick.AddListener(ShowItemMessage);
     }
     void Start()
     {
@@ -64,12 +64,10 @@ public class UIBagGrid : MonoBehaviour
             chickButton.onClick.AddListener(ShowMaterialHouse);
             return;
         }
-        else if (itemID >= 0 && itemType != ItemType.Role)
+        else if (itemType == ItemType.Nothing)
         {
-            chickButton.onClick.AddListener(TTUIPage.ShowPage<UIBagItemMessage>);
-            return;
+            UpdateItem(-1, ItemType.Nothing);
         }
-        UpdateItem(-1, ItemType.Nothing);
     }
     // Update is called once per frame
     void Update()
@@ -77,6 +75,13 @@ public class UIBagGrid : MonoBehaviour
 
     }
 
+    public void ShowItemMessage()
+    {
+        if (itemID > 0)
+        {
+            TTUIPage.ShowPage<UIBagItemMessage>();
+        }
+    }
     public void ShowRolePage()
     {
         TTUIPage.ShowPage<UIRolePage>();

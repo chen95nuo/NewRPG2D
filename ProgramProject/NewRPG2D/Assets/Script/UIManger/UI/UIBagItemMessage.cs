@@ -21,6 +21,7 @@ public class UIBagItemMessage : TTUIPage
     private UIBagPopUp pickUpMessage;
     public override void Refresh()
     {
+        this.transform.SetSiblingIndex(transform.parent.childCount - 1);
         pickUpMessage = transform.GetComponent<UIBagPopUp>();
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {
@@ -43,8 +44,16 @@ public class UIBagItemMessage : TTUIPage
                     pickUpMessage.PopUpMoveTo(rect, information.propData.ItemType);
                     break;
                 case ItemType.Equip:
-                    pickUpMessage.updateMessage(information.equipData);
-                    pickUpMessage.PopUpMoveTo(rect, information.equipData.ItemType);
+                    if (information.gridType == GridType.Use)
+                    {
+                        pickUpMessage.updateMessage(information);
+                        pickUpMessage.PopUpMoveTo(rect, information.equipData.ItemType);
+                    }
+                    else
+                    {
+                        pickUpMessage.updateMessage(information);
+                        pickUpMessage.PopUpMoveTo(rect, information.equipData.ItemType);
+                    }
                     break;
                 case ItemType.Role:
                     break;

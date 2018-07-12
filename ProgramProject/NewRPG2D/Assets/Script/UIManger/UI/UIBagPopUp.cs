@@ -30,12 +30,15 @@ public class UIBagPopUp : MonoBehaviour
     public Text propDescribe;
     public Button sell;
     public Button use;
+    public Button equipUse;
 
     public Sprite[] popup;
 
     private RectTransform rect;
 
     public Canvas canvas;
+
+    private UIBagGrid bagGridData;
 
     private void Awake()
     {
@@ -49,6 +52,7 @@ public class UIBagPopUp : MonoBehaviour
         btn_affix_3.onClick.AddListener(EquipAffixBtn);
         btn_affix_4 = affix_4.GetComponent<Button>();
         btn_affix_4.onClick.AddListener(EquipAffixBtn);
+        equipUse.onClick.AddListener(UseEquip);
 
         egg.gameObject.SetActive(false);
         prop.gameObject.SetActive(false);
@@ -62,7 +66,8 @@ public class UIBagPopUp : MonoBehaviour
             && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_1.gameObject
             && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_2.gameObject
             && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_3.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_4.gameObject)
+            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_4.gameObject
+            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != equipUse.gameObject)
         {
             TTUIPage.ClosePage("UIBagItemMessage");
         }
@@ -118,17 +123,17 @@ public class UIBagPopUp : MonoBehaviour
         propDescribe.text = data.Describe;
 
     }
-    public void updateMessage(EquipData data)
+    public void updateMessage(UIBagGrid information)
     {
         //显示类型，名字，磁条，简介
         equip.gameObject.SetActive(true);
         prop.gameObject.SetActive(false);
         egg.gameObject.SetActive(false);
 
-        equipType.text = data.EquipTypeName;
-        equipName.text = data.Name;
-        equipDescribe.text = data.Describe;
-        if (data.Affix_1 == null)
+        equipType.text = information.equipData.EquipTypeName;
+        equipName.text = information.equipData.Name;
+        equipDescribe.text = information.equipData.Describe;
+        if (information.equipData.Affix_1 == null)
         {
             btn_affix_1.interactable = false;
             affix_1.text = "";
@@ -136,10 +141,10 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_1.interactable = true;
-            affix_1.text = data.Affix_1;
+            affix_1.text = information.equipData.Affix_1;
         }
 
-        if (data.Affix_2 == null)
+        if (information.equipData.Affix_2 == null)
         {
             btn_affix_2.interactable = false;
             affix_2.text = "";
@@ -147,9 +152,9 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_2.interactable = true;
-            affix_2.text = data.Affix_2;
+            affix_2.text = information.equipData.Affix_2;
         }
-        if (data.Affix_3 == null)
+        if (information.equipData.Affix_3 == null)
         {
             btn_affix_3.interactable = false;
             affix_3.text = "";
@@ -157,9 +162,9 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_3.interactable = true;
-            affix_3.text = data.Affix_3;
+            affix_3.text = information.equipData.Affix_3;
         }
-        if (data.Affix_4 == null)
+        if (information.equipData.Affix_4 == null)
         {
             btn_affix_4.interactable = false;
             affix_4.text = "";
@@ -167,8 +172,22 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_4.interactable = true;
-            affix_4.text = data.Affix_4;
+            affix_4.text = information.equipData.Affix_4;
         }
+        if (information.gridType == GridType.Use)
+        {
+            equipUse.gameObject.SetActive(true);
+            bagGridData = information;
+        }
+        else
+        {
+            equipUse.gameObject.SetActive(false);
+        }
+    }
+
+    public void UseEquip()
+    {
+        UIEventManager.instance.SendEvent<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, bagGridData);
     }
 
     public void EquipAffixBtn()
@@ -235,4 +254,5 @@ public class UIBagPopUp : MonoBehaviour
         this.rect.position = rect.position;
 
     }
+
 }

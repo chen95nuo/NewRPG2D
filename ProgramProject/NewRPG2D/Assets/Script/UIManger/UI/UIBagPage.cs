@@ -46,7 +46,6 @@ public class UIBagPage : TTUIPage
         this.bagItem_1 = bagMenu_1.transform.Find("btn_menu_1").gameObject;
         this.bagItem_2 = bagMenu_2.transform.Find("btn_menu_2").gameObject;
 
-
         this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(CloseBagPage);
         this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
 
@@ -305,8 +304,6 @@ public class UIBagPage : TTUIPage
         TTUIPage.ClosePage("UIBagItemMessage");
         TTUIPage.ClosePage("UIBagPage");
     }
-
-
 
     public class BagGridConparer : IComparer<int>
     {

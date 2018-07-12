@@ -92,9 +92,9 @@ public class BagEquipData
     /// 删除背包物品的数据
     /// </summary>
     /// <param name="id"></param>
-    public void Remove(int id)
+    public void Remove(EquipData data)
     {
-        EquipData data = GetItem(id);
+        //EquipData data = GetItem(id);
 
         if (data != null)
         {

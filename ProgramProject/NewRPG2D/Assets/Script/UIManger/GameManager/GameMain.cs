@@ -19,4 +19,9 @@ public class GameMain : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        UIEventManager.instance.RemoveAllListener();
+    }
+
 }
