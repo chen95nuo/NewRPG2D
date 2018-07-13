@@ -25,6 +25,8 @@ public class UIRolePage : TTUIPage
     public override void Refresh()
     {
         pickUpRoleMessage = transform.GetComponent<UIRoleInformation>();
+        pickUpRoleMessage.AwakeInitialization();
+        ClosePage<UIBagItemMessage>();
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {
             UIBagGrid information = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<UIBagGrid>();

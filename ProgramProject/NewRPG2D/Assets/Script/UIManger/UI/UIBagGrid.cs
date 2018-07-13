@@ -80,10 +80,12 @@ public class UIBagGrid : MonoBehaviour
         if (itemID > 0)
         {
             TTUIPage.ShowPage<UIBagItemMessage>();
+            TTUIPage.ClosePage<UIBagItemMessage>();
         }
     }
     public void ShowRolePage()
     {
+        TTUIPage.ClosePage<UIBagItemMessage>();
         TTUIPage.ShowPage<UIRolePage>();
     }
 

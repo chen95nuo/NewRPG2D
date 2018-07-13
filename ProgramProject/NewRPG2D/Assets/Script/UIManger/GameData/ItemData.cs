@@ -27,7 +27,7 @@ public class ItemData
     private ItemType itemType;//物品类型
 
     [SerializeField]
-    private PropType propType;
+    private PropType propType;//道具类型
 
     [SerializeField]
     private int price;//物品价格
@@ -37,6 +37,12 @@ public class ItemData
 
     [SerializeField]
     private int addExp;//增加经验
+
+    [SerializeField]
+    private RawMaterial[] rawMaterial;//原料类型 数量
+
+    [SerializeField]
+    private string getPlace;//获取地点
 
     [SerializeField]
     private string describe;//描述
@@ -129,6 +135,14 @@ public class ItemData
         }
     }
 
+    public string GetPlace
+    {
+        get
+        {
+            return getPlace;
+        }
+    }
+
     public ItemData() { }
 
     public ItemData(int id)
@@ -147,4 +161,10 @@ public class ItemData
         this.spriteName = sprite;
         this.itemType = type;
     }
+}
+
+public class RawMaterial
+{
+    ItemMaterialType materialType;
+    int number;
 }

@@ -48,6 +48,14 @@ public enum PropType
     AllOn//能用也能卖
 }
 
+public enum ItemMaterialType
+{
+    Iron,
+    Wood,
+    Leatherwear,
+    Cloth
+}
+
 public enum UIEventDefineEnum
 {
     UpdateEggsEvent,
@@ -57,3 +65,4 @@ public enum UIEventDefineEnum
     UpdateMaterialEvent,
     EventMax
 }
+

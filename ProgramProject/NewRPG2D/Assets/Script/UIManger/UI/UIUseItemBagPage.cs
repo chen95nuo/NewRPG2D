@@ -36,12 +36,17 @@ public class UIUseItemBagPage : TTUIPage
         bagMenu.SetActive(false);
     }
 
-
+    /// <summary>
+    /// 打开道具包时刷新物品
+    /// </summary>
+    /// <param name="type"></param>
     public void UpdateItem(EquipType type)
     {
         updateBagItem.itemType = ItemType.Equip;
         this.updateBagItem.UpdateEquip(type);
         equipType = type;
+        itemSort = false;
+        ItemSortEvent();
     }
 
     public void UpdateItem(UIBagGrid data)
@@ -54,7 +59,6 @@ public class UIUseItemBagPage : TTUIPage
     /// </summary>
     public void ItemSortEvent()
     {
-        Debug.Log("排序");
         itemSort = !itemSort;
 
         ItemSortEvent(equipType);

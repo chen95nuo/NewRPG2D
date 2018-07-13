@@ -141,6 +141,7 @@
     <Compile Include="Assets\Script\UIManger\GameData\EquipData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ItemData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\MenuData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\ReadJsonDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\TypeManger.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagEggData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagEquipData.cs" />
@@ -156,6 +157,8 @@
     <Compile Include="Assets\Script\UIManger\UI\UIBagPopUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagRoleItem.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UICardHouse.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIFurnace.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIFurnacePage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMainPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleInformation.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleMaterialHouse.cs" />
@@ -205,11 +208,11 @@
     <None Include="Assets\StreamingAssets\Config\RoleData.xml" />
     <None Include="Assets\DOTween\DOTween46.xml" />
     <None Include="Assets\StreamingAssets\Json\BagMenuData.txt" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -401,16 +404,16 @@
       <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Assets/DOTween/DOTween.dll</HintPath>
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="DOTween43">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Assets/DOTween/DOTween43.dll</HintPath>
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/DOTween/DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="DOTween46">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Assets/DOTween/DOTween46.dll</HintPath>
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/DOTween/DOTween46.dll</HintPath>
     </Reference>
     <Reference Include="DOTween50">
-      <HintPath>D:/Project/NewRPG2D.git/ProgramProject/NewRPG2D/Assets/DOTween/DOTween50.dll</HintPath>
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>

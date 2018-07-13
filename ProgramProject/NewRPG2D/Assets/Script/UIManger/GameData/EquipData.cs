@@ -155,6 +155,11 @@ public class EquipData
 
     public EquipData() { }
 
+    public EquipData(int id)
+    {
+        this.id = id;
+    }
+
     public EquipData(int id, string sprite)
     {
         this.id = id;

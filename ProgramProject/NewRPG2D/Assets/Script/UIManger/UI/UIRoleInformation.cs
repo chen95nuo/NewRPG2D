@@ -32,13 +32,20 @@ public class UIRoleInformation : MonoBehaviour
     public CardData roleData;
 
     public GameObject currentBtn;
+    public int currentNumber;
+
+    public GameObject buttonType;
+    public Button roleEquipRemove;
+    public Button roleEquipReplace;
 
     public void Awake()
     {
         for (int i = 0; i < roleEquip.Length; i++)
         {
-            roleEquip[i].roleEquipOptions.onClick.AddListener(OpenEquipOpitions);
+            roleEquip[i].roleEquipOptions.onClick.AddListener(CheckCurrentEquipButton);
         }
+        roleEquipReplace.onClick.AddListener(OpenEquipOpitions);
+        roleEquipRemove.onClick.AddListener(RemoveThisEquip);
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
     }
 
@@ -47,18 +54,70 @@ public class UIRoleInformation : MonoBehaviour
 
     }
 
-    public void OpenEquipOpitions()
+    public void AwakeInitialization()
+    {
+        buttonType.SetActive(false);
+    }
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != roleEquipRemove.gameObject
+                 && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != roleEquipReplace.gameObject)
+            {
+                buttonType.SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 判断该位置是否存有装备
+    /// </summary>
+    public void CheckCurrentEquipButton()
     {
         currentBtn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < roleEquip.Length; i++)
         {
             if (roleEquip[i].roleEquipOptions.gameObject == currentBtn)
             {
-                TTUIPage.ShowPage<UIUseItemBagPage>();
-                UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)i + 1);
+                if (roleData.Equipdata[i].EquipType != EquipType.Nothing)
+                {
+                    buttonType.transform.position = roleEquip[i].roleEquipImage.transform.position;
+                    buttonType.SetActive(true);
+                }
+                else
+                {
+                    OpenEquipOpitions();
+                }
+                currentNumber = i;
             }
         }
     }
+
+    /// <summary>
+    /// 打开该类型背包菜单
+    /// </summary>
+    /// <param name="index"></param>
+    public void OpenEquipOpitions()
+    {
+        TTUIPage.ShowPage<UIUseItemBagPage>();
+        //TTUIPage.ClosePage<UIUseItemBagPage>();
+        UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)currentNumber + 1);
+    }
+
+    /// <summary>
+    /// 卸载当前使用的装备
+    /// </summary>
+    public void RemoveThisEquip()
+    {
+        BagEquipData.Instance.AddItem(roleData.Equipdata[currentNumber]);
+        roleData.Equipdata[currentNumber] = new EquipData();
+        roleData.Equipdata[currentNumber].EquipType = EquipType.Nothing;
+        updateMessage(roleData);
+        buttonType.SetActive(false);
+    }
+
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
@@ -76,7 +135,11 @@ public class UIRoleInformation : MonoBehaviour
             BagEquipData.Instance.Remove(data.equipData);
             BagEquipData.Instance.AddItem(equipData);
         }
-
+        else
+        {
+            roleData.Equipdata[(int)data.equipData.EquipType - 1] = data.equipData;
+            BagEquipData.Instance.Remove(data.equipData);
+        }
         updateMessage(roleData);
     }
     ///更新卡牌信息
@@ -93,20 +156,12 @@ public class UIRoleInformation : MonoBehaviour
         roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
         for (int i = 0; i < roleEquip.Length; i++)
         {
-            if (data.Equipdata != null)
+            if (data.Equipdata[i].EquipType != EquipType.Nothing)
             {
-                if (data.Equipdata.Length > i)
-                {
-                    roleEquip[i].roleEquipImage.gameObject.SetActive(true);
-                    roleEquip[i].roleEquipQuality.gameObject.SetActive(true);
-                    roleEquip[i].roleEquipImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.Equipdata[i].Id);
-                    roleEquip[i].roleEquipQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Equipdata[i].Quality);
-                }
-                else
-                {
-                    roleEquip[i].roleEquipImage.gameObject.SetActive(false);
-                    roleEquip[i].roleEquipQuality.gameObject.SetActive(false);
-                }
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.gameObject.SetActive(true);
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.gameObject.SetActive(true);
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.Equipdata[i].Id);
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Equipdata[i].Quality);
             }
             else
             {

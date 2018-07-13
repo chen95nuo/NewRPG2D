@@ -36,7 +36,6 @@ public class UIBagPage : TTUIPage
     public override void Refresh()
     {
 
-
     }
 
     private void AwakeInitialization()
@@ -53,6 +52,9 @@ public class UIBagPage : TTUIPage
         bagItem_1.SetActive(false);
 
         updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
+
+        TTUIPage.ShowPage<UIBagItemMessage>();
+        TTUIPage.ClosePage("UIBagItemMessage");
 
         //一级菜单创建
         CreateMenu(0, bagItem_1, bagMenu_1.transform);
@@ -300,7 +302,6 @@ public class UIBagPage : TTUIPage
 
     public void CloseBagPage()
     {
-
         TTUIPage.ClosePage("UIBagItemMessage");
         TTUIPage.ClosePage("UIBagPage");
     }
