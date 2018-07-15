@@ -5,30 +5,43 @@ namespace Assets.Script.Battle
 {
     public class MoveMoment
     {
-        private Transform roleTransform;
+        private Transform roleTransform, targetTransform;
         private RoleBase mCurrentRole;
         private Vector3 addOffesetVector3, currentTargetPosition;
         private SwitchRoleActionParam switchActionParam;
+        private float minMoveDistance = 1;
 
         public void SetCurrentRole(RoleBase mRole)
         {
             mCurrentRole = mRole;
             roleTransform = mRole.RoleTransform;
-            switchActionParam=new SwitchRoleActionParam(mCurrentRole, RoleActionEnum.Idle);
+            switchActionParam = new SwitchRoleActionParam(mCurrentRole, RoleActionEnum.Idle);
+            minMoveDistance = 1;
         }
 
         private Vector3 nextPosition = Vector3.zero;
         public void Update(float deltaTime)
         {
-            if ((roleTransform.position - currentTargetPosition).magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
+
+            if (targetTransform == null)
             {
-                return;
+                if ((roleTransform.position - currentTargetPosition).magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if ((roleTransform.position - targetTransform.position).magnitude < minMoveDistance)
+                {
+                    return;
+                }
             }
 
             nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
             //if (MapColliderMgr.instance.CheckCollider(nextPosition))
             //{
-            //    roleTransform.position = nextPosition;
+                roleTransform.position = nextPosition;
             //}
         }
 
@@ -39,19 +52,33 @@ namespace Assets.Script.Battle
 
         public void SetTargetPosition(Vector3 targetPosition)
         {
+            targetTransform = null;
             currentTargetPosition = targetPosition;
-            SetOffesetVector3((roleTransform.position - currentTargetPosition).normalized);
+            Vector3 dir = (currentTargetPosition - roleTransform.position).normalized;
+            SetOffesetVector3(dir);
+        }
+
+        public void SetTargetTranform(Transform target)
+        {
+            targetTransform = target;
+            Vector3 dir = (targetTransform.position - roleTransform.position).normalized;
+            SetOffesetVector3(dir);
+        }
+
+        public void SetTargetMinDistance(float minDistance)
+        {
+            minMoveDistance = minDistance;
         }
 
         public void SetOffesetVector3(Vector3 OffesetVec)
         {
             if (OffesetVec.x < -StaticAndConstParamter.JOYSTICK_TIME)
             {
-                roleTransform.right = Vector3.right;
+                roleTransform.right = Vector3.left;
             }
             else if (OffesetVec.x > StaticAndConstParamter.JOYSTICK_TIME)
             {
-                roleTransform.right = Vector3.left;
+                roleTransform.right = Vector3.right;
             }
 
             addOffesetVector3 = OffesetVec;

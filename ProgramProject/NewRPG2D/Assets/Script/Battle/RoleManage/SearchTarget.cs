@@ -19,6 +19,14 @@ namespace Assets.Script.Battle
             roleTransform = mRole.RoleTransform;
         }
 
+
+        public void InitData()
+        {
+            cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
+            attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
+            attackDistance = attackDistance * attackDistance;
+        }
+
         public void SetTarget(RoleBase targetRole)
         {
             this.targetRole = targetRole;
@@ -32,12 +40,13 @@ namespace Assets.Script.Battle
                 {
                     cacheSkillSlot = mCurrentRole.CurrentSlot;
                     attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
+                    attackDistance = attackDistance * attackDistance;
                 }
 
-                if (Vector3.Distance(targetRole.RoleTransform.position, roleTransform.position) > attackDistance)
+                if ((targetRole.RoleTransform.position - roleTransform.position).magnitude > attackDistance)
                 {
-                    mCurrentRole.RoleMoveMoment.SetTargetPosition(GetMovePosition(roleTransform,
-                        targetRole.RoleTransform, attackDistance));
+                    mCurrentRole.RoleMoveMoment.SetTargetTranform(targetRole.RoleTransform);
+                    mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
                 }
                 else
                 {
@@ -81,7 +90,7 @@ namespace Assets.Script.Battle
         private Vector3 GetMovePosition(Transform currentRoleTransform, Transform targetRoleTransform, float attackDistance)
         {
             Vector3 movePosition;
-            movePosition = targetRoleTransform.position + (currentRoleTransform.position - targetRoleTransform.position).normalized * attackDistance;
+            movePosition = targetRoleTransform.position + (targetRoleTransform.position - currentRoleTransform.position).normalized * attackDistance;
             return movePosition;
         }
     }

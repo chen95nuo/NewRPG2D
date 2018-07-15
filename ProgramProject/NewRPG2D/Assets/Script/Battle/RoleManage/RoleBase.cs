@@ -51,7 +51,8 @@ namespace Assets.Script.Battle
             InitComponent();
             InitFSM();
             InitData();
-            InitSkill();
+            InitRoleComponentData();
+           
         }
 
         public virtual void SetRoleInfo(RoleInfo info)
@@ -78,13 +79,14 @@ namespace Assets.Script.Battle
             RolePropertyValue = new ValueProperty();
             RolePropertyValue.SetCurrentRole(this);
             InitRoleProperty();
-            RolePropertyValue.SetMoveSeed(10f);
+            RolePropertyValue.SetMoveSeed(1f);
             RoleDamageMoment = new DamageMoment();
             RoleDamageMoment.SetCurrentRole(this);
-            RoleSearchTarget = new SearchTarget();
-            RoleSearchTarget.SetCurrentRole(this);
             RoleSkill = new SkillCompoment();
             RoleSkill.SetCurrentRole(this);
+            RoleSearchTarget = new SearchTarget();
+            RoleSearchTarget.SetCurrentRole(this);
+          
 
             AttackSkillIdArray = new int[3];
         }
@@ -101,6 +103,12 @@ namespace Assets.Script.Battle
             RoleSkill.InitSkill(SkillSlotTypeEnum.Skill1, CurrentRoleData.SkillDataId01);
             RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, CurrentRoleData.SkillDataId02);
             CurrentSlot = SkillSlotTypeEnum.NormalAttack;
+        }
+
+        private void InitRoleComponentData()
+        {
+            InitSkill();
+            RoleSearchTarget.InitData();
         }
 
         private void InitRoleProperty()
