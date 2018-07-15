@@ -8,7 +8,7 @@ namespace Assets.Script.Battle.BattleData
     {
         public override XmlName CurrentXmlName
         {
-            get { return XmlName.SkillData; }
+            get { return XmlName.RoleData; }
         }
     }
 }

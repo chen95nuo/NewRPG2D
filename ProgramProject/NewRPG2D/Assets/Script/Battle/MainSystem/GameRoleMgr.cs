@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Script.Tools;
 using Assets.Script.Utility;
 using UnityEngine;
 
@@ -16,16 +17,37 @@ namespace Assets.Script.Battle
         }
 
         public void AddMonsterRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition,
-            ushort instanceId, uint playerId, float angle)
+            ushort instanceId, int roleId, float angle)
         {
-
+            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "BattleRole/Monster";
+            RoleRender roleMono = SetRoleTransform(itemModelName, indexName, transform, mPosition, angle);
+            roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
+            RoleInfo info = new RoleInfo();
+            EnemyHeroRole role = new EnemyHeroRole();
+            info.TeamId = TeamTypeEnum.Monster;
+            info.InstanceId = instanceId;
+            info.RoleId = roleId;
+            info.RoleType = RoleTypeEnum.Monster;
+            role.SetRoleInfo(info, roleMono);
+            RolesList.Add(role);
+            RoleDic[instanceId] = role;
         }
 
-        public void AddHeroRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition, ushort instanceId, uint playerId, float angle, bool isMaster = false)
+        public void AddHeroRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
         {
-            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "Role/Hero/HeroRole";// + perfabpath ;
-            GameObject perfab = ResourcesLoadMgr.instance.PopObjFromPool(itemModelName, indexName);
-            Debug.Log("PlayerController addrole:" + instanceId);
+            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "BattleRole/Monster";
+            RoleRender roleMono = SetRoleTransform(itemModelName, indexName, transform, mPosition, angle);
+            roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
+            Debug.Log("AddHeroRole addrole:" + instanceId);
+            RoleInfo info = new RoleInfo();
+            MainHeroRole role = new MainHeroRole();
+            info.TeamId = TeamTypeEnum.Hero;
+            info.InstanceId = instanceId;
+            info.RoleId = roleId;
+            info.RoleType = RoleTypeEnum.Hero;
+            role.SetRoleInfo(info, roleMono);
+            RolesList.Add(role);
+            RoleDic[instanceId] = role;
         }
 
         public RoleBase GetRole(ushort inatancdid)
@@ -37,5 +59,15 @@ namespace Assets.Script.Battle
             }
             return RoleDic[inatancdid];
         }
+
+        private RoleRender SetRoleTransform(string perfabpath, string indexName, Transform transform, Vector3 mPosition, float angle)
+        {
+            GameObject perfab = ResourcesLoadMgr.instance.PopObjFromPool(perfabpath, indexName);
+            perfab.transform.parent = transform;
+            perfab.transform.position = mPosition;
+            perfab.transform.localEulerAngles = new Vector3(angle, 0);
+            return perfab.GetComponent<RoleRender>();
+        }
+
     }
 }

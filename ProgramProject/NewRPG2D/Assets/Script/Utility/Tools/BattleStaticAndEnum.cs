@@ -21,6 +21,7 @@ namespace Assets.Script.Battle
         public const float RoleDefensePercent = 0.25f;   //防御格挡比
         public const float RoleDefenseRangePercentMin = 0.75f;  //防御浮动最小值
         public const float RoleDefenseRangePercentMax = 1.0f;  //防御浮动最大值
+
     }
 
     public struct RoleAnimationName
@@ -58,11 +59,11 @@ namespace Assets.Script.Battle
 
     public struct PropertyAddtion
     {
-        public int BaseValue;
+        public float BaseValue;
         public float GrowValueMin;
         public float GrowValueMax;
 
-        public PropertyAddtion(int baseValue, float growValueMin, float growValueMax)
+        public PropertyAddtion(float baseValue, float growValueMin, float growValueMax)
         {
             BaseValue = baseValue;
             GrowValueMin = growValueMin;
@@ -78,7 +79,15 @@ namespace Assets.Script.Battle
         public float HurtValue;
     }
 
+
     #region Enum
+
+    public enum TeamTypeEnum
+    {
+        Hero,
+        Monster,
+        Other,
+    }
 
     public enum ActorStateEnum
     {

@@ -26,10 +26,10 @@ namespace Assets.Script.Battle
             }
 
             nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
-            if (MapColliderMgr.instance.CheckCollider(nextPosition))
-            {
-                roleTransform.position = nextPosition;
-            }
+            //if (MapColliderMgr.instance.CheckCollider(nextPosition))
+            //{
+            //    roleTransform.position = nextPosition;
+            //}
         }
 
         public void Dispose()

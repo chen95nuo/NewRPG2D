@@ -36,7 +36,13 @@ namespace Assets.Script.Battle
 
                 if (Vector3.Distance(targetRole.RoleTransform.position, roleTransform.position) > attackDistance)
                 {
-                   mCurrentRole.RoleMoveMoment.SetTargetPosition(GetMovePosition(roleTransform, targetRole.RoleTransform,attackDistance));
+                    mCurrentRole.RoleMoveMoment.SetTargetPosition(GetMovePosition(roleTransform,
+                        targetRole.RoleTransform, attackDistance));
+                }
+                else
+                {
+                    Debug.LogError("have target then attack ");
+                    mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
                 }
                 //没到攻击距离时往目标走，
             }

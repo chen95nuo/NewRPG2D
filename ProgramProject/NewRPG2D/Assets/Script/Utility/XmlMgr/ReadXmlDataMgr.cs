@@ -7,6 +7,7 @@
 using System;
 using UnityEngine;
 using System.Xml;
+using Assets.Script.Battle.BattleData;
 
 namespace Assets.Script.Utility
 {
@@ -25,11 +26,19 @@ namespace Assets.Script.Utility
 
     public class ReadXmlDataMgr
     {
-       
+
         public static XmlData GetXmlData(XmlName name)
         {
             switch (name)
             {
+                case XmlName.RoleData:
+                    return new RoleData();
+                case XmlName.RolePropertyData:
+                    return new RolePropertyData();
+                case XmlName.SkillData:
+                    return new SkillData();
+                case XmlName.BufferData:
+                    return new RolePropertyData();
                 default: return new XmlData();
             }
         }

@@ -12,6 +12,7 @@ public enum EventDefineEnum : uint
 {
     AddRole,
     SwitchRoleAction,
+    LoadLevel,
     EventMax,
 }
 
@@ -24,6 +25,11 @@ public enum SwitchStatusEnum
 public class AddRoleParam
 {
    
+}
+
+public class LoadLevelParam
+{
+
 }
 
 public class SwitchRoleActionParam

@@ -38,6 +38,10 @@ namespace Assets.Script.Battle.BattleData
             CurrentItemData = new ItemBaseData[tempData.Length];
             for (int i = 0; i < tempData.Length; i++)
             {
+                if (tempData[i] is ItemBaseData == false)
+                {
+                    DebugHelper.LogError("tempData[i] = " + (tempData[i].ItemXmlName));
+                }
                 CurrentItemData[i] = (ItemBaseData)tempData[i];
             }
         }

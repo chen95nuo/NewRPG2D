@@ -36,10 +36,12 @@ namespace Assets.Script.Battle
             if (Input.GetMouseButtonDown(0))
             {
                 cacheRole = GetTouchRoleRender();
+                DebugHelper.Log(" cacheRole "+ cacheRole.name);
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 RoleRender role = GetTouchRoleRender();
+                DebugHelper.Log("role = " + role.name);
                 if (role == null && cacheRole != null)
                 {
                     cacheRole.Move(ScreenToWorldPoint(Input.mousePosition));

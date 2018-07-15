@@ -37,6 +37,7 @@ public class RoleRender : MonoBehaviour
 
     public void ChangeTarget(RoleBase targetRole)
     {
+        DebugHelper.LogFormat("target name == {0}, team id = {1}, currentRole = {2} team id = {3} ", targetRole.MonoRoleRender.name, targetRole.TeamId, name, CurrentRole.TeamId);
         if (targetRole.TeamId == CurrentRole.TeamId)
         {
             return;

@@ -7,7 +7,7 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    class RolePropertyData : ItemBaseData
+    public class RolePropertyData : ItemBaseData
     {
         public string Name;
         public PropertyData RoleBaseData;
@@ -19,12 +19,12 @@ namespace Assets.Script.Battle.BattleData
         public override bool GetXmlDataAttribute(XmlNode node)
         {
             RoleBaseData = new PropertyData();
-            Name = ReadXmlDataMgr.StrParse(node, "Name");
+           // Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
             RoleBaseData.RoleProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "RoleProperty");
             RoleBaseData.AttackProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "AttackProperty");
             RoleBaseData.DefenseProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "DefenseProperty");
-            int baseValue = ReadXmlDataMgr.IntParse(node, "BaseHP");
+            float baseValue = ReadXmlDataMgr.IntParse(node, "BaseHP");
             float growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowHPMin");
             float growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowHPMax");
             RoleBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
@@ -36,7 +36,7 @@ namespace Assets.Script.Battle.BattleData
             growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMin");
             growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMax");
             RoleBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-            baseValue = ReadXmlDataMgr.IntParse(node, "BasePrompt");
+            baseValue = ReadXmlDataMgr.FloatParse(node, "BasePrompt");
             growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowPromptMin");
             growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowPromptMax");
             RoleBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);

@@ -9,16 +9,18 @@ using Assets.Script.Tools;
 using Assets.Script.Timer;
 using UnityEngine;
 using Assets.Script.Battle;
+using Assets.Script.Battle.LevelManager;
 
 namespace Assets.Script
 {
     public class GameLogic : MonoBehaviour
     {
 
-        private LayerMask inputLayerMask;
-        public float audioTime = 0.5f;
+        [SerializeField]private LayerMask inputLayerMask;
+       // public float audioTime = 0.5f;
         public static GameLogic Instance = null;
 
+        private LoadLevel loadLevelManager;
 
         public void Awake()
         {
@@ -29,7 +31,7 @@ namespace Assets.Script
                 DontDestroyOnLoad(this);
             }
             Init();
-            Debug.Log("-----------GameHallScene-----------"+ ((1<<6)|3).ToString());
+          //  Debug.Log("-----------GameHallScene-----------" + ((1 << 6) | 3).ToString());
         }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace Assets.Script
             ReadXmlNewMgr.CreateInstance();
             CTimerManager.CreateInstance();
             ResourcesLoadMgr.GetInstance();
-           // MapColliderMgr.CreateInstance();
+            // MapColliderMgr.CreateInstance();
             InputContorlMgr.CreateInstance();
         }
 
@@ -62,10 +64,12 @@ namespace Assets.Script
         /// </summary>
         public void InitListener()
         {
+            EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
         }
 
         public void InitData()
         {
+            loadLevelManager = new LoadLevel();
             InputContorlMgr.instance.SetMainCamera(Camera.main);
             InputContorlMgr.instance.SetLayMask(inputLayerMask);
         }
@@ -75,21 +79,10 @@ namespace Assets.Script
         /// </summary>
         public void RemoveListener()
         {
+            EventManager.instance.RemoveListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
         }
 
-
-        public void AddRole()
-        {
-
-        }
-        public void RemoveRole()
-        {
-        }
-
-        public void RetData()
-        {
-            //RolesList.Clear();
-        }
+        #region Mono Update
 
         //private float addTime = 0;
         public void Update()
@@ -140,9 +133,18 @@ namespace Assets.Script
             EventManager.DestroyInstance();
             ReadXmlNewMgr.DestroyInstance();
             ResourcesLoadMgr.DestroyInstance();
-       //     MapColliderMgr.DestroyInstance();
+            //     MapColliderMgr.DestroyInstance();
             InputContorlMgr.DestroyInstance();
         }
+        #endregion
 
+        #region Event
+
+        private void LoadLevelUpdate(LoadLevelParam param)
+        {
+
+        }
+
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace Assets.Script.Battle
     public struct RoleInfo
     {
         public int InstanceId;
-        public int TeamId;
+        public TeamTypeEnum TeamId;
         public int RoleId;
         public RoleTypeEnum RoleType;
     }
@@ -22,7 +22,7 @@ namespace Assets.Script.Battle
         public int InstanceId { get; private set; }
         public int RoleId { get; private set; }
         public UnityArmatureComponent RoleAnimator { get; private set; }
-        public int TeamId { get; private set; }
+        public TeamTypeEnum TeamId { get; private set; }
         public RoleTypeEnum RoleType { get; private set; }
         public Transform RoleTransform { get; private set; }
         public int AnimationId { get; private set; }
@@ -46,10 +46,11 @@ namespace Assets.Script.Battle
         public void SetRoleInfo(RoleInfo info, RoleRender roleRender)
         {
             MonoRoleRender = roleRender;
+            MonoRoleRender.SetRoleBaseInfo(this);
+            SetRoleInfo(info);
             InitComponent();
             InitFSM();
             InitData();
-            SetRoleInfo(info);
             InitSkill();
         }
 
@@ -62,13 +63,13 @@ namespace Assets.Script.Battle
             CurrentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(RoleId);
         }
 
-        public void InitComponent()
+        public virtual void InitComponent()
         {
             RoleAnimator = MonoRoleRender.roleAnimation;
             RoleTransform = MonoRoleRender.transform;
         }
 
-        public void InitData()
+        public virtual void InitData()
         {
             RoleAnimation = new RoleAnimationSys();
             RoleAnimation.SetCurrentRole(this);
@@ -130,11 +131,12 @@ namespace Assets.Script.Battle
             }
         }
 
-
         public virtual void UpdateLogic(float deltaTime)
         {
             if (RoleMoveMoment != null) { RoleMoveMoment.Update(deltaTime); }
             if (RoleActionMachine != null) RoleActionMachine.Update(deltaTime);
+            if (RoleSearchTarget != null) RoleSearchTarget.Update();
+
         }
 
         public abstract void FixedUpdateLogic(float deltaTime);
