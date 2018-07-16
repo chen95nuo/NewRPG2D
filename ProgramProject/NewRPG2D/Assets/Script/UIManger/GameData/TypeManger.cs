@@ -48,12 +48,19 @@ public enum PropType
     AllOn//能用也能卖
 }
 
+public enum PropMeltingType
+{
+    isTrue,//可熔炼
+    isFalse//不可熔炼
+}
+
 public enum ItemMaterialType
 {
-    Iron,
-    Wood,
-    Leatherwear,
-    Cloth
+    Nothing,//无
+    Iron,//铁
+    Wood,//木头
+    Leatherwear,//布料
+    Cloth//皮革
 }
 
 public enum UIEventDefineEnum
@@ -63,6 +70,7 @@ public enum UIEventDefineEnum
     UpdateEquipsEvent,
     UpdateRolesEvent,
     UpdateMaterialEvent,
+    UpdateFurnaceEvent,
     EventMax
 }
 

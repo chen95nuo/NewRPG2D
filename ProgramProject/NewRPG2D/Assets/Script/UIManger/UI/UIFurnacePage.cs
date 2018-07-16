@@ -28,6 +28,7 @@ public class UIFurnacePage : TTUIPage
 
     public void PageBack()
     {
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateFurnaceEvent);
         ClosePage<UIFurnacePage>();
     }
 }

@@ -24,7 +24,7 @@ public class UIUseItemBagPage : TTUIPage
 
         UIEventManager.instance.AddListener<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, UpdateItem);
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, UpdateItem);
-
+        UIEventManager.instance.AddListener<PropMeltingType>(UIEventDefineEnum.UpdatePropsEvent, UpdateItem);
     }
 
     public void AwakeInitialization()
@@ -49,6 +49,16 @@ public class UIUseItemBagPage : TTUIPage
         ItemSortEvent();
     }
 
+    public void UpdateItem(PropMeltingType melting)
+    {
+        updateBagItem.itemType = ItemType.Prop;
+        this.updateBagItem.UpdateProp(melting);
+        ItemSortEvent(ItemType.Prop);
+        itemSort = false;
+        //itemSortEvent();
+    }
+
+
     public void UpdateItem(UIBagGrid data)
     {
         ClosePage<UIBagItemMessage>();
@@ -62,6 +72,29 @@ public class UIUseItemBagPage : TTUIPage
         itemSort = !itemSort;
 
         ItemSortEvent(equipType);
+    }
+
+    public void ItemSortEvent(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Nothing:
+                break;
+            case ItemType.Egg:
+                break;
+            case ItemType.Prop:
+                if (itemSort)
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
+                else
+                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
+                break;
+            case ItemType.Equip:
+                break;
+            case ItemType.Role:
+                break;
+            default:
+                break;
+        }
     }
 
     public void ItemSortEvent(EquipType type)

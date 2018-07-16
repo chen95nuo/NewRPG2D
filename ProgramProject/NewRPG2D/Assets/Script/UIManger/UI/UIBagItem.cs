@@ -90,8 +90,34 @@ public class UIBagItem : MonoBehaviour
 
         for (int i = 0; i < BagItemData.Instance.items.Count; i++)
         {
-            grids[i].UpdateItem(BagItemData.Instance.items[i]);
+            if (BagItemData.Instance.items[i].Number == 0)
+            {
+                BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+            }
+            else
+                grids[i].UpdateItem(BagItemData.Instance.items[i]);
         }
+    }
+    public void UpdateProp(PropMeltingType melting)
+    {
+        if (itemType != ItemType.Prop)
+            return;
+
+        GridsControl(BagItemData.Instance.items.Count);
+        int index = 0;
+        for (int i = 0; i < BagItemData.Instance.items.Count; i++)
+        {
+            if (BagItemData.Instance.items[i].Number == 0)
+            {
+                BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+            }
+            else if (BagItemData.Instance.items[i].Melting == melting)
+            {
+                grids[index].UpdateItem(BagItemData.Instance.items[i]);
+                index++;
+            }
+        }
+        GridsControl(index);
     }
     public void UpdateProp(PropType propType, PropType propType1)
     {
@@ -102,7 +128,11 @@ public class UIBagItem : MonoBehaviour
         int index = 0;
         for (int i = 0; i < BagItemData.Instance.items.Count; i++)
         {
-            if (BagItemData.Instance.items[i].PropType == propType || BagItemData.Instance.items[i].PropType == propType1)
+            if (BagItemData.Instance.items[i].Number == 0)
+            {
+                BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+            }
+            else if (BagItemData.Instance.items[i].PropType == propType || BagItemData.Instance.items[i].PropType == propType1)
             {
                 grids[index].UpdateItem(BagItemData.Instance.items[i]);
                 index++;

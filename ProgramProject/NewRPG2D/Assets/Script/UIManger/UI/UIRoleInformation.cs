@@ -102,7 +102,6 @@ public class UIRoleInformation : MonoBehaviour
     public void OpenEquipOpitions()
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
-        //TTUIPage.ClosePage<UIUseItemBagPage>();
         UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)currentNumber + 1);
     }
 

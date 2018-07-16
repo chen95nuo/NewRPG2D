@@ -59,6 +59,19 @@ public class BagItemData
         return null;
     }
 
+    public List<ItemData> GetItems(int id)
+    {
+        List<ItemData> getItems = new List<ItemData>();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Id == id)
+            {
+                getItems.Add(items[i]);
+            }
+        }
+        return getItems;
+    }
+
 
     /// <summary>
     /// 添加物品的数据
@@ -94,10 +107,8 @@ public class BagItemData
     /// 删除背包物品的数据
     /// </summary>
     /// <param name="id"></param>
-    public void Remove(int id)
+    public void Remove(ItemData data)
     {
-        ItemData data = GetItem(id);
-
         if (data != null)
         {
             items.Remove(data);

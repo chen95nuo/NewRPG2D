@@ -21,6 +21,9 @@ public class ItemData
     private int number;//道具的数量
 
     [SerializeField]
+    private PropMeltingType melting;//可否熔炼
+
+    [SerializeField]
     private int quality;//道具品质
 
     [SerializeField]
@@ -31,6 +34,9 @@ public class ItemData
 
     [SerializeField]
     private int price;//物品价格
+
+    [SerializeField]
+    private int usePrice;//使用价格
 
     [SerializeField]
     private int addProperty;//增加体力
@@ -125,6 +131,10 @@ public class ItemData
         {
             return number;
         }
+        set
+        {
+            number = value;
+        }
     }
 
     public PropType PropType
@@ -143,13 +153,51 @@ public class ItemData
         }
     }
 
-    public ItemData() { }
-
-    public ItemData(int id)
+    public PropMeltingType Melting
     {
-        this.id = id;
+        get
+        {
+            return melting;
+        }
+
+        set
+        {
+            melting = value;
+        }
     }
 
+    public int UsePrice
+    {
+        get
+        {
+            return usePrice;
+        }
+
+        set
+        {
+            usePrice = value;
+        }
+    }
+
+    public RawMaterial[] RawMaterial
+    {
+        get
+        {
+            return rawMaterial;
+        }
+
+        set
+        {
+            rawMaterial = value;
+        }
+    }
+
+    public ItemData() { }
+
+    public ItemData(int number)
+    {
+        this.number = number;
+    }
     public ItemData(int id, string sprite)
     {
         this.id = id;
@@ -161,6 +209,7 @@ public class ItemData
         this.spriteName = sprite;
         this.itemType = type;
     }
+
 }
 
 public class RawMaterial
