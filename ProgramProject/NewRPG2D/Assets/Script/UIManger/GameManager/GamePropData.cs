@@ -5,24 +5,22 @@ using System;
 using System.IO;
 using System.Text;
 
+public class GamePropData  {
 
-public class BagItemData
-{
-
-    private static BagItemData instance;
-    public static BagItemData Instance
+    private static GamePropData instance;
+    public static GamePropData Instance
     {
         get
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagItemsData.txt", Encoding.UTF8);
+                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/library/ItemsData.txt", Encoding.UTF8);
 
                 try
                 {
                     string json = sr.ReadToEnd();
 
-                    instance = JsonUtility.FromJson<BagItemData>(json);
+                    instance = JsonUtility.FromJson<GamePropData>(json);
 
                     if (instance.items == null)
                     {
@@ -40,7 +38,7 @@ public class BagItemData
         }
     }
 
-    public List<ItemData> items;//背包中的道具
+    public List<ItemData> items;//库中的道具
 
     /// <summary>
     /// 查找道具的数据
@@ -123,7 +121,7 @@ public class BagItemData
     /// </summary>
     public void SaveData()
     {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/BagItemsData.txt", false, Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/library/ItemsData.txt", false, Encoding.UTF8);
 
         try
         {

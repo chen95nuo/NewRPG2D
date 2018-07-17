@@ -193,27 +193,37 @@ public class ItemData
     }
 
     public ItemData() { }
-
-    public ItemData(int number)
+    public ItemData(ItemType type)
     {
-        this.number = number;
-    }
-    public ItemData(int id, string sprite)
-    {
-        this.id = id;
-        this.spriteName = sprite;
-    }
-    public ItemData(int id, string sprite, ItemType type)
-    {
-        this.id = id;
-        this.spriteName = sprite;
         this.itemType = type;
+
     }
 
+    public ItemData(ItemData data)
+    {
+        this.usePrice = data.usePrice;
+        this.spriteName = data.spriteName;
+        this.rawMaterial = data.rawMaterial;
+        this.quality = data.quality;
+        this.price = data.price;
+        this.number = data.number;
+        this.name = data.name;
+        this.melting = data.melting;
+        this.itemType = data.itemType;
+        this.id = data.id;
+        this.getPlace = data.getPlace;
+        this.describe = data.describe;
+        this.addProperty = data.addProperty;
+        this.addExp = data.addExp;
+        this.propType = data.propType;
+    }
 }
 
+[System.Serializable]
 public class RawMaterial
 {
-    ItemMaterialType materialType;
-    int number;
+    [SerializeField]
+    public ItemMaterialType materialType;
+    [SerializeField]
+    public int number;
 }

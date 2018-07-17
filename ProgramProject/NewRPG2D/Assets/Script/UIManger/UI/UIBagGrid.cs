@@ -64,10 +64,7 @@ public class UIBagGrid : MonoBehaviour
             chickButton.onClick.AddListener(ShowMaterialHouse);
             return;
         }
-        else if (itemType == ItemType.Prop && gridType == GridType.Use)
-        {
-            chickButton.onClick.AddListener(UseProp);
-        }
+
         else if (itemType == ItemType.Nothing)
         {
             UpdateItem(-1, ItemType.Nothing);
@@ -85,6 +82,11 @@ public class UIBagGrid : MonoBehaviour
         {
             TTUIPage.ShowPage<UIBagItemMessage>();
         }
+        else if (itemType == ItemType.Prop && gridType == GridType.Use)
+        {
+            UseProp();
+        }
+
     }
     public void ShowRolePage()
     {
@@ -100,13 +102,14 @@ public class UIBagGrid : MonoBehaviour
     }
     public void UseProp()
     {
-        if (propData.Number > 0)
+        if (itemType != ItemType.Nothing)
         {
-            propData.Number--;
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent, propData);
+            if (propData.Number > 0)
+            {
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent, propData);
+            }
+            TTUIPage.ClosePage<UIUseItemBagPage>();
         }
-        TTUIPage.ClosePage<UIUseItemBagPage>();
-
     }
 
 

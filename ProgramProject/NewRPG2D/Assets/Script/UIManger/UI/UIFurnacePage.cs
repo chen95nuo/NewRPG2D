@@ -16,14 +16,11 @@ public class UIFurnacePage : TTUIPage
     public override void Awake(GameObject go)
     {
         this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(PageBack);
-
-        AwakeInitialization();//初始化;
-
     }
 
-    public void AwakeInitialization()
+    public override void Refresh()
     {
-
+        this.gameObject.transform.Find("Tip").gameObject.SetActive(false);
     }
 
     public void PageBack()

@@ -53,8 +53,8 @@ public class UIUseItemBagPage : TTUIPage
     {
         updateBagItem.itemType = ItemType.Prop;
         this.updateBagItem.UpdateProp(melting);
+        itemSort = true;
         ItemSortEvent(ItemType.Prop);
-        itemSort = false;
         //itemSortEvent();
     }
 
@@ -83,6 +83,7 @@ public class UIUseItemBagPage : TTUIPage
             case ItemType.Egg:
                 break;
             case ItemType.Prop:
+                updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare((int)x.itemType, (int)y.itemType));
                 if (itemSort)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
                 else

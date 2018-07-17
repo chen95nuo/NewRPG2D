@@ -12,7 +12,10 @@ public class FurnaceData
     private int time;//时间
 
     [SerializeField]
-    private ItemData[] material = new ItemData[4];//材料
+    private ItemData[] material;//材料
+
+    [SerializeField]
+    private FurnacePopUpMaterial[] popPoint;//气泡信息
 
     public int Id
     {
@@ -43,11 +46,35 @@ public class FurnaceData
         }
     }
 
+    public FurnacePopUpMaterial[] PopPoint
+    {
+        get
+        {
+            return popPoint;
+        }
+
+        set
+        {
+            popPoint = value;
+        }
+    }
+
     public FurnaceData() { }
 
     public FurnaceData(int id)
     {
         this.id = id;
     }
+    public FurnaceData(ItemData[] material)
+    {
+        this.material = material;
+    }
 
+}
+
+public class FurnacePopUpMaterial
+{
+    public ItemMaterialType materialType;//材料类型
+    public int materialNumber;//材料数量
+    public int materialPoint;//材料位置
 }
