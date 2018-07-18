@@ -48,6 +48,13 @@ public enum PropType
     AllOn//能用也能卖
 }
 
+public enum FurnaceType
+{
+    Nothing,//无
+    Run,//运行中
+    End//结束
+}
+
 public enum PropMeltingType
 {
     isTrue,//可熔炼
@@ -60,7 +67,11 @@ public enum ItemMaterialType
     Iron,//铁
     Wood,//木头
     Leatherwear,//布料
-    Cloth//皮革
+    Cloth,//皮革
+    Magic,//魔法
+    Diamonds,//钻石
+    Stone,//石头
+    Rubber//橡胶
 }
 
 public enum UIEventDefineEnum

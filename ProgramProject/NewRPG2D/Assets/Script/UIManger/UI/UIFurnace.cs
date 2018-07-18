@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class UIFurnace : MonoBehaviour
 {
 
 
-    public DrawFurnaceMenu[] furnaces;
+    public DrawFurnaceMenu[] furnacesMenu;
 
     public Button addFurnace;
     public Button[] popUp;
@@ -16,9 +17,12 @@ public class UIFurnace : MonoBehaviour
     public Text time;
     public Slider timeSlider;
 
+    public GameObject typeStart;
     public Text goldCoin;
     public Text needTime;
     public Button start;
+
+    public Button typeEnd;
 
     public Button rawMaterial;
     public RawMaterials[] rawMaterials;
@@ -38,6 +42,7 @@ public class UIFurnace : MonoBehaviour
     private FurnaceTipType tipType;
 
     public UIFurnacePopUp furnacePopUp;
+    public FurnaceData temporaryData;
 
     private void Awake()
     {
@@ -45,19 +50,61 @@ public class UIFurnace : MonoBehaviour
 
         UIEventManager.instance.AddListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, UpdateFurnaceMenu);
     }
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceEvent, UpdateFurnaceMenu);
+    }
 
+    private void Update()
+    {
+        for (int i = 0; i < playerData.Furnace.Count; i++)
+        {
+            if (playerData.Furnace[i].FurnaceType == FurnaceType.Run)
+            {
+                TimeSpan sp = playerData.Furnace[i].EndTime.Subtract(SystemTime.insatnce.GetTime());
+                TimeSerialization(sp.Seconds, furnacesMenu[i].menuTime);
+                float index = (playerData.Furnace[i].NeedTime - sp.Seconds) / (float)playerData.Furnace[i].NeedTime;
+                furnacesMenu[i].menuSlider.value = index;
+                if (sp.Seconds <= 0)
+                {
+                    TimeSerialization(0, furnacesMenu[i].menuTime);
+                    playerData.Furnace[i].FurnaceType = FurnaceType.End;
+                }
+            }
+            else if (playerData.Furnace[i].FurnaceType == FurnaceType.End)
+            {
+                //进度条满值修改颜色
+                furnacesMenu[i].menuSlider.fillRect.GetComponent<Image>().color = Color.green;
+            }
+        }
+
+        if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.Run)
+        {
+            time.text = furnacesMenu[currentMenu].menuTime.text;
+            timeSlider.value = furnacesMenu[currentMenu].menuSlider.value;
+        }
+        else if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
+        {
+            //重新同步时间和进度条
+            timeSlider.value = timeSlider.maxValue;
+            time.text = furnacesMenu[currentMenu].menuTime.text;
+            //进度条满值修改颜色
+            timeSlider.fillRect.GetComponent<Image>().color = Color.green;
+            UpdateFurnace();
+        }
     }
 
     public void AwakeInitialization()
     {
-        for (int i = 0; i < furnaces.Length; i++)
+        temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
+
+        for (int i = 0; i < furnacesMenu.Length; i++)
         {
-            furnaces[i].menu.onClick.AddListener(ChickMenu);
+            furnacesMenu[i].menu.onClick.AddListener(ChickMenu);
         }
 
         TipGO.SetActive(false);
@@ -65,6 +112,7 @@ public class UIFurnace : MonoBehaviour
         start.onClick.AddListener(RunStart);
         isTrue.onClick.AddListener(TipTure);
         isFalse.onClick.AddListener(TipFalse);
+        typeEnd.onClick.AddListener(GetFurnaceItem);
 
         for (int i = 0; i < rawMaterials.Length; i++)
         {
@@ -81,76 +129,120 @@ public class UIFurnace : MonoBehaviour
         UpdateFurnace();
     }
     /// <summary>
-    /// 刷新熔炉Menu
+    /// 刷新熔炉菜单栏
     /// </summary>
     public void UpdateFurnaceMenu()
     {
-        if (playerData.Furnace.Count == furnaces.Length)
+        if (playerData.Furnace.Count == furnacesMenu.Length)
         {
             addFurnace.gameObject.SetActive(false);
         }
+
         addFurnace.onClick.AddListener(AddFurnace);
-        for (int i = 0; i < furnaces.Length; i++)
+
+        for (int i = 0; i < furnacesMenu.Length; i++)
         {
             if (i < playerData.Furnace.Count)
             {
-                furnaces[i].menu.gameObject.SetActive(true);
-                furnaces[i].menuNumber.text = (playerData.Furnace[i].Id + 1).ToString();
-                if (playerData.Furnace[i].Time == 0)
+                furnacesMenu[i].menu.gameObject.SetActive(true);
+                furnacesMenu[i].menuNumber.text = (playerData.Furnace[i].Id + 1).ToString();
+
+                switch (playerData.Furnace[i].FurnaceType)
                 {
-                    furnaces[i].menuNull.SetActive(true);
-                    furnaces[i].something.SetActive(false);
-                }
-                else
-                {
-                    furnaces[i].something.SetActive(true);
-                    furnaces[i].menuNull.SetActive(false);
-                    furnaces[i].menuTime.text = playerData.Furnace[i].Time.ToString();
+                    case FurnaceType.Nothing:
+                        furnacesMenu[i].menuNull.SetActive(true);
+                        furnacesMenu[i].something.SetActive(false);
+                        break;
+                    case FurnaceType.Run:
+                        furnacesMenu[i].something.SetActive(true);
+                        furnacesMenu[i].menuNull.SetActive(false);
+                        furnacesMenu[i].menuTime.text = playerData.Furnace[i].NeedTime.ToString();
+                        //Silder
+                        break;
+                    case FurnaceType.End:
+                        break;
+                    default:
+                        break;
                 }
             }
             else
             {
-                furnaces[i].menu.gameObject.SetActive(false);
+                furnacesMenu[i].menu.gameObject.SetActive(false);
             }
-
         }
-
     }
-
+    /// <summary>
+    /// 更新炉子内容 如开始按钮 获取按钮 时间 进度条
+    /// </summary>
     public void UpdateFurnace()
     {
-        for (int i = 0; i < rawMaterials.Length; i++)
+        //如果当前熔炉正在运行 或 运行完毕 
+        if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.Run || playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
         {
-            rawMaterials[i].propQuality.gameObject.SetActive(false);
-            rawMaterials[i].noPorp.gameObject.SetActive(true);
+            //刷新熔炉里的四个格子 获取格子中的物品
+            for (int i = 0; i < rawMaterials.Length; i++)
+            {
+                rawMaterials[i].noPorp.gameObject.SetActive(false);
+                rawMaterials[i].propQuality.gameObject.SetActive(true);
+                rawMaterials[i].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + playerData.Furnace[currentMenu].Material[i].SpriteName);
+                rawMaterials[i].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + playerData.Furnace[currentMenu].Material[i].Quality);
+            }
+            switch (playerData.Furnace[currentMenu].FurnaceType)
+            {
+                case FurnaceType.Run:
+                    typeTime.SetActive(true);
+                    typeStart.SetActive(false);
+                    typeEnd.gameObject.SetActive(false);
+                    break;
+                case FurnaceType.End:
+                    typeTime.SetActive(false);
+                    typeStart.SetActive(false);
+                    typeEnd.gameObject.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
+
+            furnacePopUp.UpdatePopUp(playerData.Furnace[currentMenu]);
         }
-        ChickGoldCoin();
+        //如当前熔炉未运行 则
+        else
+        {
+            for (int i = 0; i < rawMaterials.Length; i++)
+            {
+                rawMaterials[i].propQuality.gameObject.SetActive(false);
+                rawMaterials[i].noPorp.gameObject.SetActive(true);
+            }
+            typeTime.SetActive(false);
+            typeStart.SetActive(true);
+            typeEnd.gameObject.SetActive(false);
+            ChickGoldCoin();
+            furnacePopUp.UpdatePopUp(temporaryData);
+            furnacePopUp.Restart();
+        }
         ChickMaterial();
-        furnacePopUp.Restart();
-        furnacePopUp.UpdatePopUp(playerData.Furnace[currentMenu]);
     }
 
     public void ChickMenu()
     {
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        for (int i = 0; i < furnaces.Length; i++)
+        for (int i = 0; i < furnacesMenu.Length; i++)
         {
-            furnaces[i].menu.interactable = true;
-            if (go == furnaces[i].menu.gameObject && go != furnaces[currentMenu].menu.gameObject)
+            furnacesMenu[i].menu.interactable = true;
+            if (go == furnacesMenu[i].menu.gameObject && go != furnacesMenu[currentMenu].menu.gameObject)
             {
                 //如果当前选择的熔炉不是正在使用的熔炉,如果上面没有材料,那么清空材料列表
                 Debug.Log("切换熔炉");
+                temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
                 ChickMaterial();
-                if (playerData.Furnace[i].Material == null)
-                {
-                    playerData.Furnace[i].Material = new ItemData[4];
-                }
                 RemoveMaterial();
                 currentMenu = i;
-                furnaces[i].menu.interactable = false;
+                furnacesMenu[i].menu.interactable = false;
+                UpdateFurnace();
             }
         }
-        furnacePopUp.UpdatePopUp(playerData.Furnace[currentMenu]);
+        //Debug.Log("非运行中刷新气泡");
+        //furnacePopUp.UpdatePopUp(temporaryData);
     }
 
     public void ChickButton()
@@ -170,11 +262,11 @@ public class UIFurnace : MonoBehaviour
     public void ChickMaterial()
     {
         int index = 0;
-        for (int i = 0; i < playerData.Furnace[currentMenu].Material.Length; i++)
+        for (int i = 0; i < temporaryData.Material.Length; i++)
         {
-            if (playerData.Furnace[currentMenu].Material[i] != null)
+            if (temporaryData.Material[i] != null)
             {
-                if (playerData.Furnace[currentMenu].Material[i].ItemType != ItemType.Nothing)
+                if (temporaryData.Material[i].ItemType != ItemType.Nothing)
                 {
                     index++;
                 }
@@ -189,22 +281,17 @@ public class UIFurnace : MonoBehaviour
             }
         }
     }
-    public void RunStart()
-    {
-
-    }
 
     public void ChickGoldCoin()
     {
         chickCoin = 0;
         chickTime = 0;
-
-        for (int i = 0; i < playerData.Furnace[currentMenu].Material.Length; i++)
+        for (int i = 0; i < temporaryData.Material.Length; i++)
         {
-            if (playerData.Furnace[currentMenu].Material[i] != null)
+            if (temporaryData.Material[i] != null)
             {
-                chickCoin += playerData.Furnace[currentMenu].Material[i].UsePrice;
-                chickTime += (playerData.Furnace[currentMenu].Material[i].Quality);
+                chickCoin += temporaryData.Material[i].UsePrice;
+                chickTime += (temporaryData.Material[i].Quality);
             }
         }
         goldCoin.text = chickCoin.ToString();
@@ -226,11 +313,8 @@ public class UIFurnace : MonoBehaviour
     /// <param name="data">材料信息</param>
     public void AddMaterial(ItemData data)
     {
-        if (playerData.Furnace[currentMenu].Material.Length < 4)
-        {
-            playerData.Furnace[currentMenu].Material = new ItemData[4];
-        }
-        if (playerData.Furnace[currentMenu].Material[currentButton] == null || playerData.Furnace[currentMenu].Material[currentButton].ItemType == ItemType.Nothing)
+
+        if (temporaryData.Material[currentButton] == null || temporaryData.Material[currentButton].ItemType == ItemType.Nothing)
         {
             data.Number--;
             rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
@@ -239,7 +323,7 @@ public class UIFurnace : MonoBehaviour
             rawMaterials[currentButton].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
             ItemData newData = new ItemData(GamePropData.Instance.GetItem(data.Id));
             newData.Number = 1;
-            playerData.Furnace[currentMenu].Material[currentButton] = newData;
+            temporaryData.Material[currentButton] = newData;
         }
         else
         {
@@ -247,7 +331,7 @@ public class UIFurnace : MonoBehaviour
         }
         ChickGoldCoin();
         ChickMaterial();
-        furnacePopUp.UpdatePopUp(playerData.Furnace[currentMenu]);
+        furnacePopUp.UpdatePopUp(temporaryData);
 
     }
 
@@ -256,7 +340,7 @@ public class UIFurnace : MonoBehaviour
     /// </summary>
     public void RemoveMaterial()
     {
-        ItemData[] items = playerData.Furnace[currentMenu].Material;
+        ItemData[] items = temporaryData.Material;
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null)
@@ -265,65 +349,57 @@ public class UIFurnace : MonoBehaviour
             }
             if (items[i].ItemType != ItemType.Nothing)//如果当前位置不是空的
             {
-                List<ItemData> data = BagItemData.Instance.GetItems(items[i].Id);
-                int index = 0;
-                //检查有多少个相同的道具
-                for (int j = 0; j < data.Count; j++)
+                //如果在运行 那么只是清除当前格子上的物品
+                if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.Run || playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
                 {
-                    //如果背包里有该相同道具，且数量不满99 则该组道具加一
-                    if (data[j].Number + 1 <= 99)
-                    {
-                        data[j].Number++;
-                        items[i] = new ItemData(ItemType.Nothing);
-                        break;
-                    }
-                    else
-                    {
-                        index++;
-                    }
+                    Debug.Log("清除格子");
                 }
-                //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
-                if (index >= data.Count)
+                //如果不在运行，那么返回改熔炉的道具
+                else
                 {
-                    index = 0;
-                    ItemData newData = new ItemData(items[i]);
-                    BagItemData.Instance.AddItem(newData);
-                    newData.Number = 1;
-                    //清空当前位置的道具
-                    items[i] = new ItemData(ItemType.Nothing);
+                    Debug.Log("返还道具");
+                    List<ItemData> data = BagItemData.Instance.GetItems(items[i].Id);
+                    int index = 0;
+                    //检查有多少个相同的道具
+                    for (int j = 0; j < data.Count; j++)
+                    {
+                        //如果背包里有该相同道具，且数量不满99 则该组道具加一
+                        if (data[j].Number + 1 <= 99)
+                        {
+                            data[j].Number++;
+                            items[i] = new ItemData(ItemType.Nothing);
+                            break;
+                        }
+                        else
+                        {
+                            index++;
+                        }
+                    }
+                    //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
+                    if (index >= data.Count)
+                    {
+                        index = 0;
+                        ItemData newData = new ItemData(items[i]);
+                        BagItemData.Instance.AddItem(newData);
+                        newData.Number = 1;
+                        //清空当前位置的道具
+                        items[i] = new ItemData(ItemType.Nothing);
+                    }
                 }
             }
         }
-        UpdateFurnace();
+    }
+
+    public void RunStart()
+    {
+        tipType = FurnaceTipType.UseFurnace;
+        TipType();
     }
 
     public void AddFurnace()
     {
         tipType = FurnaceTipType.addFurnace;
         TipType();
-    }
-
-    public void TipTure()
-    {
-        switch (tipType)
-        {
-            case FurnaceTipType.addFurnace:
-                playerData.AddGlodCoin -= (2000 * playerData.Furnace.Count);
-                playerData.Furnace.Add(new FurnaceData(playerData.Furnace.Count));
-                UpdateFurnaceMenu();
-                break;
-            case FurnaceTipType.UseFurnace:
-                playerData.AddGlodCoin -= chickCoin;
-                break;
-            default:
-                break;
-        }
-        TipGO.SetActive(false);
-    }
-    public void TipFalse()
-    {
-
-        TipGO.SetActive(false);
     }
 
     public void TipType()
@@ -335,19 +411,67 @@ public class UIFurnace : MonoBehaviour
                 Tip.text = "是否花费 " + (2000 * playerData.Furnace.Count) + " 金币开启新的熔炉";
                 break;
             case FurnaceTipType.UseFurnace:
+                TipGO.SetActive(true);
+                Tip.text = "是否使用 " + chickCoin + " 金币开始熔炼";
                 break;
             default:
                 break;
         }
     }
 
+    public void TipTure()
+    {
+        switch (tipType)
+        {
+            case FurnaceTipType.addFurnace:
+                playerData.AddGlodCoin -= (2000 * playerData.Furnace.Count);
+                playerData.Furnace.Add(new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]));
+                UpdateFurnaceMenu();
+                break;
+            case FurnaceTipType.UseFurnace:
+                playerData.AddGlodCoin -= chickCoin;
+                //开启熔炼
+                StartFurnace();
+                break;
+            default:
+                break;
+        }
+        TipGO.SetActive(false);
+    }
+    public void TipFalse()
+    {
+        TipGO.SetActive(false);
+    }
 
+    /// <summary>
+    /// 开始熔炼
+    /// </summary>
+    public void StartFurnace()
+    {
+        //保存气泡的位置
+        furnacePopUp.SavePopUpPoint(temporaryData);
+        //记录当前时间和结束时间
+        temporaryData.StartTime = SystemTime.insatnce.GetTime();
+        temporaryData.EndTime = SystemTime.insatnce.GetTime().AddSeconds(chickTime);
+        //将当前信息赋予改熔炉数据
+        playerData.Furnace[currentMenu] = new FurnaceData(temporaryData);
+        temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
+        //当前熔炉开始运行
+        playerData.Furnace[currentMenu].FurnaceType = FurnaceType.Run;
+        UpdateFurnace();
+    }
 
+    /// <summary>
+    /// 获取熔炉内的装备
+    /// </summary>
+    public void GetFurnaceItem()
+    {
+        Debug.Log("获取装备");
+        for (int i = 0; i < playerData.Furnace[currentMenu].PopPoint.Length; i++)
+        {
 
-
-
-
-
+        }
+    }
 
 
 

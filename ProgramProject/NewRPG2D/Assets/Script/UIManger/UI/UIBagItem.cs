@@ -253,8 +253,6 @@ public class UIBagItem : MonoBehaviour
         {
             if (number > grids.Count)
             {
-                Debug.Log("number > grids.Count");
-                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
                 int data = number - grids.Count;
                 for (int i = 0; i < data; i++)
                 {
@@ -262,13 +260,9 @@ public class UIBagItem : MonoBehaviour
                     grids.Add(gridsSpare[0]);
                     gridsSpare.Remove(gridsSpare[0]);
                 }
-                Debug.Log("OVER");
-                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
             }
             else
             {
-                Debug.Log("else");
-                Debug.Log("Number : " + number + "   GridsCount" + grids.Count);
             }
         }
     }

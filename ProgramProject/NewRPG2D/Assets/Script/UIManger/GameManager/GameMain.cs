@@ -21,6 +21,8 @@ public class GameMain : MonoBehaviour
 
     private void OnDestroy()
     {
+        GameComposedTableData.Instance.items.Add(new ComposedTableData());
+        GameComposedTableData.Instance.SaveData();
         UIEventManager.instance.RemoveAllListener();
     }
 

@@ -8,8 +8,8 @@ public class SystemTime : MonoBehaviour
     public static SystemTime insatnce = null;
 
 
-    public DateTime startTime;
-    public float onlineTime;
+    private DateTime startTime;
+    private float onlineTime;
 
     private float currentTime;
 

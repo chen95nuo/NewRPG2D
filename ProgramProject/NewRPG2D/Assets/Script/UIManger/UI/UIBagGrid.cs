@@ -82,6 +82,10 @@ public class UIBagGrid : MonoBehaviour
         {
             TTUIPage.ShowPage<UIBagItemMessage>();
         }
+        else if (itemType == ItemType.Prop && gridType != GridType.Use)
+        {
+            TTUIPage.ShowPage<UIBagItemMessage>();
+        }
         else if (itemType == ItemType.Prop && gridType == GridType.Use)
         {
             UseProp();

@@ -29,6 +29,7 @@ public class UIFurnacePopUp : MonoBehaviour
 
     public void UpdatePopUp(FurnaceData data)
     {
+        //初始化熔炉
         if (furnaceData != null && furnaceData != data)
         {
             for (int i = 0; i < furnacePops.Length; i++)
@@ -37,19 +38,25 @@ public class UIFurnacePopUp : MonoBehaviour
                 furnacePops[i].PopUp.SetActive(false);
             }
         }
-
+        //初始化参数
         iron = wood = leatherwear = cloth = 0;
-        if (data.PopPoint != null)
+
+        //检查熔炉是否运行
+        if (data.FurnaceType == FurnaceType.Run || data.FurnaceType == FurnaceType.End)
         {
             for (int i = 0; i < data.PopPoint.Length; i++)
             {
-                furnacePops[data.PopPoint[i].materialPoint].PopUp.SetActive(true);
-                furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.sprite = Resources.Load<Sprite>("UITexture/Icon/furnaceMaterial/" + data.PopPoint[i].materialType);
-                furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber = data.PopPoint[i].materialNumber;
-                furnacePops[data.PopPoint[i].materialPoint].FMaterialNumber.text = "+" + furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber;
+                if (data.PopPoint[i].materialType != ItemMaterialType.Nothing)
+                {
+                    furnacePops[data.PopPoint[i].materialPoint].PopUp.SetActive(true);
+                    furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.sprite = Resources.Load<Sprite>("UITexture/Icon/furnaceMaterial/" + (int)data.PopPoint[i].materialType);
+                    furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber = data.PopPoint[i].materialNumber;
+                    furnacePops[data.PopPoint[i].materialPoint].FMaterialNumber.text = "+" + furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber;
+                }
             }
             return;
         }
+        //没有运行则动态添加材料
         else
         {
             for (int i = 0; i < data.Material.Length; i++)//炉子里的总材料数
@@ -91,6 +98,7 @@ public class UIFurnacePopUp : MonoBehaviour
                 break;
         }
     }
+
     public void InstancePopUp(ItemMaterialType type, int number)
     {
         int index = 0;
@@ -119,7 +127,19 @@ public class UIFurnacePopUp : MonoBehaviour
             furnacePops[roll].PopUp.SetActive(true);
         }
     }
+
+    public void SavePopUpPoint(FurnaceData data)
+    {
+        for (int i = 0; i < data.PopPoint.Length; i++)
+        {
+            data.PopPoint[i] = new FurnacePopUpMaterial();
+            data.PopPoint[i].materialNumber = furnacePops[i].fMaterialNumber;
+            data.PopPoint[i].materialPoint = i;
+            data.PopPoint[i].materialType = furnacePops[i].MType;
+        }
+    }
 }
+
 [System.Serializable]
 public class FurnacePopUp
 {

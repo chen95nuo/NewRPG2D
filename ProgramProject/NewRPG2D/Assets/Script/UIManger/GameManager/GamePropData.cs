@@ -5,7 +5,8 @@ using System;
 using System.IO;
 using System.Text;
 
-public class GamePropData  {
+public class GamePropData
+{
 
     private static GamePropData instance;
     public static GamePropData Instance
@@ -55,65 +56,6 @@ public class GamePropData  {
             }
         }
         return null;
-    }
-
-    public List<ItemData> GetItems(int id)
-    {
-        List<ItemData> getItems = new List<ItemData>();
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i].Id == id)
-            {
-                getItems.Add(items[i]);
-            }
-        }
-        return getItems;
-    }
-
-
-    /// <summary>
-    /// 添加物品的数据
-    /// </summary>
-    /// <param name="data"></param>
-    public void AddItem(ItemData data)
-    {
-        items.Add(data);
-        //数据改变，调用事件
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
-    }
-
-    /// <summary>
-    /// 替换物品
-    /// </summary>
-    /// <param name="data">要插入的物品</param>
-    /// <param name="index">插入的位置</param>
-    public void ExchangeItem(ItemData data, int index)
-    {
-        //判断你要插入的位置是否有效
-        if (index < items.Count)
-        {
-            items[index] = data;
-
-            //数据改变，调用事件
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
-        }
-    }
-
-
-    /// <summary>
-    /// 删除背包物品的数据
-    /// </summary>
-    /// <param name="id"></param>
-    public void Remove(ItemData data)
-    {
-        if (data != null)
-        {
-            items.Remove(data);
-
-            //数据改变，调用事件
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
-        }
-
     }
 
     /// <summary>
