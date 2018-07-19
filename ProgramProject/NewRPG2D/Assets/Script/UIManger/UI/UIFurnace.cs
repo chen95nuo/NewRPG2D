@@ -41,6 +41,11 @@ public class UIFurnace : MonoBehaviour
     public Text Tip;
     private FurnaceTipType tipType;
 
+    public GameObject equipTipGO;
+    public UIBagGrid equipGrid;
+    public Button equipIsTrue;
+    public Text equipTip;
+
     public UIFurnacePopUp furnacePopUp;
     public FurnaceData temporaryData;
 
@@ -50,13 +55,13 @@ public class UIFurnace : MonoBehaviour
 
         UIEventManager.instance.AddListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
-        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, UpdateFurnaceMenu);
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
-        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceEvent, UpdateFurnaceMenu);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
 
     private void Update()
@@ -65,7 +70,7 @@ public class UIFurnace : MonoBehaviour
         {
             if (playerData.Furnace[i].FurnaceType == FurnaceType.Run)
             {
-                TimeSpan sp = playerData.Furnace[i].EndTime.Subtract(SystemTime.insatnce.GetTime());
+                TimeSpan sp = DateTime.FromFileTime(playerData.Furnace[i].EndTime).Subtract(SystemTime.insatnce.GetTime());
                 TimeSerialization(sp.Seconds, furnacesMenu[i].menuTime);
                 float index = (playerData.Furnace[i].NeedTime - sp.Seconds) / (float)playerData.Furnace[i].NeedTime;
                 furnacesMenu[i].menuSlider.value = index;
@@ -73,7 +78,12 @@ public class UIFurnace : MonoBehaviour
                 {
                     TimeSerialization(0, furnacesMenu[i].menuTime);
                     playerData.Furnace[i].FurnaceType = FurnaceType.End;
+                    if (currentMenu == i)
+                    {
+                        UpdateFurnace();
+                    }
                 }
+                furnacesMenu[i].menuSlider.fillRect.GetComponent<Image>().color = Color.white;
             }
             else if (playerData.Furnace[i].FurnaceType == FurnaceType.End)
             {
@@ -86,6 +96,7 @@ public class UIFurnace : MonoBehaviour
         {
             time.text = furnacesMenu[currentMenu].menuTime.text;
             timeSlider.value = furnacesMenu[currentMenu].menuSlider.value;
+            timeSlider.fillRect.GetComponent<Image>().color = Color.white;
         }
         else if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
         {
@@ -94,7 +105,6 @@ public class UIFurnace : MonoBehaviour
             time.text = furnacesMenu[currentMenu].menuTime.text;
             //进度条满值修改颜色
             timeSlider.fillRect.GetComponent<Image>().color = Color.green;
-            UpdateFurnace();
         }
     }
 
@@ -108,11 +118,13 @@ public class UIFurnace : MonoBehaviour
         }
 
         TipGO.SetActive(false);
+        equipTipGO.SetActive(false);
         start.interactable = false;
         start.onClick.AddListener(RunStart);
         isTrue.onClick.AddListener(TipTure);
         isFalse.onClick.AddListener(TipFalse);
         typeEnd.onClick.AddListener(GetFurnaceItem);
+        equipIsTrue.onClick.AddListener(TipTure);
 
         for (int i = 0; i < rawMaterials.Length; i++)
         {
@@ -184,6 +196,7 @@ public class UIFurnace : MonoBehaviour
             {
                 rawMaterials[i].noPorp.gameObject.SetActive(false);
                 rawMaterials[i].propQuality.gameObject.SetActive(true);
+                rawMaterials[i].btn_rawMaterials.interactable = false;
                 rawMaterials[i].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + playerData.Furnace[currentMenu].Material[i].SpriteName);
                 rawMaterials[i].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + playerData.Furnace[currentMenu].Material[i].Quality);
             }
@@ -212,6 +225,7 @@ public class UIFurnace : MonoBehaviour
             {
                 rawMaterials[i].propQuality.gameObject.SetActive(false);
                 rawMaterials[i].noPorp.gameObject.SetActive(true);
+                rawMaterials[i].btn_rawMaterials.interactable = true;
             }
             typeTime.SetActive(false);
             typeStart.SetActive(true);
@@ -222,7 +236,7 @@ public class UIFurnace : MonoBehaviour
         }
         ChickMaterial();
     }
-
+    //检查菜单
     public void ChickMenu()
     {
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -233,18 +247,19 @@ public class UIFurnace : MonoBehaviour
             {
                 //如果当前选择的熔炉不是正在使用的熔炉,如果上面没有材料,那么清空材料列表
                 Debug.Log("切换熔炉");
-                temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
-                ChickMaterial();
                 RemoveMaterial();
+                //先将材料返还在重置数据
+                temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
+
+                ChickMaterial();
                 currentMenu = i;
                 furnacesMenu[i].menu.interactable = false;
+
                 UpdateFurnace();
             }
         }
-        //Debug.Log("非运行中刷新气泡");
-        //furnacePopUp.UpdatePopUp(temporaryData);
     }
-
+    //检查材料栏
     public void ChickButton()
     {
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -316,6 +331,7 @@ public class UIFurnace : MonoBehaviour
 
         if (temporaryData.Material[currentButton] == null || temporaryData.Material[currentButton].ItemType == ItemType.Nothing)
         {
+            Debug.Log("该栏物品为空,直接添加");
             data.Number--;
             rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
             rawMaterials[currentButton].propQuality.gameObject.SetActive(true);
@@ -327,7 +343,43 @@ public class UIFurnace : MonoBehaviour
         }
         else
         {
-
+            //如果该材料栏已有物品 那么 将该物品返还背包 将当前点击的物品移动上来
+            Debug.Log("该栏有物品" + temporaryData.Material[currentButton].Name);
+            Debug.Log("切换物品,返还道具");
+            List<ItemData> Temp = BagItemData.Instance.GetItems(temporaryData.Material[currentButton].Id);
+            int index = 0;
+            //检查有多少个相同的道具
+            for (int j = 0; j < Temp.Count; j++)
+            {
+                //如果背包里有该相同道具，且数量不满99 则该组道具加一
+                if (Temp[j].Number + 1 <= 99)
+                {
+                    Temp[j].Number++;
+                    temporaryData.Material[currentButton] = new ItemData(ItemType.Nothing);
+                    break;
+                }
+                else
+                {
+                    index++;
+                }
+            }
+            //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
+            if (index >= Temp.Count)
+            {
+                index = 0;
+                ItemData newData = new ItemData(temporaryData.Material[currentButton]);
+                BagItemData.Instance.AddItem(newData);
+                newData.Number = 1;
+            }
+            //改变道具
+            data.Number--;
+            rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
+            rawMaterials[currentButton].propQuality.gameObject.SetActive(true);
+            rawMaterials[currentButton].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
+            rawMaterials[currentButton].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+            ItemData newData_1 = new ItemData(GamePropData.Instance.GetItem(data.Id));
+            newData_1.Number = 1;
+            temporaryData.Material[currentButton] = newData_1;
         }
         ChickGoldCoin();
         ChickMaterial();
@@ -341,23 +393,23 @@ public class UIFurnace : MonoBehaviour
     public void RemoveMaterial()
     {
         ItemData[] items = temporaryData.Material;
+        Debug.Log(items.Length);
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null)
             {
-                break;
+                continue;
             }
+            Debug.Log(items[i].ItemType);
             if (items[i].ItemType != ItemType.Nothing)//如果当前位置不是空的
             {
                 //如果在运行 那么只是清除当前格子上的物品
                 if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.Run || playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
                 {
-                    Debug.Log("清除格子");
                 }
                 //如果不在运行，那么返回改熔炉的道具
                 else
                 {
-                    Debug.Log("返还道具");
                     List<ItemData> data = BagItemData.Instance.GetItems(items[i].Id);
                     int index = 0;
                     //检查有多少个相同的道具
@@ -385,7 +437,14 @@ public class UIFurnace : MonoBehaviour
                         //清空当前位置的道具
                         items[i] = new ItemData(ItemType.Nothing);
                     }
+                    //刷新熔炉材料栏
+                    UpdateFurnace();
+
                 }
+            }
+            else
+            {
+                Debug.Log(items[i].ItemType);
             }
         }
     }
@@ -401,42 +460,92 @@ public class UIFurnace : MonoBehaviour
         tipType = FurnaceTipType.addFurnace;
         TipType();
     }
-
+    //弹出提示框
     public void TipType()
     {
         switch (tipType)
         {
             case FurnaceTipType.addFurnace:
                 TipGO.SetActive(true);
-                Tip.text = "是否花费 " + (2000 * playerData.Furnace.Count) + " 金币开启新的熔炉";
+                if (playerData.GoldCoin - (2000 * playerData.Furnace.Count) >= 0)
+                {
+                    Tip.text = "<color=#FFFFFF>是否花费 " + (2000 * playerData.Furnace.Count) + " 金币开启新的熔炉</color>";
+                    isTrue.interactable = true;
+                }
+                else
+                {
+                    Tip.text = "<color=#FF0000>还需要" + ((2000 * playerData.Furnace.Count) - playerData.GoldCoin) + "金币才可使用</color>";
+                    isTrue.interactable = false;
+                }
                 break;
             case FurnaceTipType.UseFurnace:
                 TipGO.SetActive(true);
-                Tip.text = "是否使用 " + chickCoin + " 金币开始熔炼";
+                if (playerData.GoldCoin - chickCoin >= 0)
+                {
+                    Tip.text = "<color=#FFFFFF>是否花费 " + chickCoin + " 金币开始熔炼</color>";
+                    isTrue.interactable = true;
+                }
+                else
+                {
+                    Tip.text = "<color=#FF0000>还需要" + (chickCoin - playerData.GoldCoin) + "金币才可使用</color>";
+                    isTrue.interactable = false;
+                }
+                break;
+            case FurnaceTipType.getEquip:
+                Debug.Log("打开奖励面板");
+                equipTipGO.SetActive(true);
+                switch (equipGrid.equipData.Quality)
+                {
+                    case 1:
+                        equipTip.text = "恭喜获得" + "\"<color=#FFFFFF>" + equipGrid.equipData.Name + "</color>\"";
+                        break;
+                    case 2:
+                        equipTip.text = "恭喜获得" + "\"<color=#B1694E>" + equipGrid.equipData.Name + "</color>\"";
+                        break;
+                    case 3:
+                        equipTip.text = "恭喜获得" + "\"<color=#82BDC8>" + equipGrid.equipData.Name + "</color>\"";
+                        break;
+                    case 4:
+                        equipTip.text = "恭喜获得" + "\"<color=#FF7000>" + equipGrid.equipData.Name + "</color>\"";
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
         }
     }
-
+    //点击确认
     public void TipTure()
     {
         switch (tipType)
         {
             case FurnaceTipType.addFurnace:
-                playerData.AddGlodCoin -= (2000 * playerData.Furnace.Count);
-                playerData.Furnace.Add(new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]));
+                playerData.GoldCoin -= (2000 * playerData.Furnace.Count);
+                playerData.Furnace.Add(new FurnaceData(playerData.Furnace.Count, new ItemData[4], new FurnacePopUpMaterial[6]));
                 UpdateFurnaceMenu();
                 break;
             case FurnaceTipType.UseFurnace:
-                playerData.AddGlodCoin -= chickCoin;
+                playerData.GoldCoin -= chickCoin;
                 //开启熔炼
                 StartFurnace();
+                //更新道具栏
+                UpdateFurnace();
+
+                break;
+            case FurnaceTipType.getEquip:
+                //点击确认将装备添加到装备栏
+                BagEquipData.Instance.AddItem(equipGrid.equipData);
+                playerData.Furnace[currentMenu] = new FurnaceData(currentMenu, new ItemData[4], new FurnacePopUpMaterial[6]);
+                UpdateFurnace();
+                UpdateFurnaceMenu();
                 break;
             default:
                 break;
         }
         TipGO.SetActive(false);
+        equipTipGO.SetActive(false);
     }
     public void TipFalse()
     {
@@ -451,13 +560,14 @@ public class UIFurnace : MonoBehaviour
         //保存气泡的位置
         furnacePopUp.SavePopUpPoint(temporaryData);
         //记录当前时间和结束时间
-        temporaryData.StartTime = SystemTime.insatnce.GetTime();
-        temporaryData.EndTime = SystemTime.insatnce.GetTime().AddSeconds(chickTime);
+        temporaryData.StartTime = SystemTime.insatnce.GetTime().ToFileTime();
+        temporaryData.EndTime = SystemTime.insatnce.GetTime().AddSeconds(chickTime).ToFileTime();
         //将当前信息赋予改熔炉数据
-        playerData.Furnace[currentMenu] = new FurnaceData(temporaryData);
+        playerData.Furnace[currentMenu] = new FurnaceData(currentMenu, temporaryData);
         temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
         //当前熔炉开始运行
         playerData.Furnace[currentMenu].FurnaceType = FurnaceType.Run;
+
         UpdateFurnace();
     }
 
@@ -466,10 +576,94 @@ public class UIFurnace : MonoBehaviour
     /// </summary>
     public void GetFurnaceItem()
     {
-        Debug.Log("获取装备");
+        int[] data = new int[9];
+        //匹配材料
         for (int i = 0; i < playerData.Furnace[currentMenu].PopPoint.Length; i++)
         {
-
+            switch (playerData.Furnace[currentMenu].PopPoint[i].materialType)
+            {
+                case ItemMaterialType.Nothing:
+                    data[0] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Iron:
+                    data[1] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Wood:
+                    data[2] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Leatherwear:
+                    data[3] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Cloth:
+                    data[4] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Magic:
+                    data[5] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Diamonds:
+                    data[6] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Stone:
+                    data[7] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                case ItemMaterialType.Rubber:
+                    data[8] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
+                    break;
+                default:
+                    break;
+            }
+        }
+        int[] data_2 = new int[4];
+        //匹配必要道具
+        for (int i = 0; i < playerData.Furnace[currentMenu].Material.Length; i++)
+        {
+            data_2[i] = playerData.Furnace[currentMenu].Material[i].Id;
+        }
+        List<ComposedTableData> tempData = GameComposedTableData.Instance.GetTables(new ComposedTableData(data, data_2));
+        Debug.Log(tempData.Count);
+        //匹配权重
+        if (tempData.Count > 0)
+        {
+            int index = 0;
+            for (int i = 0; i < tempData.Count; i++)
+            {
+                index += tempData[i].Weight;
+            }
+            int roll = UnityEngine.Random.Range(0, 100);
+            float[] temp = new float[tempData.Count];
+            //记录装备总权重
+            for (int i = 0; i < tempData.Count; i++)
+            {
+                float temp_2 = (tempData[i].Weight / (float)index) * 100;
+                if (i <= 0)
+                {
+                    temp[i] = temp_2;
+                }
+                else
+                {
+                    temp[i] = temp_2 + temp[i - 1];
+                }
+            }
+            //获取达标的权重
+            for (int i = 0; i < temp.Length; i++)
+            {
+                //得出装备
+                if (temp[i] > roll)
+                {
+                    //打开奖励面板 将该物品添加进背包
+                    equipGrid.UpdateItem(GameEquipData.Instance.GetItem(tempData[i].Id));
+                    tipType = FurnaceTipType.getEquip;
+                    TipType();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            //打开奖励面板 将该物品添加进背包
+            equipGrid.UpdateItem(GameEquipData.Instance.GetItem(1));
+            tipType = FurnaceTipType.getEquip;
+            TipType();
         }
     }
 
@@ -490,7 +684,8 @@ public class UIFurnace : MonoBehaviour
 public enum FurnaceTipType
 {
     addFurnace,
-    UseFurnace
+    UseFurnace,
+    getEquip
 }
 
 [System.Serializable]

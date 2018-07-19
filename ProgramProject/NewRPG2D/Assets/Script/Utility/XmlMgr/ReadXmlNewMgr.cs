@@ -40,7 +40,7 @@ namespace Assets.Script.Utility
             {
                 GameLogic.Instance.StartCoroutine(LoadConfig((XmlName)i));
             }
-         
+
         }
 
         private XmlNode LoadConfigNode;

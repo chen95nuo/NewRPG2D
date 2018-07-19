@@ -93,6 +93,8 @@ public class UIBagItem : MonoBehaviour
             if (BagItemData.Instance.items[i].Number == 0)
             {
                 BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+                //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
+                grids[i].UpdateItem(BagItemData.Instance.items[i]);
             }
             else
                 grids[i].UpdateItem(BagItemData.Instance.items[i]);
@@ -110,6 +112,12 @@ public class UIBagItem : MonoBehaviour
             if (BagItemData.Instance.items[i].Number == 0)
             {
                 BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+                //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
+                if (BagItemData.Instance.items[i].Melting == melting)
+                {
+                    grids[index].UpdateItem(BagItemData.Instance.items[i]);
+                    index++;
+                }
             }
             else if (BagItemData.Instance.items[i].Melting == melting)
             {
@@ -131,6 +139,12 @@ public class UIBagItem : MonoBehaviour
             if (BagItemData.Instance.items[i].Number == 0)
             {
                 BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
+                //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
+                if (BagItemData.Instance.items[i].PropType == propType || BagItemData.Instance.items[i].PropType == propType1)
+                {
+                    grids[index].UpdateItem(BagItemData.Instance.items[i]);
+                    index++;
+                }
             }
             else if (BagItemData.Instance.items[i].PropType == propType || BagItemData.Instance.items[i].PropType == propType1)
             {

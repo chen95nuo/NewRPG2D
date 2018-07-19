@@ -27,25 +27,13 @@ public class PlayerData
     private int diamonds;//钻石
 
     [SerializeField]
-    private int physical;//体力
+    private int fatigue;//体力
 
     [SerializeField]
     private List<FurnaceData> furnace;//熔炉
 
     [SerializeField]
     private int mapNumber;//玩家所在地图序号
-
-    private int addLevel;//添加等级
-
-    private int addExp;//添加经验
-
-    private int addGlodCoin;//添加金币
-
-    private int addDiamonds;//添加钻石
-
-    private int addPhysical;//添加体力
-
-    private int savePlayerPoint;//记录玩家地图信息
 
     public int Id
     {
@@ -85,6 +73,17 @@ public class PlayerData
         {
             return exp;
         }
+        set
+        {
+            float temp = exp;//用临时变量去存储之前的值
+
+            exp = value;
+
+            if (temp != value)//之前的值跟现在的值进行比较
+            {
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerExp);
+            }
+        }
     }
 
     public int GoldCoin
@@ -92,6 +91,17 @@ public class PlayerData
         get
         {
             return goldCoin;
+        }
+        set
+        {
+            int temp = goldCoin;//用临时变量去存储之前的值
+
+            goldCoin = value;
+
+            if (temp != value)//之前的值跟现在的值进行比较
+            {
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerGoldCoin);
+            }
         }
     }
 
@@ -101,13 +111,36 @@ public class PlayerData
         {
             return diamonds;
         }
+        set
+        {
+            int temp = diamonds;//用临时变量去存储之前的值
+
+            diamonds = value;
+
+            if (temp != value)//之前的值跟现在的值进行比较
+            {
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerDiamonds);
+            }
+        }
     }
 
-    public int Physical
+    public int Fatigue
     {
         get
         {
-            return physical;
+            return fatigue;
+        }
+
+        set
+        {
+            int temp = fatigue;
+
+            fatigue = value;
+
+            if (fatigue != value)
+            {
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerFatigue);
+            }
         }
     }
 
@@ -117,101 +150,9 @@ public class PlayerData
         {
             return mapNumber;
         }
-    }
-
-    public int AddLevel
-    {
-        get
-        {
-            return addLevel;
-        }
-
         set
         {
-            if (level + value >= 0)
-            {
-                level += value;
-            }
-            else
-            {
-                Debug.Log("等级不足");
-            }
-        }
-    }
-
-    public int AddExp
-    {
-        set
-        {
-            if (exp + value >= 0)
-            {
-                exp += value;
-            }
-            else
-            {
-                Debug.Log("经验不足");
-            }
-        }
-    }
-
-    public int AddGlodCoin
-    {
-        get
-        {
-            return addGlodCoin;
-        }
-
-        set
-        {
-            if (goldCoin + value >= 0)
-                goldCoin += value;
-            else
-                Debug.Log("金币不足");
-        }
-    }
-
-    public int AddDiamonds
-    {
-        get
-        {
-            return addDiamonds;
-        }
-
-        set
-        {
-            if (diamonds + value >= 0)
-                diamonds += value;
-            else
-                Debug.Log("钻石不足");
-        }
-    }
-
-    public int AddPhysical
-    {
-        get
-        {
-            return addPhysical;
-        }
-
-        set
-        {
-            if (physical + value >= 0)
-                physical += value;
-            else
-                Debug.Log("体力不足");
-        }
-    }
-
-    public int SavePlayerPoint
-    {
-        get
-        {
-            return savePlayerPoint;
-        }
-
-        set
-        {
-            savePlayerPoint = value;
+            mapNumber = value;
         }
     }
 

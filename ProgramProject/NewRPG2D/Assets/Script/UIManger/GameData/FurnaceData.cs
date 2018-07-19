@@ -13,10 +13,10 @@ public class FurnaceData
     private int needTime;//时间
 
     [SerializeField]
-    private DateTime startTime;//开始时间
+    private long startTime;//开始时间
 
     [SerializeField]
-    private DateTime endTime;//结束时间
+    private long endTime;//结束时间
 
     [SerializeField]
     private FurnaceType furnaceType = FurnaceType.Nothing;
@@ -39,13 +39,13 @@ public class FurnaceData
     {
         get
         {
-            TimeSpan sp = endTime.Subtract(startTime);
+            TimeSpan sp = DateTime.FromFileTime(endTime).Subtract(DateTime.FromFileTime(startTime));
             needTime = sp.Seconds;
             return needTime;
         }
     }
 
-    public DateTime StartTime
+    public long StartTime
     {
         get
         {
@@ -64,7 +64,7 @@ public class FurnaceData
         }
     }
 
-    public DateTime EndTime
+    public long EndTime
     {
         get
         {
@@ -99,7 +99,7 @@ public class FurnaceData
             else
             {
                 furnaceType = value;
-                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateFurnaceEvent);
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateFurnaceMenuEvent);
             }
         }
     }
@@ -135,9 +135,15 @@ public class FurnaceData
         this.material = material;
         this.popPoint = popPoint;
     }
-    public FurnaceData(FurnaceData data)
+    public FurnaceData(int id, ItemData[] material, FurnacePopUpMaterial[] popPoint)
     {
-        this.id = data.id;
+        this.id = id;
+        this.material = material;
+        this.popPoint = popPoint;
+    }
+    public FurnaceData(int id, FurnaceData data)
+    {
+        this.id = id;
         this.needTime = data.needTime;
         this.startTime = data.startTime;
         this.endTime = data.endTime;
@@ -146,10 +152,13 @@ public class FurnaceData
         this.popPoint = data.popPoint;
     }
 }
-
+[System.Serializable]
 public class FurnacePopUpMaterial
 {
+    [SerializeField]
     public ItemMaterialType materialType;//材料类型
+    [SerializeField]
     public int materialNumber;//材料数量
+    [SerializeField]
     public int materialPoint;//材料位置
 }

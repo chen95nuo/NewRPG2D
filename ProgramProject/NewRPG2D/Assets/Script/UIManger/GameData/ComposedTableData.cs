@@ -9,7 +9,7 @@ public class ComposedTableData
     private int id;//装备编号
 
     [SerializeField]
-    private int[] needMaterial = new int[6];//所需材料
+    private int[] needMaterial = new int[9];//所需材料
 
     [SerializeField]
     private int[] needProp;//所需道具
@@ -50,4 +50,9 @@ public class ComposedTableData
     }
 
     public ComposedTableData() { }
+    public ComposedTableData(int[] needMaterial, int[] needProp)
+    {
+        this.needMaterial = needMaterial;
+        this.needProp = needProp;
+    }
 }

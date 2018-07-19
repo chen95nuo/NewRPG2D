@@ -1,33 +1,173 @@
 ﻿{
-	"player": [{
-		"id": 0,
-		"name": "",
-		"playerSprite": "",
-		"level": 0,
-		"exp": 0.0,
-		"goldCoin": 10000,
-		"diamonds": 9999,
-		"physical": 0,
-		"furnace": [{
-			"id": 0,
-			"time": 0,
-			"material": [{
-				"name": "",
-				"id": 0,
-				"spriteName": "",
-				"number": 0,
-				"melting": 0,
-				"quality": 0,
-				"itemType": 0,
-				"propType": 0,
-				"price": 0,
-				"usePrice": 0,
-				"addProperty": 0,
-				"addExp": 0,
-				"getPlace": "",
-				"describe": ""
-			}]
-		}],
-		"mapNumber": 0
-	}]
+    "player": [
+        {
+            "id": 0,
+            "name": "",
+            "playerSprite": "",
+            "level": 0,
+            "exp": 0.0,
+            "goldCoin": 6400,
+            "diamonds": 9999,
+            "fatigue": 0,
+            "furnace": [
+                {
+                    "id": 0,
+                    "needTime": 0,
+                    "startTime": 0,
+                    "endTime": 0,
+                    "furnaceType": 0,
+                    "material": [
+                        {
+                            "name": "",
+                            "id": 0,
+                            "spriteName": "",
+                            "number": 0,
+                            "melting": 0,
+                            "quality": 0,
+                            "itemType": 0,
+                            "propType": 0,
+                            "price": 0,
+                            "usePrice": 0,
+                            "addProperty": 0,
+                            "addExp": 0,
+                            "rawMaterial": [],
+                            "getPlace": "",
+                            "describe": ""
+                        }
+                    ],
+                    "popPoint": []
+                },
+                {
+                    "id": 1,
+                    "needTime": 16,
+                    "startTime": 131764591086840536,
+                    "endTime": 131764591246840536,
+                    "furnaceType": 1,
+                    "material": [
+                        {
+                            "name": "测试皮革",
+                            "id": 4,
+                            "spriteName": "4",
+                            "number": 1,
+                            "melting": 0,
+                            "quality": 4,
+                            "itemType": 2,
+                            "propType": 1,
+                            "price": 100,
+                            "usePrice": 100,
+                            "addProperty": 0,
+                            "addExp": 0,
+                            "rawMaterial": [
+                                {
+                                    "materialType": 4,
+                                    "number": 10
+                                }
+                            ],
+                            "getPlace": "未知",
+                            "describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+                        },
+                        {
+                            "name": "测试皮革",
+                            "id": 4,
+                            "spriteName": "4",
+                            "number": 1,
+                            "melting": 0,
+                            "quality": 4,
+                            "itemType": 2,
+                            "propType": 1,
+                            "price": 100,
+                            "usePrice": 100,
+                            "addProperty": 0,
+                            "addExp": 0,
+                            "rawMaterial": [
+                                {
+                                    "materialType": 4,
+                                    "number": 10
+                                }
+                            ],
+                            "getPlace": "未知",
+                            "describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+                        },
+                        {
+                            "name": "测试皮革",
+                            "id": 4,
+                            "spriteName": "4",
+                            "number": 1,
+                            "melting": 0,
+                            "quality": 4,
+                            "itemType": 2,
+                            "propType": 1,
+                            "price": 100,
+                            "usePrice": 100,
+                            "addProperty": 0,
+                            "addExp": 0,
+                            "rawMaterial": [
+                                {
+                                    "materialType": 4,
+                                    "number": 10
+                                }
+                            ],
+                            "getPlace": "未知",
+                            "describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+                        },
+                        {
+                            "name": "测试皮革",
+                            "id": 4,
+                            "spriteName": "4",
+                            "number": 1,
+                            "melting": 0,
+                            "quality": 4,
+                            "itemType": 2,
+                            "propType": 1,
+                            "price": 100,
+                            "usePrice": 100,
+                            "addProperty": 0,
+                            "addExp": 0,
+                            "rawMaterial": [
+                                {
+                                    "materialType": 4,
+                                    "number": 10
+                                }
+                            ],
+                            "getPlace": "未知",
+                            "describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+                        }
+                    ],
+                    "popPoint": [
+                        {
+                            "materialType": 4,
+                            "materialNumber": 40,
+                            "materialPoint": 0
+                        },
+                        {
+                            "materialType": 0,
+                            "materialNumber": 0,
+                            "materialPoint": 1
+                        },
+                        {
+                            "materialType": 0,
+                            "materialNumber": 0,
+                            "materialPoint": 2
+                        },
+                        {
+                            "materialType": 0,
+                            "materialNumber": 0,
+                            "materialPoint": 3
+                        },
+                        {
+                            "materialType": 0,
+                            "materialNumber": 0,
+                            "materialPoint": 4
+                        },
+                        {
+                            "materialType": 0,
+                            "materialNumber": 0,
+                            "materialPoint": 5
+                        }
+                    ]
+                }
+            ],
+            "mapNumber": 0
+        }
+    ]
 }

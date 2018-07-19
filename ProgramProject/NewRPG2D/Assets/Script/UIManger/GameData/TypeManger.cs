@@ -82,6 +82,11 @@ public enum UIEventDefineEnum
     UpdateRolesEvent,
     UpdateMaterialEvent,
     UpdateFurnaceEvent,
+    UpdateFurnaceMenuEvent,
+    UpdatePlayerExp,
+    UpdatePlayerGoldCoin,
+    UpdatePlayerDiamonds,
+    UpdatePlayerFatigue,
     EventMax
 }
 

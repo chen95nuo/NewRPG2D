@@ -63,7 +63,7 @@ public class GameComposedTableData
             if (index >= items[i].NeedMaterial.Length)
             {
                 //如果必须道具不等于空 那么匹配必须道具
-                if (items[i].NeedProp != null)
+                if (items[i].NeedProp.Length > 0)
                 {
                     int index_2 = 0;
                     //循环当前公式所需的道具
@@ -79,8 +79,6 @@ public class GameComposedTableData
                             }
                         }
                     }
-                    Debug.Log("items[i].NeedProp.Length : " + items[i].NeedProp.Length);
-                    Debug.Log("index_2 : " + index_2);
                     //如果材料列表拥有需求道具 则添加该物品
                     if (index_2 >= items[i].NeedProp.Length)
                     {
