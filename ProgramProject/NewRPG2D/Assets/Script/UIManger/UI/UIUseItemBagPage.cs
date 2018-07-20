@@ -20,14 +20,14 @@ public class UIUseItemBagPage : TTUIPage
     public override void Awake(GameObject go)
     {
         //初始化
-        AwakeInitialization();
+        Init();
 
         UIEventManager.instance.AddListener<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, UpdateItem);
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, UpdateItem);
         UIEventManager.instance.AddListener<PropMeltingType>(UIEventDefineEnum.UpdatePropsEvent, UpdateItem);
     }
 
-    public void AwakeInitialization()
+    public void Init()
     {
         bagMenu = transform.Find("Menu/btn_menu").gameObject;
         updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();

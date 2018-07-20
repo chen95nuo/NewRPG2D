@@ -16,27 +16,14 @@ public class BagEggData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagEggData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.BagEggData];
+                instance = JsonUtility.FromJson<BagEggData>(json);
+                if (instance.eggs == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<BagEggData>(json);
-
-                    if (instance.eggs == null)
-                    {
-                        instance.eggs = new List<EggData>();
-                    }
+                    instance.eggs = new List<EggData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
-
-                //  instance = new BagEggData();
             }
+
             return instance;
         }
     }

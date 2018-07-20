@@ -22,13 +22,13 @@ public class UICardHouse : TTUIPage
         this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
         updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
         grid = transform.Find("ItemList/Viewport/Content/UIItem").GetComponent<UIBagGrid>();
-        AwakeInitialization();//初始化
+        Init();//初始化
 
 
     }
 
 
-    public void AwakeInitialization()
+    public void Init()
     {
         createMenu = new UIBagPage();
         roleMenu = transform.Find("MenuType/btn_type").gameObject;

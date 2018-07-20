@@ -15,24 +15,12 @@ public class BagEquipData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagEquipData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.BagEquipData];
+                instance = JsonUtility.FromJson<BagEquipData>(json);
+                if (instance.equips == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<BagEquipData>(json);
-
-                    if (instance.equips == null)
-                    {
-                        instance.equips = new List<EquipData>();
-                    }
+                    instance.equips = new List<EquipData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
             }
 
             return instance;

@@ -1,9 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
-using System.IO;
-using System.Text;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BagMenuData
 {
@@ -14,26 +10,14 @@ public class BagMenuData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagMenuData.txt", Encoding.UTF8);
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.BagMenuData];
+                instance = JsonUtility.FromJson<BagMenuData>(json);
+                if (instance.menu == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<BagMenuData>(json);
-
-                    if (instance.menu == null)
-                    {
-                        instance.menu = new List<MenuData>();
-                    }
+                    instance.menu = new List<MenuData>();
                 }
-                catch (System.Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
-
-                // instance = new BagMenuData();
             }
+
             return instance;
         }
     }

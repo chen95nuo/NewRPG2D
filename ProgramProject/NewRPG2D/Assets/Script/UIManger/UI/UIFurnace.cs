@@ -27,7 +27,7 @@ public class UIFurnace : MonoBehaviour
     public Button rawMaterial;
     public RawMaterials[] rawMaterials;
 
-    public PlayerData playerData;
+    private PlayerData playerData;
 
     private int currentMenu = 0;
     private int currentButton = 0;
@@ -49,9 +49,11 @@ public class UIFurnace : MonoBehaviour
     public UIFurnacePopUp furnacePopUp;
     public FurnaceData temporaryData;
 
+    private Image timeSliderImage;
+
     private void Awake()
     {
-        AwakeInitialization();//初始化
+        Init();//初始化
 
         UIEventManager.instance.AddListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
@@ -96,7 +98,7 @@ public class UIFurnace : MonoBehaviour
         {
             time.text = furnacesMenu[currentMenu].menuTime.text;
             timeSlider.value = furnacesMenu[currentMenu].menuSlider.value;
-            timeSlider.fillRect.GetComponent<Image>().color = Color.white;
+            timeSliderImage.color = Color.white;
         }
         else if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
         {
@@ -104,13 +106,15 @@ public class UIFurnace : MonoBehaviour
             timeSlider.value = timeSlider.maxValue;
             time.text = furnacesMenu[currentMenu].menuTime.text;
             //进度条满值修改颜色
-            timeSlider.fillRect.GetComponent<Image>().color = Color.green;
+            timeSliderImage.color = Color.green;
         }
     }
 
-    public void AwakeInitialization()
+    public void Init()
     {
         temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
+
+        timeSliderImage = timeSlider.fillRect.GetComponent<Image>();
 
         for (int i = 0; i < furnacesMenu.Length; i++)
         {

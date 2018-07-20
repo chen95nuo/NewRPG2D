@@ -25,7 +25,7 @@ public class UIRolePage : TTUIPage
     public override void Refresh()
     {
         pickUpRoleMessage = transform.GetComponent<UIRoleInformation>();
-        pickUpRoleMessage.AwakeInitialization();
+        pickUpRoleMessage.Init();
 
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {

@@ -12,6 +12,7 @@ public class UIBagItem : MonoBehaviour
     private int gridsFirstCount;
     public GameObject bagGrid;
     public ItemType itemType;
+    public int h_gridNumber = 4;//每行几个
 
     void Awake()
     {
@@ -21,12 +22,13 @@ public class UIBagItem : MonoBehaviour
 
         if (itemType != ItemType.Role)
         {
-            PreloadingGrids();
+            PreloadingGrids(h_gridNumber);
         }
-        else
+        else if (itemType == ItemType.Role)
         {
             UpdateRole();
         }
+
 
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);//更新鸡蛋
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);//更新道具
@@ -50,7 +52,7 @@ public class UIBagItem : MonoBehaviour
     /// <summary>
     /// 预载足够数量的空格等待使用
     /// </summary>
-    private void PreloadingGrids()
+    private void PreloadingGrids(int temp)
     {
         float index = transform.GetComponent<GridLayoutGroup>().cellSize.y + transform.GetComponent<GridLayoutGroup>().spacing.y;
 
@@ -61,7 +63,7 @@ public class UIBagItem : MonoBehaviour
             go.SetActive(true);
             go.name = bagGrid.name;
             grids.Add(go.GetComponent<UIBagGrid>());
-            if (grids.Count % 4 == 0)
+            if (grids.Count % temp == 0)
             {
                 hight += index;
             }
@@ -218,6 +220,29 @@ public class UIBagItem : MonoBehaviour
         }
         GridsControl(index, ItemType.Role);
     }
+    public void UpdateStore(ItemData[] data)
+    {
+        if (itemType != ItemType.Store)
+        {
+            return;
+        }
+        GridsControl(data.Length);
+        for (int i = 0; i < data.Length; i++)
+        {
+            grids[i].UpdateItem(data[i]);
+
+            if (i % 3 == 0)
+            {
+                grids[i].storeGrid.border.gameObject.SetActive(true);
+            }
+            else
+            {
+                grids[i].storeGrid.border.gameObject.SetActive(false);
+            }
+            grids[i].itemType = ItemType.Store;
+            grids[i].gridType = GridType.Store;
+        }
+    }
 
     void GridsControl(int number, ItemType type)
     {
@@ -277,6 +302,7 @@ public class UIBagItem : MonoBehaviour
             }
             else
             {
+
             }
         }
     }
@@ -289,7 +315,15 @@ public class UIBagItem : MonoBehaviour
     /// <param name="isReset"></param>
     void GridsControl(int number)
     {
-        int index = number + (4 - (number % 4)); //计算整行
+        int index = 0;
+        if (number % h_gridNumber == 0)
+        {
+            index = number;
+        }
+        else
+        {
+            index = number + (h_gridNumber - (number % h_gridNumber)); //计算整行
+        }
         if (index > gridsFirstCount && index > grids.Count + gridsSpare.Count)
         {
             //需求超过默认，需求超过总数量，需要生成
@@ -346,6 +380,7 @@ public class UIBagItem : MonoBehaviour
         }
         else if (index <= gridsFirstCount)
         {
+
             //需求没有超过默认
             if (grids.Count > gridsFirstCount)
             {

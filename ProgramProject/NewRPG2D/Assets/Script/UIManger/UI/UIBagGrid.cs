@@ -43,6 +43,8 @@ public class UIBagGrid : MonoBehaviour
 
     #endregion
 
+    public StoreGrid storeGrid;
+
     private Button chickButton;
 
     // Use this for initialization
@@ -51,6 +53,11 @@ public class UIBagGrid : MonoBehaviour
         chickButton = GetComponent<Button>();
 
         chickButton.onClick.AddListener(ShowItemMessage);
+
+        if (gridType == GridType.Store)
+        {
+            storeGrid.btn_But.onClick.AddListener(ShowBuyPage);
+        }
     }
     void Start()
     {
@@ -64,7 +71,6 @@ public class UIBagGrid : MonoBehaviour
             chickButton.onClick.AddListener(ShowMaterialHouse);
             return;
         }
-
         else if (itemType == ItemType.Nothing)
         {
             UpdateItem(-1, ItemType.Nothing);
@@ -90,6 +96,10 @@ public class UIBagGrid : MonoBehaviour
         {
             UseProp();
         }
+        else if (itemType == ItemType.Store && gridType == GridType.Store)
+        {
+            BuyProp();
+        }
 
     }
     public void ShowRolePage()
@@ -104,6 +114,11 @@ public class UIBagGrid : MonoBehaviour
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
         }
     }
+    public void ShowBuyPage()
+    {
+        Debug.Log("打开购买菜单");
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateStoreEvent, propData);
+    }
     public void UseProp()
     {
         if (itemType != ItemType.Nothing)
@@ -115,7 +130,10 @@ public class UIBagGrid : MonoBehaviour
             TTUIPage.ClosePage<UIUseItemBagPage>();
         }
     }
-
+    public void BuyProp()
+    {
+        Debug.Log("这是一件商品");
+    }
 
     public void UpdateItem(int itemID, ItemType type)
     {
@@ -165,6 +183,24 @@ public class UIBagGrid : MonoBehaviour
 
         quality = data.Quality;
         propType = (int)data.PropType;
+
+        if (storeGrid.priceImage != null)
+        {
+            switch (data.StorePropType)
+            {
+                case StorePropType.Nothing:
+                    break;
+                case StorePropType.GoldCoin:
+                    storeGrid.price.text = "<color=#E7BE2F>" + data.BuyPrice + "</color>";
+                    break;
+                case StorePropType.Diamonds:
+                    storeGrid.price.text = "<color=#79D2FF>" + data.BuyPrice + "</color>";
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
     public void UpdateItem(EquipData data)
     {
@@ -251,5 +287,14 @@ public class UIBagGrid : MonoBehaviour
         public Image roleTypeBG;//状态背景
         public Text roleLevel;//等级
         public Image roleAttribute;//属性
+    }
+    [System.Serializable]
+    public class StoreGrid
+    {
+        public Text name;//道具名称
+        public Text price;//道具价格
+        public Image priceImage;//价格图片
+        public Button btn_But;//购买按钮
+        public Image border;//正行的框
     }
 }

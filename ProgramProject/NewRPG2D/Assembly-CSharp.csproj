@@ -147,6 +147,8 @@
     <Compile Include="Assets\Script\UIManger\GameData\MenuData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\PlayerData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ReadJsonDataMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\ReadJsonNewMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\StoreData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\SystemTime.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\TypeManger.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BagEggData.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\Script\UIManger\GameManager\GameEquipData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GameMain.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GamePropData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\GameStoreData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GetPlayData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\UIEventManager.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagGrid.cs" />
@@ -178,6 +181,8 @@
     <Compile Include="Assets\Script\UIManger\UI\UIRolePage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleStrengthen.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleStrengtheningMaterial.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIStore.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIStorePage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIUseItemBagPage.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIBind.cs" />
     <Compile Include="Assets\Script\UIManger\UIFramework\Source\TTUIPage.cs" />
@@ -209,6 +214,7 @@
     <Compile Include="Assets\Script\Utility\XmlMgr\ReadXmlNewMgr.cs" />
     <Compile Include="Assets\test.cs" />
     <None Include="Assets\StreamingAssets\Json\BagEquipData.txt" />
+    <None Include="Assets\StreamingAssets\Json\StoreData.txt" />
     <None Include="Assets\StreamingAssets\Json\BagFurnaceData.txt" />
     <None Include="Assets\Script\DragonBones\Resources\Shaders\DB_BlendMode_Grab.shader" />
     <None Include="Assets\StreamingAssets\Json\BagEggData.txt" />
@@ -219,13 +225,13 @@
     <None Include="Assets\StreamingAssets\Json\BagItemsData.txt" />
     <None Include="Assets\Script\DragonBones\Resources\Shaders\DB_BlendMode_UIGrab.shader" />
     <None Include="Assets\DOTween\DOTween43.xml" />
-    <None Include="Assets\StreamingAssets\Json\library\ComposedTableData.txt" />
+    <None Include="Assets\StreamingAssets\Json\ComposedTableData.txt" />
     <None Include="Assets\StreamingAssets\Config\SkillData.xml" />
     <None Include="Assets\StreamingAssets\Json\BagRoleData.txt" />
-    <None Include="Assets\StreamingAssets\Json\library\ItemsData.txt" />
+    <None Include="Assets\StreamingAssets\Json\ItemsData.txt" />
     <None Include="Assets\StreamingAssets\Config\RoleData.xml" />
     <None Include="Assets\DOTween\DOTween46.xml" />
-    <None Include="Assets\StreamingAssets\Json\library\EquipData.txt" />
+    <None Include="Assets\StreamingAssets\Json\EquipData.txt" />
     <None Include="Assets\StreamingAssets\Json\BagMenuData.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

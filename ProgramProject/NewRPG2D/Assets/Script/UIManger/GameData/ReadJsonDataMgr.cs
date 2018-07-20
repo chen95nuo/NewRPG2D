@@ -7,17 +7,26 @@ using UnityEngine;
 using System.Collections;
 using Assets.Script;
 
-public enum BagJsonName
+public enum JsonName
 {
+    PlayerData,
+    ItemsData,
+    EquipData,
+    StoreData,
+    ComposedTableData,
     BagEggData,
     BagEquipData,
     BagItemsData,
     BagMenuData,
-    BagRoleData
+    BagRoleData,
+    BagFurnaceData,
+    Max,
+    RoleData,
+    EggData
 }
 public class ReadJsonDataMgr
 {
-    public static string GetJsonPath(BagJsonName name)
+    public static string GetJsonPath(JsonName name)
     {
         string path = "";
 #if UNITY_EDITOR
@@ -32,26 +41,6 @@ public class ReadJsonDataMgr
         path = string.Format("{0}/Json/{1}.txt", Application.streamingAssetsPath, name);
 #endif
         return path;
-    }
-
-    IEnumerator ReadTxt(BagJsonName name)
-    {
-        string mPath = GetJsonPath(name);
-        string content;
-        WWW www = new WWW(mPath);
-        yield return www;
-        if (www.isDone)
-        {
-            content = www.text;
-            UTF8Encoding encode = new System.Text.UTF8Encoding();
-            byte[] binary = encode.GetBytes(content);
-            MemoryStream fileMemoryStream = new MemoryStream(binary);
-
-        }
-        else
-        {
-
-        }
     }
 }
 

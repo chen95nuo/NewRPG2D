@@ -54,7 +54,7 @@ public class UIRoleInformation : MonoBehaviour
 
     }
 
-    public void AwakeInitialization()
+    public void Init()
     {
         buttonType.SetActive(false);
     }

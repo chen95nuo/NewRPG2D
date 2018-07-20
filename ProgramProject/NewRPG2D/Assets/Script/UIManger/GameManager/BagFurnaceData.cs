@@ -15,27 +15,14 @@ public class BagFurnaceData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagFurnaceData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.BagFurnaceData];
+                instance = JsonUtility.FromJson<BagFurnaceData>(json);
+                if (instance.furnaces == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<BagFurnaceData>(json);
-
-                    if (instance.furnaces == null)
-                    {
-                        instance.furnaces = new List<FurnaceData>();
-                    }
+                    instance.furnaces = new List<FurnaceData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
-
-                //  instance = new BagEggData();
             }
+
             return instance;
         }
     }

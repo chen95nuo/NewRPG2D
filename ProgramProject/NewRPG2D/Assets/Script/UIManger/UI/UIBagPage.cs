@@ -30,7 +30,7 @@ public class UIBagPage : TTUIPage
     public override void Awake(GameObject go)
     {
         //初始化
-        AwakeInitialization();
+        Init();
     }
 
     public override void Refresh()
@@ -38,7 +38,7 @@ public class UIBagPage : TTUIPage
 
     }
 
-    private void AwakeInitialization()
+    private void Init()
     {
         this.bagMenu_1 = transform.Find("Menu_1").gameObject;
         this.bagMenu_2 = transform.Find("Menu_2").gameObject;

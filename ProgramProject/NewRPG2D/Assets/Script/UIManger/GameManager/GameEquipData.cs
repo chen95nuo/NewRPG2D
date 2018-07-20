@@ -5,7 +5,8 @@ using System;
 using System.IO;
 using System.Text;
 
-public class GameEquipData {
+public class GameEquipData
+{
 
     private static GameEquipData instance;
     public static GameEquipData Instance
@@ -14,26 +15,14 @@ public class GameEquipData {
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/library/EquipData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.EquipData];
+                instance = JsonUtility.FromJson<GameEquipData>(json);
+                if (instance.items == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<GameEquipData>(json);
-
-                    if (instance.items == null)
-                    {
-                        instance.items = new List<EquipData>();
-                    }
+                    instance.items = new List<EquipData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
+
             }
-
             return instance;
         }
     }
@@ -56,30 +45,4 @@ public class GameEquipData {
         }
         return null;
     }
-
-    /// <summary>
-    /// 存储数据
-    /// </summary>
-    public void SaveData()
-    {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/library/EquipData.txt", false, Encoding.UTF8);
-
-        try
-        {
-            string json = JsonUtility.ToJson(instance, true);
-
-            Debug.Log(json);
-
-            sw.Write(json);
-
-        }
-        catch (Exception e)
-        {
-
-            Debug.LogError(e.ToString());
-        }
-
-        sw.Close();
-    }
-
 }

@@ -15,26 +15,14 @@ public class GamePropData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/library/ItemsData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.ItemsData];
+                instance = JsonUtility.FromJson<GamePropData>(json);
+                if (instance.items == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<GamePropData>(json);
-
-                    if (instance.items == null)
-                    {
-                        instance.items = new List<ItemData>();
-                    }
+                    instance.items = new List<ItemData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
+
             }
-
             return instance;
         }
     }
@@ -52,35 +40,20 @@ public class GamePropData
         {
             if (items[i].Id == id)
             {
-                return items[i];
+                return new ItemData(items[i]);
             }
         }
         return null;
     }
-
-    /// <summary>
-    /// 存储数据
-    /// </summary>
-    public void SaveData()
+    public ItemData GetItem(int id, int number)
     {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/library/ItemsData.txt", false, Encoding.UTF8);
-
-        try
+        for (int i = 0; i < items.Count; i++)
         {
-            string json = JsonUtility.ToJson(instance, true);
-
-            Debug.Log(json);
-
-            sw.Write(json);
-
+            if (items[i].Id == id)
+            {
+                return new ItemData(items[i], number);
+            }
         }
-        catch (Exception e)
-        {
-
-            Debug.LogError(e.ToString());
-        }
-
-        sw.Close();
+        return null;
     }
-
 }

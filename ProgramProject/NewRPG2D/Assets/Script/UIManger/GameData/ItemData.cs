@@ -33,7 +33,13 @@ public class ItemData
     private PropType propType;//道具类型
 
     [SerializeField]
-    private int price;//物品价格
+    private StorePropType storePropType;//商品类型
+
+    [SerializeField]
+    private int sellPrice;//物品价格
+
+    [SerializeField]
+    private int buyPrice;//购买价格
 
     [SerializeField]
     private int usePrice;//使用价格
@@ -93,11 +99,11 @@ public class ItemData
         }
     }
 
-    public int Price
+    public int SellPrice
     {
         get
         {
-            return price;
+            return sellPrice;
         }
     }
 
@@ -192,6 +198,22 @@ public class ItemData
         }
     }
 
+    public int BuyPrice
+    {
+        get
+        {
+            return buyPrice;
+        }
+    }
+
+    public StorePropType StorePropType
+    {
+        get
+        {
+            return storePropType;
+        }
+    }
+
     public ItemData() { }
     public ItemData(ItemType type)
     {
@@ -205,7 +227,8 @@ public class ItemData
         this.spriteName = data.spriteName;
         this.rawMaterial = data.rawMaterial;
         this.quality = data.quality;
-        this.price = data.price;
+        this.sellPrice = data.sellPrice;
+        this.buyPrice = data.buyPrice;
         this.number = data.number;
         this.name = data.name;
         this.melting = data.melting;
@@ -216,6 +239,27 @@ public class ItemData
         this.addProperty = data.addProperty;
         this.addExp = data.addExp;
         this.propType = data.propType;
+        this.storePropType = data.storePropType;
+    }
+    public ItemData(ItemData data, int number)
+    {
+        this.usePrice = data.usePrice;
+        this.spriteName = data.spriteName;
+        this.rawMaterial = data.rawMaterial;
+        this.quality = data.quality;
+        this.sellPrice = data.sellPrice;
+        this.buyPrice = data.buyPrice;
+        this.number = number;
+        this.name = data.name;
+        this.melting = data.melting;
+        this.itemType = data.itemType;
+        this.id = data.id;
+        this.getPlace = data.getPlace;
+        this.describe = data.describe;
+        this.addProperty = data.addProperty;
+        this.addExp = data.addExp;
+        this.propType = data.propType;
+        this.storePropType = data.storePropType;
     }
 }
 

@@ -9,13 +9,15 @@ public enum ItemType
     Egg,//蛋
     Prop,//道具
     Equip,//装备
-    Role//角色
+    Role,//角色
+    Store,//商城道具
 }
 
 public enum GridType
 {
-    Nothing,
-    Use,
+    Nothing,//其他
+    Use,//使用道具
+    Store,//商城道具
 }
 
 public enum EquipType
@@ -46,6 +48,13 @@ public enum PropType
     OnlyUse,//只能用
     OnlySell,//只能卖
     AllOn//能用也能卖
+}
+
+public enum StorePropType
+{
+    Nothing,//无
+    GoldCoin,//金币道具
+    Diamonds,//钻石道具
 }
 
 public enum FurnaceType
@@ -87,6 +96,7 @@ public enum UIEventDefineEnum
     UpdatePlayerGoldCoin,
     UpdatePlayerDiamonds,
     UpdatePlayerFatigue,
+    UpdateStoreEvent,
     EventMax
 }
 

@@ -15,26 +15,13 @@ public class GameComposedTableData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/library/ComposedTableData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.ComposedTableData];
+                instance = JsonUtility.FromJson<GameComposedTableData>(json);
+                if (instance.items == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<GameComposedTableData>(json);
-
-                    if (instance.items == null)
-                    {
-                        instance.items = new List<ComposedTableData>();
-                    }
+                    instance.items = new List<ComposedTableData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
             }
-
             return instance;
         }
     }
@@ -94,30 +81,5 @@ public class GameComposedTableData
 
 
         return tempData;
-    }
-
-    /// <summary>
-    /// 存储数据
-    /// </summary>
-    public void SaveData()
-    {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/library/ComposedTableData.txt", false, Encoding.UTF8);
-
-        try
-        {
-            string json = JsonUtility.ToJson(instance, true);
-
-            Debug.Log(json);
-
-            sw.Write(json);
-
-        }
-        catch (Exception e)
-        {
-
-            Debug.LogError(e.ToString());
-        }
-
-        sw.Close();
     }
 }

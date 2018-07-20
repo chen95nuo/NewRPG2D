@@ -6,6 +6,19 @@ using TinyTeam.UI;
 
 public class GameMain : MonoBehaviour
 {
+    public static GameMain Instance = null;
+
+    private void Awake()
+    {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        //读取存档的信息;
+        ReadJsonNewMgr.CreateInstance();
+
+    }
 
     // Use this for initialization
     void Start()
@@ -23,6 +36,7 @@ public class GameMain : MonoBehaviour
     {
         //GetPlayData.Instance.SaveData();
         UIEventManager.instance.RemoveAllListener();
+        ReadJsonNewMgr.DestroyInstance();
     }
 
 }

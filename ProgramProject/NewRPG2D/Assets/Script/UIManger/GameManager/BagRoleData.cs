@@ -15,24 +15,12 @@ public class BagRoleData
         {
             if (instance == null)
             {
-                StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/Json/BagRoleData.txt", Encoding.UTF8);
-
-                try
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.BagRoleData];
+                instance = JsonUtility.FromJson<BagRoleData>(json);
+                if (instance.roles == null)
                 {
-                    string json = sr.ReadToEnd();
-
-                    instance = JsonUtility.FromJson<BagRoleData>(json);
-
-                    if (instance.roles == null)
-                    {
-                        instance.roles = new List<CardData>();
-                    }
+                    instance.roles = new List<CardData>();
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.ToString());
-                }
-                sr.Close();
             }
 
             return instance;
@@ -102,31 +90,6 @@ public class BagRoleData
             //数据改变，调用事件
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRolesEvent);
         }
-    }
-
-    /// <summary>
-    /// 存储数据
-    /// </summary>
-    public void SaveData()
-    {
-        StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/Json/BagRoleData.txt", false, Encoding.UTF8);
-
-        try
-        {
-            string json = JsonUtility.ToJson(instance, true);
-
-            Debug.Log(json);
-
-            sw.Write(json);
-
-        }
-        catch (Exception e)
-        {
-
-            Debug.LogError(e.ToString());
-        }
-
-        sw.Close();
     }
 
 }
