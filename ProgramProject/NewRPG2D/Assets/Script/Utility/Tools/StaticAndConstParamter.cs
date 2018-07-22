@@ -66,20 +66,6 @@ public enum CameraStateEnum
     FreeState,
 }
 
-public enum AnimationNameEnum
-{
-    Idle = 0,
-    Walk,
-    Run,
-    Death,
-    Fall,
-    Attack1,
-    Attack2,
-    Attack3,
-    Skill,
-    UseKnife,
-}
-
 public enum WeaponType
 {
     Knief,

@@ -52,7 +52,6 @@ namespace Assets.Script.Battle
             InitFSM();
             InitData();
             InitRoleComponentData();
-           
         }
 
         public virtual void SetRoleInfo(RoleInfo info)
@@ -108,7 +107,7 @@ namespace Assets.Script.Battle
         private void InitRoleComponentData()
         {
             InitSkill();
-            RoleSearchTarget.InitData();
+            RoleSearchTarget.InitData();  
         }
 
         private void InitRoleProperty()

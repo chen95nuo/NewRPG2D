@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DragonBones;
 using UnityEngine;
+using Animation = DragonBones.Animation;
 
 namespace Assets.Script.Battle
 {
@@ -11,31 +12,32 @@ namespace Assets.Script.Battle
     {
         private UnityArmatureComponent roleAnimator;
         private RoleBase mCurrentRole;
+        private Animation roleAnimation;
 
         public void SetCurrentRole(RoleBase mRole)
         {
             mCurrentRole = mRole;
             roleAnimator = mCurrentRole.RoleAnimator;
-        }
-
-        public void SetSwitchAnimation(AnimationNameEnum animationName)
-        {
-            SetCurrentAniamtionByName(animationName);
+            roleAnimation = roleAnimator.animation;
         }
 
         public void ChangeAniamtionNameById(int animationId)
         {
         }
 
-        private void SetAnimationClipDic(AnimationNameEnum animationType, AnimationClip clip)
-        {
-        }
+ 
 
         #region animation function
 
-        public void SetCurrentAniamtionByName(AnimationNameEnum animationName)
+        public float SetCurrentAniamtionByName(string animationName)
         {
-            roleAnimator.animation.Play(animationName.ToString());
+            roleAnimation.Play(animationName);
+            return roleAnimation.GetState(animationName)._duration;
+        }
+
+        public bool IsComplete()
+        {
+            return roleAnimation.isCompleted;
         }
 
         #endregion

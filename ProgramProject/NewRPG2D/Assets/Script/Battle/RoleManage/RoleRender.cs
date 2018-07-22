@@ -47,10 +47,8 @@ public class RoleRender : MonoBehaviour
         DebugHelper.Log(" attack  " + targetRole.InstanceId);
     }
 
-    public void PlayAnimation(string animationName)
-    {
-        roleAnimation.animation.Play(animationName);
-    }
+   
+
 
 }
 

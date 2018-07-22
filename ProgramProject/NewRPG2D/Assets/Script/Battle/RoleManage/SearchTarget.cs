@@ -6,19 +6,22 @@ namespace Assets.Script.Battle
 {
     public class SearchTarget
     {
+        public RoleBase Target
+        {
+            get { return targetRole; }
+        }
         private RoleBase mCurrentRole, targetRole;
         private Transform roleTransform;
 
         private SkillSlotTypeEnum cacheSkillSlot;
         private float attackDistance;
-        private List<RoleBase> allRole; 
+        private List<RoleBase> allRole;
 
         public void SetCurrentRole(RoleBase mRole)
         {
             mCurrentRole = mRole;
             roleTransform = mRole.RoleTransform;
         }
-
 
         public void InitData()
         {
@@ -34,7 +37,7 @@ namespace Assets.Script.Battle
 
         public void Update()
         {
-            if (targetRole != null && targetRole.IsDead ==false)
+            if (targetRole != null && targetRole.IsDead == false)
             {
                 if (mCurrentRole.CurrentSlot != cacheSkillSlot)
                 {
