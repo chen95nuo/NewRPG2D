@@ -40,7 +40,7 @@ public class GameEquipData
         {
             if (items[i].Id == id)
             {
-                return items[i];
+                return new EquipData(items[i]);
             }
         }
         return null;

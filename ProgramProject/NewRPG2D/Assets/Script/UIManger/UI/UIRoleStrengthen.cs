@@ -16,18 +16,16 @@ public class UIRoleStrengthen : MonoBehaviour
 
     public CardData roleData;
 
-    public CardData[] cardData;
+    public CardData[] cardData = new CardData[4];
     public UIRoleStrengtheningMaterial[] roleMaterial;
 
     public GameObject currentButton;
-
-    public UIRoleMaterialHouse materialHouse;
 
     private void Awake()
     {
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateMaterialEvent, UpdateMaterial);
 
-        cardData = new CardData[3];
+        cardData = new CardData[4];
         roleMaterial = new UIRoleStrengtheningMaterial[3];
         for (int i = 0; i < 3; i++)
         {
@@ -53,7 +51,6 @@ public class UIRoleStrengthen : MonoBehaviour
     public void CloseThisPage()
     {
         gameObject.SetActive(false);
-        materialHouse.gameObject.SetActive(false);
     }
 
     public void UpdateRole(UIRoleInformation data)
@@ -70,7 +67,7 @@ public class UIRoleStrengthen : MonoBehaviour
     public void UpdateMaterial()
     {
         confirmed.gameObject.SetActive(false);
-        cardData = new CardData[3];
+        cardData = new CardData[4];
         for (int i = 0; i < roleMaterial.Length; i++)
         {
             roleMaterial[i].UpdateMaterial(cardData[i]);
@@ -78,7 +75,6 @@ public class UIRoleStrengthen : MonoBehaviour
     }
     public void UpdateMaterial(CardData data)
     {
-        materialHouse.gameObject.SetActive(false);
         for (int i = 0; i < roleMaterial.Length; i++)
         {
             if (roleMaterial[i].gameObject == currentButton)
@@ -111,8 +107,11 @@ public class UIRoleStrengthen : MonoBehaviour
     public void ChoiceMaterials()
     {
         currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        materialHouse.gameObject.SetActive(true);
-        materialHouse.UpdateBagItem(roleData, cardData);
+        cardData[3] = roleData;
+        TinyTeam.UI.TTUIPage.ShowPage<UIUseRoleHousePage>();
+
+        UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
+        UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
     }
 
     public void Confirmed()

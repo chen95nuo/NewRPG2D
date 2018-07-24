@@ -18,6 +18,8 @@ public class UIMainPage : TTUIPage
         this.gameObject.transform.Find("DownBackGround/btn_CardHouse").GetComponent<Button>().onClick.AddListener(ShowPage<UICardHouse>);
         this.gameObject.transform.Find("BackGround/btn_Furnace").GetComponent<Button>().onClick.AddListener(ShowPage<UIFurnacePage>);
         this.gameObject.transform.Find("BackGround/btn_Store").GetComponent<Button>().onClick.AddListener(ShowPage<UIStorePage>);
+        this.gameObject.transform.Find("BackGround/btn_Explore").GetComponent<Button>().onClick.AddListener(ShowPage<UIExplorePage>);
+        this.gameObject.transform.Find("BackGround/btn_Hatchery").GetComponent<Button>().onClick.AddListener(ShowPage<UIHatcheryPoolPage>);
 
     }
 }

@@ -61,7 +61,7 @@ public class UIBagGrid : MonoBehaviour
     }
     void Start()
     {
-        if (itemType == ItemType.Role && gridType != GridType.Use)
+        if (itemType == ItemType.Role && gridType == GridType.Nothing)
         {
             chickButton.onClick.AddListener(ShowRolePage);
             return;
@@ -100,6 +100,10 @@ public class UIBagGrid : MonoBehaviour
         {
             BuyProp();
         }
+        else if (itemType == ItemType.Role && gridType == GridType.Explore)
+        {
+            BackExplore();
+        }
 
     }
     public void ShowRolePage()
@@ -111,6 +115,7 @@ public class UIBagGrid : MonoBehaviour
     {
         if (!roleData.Fighting)
         {
+            TTUIPage.ClosePage<UIUseRoleHousePage>();
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
         }
     }
@@ -133,6 +138,12 @@ public class UIBagGrid : MonoBehaviour
     public void BuyProp()
     {
         Debug.Log("这是一件商品");
+    }
+
+    public void BackExplore()
+    {
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateExploreEvent, roleData);
+        TTUIPage.ClosePage<UIUseRoleHousePage>();
     }
 
     public void UpdateItem(int itemID, ItemType type)

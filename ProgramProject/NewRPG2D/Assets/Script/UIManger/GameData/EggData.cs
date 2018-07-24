@@ -35,6 +35,9 @@ public class EggData
     [SerializeField]
     private float hatchingTime;//孵化时间
 
+    [SerializeField]
+    private int resultId;//孵化成果
+
     public string Name
     {
         get
@@ -115,11 +118,33 @@ public class EggData
         }
     }
 
+    public int ResultId
+    {
+        get
+        {
+            return resultId;
+        }
+    }
+
     public EggData() { }
 
     public EggData(int id)
     {
         this.id = id;
+    }
+    public EggData(EggData data)
+    {
+        this.name = data.name;
+        this.id = data.id;
+        this.spriteName = data.spriteName;
+        this.itemType = data.ItemType;
+        this.attribute = data.attribute;
+        this.quality = data.quality;
+        this.starsLevel = data.starsLevel;
+        this.itemNumber = data.itemNumber;
+        this.isKnown = data.isKnown;
+        this.hatchingTime = data.hatchingTime;
+        this.resultId = data.resultId;
     }
     public EggData(int id, string sprite)
     {

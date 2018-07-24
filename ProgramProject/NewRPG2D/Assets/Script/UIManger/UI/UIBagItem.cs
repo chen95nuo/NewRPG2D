@@ -190,7 +190,7 @@ public class UIBagItem : MonoBehaviour
         if (itemType != ItemType.Role)
             return;
 
-        GridsControl(BagRoleData.Instance.roles.Count, ItemType.Role);
+        GridsControl(BagRoleData.Instance.roles.Count, GridType.Nothing);
 
         for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
         {
@@ -198,27 +198,69 @@ public class UIBagItem : MonoBehaviour
         }
     }
 
-    public void UpdateRole(CardData data, CardData[] datas)
+    public void UpdateRole(CardData[] datas)
     {
         if (itemType != ItemType.Role)
         {
             return;
         }
 
-        GridsControl(BagRoleData.Instance.roles.Count, ItemType.Role);
+        GridsControl(BagRoleData.Instance.roles.Count, GridType.Use);
+        List<CardData> roles = BagRoleData.Instance.roles;
+        GridsControl(roles.Count, GridType.Use);
         int index = 0;
-        for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
+        for (int i = 0; i < roles.Count; i++)
         {
-            if (BagRoleData.Instance.roles[i] != data
-                && BagRoleData.Instance.roles[i] != datas[0]
-                && BagRoleData.Instance.roles[i] != datas[1]
-                && BagRoleData.Instance.roles[i] != datas[2])
+            int temp = 0;
+            if (roles[i].Fighting)
+            {
+                continue;
+            }
+            for (int j = 0; j < datas.Length; j++)
+            {
+                if (roles[i] != datas[j])
+                {
+                    temp++;
+                }
+            }
+            if (temp >= datas.Length)
             {
                 grids[index].UpdateItem(BagRoleData.Instance.roles[i]);
                 index++;
             }
         }
-        GridsControl(index, ItemType.Role);
+        GridsControl(index, GridType.Use);
+    }
+    public void UpdateRole(CardData[] datas, int level)
+    {
+        if (itemType != ItemType.Role)
+        {
+            return;
+        }
+        List<CardData> roles = BagRoleData.Instance.roles;
+        GridsControl(roles.Count, GridType.Explore);
+        int index = 0;
+        for (int i = 0; i < roles.Count; i++)
+        {
+            int temp = 0;
+            if (roles[i].Fighting || roles[i].Level < level)
+            {
+                continue;
+            }
+            for (int j = 0; j < datas.Length; j++)
+            {
+                if (roles[i] != datas[j])
+                {
+                    temp++;
+                }
+            }
+            if (temp >= datas.Length)
+            {
+                grids[index].UpdateItem(BagRoleData.Instance.roles[i]);
+                index++;
+            }
+        }
+        GridsControl(index, GridType.Explore);
     }
     public void UpdateStore(ItemData[] data)
     {
@@ -244,7 +286,7 @@ public class UIBagItem : MonoBehaviour
         }
     }
 
-    void GridsControl(int number, ItemType type)
+    void GridsControl(int number, GridType type)
     {
         if (number > grids.Count + gridsSpare.Count)
         {
@@ -263,7 +305,6 @@ public class UIBagItem : MonoBehaviour
                 go.name = bagGrid.name;
                 go.SetActive(true);
                 grids.Add(go.GetComponent<UIBagGrid>());
-
             }
         }
         else if (number < grids.Count + gridsSpare.Count)
@@ -304,6 +345,10 @@ public class UIBagItem : MonoBehaviour
             {
 
             }
+        }
+        for (int i = 0; i < grids.Count; i++)
+        {
+            grids[i].gridType = type;
         }
     }
 

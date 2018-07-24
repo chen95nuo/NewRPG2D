@@ -33,6 +33,7 @@ public class UIEventManager : TSingleton<UIEventManager>
             listenerTarget[index].Remove(eventHadle);
         }
     }
+
     public void SendEvent(UIEventDefineEnum eventID)
     {
         int index = (int)eventID;

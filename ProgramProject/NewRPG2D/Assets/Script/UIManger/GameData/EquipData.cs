@@ -159,7 +159,22 @@ public class EquipData
     {
         this.id = id;
     }
-
+    public EquipData(EquipData data)
+    {
+        this.affix_1 = data.affix_1;
+        this.affix_2 = data.affix_2;
+        this.affix_3 = data.affix_3;
+        this.affix_4 = data.affix_4;
+        this.describe = data.describe;
+        this.equipType = data.equipType;
+        this.equipTypeName = data.equipTypeName;
+        this.id = data.id;
+        this.itemType = data.itemType;
+        this.name = data.name;
+        this.price = data.price;
+        this.quality = data.quality;
+        this.spriteName = data.spriteName;
+    }
     public EquipData(int id, string sprite)
     {
         this.id = id;

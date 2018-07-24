@@ -18,6 +18,7 @@ public enum GridType
     Nothing,//其他
     Use,//使用道具
     Store,//商城道具
+    Explore,//探险
 }
 
 public enum EquipType
@@ -64,6 +65,20 @@ public enum FurnaceType
     End//结束
 }
 
+public enum ExploreType
+{
+    Nothing,//无
+    Run,//运行中
+    End//结束
+}
+
+public enum HatcheryType
+{
+    Nothing,//无
+    Run,//运行中
+    End//结束
+}
+
 public enum PropMeltingType
 {
     isTrue,//可熔炼
@@ -83,6 +98,12 @@ public enum ItemMaterialType
     Rubber//橡胶
 }
 
+public enum TipType
+{
+    Nothing,
+    Explore,//冒险
+}
+
 public enum UIEventDefineEnum
 {
     UpdateEggsEvent,
@@ -97,6 +118,8 @@ public enum UIEventDefineEnum
     UpdatePlayerDiamonds,
     UpdatePlayerFatigue,
     UpdateStoreEvent,
+    UpdateExploreEvent,
+    UpdateExploreTipEvent,
     EventMax
 }
 

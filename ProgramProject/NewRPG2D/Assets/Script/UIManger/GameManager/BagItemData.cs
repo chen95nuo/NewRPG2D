@@ -72,6 +72,35 @@ public class BagItemData
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
     }
 
+    public void AddItems(ItemData item, int number)
+    {
+        List<ItemData> data = GetItems(item.Id);
+        int index = 0;
+        int temp = 0;
+        //检查有多少个相同的道具
+        for (int i = 0; i < data.Count; i++)
+        {
+            do
+            {
+                if (data[i].Number + 1 <= 99)
+                {
+                    data[i].Number++;
+                    index++;
+                    Debug.Log(index);
+                    Debug.Log(data[i].Number);
+                }
+            } while (index < number && data[i].Number < 99);
+        }
+        //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
+        if (number - index > 0)
+        {
+            Debug.Log(number - index);
+            ItemData newData = new ItemData(item, number - index);
+            AddItem(newData);
+        }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
+    }
+
     /// <summary>
     /// 替换物品
     /// </summary>

@@ -15,7 +15,7 @@ public class CardData
     private string typeMessage; //状态信息
 
     [SerializeField]
-    private bool fighting;
+    private bool fighting; //战斗中
 
     [SerializeField]
     private int level;//等级
@@ -223,6 +223,14 @@ public class CardData
         {
             return fighting;
         }
+        set
+        {
+            bool index = fighting;
+            if (index != value)
+            {
+                fighting = value;
+            }
+        }
     }
 
     public CardData() { }
@@ -230,6 +238,29 @@ public class CardData
     public CardData(int id)
     {
         this.id = id;
+    }
+    public CardData(CardData data)
+    {
+        this.agile = data.agile;
+        this.agileGrow = data.agileGrow;
+        this.attack = data.attack;
+        this.attackGrow = data.attackGrow;
+        this.attribute = data.attribute;
+        this.defense = data.defense;
+        this.defenseGrow = data.defenseGrow;
+        this.equipdata = data.equipdata;
+        this.exp = data.exp;
+        this.fighting = data.fighting;
+        this.goodFeeling = data.goodFeeling;
+        this.health = data.health;
+        this.healthGrow = data.healthGrow;
+        this.id = data.id;
+        this.itemType = data.itemType;
+        this.level = data.level;
+        this.name = data.name;
+        this.quality = data.quality;
+        this.stars = data.stars;
+        this.typeMessage = data.typeMessage;
     }
     public CardData(int id, string name)
     {

@@ -9,10 +9,14 @@ using Assets.Script;
 
 public enum JsonName
 {
-    PlayerData,
+    EggData,
+    CardData,
     ItemsData,
     EquipData,
     StoreData,
+    PlayerData,
+    ExploreData,
+    ExpeditionData,
     ComposedTableData,
     BagEggData,
     BagEquipData,
@@ -21,8 +25,6 @@ public enum JsonName
     BagRoleData,
     BagFurnaceData,
     Max,
-    RoleData,
-    EggData
 }
 public class ReadJsonDataMgr
 {

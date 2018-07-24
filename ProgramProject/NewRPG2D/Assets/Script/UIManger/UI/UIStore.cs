@@ -22,6 +22,7 @@ public class UIStore : MonoBehaviour
     public Button btn_false;
 
     private ItemData currentData;
+    private float currentPrice;
     private ItemData[] toDayItem;
     private PlayerData playerData;
 
@@ -65,8 +66,9 @@ public class UIStore : MonoBehaviour
     {
         currentData = data;
         buyTip.SetActive(true);
-        currentItem.UpdateItem(data);
+        currentItem.UpdateItem(currentData);
         buySlider.value = 0;
+        Debug.Log(data.Number);
         buySlider.maxValue = data.Number;
         buyNumber.text = buySlider.value.ToString();
     }
@@ -92,12 +94,12 @@ public class UIStore : MonoBehaviour
             toDayItem[i] = temp;
         }
 
-        bagItem.UpdateStore(toDayItem);
+        bagItem.UpdateStore(toDayItem);//刷新今日道具
     }
     public void SliderValueChange()
     {
         buyNumber.text = buySlider.value.ToString();
-        float currentPrice = currentData.BuyPrice * buySlider.value;
+        currentPrice = currentData.BuyPrice * buySlider.value;
         priceNumber.text = currentPrice.ToString();
         if (currentPrice > playerData.GoldCoin)
         {
@@ -136,7 +138,15 @@ public class UIStore : MonoBehaviour
 
     public void IsTrue()
     {
-
+        Debug.Log("确认购买");
+        //如果点击确认 获取当前道具信息 道具价格 为背包中的道具添加数量;
+        playerData.GoldCoin -= (int)currentPrice;//扣钱
+        currentData.Number -= (int)buySlider.value;//扣道具
+        BagItemData.Instance.AddItems(currentData, (int)buySlider.value);
+        currentItem.UpdateItem(currentData);//刷新道具
+        bagItem.UpdateStore(toDayItem);//刷新道具
+        DrwTipPage(currentData);//刷新进度条
+        buyTip.SetActive(false);
     }
     public void IsFalse()
     {
