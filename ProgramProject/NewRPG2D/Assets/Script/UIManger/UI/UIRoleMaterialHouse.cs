@@ -34,9 +34,9 @@ public class UIRoleMaterialHouse : MonoBehaviour
         createMenu.ItemSortEvent(transform);
     }
 
-    public void UpdateBagItem(CardData data, CardData[] datas)
+    public void UpdateBagItem(CardData[] datas)
     {
-        updateBagItem.UpdateRole(data, datas);
+        updateBagItem.UpdateRole(datas);
     }
 
     public void PageBack()
