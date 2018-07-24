@@ -8,5 +8,6 @@ namespace Assets.Script.Battle.LevelManager
 {
     public class LoadLevel
     {
+
     }
 }
