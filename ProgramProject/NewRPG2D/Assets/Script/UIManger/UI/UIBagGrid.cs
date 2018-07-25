@@ -84,7 +84,7 @@ public class UIBagGrid : MonoBehaviour
 
     public void ShowItemMessage()
     {
-        if (itemID > 0 && itemType != ItemType.Role && itemType != ItemType.Prop)
+        if (itemID > 0 && itemType != ItemType.Role && itemType != ItemType.Prop && itemType != ItemType.Egg)
         {
             TTUIPage.ShowPage<UIBagItemMessage>();
         }
@@ -103,6 +103,14 @@ public class UIBagGrid : MonoBehaviour
         else if (itemType == ItemType.Role && gridType == GridType.Explore)
         {
             BackExplore();
+        }
+        else if (itemType == ItemType.Egg && gridType != GridType.Use)
+        {
+            TTUIPage.ShowPage<UIBagItemMessage>();
+        }
+        else if (itemType == ItemType.Egg && gridType == GridType.Use)
+        {
+            UseEgg();
         }
 
     }
@@ -138,6 +146,15 @@ public class UIBagGrid : MonoBehaviour
     public void BuyProp()
     {
         Debug.Log("这是一件商品");
+    }
+
+    /// <summary>
+    /// 孵化蛋
+    /// </summary>
+    public void UseEgg()
+    {
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateHatcheryEvent, eggData);
+        TTUIPage.ClosePage<UIUseItemBagPage>();
     }
 
     public void BackExplore()

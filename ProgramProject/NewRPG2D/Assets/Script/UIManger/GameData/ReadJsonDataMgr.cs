@@ -16,6 +16,7 @@ public enum JsonName
     StoreData,
     PlayerData,
     ExploreData,
+    HatcheryData,
     ExpeditionData,
     ComposedTableData,
     BagEggData,

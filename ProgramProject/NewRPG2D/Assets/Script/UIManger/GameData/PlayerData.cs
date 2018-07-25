@@ -33,6 +33,15 @@ public class PlayerData
     private List<FurnaceData> furnace;//熔炉
 
     [SerializeField]
+    private int hatchPool;//孵化池数量
+
+    [SerializeField]
+    private int goldHatch;//金币孵化池数量
+
+    [SerializeField]
+    private int diamondHatch;//钻石孵化池数量
+
+    [SerializeField]
     private int mapNumber;//玩家所在地图序号
 
     public int Id
@@ -161,6 +170,32 @@ public class PlayerData
         get
         {
             return furnace;
+        }
+    }
+
+    public int GoldHatch
+    {
+        get
+        {
+            return goldHatch;
+        }
+
+        set
+        {
+            goldHatch = value;
+        }
+    }
+
+    public int DiamondHatch
+    {
+        get
+        {
+            return diamondHatch;
+        }
+
+        set
+        {
+            diamondHatch = value;
         }
     }
 

@@ -116,6 +116,14 @@ public class EggData
         {
             return itemNumber;
         }
+        set
+        {
+            int index = itemNumber;
+            if (value != index)
+            {
+                itemNumber = value;
+            }
+        }
     }
 
     public int ResultId

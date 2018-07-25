@@ -29,8 +29,27 @@ public class GamePropData
 
     public List<ItemData> items;//库中的道具
 
+
     /// <summary>
-    /// 查找道具的数据
+    /// 查询道具
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public ItemData QueryItem(int id)
+    {
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Id == id)
+            {
+                return items[i];
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 获取道具的数据
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -56,4 +75,5 @@ public class GamePropData
         }
         return null;
     }
+
 }

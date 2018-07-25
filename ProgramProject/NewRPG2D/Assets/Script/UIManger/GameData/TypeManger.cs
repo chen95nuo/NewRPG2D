@@ -75,14 +75,15 @@ public enum ExploreType
 public enum HatcheryType
 {
     Nothing,//无
+    Open,//开启状态
     Run,//运行中
     End//结束
 }
 
 public enum PropMeltingType
 {
+    isFalse,//不可熔炼
     isTrue,//可熔炼
-    isFalse//不可熔炼
 }
 
 public enum ItemMaterialType
@@ -106,10 +107,12 @@ public enum TipType
 
 public enum UIEventDefineEnum
 {
+    UpdateUsePage,
     UpdateEggsEvent,
     UpdatePropsEvent,
     UpdateEquipsEvent,
     UpdateRolesEvent,
+    UpdateRoleTipEvent,
     UpdateMaterialEvent,
     UpdateFurnaceEvent,
     UpdateFurnaceMenuEvent,
@@ -120,6 +123,7 @@ public enum UIEventDefineEnum
     UpdateStoreEvent,
     UpdateExploreEvent,
     UpdateExploreTipEvent,
+    UpdateHatcheryEvent,
     EventMax
 }
 

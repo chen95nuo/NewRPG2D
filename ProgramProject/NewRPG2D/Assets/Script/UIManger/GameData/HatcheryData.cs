@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class HatcheryData
 {
     [SerializeField]
     private int id;
+    [SerializeField]
+    private long endTime;
+    [SerializeField]
+    private int needTime;
     [SerializeField]
     private HatcheryType hatcheryType;
     [SerializeField]
@@ -45,10 +50,37 @@ public class HatcheryData
             eggdata = value;
         }
     }
+
+    public int NeedTime
+    {
+        get
+        {
+            TimeSpan sp = DateTime.FromFileTime(endTime).Subtract(SystemTime.insatnce.GetTime());
+            needTime = sp.Seconds;
+            if (needTime < 0)
+                needTime = 0;
+            return needTime;
+        }
+    }
+
+    public long EndTime
+    {
+        get
+        {
+            return endTime;
+        }
+
+        set
+        {
+            endTime = value;
+        }
+    }
+
     public HatcheryData() { }
 
-    public HatcheryData(int id)
+    public HatcheryData(int id, HatcheryType hatcheryType)
     {
         this.id = id;
+        this.hatcheryType = hatcheryType;
     }
 }

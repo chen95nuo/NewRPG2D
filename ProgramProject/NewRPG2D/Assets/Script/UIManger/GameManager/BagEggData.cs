@@ -82,18 +82,11 @@ public class BagEggData
     /// 删除背包物品的数据
     /// </summary>
     /// <param name="id"></param>
-    public void Remove(int id)
+    public void Remove(EggData data)
     {
-        EggData data = GetEggs(id);
-
-        if (data != null)
-        {
-            eggs.Remove(data);
-
-            //数据改变，调用事件
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
-        }
-
+        eggs.Remove(data);
+        //数据改变，调用事件
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
     }
 
     /// <summary>

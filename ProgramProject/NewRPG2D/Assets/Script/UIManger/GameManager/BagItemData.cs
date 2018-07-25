@@ -59,6 +59,49 @@ public class BagItemData
         }
         return getItems;
     }
+    /// <summary>
+    /// 减少道具数量
+    /// </summary>
+    /// <param name="id">道具ID</param>
+    /// <param name="number">减少多少?</param>
+    public void ReduceItems(int id, int number)
+    {
+        List<ItemData> getItems = new List<ItemData>();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Id == id)
+            {
+                getItems.Add(items[i]);
+            }
+        }
+        ItemData data = getItems[0];
+        if (getItems.Count > 0)
+        {
+            do
+            {
+                for (int i = 0; i < getItems.Count - 1; i++)
+                {
+                    if (getItems[i].Number > getItems[i + 1].Number)
+                    {
+                        data = getItems[i + 1];
+                    }
+                }
+                if (data.Number - number >= 0)
+                {
+                    data.Number -= number;
+                    number = 0;
+                }
+                else
+                {
+                    number -= data.Number;
+                    data.Number = 0;
+                    Remove(data);
+                }
+
+            } while (number != 0);
+        }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
+    }
 
 
     /// <summary>

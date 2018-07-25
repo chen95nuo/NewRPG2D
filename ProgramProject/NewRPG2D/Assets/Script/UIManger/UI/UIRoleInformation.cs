@@ -155,7 +155,7 @@ public class UIRoleInformation : MonoBehaviour
         roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
         for (int i = 0; i < roleEquip.Length; i++)
         {
-            if (data.Equipdata[i].EquipType != EquipType.Nothing)
+            if (data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
             {
                 roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.gameObject.SetActive(true);
                 roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.gameObject.SetActive(true);

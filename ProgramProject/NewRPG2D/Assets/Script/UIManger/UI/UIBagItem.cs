@@ -80,6 +80,10 @@ public class UIBagItem : MonoBehaviour
 
         for (int i = 0; i < BagEggData.Instance.eggs.Count; i++)
         {
+            if (BagEggData.Instance.eggs[i].ItemNumber == 0)
+            {
+                BagEggData.Instance.Remove(BagEggData.Instance.eggs[i]);
+            }
             grids[i].UpdateItem(BagEggData.Instance.eggs[i]);
         }
     }
