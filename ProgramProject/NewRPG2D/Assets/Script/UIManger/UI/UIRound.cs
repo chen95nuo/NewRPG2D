@@ -20,6 +20,7 @@ public class UIRound : MonoBehaviour
     private Button[] btn_rounds;
     private List<RoundData> rounds;
     private List<RoundData> playerRounds;
+    private CardData[] cardData;
 
     private void Awake()
     {
@@ -114,6 +115,8 @@ public class UIRound : MonoBehaviour
 
     private void UpdateCard()
     {
+        int index = 0;
+        cardData = new CardData[4];
         for (int i = 0; i < teamType.cardGrids.Length; i++)
         {
             teamType.cardGrids[i].number = i;
@@ -124,6 +127,8 @@ public class UIRound : MonoBehaviour
             if (BagRoleData.Instance.roles[i].TeamType == (TeamType)currentTeam + 1)
             {
                 teamType.cardGrids[BagRoleData.Instance.roles[i].TeamPos].UpdateRoundCard(BagRoleData.Instance.roles[i]);
+                cardData[index] = BagRoleData.Instance.roles[i];
+                index++;
             }
         }
     }

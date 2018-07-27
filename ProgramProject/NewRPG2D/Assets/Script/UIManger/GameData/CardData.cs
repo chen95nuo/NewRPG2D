@@ -12,7 +12,10 @@ public class CardData
     private int id;//物品id
 
     [SerializeField]
-    private string typeMessage; //状态信息
+    private TeamType teamType; //状态信息
+
+    [SerializeField]
+    private int teamPos;
 
     [SerializeField]
     private bool fighting; //战斗中
@@ -81,11 +84,11 @@ public class CardData
         }
     }
 
-    public string TypeMessage
+    public TeamType TeamType
     {
         get
         {
-            return typeMessage;
+            return teamType;
         }
     }
 
@@ -233,6 +236,19 @@ public class CardData
         }
     }
 
+    public int TeamPos
+    {
+        get
+        {
+            return teamPos;
+        }
+
+        set
+        {
+            teamPos = value;
+        }
+    }
+
     public CardData() { }
 
     public CardData(int id)
@@ -260,7 +276,8 @@ public class CardData
         this.name = data.name;
         this.quality = data.quality;
         this.stars = data.stars;
-        this.typeMessage = data.typeMessage;
+        this.teamType = data.teamType;
+        this.teamPos = data.teamPos;
     }
     public CardData(int id, string name)
     {

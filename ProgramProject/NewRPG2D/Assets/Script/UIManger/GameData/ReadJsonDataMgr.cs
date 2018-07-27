@@ -14,6 +14,7 @@ public enum JsonName
     ItemsData,
     EquipData,
     StoreData,
+    RoundData,
     PlayerData,
     ExploreData,
     HatcheryData,
@@ -25,6 +26,7 @@ public enum JsonName
     BagMenuData,
     BagRoleData,
     BagFurnaceData,
+    PlayerRoundData,
     Max,
 }
 public class ReadJsonDataMgr
