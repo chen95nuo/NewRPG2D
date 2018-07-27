@@ -202,14 +202,14 @@ public class UIBagItem : MonoBehaviour
         }
     }
 
-    public void UpdateRole(CardData[] datas)
+    public void UpdateRole(CardData[] datas, GridType type)
     {
         if (itemType != ItemType.Role)
         {
             return;
         }
 
-        GridsControl(BagRoleData.Instance.roles.Count, GridType.Use);
+        GridsControl(BagRoleData.Instance.roles.Count, type);
         List<CardData> roles = BagRoleData.Instance.roles;
         GridsControl(roles.Count, GridType.Use);
         int index = 0;

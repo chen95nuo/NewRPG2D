@@ -36,7 +36,7 @@ public class UIRoleMaterialHouse : MonoBehaviour
 
     public void UpdateBagItem(CardData[] datas)
     {
-        updateBagItem.UpdateRole(datas);
+        updateBagItem.UpdateRole(datas, GridType.Use);
     }
 
     public void PageBack()

@@ -19,6 +19,7 @@ public enum GridType
     Use,//使用道具
     Store,//商城道具
     Explore,//探险
+    Team,//小队
 }
 
 public enum EquipType
@@ -29,6 +30,14 @@ public enum EquipType
     Necklace, //项链
     Ring //戒指
 
+}
+
+public enum TeamType
+{
+    Nothing,//无
+    Team_1,
+    Team_2,
+    Team_3,
 }
 
 public enum MenuType
@@ -103,6 +112,16 @@ public enum TipType
 {
     Nothing,
     Explore,//冒险
+}
+
+public enum DifficultyType
+{
+    Nothing,//空
+    Easy,//简单
+    Normal,//普通
+    Difficult,//困难
+
+
 }
 
 public enum UIEventDefineEnum

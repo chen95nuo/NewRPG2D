@@ -756,17 +756,23 @@ MonoBehaviour:
     itemNumber: 0
     isKnown: 0
     hatchingTime: 0
+    resultId: 0
   propData:
     name: 
     id: 0
     spriteName: 
     number: 0
+    melting: 0
     quality: 0
     itemType: 0
     propType: 0
-    price: 0
+    storePropType: 0
+    sellPrice: 0
+    buyPrice: 0
+    usePrice: 0
     addProperty: 0
     addExp: 0
+    rawMaterial: []
     getPlace: 
     describe: 
   equipData:
@@ -786,7 +792,8 @@ MonoBehaviour:
   roleData:
     name: 
     id: 0
-    typeMessage: 
+    teamType: 0
+    teamPos: 0
     fighting: 0
     level: 0
     quality: 0
@@ -825,6 +832,12 @@ MonoBehaviour:
     roleTypeBG: {fileID: 114154364377807196}
     roleLevel: {fileID: 114825063247700126}
     roleAttribute: {fileID: 114184955146204950}
+  storeGrid:
+    name: {fileID: 0}
+    price: {fileID: 0}
+    priceImage: {fileID: 0}
+    btn_But: {fileID: 0}
+    border: {fileID: 0}
 --- !u!114 &114554545644092860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1186,6 +1199,7 @@ MonoBehaviour:
   objctPool: {fileID: 224760793842555728}
   bagGrid: {fileID: 0}
   itemType: 4
+  h_gridNumber: 4
 --- !u!114 &114952494355869138
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -71,6 +71,11 @@ public class UIBagGrid : MonoBehaviour
             chickButton.onClick.AddListener(ShowMaterialHouse);
             return;
         }
+        else if (itemType == ItemType.Role && gridType == GridType.Team)
+        {
+            chickButton.onClick.AddListener(ShowTeamHouse);
+            return;
+        }
         else if (itemType == ItemType.Nothing)
         {
             UpdateItem(-1, ItemType.Nothing);
@@ -127,6 +132,12 @@ public class UIBagGrid : MonoBehaviour
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
         }
     }
+    public void ShowTeamHouse()
+    {
+        Debug.Log("进入小队菜单");
+
+    }
+
     public void ShowBuyPage()
     {
         Debug.Log("打开购买菜单");
@@ -256,12 +267,12 @@ public class UIBagGrid : MonoBehaviour
         roleGrid.roleImage.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
         roleGrid.roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
         roleGrid.roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
-        if (data.TypeMessage == null)
+        if (data.TeamType == TeamType.Nothing)
             roleGrid.roleTypeBG.gameObject.SetActive(false);
         else
         {
             roleGrid.roleTypeBG.gameObject.SetActive(true);
-            roleGrid.roleType.text = data.TypeMessage;
+            roleGrid.roleType.text = data.TeamType.ToString();
         }
         if (data.Fighting)
         {
