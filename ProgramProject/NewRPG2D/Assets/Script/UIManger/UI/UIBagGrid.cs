@@ -61,19 +61,9 @@ public class UIBagGrid : MonoBehaviour
     }
     void Start()
     {
-        if (itemType == ItemType.Role && gridType == GridType.Nothing)
+        if (itemType == ItemType.Role)
         {
             chickButton.onClick.AddListener(ShowRolePage);
-            return;
-        }
-        else if (itemType == ItemType.Role && gridType == GridType.Use)
-        {
-            chickButton.onClick.AddListener(ShowMaterialHouse);
-            return;
-        }
-        else if (itemType == ItemType.Role && gridType == GridType.Team)
-        {
-            chickButton.onClick.AddListener(ShowTeamHouse);
             return;
         }
         else if (itemType == ItemType.Nothing)
@@ -121,21 +111,32 @@ public class UIBagGrid : MonoBehaviour
     }
     public void ShowRolePage()
     {
-        TTUIPage.ShowPage<UIRolePage>();
-    }
-
-    public void ShowMaterialHouse()
-    {
-        if (!roleData.Fighting)
+        switch (gridType)
         {
-            TTUIPage.ClosePage<UIUseRoleHousePage>();
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
+            case GridType.Nothing:
+                TTUIPage.ShowPage<UIRolePage>();
+                break;
+            case GridType.Use:
+                if (!roleData.Fighting)
+                {
+                    TTUIPage.ClosePage<UIUseRoleHousePage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
+                }
+                break;
+            case GridType.Store:
+                break;
+            case GridType.Explore:
+                BackExplore();
+                break;
+            case GridType.Team:
+                Debug.Log("进入小队菜单");
+                //选中的
+                TTUIPage.ClosePage<UIUseRoleHousePage>();
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRoundEvent, roleData);
+                break;
+            default:
+                break;
         }
-    }
-    public void ShowTeamHouse()
-    {
-        Debug.Log("进入小队菜单");
-
     }
 
     public void ShowBuyPage()

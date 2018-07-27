@@ -209,9 +209,8 @@ public class UIBagItem : MonoBehaviour
             return;
         }
 
-        GridsControl(BagRoleData.Instance.roles.Count, type);
         List<CardData> roles = BagRoleData.Instance.roles;
-        GridsControl(roles.Count, GridType.Use);
+        GridsControl(roles.Count, type);
         int index = 0;
         for (int i = 0; i < roles.Count; i++)
         {
@@ -233,7 +232,7 @@ public class UIBagItem : MonoBehaviour
                 index++;
             }
         }
-        GridsControl(index, GridType.Use);
+        GridsControl(index, type);
     }
     public void UpdateRole(CardData[] datas, int level)
     {

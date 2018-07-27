@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIMapMgr : MonoBehaviour {
+public class UIMapMgr : MonoBehaviour
+{
 
     public Scrollbar m_Scrollbar;
     public ScrollRect m_ScrollRect;
+    public Transform m_content;
 
     private float mTargetValue;
 
@@ -18,33 +20,23 @@ public class UIMapMgr : MonoBehaviour {
 
     private float mMoveSpeed = 0f;
 
-    public void OnPointerDown()
+    private float imageNumber = 0;
+
+    private void Awake()
     {
-        mNeedMove = false;
+        imageNumber = 1.0f / (m_content.childCount - 1.0f);
     }
 
     public void OnPointerUp()
-    {
-        // 判断当前位于哪个区间，设置自动滑动至的位置
-        if (m_Scrollbar.value <= 0.125f)
+    {// 1. 0.03 - 0.30 2. 0.36 - 0.63 3. 0.69-0.96
+        //// 判断当前位于哪个区间，设置自动滑动至的位置
+        if (mTargetValue + 0.03f < m_Scrollbar.value)
         {
-            mTargetValue = 0;
+            mTargetValue += imageNumber;
         }
-        else if (m_Scrollbar.value <= 0.375f)
+        else if (mTargetValue - 0.03f > m_Scrollbar.value)
         {
-            mTargetValue = 0.25f;
-        }
-        else if (m_Scrollbar.value <= 0.625f)
-        {
-            mTargetValue = 0.5f;
-        }
-        else if (m_Scrollbar.value <= 0.875f)
-        {
-            mTargetValue = 0.75f;
-        }
-        else
-        {
-            mTargetValue = 1f;
+            mTargetValue -= imageNumber;
         }
 
         mNeedMove = true;

@@ -67,6 +67,11 @@ public class RoundData
     }
 
     public RoundData() { }
+    public RoundData(int id, LessonData[] lessonData)
+    {
+        this.id = id;
+        this.lessonData = lessonData;
+    }
 }
 
 [System.Serializable]
@@ -151,6 +156,11 @@ public class LessonData
         {
             return lessonDrop;
         }
+    }
+    public LessonData() { }
+    public LessonData(DifficultyType difficultyType)
+    {
+        this.difficultyType = difficultyType;
     }
 }
 [System.Serializable]

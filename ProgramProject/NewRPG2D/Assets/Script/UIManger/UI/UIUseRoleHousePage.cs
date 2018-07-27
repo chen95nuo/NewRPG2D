@@ -62,7 +62,6 @@ public class UIUseRoleHousePage : TTUIPage
     /// <param name="data">撇除当前角色</param>
     public void UpdateRoleItem(CardData[] datas)
     {
-        Debug.Log("运行了");
         grid.gridType = gridType;
         if (gridType == GridType.Explore)
         {
@@ -70,9 +69,9 @@ public class UIUseRoleHousePage : TTUIPage
         }
         else
         {
-            Debug.Log("运行了 +1");
             updateBagItem.UpdateRole(datas, gridType);
         }
+
     }
 
     public void PageBack()

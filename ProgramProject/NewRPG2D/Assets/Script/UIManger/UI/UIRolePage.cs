@@ -24,6 +24,7 @@ public class UIRolePage : TTUIPage
 
     public override void Refresh()
     {
+        transform.SetSiblingIndex(transform.parent.childCount - 1);
         pickUpRoleMessage = transform.GetComponent<UIRoleInformation>();
         pickUpRoleMessage.Init();
 

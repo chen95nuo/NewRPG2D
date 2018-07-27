@@ -31,7 +31,6 @@ public class UIRoleInformation : MonoBehaviour
 
     public CardData roleData;
 
-    public GameObject currentBtn;
     public int currentNumber;
 
     public GameObject buttonType;
@@ -76,11 +75,13 @@ public class UIRoleInformation : MonoBehaviour
     /// </summary>
     public void CheckCurrentEquipButton()
     {
-        currentBtn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < roleEquip.Length; i++)
         {
-            if (roleEquip[i].roleEquipOptions.gameObject == currentBtn)
+            if (roleEquip[i].roleEquipOptions.gameObject == go)
             {
+                currentNumber = i;
+                Debug.Log(currentNumber + "变动了");
                 if (roleData.Equipdata[i].EquipType != EquipType.Nothing)
                 {
                     buttonType.transform.position = roleEquip[i].roleEquipImage.transform.position;
@@ -90,7 +91,6 @@ public class UIRoleInformation : MonoBehaviour
                 {
                     OpenEquipOpitions();
                 }
-                currentNumber = i;
             }
         }
     }
@@ -102,6 +102,7 @@ public class UIRoleInformation : MonoBehaviour
     public void OpenEquipOpitions()
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
+        Debug.Log(currentNumber + "打开了背包");
         UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)currentNumber + 1);
     }
 

@@ -12,23 +12,35 @@ public class UIRound : MonoBehaviour
     public LessonType lessonType;
     public TeamDifficulty teamType;
 
-
     private int currentRound = 0;
     private int currentLesson = 0;
     private int currentDifficulty = 0;
     private int currentTeam = 0;
+    private int currentGrid = 0;
     private Button[] btn_rounds;
     private List<RoundData> rounds;
     private List<RoundData> playerRounds;
-    private CardData[] cardData;
+    private CardData[] cardData = new CardData[4];
 
     private void Awake()
     {
 
         Init();
 
-    }
+        UIEventManager.instance.AddListener<int>(UIEventDefineEnum.UpdateRoundEvent, UpdateGrid);
+        UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateRoundEvent, UpdateCard);
 
+    }
+    private void OnDestroy()
+    {
+        UIEventManager.instance.RemoveListener<int>(UIEventDefineEnum.UpdateRoundEvent, UpdateGrid);
+        UIEventManager.instance.RemoveListener<CardData>(UIEventDefineEnum.UpdateRoundEvent, UpdateCard);
+
+
+    }
+    /// <summary>
+    /// 初始化
+    /// </summary>
     private void Init()
     {
         MainPage.SetActive(true);
@@ -47,8 +59,26 @@ public class UIRound : MonoBehaviour
             //图片暂无 btn_rounds[i].Image
             btn_rounds[i].onClick.AddListener(ChickRounds);
             btn_rounds[i].GetComponentInChildren<Text>().text = rounds[i].Name;
+
         }
         UpdateMainLesson();//刷新列表
+
+        lessonType.btn_lessonBack.onClick.AddListener(ChickLessonBack);
+        teamType.btn_teamBack.onClick.AddListener(ChickTeamBack);
+        teamType.btn_start.onClick.AddListener(ChickStartButton);
+
+        for (int i = 0; i < teamType.btn_team.Length; i++)
+        {
+            teamType.btn_team[i].onClick.AddListener(ChickTeam);
+        }
+        for (int i = 0; i < rounds[currentRound].LessonData.Length; i++)
+        {
+            lessonType.lesson[i].onClick.AddListener(ChickLesson);
+        }
+        for (int i = 0; i < teamType.btn_difficuly.Length; i++)
+        {
+            teamType.btn_difficuly[i].onClick.AddListener(ChickDifficuly);
+        }
     }
 
     private void UpdateMainLesson()
@@ -66,8 +96,11 @@ public class UIRound : MonoBehaviour
             btn_rounds[playerRounds[i].Id - 1].interactable = true;
             for (int j = 0; j < playerRounds[i].LessonData.Length; j++)
             {
-                data.LessonData[j].UnLock = true;
-                data.LessonData[j].DifficultyType = playerRounds[i].LessonData[j].DifficultyType;
+                if (playerRounds[i].LessonData[j].DifficultyType != DifficultyType.Nothing)
+                {
+                    data.LessonData[j].UnLock = true;
+                    data.LessonData[j].DifficultyType = playerRounds[i].LessonData[j].DifficultyType;
+                }
             }
         }
     }
@@ -77,10 +110,10 @@ public class UIRound : MonoBehaviour
         lessonType.MainTip.text = rounds[currentRound].Name;
         for (int i = 0; i < rounds[currentRound].LessonData.Length; i++)
         {
-            lessonType.lesson[i].onClick.AddListener(ChickLesson);
-            if (!rounds[currentRound].LessonData[i].UnLock)
+            lessonType.lesson[i].interactable = false;
+            if (rounds[currentRound].LessonData[i].UnLock)
             {
-                lessonType.lesson[i].interactable = false;
+                lessonType.lesson[i].interactable = true;
             }
         }
     }
@@ -89,7 +122,6 @@ public class UIRound : MonoBehaviour
     {
         for (int i = 0; i < teamType.btn_difficuly.Length; i++)
         {
-            teamType.btn_difficuly[i].onClick.AddListener(ChickDifficuly);
             if (i < (int)rounds[currentRound].LessonData[currentLesson].DifficultyType)
             {
                 teamType.btn_difficuly[i].interactable = true;
@@ -111,6 +143,7 @@ public class UIRound : MonoBehaviour
             }
         }
         teamType.text_fatigue.text = rounds[currentRound].LessonData[currentLesson].NeedFatigue.ToString();
+
     }
 
     private void UpdateCard()
@@ -119,6 +152,7 @@ public class UIRound : MonoBehaviour
         cardData = new CardData[4];
         for (int i = 0; i < teamType.cardGrids.Length; i++)
         {
+            teamType.cardGrids[i].isCard = false;
             teamType.cardGrids[i].number = i;
             teamType.cardGrids[i].UpdateRoundCard();
         }
@@ -127,10 +161,26 @@ public class UIRound : MonoBehaviour
             if (BagRoleData.Instance.roles[i].TeamType == (TeamType)currentTeam + 1)
             {
                 teamType.cardGrids[BagRoleData.Instance.roles[i].TeamPos].UpdateRoundCard(BagRoleData.Instance.roles[i]);
-                cardData[index] = BagRoleData.Instance.roles[i];
+                cardData[BagRoleData.Instance.roles[i].TeamPos] = BagRoleData.Instance.roles[i];
                 index++;
             }
         }
+        teamType.btn_team[currentTeam].interactable = false;
+    }
+    private void UpdateCard(CardData data)
+    {
+        Debug.Log(currentGrid);
+        cardData[currentGrid] = data;
+        data.TeamPos = currentGrid;
+        data.TeamType = (TeamType)(currentTeam + 1);
+        teamType.cardGrids[currentGrid].UpdateRoundCard(data);
+    }
+    private void UpdateGrid(int gridID)
+    {
+        currentGrid = gridID;
+        TinyTeam.UI.TTUIPage.ShowPage<UIUseRoleHousePage>();
+        UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Team);
+        UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
     }
 
     private void ChickRounds()
@@ -184,7 +234,65 @@ public class UIRound : MonoBehaviour
                 break;
             }
         }
+        UpdateDifficulty();
+    }
+    private void ChickTeam()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < teamType.btn_team.Length; i++)
+        {
+            teamType.btn_team[currentTeam].interactable = true;
+            if (teamType.btn_team[i].gameObject == go)
+            {
+                currentTeam = i;
+            }
 
+        }
+        UpdateCard();
+    }
+    private void ChickStartButton()
+    {
+        if (playerRounds[currentRound].LessonData[currentLesson].DifficultyType < DifficultyType.Difficult
+            && currentDifficulty + 1 == (int)playerRounds[currentRound].LessonData[currentLesson].DifficultyType)
+        {
+            playerRounds[currentRound].LessonData[currentLesson].DifficultyType++;
+        }
+        if ((currentLesson + 1) < playerRounds[currentRound].LessonData.Length && playerRounds[currentRound].LessonData[currentLesson + 1].DifficultyType == DifficultyType.Nothing)
+        {
+            playerRounds[currentRound].LessonData[currentLesson + 1] = new LessonData(DifficultyType.Easy);
+            Debug.Log(playerRounds[currentRound].LessonData[currentLesson + 1].DifficultyType);
+            Debug.Log(currentLesson + 1);
+        }
+        else if ((currentLesson + 1) >= rounds[currentRound].LessonData.Length && (currentRound + 1) < rounds.Count)
+        {
+            RoundData data = new RoundData(playerRounds[currentRound].Id + 1, new LessonData[4]);
+            Debug.Log(currentRound);
+            Debug.Log(playerRounds[currentRound].Id + 1);
+            for (int i = 0; i < data.LessonData.Length; i++)
+            {
+                data.LessonData[i] = new LessonData(DifficultyType.Nothing);
+            }
+            data.LessonData[0] = new LessonData(DifficultyType.Easy);
+            playerRounds.Add(data);
+            Debug.Log("a");
+        }
+
+        UpdateMainLesson();
+        UpdateDifficulty();
+    }
+    private void ChickLessonBack()
+    {
+        MainPage.SetActive(true);
+        UpdateMainLesson();
+        LessonPage.SetActive(false);
+        DifficultyPage.SetActive(false);
+    }
+    private void ChickTeamBack()
+    {
+        MainPage.SetActive(false);
+        LessonPage.SetActive(true);
+        UpdateLesson();
+        DifficultyPage.SetActive(false);
     }
 }
 
@@ -193,6 +301,7 @@ public class LessonType
 {
     public Text MainTip;
     public Button[] lesson;
+    public Button btn_lessonBack;
 }
 
 [System.Serializable]
@@ -204,4 +313,5 @@ public class TeamDifficulty
     public UIBagGrid[] propGrids;
     public Text text_fatigue;
     public Button btn_start;
+    public Button btn_teamBack;
 }

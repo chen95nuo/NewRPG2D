@@ -90,6 +90,10 @@ public class CardData
         {
             return teamType;
         }
+        set
+        {
+            teamType = value;
+        }
     }
 
     public int Level

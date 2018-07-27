@@ -131,6 +131,7 @@ public enum UIEventDefineEnum
     UpdatePropsEvent,
     UpdateEquipsEvent,
     UpdateRolesEvent,
+    UpdateRoundEvent,
     UpdateRoleTipEvent,
     UpdateMaterialEvent,
     UpdateFurnaceEvent,
