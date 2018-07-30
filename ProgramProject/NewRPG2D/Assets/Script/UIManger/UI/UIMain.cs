@@ -9,6 +9,9 @@ public class UIMain : MonoBehaviour
     public Text text_Diamonds;
     public Text text_Fatigue;
 
+    public Button btn_Furnace;
+    public Button btn_Store;
+
     private void Awake()
     {
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdatePlayerGoldCoin, UpdateGoldCoin);

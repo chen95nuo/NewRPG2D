@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using DG.Tweening.Plugins.Options;
 
 public class UIMapMgr : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class UIMapMgr : MonoBehaviour
 
     private bool mNeedMove = false;
 
-    private const float MOVE_SPEED = 1F;
+    private const float MOVE_SPEED = 1.5F;
 
     private const float SMOOTH_TIME = 0.2F;
 
@@ -27,8 +29,15 @@ public class UIMapMgr : MonoBehaviour
         imageNumber = 1.0f / (m_content.childCount - 1.0f);
     }
 
+    private void Start()
+    {
+        mTargetValue = 0;
+        mNeedMove = true;
+        mMoveSpeed = 0;
+    }
+
     public void OnPointerUp()
-    {// 1. 0.03 - 0.30 2. 0.36 - 0.63 3. 0.69-0.96
+    {
         //// 判断当前位于哪个区间，设置自动滑动至的位置
         if (mTargetValue + 0.03f < m_Scrollbar.value)
         {
@@ -47,7 +56,8 @@ public class UIMapMgr : MonoBehaviour
     {
         if (mNeedMove)
         {
-            if (Mathf.Abs(m_Scrollbar.value - mTargetValue) < 0.01f)
+
+            if (Mathf.Abs(m_Scrollbar.value - mTargetValue) < 0.001f)
             {
                 m_Scrollbar.value = mTargetValue;
                 mNeedMove = false;
@@ -56,5 +66,4 @@ public class UIMapMgr : MonoBehaviour
             m_Scrollbar.value = Mathf.SmoothDamp(m_Scrollbar.value, mTargetValue, ref mMoveSpeed, SMOOTH_TIME);
         }
     }
-
 }

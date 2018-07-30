@@ -49,7 +49,7 @@ public class UIFurnacePopUp : MonoBehaviour
                 if (data.PopPoint[i].materialType != ItemMaterialType.Nothing)
                 {
                     furnacePops[data.PopPoint[i].materialPoint].PopUp.SetActive(true);
-                    furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.sprite = Resources.Load<Sprite>("UITexture/Icon/furnaceMaterial/" + (int)data.PopPoint[i].materialType);
+                    furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.sprite = IconMgr.Instance.GetIcon("Material_" + data.PopPoint[i].materialType);
                     furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber = data.PopPoint[i].materialNumber;
                     furnacePops[data.PopPoint[i].materialPoint].FMaterialNumber.text = "+" + furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber;
                 }
@@ -121,7 +121,7 @@ public class UIFurnacePopUp : MonoBehaviour
             } while (furnacePops[roll].MType != ItemMaterialType.Nothing);
 
             furnacePops[roll].MType = type;
-            furnacePops[roll].FMaterialImage.sprite = Resources.Load<Sprite>("UITexture/Icon/furnaceMaterial/" + (int)type);
+            furnacePops[roll].FMaterialImage.sprite = IconMgr.Instance.GetIcon("Material_" + type);
             furnacePops[roll].fMaterialNumber = number;
             furnacePops[roll].FMaterialNumber.text = "+" + furnacePops[roll].fMaterialNumber;
             furnacePops[roll].PopUp.SetActive(true);

@@ -28,6 +28,11 @@ public class UIUseItemBagPage : TTUIPage
         UIEventManager.instance.AddListener<ItemType>(UIEventDefineEnum.UpdateUsePage, UpdateItem);
     }
 
+    public override void Refresh()
+    {
+        transform.SetSiblingIndex(transform.parent.childCount - 1);
+    }
+
     public void Init()
     {
         bagMenu = transform.Find("Menu/btn_menu").gameObject;

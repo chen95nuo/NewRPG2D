@@ -24,6 +24,7 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         TTUIPage.ShowPage<UIMainPage>();
+
     }
 
     // Update is called once per frame

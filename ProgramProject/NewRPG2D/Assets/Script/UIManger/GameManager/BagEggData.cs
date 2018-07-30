@@ -29,7 +29,13 @@ public class BagEggData
     }
     public List<EggData> eggs; //背包中所有的蛋
 
-
+    private void LoadEggs()
+    {
+        for (int i = 0; i < eggs.Count; i++)
+        {
+            eggs[i] = GameEggData.Instance.GetItem(eggs[i].Id);
+        }
+    }
 
     /// <summary>
     /// 查找蛋数据

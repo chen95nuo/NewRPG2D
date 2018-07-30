@@ -201,8 +201,8 @@ public class UIFurnace : MonoBehaviour
                 rawMaterials[i].noPorp.gameObject.SetActive(false);
                 rawMaterials[i].propQuality.gameObject.SetActive(true);
                 rawMaterials[i].btn_rawMaterials.interactable = false;
-                rawMaterials[i].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + playerData.Furnace[currentMenu].Material[i].SpriteName);
-                rawMaterials[i].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + playerData.Furnace[currentMenu].Material[i].Quality);
+                rawMaterials[i].propImage.sprite = IconMgr.Instance.GetIcon(playerData.Furnace[currentMenu].Material[i].SpriteName);
+                rawMaterials[i].propQuality.sprite = IconMgr.Instance.GetIcon("quality_" + playerData.Furnace[currentMenu].Material[i].Quality);
             }
             switch (playerData.Furnace[currentMenu].FurnaceType)
             {
@@ -339,8 +339,8 @@ public class UIFurnace : MonoBehaviour
             data.Number--;
             rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
             rawMaterials[currentButton].propQuality.gameObject.SetActive(true);
-            rawMaterials[currentButton].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
-            rawMaterials[currentButton].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+            rawMaterials[currentButton].propImage.sprite = IconMgr.Instance.GetIcon( data.SpriteName);
+            rawMaterials[currentButton].propQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
             ItemData newData = new ItemData(GamePropData.Instance.GetItem(data.Id));
             newData.Number = 1;
             temporaryData.Material[currentButton] = newData;
@@ -379,8 +379,8 @@ public class UIFurnace : MonoBehaviour
             data.Number--;
             rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
             rawMaterials[currentButton].propQuality.gameObject.SetActive(true);
-            rawMaterials[currentButton].propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
-            rawMaterials[currentButton].propQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
+            rawMaterials[currentButton].propImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+            rawMaterials[currentButton].propQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
             ItemData newData_1 = new ItemData(GamePropData.Instance.GetItem(data.Id));
             newData_1.Number = 1;
             temporaryData.Material[currentButton] = newData_1;

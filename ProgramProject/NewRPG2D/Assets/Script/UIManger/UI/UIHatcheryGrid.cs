@@ -73,7 +73,7 @@ public class UIHatcheryGrid : MonoBehaviour
         hatchery.HatcheryType = HatcheryType.Run;
         hatchery.EndTime = SystemTime.insatnce.GetTime().AddSeconds(data.HatchingTime).ToFileTime();
         btn_hatchery.interactable = false;
-        btn_hatchery.image.sprite = Resources.Load<Sprite>("UITexture/Icon/egg/" + data.Name);
+        btn_hatchery.image.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         timeText.gameObject.SetActive(true);
         btn_speed.gameObject.SetActive(true);
     }
@@ -88,12 +88,10 @@ public class UIHatcheryGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 点击孵化完成
+    /// 点击孵化完成 弹出奖励菜单
     /// </summary>
     public void ChickComplete()
     {
-        //弹出奖励菜单
-        //
         TinyTeam.UI.TTUIPage.ShowPage<UIRoleTipPage>();
         CardData data = GameCardData.Instance.GetItem(hatchery.Eggdata.Id);
         UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateRoleTipEvent, data);

@@ -173,7 +173,7 @@ public class UIHatcheryPool : MonoBehaviour
             propNumber += data[i].Number;
         }
         AddSpeedOBJ.SetActive(true);
-        addSpeed.propImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data[0].SpriteName);
+        addSpeed.propImage.sprite = IconMgr.Instance.GetIcon(data[0].SpriteName);
         addSpeed.propSlider.maxValue = propNumber;
         addSpeed.propNumber.text = addSpeed.propSlider.value.ToString();
         addSpeed.propName.text = GamePropData.Instance.QueryItem(propId).Name.ToString();

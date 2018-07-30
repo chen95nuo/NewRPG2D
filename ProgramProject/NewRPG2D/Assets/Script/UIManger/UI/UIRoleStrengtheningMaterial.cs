@@ -29,10 +29,10 @@ public class UIRoleStrengtheningMaterial : MonoBehaviour
         {
             none.SetActive(false);
             roleDisplay.SetActive(true);
-            role.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
-            roleQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/roleQuality/" + data.Quality);
-            roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
-            roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
+            role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+            roleQuality.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
+            roleAttribute.sprite = IconMgr.Instance.GetIcon( data.Attribute);
+            roleStars.sprite = IconMgr.Instance.GetIcon("Start_" + data.Stars);
         }
     }
 

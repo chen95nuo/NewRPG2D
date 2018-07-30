@@ -196,11 +196,11 @@ public class UIBagGrid : MonoBehaviour
 
         eggGrid.egg.SetActive(true);
         otherGrid.other.SetActive(false);
-        eggGrid.eggBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        eggGrid.eggAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
+        eggGrid.eggBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        eggGrid.eggAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
         eggGrid.eggNumber.text = data.ItemNumber.ToString();
-        eggGrid.eggImage.sprite = Resources.Load<Sprite>("UITexture/Icon/egg/" + data.Name);
-        eggGrid.eggStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.StarsLevel);
+        eggGrid.eggImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        eggGrid.eggStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.StarsLevel);
         HatchTime((int)data.HatchingTime, eggGrid.eggNeedTime);
 
         hatchingTime = (int)data.HatchingTime;
@@ -216,8 +216,8 @@ public class UIBagGrid : MonoBehaviour
 
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);
-        otherGrid.otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        otherGrid.otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/prop/" + data.SpriteName);
+        otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         otherGrid.otherNumber.gameObject.SetActive(true);
         otherGrid.otherNumber.text = data.Number.ToString();
 
@@ -251,8 +251,8 @@ public class UIBagGrid : MonoBehaviour
 
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);
-        otherGrid.otherBG.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Quality);
-        otherGrid.otherImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.SpriteName);
+        otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         otherGrid.otherNumber.gameObject.SetActive(false);
 
         quality = data.Quality;
@@ -264,10 +264,10 @@ public class UIBagGrid : MonoBehaviour
         itemID = data.Id;
         itemType = data.ItemType;
 
-        roleGrid.roleBG.sprite = Resources.Load<Sprite>("UITexture/Icon/roleQuality/" + data.Quality);
-        roleGrid.roleImage.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
-        roleGrid.roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
-        roleGrid.roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
+        roleGrid.roleBG.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
+        roleGrid.roleImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        roleGrid.roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
+        roleGrid.roleAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
         if (data.TeamType == TeamType.Nothing)
             roleGrid.roleTypeBG.gameObject.SetActive(false);
         else

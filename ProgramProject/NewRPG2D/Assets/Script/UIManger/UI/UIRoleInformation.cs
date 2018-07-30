@@ -147,21 +147,21 @@ public class UIRoleInformation : MonoBehaviour
     {
         roleData = data;
         roleName.text = data.Name;
-        roleLevel.text = data.Level.ToString();
+        roleLevel.text = "LV." + data.Level.ToString();
         roleExp.text = data.Exp.ToString();
         roleHeart.text = data.GoodFeeling.ToString();
-        role.sprite = Resources.Load<Sprite>("UITexture/Icon/role/" + data.Name);
-        roleQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/roleQuality/" + data.Quality);
-        roleAttribute.sprite = Resources.Load<Sprite>("UITexture/Icon/attribute/" + data.Attribute);
-        roleStars.sprite = Resources.Load<Sprite>("UITexture/Icon/stars/" + data.Stars);
+        role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        roleQuality.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
+        roleAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
+        roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
         for (int i = 0; i < roleEquip.Length; i++)
         {
             if (data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
             {
                 roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.gameObject.SetActive(true);
                 roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.gameObject.SetActive(true);
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.sprite = Resources.Load<Sprite>("UITexture/Icon/equip/" + data.Equipdata[i].Id);
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.sprite = Resources.Load<Sprite>("UITexture/Icon/quality/" + data.Equipdata[i].Quality);
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.sprite = IconMgr.Instance.GetIcon(data.Equipdata[i].SpriteName);
+                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Equipdata[i].Quality);
             }
             else
             {
@@ -170,13 +170,65 @@ public class UIRoleInformation : MonoBehaviour
             }
         }
         roleHealth.roleValue.text = data.Health.ToString();
-        roleHealth.roleScore.text = data.HealthGrow.ToString();
+        roleHealth.roleScore.text = data.HealthGrow.ToString("#0.0");
+        string a = RoleGrade(data.HealthGrow, data.HealthMinGrow, data.HealthMaxGrow);
+        roleHealth.roleQualityText.text = a;
+
         roleAttack.roleValue.text = data.Attack.ToString();
-        roleAttack.roleScore.text = data.AttackGrow.ToString();
+        roleAttack.roleScore.text = data.AttackGrow.ToString("#0.0");
+        roleAttack.roleQualityText.text = RoleGrade(data.AttackGrow, data.AttackMinGrow, data.AttackMaxGrow);
+
         roleAgile.roleValue.text = data.Agile.ToString();
-        roleAgile.roleScore.text = data.AgileGrow.ToString();
+        roleAgile.roleScore.text = data.AgileGrow.ToString("#0.0");
+        roleAgile.roleQualityText.text = RoleGrade(data.AgileGrow, data.AgileMinGrow, data.AgileMaxGrow);
+
         roleDefense.roleValue.text = data.Defense.ToString();
-        roleDefense.roleScore.text = data.DefenseGrow.ToString();
+        roleDefense.roleScore.text = data.DefenseGrow.ToString("#0.0");
+        roleDefense.roleQualityText.text = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
+    }
+
+    public string RoleGrade(float grade, float min, float max)
+    {
+        float Amin = 0;
+        float Amax = 0;
+        float Bmin = 0;
+        float Bmax = 0;
+        float Cmin = 0;
+        float Cmax = 0;
+        float Smin = 0;
+        float Smax = 0;
+        Cmin = min;
+        Cmax = min + (max - min) / 10.0f * 3.0f;
+        Bmin = Cmax + 0.1f;
+        Bmax = Cmax + (max - min) / 10.0f * 3.0f;
+        Amin = Bmax + 0.1f;
+        Amax = Bmax + (max - min) / 10.0f * 3.0f;
+        Smin = Amax + 0.1f;
+        Smax = Amax + (max - min) / 10.0f * 1.0f;
+
+        if (grade >= Cmin && grade <= Cmax)
+        {
+            return "C";
+        }
+        else if (grade >= Bmin && grade <= Bmax)
+        {
+            return "B";
+        }
+        else if (grade >= Amin && grade <= Amax)
+        {
+            return "A";
+        }
+        else if (grade >= Smin && grade <= Smax)
+        {
+            return "S";
+        }
+        else
+        {
+            Debug.Log(grade);
+            return null;
+        }
+
+
     }
 
 
@@ -193,6 +245,7 @@ public class UIRoleInformation : MonoBehaviour
         public Text roleValue;
         public Text roleScore;
         public Image roleQuality;
+        public Text roleQualityText;
     }
     [System.Serializable]
     public class UIRoleSkill
