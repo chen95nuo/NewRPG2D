@@ -339,7 +339,7 @@ public class UIFurnace : MonoBehaviour
             data.Number--;
             rawMaterials[currentButton].noPorp.gameObject.SetActive(false);
             rawMaterials[currentButton].propQuality.gameObject.SetActive(true);
-            rawMaterials[currentButton].propImage.sprite = IconMgr.Instance.GetIcon( data.SpriteName);
+            rawMaterials[currentButton].propImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
             rawMaterials[currentButton].propQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
             ItemData newData = new ItemData(GamePropData.Instance.GetItem(data.Id));
             newData.Number = 1;

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TinyTeam.UI;
 
-public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IDragHandler, IEndDragHandler
+public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     [System.NonSerialized]
     public int number;
@@ -124,11 +124,15 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isDown = false;
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        grid.transform.SetParent(temporary);
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         isDown = false;
         isDrag = true;
-        grid.transform.parent = temporary;
 
         Vector2 _pos = Vector2.one;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
@@ -144,7 +148,8 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         UIRoundCard card = eventData.pointerCurrentRaycast.gameObject.GetComponent<UIRoundCard>();
         UpdateRoundCard(card);
 
-        grid.transform.parent = transform;
+        grid.transform.SetParent(transform);
         rt.anchoredPosition = Vector2.zero;
     }
+
 }

@@ -267,13 +267,17 @@ public class UIBagItem : MonoBehaviour
     }
     public void UpdateStore(ItemData[] data)
     {
-        if (itemType != ItemType.Store)
+        if (itemType != ItemType.Prop)
         {
+            Debug.Log("运行了1");
             return;
         }
+        Debug.Log("运行了2");
         GridsControl(data.Length);
+        Debug.Log("运行了3");
         for (int i = 0; i < data.Length; i++)
         {
+            Debug.Log(data[i].Id);
             grids[i].UpdateItem(data[i]);
 
             if (i % 3 == 0)
@@ -284,7 +288,7 @@ public class UIBagItem : MonoBehaviour
             {
                 grids[i].storeGrid.border.gameObject.SetActive(false);
             }
-            grids[i].itemType = ItemType.Store;
+            grids[i].itemType = ItemType.Prop;
             grids[i].gridType = GridType.Store;
         }
     }

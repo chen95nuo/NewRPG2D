@@ -26,6 +26,7 @@ public class UIBagItemMessage : TTUIPage
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {
             UIBagGrid information = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<UIBagGrid>();
+            Debug.Log("CurrentBtn" + UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             RectTransform rect = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>();
 
             switch (information.itemType)

@@ -80,8 +80,6 @@ public class UIUseItemBagPage : TTUIPage
                 break;
             case ItemType.Role:
                 break;
-            case ItemType.Store:
-                break;
             default:
                 break;
         }

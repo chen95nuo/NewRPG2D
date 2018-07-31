@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using TinyTeam.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIBagGrid : MonoBehaviour
+public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerEnterHandler
 {
 
     public int itemID = -1;
@@ -46,6 +47,7 @@ public class UIBagGrid : MonoBehaviour
     public StoreGrid storeGrid;
 
     private Button chickButton;
+    private bool isPointerDown = false;
 
     // Use this for initialization
     void Awake()
@@ -83,17 +85,22 @@ public class UIBagGrid : MonoBehaviour
         {
             TTUIPage.ShowPage<UIBagItemMessage>();
         }
-        else if (itemType == ItemType.Prop && gridType != GridType.Use)
+        else if (itemType == ItemType.Prop)
         {
-            TTUIPage.ShowPage<UIBagItemMessage>();
-        }
-        else if (itemType == ItemType.Prop && gridType == GridType.Use)
-        {
-            UseProp();
-        }
-        else if (itemType == ItemType.Store && gridType == GridType.Store)
-        {
-            BuyProp();
+            switch (gridType)
+            {
+                case GridType.Nothing:
+                    TTUIPage.ShowPage<UIBagItemMessage>();
+                    break;
+                case GridType.Use:
+                    UseProp();
+                    break;
+                case GridType.Store:
+                    BuyProp();
+                    break;
+                default:
+                    break;
+            }
         }
         else if (itemType == ItemType.Role && gridType == GridType.Explore)
         {
@@ -209,6 +216,7 @@ public class UIBagGrid : MonoBehaviour
 
     public void UpdateItem(ItemData data)
     {
+        Debug.Log(data.Id);
         propData = data;
         itemID = data.Id;
         itemType = data.ItemType;
@@ -280,7 +288,7 @@ public class UIBagGrid : MonoBehaviour
             roleGrid.roleTypeBG.gameObject.SetActive(true);
             roleGrid.roleType.text = "探险中...";
         }
-        roleGrid.roleLevel.text = data.Level.ToString();
+        roleGrid.roleLevel.text = "LV." + data.Level.ToString();
 
         level = data.Level;
         stars = data.Stars;
@@ -297,6 +305,91 @@ public class UIBagGrid : MonoBehaviour
 
         text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isPointerDown = true;
+        if (itemType == ItemType.Prop)
+        {
+            switch (gridType)
+            {
+                case GridType.Nothing:
+                    break;
+                case GridType.Use:
+                    break;
+                case GridType.Store:
+                    break;
+                case GridType.Explore:
+                    Debug.Log("显示小气泡");
+                    TTUIPage.ShowPage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    break;
+                case GridType.Team:
+                    Debug.Log("显示小气泡");
+                    TTUIPage.ShowPage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, false);
+        if (itemType == ItemType.Prop && Input.GetMouseButton(0))
+        {
+            switch (gridType)
+            {
+                case GridType.Nothing:
+                    break;
+                case GridType.Use:
+                    break;
+                case GridType.Store:
+                    break;
+                case GridType.Explore:
+                    Debug.Log("关闭小气泡");
+                    TTUIPage.ClosePage<UILittleTipPage>();
+                    break;
+                case GridType.Team:
+                    Debug.Log("关闭小气泡");
+                    TTUIPage.ClosePage<UILittleTipPage>();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (itemType == ItemType.Prop && Input.GetMouseButton(0))
+        {
+            switch (gridType)
+            {
+                case GridType.Nothing:
+                    break;
+                case GridType.Use:
+                    break;
+                case GridType.Store:
+                    break;
+                case GridType.Explore:
+                    Debug.Log("刷新小气泡");
+                    TTUIPage.ShowPage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    break;
+                case GridType.Team:
+                    Debug.Log("刷新小气泡");
+                    TTUIPage.ShowPage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 
     [System.Serializable]
     public class BagEggGrid

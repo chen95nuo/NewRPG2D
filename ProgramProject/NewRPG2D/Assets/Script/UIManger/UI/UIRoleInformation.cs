@@ -46,7 +46,9 @@ public class UIRoleInformation : MonoBehaviour
         roleEquipReplace.onClick.AddListener(OpenEquipOpitions);
         roleEquipRemove.onClick.AddListener(RemoveThisEquip);
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
+        UIEventManager.instance.AddListener<RoleAtrType>(UIEventDefineEnum.UpdateLittleTipEvent, ShowLittleTip);
     }
+
 
     public void Start()
     {
@@ -121,6 +123,7 @@ public class UIRoleInformation : MonoBehaviour
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
+        UIEventManager.instance.RemoveListener<RoleAtrType>(UIEventDefineEnum.UpdateExploreTipEvent, ShowLittleTip);
     }
     public void updateMessage(UIBagGrid data)
     {
@@ -148,7 +151,9 @@ public class UIRoleInformation : MonoBehaviour
         roleData = data;
         roleName.text = data.Name;
         roleLevel.text = "LV." + data.Level.ToString();
-        roleExp.text = data.Exp.ToString();
+        roleExp.text = data.Exp.ToString() + "/" + GameCardExpData.Instance.GetItem(data.Level).NeedExp;
+        roleExpSlider.maxValue = GameCardExpData.Instance.GetItem(data.Level).NeedExp;
+        roleExpSlider.value = data.Exp;
         roleHeart.text = data.GoodFeeling.ToString();
         role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         roleQuality.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
@@ -185,6 +190,32 @@ public class UIRoleInformation : MonoBehaviour
         roleDefense.roleValue.text = data.Defense.ToString();
         roleDefense.roleScore.text = data.DefenseGrow.ToString("#0.0");
         roleDefense.roleQualityText.text = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
+    }
+
+    private void ShowLittleTip(RoleAtrType type)
+    {
+        string message = "";
+        switch (type)
+        {
+            case RoleAtrType.Nothing:
+                break;
+            case RoleAtrType.Health:
+                message = roleData.HealthMinGrow.ToString("#0.0") + " ~ " + roleData.HealthMaxGrow.ToString("#0.0");
+                break;
+            case RoleAtrType.Attack:
+                message = roleData.AttackMinGrow.ToString("#0.0") + " ~ " + roleData.AttackMaxGrow.ToString("#0.0");
+                break;
+            case RoleAtrType.Agile:
+                message = roleData.AgileMinGrow.ToString("#0.0") + " ~ " + roleData.AgileMaxGrow.ToString("#0.0");
+                break;
+            case RoleAtrType.Defense:
+                message = roleData.DefenseMinGrow.ToString("#0.0") + " ~ " + roleData.DefenseMaxGrow.ToString("#0.0");
+                break;
+            default:
+                break;
+        }
+        TTUIPage.ShowPage<UILittleTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, message);
     }
 
     public string RoleGrade(float grade, float min, float max)

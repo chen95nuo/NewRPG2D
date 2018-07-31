@@ -250,6 +250,9 @@ public class UIRound : MonoBehaviour
         }
         UpdateCard();
     }
+    /// <summary>
+    /// 开始按钮
+    /// </summary>
     private void ChickStartButton()
     {
         if (playerRounds[currentRound].LessonData[currentLesson].DifficultyType < DifficultyType.Difficult
@@ -260,21 +263,16 @@ public class UIRound : MonoBehaviour
         if ((currentLesson + 1) < playerRounds[currentRound].LessonData.Length && playerRounds[currentRound].LessonData[currentLesson + 1].DifficultyType == DifficultyType.Nothing)
         {
             playerRounds[currentRound].LessonData[currentLesson + 1] = new LessonData(DifficultyType.Easy);
-            Debug.Log(playerRounds[currentRound].LessonData[currentLesson + 1].DifficultyType);
-            Debug.Log(currentLesson + 1);
         }
         else if ((currentLesson + 1) >= rounds[currentRound].LessonData.Length && (currentRound + 1) < rounds.Count)
         {
             RoundData data = new RoundData(playerRounds[currentRound].Id + 1, new LessonData[4]);
-            Debug.Log(currentRound);
-            Debug.Log(playerRounds[currentRound].Id + 1);
             for (int i = 0; i < data.LessonData.Length; i++)
             {
                 data.LessonData[i] = new LessonData(DifficultyType.Nothing);
             }
             data.LessonData[0] = new LessonData(DifficultyType.Easy);
             playerRounds.Add(data);
-            Debug.Log("a");
         }
 
         UpdateMainLesson();

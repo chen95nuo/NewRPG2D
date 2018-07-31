@@ -9,8 +9,7 @@ public enum ItemType
     Egg,//蛋
     Prop,//道具
     Equip,//装备
-    Role,//角色
-    Store,//商城道具
+    Role//角色
 }
 
 public enum GridType
@@ -29,7 +28,6 @@ public enum EquipType
     Armor, //防具
     Necklace, //项链
     Ring //戒指
-
 }
 
 public enum TeamType
@@ -58,6 +56,15 @@ public enum PropType
     OnlyUse,//只能用
     OnlySell,//只能卖
     AllOn//能用也能卖
+}
+
+public enum RoleAtrType
+{
+    Nothing,
+    Health,
+    Attack,
+    Agile,
+    Defense,
 }
 
 public enum StorePropType
@@ -144,6 +151,7 @@ public enum UIEventDefineEnum
     UpdateExploreEvent,
     UpdateExploreTipEvent,
     UpdateHatcheryEvent,
+    UpdateLittleTipEvent,
     EventMax
 }
 
