@@ -79,6 +79,14 @@ namespace Assets.Script.Battle
         public float HurtValue;
     }
 
+    public struct CreateEnemyInfo
+    {
+        public int EnemyPointRoleId;
+        public int EnemyCount;
+        public float FirstEnemyDelayTime;
+        public float IntervalTime;
+    }
+
 
     #region Enum
 

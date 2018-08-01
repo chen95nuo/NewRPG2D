@@ -19,7 +19,9 @@ namespace Assets.Script.Utility
         RoleData,
         RolePropertyData,
         SkillData,
+        CreateEnemyData,
         Max,
+        MapSceneLevel,
         BufferData,
     }
 

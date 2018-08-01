@@ -43,6 +43,11 @@ namespace Assets.Script.Utility
 
         }
 
+        public void LoadSpecialXML(XmlName xmlName)
+        {
+            GameLogic.Instance.StartCoroutine(LoadConfig(xmlName));
+        }
+
         private XmlNode LoadConfigNode;
         private IEnumerator LoadConfig(XmlName name)
         {
