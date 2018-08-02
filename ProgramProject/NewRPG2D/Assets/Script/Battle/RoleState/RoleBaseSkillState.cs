@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Battle.BattleData;
+using Spine;
 using UnityEngine;
 
 namespace Assets.Script.Battle.RoleState
@@ -22,6 +23,7 @@ namespace Assets.Script.Battle.RoleState
         public int EffectId2;
         public int EffectId3;
         public int EffectId4;
+        public TrackEntry AnimationEntry;
 
         protected float addTime;
 
@@ -44,7 +46,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Update(mRoleBase, deltaTime);
             addTime += deltaTime;
-            if (addTime > CD && mRoleBase.RoleAnimation.IsComplete() && mRoleBase.RolePropertyValue.RoleMp > MP)
+            if (addTime > CD && ( AnimationEntry==null|| AnimationEntry.IsComplete) && mRoleBase.RolePropertyValue.RoleMp > MP)
             {
                 OnceAttack(mRoleBase);
             }
@@ -66,7 +68,7 @@ namespace Assets.Script.Battle.RoleState
             }
           
             mRoleBase.RolePropertyValue.SetMp(MP);
-            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
+            AnimationEntry = mRoleBase.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
         }
     }
 }

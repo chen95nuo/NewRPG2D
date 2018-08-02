@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using Assets.Script.Battle;
-using DragonBones;
+using Spine.Unity;
 using Transform = UnityEngine.Transform;
 
 public class RoleRender : MonoBehaviour
 {
-    public UnityArmatureComponent roleAnimation;
+    public SkeletonAnimation roleAnimation;
     public RoleBase CurrentRole { get; private set; }
     private Transform _trans;
     private Transform _renderTrans;

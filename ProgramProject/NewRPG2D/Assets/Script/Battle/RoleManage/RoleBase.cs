@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Assets.Script.Battle.BattleData;
 using Assets.Script.Battle.BattleData.ReadData;
 using Assets.Script.Utility;
-using DragonBones;
+using Spine.Unity;
 using UnityEngine;
 using Transform = UnityEngine.Transform;
 
@@ -21,7 +21,7 @@ namespace Assets.Script.Battle
     {
         public int InstanceId { get; private set; }
         public int RoleId { get; private set; }
-        public UnityArmatureComponent RoleAnimator { get; private set; }
+        public SkeletonAnimation RoleAnimator { get; private set; }
         public TeamTypeEnum TeamId { get; private set; }
         public RoleTypeEnum RoleType { get; private set; }
         public Transform RoleTransform { get; private set; }

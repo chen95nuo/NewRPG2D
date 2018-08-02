@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DragonBones;
+using Spine;
+using Spine.Unity;
 using UnityEngine;
-using Animation = DragonBones.Animation;
+using AnimationState = Spine.AnimationState;
 
 namespace Assets.Script.Battle
 {
     public class RoleAnimationSys
     {
-        private UnityArmatureComponent roleAnimator;
+        private SkeletonAnimation roleAnimator;
         private RoleBase mCurrentRole;
-        private Animation roleAnimation;
+        private AnimationState roleAnimationState;
 
         public void SetCurrentRole(RoleBase mRole)
         {
             mCurrentRole = mRole;
             roleAnimator = mCurrentRole.RoleAnimator;
-            roleAnimation = roleAnimator.animation;
+            roleAnimationState = roleAnimator.state;
         }
 
         public void ChangeAniamtionNameById(int animationId)
@@ -29,17 +30,20 @@ namespace Assets.Script.Battle
 
         #region animation function
 
-        public float SetCurrentAniamtionByName(string animationName)
+        public TrackEntry SetCurrentAniamtionByName(string animationName)
         {
-            roleAnimation.Play(animationName);
-            return roleAnimation.GetState(animationName)._duration;
+            return roleAnimationState.SetAnimation(0, animationName, false);
         }
 
-        public bool IsComplete()
+        public void AddCompleteListener(AnimationState.TrackEntryDelegate callBack)
         {
-            return roleAnimation.isCompleted;
+            roleAnimationState.Complete += callBack;
         }
 
+        public void RemoveCompleteListener(AnimationState.TrackEntryDelegate callBack)
+        {
+            roleAnimationState.Complete -= callBack;
+        }
         #endregion
     }
 }
