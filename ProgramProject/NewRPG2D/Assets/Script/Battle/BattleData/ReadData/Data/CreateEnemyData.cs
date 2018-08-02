@@ -49,4 +49,4 @@ namespace Assets.Script.Battle.BattleData
         }
     }
 }
-}
+
