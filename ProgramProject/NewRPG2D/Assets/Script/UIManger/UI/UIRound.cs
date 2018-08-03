@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIRound : MonoBehaviour
@@ -255,6 +256,56 @@ public class UIRound : MonoBehaviour
     /// </summary>
     private void ChickStartButton()
     {
+        int cardNumber = 0;
+        //判断位置上是否有卡牌
+        for (int i = 0; i < teamType.cardGrids.Length; i++)
+        {
+            if (teamType.cardGrids[i].isCard)
+            {
+                cardNumber++;
+                if (teamType.cardGrids[i].cardData.Fighting)
+                {
+                    //提示有角色在战斗中
+                    TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "有角色在探险中无法开启");
+                    return;
+                }
+            }
+        }
+        //如果有角色那么进入战斗
+        if (cardNumber != 0)
+        {
+            //进入战斗
+            Debug.Log("进入战斗");
+            CardData[] cardData = new CardData[cardNumber];
+            int index = 0;
+            for (int i = 0; i < teamType.cardGrids.Length; i++)
+            {
+                if (teamType.cardGrids[i].isCard)
+                {
+                    cardData[index] = teamType.cardGrids[i].cardData;
+                    index++;
+                }
+            }
+            LessonDropData currentLesson = rounds[currentRound].LessonData[this.currentLesson].LessonDrop[currentDifficulty];
+            FightData fightData = new FightData(SceneManager.GetActiveScene().name, cardData, currentLesson);
+
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.FightMessage, fightData);
+
+            Globe.nextSceneName = "Scene_Test";
+            SceneManager.LoadScene("FightLoadin");
+
+
+
+        }
+        else
+        {
+            //提示没有角色无法开始
+            TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
+            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "没有角色无法开始");
+        }
+
+        /*开启关卡
         if (playerRounds[currentRound].LessonData[currentLesson].DifficultyType < DifficultyType.Difficult
             && currentDifficulty + 1 == (int)playerRounds[currentRound].LessonData[currentLesson].DifficultyType)
         {
@@ -273,7 +324,7 @@ public class UIRound : MonoBehaviour
             }
             data.LessonData[0] = new LessonData(DifficultyType.Easy);
             playerRounds.Add(data);
-        }
+        }*/
 
         UpdateMainLesson();
         UpdateDifficulty();

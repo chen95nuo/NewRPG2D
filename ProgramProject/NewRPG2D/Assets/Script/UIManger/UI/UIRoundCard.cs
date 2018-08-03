@@ -21,6 +21,7 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool isDrag = false;
     private float currentTime;
     private CardData currentData;
+    public CardData cardData;
 
     private void Awake()
     {
@@ -52,6 +53,7 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void UpdateRoundCard(CardData data)
     {
+        cardData = data;
         if (isCard)//如果需要替换 则将原卡初始化
         {
             currentData.TeamPos = 0;

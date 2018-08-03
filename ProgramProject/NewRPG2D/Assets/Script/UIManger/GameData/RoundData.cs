@@ -167,10 +167,20 @@ public class LessonData
 public class LessonDropData
 {
     [SerializeField]
+    private int lessonId;
+    [SerializeField]
     private int[] dropPropId;//掉落物品的ID
     [SerializeField]
     private int dropBoxId;//掉落包的ID
 
+
+    public int LessonId
+    {
+        get
+        {
+            return lessonId;
+        }
+    }
     public int[] DropPropId
     {
         get
@@ -186,5 +196,6 @@ public class LessonDropData
             return dropBoxId;
         }
     }
+
 }
 

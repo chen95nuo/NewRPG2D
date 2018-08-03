@@ -151,6 +151,7 @@ public class UIExplore : MonoBehaviour
         expData[currentMenu].EndTime = 0;
         expData[currentMenu].ExploreType = ExploreType.Nothing;
         UpdateRoles();
+        ChickEnterBtn();
     }
     /// <summary>
     /// 检查按钮

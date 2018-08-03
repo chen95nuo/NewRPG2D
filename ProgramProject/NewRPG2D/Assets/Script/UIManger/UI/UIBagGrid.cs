@@ -148,7 +148,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
     public void ShowBuyPage()
     {
-        Debug.Log("打开购买菜单");
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateStoreEvent, propData);
     }
     public void UseProp()

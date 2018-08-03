@@ -68,7 +68,6 @@ public class UIStore : MonoBehaviour
         buyTip.SetActive(true);
         currentItem.UpdateItem(currentData);
         buySlider.value = 0;
-        Debug.Log(data.Number);
         buySlider.maxValue = data.Number;
         buyNumber.text = buySlider.value.ToString();
     }

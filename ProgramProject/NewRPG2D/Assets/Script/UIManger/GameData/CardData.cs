@@ -158,7 +158,9 @@ public class CardData
         }
         set
         {
+            Debug.Log(exp);
             exp += value;
+            Debug.Log(value);
             while (exp >= maxExp)
             {
                 exp -= maxExp;

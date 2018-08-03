@@ -17,6 +17,7 @@ public class GameMain : MonoBehaviour
         }
         //读取存档的信息;
         ReadJsonNewMgr.CreateInstance();
+        GoFightMgr.CreateInstance();
 
     }
 
@@ -38,6 +39,7 @@ public class GameMain : MonoBehaviour
         //GetPlayData.Instance.SaveData();
         UIEventManager.instance.RemoveAllListener();
         ReadJsonNewMgr.DestroyInstance();
+        GoFightMgr.DestroyInstance();
     }
 
 }

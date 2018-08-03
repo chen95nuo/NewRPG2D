@@ -56,7 +56,8 @@ public class UIRolePage : TTUIPage
     {
         if (pickUpRoleMessage.roleData.Fighting)
         {
-            Debug.Log("正在探险");
+            TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
+            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "正在探险");
             return;
         }
         pickUpRoleStrentthen.UpdateRole(pickUpRoleMessage);

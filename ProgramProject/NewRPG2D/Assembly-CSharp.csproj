@@ -150,6 +150,7 @@
     <Compile Include="Assets\Script\UIManger\GameData\EquipData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ExpeditionData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ExploreData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\FightData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\FurnaceData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\GainData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\HatcheryData.cs" />
@@ -188,7 +189,9 @@
     <Compile Include="Assets\Script\UIManger\GameManager\PlayerHatcheryData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\PlayerRoundData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\UIEventManager.cs" />
-    <Compile Include="Assets\Script\UIManger\MapManager\MainCameraMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\Manager\AsyncLoadFightScene.cs" />
+    <Compile Include="Assets\Script\UIManger\Manager\GoFightMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\Manager\MainCameraMgr.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagItem.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIBagItemMessage.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Assets\Script\UIManger\UI\UIMain.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMainPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMapMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIMessageTipPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRewardPage.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleInformation.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleMaterialHouse.cs" />
@@ -407,6 +411,7 @@
     <Compile Include="Assets\Spine\spine-unity\SkeletonUtility\SkeletonUtilityConstraint.cs" />
     <Compile Include="Assets\Spine\spine-unity\SpineAttributes.cs" />
     <Compile Include="Assets\test.cs" />
+    <Compile Include="Assets\WinTest.cs" />
     <None Include="Assets\StreamingAssets\Json\ExploreData.txt" />
     <None Include="Assets\Spine Examples\Spine\Eyes\eyes.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Shaders\Utility\HiddenPass.shader" />

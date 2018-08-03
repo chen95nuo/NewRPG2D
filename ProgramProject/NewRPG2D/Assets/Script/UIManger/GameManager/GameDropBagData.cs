@@ -58,9 +58,9 @@ public class GameDropBagData
                 GetPlayData.Instance.player[0].Level,
                 GetPlayData.Instance.player[0].Exp,
                 playerExp);
-            datas[i].AddExp += addExp;
-            GetPlayData.Instance.player[0].AddExp += playerExp;
+            datas[i].AddExp = addExp;
         }
+        GetPlayData.Instance.player[0].AddExp = playerExp;
         return cardGainData;
     }
 
@@ -111,7 +111,6 @@ public class GameDropBagData
                 break;
             }
         }
-        Debug.Log("Count = " + gainData.Count);
         if (gainData.Count <= 0)
         {
             gainData.Add(new GainData(0, 0, 0, dropData.AddGold));
