@@ -53,7 +53,7 @@ namespace Assets.Script.Battle
                 }
                 else
                 {
-                    Debug.LogError("have target then attack ");
+                  //  Debug.LogError("have target then attack ");
                     mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
                 }
                 //没到攻击距离时往目标走，

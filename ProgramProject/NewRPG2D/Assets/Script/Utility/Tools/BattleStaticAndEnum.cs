@@ -27,10 +27,10 @@ namespace Assets.Script.Battle
     public struct RoleAnimationName
     {
         public const string Move = "run";
-        public const string Idle = "steady";
-        public const string NormalAttack = "normalAttack";
-        public const string Skill1 = "normalSkill";
-        public const string Skill2 = "uniqueAttack";
+        public const string Idle = "stand";
+        public const string NormalAttack = "attack";
+        public const string Skill1 = "attack1";
+        public const string Skill2 = "attack1";
         public const string Hit = "hit";
         public const string Death = "death";
     }

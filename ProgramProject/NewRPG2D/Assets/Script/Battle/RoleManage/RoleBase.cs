@@ -29,6 +29,7 @@ namespace Assets.Script.Battle
         public SkillSlotTypeEnum CurrentSlot { get; private set; }
         public bool IsDead { get; private set; }
         public bool IsCanControl { get; private set; }
+        public ActorStateEnum CurrentActorState { get; private set; }
 
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -49,8 +50,8 @@ namespace Assets.Script.Battle
             MonoRoleRender.SetRoleBaseInfo(this);
             SetRoleInfo(info);
             InitComponent();
-            InitFSM();
             InitData();
+            InitFSM();
             InitRoleComponentData();
         }
 
@@ -118,6 +119,12 @@ namespace Assets.Script.Battle
 
         public void SetRoleActionState(ActorStateEnum state)
         {
+            if (CurrentActorState == state)
+            {
+                return;
+            }
+
+            CurrentActorState = state;
             if (RoleActionStateDic.ContainsKey((int)state))
             {
                 RoleActionMachine.ChangeState(RoleActionStateDic[(int)state]);

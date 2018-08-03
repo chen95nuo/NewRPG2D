@@ -100,7 +100,16 @@ namespace Assets.Script.Utility
                 UTF8Encoding encode = new System.Text.UTF8Encoding();
                 byte[] binary = encode.GetBytes(content);
                 MemoryStream fileMemoryStream = new MemoryStream(binary);
-                LoadConfigNode = LoadXmlFile(fileMemoryStream);
+
+                try
+                {
+                    LoadConfigNode = LoadXmlFile(fileMemoryStream);
+                }
+                catch (Exception e)
+                {
+
+                    DebugHelper.LogError(" error " + e.Message + "   " + name.ToString());
+                }
             }
             else
             {
