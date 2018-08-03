@@ -82,16 +82,31 @@ public class PlayerData
         {
             return exp;
         }
+    }
+    public float maxExp
+    {
+        get
+        {
+            float index = GetPlayerExpData.Instance.GetItem(level).NeedExp;
+            return index;
+        }
+
+    }
+    public float AddExp
+    {
+        get
+        {
+            return exp;
+        }
         set
         {
-            float temp = exp;//用临时变量去存储之前的值
-
-            exp = value;
-
-            if (temp != value)//之前的值跟现在的值进行比较
+            exp += value;
+            while (exp >= maxExp)
             {
-                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerExp);
+                exp -= maxExp;
+                level++;
             }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePlayerExp);
         }
     }
 

@@ -153,6 +153,8 @@ public enum UIEventDefineEnum
     UpdateExploreTipEvent,
     UpdateHatcheryEvent,
     UpdateLittleTipEvent,
+    MissionComplete,
+    MissionFailed,
     EventMax
 }
 

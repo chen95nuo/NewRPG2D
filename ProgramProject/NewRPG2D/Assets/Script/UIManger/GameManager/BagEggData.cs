@@ -42,7 +42,7 @@ public class BagEggData
     /// </summary>
     /// <param name="id">蛋的ID</param>
     /// <returns></returns>
-    public EggData GetEggs(int id)
+    public EggData GetEgg(int id)
     {
         for (int i = 0; i < eggs.Count; i++)
         {
@@ -52,6 +52,18 @@ public class BagEggData
             }
         }
         return null;
+    }
+    public List<EggData> GetEggs(int id)
+    {
+        List<EggData> getItems = new List<EggData>();
+        for (int i = 0; i < eggs.Count; i++)
+        {
+            if (eggs[i].Id == id)
+            {
+                getItems.Add(eggs[i]);
+            }
+        }
+        return getItems;
     }
 
     /// <summary>
@@ -64,6 +76,47 @@ public class BagEggData
 
         //数据改变，调用事件
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
+    }
+    /// <summary>
+    /// 添加物品的数据
+    /// </summary>
+    /// <param name="data"></param>
+    public void AddItem(int itemID, int number)
+    {
+        EggData data = GameEggData.Instance.GetItem(itemID);
+        data.ItemNumber = number;
+        eggs.Add(data);
+
+        //数据改变，调用事件
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEggsEvent);
+    }
+    public void AddItems(EggData item, int number)
+    {
+        List<EggData> data = GetEggs(item.Id);
+        int index = 0;
+        int temp = 0;
+        //检查有多少个相同的道具
+        for (int i = 0; i < data.Count; i++)
+        {
+            do
+            {
+                if (data[i].ItemNumber + 1 <= 99)
+                {
+                    data[i].ItemNumber++;
+                    index++;
+                    Debug.Log(index);
+                    Debug.Log(data[i].ItemNumber);
+                }
+            } while (index < number && data[i].ItemNumber < 99);
+        }
+        //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
+        if (number - index > 0)
+        {
+            Debug.Log(number - index);
+            EggData newData = new EggData(item, number - index);
+            AddItem(newData);
+        }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent);
     }
 
     /// <summary>

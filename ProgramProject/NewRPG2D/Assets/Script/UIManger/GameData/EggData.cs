@@ -154,6 +154,20 @@ public class EggData
         this.hatchingTime = data.hatchingTime;
         this.resultId = data.resultId;
     }
+    public EggData(EggData data,int number)
+    {
+        this.name = data.name;
+        this.id = data.id;
+        this.spriteName = data.spriteName;
+        this.itemType = data.ItemType;
+        this.attribute = data.attribute;
+        this.quality = data.quality;
+        this.starsLevel = data.starsLevel;
+        this.itemNumber = number;
+        this.isKnown = data.isKnown;
+        this.hatchingTime = data.hatchingTime;
+        this.resultId = data.resultId;
+    }
     public EggData(int id, string sprite)
     {
         this.id = id;

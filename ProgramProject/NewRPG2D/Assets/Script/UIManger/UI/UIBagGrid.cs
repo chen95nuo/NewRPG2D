@@ -216,7 +216,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
     public void UpdateItem(ItemData data)
     {
-        Debug.Log(data.Id);
         propData = data;
         itemID = data.Id;
         itemType = data.ItemType;

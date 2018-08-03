@@ -129,15 +129,12 @@ public class BagItemData
                 {
                     data[i].Number++;
                     index++;
-                    Debug.Log(index);
-                    Debug.Log(data[i].Number);
                 }
             } while (index < number && data[i].Number < 99);
         }
         //如果这个背包中所有的该道具的总数都超过99或者背包中已经没有这个道具了 新建一个这个道具
         if (number - index > 0)
         {
-            Debug.Log(number - index);
             ItemData newData = new ItemData(item, number - index);
             AddItem(newData);
         }

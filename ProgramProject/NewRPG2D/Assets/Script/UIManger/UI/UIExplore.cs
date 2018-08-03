@@ -127,7 +127,19 @@ public class UIExplore : MonoBehaviour
         }
         else if (expData[currentMenu].ExploreType == ExploreType.End)
         {
-            ResetRole();
+            //将道具添加到背包并获取道具信息
+            DropBagData dropData = GameDropBagData.Instance.GetItem(currentExplore.DroppingBoxId);
+            int addExp = dropData.AddExp;
+            int playExp = dropData.AddPlayerExp;
+            GainData[] data = GameDropBagData.Instance.GetGains(currentExplore.DroppingBoxId);
+            CardGainData[] cardGainData = GameDropBagData.Instance.GetCards(expData[currentMenu].CardsData, addExp, playExp);
+            //弹出道具奖励菜单
+            TinyTeam.UI.TTUIPage.ShowPage<UIGainTipPage>();
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateGainTipEvent, data);
+            //将经验加到角色身上并获取角色信息
+            //显示经验奖励面板
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateGainTipEvent, cardGainData);
+            ResetRole();//重置角色
         }
     }
     private void ResetRole()
@@ -196,7 +208,6 @@ public class UIExplore : MonoBehaviour
         expData = PlayerExpeditionData.Instance.items;
         if (expData[currentMenu].CardsData == null || expData[currentMenu].CardsData.Length <= 0)
         {
-            Debug.Log("存档清零");
             expData[currentMenu].CardsData = new CardData[4];
         }
         for (int i = 0; i < expData[currentMenu].CardsData.Length; i++)

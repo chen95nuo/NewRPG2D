@@ -57,7 +57,11 @@ public class BagEquipData
         //数据改变，调用事件
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateEquipsEvent);
     }
-
+    public void AddItem(int id)
+    {
+        EquipData data = GameEquipData.Instance.GetItem(id);
+        equips.Add(data);
+    }
     /// <summary>
     /// 替换物品
     /// </summary>

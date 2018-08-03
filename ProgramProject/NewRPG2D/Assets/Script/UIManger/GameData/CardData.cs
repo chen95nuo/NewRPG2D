@@ -30,7 +30,7 @@ public class CardData
     private int quality;//稀有度
 
     [SerializeField]
-    private int exp;//经验
+    private float exp;//经验
 
     [SerializeField]
     private EquipData[] equipdata; //装备
@@ -134,11 +134,36 @@ public class CardData
         }
     }
 
-    public int Exp
+    public float Exp
     {
         get
         {
             return exp;
+        }
+    }
+    public float maxExp
+    {
+        get
+        {
+            float index = GameCardExpData.Instance.GetItem(level).NeedExp;
+            return index;
+        }
+
+    }
+    public float AddExp
+    {
+        get
+        {
+            return exp;
+        }
+        set
+        {
+            exp += value;
+            while (exp >= maxExp)
+            {
+                exp -= maxExp;
+                level++;
+            }
         }
     }
 
@@ -411,7 +436,7 @@ public class CardData
         this.teamType = data.teamType;
         this.teamPos = data.teamPos;
     }
-    public CardData(CardData data, float attack, float health, float defense, float agile,int quality)
+    public CardData(CardData data, float attack, float health, float defense, float agile, int quality)
     {
         this.agile = data.agile;
         this.agileGrow = agile;
