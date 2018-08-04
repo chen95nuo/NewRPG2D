@@ -9,7 +9,7 @@ namespace Assets.Script.Battle.BattleData
 
         Dictionary<int, SkillLevelComponent> skillLevelDic = new Dictionary<int, SkillLevelComponent>();
 
-        public override XmlName CurrentXmlName
+        protected override XmlName CurrentXmlName
         {
             get {return XmlName.SkillData; }
         }

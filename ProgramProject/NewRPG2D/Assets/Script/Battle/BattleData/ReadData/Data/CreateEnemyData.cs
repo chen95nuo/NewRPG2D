@@ -22,6 +22,7 @@ namespace Assets.Script.Battle.BattleData
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
+            CreateEnemyInfoList = new List<CreateEnemyInfo>(10);
             Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
             CreateEnemyInfo info = GetCreateEnemyInfo(node, 1);
@@ -41,6 +42,7 @@ namespace Assets.Script.Battle.BattleData
         private CreateEnemyInfo GetCreateEnemyInfo(XmlNode node, int Index)
         {
             CreateEnemyInfo info = new CreateEnemyInfo();
+            info.PositionType = (BornPositionTypeEnum)Index;
             info.EnemyPointRoleId = ReadXmlDataMgr.IntParse(node, string.Format("EnemyPoint{0}RoleId", Index));
             info.EnemyCount = ReadXmlDataMgr.IntParse(node, string.Format("EnmeyCount0{0}", Index));
             info.FirstEnemyDelayTime = ReadXmlDataMgr.FloatParse(node, string.Format("FirstEnemyDelayTime0{0}", Index));

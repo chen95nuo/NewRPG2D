@@ -8,6 +8,7 @@ namespace Assets.Script.Battle
     public class GameRoleMgr : TSingleton<GameRoleMgr>
     {
         public List<RoleBase> RolesList = new List<RoleBase>(10);
+        public List<RoleBase> RolesEnemyList = new List<RoleBase>(10);
         public Dictionary<ushort, RoleBase> RoleDic = new Dictionary<ushort, RoleBase>();
 
         public void AddRole(GameObject perfab, bool isMaster = false)
@@ -30,6 +31,7 @@ namespace Assets.Script.Battle
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
             RolesList.Add(role);
+            RolesEnemyList.Add(role);
             RoleDic[instanceId] = role;
         }
 

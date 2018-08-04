@@ -46,3 +46,4 @@ public class SwitchRoleActionParam
 
 public delegate void TDelegate();
 public delegate void TDelegate<T>(T t);
+public delegate void TDelegate<T, K>(T t, K k);

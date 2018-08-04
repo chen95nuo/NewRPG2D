@@ -38,21 +38,22 @@ namespace Assets.Script.Utility
             AllXmlDataDic = new Dictionary<int, XmlData[]>(maxEnum);
             for (int i = 0; i < maxEnum; i++)
             {
-                GameLogic.Instance.StartCoroutine(LoadConfig((XmlName)i));
+                XmlName name = (XmlName) i;
+                GameLogic.Instance.StartCoroutine(LoadConfig(name, name.ToString()));
             }
 
         }
 
-        public void LoadSpecialXML(XmlName xmlName)
+        public void LoadSpecialXML(XmlName xmlName, string pathName)
         {
-            GameLogic.Instance.StartCoroutine(LoadConfig(xmlName));
+            GameLogic.Instance.StartCoroutine(LoadConfig(xmlName, pathName));
         }
 
         private XmlNode LoadConfigNode;
-        private IEnumerator LoadConfig(XmlName name)
+        private IEnumerator LoadConfig(XmlName name, string xmlPathName)
         {
             XmlNode node = null;
-            yield return GameLogic.Instance.StartCoroutine(ReadTxt(name));
+            yield return GameLogic.Instance.StartCoroutine(ReadTxt(xmlPathName));
             node = LoadConfigNode;
             if (node == null)
             {
@@ -67,7 +68,7 @@ namespace Assets.Script.Utility
                 data.GetXmlDataAttribute(childrenNodeList[i]);
                 xmlDataArray[i] = data;
             }
-            AllXmlDataDic.Add((int)name, xmlDataArray);
+            AllXmlDataDic[(int)name] = xmlDataArray;
             DebugHelper.Log("=======" + AllXmlDataDic.Count);
         }
 
@@ -78,7 +79,7 @@ namespace Assets.Script.Utility
             AllXmlDataDic = null;
         }
 
-        public MemoryStream LoadFile(XmlName name)
+        private MemoryStream LoadFile(string name)
         {
             string mPath = ReadXmlDataMgr.GetXmlPath(name);
             StreamReader reader = new StreamReader(mPath);
@@ -88,7 +89,7 @@ namespace Assets.Script.Utility
             return new MemoryStream(binary);
         }
 
-        IEnumerator ReadTxt(XmlName name)
+        private IEnumerator ReadTxt(string name)
         {
             string mPath = ReadXmlDataMgr.GetXmlPath(name);
             string content;
@@ -117,7 +118,7 @@ namespace Assets.Script.Utility
             }
         }
 
-        public XmlDocument GetXmlDocByMemory(MemoryStream mStream)
+        private XmlDocument GetXmlDocByMemory(MemoryStream mStream)
         {
             XmlDocument xmlDoc = new XmlDocument();
             XmlReader reader = XmlReader.Create(mStream);
@@ -126,12 +127,12 @@ namespace Assets.Script.Utility
             return xmlDoc;
         }
 
-        public XmlNodeList GetXmlNodeList(XmlDocument xmlDoc)
+        private XmlNodeList GetXmlNodeList(XmlDocument xmlDoc)
         {
             return xmlDoc.GetElementsByTagName("RECORDS");
         }
 
-        public XmlNode LoadXmlFile(MemoryStream mStream)
+        private XmlNode LoadXmlFile(MemoryStream mStream)
         {
             XmlNodeList nodeList = GetXmlNodeList(GetXmlDocByMemory(mStream));
             if (nodeList == null || nodeList.Count <= 0) return null;

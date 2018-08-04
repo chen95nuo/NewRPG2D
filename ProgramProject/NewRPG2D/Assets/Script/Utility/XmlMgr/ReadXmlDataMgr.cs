@@ -41,11 +41,15 @@ namespace Assets.Script.Utility
                     return new SkillData();
                 case XmlName.BufferData:
                     return new RolePropertyData();
+                case XmlName.MapSceneLevel:
+                    return new MapSceneLevelData();
+                case XmlName.CreateEnemyData:
+                    return new CreateEnemyData();
                 default: return new XmlData();
             }
         }
 
-        public static string GetXmlPath(XmlName name)
+        public static string GetXmlPath(string name)
         {
             string path = "";
 #if UNITY_EDITOR

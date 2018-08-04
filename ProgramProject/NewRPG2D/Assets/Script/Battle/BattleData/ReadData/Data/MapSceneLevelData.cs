@@ -52,7 +52,11 @@ namespace Assets.Script.Battle.BattleData
             string[] itemStrings = itemList.Split('|');
             for (int i = 0; i < itemStrings.Length; i++)
             {
-                itemInts.Add(Int32.Parse(itemStrings[i]));
+                int rewardItemId = 0;
+                if (Int32.TryParse(itemStrings[i], out rewardItemId))
+                {
+                    itemInts.Add(rewardItemId);
+                }
             }
             return itemInts;
         }

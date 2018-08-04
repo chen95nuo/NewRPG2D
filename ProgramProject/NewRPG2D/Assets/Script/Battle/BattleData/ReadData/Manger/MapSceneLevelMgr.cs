@@ -4,11 +4,11 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class RoleDataMgr : ItemDataBaseMgr<RoleDataMgr>
+    public class MapSceneLevelMgr : ItemDataBaseMgr<MapSceneLevelMgr>
     {
         protected override XmlName CurrentXmlName
         {
-            get { return XmlName.RoleData; }
+            get { return XmlName.MapSceneLevel; }
         }
     }
 }

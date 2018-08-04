@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Script.Battle
 {
@@ -81,14 +82,29 @@ namespace Assets.Script.Battle
 
     public struct CreateEnemyInfo
     {
+        public BornPositionTypeEnum PositionType;
         public int EnemyPointRoleId;
         public int EnemyCount;
         public float FirstEnemyDelayTime;
         public float IntervalTime;
     }
 
+    [Serializable]
+    public class BornPoint
+    {
+        public BornPositionTypeEnum BornPositionType;
+        public Transform Point;
+    }
 
     #region Enum
+    public enum BornPositionTypeEnum
+    {
+        Point01 = 1,
+        Point02,
+        Point03,
+        Point04,
+        Point05,
+    }
 
     public enum TeamTypeEnum
     {

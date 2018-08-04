@@ -12,7 +12,7 @@ namespace Assets.Script.Battle.BattleData
         protected ItemBaseData[] CurrentItemData;
         private int CurrentXmlIndex;
 
-        public virtual XmlName CurrentXmlName
+        protected virtual XmlName CurrentXmlName
         {
             get {return XmlName.RoleData;}
         }
@@ -34,6 +34,7 @@ namespace Assets.Script.Battle.BattleData
         {
             base.Init();
             CurrentXmlIndex = (int)CurrentXmlName;
+            DebugHelper.LogError("CurrentXmlName  " + CurrentXmlName);
             XmlData[] tempData = ReadXmlNewMgr.instance.AllXmlDataDic[CurrentXmlIndex];
             CurrentItemData = new ItemBaseData[tempData.Length];
             for (int i = 0; i < tempData.Length; i++)

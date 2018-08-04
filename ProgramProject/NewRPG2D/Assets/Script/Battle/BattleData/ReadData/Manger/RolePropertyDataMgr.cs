@@ -6,7 +6,7 @@ namespace Assets.Script.Battle.BattleData.ReadData
 {
     public class RolePropertyDataMgr : ItemDataBaseMgr<RolePropertyDataMgr>
     {
-        public override XmlName CurrentXmlName
+        protected override XmlName CurrentXmlName
         {
             get { return XmlName.RolePropertyData; }
         }

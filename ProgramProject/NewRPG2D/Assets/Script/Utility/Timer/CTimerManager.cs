@@ -45,6 +45,14 @@ namespace Assets.Script.Timer
             mCTimerList = null;
         }
 
+        //public int AddListener<T>(float durationTime, int loopTime, TDelegate<int, T> mCTimeEventHandle)
+        //{
+        //    CTimer mCTimer = new CTimer(++m_sequenceTime, durationTime, loopTime);
+        //    mCTimer.AddListener(mCTimeEventHandle);
+        //    mCTimerList.Add(mCTimer);
+        //    return m_sequenceTime;
+        //}
+
         public int AddListener(float durationTime, int loopTime, TDelegate<int> mCTimeEventHandle)
         {
             CTimer mCTimer = new CTimer(++m_sequenceTime, durationTime, loopTime);

@@ -8,6 +8,7 @@ namespace Assets.Script.Timer
     public class CTimer : IDisposable
     {
         public event TDelegate<int> CTimerEvent;
+        public event TDelegate<int> CTimerTEvent;
         public float m_durationTime
         {
             get;
@@ -53,6 +54,11 @@ namespace Assets.Script.Timer
         {
             CTimerEvent += mCTimeEventHandle;
         }
+
+        //public void AddListener<T>(TDelegate<int, T> mCTimeEventHandle)
+        //{
+        //    CTimerEvent += mCTimeEventHandle;
+        //}
 
         public void RemoveListener(int sequenceTime, TDelegate<int> mCTimeEventHandle)
         {
