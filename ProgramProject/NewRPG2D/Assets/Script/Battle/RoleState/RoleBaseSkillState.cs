@@ -16,7 +16,6 @@ namespace Assets.Script.Battle.RoleState
         public SkillData CurrentSkillData;
         public float skillCDTime;
         public int MP;
-        public int CD;
         public SkillTypeEnum SkillType;
         public int TargetCount;
         public int EffectId1;
@@ -46,7 +45,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Update(mRoleBase, deltaTime);
             addTime += deltaTime;
-            if (addTime > CD && ( AnimationEntry==null|| AnimationEntry.IsComplete) && mRoleBase.RolePropertyValue.RoleMp > MP)
+            if (addTime > skillCDTime && ( AnimationEntry==null|| AnimationEntry.IsComplete) && mRoleBase.RolePropertyValue.RoleMp > MP)
             {
                 OnceAttack(mRoleBase);
             }

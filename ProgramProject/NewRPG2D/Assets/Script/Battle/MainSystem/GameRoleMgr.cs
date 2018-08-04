@@ -9,7 +9,16 @@ namespace Assets.Script.Battle
     {
         public List<RoleBase> RolesList = new List<RoleBase>(10);
         public List<RoleBase> RolesEnemyList = new List<RoleBase>(10);
+        public List<RoleBase> RolesHeroList = new List<RoleBase>(10);
         public Dictionary<ushort, RoleBase> RoleDic = new Dictionary<ushort, RoleBase>();
+
+        public void ClearAllRole()
+        {
+            RolesList.Clear();
+            RolesEnemyList.Clear();
+            RolesHeroList.Clear();
+            RoleDic.Clear();
+        }
 
         public void AddRole(GameObject perfab, bool isMaster = false)
         {
@@ -49,6 +58,7 @@ namespace Assets.Script.Battle
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
             RolesList.Add(role);
+            RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
         }
 

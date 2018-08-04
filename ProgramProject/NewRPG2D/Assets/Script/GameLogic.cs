@@ -20,6 +20,7 @@ namespace Assets.Script
        // public float audioTime = 0.5f;
         public static GameLogic Instance = null;
 
+        private bool isGameOver;
         private LoadLevel loadLevelManager;
 
         public void Awake()
@@ -69,6 +70,7 @@ namespace Assets.Script
 
         public void InitData()
         {
+            isGameOver = false;
             loadLevelManager = new LoadLevel();
             InputContorlMgr.instance.SetMainCamera(Camera.main);
             InputContorlMgr.instance.SetLayMask(inputLayerMask);
@@ -87,6 +89,10 @@ namespace Assets.Script
         //private float addTime = 0;
         public void Update()
         {
+            if (isGameOver)
+            {
+                return;
+            }
             //addTime += Time.deltaTime;
             //if (addTime > StaticAndConstParamter.DeltaTime)
             {
@@ -125,6 +131,12 @@ namespace Assets.Script
             }
         }
 
+        public void IsGameOver()
+        {
+            isGameOver = true;
+            GameRoleMgr.instance.ClearAllRole();
+        }
+
         public void OnDestroy()
         {
             //AudioControl.Destory();
@@ -142,7 +154,7 @@ namespace Assets.Script
 
         private void LoadLevelUpdate(LoadLevelParam param)
         {
-
+            isGameOver = false;
         }
 
         #endregion

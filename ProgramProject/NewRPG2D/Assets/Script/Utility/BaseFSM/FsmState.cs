@@ -26,7 +26,7 @@ public class FsmState<TState>
     /// <param name="TState"></param>
     public virtual void Enter(TState Target)
     {
-        Debug.Log(this.ToString() + "    Enter    "+Time.time);
+       // Debug.Log(this.ToString() + "    Enter    "+Time.time);
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public class FsmState<TState>
     /// <param name="TState"></param>
     public virtual void Exit(TState Target)
     {
-        Debug.Log(this.ToString() + "    Exit" + Time.time);
+       // Debug.Log(this.ToString() + "    Exit" + Time.time);
     }
 
 

@@ -10,6 +10,7 @@ namespace Assets.Script.Battle
         private Vector3 addOffesetVector3, currentTargetPosition;
         private SwitchRoleActionParam switchActionParam;
         private float minMoveDistance = 1;
+        private bool finishMove = false;
 
         public void SetCurrentRole(RoleBase mRole)
         {
@@ -22,11 +23,12 @@ namespace Assets.Script.Battle
         private Vector3 nextPosition = Vector3.zero;
         public void Update(float deltaTime)
         {
-
+           
             if (targetTransform == null)
             {
                 if ((roleTransform.position - currentTargetPosition).magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
                 {
+                    mCurrentRole.FinishMoveToPoint = true;
                     return;
                 }
             }
@@ -52,10 +54,12 @@ namespace Assets.Script.Battle
 
         public void SetTargetPosition(Vector3 targetPosition)
         {
+            mCurrentRole.FinishMoveToPoint = false;
             targetTransform = null;
             currentTargetPosition = targetPosition;
             Vector3 dir = (currentTargetPosition - roleTransform.position).normalized;
             SetOffesetVector3(dir);
+            mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 
         public void SetTargetTranform(Transform target)
@@ -63,6 +67,7 @@ namespace Assets.Script.Battle
             targetTransform = target;
             Vector3 dir = (targetTransform.position - roleTransform.position).normalized;
             SetOffesetVector3(dir);
+            mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 
         public void SetTargetMinDistance(float minDistance)

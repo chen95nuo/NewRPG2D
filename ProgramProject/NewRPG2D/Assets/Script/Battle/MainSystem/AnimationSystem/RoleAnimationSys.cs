@@ -35,6 +35,11 @@ namespace Assets.Script.Battle
             return roleAnimationState.SetAnimation(0, animationName, false);
         }
 
+        public TrackEntry SetCurrentAniamtionByName(string animationName, bool loop)
+        {
+            return roleAnimationState.SetAnimation(0, animationName, loop);
+        }
+
         public void AddCompleteListener(AnimationState.TrackEntryDelegate callBack)
         {
             roleAnimationState.Complete += callBack;

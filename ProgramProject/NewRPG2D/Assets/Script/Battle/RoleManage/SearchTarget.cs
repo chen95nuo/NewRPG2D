@@ -27,7 +27,7 @@ namespace Assets.Script.Battle
         {
             cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
             attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
-            attackDistance = attackDistance * attackDistance;
+          //  attackDistance = attackDistance * attackDistance;
         }
 
         public void SetTarget(RoleBase targetRole)
@@ -37,23 +37,28 @@ namespace Assets.Script.Battle
 
         public void Update()
         {
+            if(mCurrentRole.FinishMoveToPoint == false)
+            {
+                return;
+            }
             if (targetRole != null && targetRole.IsDead == false)
             {
                 if (mCurrentRole.CurrentSlot != cacheSkillSlot)
                 {
                     cacheSkillSlot = mCurrentRole.CurrentSlot;
                     attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
-                    attackDistance = attackDistance * attackDistance;
+                  //  attackDistance = attackDistance * attackDistance;
                 }
 
                 if ((targetRole.RoleTransform.position - roleTransform.position).magnitude > attackDistance)
                 {
                     mCurrentRole.RoleMoveMoment.SetTargetTranform(targetRole.RoleTransform);
                     mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
+                   
                 }
                 else
                 {
-                  //  Debug.LogError("have target then attack ");
+                    //Debug.LogError("have target then attack ");
                     mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
                 }
                 //没到攻击距离时往目标走，

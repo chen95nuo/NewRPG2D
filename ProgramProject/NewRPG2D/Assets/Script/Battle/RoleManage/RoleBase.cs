@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Script.Battle.BattleData;
 using Assets.Script.Battle.BattleData.ReadData;
+using Assets.Script.Battle.RoleState;
 using Assets.Script.Utility;
 using Spine.Unity;
 using UnityEngine;
@@ -27,9 +28,11 @@ namespace Assets.Script.Battle
         public Transform RoleTransform { get; private set; }
         public int AnimationId { get; private set; }
         public SkillSlotTypeEnum CurrentSlot { get; private set; }
-        public bool IsDead { get; private set; }
         public bool IsCanControl { get; private set; }
         public ActorStateEnum CurrentActorState { get; private set; }
+        public bool IsDead { get; private set; }
+
+        public bool FinishMoveToPoint;
 
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -95,6 +98,7 @@ namespace Assets.Script.Battle
         {
             RoleActionStateDic = new Dictionary<int, FsmState<RoleBase>>(10);
             RoleActionMachine = new FsmStateMachine<RoleBase>(this);
+            RoleActionStateDic.Add((int)ActorStateEnum.Death, new RoleDeathState());
         }
 
         private void InitSkill()
@@ -107,6 +111,9 @@ namespace Assets.Script.Battle
 
         private void InitRoleComponentData()
         {
+            FinishMoveToPoint = true;
+            DebugHelper.LogError("InitRoleComponentData  Death  " + RoleTransform.name);
+            IsDead = false;
             InitSkill();
             RoleSearchTarget.InitData();  
         }
@@ -147,10 +154,19 @@ namespace Assets.Script.Battle
 
         public virtual void UpdateLogic(float deltaTime)
         {
+            if (IsDead)
+            {
+                return;
+            }
+
             if (RoleMoveMoment != null) { RoleMoveMoment.Update(deltaTime); }
             if (RoleActionMachine != null) RoleActionMachine.Update(deltaTime);
             if (RoleSearchTarget != null) RoleSearchTarget.Update();
+        }
 
+        public virtual void Death()
+        { 
+            IsDead = true;
         }
 
         public abstract void FixedUpdateLogic(float deltaTime);

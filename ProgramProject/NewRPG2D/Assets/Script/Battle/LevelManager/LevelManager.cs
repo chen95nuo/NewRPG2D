@@ -72,7 +72,7 @@ namespace Assets.Script.Battle.LevelManager
             }
             for (int i = 0; i < heroPoint.Length; i++)
             {
-                BornHero(heroPoint[i].Point.position, currentInstanceId++, 1001, 0);
+                BornHero(heroPoint[i].Point, currentInstanceId++, 1001, 0);
             }
         }
 
@@ -96,14 +96,14 @@ namespace Assets.Script.Battle.LevelManager
             InitEnemyInfoDic(BornPositionTypeEnum.Point05);
         }
 
-        private void BornHero(Vector3 mPosition, ushort instanceId, int roleId, float angle)
+        private void BornHero(Transform mPoint, ushort instanceId, int roleId, float angle)
         {
-            GameRoleMgr.instance.AddHeroRole("", "Hero", transform, mPosition, instanceId, roleId, angle);
+            GameRoleMgr.instance.AddHeroRole("", "Hero", mPoint, mPoint.position, instanceId, roleId, angle);
         }
 
-        private void BornEnemy(Vector3 mPosition, ushort instanceId, int roleId, float angle)
+        private void BornEnemy(Transform mPoint, ushort instanceId, int roleId, float angle)
         {
-            GameRoleMgr.instance.AddMonsterRole("", "Monster", transform, mPosition, instanceId, roleId, angle);
+            GameRoleMgr.instance.AddMonsterRole("", "Monster", mPoint, mPoint.position, instanceId, roleId, angle);
         }
 
         private void GetEnemyData(int enemyDataId)
@@ -161,8 +161,8 @@ namespace Assets.Script.Battle.LevelManager
 
         private void BornEnemy(BornPositionTypeEnum bornPositionType, int enemyRoleId)
         {
-            Vector3 bornPosition = GetEnemyBornPoisition(bornPositionType);
-            BornEnemy(bornPosition, currentInstanceId++, enemyRoleId, 0);
+            Transform bornPoint = GetEnemyBornPoisition(bornPositionType);
+            BornEnemy(bornPoint, currentInstanceId++, enemyRoleId, 0);
         }
 
         private void GetEnemyInfo(BornPositionTypeEnum bornPositionType, ref CreateEnemyInfo enemyInfo)
@@ -177,16 +177,16 @@ namespace Assets.Script.Battle.LevelManager
             }
         }
 
-        private Vector3 GetEnemyBornPoisition(BornPositionTypeEnum bornPositionType)
+        private Transform GetEnemyBornPoisition(BornPositionTypeEnum bornPositionType)
         {
             for (int i = 0; i < monsterPoint.Length; i++)
             {
                 if (monsterPoint[i].BornPositionType == bornPositionType)
                 {
-                    return monsterPoint[i].Point.position;
+                    return monsterPoint[i].Point;
                 }
             }
-            return Vector3.zero;
+            return transform;
         }
     }
 }

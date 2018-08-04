@@ -24,22 +24,32 @@ namespace Assets.Script.Battle.BattleData
             RoleBaseData.RoleProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "RoleProperty");
             RoleBaseData.AttackProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "AttackProperty");
             RoleBaseData.DefenseProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "DefenseProperty");
+
             float baseValue = ReadXmlDataMgr.IntParse(node, "BaseHP");
             float growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowHPMin");
             float growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowHPMax");
             RoleBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
+            baseValue = ReadXmlDataMgr.IntParse(node, "BaseMP");
+            growValueMin = 0;//ReadXmlDataMgr.FloatParse(node, "GrowPromptMin");
+            growValueMax = 0;//ReadXmlDataMgr.FloatParse(node, "GrowPromptMax");
+            RoleBaseData.Mp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
             baseValue = ReadXmlDataMgr.IntParse(node, "BaseAttack");
             growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowAttackMin");
             growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowAttackMax");
             RoleBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
             baseValue = ReadXmlDataMgr.IntParse(node, "BaseDefense");
             growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMin");
             growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMax");
             RoleBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
             baseValue = ReadXmlDataMgr.FloatParse(node, "BasePrompt");
             growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowPromptMin");
             growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowPromptMax");
             RoleBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
             RoleBaseData.AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             RoleBaseData.MoveSpeed = ReadXmlDataMgr.FloatParse(node, "BaseMoveSpeed");
             RoleBaseData.DizzyChance = ReadXmlDataMgr.FloatParse(node, "Dizzy");

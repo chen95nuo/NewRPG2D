@@ -116,6 +116,9 @@ namespace Assets.Script.Battle
     public enum ActorStateEnum
     {
         Idle,
+        Run,
+        Hit,
+        Death,
         NormalAttack,
         Skill1,
         Skill2,
