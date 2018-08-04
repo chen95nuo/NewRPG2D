@@ -25,7 +25,7 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         TTUIPage.ShowPage<UIMainPage>();
-
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -36,10 +36,9 @@ public class GameMain : MonoBehaviour
 
     private void OnDestroy()
     {
-        //GetPlayData.Instance.SaveData();
         UIEventManager.instance.RemoveAllListener();
-        ReadJsonNewMgr.DestroyInstance();
-        GoFightMgr.DestroyInstance();
+        //ReadJsonNewMgr.DestroyInstance();
+        //GoFightMgr.DestroyInstance();
     }
 
 }

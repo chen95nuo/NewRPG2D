@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UICardAddExp : MonoBehaviour
 {
@@ -90,6 +91,8 @@ public class UICardAddExp : MonoBehaviour
         {
             TinyTeam.UI.TTUIPage.ClosePage<UIGainTipPage>();
             TinyTeam.UI.TTUIPage.ClosePage<UICardAddExpPage>();
+            Globe.nextSceneName = GoFightMgr.instance.mainScene;
+            SceneManager.LoadScene("FightLoadin");
         }
         else
         {

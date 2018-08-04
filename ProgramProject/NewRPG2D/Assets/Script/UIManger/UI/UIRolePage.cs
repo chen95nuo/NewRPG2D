@@ -6,20 +6,21 @@ using TinyTeam.UI;
 
 public class UIRolePage : TTUIPage
 {
-    private GameObject currentBtn;
     private UIRoleInformation pickUpRoleMessage;
     private UIRoleStrengthen pickUpRoleStrentthen;
+    private CardData cardData;
     public UIRolePage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
     {
         uiPath = "UIPrefab/UIRoleInformation";
     }
     public override void Awake(GameObject go)
     {
-        currentBtn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UIRolePage>);
         pickUpRoleStrentthen = transform.Find("UIRoleStrengthen").GetComponent<UIRoleStrengthen>();
         this.gameObject.transform.Find("btn_intensify").GetComponent<Button>().onClick.AddListener(ShowRoleStrengthenPage);
         pickUpRoleStrentthen.CloseThisPage();
+
+        UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
 
     public override void Refresh()
@@ -28,6 +29,19 @@ public class UIRolePage : TTUIPage
         pickUpRoleMessage = transform.GetComponent<UIRoleInformation>();
         pickUpRoleMessage.Init();
 
+        if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
+            ShowRoleMessagePage();
+    }
+
+    private void GetCardData(CardData data)
+    {
+        cardData = data;
+        ShowRoleMessagePage();
+    }
+
+    public void ShowRoleMessagePage()
+    {
+        Debug.Log(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem");
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {
             UIBagGrid information = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<UIBagGrid>();
@@ -51,7 +65,12 @@ public class UIRolePage : TTUIPage
                     break;
             }
         }
+        else if (cardData != null)
+        {
+            pickUpRoleMessage.updateMessage(cardData);
+        }
     }
+
     public void ShowRoleStrengthenPage()
     {
         if (pickUpRoleMessage.roleData.Fighting)

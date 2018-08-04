@@ -20,8 +20,8 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool isDown = false;
     private bool isDrag = false;
     private float currentTime;
-    private CardData currentData;
-    public CardData cardData;
+    private CardData currentData; //用于交换卡牌信息
+    public CardData cardData; //当前位置的卡牌信息
 
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 Debug.Log("打开角色信息");
                 //如果超过时间显示角色信息
                 TinyTeam.UI.TTUIPage.ShowPage<UIRolePage>();
+                UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, cardData);
                 isDown = false;
                 currentTime = 0;
             }

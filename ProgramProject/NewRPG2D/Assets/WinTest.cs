@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class WinTest : MonoBehaviour
 {
-
+    private void Awake()
+    {
+        GoFightMgr.CreateInstance();
+    }
     // Use this for initialization
     void Start()
     {
@@ -13,8 +16,11 @@ public class WinTest : MonoBehaviour
 
     void UpdateWin()
     {
-        Debug.Log("运行了");
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+        //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
         GoFightMgr.instance.MissionComplete();
+    }
+    private void OnDestroy()
+    {
+        GoFightMgr.DestroyInstance();
     }
 }

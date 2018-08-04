@@ -36,8 +36,9 @@ public class UIHatcheryGrid : MonoBehaviour
 
     public void UpdateGrid()
     {
-        if (hatchery != null && hatchery.HatcheryType == HatcheryType.Open)
+        if (hatchery != null && hatchery.HatcheryType != HatcheryType.Nothing)
         {
+            Debug.Log("关闭了");
             btn_UnLock.gameObject.SetActive(false);
             btn_speed.gameObject.SetActive(false);
             btn_complete.gameObject.SetActive(false);
@@ -56,11 +57,38 @@ public class UIHatcheryGrid : MonoBehaviour
     public void UpdateGrid(HatcheryData data)
     {
         hatchery = data;
-        btn_UnLock.gameObject.SetActive(false);
-        btn_speed.gameObject.SetActive(false);
-        btn_complete.gameObject.SetActive(false);
-        timeText.gameObject.SetActive(false);
-        btn_hatchery.interactable = true;
+
+        switch (data.HatcheryType)
+        {
+            case HatcheryType.Nothing:
+                btn_UnLock.gameObject.SetActive(true);
+                btn_speed.gameObject.SetActive(false);
+                btn_complete.gameObject.SetActive(false);
+                timeText.gameObject.SetActive(false);
+                btn_hatchery.interactable = true;
+                break;
+            case HatcheryType.Open:
+                btn_UnLock.gameObject.SetActive(false);
+                btn_speed.gameObject.SetActive(false);
+                btn_complete.gameObject.SetActive(false);
+                timeText.gameObject.SetActive(false);
+                btn_hatchery.interactable = true;
+                break;
+            case HatcheryType.Run:
+                btn_UnLock.gameObject.SetActive(false);
+                btn_hatchery.interactable = false;
+                btn_hatchery.image.sprite = IconMgr.Instance.GetIcon(data.Eggdata.SpriteName);
+                timeText.gameObject.SetActive(true);
+                btn_speed.gameObject.SetActive(true);
+                break;
+            case HatcheryType.End:
+                timeText.gameObject.SetActive(false);
+                btn_speed.gameObject.SetActive(false);
+                btn_complete.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
     /// <summary>
     /// 孵化开始

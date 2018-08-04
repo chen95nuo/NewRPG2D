@@ -140,6 +140,7 @@ public enum UIEventDefineEnum
     UpdateRolesEvent,
     UpdateRoundEvent,
     UpdateRoleTipEvent,
+    UpdateCardMessageEvent,
     UpdateGainTipEvent,
     UpdateMaterialEvent,
     UpdateFurnaceEvent,

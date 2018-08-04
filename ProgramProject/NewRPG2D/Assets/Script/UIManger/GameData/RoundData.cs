@@ -196,6 +196,13 @@ public class LessonDropData
             return dropBoxId;
         }
     }
+    public LessonDropData() { }
+    public LessonDropData(int lessonId, int[] dropPropId, int dropBoxId)
+    {
+        this.lessonId = lessonId;
+        this.dropBoxId = dropBoxId;
+        this.dropBoxId = dropBoxId;
+    }
 
 }
 

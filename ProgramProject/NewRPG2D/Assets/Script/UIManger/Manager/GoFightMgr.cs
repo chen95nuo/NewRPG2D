@@ -21,9 +21,10 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     {
         Debug.Log("确认信息");
         cardData = fightData.CardData;
+
         currentLesson = fightData.CurrentLesson;
+        //currentLesson = fightData.CurrentLesson;
         mainScene = fightData.CurrentMap;
-        Debug.Log(currentLesson.LessonId);
     }
 
     public void MissionComplete()
