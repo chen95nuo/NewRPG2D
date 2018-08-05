@@ -31,6 +31,7 @@ namespace Assets.Script.Battle
         public ActorStateEnum LastActorState { get; private set; }
         public ActorStateEnum CurrentActorState { get; private set; }
         public bool IsDead { get; private set; }
+        public AttackTypeEnum AttackType { get; private set; }
 
         public bool FinishMoveToPoint;
         public bool IsCanControl;
@@ -66,6 +67,7 @@ namespace Assets.Script.Battle
             RoleType = info.RoleType;
             RoleId = info.RoleId;
             CurrentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(RoleId);
+            AttackType = CurrentRoleData.AttackType;
         }
 
         public virtual void InitComponent()

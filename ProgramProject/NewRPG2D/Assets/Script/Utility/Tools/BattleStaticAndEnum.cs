@@ -89,6 +89,11 @@ namespace Assets.Script.Battle
         public float IntervalTime;
     }
 
+    public struct AIObjectInfo
+    {
+        public float MoveSpeed;
+    }
+
     [Serializable]
     public class BornPoint
     {

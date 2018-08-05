@@ -26,7 +26,7 @@ namespace Assets.Script.Battle.LevelManager
         [SerializeField]
         private string sceneName;
 
-        private static ushort currentInstanceId = 0;
+        public static ushort currentInstanceId = 0;
 
         private int sceneId = 1001;
         private Queue<CreateEnemyData> enemyDatas;

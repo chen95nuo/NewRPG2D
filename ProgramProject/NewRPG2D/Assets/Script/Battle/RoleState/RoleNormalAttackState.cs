@@ -33,7 +33,17 @@ namespace Assets.Script.Battle.RoleState
             info.AttackRole = mRoleBase;
             info.TargeRole = TargetRole;
             info.HurtType = HurtTypeEnum.Physic;
-            mRoleBase.RoleDamageMoment.HurtDamage(ref info);
+            if (mRoleBase.AttackType == AttackTypeEnum.ShortRange)
+            {
+                mRoleBase.RoleDamageMoment.HurtDamage(ref info);
+            }
+            else
+            {
+                string aiObjectName = mRoleBase.RoleTransform.name + "_aiObjcet";
+                AIObjectRenderer aiObject = GameRoleMgr.instance.SetRoleTransform<AIObjectRenderer>("BattleAIObject/AIObjectCommon", aiObjectName, 1,
+                    mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position, 0);
+                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo {MoveSpeed = 10});
+            }
             //扣血
         }
     }
