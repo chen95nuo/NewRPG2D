@@ -59,6 +59,11 @@ namespace Assets.Script.Battle
             currentTargetPosition = targetPosition;
             Vector3 dir = (currentTargetPosition - roleTransform.position).normalized;
             SetOffesetVector3(dir);
+        }
+
+        public void SetTargetPositionAndChangeActionState(Vector3 targetPosition)
+        {
+            SetTargetPosition(targetPosition);
             mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 

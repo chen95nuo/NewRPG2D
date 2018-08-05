@@ -6,15 +6,21 @@ using Transform = UnityEngine.Transform;
 public class RoleRender : MonoBehaviour
 {
     public SkeletonAnimation roleAnimation;
+    [SerializeField] private MeshRenderer currentRenderer;
     public RoleBase CurrentRole { get; private set; }
     private Transform _trans;
     private Transform _renderTrans;
     private bool bCanContorl;
 
     // Use this for initialization
-    void Awake()
+    private void Awake()
     {
         _trans = transform;
+    }
+
+    private void Update()
+    {
+        SetRendererSorintRender();
     }
 
     public void SetRoleBaseInfo(RoleBase roleBase)
@@ -23,8 +29,6 @@ public class RoleRender : MonoBehaviour
         SetIsControlState(roleBase.IsCanControl);
     }
 
-
-
     public void SetIsControlState(bool canControl)
     {
         bCanContorl = canControl;
@@ -32,7 +36,7 @@ public class RoleRender : MonoBehaviour
 
     public void Move(Vector3 movePostion)
     {
-        CurrentRole.RoleMoveMoment.SetTargetPosition(movePostion);
+        CurrentRole.RoleMoveMoment.SetTargetPositionAndChangeActionState(movePostion);
     }
 
     public void ChangeTarget(RoleBase targetRole)
@@ -47,7 +51,10 @@ public class RoleRender : MonoBehaviour
         DebugHelper.Log(" attack  " + targetRole.InstanceId);
     }
 
-   
+    private void SetRendererSorintRender()
+    {
+        currentRenderer.sortingOrder = (int)((6 - transform.position.y) * 1000);
+    }
 
 
 }

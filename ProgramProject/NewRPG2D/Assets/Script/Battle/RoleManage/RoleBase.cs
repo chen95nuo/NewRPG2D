@@ -28,11 +28,12 @@ namespace Assets.Script.Battle
         public Transform RoleTransform { get; private set; }
         public int AnimationId { get; private set; }
         public SkillSlotTypeEnum CurrentSlot { get; private set; }
-        public bool IsCanControl { get; private set; }
+        public ActorStateEnum LastActorState { get; private set; }
         public ActorStateEnum CurrentActorState { get; private set; }
         public bool IsDead { get; private set; }
 
         public bool FinishMoveToPoint;
+        public bool IsCanControl;
 
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -112,7 +113,7 @@ namespace Assets.Script.Battle
         private void InitRoleComponentData()
         {
             FinishMoveToPoint = true;
-            DebugHelper.LogError("InitRoleComponentData  Death  " + RoleTransform.name);
+            IsCanControl = true;
             IsDead = false;
             InitSkill();
             RoleSearchTarget.InitData();  
@@ -126,16 +127,22 @@ namespace Assets.Script.Battle
 
         public void SetRoleActionState(ActorStateEnum state)
         {
-            if (CurrentActorState == state)
+            if (CurrentActorState == state || IsCanControl == false)
             {
                 return;
             }
-
+            LastActorState = CurrentActorState;
             CurrentActorState = state;
             if (RoleActionStateDic.ContainsKey((int)state))
             {
                 RoleActionMachine.ChangeState(RoleActionStateDic[(int)state]);
             }
+        }
+
+        public void RestartRoleLastActorState()
+        {
+            DebugHelper.Log(" LastActorState   " + LastActorState);
+            SetRoleActionState(LastActorState);
         }
 
         public void SetAnimationId(int animationId)
@@ -159,9 +166,14 @@ namespace Assets.Script.Battle
                 return;
             }
 
-            if (RoleMoveMoment != null) { RoleMoveMoment.Update(deltaTime); }
+            if (IsCanControl)
+            {
+                if (RoleMoveMoment != null){RoleMoveMoment.Update(deltaTime);}
+                if (RoleSearchTarget != null) RoleSearchTarget.Update();
+                if(RoleSkill != null) RoleSkill.UpdateLogic(deltaTime);
+            }
+
             if (RoleActionMachine != null) RoleActionMachine.Update(deltaTime);
-            if (RoleSearchTarget != null) RoleSearchTarget.Update();
         }
 
         public virtual void Death()
@@ -171,5 +183,11 @@ namespace Assets.Script.Battle
 
         public abstract void FixedUpdateLogic(float deltaTime);
         public abstract void Dispose();
+
+
+        public override string ToString()
+        {
+            return RoleTransform.name;
+        }
     }
 }

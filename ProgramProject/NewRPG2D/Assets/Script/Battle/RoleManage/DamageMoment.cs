@@ -40,6 +40,10 @@ namespace Assets.Script.Battle
             {
                 hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Death);
             }
+            else
+            {
+                hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Hit);
+            }
         }
 
         private void RolePropertyDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)

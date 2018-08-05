@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Script.Battle.BattleData;
 using Assets.Script.Tools;
 using Assets.Script.Utility;
 using UnityEngine;
@@ -26,11 +27,9 @@ namespace Assets.Script.Battle
                 return;
         }
 
-        public void AddMonsterRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition,
-            ushort instanceId, int roleId, float angle)
+        public void AddMonsterRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
         {
-            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "BattleRole/Monster";
-            RoleRender roleMono = SetRoleTransform(itemModelName, indexName, transform, mPosition, angle);
+            RoleRender roleMono = SetRoleTransform(roleId, indexName, transform, mPosition, angle);
             roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
             RoleInfo info = new RoleInfo();
             EnemyHeroRole role = new EnemyHeroRole();
@@ -44,10 +43,9 @@ namespace Assets.Script.Battle
             RoleDic[instanceId] = role;
         }
 
-        public void AddHeroRole(string perfabpath, string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
+        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
         {
-            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + "BattleRole/Monster";
-            RoleRender roleMono = SetRoleTransform(itemModelName, indexName, transform, mPosition, angle);
+            RoleRender roleMono = SetRoleTransform(roleId, indexName, transform, mPosition, angle);
             roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
             Debug.Log("AddHeroRole addrole:" + instanceId);
             RoleInfo info = new RoleInfo();
@@ -72,9 +70,11 @@ namespace Assets.Script.Battle
             return RoleDic[inatancdid];
         }
 
-        private RoleRender SetRoleTransform(string perfabpath, string indexName, Transform transform, Vector3 mPosition, float angle)
+        private RoleRender SetRoleTransform(int roleId, string indexName, Transform transform, Vector3 mPosition, float angle)
         {
-            GameObject perfab = ResourcesLoadMgr.instance.PopObjFromPool(perfabpath, indexName);
+            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleId);
+            string itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + currentRoleData.PrefabPathName;
+            GameObject perfab = ResourcesLoadMgr.instance.PopObjFromPool(itemModelName, indexName);
             perfab.transform.parent = transform;
             perfab.transform.position = mPosition;
             perfab.transform.localEulerAngles = new Vector3(angle, 0);

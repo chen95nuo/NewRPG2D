@@ -107,7 +107,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
 --- !u!33 &33735835315913242
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roleAnimation: {fileID: 114581394339901872}
+  currentRenderer: {fileID: 23523720765642238}
 --- !u!114 &114581394339901872
 MonoBehaviour:
   m_ObjectHideFlags: 1

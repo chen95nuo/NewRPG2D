@@ -11,7 +11,7 @@ namespace Assets.Script.Battle.RoleState
 
         public override void Enter(RoleBase mRoleBase)
         {
-            CurrentSkillData = mRoleBase.RoleSkill.GetSkillDataBySkilSlot(SkillSlotTypeEnum.Skill2);
+            CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.Skill2);
             base.Enter(mRoleBase);
         }
 

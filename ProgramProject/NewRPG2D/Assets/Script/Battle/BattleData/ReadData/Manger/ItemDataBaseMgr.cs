@@ -34,7 +34,7 @@ namespace Assets.Script.Battle.BattleData
         {
             base.Init();
             CurrentXmlIndex = (int)CurrentXmlName;
-            DebugHelper.LogError("CurrentXmlName  " + CurrentXmlName);
+           // DebugHelper.LogError("CurrentXmlName  " + CurrentXmlName);
             XmlData[] tempData = ReadXmlNewMgr.instance.AllXmlDataDic[CurrentXmlIndex];
             CurrentItemData = new ItemBaseData[tempData.Length];
             for (int i = 0; i < tempData.Length; i++)

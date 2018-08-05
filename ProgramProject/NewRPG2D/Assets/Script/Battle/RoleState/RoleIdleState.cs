@@ -8,7 +8,8 @@ namespace Assets.Script.Battle.RoleState
         public override void Enter(RoleBase mRoleBase)
         {
             base.Enter(mRoleBase);
-            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle);
+            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
+            mRoleBase.RoleMoveMoment.SetTargetPosition(mRoleBase.RoleTransform.position);
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)

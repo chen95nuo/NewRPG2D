@@ -35,6 +35,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private bool isCreateEnemy;
         private float addTime;
+        private bool isGameOver;
 
         private void Awake()
         {
@@ -43,6 +44,7 @@ namespace Assets.Script.Battle.LevelManager
             currentEnemyInfoList = new List<BornEnemyInfo>();
             currentInstanceId = 0;
             isCreateEnemy = false;
+            isGameOver = false;
         }
 
         private void Start()
@@ -52,6 +54,10 @@ namespace Assets.Script.Battle.LevelManager
 
         private void Update()
         {
+            if (isGameOver)
+            {
+                return;
+            }
             addTime += Time.deltaTime;
             StartBornEnemy();
             CheckEnemyCount();
@@ -66,11 +72,9 @@ namespace Assets.Script.Battle.LevelManager
         {
             CTimerManager.instance.RemoveLister(timeId);
             InitEnemyData();
-            if (enemyDatas.Count > 0)
-            {
-                SetEnemyInfo();
-            }
-            for (int i = 0; i < heroPoint.Length; i++)
+            SetEnemyInfo();
+            float heroPointLength = heroPoint.Length;
+            for (int i = 0; i < heroPointLength; i++)
             {
                 BornHero(heroPoint[i].Point, currentInstanceId++, 1001, 0);
             }
@@ -87,6 +91,12 @@ namespace Assets.Script.Battle.LevelManager
         private void SetEnemyInfo()
         {
             DebugHelper.Log(" SetEnemyInfo " + enemyDatas.Count);
+            if (enemyDatas.Count <= 0)
+            {
+                DebugHelper.LogError("------------ win -------------  ");
+                isGameOver = true;
+                return;
+            }
             currentEnemyInfoList.Clear();
             currentEnemyData = enemyDatas.Dequeue();
             InitEnemyInfoDic(BornPositionTypeEnum.Point01);
@@ -98,12 +108,12 @@ namespace Assets.Script.Battle.LevelManager
 
         private void BornHero(Transform mPoint, ushort instanceId, int roleId, float angle)
         {
-            GameRoleMgr.instance.AddHeroRole("", "Hero", mPoint, mPoint.position, instanceId, roleId, angle);
+            GameRoleMgr.instance.AddHeroRole("Hero", mPoint, mPoint.position, instanceId, roleId, angle);
         }
 
         private void BornEnemy(Transform mPoint, ushort instanceId, int roleId, float angle)
         {
-            GameRoleMgr.instance.AddMonsterRole("", "Monster", mPoint, mPoint.position, instanceId, roleId, angle);
+            GameRoleMgr.instance.AddMonsterRole("Monster", mPoint, mPoint.position, instanceId, roleId, angle);
         }
 
         private void GetEnemyData(int enemyDataId)
@@ -126,6 +136,13 @@ namespace Assets.Script.Battle.LevelManager
             if (isCreateEnemy && GameRoleMgr.instance.RolesEnemyList.Count <= 0)
             {
                 SetEnemyInfo();
+            }
+
+            if (isCreateEnemy && GameRoleMgr.instance.RolesHeroList.Count <= 0)
+            {
+                DebugHelper.LogError("  -----------------Lose----- ");
+                isGameOver = true;
+                GameLogic.Instance.IsGameOver();
             }
         }
 
