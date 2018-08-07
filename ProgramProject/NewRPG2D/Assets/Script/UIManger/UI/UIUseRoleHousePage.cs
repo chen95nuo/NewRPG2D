@@ -13,7 +13,7 @@ public class UIUseRoleHousePage : TTUIPage
     private UIBagItem updateBagItem;
     private int level;
 
-    public UIUseRoleHousePage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
+    public UIUseRoleHousePage() : base(UIType.Normal, UIMode.DoNothing, UICollider.None)
     {
         uiPath = "UIPrefab/UIUseRoleHouse";
     }
@@ -27,10 +27,10 @@ public class UIUseRoleHousePage : TTUIPage
         UIEventManager.instance.AddListener<GridType>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleGridType);
         UIEventManager.instance.AddListener<int>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleLevel);
         UIEventManager.instance.AddListener<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleItem);
-        
+
     }
 
-    
+
 
     public override void Refresh()
     {

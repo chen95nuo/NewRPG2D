@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TinyTeam.UI;
 using UnityEngine;
@@ -130,7 +131,23 @@ public class UIBagPopUp : MonoBehaviour
         prop.gameObject.SetActive(false);
         egg.gameObject.SetActive(false);
 
-        equipType.text = information.equipData.EquipTypeName;
+        switch (information.equipData.EquipType)
+        {
+            case EquipType.Nothing:
+                equipType.text = "空";
+                break;
+            case EquipType.Weapon:
+                equipType.text = "武器";
+                break;
+            case EquipType.Armor:
+                equipType.text = "防具";
+                break;
+            case EquipType.Necklace:
+                equipType.text = "首饰";
+                break;
+            default:
+                break;
+        }
         equipName.text = information.equipData.Name;
         equipDescribe.text = information.equipData.Describe;
         if (information.equipData.Affix_1 == null)
@@ -141,7 +158,7 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_1.interactable = true;
-            affix_1.text = information.equipData.Affix_1;
+            affix_1.text = FormatAffix(information.equipData.Affix_1);
         }
 
         if (information.equipData.Affix_2 == null)
@@ -152,7 +169,7 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_2.interactable = true;
-            affix_2.text = information.equipData.Affix_2;
+            affix_2.text = FormatAffix(information.equipData.Affix_2);
         }
         if (information.equipData.Affix_3 == null)
         {
@@ -162,7 +179,7 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_3.interactable = true;
-            affix_3.text = information.equipData.Affix_3;
+            affix_3.text = FormatAffix(information.equipData.Affix_3);
         }
         if (information.equipData.Affix_4 == null)
         {
@@ -172,7 +189,7 @@ public class UIBagPopUp : MonoBehaviour
         else
         {
             btn_affix_4.interactable = true;
-            affix_4.text = information.equipData.Affix_4;
+            affix_4.text = FormatAffix(information.equipData.Affix_4);
         }
         if (information.gridType == GridType.Use)
         {
@@ -253,6 +270,47 @@ public class UIBagPopUp : MonoBehaviour
 
         this.rect.position = rect.position;
 
+    }
+
+    public static string FormatAffix(string affix)
+    {
+        if (affix == "")
+        {
+            return null;
+        }
+        string[] str;
+        str = affix.Split('+');
+        EquipAffixName name = (EquipAffixName)Enum.Parse(typeof(EquipAffixName), str[0]);
+        switch (name)
+        {
+            case EquipAffixName.att:
+                return "攻击 + " + str[1];
+            case EquipAffixName.con:
+                return "生命 + " + str[1];
+            case EquipAffixName.def:
+                return "防御 + " + str[1];
+            case EquipAffixName.dex:
+                return "敏捷 + " + str[1];
+            case EquipAffixName.crt:
+                return "暴击率 + " + str[1];
+            case EquipAffixName.sbl:
+                return "吸血 + " + str[1];
+            case EquipAffixName.stun:
+                return "眩晕 + " + str[1];
+            case EquipAffixName.spd:
+                return "攻速 + " + str[1];
+            case EquipAffixName.mspd:
+                return "移速 + " + str[1];
+            case EquipAffixName.bld:
+                return "流血 + " + str[1];
+            case EquipAffixName.cd:
+                return "冷却 + " + str[1];
+            case EquipAffixName.weak:
+                return "虚弱 + " + str[1];
+            default:
+                break;
+        }
+        return null;
     }
 
 }

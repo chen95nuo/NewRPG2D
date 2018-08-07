@@ -132,10 +132,10 @@ public class UIExplore : MonoBehaviour
             int addExp = dropData.AddExp;
             int playExp = dropData.AddPlayerExp;
             GainData[] data = GameDropBagData.Instance.GetGains(currentExplore.DroppingBoxId);
-            CardGainData[] cardGainData = GameDropBagData.Instance.GetCards(expData[currentMenu].CardsData, addExp, playExp);
             //弹出道具奖励菜单
             TinyTeam.UI.TTUIPage.ShowPage<UIGainTipPage>();
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateGainTipEvent, data);
+            CardGainData[] cardGainData = GameDropBagData.Instance.GetCards(expData[currentMenu].CardsData, addExp, playExp);
             //将经验加到角色身上并获取角色信息
             //显示经验奖励面板
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateGainTipEvent, cardGainData);

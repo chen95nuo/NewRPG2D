@@ -68,7 +68,7 @@ public class UICardGrid : MonoBehaviour
             cardExpSlider.value = index;
             cardExpSlider.maxValue = maxExp;
             addExp.text = "Exp+ " + (currentAddExp - currentValue).ToString("#0.0");
-            nowExp.text = index.ToString("#0") + " / " + maxExp + "    " + currentMaxExp;
+            nowExp.text = index.ToString("#0") + " / " + maxExp;
 
             if (currentValue == currentAddExp)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIRoleStrengthen : MonoBehaviour
 {
@@ -9,8 +10,14 @@ public class UIRoleStrengthen : MonoBehaviour
     public Image roleQuality;
     public Image roleAttribute;
     public Image roleStars;
+    public Text roleLevelText;
+    public Text roleExpText;
+    public Slider roleExpSlider;
+    public Text addExpText;
+    public Text levelUp;
 
     public Button confirmed;
+    public Button backButton;
 
     public GameObject RoleMaterial;
 
@@ -18,15 +25,27 @@ public class UIRoleStrengthen : MonoBehaviour
 
     public CardData[] cardData = new CardData[4];
     public UIRoleStrengtheningMaterial[] roleMaterial;
+    public UIRoleInformation roleInformation;
 
     public GameObject currentButton;
+
+    private bool isRun = false;
+    private float currentAddExp = 0;
+
+    private int currentLevel = 0;
+    private float currentExp = 0;
+    private float maxExp = 0;
+    private float currentMaxExp = 0;
+    private float currentValue = 0;
+    private float startTime = 0;
 
     private void Awake()
     {
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateMaterialEvent, UpdateMaterial);
 
-        cardData = new CardData[4];
+        cardData = new CardData[3];
         roleMaterial = new UIRoleStrengtheningMaterial[3];
+        addExpText.text = "0";
         for (int i = 0; i < 3; i++)
         {
             GameObject go = Instantiate(RoleMaterial, RoleMaterial.transform.parent.transform) as GameObject;
@@ -39,9 +58,8 @@ public class UIRoleStrengthen : MonoBehaviour
     }
     private void Start()
     {
-        confirmed = transform.Find("btn_confirmed").GetComponent<Button>();
         confirmed.onClick.AddListener(Confirmed);
-        transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(CloseThisPage);
+        backButton.onClick.AddListener(CloseThisPage);
         RoleMaterial.SetActive(false);
     }
     public void OnDestroy()
@@ -53,17 +71,74 @@ public class UIRoleStrengthen : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (isRun)
+        {
+            backButton.interactable = false;
+
+            currentValue = Mathf.Lerp(0, currentAddExp, (Time.time - startTime) * 0.5f);
+            float index = (currentValue - currentMaxExp) + currentExp;
+
+            if (index >= maxExp)
+            {
+                float _index = currentExp;
+                currentExp = 0;
+                index = 0;
+                currentLevel++;
+                currentMaxExp += (maxExp - _index);
+                levelUp.gameObject.SetActive(true);
+                levelUp.rectTransform.DOAnchorPos(Vector2.zero, 1.0f).From();
+
+                maxExp = GameCardExpData.Instance.GetItem(currentLevel).NeedExp;
+            }
+
+            roleLevelText.text = "Lv." + currentLevel;
+            roleExpSlider.value = index;
+            roleExpSlider.maxValue = maxExp;
+            addExpText.text = "Exp+ " + (currentAddExp - currentValue).ToString("#0.0");
+            roleExpText.text = index.ToString("#0") + " / " + maxExp;
+
+            if (currentValue == currentAddExp)
+            {
+                currentMaxExp = 0;
+                currentValue = 0;
+                currentAddExp = 0;
+
+                isRun = false;
+                levelUp.gameObject.SetActive(false);
+                backButton.interactable = true;
+                roleInformation.UpdateMassage();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 更新主角色
+    /// </summary>
+    /// <param name="data"></param>
     public void UpdateRole(UIRoleInformation data)
     {
-        roleData = data.roleData;
+        levelUp.gameObject.SetActive(false);
+        Debug.Log("更新主角色");
+
+        roleData = data.RoleData;
         gameObject.SetActive(true);
         role.sprite = data.role.sprite;
         roleQuality.sprite = data.roleQuality.sprite;
         roleAttribute.sprite = data.roleAttribute.sprite;
         roleStars.sprite = data.roleStars.sprite;
+        float maxExp = data.RoleData.maxExp;
+        roleLevelText.text = "Lv." + data.RoleData.Level;
+        roleExpText.text = data.RoleData.Exp.ToString("#0.0") + " / " + maxExp;
+        roleExpSlider.maxValue = maxExp;
+        roleExpSlider.value = data.RoleData.Exp;
         UpdateMaterial();
     }
 
+    /// <summary>
+    /// 初始化刷新材料列表
+    /// </summary>
     public void UpdateMaterial()
     {
         confirmed.gameObject.SetActive(false);
@@ -73,6 +148,10 @@ public class UIRoleStrengthen : MonoBehaviour
             roleMaterial[i].UpdateMaterial(cardData[i]);
         }
     }
+    /// <summary>
+    /// 添加当前材料并更新材料信息
+    /// </summary>
+    /// <param name="data"></param>
     public void UpdateMaterial(CardData data)
     {
         for (int i = 0; i < roleMaterial.Length; i++)
@@ -83,8 +162,19 @@ public class UIRoleStrengthen : MonoBehaviour
                 roleMaterial[i].UpdateMaterial(data);
                 confirmed.gameObject.SetActive(true);
             }
+
+
+            if (cardData[i] != null) //计算经验
+            {
+                currentAddExp += cardData[i].UseAddExp;
+                addExpText.text = currentAddExp.ToString("#0.0");
+            }
         }
     }
+    /// <summary>
+    /// 删除当前材料并更新材料信息
+    /// </summary>
+    /// <param name="data"></param>
     public void UpdateMaterial(CardData[] data)
     {
         int index = 0;
@@ -107,7 +197,8 @@ public class UIRoleStrengthen : MonoBehaviour
     public void ChoiceMaterials()
     {
         currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        cardData[3] = roleData;
+        cardData[3] = roleData; //主卡ID为3
+        Debug.Log(cardData[3].Name);
         TinyTeam.UI.TTUIPage.ShowPage<UIUseRoleHousePage>();
 
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
@@ -116,7 +207,22 @@ public class UIRoleStrengthen : MonoBehaviour
 
     public void Confirmed()
     {
+        isRun = true;
+        backButton.interactable = false;
+        for (int i = 0; i < roleMaterial.Length; i++)
+        {
+            if (cardData[i] != null)
+            {
+                BagRoleData.Instance.Remove(cardData[i]);
+            }
+        }
+        maxExp = roleData.maxExp;
+        currentLevel = roleData.Level;
+        currentExp = roleData.Exp;
+        roleData.AddExp = currentAddExp;
+        startTime = Time.time;
 
+        UpdateMaterial();
     }
 
     public void RemoveMaterial(GameObject go)

@@ -71,7 +71,7 @@ public class UICardAddExp : MonoBehaviour
             playerExpSlider.value = index;
             playerExpSlider.maxValue = maxExp;
             playerExp.text = "Exp+ " + (currentAddExp - currentValue).ToString("#0.0");
-            playerNowExp.text = index.ToString("#0") + " / " + maxExp + "    " + currentMaxExp;
+            playerNowExp.text = index.ToString("#0") + " / " + maxExp;
 
             if (currentValue == currentAddExp)
             {
@@ -91,8 +91,12 @@ public class UICardAddExp : MonoBehaviour
         {
             TinyTeam.UI.TTUIPage.ClosePage<UIGainTipPage>();
             TinyTeam.UI.TTUIPage.ClosePage<UICardAddExpPage>();
-            Globe.nextSceneName = GoFightMgr.instance.mainScene;
-            SceneManager.LoadScene("FightLoadin");
+            //Globe.nextSceneName = GoFightMgr.instance.mainScene;
+            if (GoFightMgr.instance.mainScene == null)
+            {
+                return;
+            }
+            SceneManager.LoadScene(GoFightMgr.instance.mainScene);
         }
         else
         {
@@ -117,14 +121,13 @@ public class UICardAddExp : MonoBehaviour
 
     public void UpdateCardExp(CardGainData[] datas)
     {
+        closeGain = true;
         GridsControl(datas.Length);
-        UpdatePlayerExp(datas[0].PlayerLevel, datas[0].PlayerExp, datas[0].PlayerAddExp);
         for (int i = 0; i < datas.Length; i++)
         {
             grids[i].UpdateCardGrid(datas[i]);
         }
-
-        closeGain = true;
+        UpdatePlayerExp(datas[0].PlayerLevel, datas[0].PlayerExp, datas[0].PlayerAddExp);
     }
 
 

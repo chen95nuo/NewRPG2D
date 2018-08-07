@@ -1,6 +1,5 @@
 ﻿using Assets.Script.Battle.BattleData;
 using Spine;
-using UnityEditorInternal.VR;
 using UnityEngine;
 
 namespace Assets.Script.Battle.RoleState
@@ -30,7 +29,7 @@ namespace Assets.Script.Battle.RoleState
         public override void Enter(RoleBase mRoleBase)
         {
             base.Enter(mRoleBase);
-           // OnceAttack(mRoleBase);
+            // OnceAttack(mRoleBase);
             skillCDTime = CurrentSkillData.SkillCDTime;
             MP = CurrentSkillData.MP;
             SkillType = CurrentSkillData.SkillType;

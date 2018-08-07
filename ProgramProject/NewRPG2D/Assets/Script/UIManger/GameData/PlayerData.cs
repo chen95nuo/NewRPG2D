@@ -94,10 +94,10 @@ public class PlayerData
     }
     public float AddExp
     {
-        get
-        {
-            return exp;
-        }
+        //get
+        //{
+        //    return exp;
+        //}
         set
         {
             exp += value;

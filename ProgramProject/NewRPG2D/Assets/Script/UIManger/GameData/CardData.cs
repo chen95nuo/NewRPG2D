@@ -18,7 +18,7 @@ public class CardData
     private TeamType teamType; //状态信息
 
     [SerializeField]
-    private int teamPos;
+    private int teamPos; //小队位置编号
 
     [SerializeField]
     private bool fighting; //战斗中
@@ -31,6 +31,9 @@ public class CardData
 
     [SerializeField]
     private float exp;//经验
+
+    [SerializeField]
+    private float useAddExp;//使用获得经验
 
     [SerializeField]
     private EquipData[] equipdata; //装备
@@ -82,6 +85,9 @@ public class CardData
 
     [SerializeField]
     private float defenseMaxGrow;//防御成长
+
+    //[SerializeField]
+    //private 
 
     [SerializeField]
     private int goodFeeling;//好感度
@@ -398,6 +404,14 @@ public class CardData
         }
     }
 
+    public float UseAddExp
+    {
+        get
+        {
+            return useAddExp;
+        }
+    }
+
     public CardData() { }
 
     public CardData(int id)
@@ -437,6 +451,7 @@ public class CardData
         this.stars = data.stars;
         this.teamType = data.teamType;
         this.teamPos = data.teamPos;
+        this.useAddExp = data.useAddExp;
     }
     public CardData(CardData data, float attack, float health, float defense, float agile, int quality)
     {
@@ -471,6 +486,7 @@ public class CardData
         this.stars = data.stars;
         this.teamType = data.teamType;
         this.teamPos = data.teamPos;
+        this.useAddExp = data.useAddExp;
     }
     public CardData(int id, string name)
     {
@@ -483,6 +499,41 @@ public class CardData
         this.name = name;
         this.itemType = type;
     }
+}
 
+[System.Serializable]
+public class CardSkill
+{
+    [SerializeField]
+    private int skillId;
 
+    [SerializeField]
+    private int skillSpriteName;
+
+    [SerializeField]
+    private int skillLevel;
+
+    public int SkillId
+    {
+        get
+        {
+            return skillId;
+        }
+    }
+
+    public int SkillSpriteName
+    {
+        get
+        {
+            return skillSpriteName;
+        }
+    }
+
+    public int SkillLevel
+    {
+        get
+        {
+            return skillLevel;
+        }
+    }
 }

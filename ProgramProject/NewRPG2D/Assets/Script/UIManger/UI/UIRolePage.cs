@@ -41,7 +41,6 @@ public class UIRolePage : TTUIPage
 
     public void ShowRoleMessagePage()
     {
-        Debug.Log(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem");
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name == "UIItem")
         {
             UIBagGrid information = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<UIBagGrid>();
@@ -73,7 +72,7 @@ public class UIRolePage : TTUIPage
 
     public void ShowRoleStrengthenPage()
     {
-        if (pickUpRoleMessage.roleData.Fighting)
+        if (pickUpRoleMessage.RoleData.Fighting)
         {
             TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
             UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "正在探险");

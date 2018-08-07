@@ -29,13 +29,21 @@ public class UIRoleInformation : MonoBehaviour
     public Text roleSkillExp;
     public Slider roleSkillExpSlider;
 
-    public CardData roleData;
+    private CardData roleData;
 
     public int currentNumber;
 
     public GameObject buttonType;
     public Button roleEquipRemove;
     public Button roleEquipReplace;
+
+    public CardData RoleData
+    {
+        get
+        {
+            return roleData;
+        }
+    }
 
     public void Awake()
     {
@@ -83,8 +91,9 @@ public class UIRoleInformation : MonoBehaviour
             if (roleEquip[i].roleEquipOptions.gameObject == go)
             {
                 currentNumber = i;
+
                 Debug.Log(currentNumber + "变动了");
-                if (roleData.Equipdata[i].EquipType != EquipType.Nothing)
+                if (RoleData.Equipdata[i].EquipType != EquipType.Nothing)
                 {
                     buttonType.transform.position = roleEquip[i].roleEquipImage.transform.position;
                     buttonType.SetActive(true);
@@ -105,7 +114,14 @@ public class UIRoleInformation : MonoBehaviour
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
         Debug.Log(currentNumber + "打开了背包");
-        UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)currentNumber + 1);
+        if (currentNumber > 2)
+        {
+            UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, EquipType.Necklace);
+        }
+        else
+        {
+            UIEventManager.instance.SendEvent<EquipType>(UIEventDefineEnum.UpdateEquipsEvent, (EquipType)currentNumber + 1);
+        }
     }
 
     /// <summary>
@@ -113,10 +129,11 @@ public class UIRoleInformation : MonoBehaviour
     /// </summary>
     public void RemoveThisEquip()
     {
-        BagEquipData.Instance.AddItem(roleData.Equipdata[currentNumber]);
-        roleData.Equipdata[currentNumber] = new EquipData();
-        roleData.Equipdata[currentNumber].EquipType = EquipType.Nothing;
-        updateMessage(roleData);
+        Debug.Log(currentNumber);
+        BagEquipData.Instance.AddItem(RoleData.Equipdata[currentNumber]);
+        RoleData.Equipdata[currentNumber] = new EquipData();
+        RoleData.Equipdata[currentNumber].EquipType = EquipType.Nothing;
+        updateMessage(RoleData);
         buttonType.SetActive(false);
     }
 
@@ -125,27 +142,38 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
         UIEventManager.instance.RemoveListener<RoleAtrType>(UIEventDefineEnum.UpdateExploreTipEvent, ShowLittleTip);
     }
+
+    public void UpdateMassage()
+    {
+        if (roleData != null)
+        {
+            updateMessage(roleData);
+        }
+    }
     public void updateMessage(UIBagGrid data)
     {
         //获取当前角色在当前武器类型的位置是否有装备 如果有将原装备放回背包，将新的装备放到角色身上
         //如果当前角色装备栏上这件装备不是空的
-        if (roleData.Equipdata[(int)data.equipData.EquipType - 1].EquipType != EquipType.Nothing)
+        if (RoleData.Equipdata[currentNumber].EquipType != EquipType.Nothing)
         {
             EquipData equipData;
             //将原有装备放回背包序列
-            equipData = roleData.Equipdata[(int)data.equipData.EquipType - 1];
-            roleData.Equipdata[(int)data.equipData.EquipType - 1] = data.equipData;
+            equipData = RoleData.Equipdata[(int)data.equipData.EquipType - 1];
+            RoleData.Equipdata[currentNumber] = data.equipData;
             BagEquipData.Instance.Remove(data.equipData);
             BagEquipData.Instance.AddItem(equipData);
         }
         else
         {
-            roleData.Equipdata[(int)data.equipData.EquipType - 1] = data.equipData;
+            RoleData.Equipdata[currentNumber] = data.equipData;
             BagEquipData.Instance.Remove(data.equipData);
         }
-        updateMessage(roleData);
+        updateMessage(RoleData);
     }
-    ///更新卡牌信息
+    /// <summary>
+    /// 更新卡牌信息
+    /// </summary>
+    /// <param name="data"></param>
     public void updateMessage(CardData data)
     {
         roleData = data;
@@ -163,10 +191,11 @@ public class UIRoleInformation : MonoBehaviour
         {
             if (data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
             {
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.gameObject.SetActive(true);
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.gameObject.SetActive(true);
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipImage.sprite = IconMgr.Instance.GetIcon(data.Equipdata[i].SpriteName);
-                roleEquip[(int)data.Equipdata[i].EquipType - 1].roleEquipQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Equipdata[i].Quality);
+                Debug.Log("刷新了");
+                roleEquip[i].roleEquipImage.gameObject.SetActive(true);
+                roleEquip[i].roleEquipQuality.gameObject.SetActive(true);
+                roleEquip[i].roleEquipImage.sprite = IconMgr.Instance.GetIcon(data.Equipdata[i].SpriteName);
+                roleEquip[i].roleEquipQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Equipdata[i].Quality);
             }
             else
             {
@@ -200,16 +229,16 @@ public class UIRoleInformation : MonoBehaviour
             case RoleAtrType.Nothing:
                 break;
             case RoleAtrType.Health:
-                message = roleData.HealthMinGrow.ToString("#0.0") + " ~ " + roleData.HealthMaxGrow.ToString("#0.0");
+                message = RoleData.HealthMinGrow.ToString("#0.0") + " ~ " + RoleData.HealthMaxGrow.ToString("#0.0");
                 break;
             case RoleAtrType.Attack:
-                message = roleData.AttackMinGrow.ToString("#0.0") + " ~ " + roleData.AttackMaxGrow.ToString("#0.0");
+                message = RoleData.AttackMinGrow.ToString("#0.0") + " ~ " + RoleData.AttackMaxGrow.ToString("#0.0");
                 break;
             case RoleAtrType.Agile:
-                message = roleData.AgileMinGrow.ToString("#0.0") + " ~ " + roleData.AgileMaxGrow.ToString("#0.0");
+                message = RoleData.AgileMinGrow.ToString("#0.0") + " ~ " + RoleData.AgileMaxGrow.ToString("#0.0");
                 break;
             case RoleAtrType.Defense:
-                message = roleData.DefenseMinGrow.ToString("#0.0") + " ~ " + roleData.DefenseMaxGrow.ToString("#0.0");
+                message = RoleData.DefenseMinGrow.ToString("#0.0") + " ~ " + RoleData.DefenseMaxGrow.ToString("#0.0");
                 break;
             default:
                 break;

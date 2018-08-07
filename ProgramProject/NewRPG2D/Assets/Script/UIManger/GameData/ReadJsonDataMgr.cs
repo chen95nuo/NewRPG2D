@@ -20,7 +20,7 @@ public enum JsonName
     CardExpData,
     DropBagData,
     HatcheryData,
-    playerExpData,
+    PlayerExpData,
     ExpeditionData,
     ComposedTableData,
     BagEggData,

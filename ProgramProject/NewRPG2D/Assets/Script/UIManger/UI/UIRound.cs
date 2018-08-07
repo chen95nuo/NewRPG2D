@@ -292,8 +292,12 @@ public class UIRound : MonoBehaviour
 
             UIEventManager.instance.SendEvent(UIEventDefineEnum.FightMessage, fightData);
             TinyTeam.UI.TTUIPage.ClosePage<UIRoundPage>();
-            Globe.nextSceneName = "Scene_Test";
-            SceneManager.LoadScene("FightLoadin");
+            //Globe.nextSceneName = "Scene_Test";
+            //if (SceneManager.GetActiveScene().name == )
+            //{
+
+            //}
+            SceneManager.LoadScene("Scene_Test");
 
         }
         else

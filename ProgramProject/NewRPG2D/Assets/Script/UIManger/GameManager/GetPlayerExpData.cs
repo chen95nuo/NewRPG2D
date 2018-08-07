@@ -11,7 +11,7 @@ public class GetPlayerExpData {
         {
             if (instance == null)
             {
-                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.playerExpData];
+                string json = ReadJsonNewMgr.instance.AllJsonDataDic[(int)JsonName.PlayerExpData];
                 instance = JsonUtility.FromJson<GetPlayerExpData>(json);
                 if (instance.items == null)
                 {

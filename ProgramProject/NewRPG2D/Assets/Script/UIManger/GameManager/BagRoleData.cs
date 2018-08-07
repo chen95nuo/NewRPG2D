@@ -79,10 +79,8 @@ public class BagRoleData
     /// 删除背包物品的数据
     /// </summary>
     /// <param name="id"></param>
-    public void Remove(int id)
+    public void Remove(CardData data)
     {
-        CardData data = GetItem(id);
-
         if (data != null)
         {
             roles.Remove(data);

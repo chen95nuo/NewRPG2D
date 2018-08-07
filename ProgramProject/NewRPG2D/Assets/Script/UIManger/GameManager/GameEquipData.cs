@@ -40,9 +40,31 @@ public class GameEquipData
         {
             if (items[i].Id == id)
             {
-                return new EquipData(items[i]);
+                string affix_1 = GitAffix(items[i].Affix_1);
+                string affix_2 = GitAffix(items[i].Affix_2);
+                string affix_3 = GitAffix(items[i].Affix_3);
+                string affix_4 = GitAffix(items[i].Affix_4);
+
+
+                return new EquipData(items[i], affix_1, affix_2, affix_3, affix_4);
             }
         }
         return null;
+    }
+
+    public string GitAffix(string affix)
+    {
+        if (affix == "")
+        {
+            return null;
+        }
+        Debug.Log(affix);
+        string[] str;
+        char[] ch = new char[] { '(', ',', ')' };
+        str = affix.Split(ch);
+        int a = int.Parse(str[1]);
+        int b = int.Parse(str[2]) + 1;
+        int roll = UnityEngine.Random.Range(a, b);
+        return str[0] + "+" + roll;
     }
 }

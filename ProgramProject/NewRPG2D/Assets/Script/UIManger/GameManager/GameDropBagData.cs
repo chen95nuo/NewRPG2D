@@ -46,6 +46,10 @@ public class GameDropBagData
     public CardGainData[] GetCards(CardData[] datas, float addExp, float playerExp)
     {
         CardGainData[] cardGainData = new CardGainData[datas.Length];
+        PlayerData playerData = GetPlayData.Instance.player[0];
+        int level = playerData.Level;
+        float exp = playerData.Exp;
+
         for (int i = 0; i < datas.Length; i++)
         {
             cardGainData[i] = new CardGainData(
@@ -55,12 +59,12 @@ public class GameDropBagData
                 datas[i].Exp,
                 datas[i].maxExp,
                 addExp,
-                GetPlayData.Instance.player[0].Level,
-                GetPlayData.Instance.player[0].Exp,
+                level,
+                exp,
                 playerExp);
             datas[i].AddExp = addExp;
         }
-        GetPlayData.Instance.player[0].AddExp = playerExp;
+        playerData.AddExp = playerExp;
         return cardGainData;
     }
 

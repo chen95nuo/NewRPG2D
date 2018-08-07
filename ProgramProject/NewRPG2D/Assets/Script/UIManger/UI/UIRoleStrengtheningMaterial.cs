@@ -32,7 +32,7 @@ public class UIRoleStrengtheningMaterial : MonoBehaviour
             role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
             roleQuality.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
             roleAttribute.sprite = IconMgr.Instance.GetIcon( data.Attribute);
-            roleStars.sprite = IconMgr.Instance.GetIcon("Start_" + data.Stars);
+            roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
         }
     }
 
