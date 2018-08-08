@@ -7,7 +7,7 @@ public class UIRoleMaterialHouse : MonoBehaviour
 {
 
     private GameObject roleMenu;
-    public UIBagPage createMenu;
+    public UIBag createMenu;
     private UIBagGrid grid;
     private UIBagItem updateBagItem;
 
@@ -22,7 +22,7 @@ public class UIRoleMaterialHouse : MonoBehaviour
 
     public void Init()
     {
-        createMenu = new UIBagPage();
+        createMenu = new UIBag();
         roleMenu = transform.Find("MenuType/btn_type").gameObject;
         roleMenu.SetActive(false);
         grid.gridType = GridType.Use;

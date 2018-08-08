@@ -7,7 +7,7 @@ using TinyTeam.UI;
 public class UIUseRoleHousePage : TTUIPage
 {
     private GameObject roleMenu;
-    private UIBagPage createMenu;
+    private UIBag createMenu;
     private UIBagGrid grid;
     private GridType gridType;
     private UIBagItem updateBagItem;
@@ -44,7 +44,7 @@ public class UIUseRoleHousePage : TTUIPage
 
     public void Init()
     {
-        createMenu = new UIBagPage();
+        createMenu = new UIBag();
         roleMenu = transform.Find("MenuType/btn_type").gameObject;
         roleMenu.SetActive(false);
         createMenu.CreateMenu(10, roleMenu, roleMenu.transform.parent.transform);

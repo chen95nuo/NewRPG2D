@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class IconMgr : MonoBehaviour
 {
     public static IconMgr Instance = null;
-    Dictionary<string, Sprite> icon = new Dictionary<string, Sprite>();
-
-    public Sprite[] sprites;
+    //Dictionary<string, Sprite> icon = new Dictionary<string, Sprite>();
+    SpriteAtlas iconImage;
 
     private void Awake()
     {
@@ -15,21 +15,31 @@ public class IconMgr : MonoBehaviour
         {
             Instance = this;
         }
-        sprites = Resources.LoadAll<Sprite>("UITexture/Icon");
 
-        for (int i = 0; i < sprites.Length; i++)
-        {
-            icon.Add(sprites[i].name, sprites[i]);
-        }
+        iconImage = Resources.Load<SpriteAtlas>("UISpriteAtlas/IconImage");
+
+        Sprite[] sprites = new Sprite[iconImage.spriteCount];
+        iconImage.GetSprites(sprites);
+
+        //for (int i = 0; i < sprites.Length; i++)
+        //{
+        //    icon.Add(sprites[i].name, sprites[i]);
+        //}
     }
 
     public Sprite GetIcon(string name)
     {
-        if (icon[name] == null)
+        var sprite = iconImage.GetSprite(name);
+        //if (icon[name + "(Clone)"] == null)
+        //{
+        //    return null;
+        //}
+        //return icon[name + "(Clone)"];
+        if (sprite != null)
         {
-            return null;
+            return sprite;
         }
-        return icon[name];
+        else return null;
     }
 
 
