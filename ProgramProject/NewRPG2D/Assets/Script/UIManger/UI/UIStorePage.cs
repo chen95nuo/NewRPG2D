@@ -19,11 +19,6 @@ public class UIStorePage : TTUIPage
         store = this.gameObject.GetComponent<UIStore>();
     }
 
-    public override void Refresh()
-    {
-        store.buyTip.SetActive(false);
-    }
-
     public void PageBack()
     {
         ClosePage<UIStorePage>();

@@ -4,24 +4,28 @@ using TinyTeam.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
+
 
 
 public class UIBag : MonoBehaviour
 {
-    private GameObject bagMenu_1 = null;
-    private GameObject bagItem_1 = null;
-    private GameObject bagMenu_2 = null;
-    private GameObject bagItem_2 = null;
+    public GameObject bagMenu_1 = null;
+    public GameObject bagItem_1 = null;
+    public GameObject bagMenu_2 = null;
+    public GameObject bagItem_2 = null;
     private GameObject bagItem = null;
-    private UIBagItem updateBagItem = null;
+    public UIBagItem updateBagItem = null;
     private UIBagItem updateBagRole;
 
     public Button[] firstMenu;
     public int firstLoad = 2;
 
-    private bool itemSort = true;
+    private bool sortItems = true;
 
     private MenuData data;
+    public Button btn_back;
+    public Button btn_sort;
 
     private void Awake()
     {
@@ -33,10 +37,10 @@ public class UIBag : MonoBehaviour
         this.bagMenu_1 = transform.Find("Cry_BottomBG_2").gameObject;
         this.bagMenu_2 = transform.Find("Menu_2").gameObject;
         this.bagItem_1 = bagMenu_1.transform.Find("btn_menu_1").gameObject;
-        this.bagItem_2 = bagMenu_2.transform.Find("btn_menu_2").gameObject;
+        this.bagItem_2 = bagMenu_2.transform.Find("btn_menu").gameObject;
 
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(CloseBagPage);
-        this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
+        btn_back.onClick.AddListener(CloseBagPage);
+        btn_sort.GetComponent<Button>().onClick.AddListener(ItemSortEvent);
 
         bagMenu_2.SetActive(false);
         bagItem_1.SetActive(false);
@@ -52,6 +56,13 @@ public class UIBag : MonoBehaviour
         firstMenu = bagMenu_1.GetComponentsInChildren<Button>();
 
         bagMenu_1.transform.GetChild(firstLoad).GetComponent<Button>().onClick.Invoke();
+    }
+
+    private void Start()
+    {
+        SpriteAtlas BagImage = Resources.Load<SpriteAtlas>("UISpriteAtlas/BagImage");
+        Image[] images = transform.GetComponentsInChildren<Image>(true);
+        GetSpriteAtlas.insatnce.SetImage(images, BagImage);
     }
 
     /// <summary>
@@ -112,7 +123,7 @@ public class UIBag : MonoBehaviour
             for (int i = 0; i < firstMenu.Length; i++)
             {
                 firstMenu[i].GetComponentInChildren<Image>().GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                firstMenu[i].GetComponentInChildren<Image>().sprite = IconMgr.Instance.GetIcon("btn_Orange");
+                firstMenu[i].GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_1");
                 firstMenu[i].GetComponent<Button>().interactable = true;
             }
             GameObject go;
@@ -126,7 +137,7 @@ public class UIBag : MonoBehaviour
                 go = bagMenu_1.transform.GetChild(firstLoad).gameObject;
             }
             go.GetComponentInChildren<Image>().GetComponent<RectTransform>().anchoredPosition = Vector2.down * 18.0f;
-            go.GetComponentInChildren<Image>().sprite = IconMgr.Instance.GetIcon("btn_Yellow");
+            go.GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_2");
             go.GetComponent<Button>().interactable = false;
 
 
@@ -158,7 +169,7 @@ public class UIBag : MonoBehaviour
     /// </summary>
     public void ItemSortEvent()
     {
-        itemSort = !itemSort;
+        sortItems = !sortItems;
         if (data.ParentNumber >= 10)
         {
             return;
@@ -168,7 +179,7 @@ public class UIBag : MonoBehaviour
     }
     public void ItemSortEvent(Transform tr)
     {
-        itemSort = !itemSort;
+        sortItems = !sortItems;
         ItemSortEvent(data, ItemType.Role, tr);
     }
     public void ItemSortEvent(MenuData data)
@@ -178,34 +189,34 @@ public class UIBag : MonoBehaviour
             case MenuType.Nothing:
                 break;
             case MenuType.stars:
-                if (itemSort)
+                if (sortItems)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.stars, y.stars));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.stars, y.stars));
                 break;
             case MenuType.hatchingTime:
-                if (itemSort)
+                if (sortItems)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.hatchingTime, y.hatchingTime));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.hatchingTime, y.hatchingTime));
                 break;
             case MenuType.quality:
                 updateBagItem.UpdateProp();
-                if (itemSort)
+                if (sortItems)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
                 break;
             case MenuType.isUse:
                 updateBagItem.UpdateProp(PropType.OnlyUse, PropType.AllOn);
-                if (itemSort)
+                if (sortItems)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.propType, y.propType));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.propType, y.propType));
                 break;
             case MenuType.equipType:
                 updateBagItem.UpdateEquip((EquipType)data.Id + 1);
-                if (itemSort)
+                if (sortItems)
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
                 else
                     updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
@@ -226,25 +237,25 @@ public class UIBag : MonoBehaviour
         switch (data.Id)
         {
             case 0:
-                if (itemSort)
+                if (sortItems)
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.level, y.level));
                 else
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.level, y.level));
                 break;
             case 1:
-                if (itemSort)
+                if (sortItems)
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.stars, y.stars));
                 else
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.stars, y.stars));
                 break;
             case 2:
-                if (itemSort)
+                if (sortItems)
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.grow, y.grow));
                 else
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.grow, y.grow));
                 break;
             case 3:
-                if (itemSort)
+                if (sortItems)
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.goodFeeling, y.goodFeeling));
                 else
                     updateBagRole.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.goodFeeling, y.goodFeeling));
@@ -271,19 +282,19 @@ public class UIBag : MonoBehaviour
                 //背包加载蛋
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateEggs();
-                itemSort = true;
+                sortItems = true;
                 break;
             case ItemType.Prop:
                 //背包加载道具
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateProp();
-                itemSort = true;
+                sortItems = true;
                 break;
             case ItemType.Equip:
                 //背包加载装备
                 updateBagItem.itemType = itemType;
                 updateBagItem.UpdateEquip();
-                itemSort = true;
+                sortItems = true;
                 break;
             default:
                 break;

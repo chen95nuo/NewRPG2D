@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.U2D;
 using TinyTeam.UI;
 
 public class UIRoleInformation : MonoBehaviour
@@ -33,9 +34,12 @@ public class UIRoleInformation : MonoBehaviour
 
     public int currentNumber;
 
-    public GameObject buttonType;
-    public Button roleEquipRemove;
-    public Button roleEquipReplace;
+    public Button btn_back;
+    public Button btn_Strengthen;
+
+    public UIRoleStrengthen pickUpRoleStrentthen;
+    private CardData cardData;
+    private SpriteAtlas getImage;
 
     public CardData RoleData
     {
@@ -47,37 +51,75 @@ public class UIRoleInformation : MonoBehaviour
 
     public void Awake()
     {
+        getImage = Resources.Load<SpriteAtlas>("UISpriteAtlas/CardImage");
+
         for (int i = 0; i < roleEquip.Length; i++)
         {
             roleEquip[i].roleEquipOptions.onClick.AddListener(CheckCurrentEquipButton);
         }
-        roleEquipReplace.onClick.AddListener(OpenEquipOpitions);
-        roleEquipRemove.onClick.AddListener(RemoveThisEquip);
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
         UIEventManager.instance.AddListener<RoleAtrType>(UIEventDefineEnum.UpdateLittleTipEvent, ShowLittleTip);
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
+
+        Init();
+    }
+
+    private void OnDestroy()
+    {
+        UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
+        UIEventManager.instance.RemoveListener<RoleAtrType>(UIEventDefineEnum.UpdateExploreTipEvent, ShowLittleTip);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
+        UIEventManager.instance.RemoveListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
+
+    }
+
+    private void Init()
+    {
+        btn_back.GetComponent<Button>().onClick.AddListener(TTUIPage.ClosePage<UIRolePage>);
+        pickUpRoleStrentthen = transform.Find("UIRoleStrengthen").GetComponent<UIRoleStrengthen>();
+        btn_Strengthen.GetComponent<Button>().onClick.AddListener(ShowRoleStrengthenPage);
+        pickUpRoleStrentthen.CloseThisPage();
+
+        UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
 
 
     public void Start()
     {
-
+        Image[] images = transform.GetComponentsInChildren<Image>(true);
+        GetSpriteAtlas.insatnce.SetImage(images, getImage);
     }
 
-    public void Init()
+    /// <summary>
+    /// 获取卡牌信息
+    /// </summary>
+    /// <param name="data"></param>
+    private void GetCardData(CardData data)
     {
-        buttonType.SetActive(false);
+        cardData = data;
+        ShowRoleMessagePage();
     }
 
-    public void Update()
+    /// <summary>
+    /// 更新当前卡信息
+    /// </summary>
+    public void ShowRoleMessagePage()
     {
-        if (Input.GetMouseButtonDown(0))
+        updateMessage(cardData);
+    }
+
+    /// <summary>
+    /// 显示强化
+    /// </summary>
+    public void ShowRoleStrengthenPage()
+    {
+        if (cardData.Fighting)
         {
-            if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != roleEquipRemove.gameObject
-                 && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != roleEquipReplace.gameObject)
-            {
-                buttonType.SetActive(false);
-            }
+            TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
+            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "正在探险");
+            return;
         }
+        pickUpRoleStrentthen.UpdateRole(this);
     }
 
     /// <summary>
@@ -85,18 +127,19 @@ public class UIRoleInformation : MonoBehaviour
     /// </summary>
     public void CheckCurrentEquipButton()
     {
+        Debug.Log("判断是否有装备");
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < roleEquip.Length; i++)
         {
             if (roleEquip[i].roleEquipOptions.gameObject == go)
             {
                 currentNumber = i;
-
+                Debug.Log(i);
                 Debug.Log(currentNumber + "变动了");
                 if (RoleData.Equipdata[i].EquipType != EquipType.Nothing)
                 {
-                    buttonType.transform.position = roleEquip[i].roleEquipImage.transform.position;
-                    buttonType.SetActive(true);
+                    TTUIPage.ShowPage<UIBagItemMessage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBagItemMessageEvent, RoleData.Equipdata[i]);
                 }
                 else
                 {
@@ -129,19 +172,14 @@ public class UIRoleInformation : MonoBehaviour
     /// </summary>
     public void RemoveThisEquip()
     {
-        Debug.Log(currentNumber);
         BagEquipData.Instance.AddItem(RoleData.Equipdata[currentNumber]);
         RoleData.Equipdata[currentNumber] = new EquipData();
         RoleData.Equipdata[currentNumber].EquipType = EquipType.Nothing;
         updateMessage(RoleData);
-        buttonType.SetActive(false);
+
+        TTUIPage.ClosePage<UIBagItemMessage>();
     }
 
-    private void OnDestroy()
-    {
-        UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
-        UIEventManager.instance.RemoveListener<RoleAtrType>(UIEventDefineEnum.UpdateExploreTipEvent, ShowLittleTip);
-    }
 
     public void UpdateMassage()
     {
@@ -184,7 +222,7 @@ public class UIRoleInformation : MonoBehaviour
         roleExpSlider.value = data.Exp;
         roleHeart.text = data.GoodFeeling.ToString();
         role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        roleQuality.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
+        roleQuality.sprite = getImage.GetSprite("roleQuality_" + data.Quality);
         roleAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
         roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
         for (int i = 0; i < roleEquip.Length; i++)
@@ -205,20 +243,20 @@ public class UIRoleInformation : MonoBehaviour
         }
         roleHealth.roleValue.text = data.Health.ToString();
         roleHealth.roleScore.text = data.HealthGrow.ToString("#0.0");
-        string a = RoleGrade(data.HealthGrow, data.HealthMinGrow, data.HealthMaxGrow);
-        roleHealth.roleQualityText.text = a;
+        Sprite level = RoleGrade(data.HealthGrow, data.HealthMinGrow, data.HealthMaxGrow);
+        roleHealth.roleQualityImage.sprite = level;
 
         roleAttack.roleValue.text = data.Attack.ToString();
         roleAttack.roleScore.text = data.AttackGrow.ToString("#0.0");
-        roleAttack.roleQualityText.text = RoleGrade(data.AttackGrow, data.AttackMinGrow, data.AttackMaxGrow);
+        roleAttack.roleQualityImage.sprite = RoleGrade(data.AttackGrow, data.AttackMinGrow, data.AttackMaxGrow);
 
         roleAgile.roleValue.text = data.Agile.ToString();
         roleAgile.roleScore.text = data.AgileGrow.ToString("#0.0");
-        roleAgile.roleQualityText.text = RoleGrade(data.AgileGrow, data.AgileMinGrow, data.AgileMaxGrow);
+        roleAgile.roleQualityImage.sprite = RoleGrade(data.AgileGrow, data.AgileMinGrow, data.AgileMaxGrow);
 
         roleDefense.roleValue.text = data.Defense.ToString();
         roleDefense.roleScore.text = data.DefenseGrow.ToString("#0.0");
-        roleDefense.roleQualityText.text = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
+        roleDefense.roleQualityImage.sprite = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
     }
 
     private void ShowLittleTip(RoleAtrType type)
@@ -247,7 +285,7 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, message);
     }
 
-    public string RoleGrade(float grade, float min, float max)
+    public Sprite RoleGrade(float grade, float min, float max)
     {
         float Amin = 0;
         float Amax = 0;
@@ -268,19 +306,19 @@ public class UIRoleInformation : MonoBehaviour
 
         if (grade >= Cmin && grade <= Cmax)
         {
-            return "C";
+            return getImage.GetSprite("Level_1");
         }
         else if (grade >= Bmin && grade <= Bmax)
         {
-            return "B";
+            return getImage.GetSprite("Level_2");
         }
         else if (grade >= Amin && grade <= Amax)
         {
-            return "A";
+            return getImage.GetSprite("Level_3");
         }
         else if (grade >= Smin && grade <= Smax)
         {
-            return "S";
+            return getImage.GetSprite("Level_4");
         }
         else
         {
@@ -305,7 +343,7 @@ public class UIRoleInformation : MonoBehaviour
         public Text roleValue;
         public Text roleScore;
         public Image roleQuality;
-        public Text roleQualityText;
+        public Image roleQualityImage;
     }
     [System.Serializable]
     public class UIRoleSkill

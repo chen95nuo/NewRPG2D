@@ -19,6 +19,7 @@ public enum GridType
     Store,//商城道具
     Explore,//探险
     Team,//小队
+    NoClick,//禁止点击
 }
 
 public enum EquipType
@@ -149,6 +150,8 @@ public enum DifficultyType
 public enum UIEventDefineEnum
 {
     UpdateUsePage,
+    UpdateSellItem,
+    UpdateBuyItem,
     UpdateEggsEvent,
     UpdatePropsEvent,
     UpdateEquipsEvent,
@@ -156,6 +159,7 @@ public enum UIEventDefineEnum
     UpdateRoundEvent,
     UpdateRoleTipEvent,
     UpdateCardMessageEvent,
+    UpdateBagItemMessageEvent,
     UpdateGainTipEvent,
     UpdateMaterialEvent,
     UpdateFurnaceEvent,

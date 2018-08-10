@@ -8,6 +8,7 @@ public class GameMain : MonoBehaviour
 {
     public static GameMain Instance = null;
 
+    public GameObject MapCanvas;
     private void Awake()
     {
 
@@ -19,6 +20,7 @@ public class GameMain : MonoBehaviour
         ReadJsonNewMgr.CreateInstance();
         GoFightMgr.CreateInstance();
 
+        Instantiate(MapCanvas);
     }
 
     // Use this for initialization

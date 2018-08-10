@@ -52,6 +52,18 @@ public class GameEquipData
         return null;
     }
 
+    public EquipData QueryEquip(int id)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Id == id)
+            {
+                return items[i];
+            }
+        }
+        return null;
+    }
+
     public string GitAffix(string affix)
     {
         if (affix == "")

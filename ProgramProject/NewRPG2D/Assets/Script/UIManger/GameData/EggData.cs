@@ -38,6 +38,9 @@ public class EggData
     [SerializeField]
     private int resultId;//孵化成果
 
+    [SerializeField]
+    private int price;//价格
+
     public string Name
     {
         get
@@ -131,6 +134,14 @@ public class EggData
         get
         {
             return resultId;
+        }
+    }
+
+    public int Price
+    {
+        get
+        {
+            return price;
         }
     }
 

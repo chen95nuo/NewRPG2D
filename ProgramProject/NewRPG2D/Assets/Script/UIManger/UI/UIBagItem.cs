@@ -54,6 +54,10 @@ public class UIBagItem : MonoBehaviour
     /// </summary>
     private void PreloadingGrids(int temp)
     {
+        if (transform.GetComponent<GridLayoutGroup>() == null)
+        {
+            return;
+        }
         float index = transform.GetComponent<GridLayoutGroup>().cellSize.y + transform.GetComponent<GridLayoutGroup>().spacing.y;
 
         float hight = 0;
@@ -276,14 +280,6 @@ public class UIBagItem : MonoBehaviour
         {
             grids[i].UpdateItem(data[i]);
 
-            if (i % 3 == 0)
-            {
-                grids[i].storeGrid.border.gameObject.SetActive(true);
-            }
-            else
-            {
-                grids[i].storeGrid.border.gameObject.SetActive(false);
-            }
             grids[i].itemType = ItemType.Prop;
             grids[i].gridType = GridType.Store;
         }

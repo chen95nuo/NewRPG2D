@@ -1,100 +1,88 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using TinyTeam.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TinyTeam.UI;
+using UnityEngine.EventSystems;
+using System;
 
-public class UIBagPopUp : MonoBehaviour
+public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
 {
 
-    public RectTransform equip;
-    public RectTransform prop;
-    public RectTransform egg;
+    public GameObject topTip;
+    public GameObject affixGroup;
+    public Text text_equip;
+    public Text[] affix;
+    private Button[] btn_affix;
 
-    public Text eggName;
-
-    public Text equipType;
-    public Text equipName;
-    public Text equipDescribe;
-    public Text affix_1;
-    private Button btn_affix_1;
-    public Text affix_2;
-    private Button btn_affix_2;
-    public Text affix_3;
-    private Button btn_affix_3;
-    public Text affix_4;
-    private Button btn_affix_4;
-
-    public Text propName;
-    public Text propDescribe;
+    public Text itemName;
+    public Text itemDescribe;
     public Button sell;
+    public Text text_sell;
     public Button use;
-    public Button equipUse;
+    public Text text_use;
 
-    public Sprite[] popup;
+    public UIBagGrid bagGridData;
+    private UIBagGrid GridData;
 
-    private RectTransform rect;
+    public Button btn_back;
 
-    public Canvas canvas;
+    private EquipData equipData;
 
-    private UIBagGrid bagGridData;
+    public RectTransform r1;
+    public RectTransform r2;
 
     private void Awake()
     {
-        rect = transform.GetComponent<RectTransform>();
+        Image[] images = GetComponentsInChildren<Image>();
+        GetSpriteAtlas.insatnce.SetImage(images);
 
-        btn_affix_1 = affix_1.GetComponent<Button>();
-        btn_affix_1.onClick.AddListener(EquipAffixBtn);
-        btn_affix_2 = affix_2.GetComponent<Button>();
-        btn_affix_2.onClick.AddListener(EquipAffixBtn);
-        btn_affix_3 = affix_3.GetComponent<Button>();
-        btn_affix_3.onClick.AddListener(EquipAffixBtn);
-        btn_affix_4 = affix_4.GetComponent<Button>();
-        btn_affix_4.onClick.AddListener(EquipAffixBtn);
-        equipUse.onClick.AddListener(UseEquip);
+        btn_affix = new Button[4];
 
-        egg.gameObject.SetActive(false);
-        prop.gameObject.SetActive(false);
-        equip.gameObject.SetActive(false);
+        for (int i = 0; i < btn_affix.Length; i++)
+        {
+            btn_affix[i] = affix[i].GetComponentInParent<Button>();
+        }
+        btn_back.onClick.AddListener(TTUIPage.ClosePage<UIBagItemMessage>);
+
+        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateLittleTipEvent, EquipAffixBtn);
+        UIEventManager.instance.AddListener<EquipData>(UIEventDefineEnum.UpdateBagItemMessageEvent, ReplaceEquip);
+
+        use.onClick.AddListener(ChickUse);
+        sell.onClick.AddListener(ChickSell);
     }
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != sell.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != use.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_1.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_2.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_3.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != affix_4.gameObject
-            && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != equipUse.gameObject)
+        if (r1.sizeDelta != r2.sizeDelta)
         {
-            TTUIPage.ClosePage("UIBagItemMessage");
+            r1.sizeDelta = r2.sizeDelta;
         }
-    }
-    public void updateMessage(EggData data)
-    {
-        //显示气泡，根据是否在图鉴中决定名称
-        equip.gameObject.SetActive(false);
-        prop.gameObject.SetActive(false);
-        egg.gameObject.SetActive(true);
 
-        if (data.IsKnown)
-        {
-            eggName.text = data.Name;
-        }
-        else
-        {
-            eggName.text = "不知名的蛋";
-        }
     }
+
+    private void OnDestroy()
+    {
+        UIEventManager.instance.RemoveListener<GameObject>(UIEventDefineEnum.UpdateLittleTipEvent, EquipAffixBtn);
+    }
+
+    public void ReplaceEquip(EquipData data)
+    {
+        sell.gameObject.SetActive(true);
+        text_sell.text = "卸下";
+        use.gameObject.SetActive(false);
+        updateMessage(data);
+    }
+
     public void updateMessage(ItemData data)
     {
+        bagGridData.UpdateItem(data);
         //显示名字，简介，是否使用
-        equip.gameObject.SetActive(false);
-        prop.gameObject.SetActive(true);
-        egg.gameObject.SetActive(false);
+        affixGroup.SetActive(false);
+        topTip.SetActive(false);
+        text_sell.text = "出售";
+        text_use.text = "使用";
+
 
         switch ((PropType)data.PropType)
         {
@@ -120,156 +108,183 @@ public class UIBagPopUp : MonoBehaviour
                 break;
         }
 
-        propName.text = data.Name.ToString();
-        propDescribe.text = data.Describe;
-
+        itemName.text = data.Name.ToString();
+        itemDescribe.text = data.Describe;
+        Debug.Log("同步");
     }
     public void updateMessage(UIBagGrid information)
     {
-        //显示类型，名字，磁条，简介
-        equip.gameObject.SetActive(true);
-        prop.gameObject.SetActive(false);
-        egg.gameObject.SetActive(false);
+        if (information.itemType == ItemType.Prop)
+        {
+            updateMessage(information.propData);
+            GridData = information;
+            return;
+        }
 
-        switch (information.equipData.EquipType)
+        use.gameObject.SetActive(false);
+        sell.gameObject.SetActive(false);
+
+        updateMessage(information.equipData);
+        if (information.gridType == GridType.Use)
+        {
+            use.gameObject.SetActive(true);
+            GridData = information;
+        }
+        else
+        {
+            use.gameObject.SetActive(false);
+        }
+        Debug.Log("同步");
+    }
+
+    public void updateMessage(EquipData data)
+    {
+        bagGridData.UpdateItem(data);
+        equipData = data;
+        //显示类型，名字，磁条，简介
+        affixGroup.SetActive(true);
+        topTip.SetActive(true);
+
+        switch (data.EquipType)
         {
             case EquipType.Nothing:
-                equipType.text = "空";
+                text_equip.text = "空";
                 break;
             case EquipType.Weapon:
-                equipType.text = "武器";
+                text_equip.text = "武器";
                 break;
             case EquipType.Armor:
-                equipType.text = "防具";
+                text_equip.text = "防具";
                 break;
             case EquipType.Necklace:
-                equipType.text = "首饰";
+                text_equip.text = "首饰";
                 break;
             default:
                 break;
         }
-        equipName.text = information.equipData.Name;
-        equipDescribe.text = information.equipData.Describe;
-        if (information.equipData.Affix_1 == null)
+        itemName.text = data.Name;
+        itemDescribe.text = data.Describe;
+        if (data.Affix_1 == null)
         {
-            btn_affix_1.interactable = false;
-            affix_1.text = "";
+            btn_affix[0].interactable = false;
+            affix[0].text = "";
         }
         else
         {
-            btn_affix_1.interactable = true;
-            affix_1.text = FormatAffix(information.equipData.Affix_1);
+            btn_affix[0].interactable = true;
+            affix[0].text = FormatAffix(data.Affix_1);
         }
 
-        if (information.equipData.Affix_2 == null)
+        if (data.Affix_2 == null)
         {
-            btn_affix_2.interactable = false;
-            affix_2.text = "";
+            btn_affix[1].interactable = false;
+            affix[1].text = "";
         }
         else
         {
-            btn_affix_2.interactable = true;
-            affix_2.text = FormatAffix(information.equipData.Affix_2);
+            btn_affix[1].interactable = true;
+            affix[1].text = FormatAffix(data.Affix_2);
         }
-        if (information.equipData.Affix_3 == null)
+        if (data.Affix_3 == null)
         {
-            btn_affix_3.interactable = false;
-            affix_3.text = "";
-        }
-        else
-        {
-            btn_affix_3.interactable = true;
-            affix_3.text = FormatAffix(information.equipData.Affix_3);
-        }
-        if (information.equipData.Affix_4 == null)
-        {
-            btn_affix_4.interactable = false;
-            affix_4.text = "";
+            btn_affix[2].interactable = false;
+            affix[2].text = "";
         }
         else
         {
-            btn_affix_4.interactable = true;
-            affix_4.text = FormatAffix(information.equipData.Affix_4);
+            btn_affix[2].interactable = true;
+            affix[2].text = FormatAffix(data.Affix_3);
         }
-        if (information.gridType == GridType.Use)
+        if (data.Affix_4 == null)
         {
-            equipUse.gameObject.SetActive(true);
-            bagGridData = information;
+            btn_affix[3].interactable = false;
+            affix[3].text = "";
         }
         else
         {
-            equipUse.gameObject.SetActive(false);
+            btn_affix[3].interactable = true;
+            affix[3].text = FormatAffix(data.Affix_4);
         }
     }
 
     public void UseEquip()
     {
-        UIEventManager.instance.SendEvent<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, bagGridData);
+        UIEventManager.instance.SendEvent<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, GridData);
     }
 
-    public void EquipAffixBtn()
+    public void EquipAffixBtn(GameObject obj)
     {
-        egg.gameObject.SetActive(true);
-        egg.pivot = new Vector2(0.5f, 0);
-        egg.GetComponent<Image>().sprite = popup[0];
-        egg.transform.position = EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>().transform.position;
-        if (EventSystem.current.currentSelectedGameObject == affix_1.gameObject)
-            eggName.text = affix_1.text;
-        if (EventSystem.current.currentSelectedGameObject == affix_2.gameObject)
-            eggName.text = affix_2.text;
-        if (EventSystem.current.currentSelectedGameObject == affix_3.gameObject)
-            eggName.text = affix_3.text;
-        if (EventSystem.current.currentSelectedGameObject == affix_4.gameObject)
-            eggName.text = affix_4.text;
+        int currentBtn = 0;
+        for (int i = 0; i < btn_affix.Length; i++)
+        {
+            if (btn_affix[i].gameObject == obj)
+            {
+                currentBtn = i + 1;
+            }
+        }
+        switch (currentBtn)
+        {
+            case 1:
+                string affix_1 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_1);
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_1);
+                break;
+
+            case 2:
+                string affix_2 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_2);
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_2);
+                break;
+            case 3:
+                string affix_3 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_3);
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_3);
+                break;
+            case 4:
+                string affix_4 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_4);
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_4);
+                break;
+            default:
+                break;
+        }
     }
 
-    public void PopUpMoveTo(RectTransform rect, ItemType type)
+    private void ChickUse()
     {
-        if (rect.anchoredPosition.x > Screen.width * 0.75f)
+        if (GridData.itemType == ItemType.Prop)
         {
-            switch (type)
-            {
-                case ItemType.Nothing:
-                    break;
-                case ItemType.Egg:
-                    egg.pivot = Vector2.right;
-                    egg.GetComponent<Image>().sprite = popup[1];
-                    egg.anchoredPosition = new Vector2(rect.sizeDelta.x * 0.5f, rect.sizeDelta.y * 0.5f);
-                    break;
-                case ItemType.Prop:
-                    prop.anchoredPosition = new Vector2(-prop.sizeDelta.x * 0.5f, prop.anchoredPosition.y);
-                    break;
-                case ItemType.Equip:
-                    equip.anchoredPosition = new Vector2(-equip.sizeDelta.x * 0.5f, equip.anchoredPosition.y);
-                    break;
-                default:
-                    break;
-            }
+            Debug.Log("使用 弹出数量选择");
+            BagItemData.Instance.ReduceItems(GridData.propData.Id, 1);
+            return;
         }
-        else
+        if (GridData.gridType == GridType.Use)
         {
-            switch (type)
-            {
-                case ItemType.Nothing:
-                    break;
-                case ItemType.Egg:
-                    egg.pivot = Vector2.up;
-                    egg.GetComponent<Image>().sprite = popup[0];
-                    egg.anchoredPosition = new Vector2(-rect.sizeDelta.x * 0.5f, rect.sizeDelta.y * 0.5f + egg.sizeDelta.y);
-                    break;
-                case ItemType.Prop:
-                    prop.anchoredPosition = new Vector2(prop.sizeDelta.x * 0.5f, prop.anchoredPosition.y);
-                    break;
-                case ItemType.Equip:
-                    equip.anchoredPosition = new Vector2(equip.sizeDelta.x * 0.5f, equip.anchoredPosition.y);
-                    break;
-                default:
-                    break;
-            }
+            UseEquip();
         }
+    }
 
-        this.rect.position = rect.position;
+    private void ChickSell()
+    {
+        if (GridData.itemType == ItemType.Prop)
+        {
+            Debug.Log("出售 弹出数量选择");
+            GetPlayData.Instance.player[0].GoldCoin += GridData.propData.SellPrice;
+            BagItemData.Instance.ReduceItems(GridData.propData.Id, 1);
+            updateMessage(GridData.propData);
+            TTUIPage.ClosePage<UIBagItemMessage>();
+            return;
+        }
+        if (GridData.gridType == GridType.Use)
+        {
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBagItemMessageEvent);
+        }
+    }
 
+    public static string FormatAllAffix(string affix)
+    {
+        string[] str;
+        char[] ch = new char[] { '(', ',', ')' };
+        str = affix.Split(ch);
+        string newStr = FormatAffix(str[0]) + "+ (" + str[1] + "% ~ " + str[2] + "%)";
+
+        return newStr;
     }
 
     public static string FormatAffix(string affix)
@@ -281,36 +296,61 @@ public class UIBagPopUp : MonoBehaviour
         string[] str;
         str = affix.Split('+');
         EquipAffixName name = (EquipAffixName)Enum.Parse(typeof(EquipAffixName), str[0]);
+        string index = "";
         switch (name)
         {
             case EquipAffixName.att:
-                return "攻击 + " + str[1];
+                index = "攻击";
+                break;
             case EquipAffixName.con:
-                return "生命 + " + str[1];
+                index = "生命";
+                break;
             case EquipAffixName.def:
-                return "防御 + " + str[1];
+                index = "防御";
+                break;
             case EquipAffixName.dex:
-                return "敏捷 + " + str[1];
+                index = "敏捷";
+                break;
             case EquipAffixName.crt:
-                return "暴击率 + " + str[1];
+                index = "暴击率";
+                break;
             case EquipAffixName.sbl:
-                return "吸血 + " + str[1];
+                index = "吸血";
+                break;
             case EquipAffixName.stun:
-                return "眩晕 + " + str[1];
+                index = "眩晕";
+                break;
             case EquipAffixName.spd:
-                return "攻速 + " + str[1];
+                index = "攻速";
+                break;
             case EquipAffixName.mspd:
-                return "移速 + " + str[1];
+                index = "移速";
+                break;
             case EquipAffixName.bld:
-                return "流血 + " + str[1];
+                index = "流血";
+                break;
             case EquipAffixName.cd:
-                return "冷却 + " + str[1];
+                index = "冷却";
+                break;
             case EquipAffixName.weak:
-                return "虚弱 + " + str[1];
+                index = "虚弱";
+                break;
             default:
                 break;
         }
-        return null;
+        if (str.Length > 1)
+        {
+            return index = index + " + " + str[1];
+        }
+        else
+        {
+            return index;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
     }
 
 }

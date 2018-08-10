@@ -53,7 +53,10 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     void Awake()
     {
         chickButton = GetComponent<Button>();
-
+        if (gridType == GridType.NoClick)
+        {
+            chickButton.interactable = false;
+        }
         chickButton.onClick.AddListener(ShowItemMessage);
 
         if (gridType == GridType.Store)
@@ -106,10 +109,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         {
             BackExplore();
         }
-        else if (itemType == ItemType.Egg && gridType != GridType.Use)
-        {
-            TTUIPage.ShowPage<UIBagItemMessage>();
-        }
         else if (itemType == ItemType.Egg && gridType == GridType.Use)
         {
             UseEgg();
@@ -122,6 +121,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         {
             case GridType.Nothing:
                 TTUIPage.ShowPage<UIRolePage>();
+                UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, roleData);
                 break;
             case GridType.Use:
                 if (!roleData.Fighting)
@@ -148,7 +148,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
     public void ShowBuyPage()
     {
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateStoreEvent, propData);
+        TTUIPage.ShowPage<UIBusinessTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBuyItem, this);
     }
     public void UseProp()
     {
@@ -238,14 +239,17 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     break;
                 case StorePropType.GoldCoin:
                     storeGrid.price.text = "<color=#E7BE2F>" + data.BuyPrice + "</color>";
+                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("GoldImage");
                     break;
                 case StorePropType.Diamonds:
                     storeGrid.price.text = "<color=#79D2FF>" + data.BuyPrice + "</color>";
+                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("DiamondsImage");
                     break;
                 default:
                     break;
             }
-
+            storeGrid.name.text = data.Name;
+            storeGrid.ItemDescribe.text = data.Describe;
         }
     }
     public void UpdateItem(EquipData data)
@@ -331,6 +335,14 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     break;
             }
         }
+        if (itemType == ItemType.Egg && gridType != GridType.Use)
+        {
+            TTUIPage.ShowPage<UILittleTipPage>();
+            if (eggData.IsKnown)
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+            else
+                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, "不知名的蛋");
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -358,32 +370,44 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     break;
             }
         }
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (itemType == ItemType.Prop && Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
-            switch (gridType)
+            if (itemType == ItemType.Prop)
             {
-                case GridType.Nothing:
-                    break;
-                case GridType.Use:
-                    break;
-                case GridType.Store:
-                    break;
-                case GridType.Explore:
-                    Debug.Log("刷新小气泡");
-                    TTUIPage.ShowPage<UILittleTipPage>();
-                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
-                    break;
-                case GridType.Team:
-                    Debug.Log("刷新小气泡");
-                    TTUIPage.ShowPage<UILittleTipPage>();
-                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
-                    break;
-                default:
-                    break;
+                switch (gridType)
+                {
+                    case GridType.Nothing:
+                        break;
+                    case GridType.Use:
+                        break;
+                    case GridType.Store:
+                        break;
+                    case GridType.Explore:
+                        Debug.Log("刷新小气泡");
+                        TTUIPage.ShowPage<UILittleTipPage>();
+                        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                        break;
+                    case GridType.Team:
+                        Debug.Log("刷新小气泡");
+                        TTUIPage.ShowPage<UILittleTipPage>();
+                        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (itemType == ItemType.Egg && gridType != GridType.Use)
+            {
+                TTUIPage.ShowPage<UILittleTipPage>();
+                if (eggData.IsKnown)
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+                else
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, "不知名的蛋");
             }
         }
     }
@@ -426,6 +450,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         public Text price;//道具价格
         public Image priceImage;//价格图片
         public Button btn_But;//购买按钮
-        public Image border;//正行的框
+        public Text ItemDescribe;//道具介绍
     }
 }

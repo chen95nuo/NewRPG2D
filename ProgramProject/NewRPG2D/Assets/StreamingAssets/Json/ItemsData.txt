@@ -1,39 +1,17 @@
 ﻿{
 	"items": [{
-			"name": "测试铁块",
+			"name": "木材",
 			"id": 1,
 			"spriteName": "testProp_1",
 			"number": 1,
 			"melting": 1,
-			"quality": 4,
+			"quality": 1,
 			"itemType": 2,
-			"propType": 1,
+			"propType": 3,
 			"storePropType":1,
-			"sellPrice": 100,
+			"sellPrice": 50,
 			"buyPrice":80,
-			"usePrice": 100,
-			"addProperty": 0,
-			"addExp": 0,
-			"rawMaterial": [{
-				"materialType": 1,
-				"number": 10
-			}],
-			"getPlace": "未知",
-			"describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
-		},
-		{
-			"name": "测试木头",
-			"id": 2,
-			"spriteName": "testProp_2",
-			"number": 1,
-			"melting": 1,
-			"quality": 4,
-			"itemType": 2,
-			"propType": 1,
-			"storePropType":1,
-			"sellPrice": 100,
-			"buyPrice":90,
-			"usePrice": 100,
+			"usePrice": 1000,
 			"addProperty": 0,
 			"addExp": 0,
 			"rawMaterial": [{
@@ -41,21 +19,77 @@
 				"number": 10
 			}],
 			"getPlace": "未知",
-			"describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+			"describe": "一捆木头，用作生火或许是不错的原料。"
 		},
 		{
-			"name": "测试布料",
+			"name": "石头",
+			"id": 2,
+			"spriteName": "testProp_2",
+			"number": 1,
+			"melting": 1,
+			"quality": 1,
+			"itemType": 2,
+			"propType": 3,
+			"storePropType":1,
+			"sellPrice": 50,
+			"buyPrice":90,
+			"usePrice": 1000,
+			"addProperty": 0,
+			"addExp": 0,
+			"rawMaterial": [{
+				"materialType": 1,
+				"number": 2
+			},{
+				"materialType": 7,
+				"number": 8
+			}],
+			"getPlace": "未知",
+			"describe": "一块看起来没什么用的石头。"
+		},
+		{
+			"name": "小精灵的书",
 			"id": 3,
 			"spriteName": "testProp_3",
 			"number": 1,
 			"melting": 1,
-			"quality": 4,
+			"quality": 2,
 			"itemType": 2,
-			"propType": 1,
+			"propType": 3,
 			"storePropType":2,
 			"sellPrice": 100,
 			"buyPrice":10,
-			"usePrice": 100,
+			"usePrice": 1000,
+			"addProperty": 0,
+			"addExp": 0,
+			"rawMaterial": [{
+				"materialType": 1,
+				"number": 5
+			},{
+				"materialType": 2,
+				"number": 5
+			},{
+				"materialType": 3,
+				"number": 5
+			},{
+				"materialType": 5,
+				"number": 10
+			}],
+			"getPlace": "未知",
+			"describe": "小精灵施法使用的魔法书。"
+		},
+		{
+			"name": "一块布",
+			"id": 4,
+			"spriteName": "testProp_4",
+			"number": 1,
+			"melting": 1,
+			"quality": 1,
+			"itemType": 2,
+			"propType": 3,
+			"storePropType":2,
+			"sellPrice": 50,
+			"buyPrice":50,
+			"usePrice": 1000,
 			"addProperty": 0,
 			"addExp": 0,
 			"rawMaterial": [{
@@ -63,34 +97,59 @@
 				"number": 10
 			}],
 			"getPlace": "未知",
-			"describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+			"describe": "一块看起来没什么用的布。"
 		},
 		{
-			"name": "测试皮革",
-			"id": 4,
-			"spriteName": "testProp_4",
+			"name": "铁块",
+			"id": 5,
+			"spriteName": "testProp_5",
 			"number": 1,
 			"melting": 1,
-			"quality": 4,
+			"quality": 1,
 			"itemType": 2,
-			"propType": 1,
+			"propType": 3,
 			"storePropType":2,
-			"sellPrice": 100,
+			"sellPrice": 50,
 			"buyPrice":50,
-			"usePrice": 100,
+			"usePrice": 1000,
 			"addProperty": 0,
 			"addExp": 0,
 			"rawMaterial": [{
-				"materialType": 4,
-				"number": 10
+				"materialType": 1,
+				"number": 8
+			},{
+				"materialType": 3,
+				"number": 2
 			}],
 			"getPlace": "未知",
-			"describe": "这是一个测试专用的脸皮，据说比人造皮都厚。"
+			"describe": "一块看起来没什么用的布。"
+		},
+		{
+			"name": "珍珠",
+			"id": 6,
+			"spriteName": "testProp_6",
+			"number": 1,
+			"melting": 1,
+			"quality": 2,
+			"itemType": 2,
+			"propType": 3,
+			"storePropType":2,
+			"sellPrice": 50,
+			"buyPrice":50,
+			"usePrice": 1000,
+			"addProperty": 0,
+			"addExp": 0,
+			"rawMaterial": [{
+				"materialType": 6,
+				"number": 5
+			}],
+			"getPlace": "未知",
+			"describe": "海洋里生产而出。"
 		},
 		{
 			"name": "催化药丸",
-			"id": 5,
-			"spriteName": "testProp_5",
+			"id": 7,
+			"spriteName": "testProp_7",
 			"number": 1,
 			"melting": 0,
 			"quality": 4,

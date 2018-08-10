@@ -21,7 +21,7 @@ public class UICardHouse : TTUIPage
         this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UICardHouse>);
         this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
         updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
-        grid = transform.Find("ItemList/Viewport/Content/UIItem").GetComponent<UIBagGrid>();
+        grid = transform.Find("ItemList/Viewport/Content/Card_UIItem").GetComponent<UIBagGrid>();
         Init();//初始化
 
 

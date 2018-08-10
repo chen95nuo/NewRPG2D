@@ -25,7 +25,6 @@ public class UIBagPage : TTUIPage
     private void SetImage()
     {
         Image[] images = transform.GetComponentsInChildren<Image>(true);
-        GetSpriteAtlas.insatnce.SetImage(images);
         GetSpriteAtlas.insatnce.SetImage(images, BagImage);
     }
 
