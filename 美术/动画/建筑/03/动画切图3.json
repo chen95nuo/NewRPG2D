@@ -1,0 +1,32 @@
+{ "skeleton": { "images": "images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "logo1", "bone": "root", "attachment": "logo1" },
+	{ "name": "shop", "bone": "root", "attachment": "shop" },
+	{ "name": "logo", "bone": "root", "attachment": "logo" },
+	{ "name": "light1", "bone": "root", "attachment": "light1" },
+	{ "name": "light", "bone": "root", "attachment": "light" }
+],
+"skins": {
+	"default": {
+		"logo1": {
+			"logo1": { "x": 65.9999999999999, "y": -222, "width": 46, "height": 32 }
+		},
+		"shop": {
+			"shop": { "x": 330.5, "y": -213, "width": 631, "height": 428 }
+		},
+		"logo": {
+			"logo": { "x": 58.9999999999999, "y": -250.5, "width": 78, "height": 83 }
+		},
+		"light1": {
+			"light1": { "x": 213.5, "y": -224.5, "width": 129, "height": 131 }
+		},
+		"light": {
+			"light": { "x": 551.5, "y": -187.5, "width": 129, "height": 131 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
