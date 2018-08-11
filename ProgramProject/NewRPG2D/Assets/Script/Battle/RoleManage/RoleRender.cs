@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using Assets.Script.Battle;
 using Spine.Unity;
+using UnityEngine.Rendering;
 using Transform = UnityEngine.Transform;
 
 public class RoleRender : MonoBehaviour
 {
     public SkeletonAnimation roleAnimation;
-    [SerializeField] private MeshRenderer currentRenderer;
+    [SerializeField] private SortingGroup currentSortingGroup;
     public RoleBase CurrentRole { get; private set; }
     private Transform _trans;
     private Transform _renderTrans;
@@ -53,7 +54,7 @@ public class RoleRender : MonoBehaviour
 
     private void SetRendererSorintRender()
     {
-        currentRenderer.sortingOrder = (int)((6 - transform.position.y) * 1000);
+        currentSortingGroup.sortingOrder = (int)((6 - transform.position.y) * 1000);
     }
 
 
