@@ -36,12 +36,16 @@ namespace Assets.Script.Battle.LevelManager
         private bool isCreateEnemy;
         private float addTime;
         private bool isGameOver;
+        private CardData[] roleInfoArray;
 
         private void Awake()
         {
+            EventManager.instance.SendEvent(EventDefineEnum.LoadLevel,new LoadLevelParam());
             ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName);
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
+            roleInfoArray = GoFightMgr.instance.cardData;
+
             currentInstanceId = 0;
             isCreateEnemy = false;
             isGameOver = false;
@@ -76,7 +80,15 @@ namespace Assets.Script.Battle.LevelManager
             float heroPointLength = heroPoint.Length;
             for (int i = 0; i < heroPointLength; i++)
             {
-                BornHero(heroPoint[i].Point, currentInstanceId++, 1001, 0);
+                for (int j = 0; j < roleInfoArray.Length; j++)
+                {
+                    if ((int) heroPoint[i].BornPositionType == roleInfoArray[j].TeamPos)
+                    {
+                        BornHero(heroPoint[i].Point, currentInstanceId++, roleInfoArray[j], 0);
+                        break;
+                    }
+                }
+            
             }
         }
 
@@ -93,8 +105,8 @@ namespace Assets.Script.Battle.LevelManager
             DebugHelper.Log(" SetEnemyInfo " + enemyDatas.Count);
             if (enemyDatas.Count <= 0)
             {
-                DebugHelper.LogError("------------ win -------------  ");
                 isGameOver = true;
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 return;
             }
             currentEnemyInfoList.Clear();
@@ -106,9 +118,9 @@ namespace Assets.Script.Battle.LevelManager
             InitEnemyInfoDic(BornPositionTypeEnum.Point05);
         }
 
-        private void BornHero(Transform mPoint, ushort instanceId, int roleId, float angle)
+        private void BornHero(Transform mPoint, ushort instanceId, CardData roleData, float angle)
         {
-            GameRoleMgr.instance.AddHeroRole("Hero", mPoint, mPoint.position, instanceId, roleId, angle);
+            GameRoleMgr.instance.AddHeroRole("Hero", mPoint, mPoint.position, instanceId, roleData, angle);
         }
 
         private void BornEnemy(Transform mPoint, ushort instanceId, int roleId, float angle)

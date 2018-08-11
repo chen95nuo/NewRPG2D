@@ -38,23 +38,28 @@ namespace Assets.Script.Battle
             info.RoleId = roleId;
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
+            CardData roleData = GameCardData.Instance.GetItem(roleId);
+            role.InitRoleBaseProperty(GetPropertyBaseData(roleData));
+            role.InitSkill(100100102, 100100102, 100100102);
             RolesList.Add(role);
             RolesEnemyList.Add(role);
             RoleDic[instanceId] = role;
         }
 
-        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
+        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, CardData roleData, float angle)
         {
-            RoleRender roleMono = SetRoleTransform(roleId, indexName, instanceId, transform, mPosition, angle);
+            RoleRender roleMono = SetRoleTransform(roleData.Id, indexName, instanceId, transform, mPosition, angle);
 
             Debug.Log("AddHeroRole addrole:" + instanceId);
             RoleInfo info = new RoleInfo();
             MainHeroRole role = new MainHeroRole();
             info.TeamId = TeamTypeEnum.Hero;
             info.InstanceId = instanceId;
-            info.RoleId = roleId;
+            info.RoleId = roleData.Id;
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
+            role.InitRoleBaseProperty(GetPropertyBaseData(roleData));
+            role.InitSkill(100100100, 100100100, 100100100);
             RolesList.Add(role);
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
@@ -87,6 +92,31 @@ namespace Assets.Script.Battle
             perfab.transform.position = mPosition;
             perfab.transform.localEulerAngles = new Vector3(angle, 0);
             return perfab.GetComponent<T>();
+        }
+
+        private PropertyBaseData GetPropertyBaseData(CardData data)
+        {
+            if (data == null)
+            {
+                DebugHelper.LogError("dont find role info");
+                return default(PropertyBaseData);
+            }
+            PropertyBaseData propertyBaseData = new PropertyBaseData();
+            // propertyBaseData.RoleProperty = data.AgileGrow
+            float growValueMin = 0;
+            float growValueMax = 0;
+            float baseValue = data.Health;
+            propertyBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
+             baseValue = data.Defense;
+            propertyBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
+             baseValue = data.Agile;
+            propertyBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+
+             baseValue = data.Attack;
+            propertyBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+            return propertyBaseData;
         }
     }
 }

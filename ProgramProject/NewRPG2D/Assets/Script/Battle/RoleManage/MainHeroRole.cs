@@ -2,7 +2,7 @@
 
 namespace Assets.Script.Battle
 {
-   public class MainHeroRole : RoleBase
+    public class MainHeroRole : RoleBase
     {
         public override void InitFSM()
         {
@@ -18,14 +18,14 @@ namespace Assets.Script.Battle
         }
 
         public override void FixedUpdateLogic(float deltaTime)
-       {
-          
-       }
+        {
 
-       public override void Dispose()
-       {
-           
-       }
+        }
+
+        public override void Dispose()
+        {
+
+        }
 
         public override void Death()
         {

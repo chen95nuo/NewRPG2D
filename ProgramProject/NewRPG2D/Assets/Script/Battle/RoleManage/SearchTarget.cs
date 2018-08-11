@@ -26,7 +26,7 @@ namespace Assets.Script.Battle
         public void InitData()
         {
             cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
-            attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
+            attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
           //  attackDistance = attackDistance * attackDistance;
         }
 
@@ -46,7 +46,7 @@ namespace Assets.Script.Battle
                 if (mCurrentRole.CurrentSlot != cacheSkillSlot)
                 {
                     cacheSkillSlot = mCurrentRole.CurrentSlot;
-                    attackDistance = mCurrentRole.RoleSkill.GetSkillDataBySkilSlot(cacheSkillSlot).AttackRange;
+                    attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
                   //  attackDistance = attackDistance * attackDistance;
                 }
 

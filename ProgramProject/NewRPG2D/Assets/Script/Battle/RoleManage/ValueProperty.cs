@@ -25,13 +25,19 @@ namespace Assets.Script.Battle
             currenRole = mRole;
         }
 
-        public void InitRoleValue(PropertyData rolePropertyData)
+        public void InitBaseRoleValue(PropertyBaseData rolePropertyData)
         {
+            RoleProperty = rolePropertyData.RoleProperty;
             RoleHp = rolePropertyData.Hp.BaseValue;
-            RoleMp = rolePropertyData.Mp.BaseValue;
             Attack = rolePropertyData.Attack.BaseValue;
             Defense = rolePropertyData.Defense.BaseValue;
             Prompt = rolePropertyData.Prompt.BaseValue;
+        }
+
+        public void InitRoleOtherValue(PropertyData rolePropertyData)
+        {
+            AttackProperty = rolePropertyData.AttackProperty;
+            DefenseProperty = rolePropertyData.DefenseProperty;
             CriticalPercent = rolePropertyData.AttackCritial;
         }
 

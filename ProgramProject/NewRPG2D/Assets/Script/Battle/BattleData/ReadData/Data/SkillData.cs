@@ -33,9 +33,9 @@ namespace Assets.Script.Battle.BattleData
         public override bool GetXmlDataAttribute(XmlNode node)
         {
             ReadXmlDataMgr.StrParse(node, "Description");
-            SkillId = ReadXmlDataMgr.IntParse(node, "SkillID");
-            SkillLevel = ReadXmlDataMgr.IntParse(node, "SkillLevel");
-            SkillMaxLevel = ReadXmlDataMgr.IntParse(node, "MaxLevel");
+            //SkillId = ReadXmlDataMgr.IntParse(node, "SkillID");
+            //SkillLevel = ReadXmlDataMgr.IntParse(node, "SkillLevel");
+            //SkillMaxLevel = ReadXmlDataMgr.IntParse(node, "MaxLevel");
             MP = ReadXmlDataMgr.IntParse(node, "MP");
             CD = ReadXmlDataMgr.IntParse(node, "CD");
             SkillType = (SkillTypeEnum)ReadXmlDataMgr.IntParse(node, "SkillType");

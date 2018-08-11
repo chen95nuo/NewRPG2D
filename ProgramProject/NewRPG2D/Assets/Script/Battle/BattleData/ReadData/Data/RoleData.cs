@@ -33,12 +33,12 @@ namespace Assets.Script.Battle.BattleData
             ReadXmlDataMgr.StrParse(node, "Description");
             AttackType = (AttackTypeEnum) ReadXmlDataMgr.IntParse(node, "AttackType");
             ActorType = (ActorTypeEnum)ReadXmlDataMgr.IntParse(node, "Type");
-            SellCoin = ReadXmlDataMgr.IntParse(node, "SellCoin");
-            ExpValue = ReadXmlDataMgr.IntParse(node, "ExpValue");
+            //SellCoin = ReadXmlDataMgr.IntParse(node, "SellCoin");
+            //ExpValue = ReadXmlDataMgr.IntParse(node, "ExpValue");
             PrefabPathName = ReadXmlDataMgr.StrParse(node, "Prefab");
-            NormalAttackId = ReadXmlDataMgr.IntParse(node, "NormalAttackId");
-            SkillDataId01 = ReadXmlDataMgr.IntParse(node, "SkillDataId01");
-            SkillDataId02 = ReadXmlDataMgr.IntParse(node, "SkillDataId02");
+            //NormalAttackId = ReadXmlDataMgr.IntParse(node, "NormalAttackId");
+            //SkillDataId01 = ReadXmlDataMgr.IntParse(node, "SkillDataId01");
+            //SkillDataId02 = ReadXmlDataMgr.IntParse(node, "SkillDataId02");
             PropertyId = ReadXmlDataMgr.IntParse(node, "PropertyId");
 
             return base.GetXmlDataAttribute(node);

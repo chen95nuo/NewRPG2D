@@ -104,12 +104,13 @@ namespace Assets.Script.Battle
             RoleActionStateDic.Add((int)ActorStateEnum.Death, new RoleDeathState());
         }
 
-        private void InitSkill()
+        public void InitSkill(int normalAttackId, int skillDataId01, int skillDataId02)
         {
-            RoleSkill.InitSkill(SkillSlotTypeEnum.NormalAttack, CurrentRoleData.NormalAttackId);
-            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill1, CurrentRoleData.SkillDataId01);
-            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, CurrentRoleData.SkillDataId02);
+            RoleSkill.InitSkill(SkillSlotTypeEnum.NormalAttack, normalAttackId);
+            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill1, skillDataId01);
+            RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, skillDataId02);
             CurrentSlot = SkillSlotTypeEnum.NormalAttack;
+            RoleSearchTarget.InitData();
         }
 
         private void InitRoleComponentData()
@@ -117,14 +118,17 @@ namespace Assets.Script.Battle
             FinishMoveToPoint = true;
             IsCanControl = true;
             IsDead = false;
-            InitSkill();
-            RoleSearchTarget.InitData();  
         }
 
         private void InitRoleProperty()
         {
             RolePropertyData data = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(CurrentRoleData.PropertyId);
-            RolePropertyValue.InitRoleValue(data.RoleBaseData);
+            RolePropertyValue.InitRoleOtherValue(data.RoleOtherData);
+        }
+
+        public void InitRoleBaseProperty(PropertyBaseData data)
+        {
+            RolePropertyValue.InitBaseRoleValue(data);
         }
 
         public void SetRoleActionState(ActorStateEnum state)

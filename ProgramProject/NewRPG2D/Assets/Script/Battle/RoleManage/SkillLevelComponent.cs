@@ -11,6 +11,7 @@ namespace Assets.Script.Battle
         public int SkillLevel;
         public float SkillCDTime;
         public int MP;
+        public float AttackRange;
         public SkillTypeEnum SkillType;
         public int TargetCount;
         public int EffectId1;

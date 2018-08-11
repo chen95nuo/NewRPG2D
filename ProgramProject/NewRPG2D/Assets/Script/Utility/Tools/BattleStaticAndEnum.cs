@@ -38,14 +38,8 @@ namespace Assets.Script.Battle
 
     public struct PropertyData
     {
-        public RolePropertyEnum RoleProperty;  //自己的属性
         public RolePropertyEnum AttackProperty; //克制的属性
         public RolePropertyEnum DefenseProperty; // 被克制的属性
-        public PropertyAddtion Hp;
-        public PropertyAddtion Mp;
-        public PropertyAddtion Attack;
-        public PropertyAddtion Defense;
-        public PropertyAddtion Prompt;
         public float AttackSpeed;
         public float AttackCritial;
         public float MoveSpeed;
@@ -56,6 +50,15 @@ namespace Assets.Script.Battle
         public float ReflectHurt;
         public float HealTeam;
         public float HealPerSecond;
+    }
+
+    public struct PropertyBaseData
+    {
+        public RolePropertyEnum RoleProperty;  //自己的属性
+        public PropertyAddtion Hp;
+        public PropertyAddtion Attack;
+        public PropertyAddtion Defense;
+        public PropertyAddtion Prompt;
     }
 
     public struct PropertyAddtion
@@ -100,6 +103,7 @@ namespace Assets.Script.Battle
         public BornPositionTypeEnum BornPositionType;
         public Transform Point;
     }
+
 
     #region Enum
     public enum BornPositionTypeEnum
