@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Spine;
+using Spine.Unity;
 
 public class UIFurnace : MonoBehaviour
 {
@@ -44,17 +45,18 @@ public class UIFurnace : MonoBehaviour
     public GameObject equipTipGO;
     public UIBagGrid equipGrid;
     public Button equipIsTrue;
-    public Text equipTip;
 
     public UIFurnacePopUp furnacePopUp;
     public FurnaceData temporaryData;
 
     private Image timeSliderImage;
 
+    public SkeletonGraphic furnace;
+    public SkeletonGraphic crystal;
+
     private void Awake()
     {
         Init();//初始化
-
         UIEventManager.instance.AddListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
@@ -99,6 +101,8 @@ public class UIFurnace : MonoBehaviour
             time.text = furnacesMenu[currentMenu].menuTime.text;
             timeSlider.value = furnacesMenu[currentMenu].menuSlider.value;
             timeSliderImage.color = Color.white;
+            furnace.startingAnimation = "stand";
+            furnace.startingAnimation = "";
         }
         else if (playerData.Furnace[currentMenu].FurnaceType == FurnaceType.End)
         {
@@ -498,25 +502,25 @@ public class UIFurnace : MonoBehaviour
             case FurnaceTipType.getEquip:
                 Debug.Log("打开奖励面板");
                 equipTipGO.SetActive(true);
-                switch (equipGrid.equipData.Quality)
-                {
-                    case 1:
-                        equipTip.text = "恭喜获得" + "\"<color=#FFFFFF>" + equipGrid.equipData.Name + "</color>\"";
-                        break;
-                    case 2:
-                        equipTip.text = "恭喜获得" + "\"<color=#B1694E>" + equipGrid.equipData.Name + "</color>\"";
-                        break;
-                    case 3:
-                        equipTip.text = "恭喜获得" + "\"<color=#82BDC8>" + equipGrid.equipData.Name + "</color>\"";
-                        break;
-                    case 4:
-                        equipTip.text = "恭喜获得" + "\"<color=#FF7000>" + equipGrid.equipData.Name + "</color>\"";
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
+                //    switch (equipGrid.equipData.Quality)
+                //    {
+                //        case 1:
+                //            equipTip.text = "恭喜获得" + "\"<color=#FFFFFF>" + equipGrid.equipData.Name + "</color>\"";
+                //            break;
+                //        case 2:
+                //            equipTip.text = "恭喜获得" + "\"<color=#B1694E>" + equipGrid.equipData.Name + "</color>\"";
+                //            break;
+                //        case 3:
+                //            equipTip.text = "恭喜获得" + "\"<color=#82BDC8>" + equipGrid.equipData.Name + "</color>\"";
+                //            break;
+                //        case 4:
+                //            equipTip.text = "恭喜获得" + "\"<color=#FF7000>" + equipGrid.equipData.Name + "</color>\"";
+                //            break;
+                //        default:
+                //            break;
+                //    }
+                //    break;
+                //default:
                 break;
         }
     }

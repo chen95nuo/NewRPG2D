@@ -1078,8 +1078,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224334408486313366}
   - component: {fileID: 222124503535188862}
-  - component: {fileID: 114249305605864796}
   - component: {fileID: 114779991899136170}
+  - component: {fileID: 223532808650970340}
+  - component: {fileID: 114015399974258534}
   m_Layer: 5
   m_Name: UIExplore
   m_TagString: Untagged
@@ -1762,6 +1763,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114015399974258534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622257748666342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114021809215712670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1843,6 +1860,7 @@ MonoBehaviour:
     isKnown: 0
     hatchingTime: 0
     resultId: 0
+    price: 0
   propData:
     name: 
     id: 0
@@ -1867,7 +1885,6 @@ MonoBehaviour:
     spriteName: 
     itemType: 0
     equipType: 0
-    equipTypeName: 
     quality: 0
     price: 0
     affix_1: 
@@ -1885,6 +1902,7 @@ MonoBehaviour:
     level: 0
     quality: 0
     exp: 0
+    useAddExp: 0
     equipdata: []
     health: 0
     healthGrow: 0
@@ -1906,7 +1924,7 @@ MonoBehaviour:
     maxFeeling: 0
     stars: 0
     itemType: 0
-    attribute: 
+    attribute: 0
   eggGrid:
     egg: {fileID: 0}
     eggBG: {fileID: 0}
@@ -1933,7 +1951,7 @@ MonoBehaviour:
     price: {fileID: 0}
     priceImage: {fileID: 0}
     btn_But: {fileID: 0}
-    border: {fileID: 0}
+    ItemDescribe: {fileID: 0}
 --- !u!114 &114046269290393576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2190,6 +2208,7 @@ MonoBehaviour:
     isKnown: 0
     hatchingTime: 0
     resultId: 0
+    price: 0
   propData:
     name: 
     id: 0
@@ -2214,7 +2233,6 @@ MonoBehaviour:
     spriteName: 
     itemType: 0
     equipType: 0
-    equipTypeName: 
     quality: 0
     price: 0
     affix_1: 
@@ -2232,6 +2250,7 @@ MonoBehaviour:
     level: 0
     quality: 0
     exp: 0
+    useAddExp: 0
     equipdata: []
     health: 0
     healthGrow: 0
@@ -2253,7 +2272,7 @@ MonoBehaviour:
     maxFeeling: 0
     stars: 0
     itemType: 0
-    attribute: 
+    attribute: 0
   eggGrid:
     egg: {fileID: 0}
     eggBG: {fileID: 0}
@@ -2280,7 +2299,7 @@ MonoBehaviour:
     price: {fileID: 0}
     priceImage: {fileID: 0}
     btn_But: {fileID: 0}
-    border: {fileID: 0}
+    ItemDescribe: {fileID: 0}
 --- !u!114 &114147399337897302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2496,6 +2515,7 @@ MonoBehaviour:
     isKnown: 0
     hatchingTime: 0
     resultId: 0
+    price: 0
   propData:
     name: 
     id: 0
@@ -2520,7 +2540,6 @@ MonoBehaviour:
     spriteName: 
     itemType: 0
     equipType: 0
-    equipTypeName: 
     quality: 0
     price: 0
     affix_1: 
@@ -2538,6 +2557,7 @@ MonoBehaviour:
     level: 0
     quality: 0
     exp: 0
+    useAddExp: 0
     equipdata: []
     health: 0
     healthGrow: 0
@@ -2559,7 +2579,7 @@ MonoBehaviour:
     maxFeeling: 0
     stars: 0
     itemType: 0
-    attribute: 
+    attribute: 0
   eggGrid:
     egg: {fileID: 0}
     eggBG: {fileID: 0}
@@ -2586,7 +2606,7 @@ MonoBehaviour:
     price: {fileID: 0}
     priceImage: {fileID: 0}
     btn_But: {fileID: 0}
-    border: {fileID: 0}
+    ItemDescribe: {fileID: 0}
 --- !u!114 &114184902307025830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2847,33 +2867,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 99
---- !u!114 &114249305605864796
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622257748666342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 0.46666667}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &114259255410544072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3132,6 +3125,7 @@ MonoBehaviour:
     isKnown: 0
     hatchingTime: 0
     resultId: 0
+    price: 0
   propData:
     name: 
     id: 0
@@ -3156,7 +3150,6 @@ MonoBehaviour:
     spriteName: 
     itemType: 0
     equipType: 0
-    equipTypeName: 
     quality: 0
     price: 0
     affix_1: 
@@ -3174,6 +3167,7 @@ MonoBehaviour:
     level: 0
     quality: 0
     exp: 0
+    useAddExp: 0
     equipdata: []
     health: 0
     healthGrow: 0
@@ -3195,7 +3189,7 @@ MonoBehaviour:
     maxFeeling: 0
     stars: 0
     itemType: 0
-    attribute: 
+    attribute: 0
   eggGrid:
     egg: {fileID: 1425081919050936}
     eggBG: {fileID: 114572192424121580}
@@ -3222,7 +3216,7 @@ MonoBehaviour:
     price: {fileID: 0}
     priceImage: {fileID: 0}
     btn_But: {fileID: 0}
-    border: {fileID: 0}
+    ItemDescribe: {fileID: 0}
 --- !u!114 &114337265570972250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3540,6 +3534,7 @@ MonoBehaviour:
     isKnown: 0
     hatchingTime: 0
     resultId: 0
+    price: 0
   propData:
     name: 
     id: 0
@@ -3564,7 +3559,6 @@ MonoBehaviour:
     spriteName: 
     itemType: 0
     equipType: 0
-    equipTypeName: 
     quality: 0
     price: 0
     affix_1: 
@@ -3582,6 +3576,7 @@ MonoBehaviour:
     level: 0
     quality: 0
     exp: 0
+    useAddExp: 0
     equipdata: []
     health: 0
     healthGrow: 0
@@ -3603,7 +3598,7 @@ MonoBehaviour:
     maxFeeling: 0
     stars: 0
     itemType: 0
-    attribute: 
+    attribute: 0
   eggGrid:
     egg: {fileID: 0}
     eggBG: {fileID: 0}
@@ -3630,7 +3625,7 @@ MonoBehaviour:
     price: {fileID: 0}
     priceImage: {fileID: 0}
     btn_But: {fileID: 0}
-    border: {fileID: 0}
+    ItemDescribe: {fileID: 0}
 --- !u!114 &114427331661184644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6242,6 +6237,26 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1060773097737490}
+--- !u!223 &223532808650970340
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622257748666342}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &224006959682441474
 RectTransform:
   m_ObjectHideFlags: 1

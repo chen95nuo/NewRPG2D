@@ -102,7 +102,7 @@ public class CardData
     private ItemType itemType;//物品类型
 
     [SerializeField]
-    private string attribute;//属性
+    private int attribute;//属性
 
     public string Name
     {
@@ -275,7 +275,7 @@ public class CardData
         }
     }
 
-    public string Attribute
+    public int Attribute
     {
         get
         {

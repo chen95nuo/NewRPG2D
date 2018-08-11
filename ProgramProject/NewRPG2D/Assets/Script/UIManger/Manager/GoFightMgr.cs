@@ -13,15 +13,20 @@ public class GoFightMgr : TSingleton<GoFightMgr>
 
     }
 
-    public LessonDropData currentLesson;
-    public CardData[] cardData;
-    public string mainScene;
+    public LessonDropData currentLesson;//当前关卡
+    public CardData[] cardData;//战斗卡牌
+    public int PlayerLevel;//玩家等级
+    public string mainScene;//进战斗前的场景名称
 
+    /// <summary>
+    /// 获得并保存信息
+    /// </summary>
+    /// <param name="fightData"></param>
     public void FightMessage(FightData fightData)
     {
         Debug.Log("确认信息");
         cardData = fightData.CardData;
-
+        PlayerLevel = fightData.PlayerLevel;
         currentLesson = fightData.CurrentLesson;
         //currentLesson = fightData.CurrentLesson;
         mainScene = fightData.CurrentMap;

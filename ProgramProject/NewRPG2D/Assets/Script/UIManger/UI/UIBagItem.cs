@@ -195,6 +195,7 @@ public class UIBagItem : MonoBehaviour
     }
     public void UpdateRole()
     {
+        Debug.Log("更新所有");
         if (itemType != ItemType.Role)
             return;
 
@@ -208,6 +209,8 @@ public class UIBagItem : MonoBehaviour
 
     public void UpdateRole(CardData[] datas, GridType type)
     {
+        Debug.Log("排除类型");
+
         if (itemType != ItemType.Role)
         {
             return;
@@ -240,6 +243,8 @@ public class UIBagItem : MonoBehaviour
     }
     public void UpdateRole(CardData[] datas, int level)
     {
+        Debug.Log("排除等级");
+
         if (itemType != ItemType.Role)
         {
             return;

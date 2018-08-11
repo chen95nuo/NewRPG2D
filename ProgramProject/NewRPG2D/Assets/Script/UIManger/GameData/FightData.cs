@@ -7,6 +7,7 @@ public class FightData
     private string currentMap;
     private CardData[] cardData;
     private LessonDropData currentLesson;
+    private int playerLevel;
 
     public string CurrentMap
     {
@@ -47,11 +48,20 @@ public class FightData
         }
     }
 
+    public int PlayerLevel
+    {
+        get
+        {
+            return playerLevel;
+        }
+    }
+
     public FightData() { }
-    public FightData(string currentMap, CardData[] cardData, LessonDropData currentLesson)
+    public FightData(string currentMap, CardData[] cardData, LessonDropData currentLesson, int playerLevel)
     {
         this.currentMap = currentMap;
         this.cardData = cardData;
         this.currentLesson = currentLesson;
+        this.playerLevel = playerLevel;
     }
 }

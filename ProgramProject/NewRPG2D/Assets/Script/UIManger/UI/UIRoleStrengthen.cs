@@ -199,7 +199,7 @@ public class UIRoleStrengthen : MonoBehaviour
         currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         cardData[3] = roleData; //主卡ID为3
         Debug.Log(cardData[3].Name);
-        TinyTeam.UI.TTUIPage.ShowPage<UIUseRoleHousePage>();
+        TinyTeam.UI.TTUIPage.ShowPage<UICardHouse>();
 
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
         UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);

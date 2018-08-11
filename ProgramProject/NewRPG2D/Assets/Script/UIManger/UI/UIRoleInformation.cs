@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 using TinyTeam.UI;
+using System;
 
 public class UIRoleInformation : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class UIRoleInformation : MonoBehaviour
 
     public Button btn_back;
     public Button btn_Strengthen;
+    public Button btn_Innate;
+    public Button btn_Potential;
+    public Button btn_Gift;
+    public Button btn_Disband;
 
     public UIRoleStrengthen pickUpRoleStrentthen;
     private CardData cardData;
@@ -75,13 +80,18 @@ public class UIRoleInformation : MonoBehaviour
 
     private void Init()
     {
-        btn_back.GetComponent<Button>().onClick.AddListener(TTUIPage.ClosePage<UIRolePage>);
+        btn_back.GetComponent<Button>().onClick.AddListener(ChickBack);
         pickUpRoleStrentthen = transform.Find("UIRoleStrengthen").GetComponent<UIRoleStrengthen>();
         btn_Strengthen.GetComponent<Button>().onClick.AddListener(ShowRoleStrengthenPage);
+        btn_Innate.GetComponent<Button>().onClick.AddListener(ShowRoleInnatePage);
+        btn_Potential.GetComponent<Button>().onClick.AddListener(ShowRolePotentialPage);
+        btn_Gift.GetComponent<Button>().onClick.AddListener(ShowRoleGiftPage);
+        btn_Disband.GetComponent<Button>().onClick.AddListener(ShowRoleDisbandPage);
         pickUpRoleStrentthen.CloseThisPage();
 
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
+
 
 
     public void Start()
@@ -120,6 +130,38 @@ public class UIRoleInformation : MonoBehaviour
             return;
         }
         pickUpRoleStrentthen.UpdateRole(this);
+    }
+    /// <summary>
+    /// 天赋
+    /// </summary>
+    private void ShowRoleInnatePage()
+    {
+        TTUIPage.ShowPage<UIMessageTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "天赋系统暂未开放");
+    }
+    /// <summary>
+    /// 潜能
+    /// </summary>
+    private void ShowRolePotentialPage()
+    {
+        TTUIPage.ShowPage<UIMessageTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "潜能系统暂未开放");
+    }
+    /// <summary>
+    /// 礼物
+    /// </summary>
+    private void ShowRoleGiftPage()
+    {
+        TTUIPage.ShowPage<UIMessageTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "礼物系统暂未开放");
+    }
+    /// <summary>
+    /// 遣散
+    /// </summary>
+    private void ShowRoleDisbandPage()
+    {
+        TTUIPage.ShowPage<UIMessageTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "遣散系统暂未开放");
     }
 
     /// <summary>
@@ -223,7 +265,7 @@ public class UIRoleInformation : MonoBehaviour
         roleHeart.text = data.GoodFeeling.ToString();
         role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         roleQuality.sprite = getImage.GetSprite("roleQuality_" + data.Quality);
-        roleAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
+        roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
         roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
         for (int i = 0; i < roleEquip.Length; i++)
         {
@@ -327,6 +369,11 @@ public class UIRoleInformation : MonoBehaviour
         }
 
 
+    }
+    public void ChickBack()
+    {
+        TTUIPage.ClosePage<UIRolePage>();
+        TTUIPage.ShowPage<UICardHouse>();
     }
 
 

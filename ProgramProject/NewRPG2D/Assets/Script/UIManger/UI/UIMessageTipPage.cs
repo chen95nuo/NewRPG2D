@@ -7,6 +7,10 @@ using TinyTeam.UI;
 public class UIMessageTipPage : TTUIPage
 {
     private Text text_message;
+    private Button btn_isTrue;
+    private Button btn_back;
+
+    private GameObject go;
 
     public UIMessageTipPage() : base(UIType.Normal, UIMode.DoNothing, UICollider.None)
     {
@@ -16,16 +20,32 @@ public class UIMessageTipPage : TTUIPage
     public override void Awake(GameObject go)
     {
         UIEventManager.instance.AddListener<string>(UIEventDefineEnum.UpdateMissageTipEvent, UpdateMessage);
-        this.transform.Find("MainBG/btn_enter").GetComponent<Button>().onClick.AddListener(ClosePage<UIMessageTipPage>);
-        text_message = this.transform.Find("MainBG/message").GetComponent<Text>();
+        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateMissageTipEvent, ChickGO);
+        btn_isTrue = this.transform.Find("MainBG/BtnGroup/btn_isTrue").GetComponent<Button>();
+        btn_back = this.transform.Find("MainBG/BtnGroup/btn_back").GetComponent<Button>();
+        btn_isTrue.onClick.AddListener(ChickIsTrue);
+        btn_back.onClick.AddListener(ClosePage<UIMessageTipPage>);
+        text_message = this.transform.Find("MainBG/Cry_InsideBG/message").GetComponent<Text>();
     }
 
     public override void Refresh()
     {
+        go = null;
         transform.SetSiblingIndex(transform.parent.childCount - 1);
     }
 
+    public void ChickIsTrue()
+    {
+        if (go != null)
+            UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateMissageTipEvent, go);
+        else
+            ClosePage<UIMessageTipPage>();
 
+    }
+    public void ChickGO(GameObject go)
+    {
+        this.go = go;
+    }
     public void UpdateMessage(string message)
     {
         text_message.text = message;

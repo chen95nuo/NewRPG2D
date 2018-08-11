@@ -179,7 +179,7 @@ public class UIRound : MonoBehaviour
     private void UpdateGrid(int gridID)
     {
         currentGrid = gridID;
-        TinyTeam.UI.TTUIPage.ShowPage<UIUseRoleHousePage>();
+        TinyTeam.UI.TTUIPage.ShowPage<UICardHouse>();
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Team);
         UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
     }
@@ -288,7 +288,8 @@ public class UIRound : MonoBehaviour
                 }
             }
             LessonDropData currentLesson = rounds[currentRound].LessonData[this.currentLesson].LessonDrop[currentDifficulty];
-            FightData fightData = new FightData(SceneManager.GetActiveScene().name, cardData, currentLesson);
+            int level = GetPlayData.Instance.player[0].Level;
+            FightData fightData = new FightData(SceneManager.GetActiveScene().name, cardData, currentLesson, level);
 
             UIEventManager.instance.SendEvent(UIEventDefineEnum.FightMessage, fightData);
             TinyTeam.UI.TTUIPage.ClosePage<UIRoundPage>();

@@ -126,7 +126,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             case GridType.Use:
                 if (!roleData.Fighting)
                 {
-                    TTUIPage.ClosePage<UIUseRoleHousePage>();
+                    TTUIPage.ClosePage<UICardHouse>();
                     UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
                 }
                 break;
@@ -138,7 +138,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             case GridType.Team:
                 Debug.Log("进入小队菜单");
                 //选中的
-                TTUIPage.ClosePage<UIUseRoleHousePage>();
+                TTUIPage.ClosePage<UICardHouse>();
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRoundEvent, roleData);
                 break;
             default:
@@ -179,7 +179,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     public void BackExplore()
     {
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateExploreEvent, roleData);
-        TTUIPage.ClosePage<UIUseRoleHousePage>();
+        TTUIPage.ClosePage<UICardHouse>();
     }
 
     public void UpdateItem(int itemID, ItemType type)
@@ -277,7 +277,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         roleGrid.roleBG.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
         roleGrid.roleImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         roleGrid.roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
-        roleGrid.roleAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
+        roleGrid.roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
         if (data.TeamType == TeamType.Nothing)
             roleGrid.roleTypeBG.gameObject.SetActive(false);
         else
