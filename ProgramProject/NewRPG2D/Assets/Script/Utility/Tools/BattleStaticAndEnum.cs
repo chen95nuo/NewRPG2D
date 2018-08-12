@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Script.Battle
 {
+
     public struct BattleStaticAndEnum
     {
         public const float RolePropertyAttackAddtion = 1.15f; //属性克制攻击伤害加成

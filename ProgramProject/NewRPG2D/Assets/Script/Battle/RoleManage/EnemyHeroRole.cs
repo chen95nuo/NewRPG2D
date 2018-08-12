@@ -35,6 +35,7 @@ namespace Assets.Script.Battle
         {
             base.Death();
             GameRoleMgr.instance.RolesEnemyList.Remove(this);
+            GameRoleMgr.instance.RemianEnemyCount.Value --;
         }
     }
 }

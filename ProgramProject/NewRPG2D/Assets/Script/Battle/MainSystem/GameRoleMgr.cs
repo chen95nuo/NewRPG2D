@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.EventMgr;
 using Assets.Script.Tools;
 using Assets.Script.Utility;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Assets.Script.Battle
         public List<RoleBase> RolesEnemyList = new List<RoleBase>(10);
         public List<RoleBase> RolesHeroList = new List<RoleBase>(10);
         public Dictionary<ushort, RoleBase> RoleDic = new Dictionary<ushort, RoleBase>();
+        public TSimpleNotifier<int> RemianEnemyCount;
+        public TSimpleNotifier<int> CurrentPlayerMp;
 
         public void ClearAllRole()
         {
@@ -39,7 +42,7 @@ namespace Assets.Script.Battle
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
             CardData roleData = GameCardData.Instance.GetItem(roleId);
-            role.InitRoleBaseProperty(GetPropertyBaseData(roleData));
+            role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             role.InitSkill(100100102, 100100102, 100100102);
             RolesList.Add(role);
             RolesEnemyList.Add(role);
@@ -58,7 +61,7 @@ namespace Assets.Script.Battle
             info.RoleId = roleData.Id;
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
-            role.InitRoleBaseProperty(GetPropertyBaseData(roleData));
+            role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             role.InitSkill(100100100, 100100100, 100100100);
             RolesList.Add(role);
             RolesHeroList.Add(role);

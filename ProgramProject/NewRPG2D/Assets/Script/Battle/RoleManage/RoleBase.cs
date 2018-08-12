@@ -33,6 +33,7 @@ namespace Assets.Script.Battle
         public bool IsDead { get; private set; }
         public AttackTypeEnum AttackType { get; private set; }
 
+        private CardData RoleDetailInfo;
         public bool FinishMoveToPoint;
         public bool IsCanControl;
 
@@ -126,9 +127,10 @@ namespace Assets.Script.Battle
             RolePropertyValue.InitRoleOtherValue(data.RoleOtherData);
         }
 
-        public void InitRoleBaseProperty(PropertyBaseData data)
+        public void InitRoleBaseProperty(PropertyBaseData data, CardData detailInfo)
         {
             RolePropertyValue.InitBaseRoleValue(data);
+            RoleDetailInfo = detailInfo;
         }
 
         public void SetRoleActionState(ActorStateEnum state)

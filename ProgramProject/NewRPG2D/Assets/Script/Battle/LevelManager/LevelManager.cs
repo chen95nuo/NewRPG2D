@@ -45,8 +45,8 @@ namespace Assets.Script.Battle.LevelManager
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
             roleInfoArray = GoFightMgr.instance.cardData;
-
-            currentInstanceId = 0;
+            GameRoleMgr.instance.CurrentPlayerMp.Value = GoFightMgr.instance.PlayerLevel*50;
+           currentInstanceId = 0;
             isCreateEnemy = false;
             isGameOver = false;
         }
@@ -132,6 +132,14 @@ namespace Assets.Script.Battle.LevelManager
         {
             CreateEnemyData enemyData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(enemyDataId);
             if (enemyData != null) enemyDatas.Enqueue(enemyData);
+            for (int i = 0; i < enemyData.CreateEnemyInfoList.Count; i++)
+            {
+                if (enemyData.CreateEnemyInfoList[i].EnemyPointRoleId > 0)
+                {
+                    GameRoleMgr.instance.RemianEnemyCount.Value += enemyData.CreateEnemyInfoList[i].EnemyCount;
+                }
+            }
+
         }
 
         private void InitEnemyInfoDic(BornPositionTypeEnum bornPositionType)
