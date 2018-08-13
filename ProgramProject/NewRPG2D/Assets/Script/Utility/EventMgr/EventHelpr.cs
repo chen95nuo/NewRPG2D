@@ -13,6 +13,10 @@ public enum EventDefineEnum : uint
     AddRole,
     SwitchRoleAction,
     LoadLevel,
+    ClickMyRole,
+    ClickEnemyRole,
+    CreateRole,
+    HpChange,
     EventMax,
 }
 

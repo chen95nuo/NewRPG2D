@@ -32,8 +32,8 @@ namespace Assets.Script.Battle
         public ActorStateEnum CurrentActorState { get; private set; }
         public bool IsDead { get; private set; }
         public AttackTypeEnum AttackType { get; private set; }
+        public CardData RoleDetailInfo { get; private set; }
 
-        private CardData RoleDetailInfo;
         public bool FinishMoveToPoint;
         public bool IsCanControl;
 

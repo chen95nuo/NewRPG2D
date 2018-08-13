@@ -41,7 +41,8 @@ namespace Assets.Script.Battle.BattleData
             SkillType = (SkillTypeEnum)ReadXmlDataMgr.IntParse(node, "SkillType");
             AttackRange = ReadXmlDataMgr.FloatParse(node, "AttackRange");
             TargetCount = ReadXmlDataMgr.IntParse(node, "TargetCount");
-            Icon = SpriteHelper.CreateSprite(ReadXmlDataMgr.StrParse(node, "Icon"));
+            ReadXmlDataMgr.StrParse(node, "Icon");
+            //Icon = SpriteHelper.CreateSprite(ReadXmlDataMgr.StrParse(node, "Icon"));
             EffectId1 = ReadXmlDataMgr.IntParse(node, "EffectId1");
             EffectId2 = ReadXmlDataMgr.IntParse(node, "EffectId2");
             EffectId3 = ReadXmlDataMgr.IntParse(node, "EffectId3");

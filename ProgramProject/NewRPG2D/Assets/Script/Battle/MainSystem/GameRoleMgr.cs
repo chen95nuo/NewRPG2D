@@ -66,6 +66,7 @@ namespace Assets.Script.Battle
             RolesList.Add(role);
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
+            EventManager.instance.SendEvent(EventDefineEnum.CreateRole, role);
         }
 
         public RoleBase GetRole(ushort inatancdid)

@@ -48,7 +48,8 @@ namespace Assets.Script.Battle
         public bool SetHp(float HpChange)
         {
             RoleHp -= HpChange;
-           // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
+            EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
+            // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
 
