@@ -34,10 +34,10 @@ public class UIBag : MonoBehaviour
 
     private void Init()
     {
-        this.bagMenu_1 = transform.Find("Cry_BottomBG_2").gameObject;
-        this.bagMenu_2 = transform.Find("Menu_2").gameObject;
-        this.bagItem_1 = bagMenu_1.transform.Find("btn_menu_1").gameObject;
-        this.bagItem_2 = bagMenu_2.transform.Find("btn_menu").gameObject;
+        //this.bagMenu_1 = transform.Find("Cry_BottomBG_2").gameObject;
+        //this.bagMenu_2 = transform.Find("Menu_2").gameObject;
+        //this.bagItem_1 = bagMenu_1.transform.Find("btn_menu_1").gameObject;
+        //this.bagItem_2 = bagMenu_2.transform.Find("btn_menu").gameObject;
 
         btn_back.onClick.AddListener(CloseBagPage);
         btn_sort.GetComponent<Button>().onClick.AddListener(ItemSortEvent);
@@ -45,7 +45,7 @@ public class UIBag : MonoBehaviour
         bagMenu_2.SetActive(false);
         bagItem_1.SetActive(false);
 
-        updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
+        //updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
 
         TTUIPage.ShowPage<UIBagItemMessage>();
         TTUIPage.ClosePage("UIBagItemMessage");

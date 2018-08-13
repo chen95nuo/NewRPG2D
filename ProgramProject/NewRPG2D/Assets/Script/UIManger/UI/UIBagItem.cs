@@ -101,13 +101,9 @@ public class UIBagItem : MonoBehaviour
         for (int i = 0; i < BagItemData.Instance.items.Count; i++)
         {
             if (BagItemData.Instance.items[i].Number == 0)
-            {
                 BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
-                //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
-                grids[i].UpdateItem(BagItemData.Instance.items[i]);
-            }
-            else
-                grids[i].UpdateItem(BagItemData.Instance.items[i]);
+            //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
+            grids[i].UpdateItem(BagItemData.Instance.items[i]);
         }
     }
     public void UpdateProp(PropMeltingType melting)
@@ -119,17 +115,11 @@ public class UIBagItem : MonoBehaviour
         int index = 0;
         for (int i = 0; i < BagItemData.Instance.items.Count; i++)
         {
+            //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
             if (BagItemData.Instance.items[i].Number == 0)
-            {
                 BagItemData.Instance.Remove(BagItemData.Instance.items[i]);
-                //虽然该道具归零了 但是Remove掉 该位置则变为下一个道具 所以下一个道具还是需要添加的
-                if (BagItemData.Instance.items[i].Melting == melting)
-                {
-                    grids[index].UpdateItem(BagItemData.Instance.items[i]);
-                    index++;
-                }
-            }
-            else if (BagItemData.Instance.items[i].Melting == melting)
+
+            if (BagItemData.Instance.items[i].Melting == PropMeltingType.isTrue)
             {
                 grids[index].UpdateItem(BagItemData.Instance.items[i]);
                 index++;
@@ -395,6 +385,7 @@ public class UIBagItem : MonoBehaviour
 
             for (int i = number; i < grids.Count; i++)
             {
+                grids[i].propData = new ItemData();
                 grids[i].UpdateItem(-1, ItemType.Nothing);
             }
         }
@@ -411,6 +402,7 @@ public class UIBagItem : MonoBehaviour
             }
             for (int i = number; i < grids.Count; i++)
             {
+                grids[i].propData = new ItemData();
                 grids[i].UpdateItem(-1, ItemType.Nothing);
             }
         }
@@ -424,6 +416,7 @@ public class UIBagItem : MonoBehaviour
             }
             for (int i = number; i < grids.Count; i++)
             {
+                grids[i].propData = new ItemData();
                 grids[i].UpdateItem(-1, ItemType.Nothing);
             }
         }
@@ -442,6 +435,7 @@ public class UIBagItem : MonoBehaviour
             }
             for (int i = number; i < grids.Count; i++)
             {
+                grids[i].propData = new ItemData();
                 grids[i].UpdateItem(-1, ItemType.Nothing);
             }
         }

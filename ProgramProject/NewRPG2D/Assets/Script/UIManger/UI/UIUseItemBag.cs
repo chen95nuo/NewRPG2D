@@ -62,8 +62,9 @@ public class UIUseItemBag : MonoBehaviour
         updateBagItem.itemType = ItemType.Prop;
         this.updateBagItem.UpdateProp(melting);
         itemSort = true;
-        ItemSortEvent(ItemType.Prop);
-        //itemSortEvent();
+        //ItemSortEvent(ItemType.Prop);
+        ItemSortEvent(equipType);
+        Debug.Log("排序2");
     }
 
     public void UpdateItem(ItemType type)
@@ -103,29 +104,30 @@ public class UIUseItemBag : MonoBehaviour
         ItemSortEvent(equipType);
     }
 
-    public void ItemSortEvent(ItemType type)
-    {
-        switch (type)
-        {
-            case ItemType.Nothing:
-                break;
-            case ItemType.Egg:
-                break;
-            case ItemType.Prop:
-                updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare((int)x.itemType, (int)y.itemType));
-                if (itemSort)
-                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
-                else
-                    updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
-                break;
-            case ItemType.Equip:
-                break;
-            case ItemType.Role:
-                break;
-            default:
-                break;
-        }
-    }
+    //public void ItemSortEvent(ItemType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case ItemType.Nothing:
+    //            break;
+    //        case ItemType.Egg:
+    //            break;
+    //        case ItemType.Prop:
+    //            if (itemSort)
+    //            {
+    //                updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare(x.quality, y.quality));
+    //            }
+    //            else
+    //                updateBagItem.grids.Sort((UIBagGrid x, UIBagGrid y) => new BagGridConparer().Compare1(x.quality, y.quality));
+    //            break;
+    //        case ItemType.Equip:
+    //            break;
+    //        case ItemType.Role:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     public void ItemSortEvent(EquipType type)
     {

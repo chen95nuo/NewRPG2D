@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimationTest.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\CreateEnemyData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\ItemBaseData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\MapSceneLevelData.cs" />
@@ -70,6 +71,13 @@
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RoleDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RolePropertyDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\SkillDataMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIEnemyInfo.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIManager.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIMyRoleInfo.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIMyRoleInfoItem.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIRoleHpInfo.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUIRoleHpInfoItem.cs" />
+    <Compile Include="Assets\Script\Battle\BattleUI\BattleUISceneInfo.cs" />
     <Compile Include="Assets\Script\Battle\LevelManager\LevelManager.cs" />
     <Compile Include="Assets\Script\Battle\LevelManager\LoadLevel.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\RoleAnimationSys.cs" />

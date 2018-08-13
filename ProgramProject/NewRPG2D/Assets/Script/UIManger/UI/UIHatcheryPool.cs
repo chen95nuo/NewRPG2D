@@ -17,7 +17,7 @@ public class UIHatcheryPool : MonoBehaviour
     public HatchAddSpeedPage addSpeed;
 
     private List<HatcheryData> items;
-    private int propId = 5; //减少时间道具的ID
+    private int propId = 7; //减少时间道具的ID
     private int speedAdd = 10;//减少的时间
     private int propNumber = 0;//减少时间的道具数量
 

@@ -70,7 +70,6 @@ public class GameEquipData
         {
             return null;
         }
-        Debug.Log(affix);
         string[] str;
         char[] ch = new char[] { '(', ',', ')' };
         str = affix.Split(ch);
