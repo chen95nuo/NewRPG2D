@@ -23,8 +23,6 @@ public class UIFurnace : MonoBehaviour
     public Text needTime;
     public Button start;
 
-    public Button typeEnd;
-
     public Button rawMaterial;
     public RawMaterials[] rawMaterials;
 
@@ -71,6 +69,11 @@ public class UIFurnace : MonoBehaviour
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
 
+    private void Start()
+    {
+        crystal.AnimationState.Complete += HandleEvent;
+    }
+
     private void Update()
     {
         if (playerData.Furnace[currentMenu].FurnaceType != currentType)
@@ -93,15 +96,12 @@ public class UIFurnace : MonoBehaviour
                     playerData.Furnace[i].FurnaceType = FurnaceType.End;
                     if (currentMenu == i)
                     {
-                        //熔炼结束的瞬间
-                        furnace.Skeleton.SetToSetupPose();
-                        furnace.AnimationState.ClearTracks();
-                        furnace.skeletonDataAsset.defaultMix = 0;
+                        ////熔炼结束的瞬间
+                        furnace.AnimationState.Data.defaultMix = 0.5f;
                         furnace.AnimationState.SetAnimation(0, "close", false);
-                        crystal.enabled = true;
                         crystal.Skeleton.SetToSetupPose();
                         crystal.AnimationState.ClearTracks();
-                        crystal.skeletonDataAsset.defaultMix = 0;
+                        crystal.AnimationState.Data.defaultMix = 0;
                         crystalTrack = crystal.AnimationState.SetAnimation(0, "chuxian", false);
                         crystalTrack.totalAlpha = 0;
                         crystalIsRun = true;
@@ -121,41 +121,58 @@ public class UIFurnace : MonoBehaviour
         switch (playerData.Furnace[currentMenu].FurnaceType)
         {
             case FurnaceType.Nothing:
-                if (furnace.AnimationState.ToString() != "clone")
+                Debug.Log("空运行");
+                if (furnace.AnimationState.ToString() != "clone" && furnace.AnimationState.ToString() != "close")
+                {
+                    furnace.AnimationState.Data.defaultMix = 0f;
                     furnace.AnimationState.SetAnimation(0, "clone", true);
+                }
+
+                if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
+                    crystal.AnimationState.SetAnimation(0, "on", false);
+
                 break;
             case FurnaceType.Run:
-                crystal.enabled = false;
-                if (furnace.AnimationState.ToString() == "open")
-                    furnace.AnimationState.AddAnimation(0, "stand", true, 0);
-                else if (furnace.AnimationState.ToString() != "stand")
-                    furnace.AnimationState.SetAnimation(0, "stand", true);
-
                 time.text = furnacesMenu[currentMenu].menuTime.text;
                 timeSlider.value = furnacesMenu[currentMenu].menuSlider.value;
                 timeSliderImage.color = Color.white;
+
+                Debug.Log("on");
+                if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
+                    crystal.AnimationState.SetAnimation(0, "on", false);
+                if (furnace.AnimationState.ToString() != "open" && furnace.AnimationState.ToString() != "stand")
+                {
+                    furnace.AnimationState.Data.defaultMix = 0f;
+                    furnace.AnimationState.SetAnimation(0, "stand", true);
+                }
+
                 break;
             case FurnaceType.End:
-                if (furnace.AnimationState.ToString() == "close")
-                    furnace.AnimationState.AddAnimation(0, "clone", true, 0);
-                else if (furnace.AnimationState.ToString() != "clone")
-                    furnace.AnimationState.SetAnimation(0, "clone", true);
-                if (crystal.AnimationState.ToString() == "chuxian")
-                {
-                    crystal.AnimationState.AddAnimation(0, "stand", true, 0);
-                }
-                else if (crystal.AnimationState.ToString() != "stand" && crystalIsRun)
-                {
-                    crystal.enabled = true;
-                    crystal.AnimationState.SetAnimation(0, "stand", true);
-                }
-
-
                 //重新同步时间和进度条
                 timeSlider.value = timeSlider.maxValue;
                 time.text = furnacesMenu[currentMenu].menuTime.text;
                 //进度条满值修改颜色
                 timeSliderImage.color = Color.green;
+
+                if (furnace.AnimationState.ToString() == "close")
+                    furnace.AnimationState.AddAnimation(0, "clone", true, 0);
+
+                else if (furnace.AnimationState.ToString() != "clone")
+                {
+                    furnace.AnimationState.Data.defaultMix = 0f;
+                    furnace.AnimationState.SetAnimation(0, "clone", true);
+                }
+
+                if (crystal.AnimationState.ToString() == "chuxian")
+                {
+                    //crystal.AnimationState.AddAnimation(0, "stand", true, 0);
+                }
+
+                else if (crystal.AnimationState.ToString() != "stand" && crystalIsRun)
+                {
+                    crystal.enabled = true;
+                    crystal.AnimationState.SetAnimation(0, "stand", true);
+                }
                 break;
             default:
                 break;
@@ -180,7 +197,7 @@ public class UIFurnace : MonoBehaviour
         start.onClick.AddListener(RunStart);
         isTrue.onClick.AddListener(TipTure);
         isFalse.onClick.AddListener(TipFalse);
-        typeEnd.onClick.AddListener(PlayFurCry);
+        crystal.GetComponent<Button>().onClick.AddListener(PlayFurCry);
         equipIsTrue.onClick.AddListener(TipTure);
 
         for (int i = 0; i < rawMaterials.Length; i++)
@@ -262,7 +279,11 @@ public class UIFurnace : MonoBehaviour
                 case FurnaceType.Run:
                     typeTime.SetActive(true);
                     typeStart.SetActive(false);
-                    crystal.enabled = false;
+
+                    Debug.Log("on");
+                    if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
+                        crystal.AnimationState.SetAnimation(0, "on", false);
+
                     break;
                 case FurnaceType.End:
                     typeTime.SetActive(false);
@@ -285,7 +306,7 @@ public class UIFurnace : MonoBehaviour
             }
             typeTime.SetActive(false);
             typeStart.SetActive(true);
-            crystal.enabled = false;
+
             ChickGoldCoin();
             furnacePopUp.UpdatePopUp(temporaryData);
             furnacePopUp.Restart();
@@ -303,6 +324,8 @@ public class UIFurnace : MonoBehaviour
             {
                 //如果当前选择的熔炉不是正在使用的熔炉,如果上面没有材料,那么清空材料列表
                 Debug.Log("切换熔炉");
+                crystalIsRun = true;
+
                 RemoveMaterial();
                 //先将材料返还在重置数据
                 temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
@@ -310,7 +333,32 @@ public class UIFurnace : MonoBehaviour
                 ChickMaterial();
                 currentMenu = i;
                 furnacesMenu[i].menu.interactable = false;
-
+                switch (playerData.Furnace[currentMenu].FurnaceType)
+                {
+                    case FurnaceType.Nothing:
+                        if (furnace.AnimationState.ToString() != "clone")
+                        {
+                            furnace.AnimationState.Data.defaultMix = 0f;
+                            furnace.AnimationState.SetAnimation(0, "clone", true);
+                        }
+                        break;
+                    case FurnaceType.Run:
+                        if (furnace.AnimationState.ToString() != "stand")
+                        {
+                            furnace.AnimationState.Data.defaultMix = 0f;
+                            furnace.AnimationState.SetAnimation(0, "stand", true);
+                        }
+                        break;
+                    case FurnaceType.End:
+                        if (furnace.AnimationState.ToString() != "clone")
+                        {
+                            furnace.AnimationState.Data.defaultMix = 0f;
+                            furnace.AnimationState.SetAnimation(0, "clone", true);
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 UpdateFurnace();
             }
         }
@@ -549,8 +597,10 @@ public class UIFurnace : MonoBehaviour
                 break;
             case FurnaceTipType.getEquip:
                 Debug.Log("打开奖励面板");
-                crystal.enabled = false;
                 equipTipGO.SetActive(true);
+                if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
+                    crystal.AnimationState.SetAnimation(0, "on", false);
+
                 break;
         }
     }
@@ -574,7 +624,7 @@ public class UIFurnace : MonoBehaviour
                 break;
             case FurnaceTipType.getEquip:
                 //点击确认 允许播放待机动画
-                crystalIsRun = true;
+
                 break;
             default:
                 break;
@@ -602,7 +652,12 @@ public class UIFurnace : MonoBehaviour
         playerData.Furnace[currentMenu] = new FurnaceData(currentMenu, temporaryData);
         temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
         //当前熔炉开始运行
+        furnace.Skeleton.SetToSetupPose();
+        furnace.AnimationState.ClearTracks();
         furnace.AnimationState.SetAnimation(0, "open", false);
+        furnace.AnimationState.Data.defaultMix = 0;
+        furnace.AnimationState.AddAnimation(0, "stand", true, 0);
+        Debug.Log("Open转Stand");
         playerData.Furnace[currentMenu].FurnaceType = FurnaceType.Run;
         furnace.Skeleton.SetSlotsToSetupPose();
         UpdateFurnace();
@@ -639,9 +694,6 @@ public class UIFurnace : MonoBehaviour
                 case ItemMaterialType.Leatherwear:
                     data[3] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
                     break;
-                case ItemMaterialType.Cloth:
-                    data[4] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
-                    break;
                 case ItemMaterialType.Magic:
                     data[5] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
                     break;
@@ -650,9 +702,6 @@ public class UIFurnace : MonoBehaviour
                     break;
                 case ItemMaterialType.Stone:
                     data[7] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
-                    break;
-                case ItemMaterialType.Rubber:
-                    data[8] += playerData.Furnace[currentMenu].PopPoint[i].materialNumber;
                     break;
                 default:
                     break;
@@ -712,11 +761,10 @@ public class UIFurnace : MonoBehaviour
         UpdateFurnaceMenu();
 
         crystalIsRun = false;
-        crystal.AnimationState.Complete += HandleEvent;
         crystal.AnimationState.SetAnimation(0, "click", false);
-        crystal.enabled = true;
         Debug.Log("显示2");
-
+        crystal.AnimationState.Data.defaultMix = 0;
+        crystal.AnimationState.AddAnimation(0, "on", false, 0);
     }
     /// <summary>
     /// 显示奖励面板
@@ -727,10 +775,6 @@ public class UIFurnace : MonoBehaviour
         TipType();
 
     }
-
-
-
-
 
     void TimeSerialization(int time, Text text)
     {

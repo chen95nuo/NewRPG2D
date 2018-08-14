@@ -37,10 +37,12 @@ public class UIBusinessTip : MonoBehaviour
         Init();
 
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateBuyItem, BuyItem);
+        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateMessageTipEvent, ChickMessage);
     }
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateBuyItem, BuyItem);
+        UIEventManager.instance.RemoveListener<GameObject>(UIEventDefineEnum.UpdateMessageTipEvent, ChickMessage);
     }
 
     private void Init()
@@ -54,6 +56,36 @@ public class UIBusinessTip : MonoBehaviour
         addNumber.onClick.AddListener(ChickAdd);
         reduceNumber.onClick.AddListener(ChickReduce);
 
+    }
+
+    private void ChickMessage(GameObject go)
+    {
+        Debug.Log("Message");
+        if (go = this.gameObject)
+        {
+            //如果点击确认 获取当前道具信息 道具价格 为背包中的道具添加数量;
+            playerData.GoldCoin -= (int)currentPrice;//扣钱
+            switch (uiBagGrid.itemType)
+            {
+                case ItemType.Nothing:
+                    break;
+                case ItemType.Egg:
+                    break;
+                case ItemType.Prop:
+                    uiBagGrid.propData.Number -= (int)slider_BuyNumber.value;//扣道具
+                    BagItemData.Instance.AddItems(uiBagGrid.propData, (int)slider_BuyNumber.value);//背包添加道具
+                    break;
+                case ItemType.Equip:
+                    break;
+                case ItemType.Role:
+                    break;
+                default:
+                    break;
+            }
+            UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateBuyItem, true);
+
+            TinyTeam.UI.TTUIPage.ClosePage<UIBusinessTipPage>();
+        }
     }
 
     private void BuyItem(UIBagGrid data)
@@ -108,27 +140,12 @@ public class UIBusinessTip : MonoBehaviour
             return;
         }
         Debug.Log("确认购买");
-        //如果点击确认 获取当前道具信息 道具价格 为背包中的道具添加数量;
-        playerData.GoldCoin -= (int)currentPrice;//扣钱
-        switch (uiBagGrid.itemType)
-        {
-            case ItemType.Nothing:
-                break;
-            case ItemType.Egg:
-                break;
-            case ItemType.Prop:
-                uiBagGrid.propData.Number -= (int)slider_BuyNumber.value;//扣道具
-                BagItemData.Instance.AddItems(uiBagGrid.propData, (int)slider_BuyNumber.value);//背包添加道具
-                break;
-            case ItemType.Equip:
-                break;
-            case ItemType.Role:
-                break;
-            default:
-                break;
-        }
-        UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateBuyItem, true);
-        TinyTeam.UI.TTUIPage.ClosePage<UIBusinessTipPage>();
+        string message = "是否使用" + currentPrice + "购买" + uiBagGrid.propData.Name + "*" + slider_BuyNumber.value;
+        TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
+        UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, message);
+        UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateMessageTipGoEvent, this.gameObject);
+        ////如果点击确认 获取当前道具信息 道具价格 为背包中的道具添加数量;
+
     }
     private void ChickBack()
     {
@@ -148,12 +165,48 @@ public class UIBusinessTip : MonoBehaviour
         buyNumber.text = slider_BuyNumber.value.ToString();
         currentPrice = itemPrice * slider_BuyNumber.value;
         text_currentPrice.text = currentPrice.ToString();
-        if (currentPrice > playerData.GoldCoin)
+        Debug.Log(currentPrice);
+        Debug.Log(playerData.GoldCoin);
+        if (uiBagGrid == null)
         {
-            btn_Buy.interactable = false;
-            text_currentPrice.text = "<color=#FF0000>" + currentPrice + "</color>";
+            return;
         }
-        else
+        switch (uiBagGrid.propData.StorePropType)
+        {
+            case StorePropType.Nothing:
+                break;
+            case StorePropType.GoldCoin:
+                if (currentPrice > playerData.GoldCoin)
+                {
+                    btn_Buy.interactable = false;
+                    text_currentPrice.text = "<color=#FF0000>" + currentPrice + "</color>";
+                }
+                else
+                {
+                    state();
+                }
+                break;
+            case StorePropType.Diamonds:
+                if (currentPrice > playerData.Diamonds)
+                {
+                    btn_Buy.interactable = false;
+                    text_currentPrice.text = "<color=#FF0000>" + currentPrice + "</color>";
+                }
+                else
+                {
+                    state();
+                }
+                break;
+            default:
+                break;
+        }
+
+
+
+    }
+
+    private void state()
+    {
         {
             btn_Buy.interactable = true;
             if (uiBagGrid == null)

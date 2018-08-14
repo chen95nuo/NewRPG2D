@@ -10,7 +10,9 @@ public class UIFurnacePopUp : MonoBehaviour
     private int iron = 0;
     private int wood = 0;
     private int leatherwear = 0;
-    private int cloth = 0;
+    private int stone;//石头
+    private int magic;//魔法
+    private int diamonds;//钻石
     private FurnaceData furnaceData;
 
     private void Awake()
@@ -39,7 +41,7 @@ public class UIFurnacePopUp : MonoBehaviour
             }
         }
         //初始化参数
-        iron = wood = leatherwear = cloth = 0;
+        iron = wood = leatherwear = stone = magic = diamonds = 0;
 
         //检查熔炉是否运行
         if (data.FurnaceType == FurnaceType.Run || data.FurnaceType == FurnaceType.End)
@@ -90,9 +92,17 @@ public class UIFurnacePopUp : MonoBehaviour
                 leatherwear += rawMaterial.number;
                 InstancePopUp(ItemMaterialType.Leatherwear, leatherwear);
                 break;
-            case ItemMaterialType.Cloth:
-                cloth += rawMaterial.number;
-                InstancePopUp(ItemMaterialType.Cloth, cloth);
+            case ItemMaterialType.Magic:
+                magic += rawMaterial.number;
+                InstancePopUp(ItemMaterialType.Magic, magic);
+                break;
+            case ItemMaterialType.Diamonds:
+                diamonds += rawMaterial.number;
+                InstancePopUp(ItemMaterialType.Diamonds, diamonds);
+                break;
+            case ItemMaterialType.Stone:
+                stone += rawMaterial.number;
+                InstancePopUp(ItemMaterialType.Stone, stone);
                 break;
             default:
                 break;

@@ -36,11 +36,6 @@ public class UIBagItem : MonoBehaviour
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateRolesEvent, UpdateRole);//更新角色
     }
 
-    void Start()
-    {
-
-    }
-
     void OnDestroy()
     {
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);
@@ -193,6 +188,7 @@ public class UIBagItem : MonoBehaviour
 
         for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
         {
+            Debug.Log(BagRoleData.Instance.roles[i].Name);
             grids[i].UpdateItem(BagRoleData.Instance.roles[i]);
         }
     }

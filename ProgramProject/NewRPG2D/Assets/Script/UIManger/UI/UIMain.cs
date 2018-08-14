@@ -10,6 +10,8 @@ public class UIMain : MonoBehaviour
     public Text text_Fatigue;
     public Slider slider_Exp;
     public Text text_Exp;
+    public Text text_Level;
+    public Text text_Name;
 
     private void Awake()
     {
@@ -41,7 +43,10 @@ public class UIMain : MonoBehaviour
         text_Exp.text = data.Level.ToString();
         float maxExp = GetPlayerExpData.Instance.GetItem(data.Level).NeedExp;
         slider_Exp.maxValue = maxExp;
-        text_Exp.text = "Lv." + data.Level + " / Exp: " + data.Exp;
+        text_Exp.text = data.Exp + "/" + data.maxExp;
+        text_Level.text = "lv." + data.Level;
+        text_Name.text = data.Name;
+
     }
 
     private void UpdateGoldCoin()
@@ -64,7 +69,9 @@ public class UIMain : MonoBehaviour
         PlayerData data = GetPlayData.Instance.player[0];
         float maxExp = GetPlayerExpData.Instance.GetItem(data.Level).NeedExp;
         slider_Exp.maxValue = maxExp;
-        text_Exp.text = "Lv." + data.Level + " / Exp: " + data.Exp;
+        text_Exp.text = data.Exp + "/" + data.maxExp;
+        text_Level.text = "lv." + data.Level;
+        text_Name.text = data.Name;
     }
 
 }

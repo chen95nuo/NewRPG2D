@@ -123,12 +123,10 @@ public enum ItemMaterialType
     Nothing,//无
     Iron,//铁
     Wood,//木头
-    Leatherwear,//布料
-    Cloth,//皮革
-    Magic,//魔法
-    Diamonds,//钻石
     Stone,//石头
-    Rubber//橡胶
+    Leatherwear,//布料
+    Magic,//魔法
+    Diamonds//钻石
 }
 
 public enum TipType
@@ -173,7 +171,8 @@ public enum UIEventDefineEnum
     UpdateExploreTipEvent,
     UpdateHatcheryEvent,
     UpdateLittleTipEvent,
-    UpdateMissageTipEvent,
+    UpdateMessageTipEvent,
+    UpdateMessageTipGoEvent,
     MissionComplete,
     MissionFailed,
     FightMessage,

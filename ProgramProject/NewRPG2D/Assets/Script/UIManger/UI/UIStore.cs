@@ -25,7 +25,11 @@ public class UIStore : MonoBehaviour
 
         Init();
     }
+    private void OnDestroy()
+    {
+        UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateBuyItem, IsTrue);
 
+    }
 
     private void Init()
     {
@@ -44,13 +48,6 @@ public class UIStore : MonoBehaviour
     {
         RefreshStore();
     }
-
-    private void OnDestroy()
-    {
-        UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateBuyItem, IsTrue);
-
-    }
-
 
 
     private void RefreshStore()
@@ -75,50 +72,9 @@ public class UIStore : MonoBehaviour
 
         bagItem.UpdateStore(toDayItem);//刷新今日道具
     }
-    //public void SliderValueChange()
-    //{
-    //    buyNumber.text = buySlider.value.ToString();
-    //    currentPrice = currentData.BuyPrice * buySlider.value;
-    //    priceNumber.text = currentPrice.ToString();
-    //    if (currentPrice > playerData.GoldCoin)
-    //    {
-    //        btn_true.interactable = false;
-    //        priceNumber.text = "<color=#FF0000>" + currentPrice + "</color>";
-    //    }
-    //    else
-    //    {
-    //        btn_true.interactable = true;
-    //        //priceNumber.text = "<color=#E7BE2F>" + currentPrice + "</color>";
-    //        switch (currentData.StorePropType)
-    //        {
-    //            case StorePropType.Nothing:
-    //                break;
-    //            case StorePropType.GoldCoin:
-    //                priceNumber.text = "<color=#E7BE2F>" + currentPrice + "</color>";
-    //                break;
-    //            case StorePropType.Diamonds:
-    //                priceNumber.text = "<color=#79D2FF>" + currentPrice + "</color>";
-    //                break;
-    //            default:
-    //                break;
-    //        }
-    //    }
-    //}
-
-    //public void BuyNumberAdd()
-    //{
-    //    buySlider.value++;
-    //}
-
-    //public void BuyNumberReduce()
-    //{
-    //    buySlider.value--;
-    //}
 
     public void IsTrue(bool isTrue)
     {
-        //currentItem.UpdateItem(currentData);//刷新道具
         bagItem.UpdateStore(toDayItem);//刷新道具
-        //DrwTipPage(currentData);//刷新进度条
     }
 }

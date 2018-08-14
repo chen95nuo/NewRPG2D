@@ -126,7 +126,7 @@ public class UIRoleInformation : MonoBehaviour
         if (cardData.Fighting)
         {
             TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
-            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "正在探险");
+            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, "正在探险");
             return;
         }
         pickUpRoleStrentthen.UpdateRole(this);
@@ -137,7 +137,7 @@ public class UIRoleInformation : MonoBehaviour
     private void ShowRoleInnatePage()
     {
         TTUIPage.ShowPage<UIMessageTipPage>();
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "天赋系统暂未开放");
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipEvent, "天赋系统暂未开放");
     }
     /// <summary>
     /// 潜能
@@ -145,7 +145,7 @@ public class UIRoleInformation : MonoBehaviour
     private void ShowRolePotentialPage()
     {
         TTUIPage.ShowPage<UIMessageTipPage>();
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "潜能系统暂未开放");
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipEvent, "潜能系统暂未开放");
     }
     /// <summary>
     /// 礼物
@@ -153,7 +153,7 @@ public class UIRoleInformation : MonoBehaviour
     private void ShowRoleGiftPage()
     {
         TTUIPage.ShowPage<UIMessageTipPage>();
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "礼物系统暂未开放");
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipEvent, "礼物系统暂未开放");
     }
     /// <summary>
     /// 遣散
@@ -161,7 +161,7 @@ public class UIRoleInformation : MonoBehaviour
     private void ShowRoleDisbandPage()
     {
         TTUIPage.ShowPage<UIMessageTipPage>();
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMissageTipEvent, "遣散系统暂未开放");
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipEvent, "遣散系统暂未开放");
     }
 
     /// <summary>

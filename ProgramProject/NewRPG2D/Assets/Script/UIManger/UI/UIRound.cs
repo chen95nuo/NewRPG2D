@@ -267,7 +267,7 @@ public class UIRound : MonoBehaviour
                 {
                     //提示有角色在战斗中
                     TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
-                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "有角色在探险中无法开启");
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, "有角色在探险中无法开启");
                     return;
                 }
             }
@@ -305,7 +305,7 @@ public class UIRound : MonoBehaviour
         {
             //提示没有角色无法开始
             TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
-            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMissageTipEvent, "没有角色无法开始");
+            UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, "没有角色无法开始");
         }
 
         /*开启关卡

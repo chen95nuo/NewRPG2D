@@ -19,8 +19,8 @@ public class UIMessageTipPage : TTUIPage
 
     public override void Awake(GameObject go)
     {
-        UIEventManager.instance.AddListener<string>(UIEventDefineEnum.UpdateMissageTipEvent, UpdateMessage);
-        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateMissageTipEvent, ChickGO);
+        UIEventManager.instance.AddListener<string>(UIEventDefineEnum.UpdateMessageTipEvent, UpdateMessage);
+        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateMessageTipGoEvent, ChickGO);
         btn_isTrue = this.transform.Find("MainBG/BtnGroup/btn_isTrue").GetComponent<Button>();
         btn_back = this.transform.Find("MainBG/BtnGroup/btn_back").GetComponent<Button>();
         btn_isTrue.onClick.AddListener(ChickIsTrue);
@@ -37,9 +37,8 @@ public class UIMessageTipPage : TTUIPage
     public void ChickIsTrue()
     {
         if (go != null)
-            UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateMissageTipEvent, go);
-        else
-            ClosePage<UIMessageTipPage>();
+            UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateMessageTipEvent, go);
+        ClosePage<UIMessageTipPage>();
 
     }
     public void ChickGO(GameObject go)

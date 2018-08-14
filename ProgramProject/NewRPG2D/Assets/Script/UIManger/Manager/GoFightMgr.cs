@@ -51,6 +51,6 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     }
     public void MissionFailed()
     {
-
+        TinyTeam.UI.TTUIPage.ShowPage<UIMissionFailedPage>();
     }
 }
