@@ -8,6 +8,7 @@ public class RoleRender : MonoBehaviour
 {
     public SkeletonAnimation roleAnimation;
     [SerializeField] private SortingGroup currentSortingGroup;
+    [SerializeField] private GameObject blueSelectObj, redSelectObj;
     public RoleBase CurrentRole { get; private set; }
     private Transform _trans;
     private Transform _renderTrans;
@@ -17,6 +18,14 @@ public class RoleRender : MonoBehaviour
     private void Awake()
     {
         _trans = transform;
+        EventManager.instance.AddListener<int>(EventDefineEnum.ClickMyRole, OnClickMyRole);
+        EventManager.instance.AddListener<RoleBase>(EventDefineEnum.ClickEnemyRole, OnClickEnemyRole);
+    }
+
+    private void OnDestory()
+    {
+        EventManager.instance.RemoveListener<int>(EventDefineEnum.ClickMyRole, OnClickMyRole);
+        EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.ClickEnemyRole, OnClickEnemyRole);
     }
 
     private void Update()
@@ -55,6 +64,43 @@ public class RoleRender : MonoBehaviour
     private void SetRendererSorintRender()
     {
         currentSortingGroup.sortingOrder = (int)((6 - transform.position.y) * 1000);
+    }
+
+
+    private void OnClickMyRole(int instanceId)
+    {
+        if (CurrentRole.InstanceId == instanceId)
+        {
+            blueSelectObj.SetActive(true);
+            redSelectObj.SetActive(false);
+        }
+        else
+        {
+            blueSelectObj.SetActive(false);
+            redSelectObj.SetActive(false);
+        }
+    }
+
+    private void OnClickEnemyRole(RoleBase roleInfo)
+    {
+        if (roleInfo == null)
+        {
+            blueSelectObj.SetActive(false);
+            redSelectObj.SetActive(false);
+        }
+        else
+        {
+            if (CurrentRole.InstanceId == roleInfo.InstanceId)
+            {
+                blueSelectObj.SetActive(false);
+                redSelectObj.SetActive(true);
+            }
+            else
+            {
+                blueSelectObj.SetActive(false);
+                redSelectObj.SetActive(false);
+            }
+        }
     }
 
 

@@ -27,7 +27,7 @@ namespace Assets.Script.Battle.LevelManager
         [SerializeField]
         private string sceneName;
 
-        public static ushort currentInstanceId = 0;
+        public static ushort currentInstanceId = 100;
 
         private int sceneId = 100001;
         private Queue<CreateEnemyData> enemyDatas;
@@ -50,7 +50,7 @@ namespace Assets.Script.Battle.LevelManager
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
             GameRoleMgr.instance.CurrentPlayerMp.Value = GoFightMgr.instance.PlayerLevel * 50;
-            currentInstanceId = 0;
+            currentInstanceId = 100;
             isCreateEnemy = false;
             isGameOver = false;
         }
@@ -144,7 +144,7 @@ namespace Assets.Script.Battle.LevelManager
                 {
                     if (enemyData.CreateEnemyInfoList[i].EnemyPointRoleId > 0)
                     {
-                        Debug.LogError(" RemianEnemyCount  " + enemyData.CreateEnemyInfoList[i].EnemyPointRoleId);
+                        //Debug.LogError(" RemianEnemyCount  " + enemyData.CreateEnemyInfoList[i].EnemyPointRoleId);
                         GameRoleMgr.instance.RemianEnemyCount.Value += enemyData.CreateEnemyInfoList[i].EnemyCount;
                     }
                 }

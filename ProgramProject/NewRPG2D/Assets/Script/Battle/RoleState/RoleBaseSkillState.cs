@@ -70,6 +70,7 @@ namespace Assets.Script.Battle.RoleState
                 return;
             }
             GameRoleMgr.instance.CurrentPlayerMp.Value -= MP;
+            Debug.LogError(" MP " + GameRoleMgr.instance.CurrentPlayerMp.Value);
             // mRoleBase.RolePropertyValue.SetMp(MP);
             AnimationEntry = mRoleBase.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
             CurrentSkillData.UseSkill();
