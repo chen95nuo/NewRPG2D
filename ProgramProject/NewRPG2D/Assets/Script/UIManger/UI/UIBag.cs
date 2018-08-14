@@ -104,7 +104,7 @@ public class UIBag : MonoBehaviour
     /// </summary>
     public void OnClickMenu()
     {
-
+        Debug.Log("触发点击");
         if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name != "btn_Pack")
         {
             string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;

@@ -121,7 +121,7 @@ public class UIHatcheryGrid : MonoBehaviour
     public void ChickComplete()
     {
         TinyTeam.UI.TTUIPage.ShowPage<UIRoleTipPage>();
-        CardData data = GameCardData.Instance.GetItem(hatchery.Eggdata.Id);
+        CardData data = GameCardData.Instance.GetItem(hatchery.Eggdata.ResultId);
         UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateRoleTipEvent, data);
         btn_hatchery.image.sprite = gridSprite;
         hatchery.HatcheryType = HatcheryType.Open;

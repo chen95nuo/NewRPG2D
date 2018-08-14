@@ -28,6 +28,7 @@ public class UIRoleStrengthen : MonoBehaviour
     public UIRoleInformation roleInformation;
 
     public GameObject currentButton;
+    public Text cardName;
 
     private bool isRun = false;
     private float currentAddExp = 0;
@@ -96,7 +97,7 @@ public class UIRoleStrengthen : MonoBehaviour
             roleLevelText.text = "Lv." + currentLevel;
             roleExpSlider.value = index;
             roleExpSlider.maxValue = maxExp;
-            addExpText.text = "Exp+ " + (currentAddExp - currentValue).ToString("#0.0");
+            addExpText.text = (currentAddExp - currentValue).ToString();
             roleExpText.text = index.ToString("#0") + " / " + maxExp;
 
             if (currentValue == currentAddExp)
@@ -130,10 +131,11 @@ public class UIRoleStrengthen : MonoBehaviour
         roleStars.sprite = data.roleStars.sprite;
         float maxExp = data.RoleData.maxExp;
         roleLevelText.text = "Lv." + data.RoleData.Level;
-        roleExpText.text = data.RoleData.Exp.ToString("#0.0") + " / " + maxExp;
+        roleExpText.text = data.RoleData.Exp + " / " + maxExp;
         roleExpSlider.maxValue = maxExp;
         roleExpSlider.value = data.RoleData.Exp;
         UpdateMaterial();
+        cardName.text = data.RoleData.Name;
     }
 
     /// <summary>
@@ -167,7 +169,7 @@ public class UIRoleStrengthen : MonoBehaviour
             if (cardData[i] != null) //计算经验
             {
                 currentAddExp += cardData[i].UseAddExp;
-                addExpText.text = currentAddExp.ToString("#0.0");
+                addExpText.text = currentAddExp.ToString();
             }
         }
     }

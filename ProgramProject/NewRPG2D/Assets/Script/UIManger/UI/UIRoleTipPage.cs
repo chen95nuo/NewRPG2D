@@ -24,6 +24,7 @@ public class UIRoleTipPage : TTUIPage
 
     public void UpdateRole(CardData data)
     {
+        Debug.Log(data.Id);
         float atk = Random.Range(data.AttackMinGrow, data.AttackMaxGrow + 1);
         int _atk = RoleGrade(atk, data.AttackMinGrow, data.AttackMaxGrow);
 

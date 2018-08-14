@@ -323,6 +323,10 @@ public class UIRoleInformation : MonoBehaviour
             default:
                 break;
         }
+        if (message == "")
+        {
+            return;
+        }
         TTUIPage.ShowPage<UILittleTipPage>();
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, message);
     }

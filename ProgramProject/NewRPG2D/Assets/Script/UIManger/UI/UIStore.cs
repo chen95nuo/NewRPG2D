@@ -40,7 +40,7 @@ public class UIStore : MonoBehaviour
     {
         System.DateTime nextDay = SystemTime.insatnce.GetTime().AddDays(1).Date;
         System.TimeSpan ts = nextDay.Subtract(SystemTime.insatnce.GetTime());
-        string nowTime = "刷新时间:" + string.Format("{0:D2}", (int)ts.TotalHours) + ":" + string.Format("{0:D2}", ts.Minutes);
+        string nowTime = string.Format("{0:D2}", (int)ts.TotalHours) + ":" + string.Format("{0:D2}", ts.Minutes);
         time.text = nowTime;
     }
 

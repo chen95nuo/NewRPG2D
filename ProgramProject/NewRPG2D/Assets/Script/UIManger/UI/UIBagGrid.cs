@@ -223,7 +223,10 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);
-        otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        if (otherGrid.otherBG != null)
+        {
+            otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         otherGrid.otherNumber.gameObject.SetActive(true);
         otherGrid.otherNumber.text = data.Number.ToString();
@@ -261,7 +264,10 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);
-        otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        if (otherGrid.otherBG != null)
+        {
+            otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         otherGrid.otherNumber.gameObject.SetActive(false);
 

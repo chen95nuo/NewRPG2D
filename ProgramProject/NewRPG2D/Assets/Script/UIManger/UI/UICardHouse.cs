@@ -55,6 +55,7 @@ public class UICardHouse : TTUIPage
 
     public void ItemSortEvent()
     {
+        Debug.Log("排序");
         createMenu.ItemSortEvent(transform);
     }
 

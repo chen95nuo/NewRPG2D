@@ -21,6 +21,7 @@ public class UIFurnace : MonoBehaviour
     public GameObject typeStart;
     public Text goldCoin;
     public Text needTime;
+    public GameObject needTimeOBJ;
     public Button start;
 
     public Button rawMaterial;
@@ -97,7 +98,7 @@ public class UIFurnace : MonoBehaviour
                     if (currentMenu == i)
                     {
                         ////熔炼结束的瞬间
-                        furnace.AnimationState.Data.defaultMix = 0.5f;
+                        furnace.AnimationState.Data.defaultMix = 0f;
                         furnace.AnimationState.SetAnimation(0, "close", false);
                         crystal.Skeleton.SetToSetupPose();
                         crystal.AnimationState.ClearTracks();
@@ -193,8 +194,10 @@ public class UIFurnace : MonoBehaviour
 
         TipGO.SetActive(false);
         equipTipGO.SetActive(false);
-        start.interactable = false;
         start.onClick.AddListener(RunStart);
+        start.gameObject.SetActive(false);
+        needTimeOBJ.SetActive(false);
+
         isTrue.onClick.AddListener(TipTure);
         isFalse.onClick.AddListener(TipFalse);
         crystal.GetComponent<Button>().onClick.AddListener(PlayFurCry);
@@ -392,11 +395,13 @@ public class UIFurnace : MonoBehaviour
             }
             if (index >= 4)
             {
-                start.interactable = true;
+                start.gameObject.SetActive(true);
+                needTimeOBJ.SetActive(true);
             }
             else
             {
-                start.interactable = false;
+                start.gameObject.SetActive(false);
+                needTimeOBJ.SetActive(false);
             }
         }
     }
