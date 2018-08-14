@@ -298,7 +298,7 @@ public class UIRound : MonoBehaviour
             //{
 
             //}
-            SceneManager.LoadScene("Scene_Test");
+            SceneManager.LoadScene("Scene_1");
 
         }
         else

@@ -13,5 +13,15 @@ namespace Assets.Script.Battle.BattleUI
         public BattleUIMyRoleInfo RoleInfo;
         public BattleUISceneInfo SceneInfo;
         public BattleUIRoleHpInfo HpInfo;
+
+        public void Awake()
+        {
+            EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+        }
+
+        private void LoadLevelUpdate(LoadLevelParam param)
+        {
+            SceneInfo.StartGame();
+        }
     }
 }

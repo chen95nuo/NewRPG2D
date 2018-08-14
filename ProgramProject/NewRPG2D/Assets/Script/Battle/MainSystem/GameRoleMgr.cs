@@ -13,8 +13,8 @@ namespace Assets.Script.Battle
         public List<RoleBase> RolesEnemyList = new List<RoleBase>(10);
         public List<RoleBase> RolesHeroList = new List<RoleBase>(10);
         public Dictionary<ushort, RoleBase> RoleDic = new Dictionary<ushort, RoleBase>();
-        public TSimpleNotifier<int> RemianEnemyCount;
-        public TSimpleNotifier<int> CurrentPlayerMp;
+        public TSimpleNotifier<int> RemianEnemyCount = new TSimpleNotifier<int>();
+        public TSimpleNotifier<int> CurrentPlayerMp = new TSimpleNotifier<int>();
 
         public void ClearAllRole()
         {
@@ -33,6 +33,11 @@ namespace Assets.Script.Battle
         public void AddMonsterRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
         {
             RoleRender roleMono = SetRoleTransform(roleId, indexName, instanceId, transform, mPosition, angle);
+            if (roleMono == null)
+            {
+                return;
+            }
+
             roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
             RoleInfo info = new RoleInfo();
             EnemyHeroRole role = new EnemyHeroRole();
@@ -52,6 +57,10 @@ namespace Assets.Script.Battle
         public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, CardData roleData, float angle)
         {
             RoleRender roleMono = SetRoleTransform(roleData.Id, indexName, instanceId, transform, mPosition, angle);
+            if (roleMono == null)
+            {
+                return;
+            }
 
             Debug.Log("AddHeroRole addrole:" + instanceId);
             RoleInfo info = new RoleInfo();
@@ -66,6 +75,7 @@ namespace Assets.Script.Battle
             RolesList.Add(role);
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
+            Debug.LogError(" AddHeroRole ");
             EventManager.instance.SendEvent(EventDefineEnum.CreateRole, role);
         }
 
@@ -82,6 +92,10 @@ namespace Assets.Script.Battle
         private RoleRender SetRoleTransform(int roleId, string indexName, int instanceId, Transform transform, Vector3 mPosition, float angle)
         {
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleId);
+            if (currentRoleData == null)
+            {
+                return null;
+            }
             string itemModelName = currentRoleData.PrefabPathName;
             return SetRoleTransform<RoleRender>(itemModelName, indexName, instanceId, transform, mPosition, angle);
         }

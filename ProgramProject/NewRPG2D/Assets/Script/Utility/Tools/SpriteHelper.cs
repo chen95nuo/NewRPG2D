@@ -38,6 +38,7 @@ namespace Assets.Script.Utility.Tools
         public override void Init()
         {
             base.Init();
+            iconImageDic = new Dictionary<SpriteAtlasTypeEnum, SpriteAtlas>();
             SpriteAtlasTypeEnum defaultSpriteAtlasType = SpriteAtlasTypeEnum.Icon;
             SetIconImageDic(defaultSpriteAtlasType);
         }

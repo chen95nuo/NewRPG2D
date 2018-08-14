@@ -129,6 +129,10 @@ namespace Assets.Script.Timer
 
         private void RemoveCTimer(CTimer mCTimer)
         {
+            if (mCTimer == null)
+            {
+                return;
+            }
             //mCTimer.Finish();
             mCTimer.Dispose();
             mCTimerList.Remove(mCTimer);

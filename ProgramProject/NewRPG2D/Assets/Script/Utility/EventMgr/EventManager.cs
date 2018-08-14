@@ -72,9 +72,10 @@ public class EventManager : TSingleton<EventManager>
             listenerTarget[index].Remove(eventHadle);
         }
     }
+
     public void SendEvent<TParam>(EventDefineEnum eventID, TParam param)
     {
-        int index = (int)eventID;
+        int index = (int) eventID;
         if (index > listenerTarget.Length)
         {
             UnityEngine.Debug.LogError("EventDefine error " + eventID);
@@ -84,6 +85,7 @@ public class EventManager : TSingleton<EventManager>
         for (int i = 0; i < listenerTarget[index].Count; i++)
         {
             TDelegate<TParam> tempDelegate = listenerTarget[index][i] as TDelegate<TParam>;
+           
             if (tempDelegate != null)
             {
                 tempDelegate(param);

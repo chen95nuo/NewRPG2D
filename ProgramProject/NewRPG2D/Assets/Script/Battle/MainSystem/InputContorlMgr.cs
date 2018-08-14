@@ -36,7 +36,18 @@ namespace Assets.Script.Battle
             if (Input.GetMouseButtonDown(0))
             {
                 cacheRole = GetTouchRoleRender();
-                DebugHelper.Log(" cacheRole "+ cacheRole.name);
+                if (cacheRole != null)
+                {
+                    if (cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
+                    {
+                        EventManager.instance.SendEvent(EventDefineEnum.ClickMyRole, cacheRole.CurrentRole);
+                    }
+                    else
+                    {
+                        EventManager.instance.SendEvent(EventDefineEnum.ClickEnemyRole, cacheRole.CurrentRole);
+                    }
+                    DebugHelper.Log(" cacheRole " + cacheRole.name);
+                }
             }
             else if (Input.GetMouseButtonUp(0))
             {

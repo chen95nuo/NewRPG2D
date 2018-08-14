@@ -42,7 +42,7 @@ namespace Assets.Script.Battle.BattleData
         private CreateEnemyInfo GetCreateEnemyInfo(XmlNode node, int Index)
         {
             CreateEnemyInfo info = new CreateEnemyInfo();
-            info.PositionType = (BornPositionTypeEnum)Index;
+            info.PositionType = (BornPositionTypeEnum)(Index - 1);
             info.EnemyPointRoleId = ReadXmlDataMgr.IntParse(node, string.Format("EnemyPoint{0}RoleId", Index));
             info.EnemyCount = ReadXmlDataMgr.IntParse(node, string.Format("EnmeyCount0{0}", Index));
             info.FirstEnemyDelayTime = ReadXmlDataMgr.FloatParse(node, string.Format("FirstEnemyDelayTime0{0}", Index));

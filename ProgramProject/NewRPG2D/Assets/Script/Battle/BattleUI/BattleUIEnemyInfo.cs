@@ -8,7 +8,7 @@ namespace Assets.Script.Battle.BattleUI
     public class BattleUIEnemyInfo : MonoBehaviour
     {
         public Image roleIcon;
-        public Scrollbar HpScrollbar;
+        public Image HpImage;
         public Text HpValue;
         public Text maxHpValue;
         public Text roleName;
@@ -58,7 +58,7 @@ namespace Assets.Script.Battle.BattleUI
             currentInstanceId = instanceId;
             roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.SpriteName);
             currentHp = maxHp = info.Health;
-            HpScrollbar.value = 1;
+            HpImage.fillAmount = 1;
             maxHpValue.text = " /" + StringHelper.instance.IntToString((int)maxHp);
             HpValue.text = StringHelper.instance.IntToString((int)currentHp);
             roleName.text = info.Name;
@@ -67,7 +67,7 @@ namespace Assets.Script.Battle.BattleUI
         private void SetHpValue(float Hp)
         {
             currentHp = Hp;
-            HpScrollbar.value = currentHp / maxHp;
+            HpImage.fillAmount = currentHp / maxHp;
             HpValue.text = StringHelper.instance.IntToString((int)currentHp);
         }
 

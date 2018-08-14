@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Globe
 {
-    public static string nextSceneName;
+    public static string nextSceneName = "Test";
 }
 
 public class AsyncLoadFightScene : MonoBehaviour

@@ -8,7 +8,7 @@ namespace Assets.Script.Battle.BattleUI
     public class BattleUIMyRoleInfoItem : MonoBehaviour
     {
         public Image roleIcon;
-        public Scrollbar HpScrollbar;
+        public Image HpImage;
         public Text HpValue;
         public Text maxHpValue;
         public Image SelectImage;
@@ -28,7 +28,7 @@ namespace Assets.Script.Battle.BattleUI
             CurrentInstanceId = info.Id;
             roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.SpriteName);
             currentHp = maxHp = info.Health;
-            HpScrollbar.value = 1;
+            HpImage.fillAmount = 1;
             maxHpValue.text = " /"+StringHelper.instance.IntToString((int)maxHp);
             HpValue.text = StringHelper.instance.IntToString((int)currentHp);
         }
@@ -36,7 +36,7 @@ namespace Assets.Script.Battle.BattleUI
         public void SetHpValue(float Hp)
         {
             currentHp = Hp;
-            HpScrollbar.value = currentHp/maxHp;
+            HpImage.fillAmount = currentHp/maxHp;
             HpValue.text = StringHelper.instance.IntToString((int) currentHp);
         }
 

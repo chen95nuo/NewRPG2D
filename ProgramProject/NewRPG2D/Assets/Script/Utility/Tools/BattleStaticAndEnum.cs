@@ -109,7 +109,7 @@ namespace Assets.Script.Battle
     #region Enum
     public enum BornPositionTypeEnum
     {
-        Point01 = 1,
+        Point01 = 0,
         Point02,
         Point03,
         Point04,

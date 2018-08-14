@@ -9,7 +9,8 @@ namespace Assets.Script.Battle.BattleUI
     {
         public Text RemainTimeText;
         public Text RemainEnemyCountText;
-        public Scrollbar MpScrollbar;
+        public Image MpImage;
+        public Text MpTxt;
 
         private int totleTime = 300;
         private int remainEnenyCount = 0;
@@ -30,25 +31,27 @@ namespace Assets.Script.Battle.BattleUI
             CTimerManager.instance.RemoveLister(timeId);
         }
 
-        public void StartGame(int roleMp)
+        public void StartGame()
         {
+            Debug.LogError("start game");
             startGame = true;
             timeId = CTimerManager.instance.AddListener(1, -1, BattleTimeChange);
         }
 
-        private void OnRemianEnemyCount(int lastCount, int currentCount)
+        private void OnRemianEnemyCount(int currentCount, int lastCount)
         {
-            RemainTimeText.text = StringHelper.instance.IntToString(currentCount);
+            RemainEnemyCountText.text = StringHelper.instance.IntToString(currentCount);
         }
 
-        private void OnCurrentPlayerMp(int lastCount, int currentCount)
+        private void OnCurrentPlayerMp(int currentCount, int lastCount)
         {
             if (maxMp == 0)
             {
                 maxMp = currentCount;
                 currentMp = maxMp;
             }
-            MpScrollbar.value = (currentMp*1.0f)/maxMp;
+            MpTxt.text = currentMp.ToString();
+            MpImage.fillAmount = (currentMp*1.0f)/maxMp;
         }
 
 

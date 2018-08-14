@@ -48,7 +48,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Update(mRoleBase, deltaTime);
             addTime += deltaTime;
-            if (addTime > skillCDTime && mRoleBase.RolePropertyValue.RoleMp > MP)
+            if (addTime > skillCDTime && GameRoleMgr.instance.CurrentPlayerMp.Value > MP)
             {
                 OnceAttack(mRoleBase);
             }
@@ -69,7 +69,8 @@ namespace Assets.Script.Battle.RoleState
                 mRoleBase.SetRoleActionState(ActorStateEnum.Idle);
                 return;
             }
-            mRoleBase.RolePropertyValue.SetMp(MP);
+            GameRoleMgr.instance.CurrentPlayerMp.Value -= MP;
+            // mRoleBase.RolePropertyValue.SetMp(MP);
             AnimationEntry = mRoleBase.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
             CurrentSkillData.UseSkill();
         }
