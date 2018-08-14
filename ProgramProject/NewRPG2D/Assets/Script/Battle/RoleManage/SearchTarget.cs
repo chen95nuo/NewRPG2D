@@ -27,7 +27,7 @@ namespace Assets.Script.Battle
         {
             cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
             attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
-            Debug.LogError("attack range == " + attackDistance);
+           // Debug.LogError("attack range == " + attackDistance);
           //  attackDistance = attackDistance * attackDistance;
         }
 

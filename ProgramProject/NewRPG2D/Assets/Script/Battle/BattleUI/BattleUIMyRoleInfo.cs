@@ -12,7 +12,7 @@ namespace Assets.Script.Battle.BattleUI
         private void Awake()
         {
             myRoleInfoList = new List<BattleUIMyRoleInfoItem>();
-            Debug.LogError(" BattleUIMyRoleInfo ");
+          //  Debug.LogError(" BattleUIMyRoleInfo ");
             EventManager.instance.AddListener<MainHeroRole>(EventDefineEnum.CreateRole, OnCreateRole);
             EventManager.instance.AddListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
         }
@@ -26,7 +26,6 @@ namespace Assets.Script.Battle.BattleUI
 
         private void OnCreateRole(MainHeroRole role)
         {
-            Debug.LogError("  OnCreateRole " + role.RoleId);
             BattleUIMyRoleInfoItem item = Instantiate(roleItem, parentRoot);
             myRoleInfoList.Add(item);
             item.SetRoleInfo(role.RoleDetailInfo, role.InstanceId);
@@ -34,6 +33,7 @@ namespace Assets.Script.Battle.BattleUI
 
         private void OnHpChange(RoleBase role)
         {
+           // Debug.LogError("  OnHpChange " + role.RoleId);
             for (int i = 0; i < myRoleInfoList.Count; i++)
             {
                 if (myRoleInfoList[i].CurrentInstanceId == role.InstanceId)

@@ -45,7 +45,7 @@ namespace Assets.Script.Battle.BattleUI
 
         private void OnCurrentPlayerMp(int currentCount, int lastCount)
         {
-            Debug.LogError(" OnCurrentPlayerMp  " + currentCount);
+            currentMp = currentCount;
             if (maxMp == 0)
             {
                 maxMp = currentCount;

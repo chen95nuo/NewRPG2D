@@ -49,7 +49,7 @@ namespace Assets.Script.Battle.LevelManager
             Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
-            GameRoleMgr.instance.CurrentPlayerMp.Value = GoFightMgr.instance.PlayerLevel * 50;
+            GameRoleMgr.instance.CurrentPlayerMp.Value = GoFightMgr.instance.PlayerLevel * 500;
             currentInstanceId = 100;
             isCreateEnemy = false;
             isGameOver = false;
