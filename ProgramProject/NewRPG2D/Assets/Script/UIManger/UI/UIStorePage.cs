@@ -15,12 +15,7 @@ public class UIStorePage : TTUIPage
 
     public override void Awake(GameObject go)
     {
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(PageBack);
-        store = this.gameObject.GetComponent<UIStore>();
-    }
 
-    public void PageBack()
-    {
-        ClosePage<UIStorePage>();
+        store = this.gameObject.GetComponent<UIStore>();
     }
 }

@@ -27,7 +27,7 @@ public class UIAnimTools
     /// </summary>
     /// <param name="anim">动画</param>
     /// <param name="name">动画名称</param>
-    /// <param name="run">是否倒放</param>
+    /// <param name="run">是否倒放 f是正</param>
     public void PlayAnim(Animation anim, string name, bool run)
     {
         Debug.Log(name);
@@ -53,7 +53,7 @@ public class UIAnimTools
     /// 播放背景动画
     /// </summary>
     /// <param name="image"></param>
-    /// <param name="run">是否倒放</param>
+    /// <param name="run">是否倒放 f是开</param>
     public void GetBG(Image image, bool run)
     {
         if (run)
@@ -71,7 +71,7 @@ public class UIAnimTools
     /// </summary>
     /// <param name="image"></param>
     /// <param name="run"></param>
-    /// <param name="time">时间</param>
+    /// <param name="time">时间 f是开</param>
     public void GetBG(Image image, bool run, float time)
     {
         if (run)

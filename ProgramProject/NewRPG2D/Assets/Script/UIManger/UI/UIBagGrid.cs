@@ -151,6 +151,9 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     {
         TTUIPage.ShowPage<UIBusinessTipPage>();
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBuyItem, this);
+        UIStore store = GetComponentInParent<UIStore>();
+        store.OutPage();
+        UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateStoreEvent, store.gameObject);
     }
     public void UseProp()
     {
@@ -161,6 +164,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent, propData);
             }
             TTUIPage.ClosePage<UIUseItemBagPage>();
+            UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
+
         }
     }
     public void BuyProp()
@@ -175,6 +180,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     {
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateHatcheryEvent, eggData);
         TTUIPage.ClosePage<UIUseItemBagPage>();
+        UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
+
     }
 
     public void BackExplore()

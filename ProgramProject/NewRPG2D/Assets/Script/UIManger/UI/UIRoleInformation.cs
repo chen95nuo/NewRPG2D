@@ -216,6 +216,8 @@ public class UIRoleInformation : MonoBehaviour
     public void OpenEquipOpitions()
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
+        UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
+
         Debug.Log(currentNumber + "打开了背包");
         if (currentNumber > 2)
         {

@@ -76,6 +76,7 @@ public class UIFurnace : MonoBehaviour
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
 
+
     private void Start()
     {
         crystal.AnimationState.Complete += HandleEvent;
@@ -187,10 +188,9 @@ public class UIFurnace : MonoBehaviour
     }
     private void OnEnable()
     {
-        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
-
         UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", false);
 
+        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
     }
     public void Init()
     {
@@ -389,6 +389,10 @@ public class UIFurnace : MonoBehaviour
             {
                 currentButton = i;
                 TinyTeam.UI.TTUIPage.ShowPage<UIUseItemBagPage>();
+                Debug.Log("this");
+                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out", false);
+                UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
+
                 UIEventManager.instance.SendEvent<PropMeltingType>(UIEventDefineEnum.UpdatePropsEvent, PropMeltingType.isTrue);
             }
         }
@@ -450,6 +454,7 @@ public class UIFurnace : MonoBehaviour
     /// <param name="data">材料信息</param>
     public void AddMaterial(ItemData data)
     {
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", false);
 
         if (temporaryData.Material[currentButton] == null || temporaryData.Material[currentButton].ItemType == ItemType.Nothing)
         {
@@ -660,8 +665,8 @@ public class UIFurnace : MonoBehaviour
         UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
         UIAnimTools.Instance.PlayAnim(equipAnim, "UIFurnaceEqTip_out");
         UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
-        UIAnimTools.Instance.GetBG(tipBG, true,.2f);
-        UIAnimTools.Instance.GetBG(equipBG, true,.2f);
+        UIAnimTools.Instance.GetBG(tipBG, true, .2f);
+        UIAnimTools.Instance.GetBG(equipBG, true, .2f);
         UIAnimTools.Instance.GetBG(mainBG, false, .2f);
 
         Invoke("CloseTipPage", .8f);

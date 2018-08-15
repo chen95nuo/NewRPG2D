@@ -12,7 +12,7 @@ public class UIUseItemBagPage : TTUIPage
     private bool itemSort = true;
     private EquipType equipType;
 
-    public UIUseItemBagPage() : base(UIType.Normal, UIMode.HideOther, UICollider.None)
+    public UIUseItemBagPage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
     {
         uiPath = "UIPrefab/UIUseItemBag";
     }
@@ -21,5 +21,5 @@ public class UIUseItemBagPage : TTUIPage
     {
         transform.SetSiblingIndex(transform.parent.childCount - 1);
     }
-    
+
 }

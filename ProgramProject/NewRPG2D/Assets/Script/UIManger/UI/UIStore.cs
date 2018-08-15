@@ -17,7 +17,10 @@ public class UIStore : MonoBehaviour
     private float currentPrice;
     private ItemData[] toDayItem;
     private PlayerData playerData;
+    public Button btn_back;
 
+    public Image BG;
+    public Animation anim;
 
     void Awake()
     {
@@ -25,6 +28,13 @@ public class UIStore : MonoBehaviour
 
         Init();
     }
+
+    private void OnEnable()
+    {
+        UIAnimTools.Instance.GetBG(BG, false);
+        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_in");
+    }
+
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateBuyItem, IsTrue);
@@ -33,6 +43,7 @@ public class UIStore : MonoBehaviour
     private void Init()
     {
         playerData = GetPlayData.Instance.player[0];
+        btn_back.onClick.AddListener(PageBack);
     }
 
     private void Update()
@@ -75,5 +86,23 @@ public class UIStore : MonoBehaviour
     public void IsTrue(bool isTrue)
     {
         bagItem.UpdateStore(toDayItem);//刷新道具
+    }
+
+    public void OutPage()
+    {
+        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_in", true);
+        UIAnimTools.Instance.GetBG(BG, true);
+    }
+
+    public void PageBack()
+    {
+        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_out");
+        UIAnimTools.Instance.GetBG(BG, true);
+        Invoke("ClosePage", .8f);
+    }
+
+    private void ClosePage()
+    {
+        TinyTeam.UI.TTUIPage.ClosePage<UIStorePage>();
     }
 }

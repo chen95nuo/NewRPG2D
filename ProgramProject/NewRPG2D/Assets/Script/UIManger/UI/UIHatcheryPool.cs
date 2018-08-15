@@ -89,6 +89,7 @@ public class UIHatcheryPool : MonoBehaviour
             }
         }
         TinyTeam.UI.TTUIPage.ShowPage<UIUseItemBagPage>();
+
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateUsePage, ItemType.Egg);
     }
     /// <summary>
