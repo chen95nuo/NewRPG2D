@@ -121,12 +121,13 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         {
             case GridType.Nothing:
                 TTUIPage.ShowPage<UIRolePage>();
+                UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateRolesEvent, false);
                 UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, roleData);
                 break;
             case GridType.Use:
                 if (!roleData.Fighting)
                 {
-                    TTUIPage.ClosePage<UICardHouse>();
+                    TTUIPage.ClosePage<UICardHousePage>();
                     UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMaterialEvent, roleData);
                 }
                 break;
@@ -138,7 +139,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             case GridType.Team:
                 Debug.Log("进入小队菜单");
                 //选中的
-                TTUIPage.ClosePage<UICardHouse>();
+                TTUIPage.ClosePage<UICardHousePage>();
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRoundEvent, roleData);
                 break;
             default:
@@ -179,7 +180,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     public void BackExplore()
     {
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateExploreEvent, roleData);
-        TTUIPage.ClosePage<UICardHouse>();
+        TTUIPage.ClosePage<UICardHousePage>();
     }
 
     public void UpdateItem(int itemID, ItemType type)

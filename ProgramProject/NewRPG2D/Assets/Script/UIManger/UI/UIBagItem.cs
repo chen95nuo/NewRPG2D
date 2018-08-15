@@ -83,7 +83,7 @@ public class UIBagItem : MonoBehaviour
             {
                 BagEggData.Instance.Remove(BagEggData.Instance.eggs[i]);
             }
-            if (BagEggData.Instance.eggs.Count > 0)
+            if (BagEggData.Instance.eggs.Count > i)
             {
                 grids[i].UpdateItem(BagEggData.Instance.eggs[i]);
             }

@@ -16,7 +16,6 @@ public class UIFurnacePage : TTUIPage
 
     public override void Awake(GameObject go)
     {
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(PageBack);
         Tip = this.gameObject.transform.Find("Tip").gameObject;
     }
 

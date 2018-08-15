@@ -6,6 +6,7 @@ using UnityEngine.U2D;
 using TinyTeam.UI;
 using Spine.Unity;
 using System;
+using DG.Tweening;
 
 public class UIRoleInformation : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class UIRoleInformation : MonoBehaviour
     public SkeletonGraphic Anim_DaBai;
     public SkeletonGraphic Anim_MoWu;
 
+    public Animation anim;
+
     public CardData RoleData
     {
         get
@@ -73,6 +76,8 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
 
         Init();
+
+
     }
 
     private void OnDestroy()
@@ -87,13 +92,12 @@ public class UIRoleInformation : MonoBehaviour
     private void Init()
     {
         btn_back.GetComponent<Button>().onClick.AddListener(ChickBack);
-        pickUpRoleStrentthen = transform.Find("UIRoleStrengthen").GetComponent<UIRoleStrengthen>();
         btn_Strengthen.GetComponent<Button>().onClick.AddListener(ShowRoleStrengthenPage);
         btn_Innate.GetComponent<Button>().onClick.AddListener(ShowRoleInnatePage);
         btn_Potential.GetComponent<Button>().onClick.AddListener(ShowRolePotentialPage);
         btn_Gift.GetComponent<Button>().onClick.AddListener(ShowRoleGiftPage);
         btn_Disband.GetComponent<Button>().onClick.AddListener(ShowRoleDisbandPage);
-        pickUpRoleStrentthen.CloseThisPage();
+        pickUpRoleStrentthen.gameObject.SetActive(false);
 
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
@@ -101,12 +105,9 @@ public class UIRoleInformation : MonoBehaviour
     //动画系统
     private void OnEnable()
     {
-
-    }
-
-    private void OnDisable()
-    {
-
+        anim.Play("UIRoleMain");
+        Image image = transform.Find("BG").GetComponent<Image>();
+        image.DOFade(0.5f, 0.4f);
     }
 
     public void Start()
@@ -144,7 +145,9 @@ public class UIRoleInformation : MonoBehaviour
             UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, "正在探险");
             return;
         }
+
         pickUpRoleStrentthen.UpdateRole(this);
+        anim.Play("UIRoleMain_out");
     }
     /// <summary>
     /// 天赋
@@ -378,7 +381,7 @@ public class UIRoleInformation : MonoBehaviour
         Smin = Amax + 0.1f;
         Smax = Amax + (max - min) / 10.0f * 1.0f;
 
-        if (grade >= Cmin && grade <= Cmax)
+        if (grade <= Cmax)
         {
             return getImage.GetSprite("Level_1");
         }
@@ -390,7 +393,7 @@ public class UIRoleInformation : MonoBehaviour
         {
             return getImage.GetSprite("Level_3");
         }
-        else if (grade >= Smin && grade <= Smax)
+        else if (grade >= Smin)
         {
             return getImage.GetSprite("Level_4");
         }
@@ -404,10 +407,19 @@ public class UIRoleInformation : MonoBehaviour
     }
     public void ChickBack()
     {
-        TTUIPage.ClosePage<UIRolePage>();
-        TTUIPage.ShowPage<UICardHouse>();
+        anim.Play("UIRoleMain_out");
+        Image image = transform.Find("BG").GetComponent<Image>();
+        image.DOFade(0f, 0.2f);
+
+        Invoke("CloseThisPage", .2f);
     }
 
+    public void CloseThisPage()
+    {
+        TTUIPage.ClosePage<UIRolePage>();
+        TTUIPage.ShowPage<UICardHousePage>();
+        UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateRolesEvent, true);
+    }
 
     [System.Serializable]
     public class UIRoleEquip

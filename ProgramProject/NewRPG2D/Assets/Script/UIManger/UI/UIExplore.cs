@@ -243,7 +243,7 @@ public class UIExplore : MonoBehaviour
     private void UpdateRoleGrid()
     {
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        TinyTeam.UI.TTUIPage.ShowPage<UICardHouse>();
+        TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
         for (int i = 0; i < roleBtn.Length; i++)
         {
             cards[i] = roleBtn[i].role.roleData;

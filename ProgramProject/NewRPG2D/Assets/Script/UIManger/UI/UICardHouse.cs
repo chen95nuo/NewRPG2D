@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TinyTeam.UI;
 
-public class UICardHouse : TTUIPage
+public class UICardHouse : MonoBehaviour
 {
     private GameObject roleMenu;
     public UIBag createMenu;
@@ -16,42 +16,37 @@ public class UICardHouse : TTUIPage
 
     private bool isNothing = true;
 
-    public UICardHouse() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
-    {
-        uiPath = "UIPrefab/UICardHouse";
-    }
+    private Animation anim;
+    public Image BG;
 
-    public override void Awake(GameObject go)
+    private void Awake()
     {
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UICardHouse>);
-        this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
-        updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
-        grid = transform.Find("ItemList/Viewport/Content/Card_UIItem").GetComponent<UIBagGrid>();
         Init();//初始化
 
         UIEventManager.instance.AddListener<GridType>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleGridType);
         UIEventManager.instance.AddListener<int>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleLevel);
         UIEventManager.instance.AddListener<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleItem);
-    }
-    public override void Refresh()
-    {
-        this.transform.SetSiblingIndex(transform.parent.childCount - 1);
-        //gridType = GridType.Nothing;
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRolesEvent);
+        UIEventManager.instance.AddListener<bool>(UIEventDefineEnum.UpdateRolesEvent, CloseCardsPage);
     }
 
     public void Init()
     {
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UICardHouse>);
-        this.gameObject.transform.Find("btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
-        updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
-        grid = transform.Find("ItemList/Viewport/Content/Card_UIItem").GetComponent<UIBagGrid>();
+        anim = transform.Find("UICardHouseMain").GetComponent<Animation>();
+        this.gameObject.transform.Find("UICardHouseMain/btn_back").GetComponent<Button>().onClick.AddListener(PageBack);
+        this.gameObject.transform.Find("UICardHouseMain/btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
+        updateBagItem = transform.Find("UICardHouseMain/ItemList/Viewport/Content").GetComponent<UIBagItem>();
+        grid = transform.Find("UICardHouseMain/ItemList/Viewport/Content/Card_UIItem").GetComponent<UIBagGrid>();
         createMenu = new UIBag();
-        roleMenu = transform.Find("MenuType/btn_type").gameObject;
+        roleMenu = transform.Find("UICardHouseMain/MenuType/btn_type").gameObject;
         roleMenu.SetActive(false);
         createMenu.CreateMenu(10, roleMenu, roleMenu.transform.parent.transform);
     }
 
+    private void OnEnable()
+    {
+        UIAnimTools.Instance.PlayAnim(anim, "UICardHouseMain_in", false);
+        UIAnimTools.Instance.GetBG(BG, false, .2f);
+    }
 
     public void ItemSortEvent()
     {
@@ -100,7 +95,23 @@ public class UICardHouse : TTUIPage
 
     public void PageBack()
     {
-        ClosePage<UICardHouse>();
+        UIAnimTools.Instance.PlayAnim(anim, "UICardHouseMain_in", true);
+        UIAnimTools.Instance.GetBG(BG, true, .2f);
+        Invoke("CloseThisPage", .8f);
+    }
+    public void CloseCardsPage(bool isTrue)
+    {
+        UIAnimTools.Instance.PlayAnim(anim, "UICardHouseMain_out", isTrue);
+        UIAnimTools.Instance.GetBG(BG, !isTrue, .2f);
+        if (isTrue == false)
+        {
+            Invoke("CloseThisPage", .8f);
+        }
+    }
+
+    public void CloseThisPage()
+    {
+        TTUIPage.ClosePage<UICardHousePage>();
     }
 
 }

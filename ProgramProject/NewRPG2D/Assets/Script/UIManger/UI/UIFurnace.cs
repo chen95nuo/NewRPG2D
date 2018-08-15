@@ -54,18 +54,25 @@ public class UIFurnace : MonoBehaviour
     private TrackEntry crystalTrack;
     private bool crystalIsRun = true;
 
+    public UnityEngine.Animation mainAnim;
+    public UnityEngine.Animation tipAnim;
+    public UnityEngine.Animation equipAnim;
+    public Button btn_back;
+
+    public Image mainBG;
+    public Image tipBG;
+    public Image equipBG;
+
     FurnaceType currentType;
     private void Awake()
     {
         Init();//初始化
         UIEventManager.instance.AddListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
-        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
-        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceEvent, RemoveMaterial);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
 
@@ -178,9 +185,17 @@ public class UIFurnace : MonoBehaviour
         }
 
     }
+    private void OnEnable()
+    {
+        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
 
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", false);
+
+    }
     public void Init()
     {
+        btn_back.onClick.AddListener(CloseThisPage);
+
         temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
 
         timeSliderImage = timeSlider.fillRect.GetComponent<Image>();
@@ -574,6 +589,9 @@ public class UIFurnace : MonoBehaviour
         {
             case FurnaceTipType.addFurnace:
                 TipGO.SetActive(true);
+                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                UIAnimTools.Instance.GetBG(tipBG, false, .2f);
+
                 if (playerData.GoldCoin - (2000 * playerData.Furnace.Count) >= 0)
                 {
                     Tip.text = "<color=#FFFFFF>是否花费 " + (2000 * playerData.Furnace.Count) + " 金币开启新的熔炉</color>";
@@ -587,6 +605,10 @@ public class UIFurnace : MonoBehaviour
                 break;
             case FurnaceTipType.UseFurnace:
                 TipGO.SetActive(true);
+                UIAnimTools.Instance.GetBG(tipBG, false, .2f);
+
+                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+
                 if (playerData.GoldCoin - chickCoin >= 0)
                 {
                     Tip.text = "<color=#FFFFFF>是否花费 " + chickCoin + " 金币开始熔炼</color>";
@@ -601,6 +623,9 @@ public class UIFurnace : MonoBehaviour
             case FurnaceTipType.getEquip:
                 Debug.Log("打开奖励面板");
                 equipTipGO.SetActive(true);
+                UIAnimTools.Instance.GetBG(equipBG, false, .2f);
+
+                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
                 if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
                     crystal.AnimationState.SetAnimation(0, "on", false);
 
@@ -632,10 +657,31 @@ public class UIFurnace : MonoBehaviour
             default:
                 break;
         }
-        TipGO.SetActive(false);
-        equipTipGO.SetActive(false);
+        UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
+        UIAnimTools.Instance.PlayAnim(equipAnim, "UIFurnaceEqTip_out");
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
+        UIAnimTools.Instance.GetBG(tipBG, true,.2f);
+        UIAnimTools.Instance.GetBG(equipBG, true,.2f);
+        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
+
+        Invoke("CloseTipPage", .8f);
+        Invoke("CloseEquipTipPage", .8f);
     }
     public void TipFalse()
+    {
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
+        UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
+        UIAnimTools.Instance.GetBG(tipBG, true, .2f);
+        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
+
+        Invoke("CloseTipPage", .8f);
+    }
+
+    private void CloseEquipTipPage()
+    {
+        equipTipGO.SetActive(false);
+    }
+    public void CloseTipPage()
     {
         TipGO.SetActive(false);
     }
@@ -786,6 +832,18 @@ public class UIFurnace : MonoBehaviour
         int milliScecond = (time - hour * 3600 - minute * 60);
 
         text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
+    }
+
+    private void CloseThisPage()
+    {
+        RemoveMaterial();
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+        UIAnimTools.Instance.GetBG(mainBG, true, .2f);
+        Invoke("ClosePage", .8f);
+    }
+    private void ClosePage()
+    {
+        TinyTeam.UI.TTUIPage.ClosePage<UIFurnacePage>();
     }
 
 }

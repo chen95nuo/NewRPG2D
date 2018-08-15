@@ -179,7 +179,7 @@ public class UIRound : MonoBehaviour
     private void UpdateGrid(int gridID)
     {
         currentGrid = gridID;
-        TinyTeam.UI.TTUIPage.ShowPage<UICardHouse>();
+        TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Team);
         UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
     }

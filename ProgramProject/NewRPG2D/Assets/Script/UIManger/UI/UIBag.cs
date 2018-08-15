@@ -27,6 +27,8 @@ public class UIBag : MonoBehaviour
     public Button btn_back;
     public Button btn_sort;
 
+    public Animation anim;
+    public Image bg;
     private void Awake()
     {
         Init();
@@ -34,11 +36,13 @@ public class UIBag : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        UIAnimTools.Instance.PlayAnim(anim, "UIbag_in", false);
+        UIAnimTools.Instance.GetBG(bg, false);
     }
+
     private void OnDisable()
     {
-        
+        UIAnimTools.Instance.PlayAnim(anim, "UIbag_in", true);
     }
 
     private void Init()
@@ -55,9 +59,6 @@ public class UIBag : MonoBehaviour
         bagItem_1.SetActive(false);
 
         //updateBagItem = transform.Find("ItemList/Viewport/Content").GetComponent<UIBagItem>();
-
-        TTUIPage.ShowPage<UIBagItemMessage>();
-        TTUIPage.ClosePage("UIBagItemMessage");
 
         //一级菜单创建
         CreateMenu(0, bagItem_1, bagMenu_1.transform);
@@ -312,7 +313,14 @@ public class UIBag : MonoBehaviour
 
     public void CloseBagPage()
     {
-        TTUIPage.ClosePage("UIBagItemMessage");
+        UIAnimTools.Instance.PlayAnim(anim, "UIbag_out", false);
+        UIAnimTools.Instance.GetBG(bg, true);
+
+        Invoke("CloseThisPage", .8f);
+    }
+
+    public void CloseThisPage()
+    {
         TTUIPage.ClosePage("UIBagPage");
     }
 

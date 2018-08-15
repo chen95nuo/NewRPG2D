@@ -44,6 +44,8 @@ public class UIRoleStrengthen : MonoBehaviour
     public SkeletonGraphic Anim_DaBai;
     public SkeletonGraphic Anim_MoWu;
 
+    public Animation anim;
+
     private void Awake()
     {
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateMaterialEvent, UpdateMaterial);
@@ -73,7 +75,15 @@ public class UIRoleStrengthen : MonoBehaviour
     }
     public void CloseThisPage()
     {
+        anim.Play("UIRoleStreng_out");
+        roleInformation.anim.Play("UIRoleMain");
+        Invoke("Close", 2.0f);
+    }
+
+    public void Close()
+    {
         gameObject.SetActive(false);
+
     }
 
     private void Update()
@@ -129,19 +139,17 @@ public class UIRoleStrengthen : MonoBehaviour
 
         roleData = data.RoleData;
         gameObject.SetActive(true);
-        //role.sprite = data.role.sprite;
+        anim.Play("UIRoleStreng_in");
         Debug.Log("强化 ");
         if (data.RoleData.AnimationName == "Anim_Dabai")
         {
             Anim_MoWu.enabled = false;
             Anim_DaBai.enabled = true;
-            //role.AnimationState.SetAnimation(0, "stand", true);
         }
         else if (data.RoleData.AnimationName == "Anim_Mowu")
         {
             Anim_DaBai.enabled = false;
             Anim_MoWu.enabled = true;
-            //role.AnimationState.SetAnimation(0, "stand", true);
         }
 
         roleQuality.sprite = data.roleQuality.sprite;
@@ -219,7 +227,7 @@ public class UIRoleStrengthen : MonoBehaviour
         currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         cardData[3] = roleData; //主卡ID为3
         Debug.Log(cardData[3].Name);
-        TinyTeam.UI.TTUIPage.ShowPage<UICardHouse>();
+        TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
 
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
         UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
