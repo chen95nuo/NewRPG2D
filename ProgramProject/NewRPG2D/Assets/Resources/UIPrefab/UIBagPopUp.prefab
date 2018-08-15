@@ -384,7 +384,6 @@ GameObject:
   - component: {fileID: 224737479829890022}
   - component: {fileID: 222314145802345312}
   - component: {fileID: 114548717565372972}
-  - component: {fileID: 114579312373951596}
   - component: {fileID: 114047391624597344}
   m_Layer: 5
   m_Name: Message
@@ -1410,7 +1409,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6ddc35a5a6b179b46baa3727c58a4cd6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1592aa15bb04a674b95bf841c7edbbaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 0
@@ -1512,6 +1511,7 @@ MonoBehaviour:
     stars: 0
     itemType: 0
     attribute: 0
+    BattleIconSpriteName: 
   eggGrid:
     egg: {fileID: 1253227713831996}
     eggBG: {fileID: 114120928934607078}
@@ -1783,11 +1783,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
-    m_FontSize: 33
+    m_FontSize: 32
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 50
+    m_BestFit: 1
+    m_MinSize: 3
+    m_MaxSize: 32
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1836,19 +1836,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114579312373951596
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1370625662203602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!114 &114581422137979910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2520,7 +2507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.882353, g: 0.85098046, b: 0.7843138, a: 1}
+  m_Color: {r: 0.9058824, g: 0.86274517, b: 0.8078432, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2822,7 +2809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.48235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.48235294}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3781,8 +3768,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 430.5, y: -38}
-  m_SizeDelta: {x: 789.4, y: 0}
+  m_AnchoredPosition: {x: 429.3, y: -22.3}
+  m_SizeDelta: {x: 827.4, y: 161.8}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224739223317254968
 RectTransform:
@@ -3897,8 +3884,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 144, y: 156}
+  m_AnchoredPosition: {x: 0, y: -0.8}
+  m_SizeDelta: {x: 236, y: 236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224766984419980274
 RectTransform:
