@@ -228,6 +228,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        otherGrid.otherImage.SetNativeSize();
         otherGrid.otherNumber.gameObject.SetActive(true);
         otherGrid.otherNumber.text = data.Number.ToString();
 
@@ -269,6 +270,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        otherGrid.otherImage.SetNativeSize();
+
         otherGrid.otherNumber.gameObject.SetActive(false);
 
         quality = data.Quality;
@@ -282,6 +285,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
         roleGrid.roleBG.sprite = IconMgr.Instance.GetIcon("roleQuality_" + data.Quality);
         roleGrid.roleImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        roleGrid.roleImage.SetNativeSize();
         roleGrid.roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
         roleGrid.roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
         if (data.TeamType == TeamType.Nothing)
@@ -331,11 +335,15 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     Debug.Log("显示小气泡");
                     TTUIPage.ShowPage<UILittleTipPage>();
                     UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                     break;
                 case GridType.Team:
                     Debug.Log("显示小气泡");
                     TTUIPage.ShowPage<UILittleTipPage>();
                     UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                     break;
                 default:
                     break;
@@ -345,9 +353,18 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         {
             TTUIPage.ShowPage<UILittleTipPage>();
             if (eggData.IsKnown)
+            {
+
                 UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
+            }
             else
+            {
                 UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, "不知名的蛋");
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
+            }
         }
     }
 
@@ -397,11 +414,15 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                         Debug.Log("刷新小气泡");
                         TTUIPage.ShowPage<UILittleTipPage>();
                         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                         break;
                     case GridType.Team:
                         Debug.Log("刷新小气泡");
                         TTUIPage.ShowPage<UILittleTipPage>();
                         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, propData.Name);
+                        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                         break;
                     default:
                         break;
@@ -411,9 +432,16 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             {
                 TTUIPage.ShowPage<UILittleTipPage>();
                 if (eggData.IsKnown)
+                {
                     UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
+                }
                 else
+                {
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
                     UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, "不知名的蛋");
+                }
             }
         }
     }

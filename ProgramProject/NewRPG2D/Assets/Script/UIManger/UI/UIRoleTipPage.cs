@@ -107,7 +107,6 @@ public class UIRoleTipPage : TTUIPage
         }
         else
         {
-            Debug.Log(grade);
             return 0;
         }
 

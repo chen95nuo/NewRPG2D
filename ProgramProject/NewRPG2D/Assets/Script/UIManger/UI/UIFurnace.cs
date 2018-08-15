@@ -13,7 +13,6 @@ public class UIFurnace : MonoBehaviour
     public DrawFurnaceMenu[] furnacesMenu;
 
     public Button addFurnace;
-    public Button[] popUp;
     public GameObject typeTime;
     public Text time;
     public Slider timeSlider;

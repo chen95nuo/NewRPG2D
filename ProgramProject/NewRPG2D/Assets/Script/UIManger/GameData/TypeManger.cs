@@ -49,9 +49,9 @@ public enum EquipAffixName
 public enum TeamType
 {
     Nothing,//无
-    Team_1,
-    Team_2,
-    Team_3,
+    第一编队,
+    第二遍队,
+    第三编队,
 }
 
 public enum MenuType
@@ -173,6 +173,7 @@ public enum UIEventDefineEnum
     UpdateLittleTipEvent,
     UpdateMessageTipEvent,
     UpdateMessageTipGoEvent,
+    UpdateMessagePopTipEvent,
     MissionComplete,
     MissionFailed,
     FightMessage,

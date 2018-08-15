@@ -28,7 +28,6 @@ public class UIStore : MonoBehaviour
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateBuyItem, IsTrue);
-
     }
 
     private void Init()

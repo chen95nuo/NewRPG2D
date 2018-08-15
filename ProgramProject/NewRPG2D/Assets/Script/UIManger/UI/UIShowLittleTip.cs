@@ -10,16 +10,16 @@ public class UIShowLittleTip : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Down");
         if (type != RoleAtrType.Nothing)
         {
+            TTUIPage.ShowPage<UILittleTipPage>();
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, type);
         }
         else
         {
-            TTUIPage.ShowPage<UILittleTipPage>();
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.gameObject);
         }
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,13 +29,15 @@ public class UIShowLittleTip : MonoBehaviour, IPointerEnterHandler, IPointerExit
             Debug.Log("enter");
             if (type != RoleAtrType.Nothing)
             {
+                TTUIPage.ShowPage<UILittleTipPage>();
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, type);
+
             }
             else
             {
-                TTUIPage.ShowPage<UILittleTipPage>();
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.gameObject);
             }
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
         }
     }
 

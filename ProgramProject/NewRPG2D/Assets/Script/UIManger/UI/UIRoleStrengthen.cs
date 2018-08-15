@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Spine.Unity;
 
 public class UIRoleStrengthen : MonoBehaviour
 {
-    public Image role;
+    public SkeletonGraphic role;
     public Image roleQuality;
     public Image roleAttribute;
     public Image roleStars;
@@ -39,6 +40,9 @@ public class UIRoleStrengthen : MonoBehaviour
     private float currentMaxExp = 0;
     private float currentValue = 0;
     private float startTime = 0;
+
+    public SkeletonGraphic Anim_DaBai;
+    public SkeletonGraphic Anim_MoWu;
 
     private void Awake()
     {
@@ -125,7 +129,21 @@ public class UIRoleStrengthen : MonoBehaviour
 
         roleData = data.RoleData;
         gameObject.SetActive(true);
-        role.sprite = data.role.sprite;
+        //role.sprite = data.role.sprite;
+        Debug.Log("强化 ");
+        if (data.RoleData.AnimationName == "Anim_Dabai")
+        {
+            Anim_MoWu.enabled = false;
+            Anim_DaBai.enabled = true;
+            //role.AnimationState.SetAnimation(0, "stand", true);
+        }
+        else if (data.RoleData.AnimationName == "Anim_Mowu")
+        {
+            Anim_DaBai.enabled = false;
+            Anim_MoWu.enabled = true;
+            //role.AnimationState.SetAnimation(0, "stand", true);
+        }
+
         roleQuality.sprite = data.roleQuality.sprite;
         roleAttribute.sprite = data.roleAttribute.sprite;
         roleStars.sprite = data.roleStars.sprite;

@@ -228,20 +228,47 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
         {
             case 1:
                 string affix_1 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_1);
-                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_1);
+                if (affix_1 != "")
+                {
+                    TTUIPage.ShowPage<UILittleTipPage>();
+
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_1);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+                }
                 break;
 
             case 2:
                 string affix_2 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_2);
-                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_2);
+                if (affix_2 != "")
+                {
+                    TTUIPage.ShowPage<UILittleTipPage>();
+
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_2);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+                }
+
                 break;
             case 3:
                 string affix_3 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_3);
-                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_3);
+                if (affix_3 != "")
+                {
+                    TTUIPage.ShowPage<UILittleTipPage>();
+
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_3);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+                }
+
                 break;
             case 4:
                 string affix_4 = FormatAllAffix(GameEquipData.Instance.QueryEquip(equipData.Id).Affix_4);
-                UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_4);
+                if (affix_4 != "")
+                {
+                    TTUIPage.ShowPage<UILittleTipPage>();
+
+                    UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, affix_4);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+                }
+
                 break;
             default:
                 break;
@@ -287,7 +314,9 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
             GetPlayData.Instance.player[0].GoldCoin += GridData.propData.SellPrice;
             BagItemData.Instance.ReduceItems(GridData.propData.Id, 1);
             updateMessage(GridData.propData);
-
+            TTUIPage.ShowPage<UIPopTipPage>();
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessagePopTipEvent, GridData.propData.SellPrice.ToString());
+            Debug.Log("运行了");
             TTUIPage.ClosePage<UIBagItemMessage>();
         }
     }

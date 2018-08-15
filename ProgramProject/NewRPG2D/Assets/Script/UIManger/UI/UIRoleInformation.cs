@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 using TinyTeam.UI;
+using Spine.Unity;
 using System;
 
 public class UIRoleInformation : MonoBehaviour
@@ -13,7 +14,7 @@ public class UIRoleInformation : MonoBehaviour
     public Text roleExp;
     public Slider roleExpSlider;
     public Text roleHeart;
-    public Image role;
+    //public SkeletonGraphic role;
     public Image roleQuality;
     public Image roleAttribute;
     public Image roleStars;
@@ -46,8 +47,8 @@ public class UIRoleInformation : MonoBehaviour
     private CardData cardData;
     private SpriteAtlas getImage;
 
-    public GameObject uiDaBai;
-    public GameObject uiMoWu;
+    public SkeletonGraphic Anim_DaBai;
+    public SkeletonGraphic Anim_MoWu;
 
     public CardData RoleData
     {
@@ -267,13 +268,17 @@ public class UIRoleInformation : MonoBehaviour
         roleExpSlider.value = data.Exp;
         roleHeart.text = data.GoodFeeling.ToString();
         //role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        if (data.SpriteName == "uiDaBai")
+        if (data.AnimationName == "Anim_Dabai")
         {
-
+            Anim_MoWu.enabled = false;
+            Anim_DaBai.enabled = true;
+            //role.AnimationState.SetAnimation(0, "stand", true);
         }
-        else if (data.SpriteName == "uiMoWu")
+        else if (data.AnimationName == "Anim_Mowu")
         {
-
+            Anim_DaBai.enabled = false;
+            Anim_MoWu.enabled = true;
+            //role.AnimationState.SetAnimation(0, "stand", true);
         }
         roleQuality.sprite = getImage.GetSprite("roleQuality_" + data.Quality);
         roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
@@ -334,12 +339,14 @@ public class UIRoleInformation : MonoBehaviour
             default:
                 break;
         }
-        if (message == "")
+        if (message != "")
         {
-            return;
+            Debug.Log("Message: " + message);
+            //TTUIPage.ShowPage<UILittleTipPage>();
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, message);
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
         }
-        TTUIPage.ShowPage<UILittleTipPage>();
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, message);
+
     }
 
     public Sprite RoleGrade(float grade, float min, float max)

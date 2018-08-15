@@ -27,6 +27,7 @@ public class UILittleTip : MonoBehaviour
 
         UIEventManager.instance.AddListener<string>(UIEventDefineEnum.UpdateLittleTipEvent, UpdateMessage);
         UIEventManager.instance.AddListener<bool>(UIEventDefineEnum.UpdateLittleTipEvent, CloseMessage);
+        UIEventManager.instance.AddListener<Transform>(UIEventDefineEnum.UpdateLittleTipEvent, UpdatePosition);
         xMin = -(Screen.width / 2.0f);
         xMax = Screen.width / 2.0f;
         yMin = -(Screen.height / 2.0f);
@@ -36,6 +37,7 @@ public class UILittleTip : MonoBehaviour
     {
         UIEventManager.instance.RemoveListener<string>(UIEventDefineEnum.UpdateLittleTipEvent, UpdateMessage);
         UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateLittleTipEvent, CloseMessage);
+        UIEventManager.instance.RemoveListener<Transform>(UIEventDefineEnum.UpdateLittleTipEvent, UpdatePosition);
     }
     private void Update()
     {
@@ -50,25 +52,34 @@ public class UILittleTip : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            isRun = false;
+            TTUIPage.ClosePage<UILittleTipPage>();
         }
-        if (isRun)
-        {
-            Vector2 _pos = Vector2.one;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
-                        Input.mousePosition, canvas.worldCamera, out _pos);
-            float index_X = rt.sizeDelta.x / 2;
-            float index_Y = rt.sizeDelta.y / 2;
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    isRun = false;
+        //}
+        //if (isRun)
+        //{
+        //    Vector2 _pos = Vector2.one;
+        //    RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+        //                Input.mousePosition, canvas.worldCamera, out _pos);
+        //    float index_X = rt.sizeDelta.x / 2;
+        //    float index_Y = rt.sizeDelta.y / 2;
 
-            _pos = new Vector2(Mathf.Clamp(_pos.x, xMin + index_X, xMax - index_X), Mathf.Clamp(_pos.y, yMin + index_Y, yMax - index_Y));
-            rt.anchoredPosition = _pos;
+        //    _pos = new Vector2(Mathf.Clamp(_pos.x, xMin + index_X, xMax - index_X), Mathf.Clamp(_pos.y, yMin + index_Y, yMax - index_Y));
+        //    rt.anchoredPosition = _pos;
 
-        }
+        //}
     }
 
     private void OnEnable()
     {
         isRun = true;
+    }
+
+    private void UpdatePosition(Transform tr)
+    {
+        rt.transform.position = tr.position;
     }
 
     private void UpdateMessage(string message)

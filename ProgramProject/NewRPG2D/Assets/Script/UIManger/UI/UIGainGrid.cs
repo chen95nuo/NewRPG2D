@@ -63,6 +63,7 @@ public class UIGainGrid : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         TTUIPage.ShowPage<UILittleTipPage>();
+        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
 
         switch (type)
         {
@@ -70,12 +71,18 @@ public class UIGainGrid : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
                 break;
             case ItemType.Egg:
                 UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                 break;
             case ItemType.Prop:
                 UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, itemData.Name);
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                 break;
             case ItemType.Equip:
                 UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, equipData.Name);
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                 break;
             case ItemType.Role:
                 break;
@@ -97,12 +104,18 @@ public class UIGainGrid : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
                     break;
                 case ItemType.Egg:
                     UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, eggData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                     break;
                 case ItemType.Prop:
                     UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, itemData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                     break;
                 case ItemType.Equip:
                     UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateLittleTipEvent, equipData.Name);
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, this.transform);
+
                     break;
                 case ItemType.Role:
                     break;

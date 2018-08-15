@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIFurnacePopUp : MonoBehaviour
 {
-    public FurnacePopUp[] furnacePops;
+    public UIFurnacePopUpGrid[] furnacePops;
 
     private int iron = 0;
     private int wood = 0;
@@ -18,6 +18,7 @@ public class UIFurnacePopUp : MonoBehaviour
     private void Awake()
     {
         Restart();
+
     }
 
     public void Restart()
@@ -52,6 +53,7 @@ public class UIFurnacePopUp : MonoBehaviour
                 {
                     furnacePops[data.PopPoint[i].materialPoint].PopUp.SetActive(true);
                     furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.sprite = IconMgr.Instance.GetIcon("Material_" + data.PopPoint[i].materialType);
+                    furnacePops[data.PopPoint[i].materialPoint].FMaterialImage.SetNativeSize();
                     furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber = data.PopPoint[i].materialNumber;
                     furnacePops[data.PopPoint[i].materialPoint].FMaterialNumber.text = "+" + furnacePops[data.PopPoint[i].materialPoint].fMaterialNumber;
                 }
@@ -132,6 +134,7 @@ public class UIFurnacePopUp : MonoBehaviour
 
             furnacePops[roll].MType = type;
             furnacePops[roll].FMaterialImage.sprite = IconMgr.Instance.GetIcon("Material_" + type);
+            furnacePops[roll].FMaterialImage.SetNativeSize();
             furnacePops[roll].fMaterialNumber = number;
             furnacePops[roll].FMaterialNumber.text = "+" + furnacePops[roll].fMaterialNumber;
             furnacePops[roll].PopUp.SetActive(true);
@@ -148,20 +151,4 @@ public class UIFurnacePopUp : MonoBehaviour
             data.PopPoint[i].materialType = furnacePops[i].MType;
         }
     }
-}
-
-[System.Serializable]
-public class FurnacePopUp
-{
-    [SerializeField]
-    public GameObject PopUp;
-    [SerializeField]
-    public Image pop;
-    [SerializeField]
-    public Image FMaterialImage;
-    [SerializeField]
-    public Text FMaterialNumber;
-    public int fMaterialNumber;
-
-    public ItemMaterialType MType;
 }

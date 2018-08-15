@@ -15,6 +15,12 @@ public class CardData
     private string spriteName;//图片ID
 
     [SerializeField]
+    private string iconSpriteName;//IconID
+
+    [SerializeField]
+    private string animationName;//动画ID
+
+    [SerializeField]
     private TeamType teamType; //状态信息
 
     [SerializeField]
@@ -412,6 +418,22 @@ public class CardData
         }
     }
 
+    public string IconSpriteName
+    {
+        get
+        {
+            return iconSpriteName;
+        }
+    }
+
+    public string AnimationName
+    {
+        get
+        {
+            return animationName;
+        }
+    }
+
     public CardData() { }
 
     public CardData(int id)
@@ -452,6 +474,8 @@ public class CardData
         this.teamType = data.teamType;
         this.teamPos = data.teamPos;
         this.useAddExp = data.useAddExp;
+        this.iconSpriteName = data.iconSpriteName;
+        this.animationName = data.animationName;
     }
     public CardData(CardData data, float attack, float health, float defense, float agile, int quality)
     {
@@ -487,6 +511,8 @@ public class CardData
         this.teamType = data.teamType;
         this.teamPos = data.teamPos;
         this.useAddExp = data.useAddExp;
+        this.iconSpriteName = data.iconSpriteName;
+        this.animationName = data.animationName;
     }
     public CardData(int id, string name)
     {
