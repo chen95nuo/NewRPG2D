@@ -122,7 +122,6 @@ public class UIFurnace : MonoBehaviour
         switch (playerData.Furnace[currentMenu].FurnaceType)
         {
             case FurnaceType.Nothing:
-                Debug.Log("空运行");
                 if (furnace.AnimationState.ToString() != "clone" && furnace.AnimationState.ToString() != "close")
                 {
                     furnace.AnimationState.Data.defaultMix = 0f;

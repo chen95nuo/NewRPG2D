@@ -40,17 +40,13 @@ namespace Assets.Script.Battle
                 {
                     if (cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                     {
-                        EventManager.instance.SendEvent(EventDefineEnum.ClickMyRole, cacheRole.CurrentRole.InstanceId);
+                        EventManager.instance.SendEvent(EventDefineEnum.ClickMyRole, cacheRole.CurrentRole);
                     }
                     else
                     {
                         EventManager.instance.SendEvent(EventDefineEnum.ClickEnemyRole, cacheRole.CurrentRole);
                     }
                     DebugHelper.Log(" cacheRole " + cacheRole.name);
-                }
-                else
-                {
-                    EventManager.instance.SendEvent<RoleBase>(EventDefineEnum.ClickEnemyRole, null);
                 }
             }
             else if (Input.GetMouseButtonUp(0))

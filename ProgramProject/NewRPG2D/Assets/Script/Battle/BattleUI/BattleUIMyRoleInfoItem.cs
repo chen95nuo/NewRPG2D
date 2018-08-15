@@ -25,7 +25,7 @@ namespace Assets.Script.Battle.BattleUI
 
         public void SetRoleInfo(CardData info, int instanceId)
         {
-            CurrentInstanceId = instanceId;
+            CurrentInstanceId = info.Id;
             roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.SpriteName);
             currentHp = maxHp = info.Health;
             HpImage.fillAmount = 1;

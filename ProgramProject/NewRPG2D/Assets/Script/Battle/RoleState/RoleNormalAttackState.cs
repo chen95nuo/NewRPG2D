@@ -29,7 +29,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.OnceAttack(mRoleBase);
             HurtInfo info = new HurtInfo();
-            info.HurtValue = 30;
+            info.HurtValue = 10;
             info.AttackRole = mRoleBase;
             info.TargeRole = TargetRole;
             info.HurtType = HurtTypeEnum.Physic;

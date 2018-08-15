@@ -49,7 +49,7 @@ namespace Assets.Script.Battle
         {
             RoleHp -= HpChange;
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
-            DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
+            // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
 

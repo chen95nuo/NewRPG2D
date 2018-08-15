@@ -45,7 +45,6 @@ namespace Assets.Script.Battle.BattleUI
 
         private void OnCurrentPlayerMp(int currentCount, int lastCount)
         {
-            currentMp = currentCount;
             if (maxMp == 0)
             {
                 maxMp = currentCount;

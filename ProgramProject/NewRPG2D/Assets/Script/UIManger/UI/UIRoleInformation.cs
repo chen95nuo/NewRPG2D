@@ -46,6 +46,9 @@ public class UIRoleInformation : MonoBehaviour
     private CardData cardData;
     private SpriteAtlas getImage;
 
+    public GameObject uiDaBai;
+    public GameObject uiMoWu;
+
     public CardData RoleData
     {
         get
@@ -263,7 +266,15 @@ public class UIRoleInformation : MonoBehaviour
         roleExpSlider.maxValue = GameCardExpData.Instance.GetItem(data.Level).NeedExp;
         roleExpSlider.value = data.Exp;
         roleHeart.text = data.GoodFeeling.ToString();
-        role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        //role.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        if (data.SpriteName == "uiDaBai")
+        {
+
+        }
+        else if (data.SpriteName == "uiMoWu")
+        {
+
+        }
         roleQuality.sprite = getImage.GetSprite("roleQuality_" + data.Quality);
         roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
         roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
