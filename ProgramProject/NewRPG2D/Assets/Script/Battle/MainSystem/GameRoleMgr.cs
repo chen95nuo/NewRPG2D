@@ -48,7 +48,15 @@ namespace Assets.Script.Battle
             role.SetRoleInfo(info, roleMono);
             CardData roleData = GameCardData.Instance.GetItem(roleId);
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
-            role.InitSkill(100100102, 100100102, 100100102);
+            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
+            if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
+            {
+                role.InitSkill(100100100, 100100100, 100100100);
+            }
+            else
+            {
+                role.InitSkill(100200100, 100100100, 100100100);
+            }
             RolesList.Add(role);
             RolesEnemyList.Add(role);
             RoleDic[instanceId] = role;
@@ -71,11 +79,19 @@ namespace Assets.Script.Battle
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
-            role.InitSkill(100100100, 100100100, 100100100);
+            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
+            if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
+            {
+                role.InitSkill(100100100, 100100100, 100100100);
+            }
+            else
+            {
+                role.InitSkill(100200100, 100100100, 100100100);
+            }
             RolesList.Add(role);
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
-            Debug.LogError(" AddHeroRole ");
+            //Debug.LogError(" AddHeroRole ");
             EventManager.instance.SendEvent(EventDefineEnum.CreateRole, role);
         }
 

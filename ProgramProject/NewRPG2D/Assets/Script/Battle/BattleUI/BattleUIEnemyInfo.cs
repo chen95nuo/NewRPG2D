@@ -35,10 +35,13 @@ namespace Assets.Script.Battle.BattleUI
         {
             if (roleInfo == null)
             {
-                isAppear = false;
-                appearAnimation[animationName].time = appearAnimation[animationName].length;
-                appearAnimation[animationName].speed = -1;
-                appearAnimation.Play(animationName);
+                if (isAppear)
+                {
+                    isAppear = false;
+                    appearAnimation[animationName].time = appearAnimation[animationName].length;
+                    appearAnimation[animationName].speed = -1;
+                    appearAnimation.Play(animationName);
+                }
             }
             else
             {
