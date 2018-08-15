@@ -228,10 +228,13 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        otherGrid.otherImage.SetNativeSize();
+        //otherGrid.otherImage.SetNativeSize();
         otherGrid.otherNumber.gameObject.SetActive(true);
         otherGrid.otherNumber.text = data.Number.ToString();
-
+        if (otherGrid.otherNumberBG != null)
+        {
+            otherGrid.otherNumberBG.gameObject.SetActive(true);
+        }
         quality = data.Quality;
         propType = (int)data.PropType;
 
@@ -270,8 +273,11 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         }
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        otherGrid.otherImage.SetNativeSize();
-
+        //otherGrid.otherImage.SetNativeSize();
+        if (otherGrid.otherNumberBG != null)
+        {
+            otherGrid.otherNumberBG.gameObject.SetActive(false);
+        }
         otherGrid.otherNumber.gameObject.SetActive(false);
 
         quality = data.Quality;
@@ -465,6 +471,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         public Image otherBG;//边框
         public Image otherImage;//图片
         public Text otherNumber;//数量
+        public Image otherNumberBG;//数量背景
     }
     [System.Serializable]
     public class BagRoleGrid

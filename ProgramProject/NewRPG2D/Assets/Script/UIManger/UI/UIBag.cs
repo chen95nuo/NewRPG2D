@@ -32,6 +32,15 @@ public class UIBag : MonoBehaviour
         Init();
     }
 
+    private void OnEnable()
+    {
+        
+    }
+    private void OnDisable()
+    {
+        
+    }
+
     private void Init()
     {
         //this.bagMenu_1 = transform.Find("Cry_BottomBG_2").gameObject;

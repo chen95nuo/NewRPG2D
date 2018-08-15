@@ -20,6 +20,7 @@ public class UIRoleInformation : MonoBehaviour
     public Image roleStars;
 
     public UIRoleEquip[] roleEquip;
+    public Sprite[] roleEquipImage;
 
     public UIRoleAttribute roleHealth;
     public UIRoleAttribute roleAttack;
@@ -44,6 +45,7 @@ public class UIRoleInformation : MonoBehaviour
     public Button btn_Disband;
 
     public UIRoleStrengthen pickUpRoleStrentthen;
+
     private CardData cardData;
     private SpriteAtlas getImage;
 
@@ -96,7 +98,16 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
 
+    //动画系统
+    private void OnEnable()
+    {
 
+    }
+
+    private void OnDisable()
+    {
+
+    }
 
     public void Start()
     {
@@ -288,14 +299,13 @@ public class UIRoleInformation : MonoBehaviour
             if (data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
             {
                 Debug.Log("刷新了");
-                roleEquip[i].roleEquipImage.gameObject.SetActive(true);
                 roleEquip[i].roleEquipQuality.gameObject.SetActive(true);
                 roleEquip[i].roleEquipImage.sprite = IconMgr.Instance.GetIcon(data.Equipdata[i].SpriteName);
                 roleEquip[i].roleEquipQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Equipdata[i].Quality);
             }
             else
             {
-                roleEquip[i].roleEquipImage.gameObject.SetActive(false);
+                roleEquip[i].roleEquipImage.sprite = roleEquipImage[i];
                 roleEquip[i].roleEquipQuality.gameObject.SetActive(false);
             }
         }

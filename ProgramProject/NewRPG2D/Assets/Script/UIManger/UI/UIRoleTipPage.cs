@@ -25,17 +25,38 @@ public class UIRoleTipPage : TTUIPage
     public void UpdateRole(CardData data)
     {
         Debug.Log(data.Id);
-        float atk = Random.Range(data.AttackMinGrow, data.AttackMaxGrow + 1);
+        float atk = Random.Range(data.AttackMinGrow, data.AttackMaxGrow + 0.1f);
+        if (atk > data.AttackMaxGrow)
+            atk = data.AttackMaxGrow;
+        else if (atk < data.AttackMinGrow)
+            atk = data.AttackMinGrow;
+
         int _atk = RoleGrade(atk, data.AttackMinGrow, data.AttackMaxGrow);
 
-        float heal = Random.Range(data.HealthMinGrow, data.HealthMaxGrow + 1);
+        float heal = Random.Range(data.HealthMinGrow, data.HealthMaxGrow + 0.1f);
+        if (heal > data.HealthMaxGrow)
+            heal = data.HealthMaxGrow;
+        else if (heal < data.HealthMinGrow)
+            heal = data.HealthMinGrow;
+
         int _heal = RoleGrade(heal, data.HealthMinGrow, data.HealthMaxGrow);
 
-        float def = Random.Range(data.DefenseMinGrow, data.DefenseMaxGrow + 1);
+        float def = Random.Range(data.DefenseMinGrow, data.DefenseMaxGrow + 0.1f);
+        if (def > data.DefenseMaxGrow)
+            def = data.DefenseMaxGrow;
+        else if (def < data.DefenseMinGrow)
+            def = data.DefenseMinGrow;
+
         int _def = RoleGrade(def, data.DefenseMinGrow, data.DefenseMaxGrow);
 
-        float agile = Random.Range(data.AgileMinGrow, data.AgileMaxGrow + 1);
+        float agile = Random.Range(data.AgileMinGrow, data.AgileMaxGrow + 0.1f);
+        if (agile > data.AgileMaxGrow)
+            agile = data.AgileMaxGrow;
+        else if (agile < data.AgileMinGrow)
+            agile = data.AgileMinGrow;
+
         int _agile = RoleGrade(agile, data.AgileMinGrow, data.AgileMaxGrow);
+
         int index = Quality(_atk + _heal + _def + _agile);
         CardData newData = new CardData(data, atk, heal, def, agile, index);
         BagRoleData.Instance.AddItem(newData);

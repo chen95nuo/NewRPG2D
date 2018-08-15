@@ -74,7 +74,7 @@ public class UIBagItem : MonoBehaviour
     {
         if (itemType != ItemType.Egg)
             return;
-
+        Debug.Log(BagEggData.Instance.eggs.Count);
         GridsControl(BagEggData.Instance.eggs.Count);
 
         for (int i = 0; i < BagEggData.Instance.eggs.Count; i++)
@@ -83,7 +83,10 @@ public class UIBagItem : MonoBehaviour
             {
                 BagEggData.Instance.Remove(BagEggData.Instance.eggs[i]);
             }
-            grids[i].UpdateItem(BagEggData.Instance.eggs[i]);
+            if (BagEggData.Instance.eggs.Count > 0)
+            {
+                grids[i].UpdateItem(BagEggData.Instance.eggs[i]);
+            }
         }
     }
     public void UpdateProp()
