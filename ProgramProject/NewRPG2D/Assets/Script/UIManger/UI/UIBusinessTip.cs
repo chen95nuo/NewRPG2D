@@ -34,7 +34,7 @@ public class UIBusinessTip : MonoBehaviour
     private void OnEnable()
     {
         slider_BuyNumber.value = 1;
-        UIAnimTools.Instance.GetBG(BG, false,.8f);
+        UIAnimTools.Instance.GetBG(BG, false, .8f);
         UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_in", false);
     }
     private void Awake()
@@ -112,15 +112,15 @@ public class UIBusinessTip : MonoBehaviour
                 break;
             case ItemType.Egg:
                 itemName.text = data.eggData.Name;
-                itemImage = data.eggGrid.eggImage;
-                ItemQuality = data.eggGrid.eggBG;
+                itemImage.sprite = data.eggGrid.eggImage.sprite;
+                ItemQuality.sprite = data.eggGrid.eggBG.sprite;
                 slider_BuyNumber.maxValue = data.eggData.ItemNumber;
                 itemPrice = data.eggData.Price;
                 break;
             case ItemType.Prop:
                 itemName.text = data.propData.Name;
-                itemImage = data.otherGrid.otherImage;
-                ItemQuality = data.otherGrid.otherBG;
+                itemImage.sprite = data.otherGrid.otherImage.sprite;
+                ItemQuality.sprite = data.otherGrid.otherBG.sprite;
                 slider_BuyNumber.maxValue = data.propData.Number;
                 itemPrice = data.propData.BuyPrice;
                 switch (data.propData.StorePropType)

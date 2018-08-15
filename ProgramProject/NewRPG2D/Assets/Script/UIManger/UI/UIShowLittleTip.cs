@@ -47,7 +47,7 @@ public class UIShowLittleTip : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (Input.GetMouseButton(0))
         {
             Debug.Log("Exit");
-            TTUIPage.ClosePage<UILittleTipPage>();
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent);
         }
     }
 

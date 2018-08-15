@@ -164,6 +164,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent, propData);
             }
             TTUIPage.ClosePage<UIUseItemBagPage>();
+            Debug.Log("Close");
             UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
 
         }
@@ -180,6 +181,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     {
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateHatcheryEvent, eggData);
         TTUIPage.ClosePage<UIUseItemBagPage>();
+        Debug.Log("Close");
+
         UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
 
     }
@@ -215,6 +218,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         eggGrid.eggAttribute.sprite = IconMgr.Instance.GetIcon(data.Attribute);
         eggGrid.eggNumber.text = data.ItemNumber.ToString();
         eggGrid.eggImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        eggGrid.eggImage.SetNativeSize();
         eggGrid.eggStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.StarsLevel);
         HatchTime((int)data.HatchingTime, eggGrid.eggNeedTime);
 
@@ -397,11 +401,11 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     break;
                 case GridType.Explore:
                     Debug.Log("关闭小气泡");
-                    TTUIPage.ClosePage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent);
                     break;
                 case GridType.Team:
                     Debug.Log("关闭小气泡");
-                    TTUIPage.ClosePage<UILittleTipPage>();
+                    UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent);
                     break;
                 default:
                     break;

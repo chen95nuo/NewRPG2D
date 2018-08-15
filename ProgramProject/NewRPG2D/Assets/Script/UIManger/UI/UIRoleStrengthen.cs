@@ -75,9 +75,11 @@ public class UIRoleStrengthen : MonoBehaviour
     }
     public void CloseThisPage()
     {
-        anim.Play("UIRoleStreng_out");
-        roleInformation.anim.Play("UIRoleMain");
-        Invoke("Close", 2.0f);
+        UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_out");
+
+        UIAnimTools.Instance.PlayAnim(roleInformation.anim, "UIRoleMain");
+
+        Invoke("Close", .5f);
     }
 
     public void Close()
@@ -139,7 +141,7 @@ public class UIRoleStrengthen : MonoBehaviour
 
         roleData = data.RoleData;
         gameObject.SetActive(true);
-        anim.Play("UIRoleStreng_in");
+        UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_in");
         Debug.Log("强化 ");
         if (data.RoleData.AnimationName == "Anim_Dabai")
         {
@@ -228,7 +230,6 @@ public class UIRoleStrengthen : MonoBehaviour
         cardData[3] = roleData; //主卡ID为3
         Debug.Log(cardData[3].Name);
         TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
-
         UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
         UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
     }

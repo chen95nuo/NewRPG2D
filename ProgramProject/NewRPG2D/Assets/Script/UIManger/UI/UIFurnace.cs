@@ -16,6 +16,7 @@ public class UIFurnace : MonoBehaviour
     public GameObject typeTime;
     public Text time;
     public Slider timeSlider;
+    public GameObject mainGo;
 
     public GameObject typeStart;
     public Text goldCoin;
@@ -75,7 +76,6 @@ public class UIFurnace : MonoBehaviour
         UIEventManager.instance.RemoveListener<ItemData>(UIEventDefineEnum.UpdatePropsEvent, AddMaterial);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateFurnaceMenuEvent, UpdateFurnaceMenu);
     }
-
 
     private void Start()
     {
@@ -391,6 +391,9 @@ public class UIFurnace : MonoBehaviour
                 TinyTeam.UI.TTUIPage.ShowPage<UIUseItemBagPage>();
                 Debug.Log("this");
                 UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out", false);
+                Invoke("CloseMainGo", .2f);
+
+                UIAnimTools.Instance.GetBG(mainBG, true, .4f);
                 UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
 
                 UIEventManager.instance.SendEvent<PropMeltingType>(UIEventDefineEnum.UpdatePropsEvent, PropMeltingType.isTrue);
@@ -595,6 +598,7 @@ public class UIFurnace : MonoBehaviour
             case FurnaceTipType.addFurnace:
                 TipGO.SetActive(true);
                 UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                Invoke("CloseMainGo", .2f);
                 UIAnimTools.Instance.GetBG(tipBG, false, .2f);
 
                 if (playerData.GoldCoin - (2000 * playerData.Furnace.Count) >= 0)
@@ -613,6 +617,7 @@ public class UIFurnace : MonoBehaviour
                 UIAnimTools.Instance.GetBG(tipBG, false, .2f);
 
                 UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                Invoke("CloseMainGo", .2f);
 
                 if (playerData.GoldCoin - chickCoin >= 0)
                 {
@@ -631,6 +636,8 @@ public class UIFurnace : MonoBehaviour
                 UIAnimTools.Instance.GetBG(equipBG, false, .2f);
 
                 UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                Invoke("CloseMainGo", .2f);
+
                 if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
                     crystal.AnimationState.SetAnimation(0, "on", false);
 
@@ -843,8 +850,13 @@ public class UIFurnace : MonoBehaviour
     {
         RemoveMaterial();
         UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+        Invoke("CloseMainGo", .2f);
         UIAnimTools.Instance.GetBG(mainBG, true, .2f);
         Invoke("ClosePage", .8f);
+    }
+    private void CloseMainGo()
+    {
+        mainGo.SetActive(false);
     }
     private void ClosePage()
     {

@@ -107,6 +107,7 @@ public class UIRoleInformation : MonoBehaviour
     {
         anim.Play("UIRoleMain");
         Image image = transform.Find("BG").GetComponent<Image>();
+        UIAnimTools.Instance.GetBG(image, true, .2f);
         image.DOFade(0.5f, 0.4f);
     }
 
@@ -147,7 +148,9 @@ public class UIRoleInformation : MonoBehaviour
         }
 
         pickUpRoleStrentthen.UpdateRole(this);
-        anim.Play("UIRoleMain_out");
+        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
+        Image image = transform.Find("BG").GetComponent<Image>();
+        UIAnimTools.Instance.GetBG(image, true, .2f);
     }
     /// <summary>
     /// 天赋
@@ -216,7 +219,11 @@ public class UIRoleInformation : MonoBehaviour
     public void OpenEquipOpitions()
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
-        UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
+        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
+        Image image = transform.Find("BG").GetComponent<Image>();
+        UIAnimTools.Instance.GetBG(image, true, .2f);
+        UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
+
 
         Debug.Log(currentNumber + "打开了背包");
         if (currentNumber > 2)
@@ -402,18 +409,23 @@ public class UIRoleInformation : MonoBehaviour
         else
         {
             Debug.Log(grade);
-            return null;
+            return getImage.GetSprite("Level_4");
         }
 
 
     }
     public void ChickBack()
     {
-        anim.Play("UIRoleMain_out");
+        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
         Image image = transform.Find("BG").GetComponent<Image>();
-        image.DOFade(0f, 0.2f);
+        UIAnimTools.Instance.GetBG(image, true, .2f);
 
         Invoke("CloseThisPage", .2f);
+    }
+
+    public void CloseMainGo()
+    {
+
     }
 
     public void CloseThisPage()

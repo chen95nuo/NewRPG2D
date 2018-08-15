@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TinyTeam.UI;
+using DG.Tweening;
 
 public class UILittleTip : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UILittleTip : MonoBehaviour
     private float yMin;
     private float yMax;
 
+    private float needTime = 0.1f;
     private void Awake()
     {
         canvas = TTUIRoot.Instance.GetComponent<Canvas>();
@@ -28,6 +30,7 @@ public class UILittleTip : MonoBehaviour
         UIEventManager.instance.AddListener<string>(UIEventDefineEnum.UpdateLittleTipEvent, UpdateMessage);
         UIEventManager.instance.AddListener<bool>(UIEventDefineEnum.UpdateLittleTipEvent, CloseMessage);
         UIEventManager.instance.AddListener<Transform>(UIEventDefineEnum.UpdateLittleTipEvent, UpdatePosition);
+        UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateLittleTipEvent, NeedClosePage);
         xMin = -(Screen.width / 2.0f);
         xMax = Screen.width / 2.0f;
         yMin = -(Screen.height / 2.0f);
@@ -38,7 +41,9 @@ public class UILittleTip : MonoBehaviour
         UIEventManager.instance.RemoveListener<string>(UIEventDefineEnum.UpdateLittleTipEvent, UpdateMessage);
         UIEventManager.instance.RemoveListener<bool>(UIEventDefineEnum.UpdateLittleTipEvent, CloseMessage);
         UIEventManager.instance.RemoveListener<Transform>(UIEventDefineEnum.UpdateLittleTipEvent, UpdatePosition);
+        UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateLittleTipEvent, NeedClosePage);
     }
+
     private void Update()
     {
 
@@ -47,12 +52,12 @@ public class UILittleTip : MonoBehaviour
             isRun = true;
             if (isClose == false)
             {
-                TTUIPage.ClosePage<UILittleTipPage>();
+                NeedClosePage();
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
-            TTUIPage.ClosePage<UILittleTipPage>();
+            NeedClosePage();
         }
         //if (Input.GetMouseButtonUp(0))
         //{
@@ -72,9 +77,20 @@ public class UILittleTip : MonoBehaviour
         //}
     }
 
+    private void NeedClosePage()
+    {
+        transform.DOScale(Vector3.zero, needTime);
+
+        Invoke("ClosePage", needTime);
+    }
+    private void ClosePage()
+    {
+        TTUIPage.ClosePage<UILittleTipPage>();
+    }
     private void OnEnable()
     {
         isRun = true;
+        transform.DOScale(Vector3.one, needTime);
     }
 
     private void UpdatePosition(Transform tr)

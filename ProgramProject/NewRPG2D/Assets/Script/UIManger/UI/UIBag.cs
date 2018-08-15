@@ -314,9 +314,9 @@ public class UIBag : MonoBehaviour
     public void CloseBagPage()
     {
         UIAnimTools.Instance.PlayAnim(anim, "UIbag_out", false);
-        UIAnimTools.Instance.GetBG(bg, true,.8f);
+        UIAnimTools.Instance.GetBG(bg, true,.3f);
 
-        Invoke("CloseThisPage", .8f);
+        Invoke("CloseThisPage", .3f);
     }
 
     public void CloseThisPage()

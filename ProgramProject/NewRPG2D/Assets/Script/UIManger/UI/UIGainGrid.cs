@@ -130,8 +130,7 @@ public class UIGainGrid : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent, false);
         if (Input.GetMouseButton(0))
         {
-
-            TTUIPage.ClosePage<UILittleTipPage>();
+            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateLittleTipEvent);
         }
     }
 

@@ -30,6 +30,7 @@ public class UIAnimTools
     /// <param name="run">是否倒放 f是正</param>
     public void PlayAnim(Animation anim, string name, bool run)
     {
+        anim.gameObject.SetActive(true);
         Debug.Log(name);
         if (run)
         {
@@ -45,6 +46,7 @@ public class UIAnimTools
     }
     public void PlayAnim(Animation anim, string name)
     {
+        anim.gameObject.SetActive(true);
         anim[name].speed = 1;
         anim.Play(name);
     }

@@ -104,6 +104,7 @@ public class UIUseItemBag : MonoBehaviour
     {
         TinyTeam.UI.TTUIPage.ClosePage<UIBagItemMessage>();
         TinyTeam.UI.TTUIPage.ClosePage<UIUseItemBagPage>();
+        Debug.Log("Close");
         ClosePage();
     }
     /// <summary>
@@ -134,6 +135,11 @@ public class UIUseItemBag : MonoBehaviour
     private void Callback(GameObject obj)
     {
         go = obj;
+        Invoke("CloseGoPage", .5f);
+    }
+    private void CloseGoPage()
+    {
+        go.SetActive(false);
     }
 
     private void CloseThisPage()
@@ -146,7 +152,7 @@ public class UIUseItemBag : MonoBehaviour
             go.SetActive(true);
             go = null;
         }
-
+        Debug.Log("这里");
         Invoke("ClosePage", 0.8f);
     }
     private void CloseThisPage(bool isTrue)
@@ -161,12 +167,14 @@ public class UIUseItemBag : MonoBehaviour
             UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", !isTrue);
             UIAnimTools.Instance.GetBG(BG, isTrue, .8f);
         }
+        Debug.Log("这里");
 
         Invoke("ClosePage", 0.8f);
     }
     private void ClosePage()
     {
         TinyTeam.UI.TTUIPage.ClosePage<UIUseItemBagPage>();
+        Debug.Log("CLose");
     }
 }
 
