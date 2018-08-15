@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Assets.Script.Battle
 {
@@ -19,10 +20,22 @@ namespace Assets.Script.Battle
         public float MoveSpeed { get; private set; }
 
         private RoleBase currenRole;
+        private bl_HUDText HUDRoot;
+        private HUDTextInfo HUDTextInfoinfo;
 
         public void SetCurrentRole(RoleBase mRole)
         {
             currenRole = mRole;
+            HUDRoot = bl_UHTUtils.GetHUDText;
+            HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform,"");
+            HUDTextInfoinfo.Color = Color.red;
+            HUDTextInfoinfo.Size = 150;
+            HUDTextInfoinfo.Speed = 10;
+            HUDTextInfoinfo.VerticalAceleration = -1;
+            HUDTextInfoinfo.VerticalFactorScale = 1.5f;
+            HUDTextInfoinfo.VerticalPositionOffset = 0;
+            HUDTextInfoinfo.Side = bl_Guidance.RightDown;
+          
         }
 
         public void InitBaseRoleValue(PropertyBaseData rolePropertyData)
@@ -49,6 +62,8 @@ namespace Assets.Script.Battle
         {
             RoleHp -= HpChange;
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
+            HUDTextInfoinfo.Text = ((int)HpChange).ToString();
+            HUDRoot.NewText(HUDTextInfoinfo);
             DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }

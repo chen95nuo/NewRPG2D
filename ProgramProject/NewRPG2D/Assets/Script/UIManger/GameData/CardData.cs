@@ -434,6 +434,8 @@ public class CardData
         }
     }
 
+    public string BattleIconSpriteName;
+
     public CardData() { }
 
     public CardData(int id)

@@ -46,6 +46,7 @@ public class RoleRender : MonoBehaviour
 
     public void Move(Vector3 movePostion)
     {
+        movePostion.y = Mathf.Min(movePostion.y, 4);
         CurrentRole.RoleMoveMoment.SetTargetPositionAndChangeActionState(movePostion);
     }
 

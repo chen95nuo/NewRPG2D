@@ -49,6 +49,7 @@ namespace Assets.Script.Battle
             CardData roleData = GameCardData.Instance.GetItem(roleId);
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
+            roleData.BattleIconSpriteName = currentRoleData.IconName;
             if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
             {
                 role.InitSkill(100100100, 100100100, 100100100);
@@ -80,6 +81,7 @@ namespace Assets.Script.Battle
             role.SetRoleInfo(info, roleMono);
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
+            roleData.BattleIconSpriteName = currentRoleData.IconName;
             if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
             {
                 role.InitSkill(100100100, 100100100, 100100100);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
+using Assets.Script;
 using UnityEngine;
 
 public class ReadJsonNewMgr : TSingleton<ReadJsonNewMgr>
@@ -15,7 +16,7 @@ public class ReadJsonNewMgr : TSingleton<ReadJsonNewMgr>
         AllJsonDataDic = new Dictionary<int, string>(maxEnum);
         for (int i = 0; i < maxEnum; i++)
         {
-            GameMain.Instance.StartCoroutine(LoadJson((JsonName)i));
+            GameLogic.Instance.StartCoroutine(LoadJson((JsonName)i));
         }
 
     }

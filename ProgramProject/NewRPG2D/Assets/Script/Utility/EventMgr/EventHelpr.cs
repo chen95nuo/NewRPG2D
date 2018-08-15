@@ -17,6 +17,9 @@ public enum EventDefineEnum : uint
     ClickEnemyRole,
     CreateRole,
     HpChange,
+    DragStart,
+    Draging,
+    DragEnd,
     EventMax,
 }
 

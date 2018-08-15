@@ -32,7 +32,7 @@ namespace Assets.Script.Utility.Tools
 
         private Dictionary<SpriteAtlasTypeEnum, string> spritePathDic = new Dictionary<SpriteAtlasTypeEnum, string>
         {
-            {SpriteAtlasTypeEnum.Icon, "UISpriteAtlas/IconImage"}
+            {SpriteAtlasTypeEnum.Icon, "UISpriteAtlas/MonsterIcon"}
         };
 
         public override void Init()

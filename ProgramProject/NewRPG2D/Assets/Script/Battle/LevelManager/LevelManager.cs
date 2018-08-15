@@ -36,16 +36,26 @@ namespace Assets.Script.Battle.LevelManager
 
         private bool isCreateEnemy;
         private float addTime;
-        private bool isGameOver;
+        private bool isGameOver = true;
         private CardData[] roleInfoArray;
 
         private void Awake()
         {
+            ReadJsonNewMgr.CreateInstance();
+            CTimerManager.instance.AddListener(0.3f, 1, StartScene);
+        }
 
+        private void StartScene(int timeId)
+        {
             ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName);
+            roleInfoArray = new CardData[]
+            {
+                GameCardData.Instance.GetItem(100001),
+                GameCardData.Instance.GetItem(100002)
+            };
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
-            roleInfoArray = GoFightMgr.instance.cardData;
+            // roleInfoArray = GoFightMgr.instance.cardData;
             Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
@@ -53,11 +63,7 @@ namespace Assets.Script.Battle.LevelManager
             currentInstanceId = 100;
             isCreateEnemy = false;
             isGameOver = false;
-        }
-
-        private void Start()
-        {
-            CTimerManager.instance.AddListener(0.1f, 1, AddRole);
+            CTimerManager.instance.AddListener(1f, 1, AddRole);
         }
 
         private void Update()

@@ -41,6 +41,7 @@ namespace Assets.Script.Battle
                     if (cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                     {
                         EventManager.instance.SendEvent(EventDefineEnum.ClickMyRole, cacheRole.CurrentRole.InstanceId);
+                        EventManager.instance.SendEvent(EventDefineEnum.DragStart, cacheRole);
                     }
                     else
                     {
@@ -55,19 +56,29 @@ namespace Assets.Script.Battle
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                RoleRender role = GetTouchRoleRender();
-               
-                if (role == null && cacheRole != null)
+                EventManager.instance.SendEvent<RoleRender>(EventDefineEnum.DragEnd, cacheRole);
+                if (cacheRole != null && cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
-                    cacheRole.Move(ScreenToWorldPoint(Input.mousePosition));
-                }
-                else if(role!=null && cacheRole != null)
-                {
-                    DebugHelper.Log("role = " + role.name);
-                    cacheRole.ChangeTarget(role.CurrentRole);
-                }
+                    RoleRender role = GetTouchRoleRender();
+                    if (role == null)
+                    {
+                        cacheRole.Move(ScreenToWorldPoint(Input.mousePosition));
+                    }
+                    else if (role != null)
+                    {
+                        DebugHelper.Log("role = " + role.name);
+                        cacheRole.ChangeTarget(role.CurrentRole);
+                    }
 
-                cacheRole = null;
+                    cacheRole = null;
+                }
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (cacheRole != null && cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
+                {
+                    EventManager.instance.SendEvent(EventDefineEnum.Draging, cacheRole);
+                }
             }
         }
 

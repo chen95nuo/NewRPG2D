@@ -16,6 +16,7 @@ namespace Assets.Script.Battle.BattleData
         public int SellCoin;
         public int ExpValue;
         public string PrefabPathName;
+        public string IconName;
         public int NormalAttackId;
         public int SkillDataId01;
         public int SkillDataId02;
@@ -36,6 +37,7 @@ namespace Assets.Script.Battle.BattleData
             //SellCoin = ReadXmlDataMgr.IntParse(node, "SellCoin");
             //ExpValue = ReadXmlDataMgr.IntParse(node, "ExpValue");
             PrefabPathName = ReadXmlDataMgr.StrParse(node, "Prefab");
+            IconName = ReadXmlDataMgr.StrParse(node, "Icon");
             //NormalAttackId = ReadXmlDataMgr.IntParse(node, "NormalAttackId");
             //SkillDataId01 = ReadXmlDataMgr.IntParse(node, "SkillDataId01");
             //SkillDataId02 = ReadXmlDataMgr.IntParse(node, "SkillDataId02");
