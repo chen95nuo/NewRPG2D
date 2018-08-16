@@ -45,6 +45,11 @@ namespace Assets.Script.Battle
             {
                 HitTarget();
             }
+            else if (Vector3.Distance(transform.position, targeTransform.position) > 10)
+            {
+                canMove = false;
+                ResourcesLoadMgr.instance.PushObjIntoPool(transform.name, gameObject);
+            }
         }
 
         private void HitTarget()

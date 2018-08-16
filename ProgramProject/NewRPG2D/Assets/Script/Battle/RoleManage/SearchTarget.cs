@@ -40,6 +40,7 @@ namespace Assets.Script.Battle
         {
             if(mCurrentRole.FinishMoveToPoint == false)
             {
+                targetRole = null;
                 return;
             }
             if (targetRole != null && targetRole.IsDead == false)

@@ -13,19 +13,23 @@ namespace Assets.Script.Battle.BattleUI
         {
             myRoleInfoList = new List<BattleUIMyRoleInfoItem>();
           //  Debug.LogError(" BattleUIMyRoleInfo ");
-            EventManager.instance.AddListener<MainHeroRole>(EventDefineEnum.CreateRole, OnCreateRole);
+            EventManager.instance.AddListener<RoleBase>(EventDefineEnum.CreateRole, OnCreateRole);
             EventManager.instance.AddListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
         }
 
         private void OnDestroy()
         {
             myRoleInfoList.Clear();
-            EventManager.instance.RemoveListener<MainHeroRole>(EventDefineEnum.CreateRole, OnCreateRole);
+            EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.CreateRole, OnCreateRole);
             EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
         }
 
-        private void OnCreateRole(MainHeroRole role)
+        private void OnCreateRole(RoleBase role)
         {
+            if (role.TeamId != TeamTypeEnum.Hero)
+            {
+                return;
+            }
             BattleUIMyRoleInfoItem item = Instantiate(roleItem, parentRoot);
             myRoleInfoList.Add(item);
             item.SetRoleInfo(role.RoleDetailInfo, role.InstanceId);
