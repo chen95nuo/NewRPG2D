@@ -58,6 +58,7 @@ namespace Assets.Script.Battle
             {
                 role.InitSkill(100200100, 100100100, 100100100);
             }
+            EventManager.instance.SendEvent<RoleBase>(EventDefineEnum.CreateRole, role);
             RolesList.Add(role);
             RolesEnemyList.Add(role);
             RoleDic[instanceId] = role;
@@ -94,7 +95,7 @@ namespace Assets.Script.Battle
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;
             //Debug.LogError(" AddHeroRole ");
-            EventManager.instance.SendEvent(EventDefineEnum.CreateRole, role);
+            EventManager.instance.SendEvent<RoleBase>(EventDefineEnum.CreateRole, role);
         }
 
         public RoleBase GetRole(ushort inatancdid)
