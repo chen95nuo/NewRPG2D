@@ -36,6 +36,7 @@ namespace Assets.Script.Battle
 
         public bool FinishMoveToPoint;
         public bool IsCanControl;
+        public bool IsCanInterrput;
 
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -118,6 +119,7 @@ namespace Assets.Script.Battle
             FinishMoveToPoint = true;
             IsCanControl = true;
             IsDead = false;
+            IsCanInterrput = true;
         }
 
         private void InitRoleProperty()
@@ -134,7 +136,7 @@ namespace Assets.Script.Battle
 
         public void SetRoleActionState(ActorStateEnum state)
         {
-            if (CurrentActorState == state || IsCanControl == false)
+            if (CurrentActorState == state || IsCanControl == false || IsCanInterrput == false)
             {
                 return;
             }

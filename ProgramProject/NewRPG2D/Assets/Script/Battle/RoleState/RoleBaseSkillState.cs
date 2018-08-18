@@ -64,7 +64,7 @@ namespace Assets.Script.Battle.RoleState
                 {
                     OnceAttack(mRoleBase);
                 }
-              
+
             }
         }
 
@@ -77,6 +77,7 @@ namespace Assets.Script.Battle.RoleState
 
         protected virtual void OnceAttack(RoleBase mRoleBase)
         {
+            mRoleBase.IsCanInterrput = false;
             TargetRole = mRoleBase.RoleSearchTarget.Target;
             Vector3 dir = (TargetRole.RoleTransform.position - mRoleBase.RoleTransform.position).normalized;
             mRoleBase.RoleMoveMoment.SetOffesetVector3(dir);
@@ -105,7 +106,8 @@ namespace Assets.Script.Battle.RoleState
 
         protected virtual void OnAnimationEvent(TrackEntry animationEntry, Event e)
         {
-            Debug.LogError("OnAnimationEvent  " + e.data.name);
+            //Debug.LogError("OnAnimationEvent  " + e.data.name);
+            CurrentRole.IsCanInterrput = true;
             if (animationEntry.animation.name == AnimationName)
             {
                 HitTarget(CurrentRole);

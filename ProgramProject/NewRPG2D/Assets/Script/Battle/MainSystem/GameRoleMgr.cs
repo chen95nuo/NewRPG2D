@@ -38,7 +38,6 @@ namespace Assets.Script.Battle
                 return;
             }
 
-            roleMono.name = StringHelper.instance.GetPerfabName(indexName, instanceId);
             RoleInfo info = new RoleInfo();
             EnemyHeroRole role = new EnemyHeroRole();
             info.TeamId = TeamTypeEnum.Monster;

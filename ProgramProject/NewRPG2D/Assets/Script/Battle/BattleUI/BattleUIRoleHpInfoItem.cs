@@ -15,6 +15,7 @@ namespace Assets.Script.Battle.BattleUI
         private void Awake()
         {
             EventManager.instance.AddListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
+            useImage = redImg;
         }
 
         private void LateUpdate()
@@ -43,6 +44,7 @@ namespace Assets.Script.Battle.BattleUI
             {
                 greenImg.gameObject.SetActive(false);
                 redImg.gameObject.SetActive(true);
+                useImage = redImg;
             }
         }
 
