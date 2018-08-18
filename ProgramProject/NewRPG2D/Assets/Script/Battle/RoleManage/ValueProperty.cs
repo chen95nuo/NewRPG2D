@@ -28,7 +28,7 @@ namespace Assets.Script.Battle
             currenRole = mRole;
             HUDRoot = bl_UHTUtils.GetHUDText;
             HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform,"");
-            HUDTextInfoinfo.Color = Color.red;
+            HUDTextInfoinfo.Color = Color.white;
             HUDTextInfoinfo.Size = 150;
             HUDTextInfoinfo.Speed = 10;
             HUDTextInfoinfo.VerticalAceleration = -2;
