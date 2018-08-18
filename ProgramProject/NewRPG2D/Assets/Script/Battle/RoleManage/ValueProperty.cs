@@ -31,8 +31,8 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.Color = Color.red;
             HUDTextInfoinfo.Size = 150;
             HUDTextInfoinfo.Speed = 10;
-            HUDTextInfoinfo.VerticalAceleration = -1;
-            HUDTextInfoinfo.VerticalFactorScale = 1.5f;
+            HUDTextInfoinfo.VerticalAceleration = -2;
+            HUDTextInfoinfo.VerticalFactorScale = 0.1f;
             HUDTextInfoinfo.VerticalPositionOffset = 0;
             HUDTextInfoinfo.Side = bl_Guidance.RightDown;
           
@@ -52,6 +52,7 @@ namespace Assets.Script.Battle
             AttackProperty = rolePropertyData.AttackProperty;
             DefenseProperty = rolePropertyData.DefenseProperty;
             CriticalPercent = rolePropertyData.AttackCritial;
+            MoveSpeed = rolePropertyData.MoveSpeed;
         }
 
         public void SetMoveSeed(float moveSpeed)

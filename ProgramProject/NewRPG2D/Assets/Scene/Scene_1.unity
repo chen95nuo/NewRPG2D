@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 112500890}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.56, y: -3.96, z: 0}
+  m_LocalPosition: {x: -4.37, y: -4.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1255105121}
@@ -438,7 +438,7 @@ MonoBehaviour:
   CanvasParent: {fileID: 1846267273}
   m_Type: 1
   TextPrefab: {fileID: 100000, guid: 9da2f097e8448ec4d9ec8d75b2b20e68, type: 2}
-  FadeSpeed: 50
+  FadeSpeed: 98
   FadeCurve:
     serializedVersion: 2
     m_Curve:
@@ -463,16 +463,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_TextAnimationType: 0
-  FloatingSpeed: 12.7
-  HideDistance: 300
+  m_TextAnimationType: 3
+  FloatingSpeed: 3.9
+  HideDistance: 95
   FactorMultiplier: 0.25
-  DelayStay: 0.3
+  DelayStay: 0.1
   CanReuse: 1
   MaxUses: 5
   MaxViewAngle: 180
   DestroyTextOnDeath: 1
-  texts: []
+  texts:
+  - {fileID: 0}
 --- !u!1 &357723051
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +651,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 460638947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.41, y: -3.79, z: 0}
+  m_LocalPosition: {x: -2.84, y: -3.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1255105121}
@@ -775,7 +776,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 560822006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.1, y: -1.33, z: 0}
+  m_LocalPosition: {x: -4.53, y: -0.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1255105121}
@@ -887,7 +888,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 683808905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.16, y: -2.25, z: 0}
+  m_LocalPosition: {x: -2.78, y: -2.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1255105121}

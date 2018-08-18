@@ -25,9 +25,9 @@ namespace Assets.Script.Battle.RoleState
             base.Exit(mRoleBase);
         }
 
-        protected override void OnceAttack(RoleBase mRoleBase)
+        protected override void HitTarget(RoleBase mRoleBase)
         {
-            base.OnceAttack(mRoleBase);
+            base.HitTarget(mRoleBase);
             HurtInfo info = new HurtInfo();
             info.HurtValue = 30;
             info.AttackRole = mRoleBase;
@@ -36,15 +36,15 @@ namespace Assets.Script.Battle.RoleState
             if (mRoleBase.AttackType == AttackTypeEnum.ShortRange)
             {
                 mRoleBase.RoleDamageMoment.HurtDamage(ref info);
+                FxManger.instance.PlayFx("SwordSlashBlue", mRoleBase.RoleTransform);
             }
             else
             {
                 string aiObjectName = mRoleBase.RoleTransform.name + "_aiObjcet";
                 AIObjectRenderer aiObject = GameRoleMgr.instance.SetRoleTransform<AIObjectRenderer>("BattleAIObject/AIObjectCommon", aiObjectName, 1,
-                    mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position, 0);
-                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo {MoveSpeed = 10});
+                    mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position + mRoleBase.RoleTransform.up, 0);
+                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 10 });
             }
-            //扣血
         }
     }
 }

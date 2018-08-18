@@ -20,6 +20,7 @@ namespace Assets.Script.Battle
             mCurrentRole = mRole;
             roleAnimator = mCurrentRole.RoleAnimator;
             roleAnimationState = roleAnimator.state;
+
         }
 
         public void ChangeAniamtionNameById(int animationId)
@@ -48,6 +49,16 @@ namespace Assets.Script.Battle
         public void RemoveCompleteListener(AnimationState.TrackEntryDelegate callBack)
         {
             roleAnimationState.Complete -= callBack;
+        }
+
+        public void AddEventListener(AnimationState.TrackEntryEventDelegate callBack)
+        {
+            roleAnimationState.Event += callBack;
+        }
+
+        public void RemoveEventListener(AnimationState.TrackEntryEventDelegate callBack)
+        {
+            roleAnimationState.Event -= callBack;
         }
         #endregion
     }

@@ -86,7 +86,6 @@ namespace Assets.Script.Battle
             RolePropertyValue = new ValueProperty();
             RolePropertyValue.SetCurrentRole(this);
             InitRoleProperty();
-            RolePropertyValue.SetMoveSeed(1f);
             RoleDamageMoment = new DamageMoment();
             RoleDamageMoment.SetCurrentRole(this);
             RoleSkill = new SkillCompoment();

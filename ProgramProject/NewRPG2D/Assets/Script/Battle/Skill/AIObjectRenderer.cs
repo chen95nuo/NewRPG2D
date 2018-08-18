@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Script.Timer;
 using Assets.Script.Utility;
 using UnityEngine;
 
@@ -38,10 +39,11 @@ namespace Assets.Script.Battle
             {
                 return;
             }
+
             Vector3 moveDir = (targeTransform.position - originalRole.RoleTransform.position).normalized;
             transform.right = moveDir;
             transform.position += moveDir * moveSpeed * Time.deltaTime;
-            if (Vector3.Distance(transform.position, targeTransform.position) < 0.1f)
+            if (Vector3.Distance(transform.position, targeTransform.position + targeTransform.up) < 0.1f)
             {
                 HitTarget();
             }
@@ -52,11 +54,14 @@ namespace Assets.Script.Battle
             }
         }
 
+        private Transform hitObject;
         private void HitTarget()
         {
             originalRole.RoleDamageMoment.HurtDamage(ref AIObjectHurtInfo);
             canMove = false;
             ResourcesLoadMgr.instance.PushObjIntoPool(transform.name, gameObject);
+            FxManger.instance.PlayFx("MagicSwordHitRed", targeTransform);
         }
+
     }
 }

@@ -119,7 +119,7 @@ namespace Assets.Script.Battle
             return SetRoleTransform<RoleRender>(itemModelName, indexName, instanceId, transform, mPosition, angle);
         }
 
-        public T SetRoleTransform<T>(string itemModelName, string indexName, int instanceId, Transform transform, Vector3 mPosition, float angle) where T : MonoBehaviour
+        public T SetRoleTransform<T>(string itemModelName, string indexName, int instanceId, Transform transform, Vector3 mPosition, float angle) where T : Component
         {
             indexName = StringHelper.instance.GetPerfabName(indexName, instanceId);
             itemModelName = StaticAndConstParamter.ITEM_PATH_NAME + itemModelName;

@@ -1,6 +1,7 @@
 ﻿using Assets.Script.Battle.BattleData;
 using Spine;
 using UnityEngine;
+using Event = Spine.Event;
 
 namespace Assets.Script.Battle.RoleState
 {
@@ -42,6 +43,7 @@ namespace Assets.Script.Battle.RoleState
             CurrentRole = mRoleBase;
             CurrentRole.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
             mRoleBase.RoleAnimation.AddCompleteListener(OnCompleteAnimation);
+            mRoleBase.RoleAnimation.AddEventListener(OnAnimationEvent);
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)
@@ -70,6 +72,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Exit(mRoleBase);
             mRoleBase.RoleAnimation.RemoveCompleteListener(OnCompleteAnimation);
+            mRoleBase.RoleAnimation.RemoveEventListener(OnAnimationEvent);
         }
 
         protected virtual void OnceAttack(RoleBase mRoleBase)
@@ -86,11 +89,24 @@ namespace Assets.Script.Battle.RoleState
             CurrentSkillData.UseSkill();
         }
 
+        protected virtual void HitTarget(RoleBase mRoleBase)
+        {
+        }
+
         protected virtual void OnCompleteAnimation(TrackEntry animationEntry)
         {
             if (animationEntry.animation.name == AnimationName)
             {
                 CurrentRole.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
+            }
+        }
+
+        protected virtual void OnAnimationEvent(TrackEntry animationEntry, Event e)
+        {
+            Debug.LogError("OnAnimationEvent  " + e.data.name);
+            if (animationEntry.animation.name == AnimationName)
+            {
+                HitTarget(CurrentRole);
             }
         }
     }
