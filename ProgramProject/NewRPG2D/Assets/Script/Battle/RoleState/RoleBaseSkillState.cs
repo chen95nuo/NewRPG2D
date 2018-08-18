@@ -78,6 +78,8 @@ namespace Assets.Script.Battle.RoleState
         protected virtual void OnceAttack(RoleBase mRoleBase)
         {
             TargetRole = mRoleBase.RoleSearchTarget.Target;
+            Vector3 dir = (TargetRole.RoleTransform.position - mRoleBase.RoleTransform.position).normalized;
+            mRoleBase.RoleMoveMoment.SetOffesetVector3(dir);
             addTime = 0;
             if (TargetRole == null)
             {

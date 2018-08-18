@@ -20,7 +20,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Update(mRoleBase, deltaTime);
          
-            if (addTime > 0.1f)
+            if (addTime > 0.05f)
             {
                 mRoleBase.IsCanControl = true;
                 mRoleBase.RestartRoleLastActorState();
@@ -28,7 +28,7 @@ namespace Assets.Script.Battle.RoleState
             else
             {
                 addTime += Time.deltaTime;
-                mRoleBase.RoleTransform.position += mRoleBase.RoleTransform.right * (-2f * Time.deltaTime);
+                mRoleBase.RoleTransform.position += mRoleBase.RoleTransform.right * (-6f * Time.deltaTime);
             }
 
         }
