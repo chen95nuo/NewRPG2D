@@ -24,6 +24,12 @@ namespace Assets.Script.Battle
         public const float RoleDefenseRangePercentMin = 0.75f;  //防御浮动最小值
         public const float RoleDefenseRangePercentMax = 1.0f;  //防御浮动最大值
 
+
+        #region for test
+
+        public static bool isGod;
+
+        #endregion
     }
 
     public struct RoleAnimationName

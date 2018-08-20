@@ -51,7 +51,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4054641794957490}
-  - component: {fileID: 111484876550893240}
   - component: {fileID: 114963481764664036}
   m_Layer: 8
   m_Name: Animation
@@ -120,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 1520991197647006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 4755934756576678}
   m_Father: {fileID: 4498329363400128}
@@ -249,7 +248,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10956144, y: 1.7438381}
+  m_Offset: {x: 0.02143097, y: 1.1017501}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -260,24 +259,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7078838, y: 3.5827174}
+  m_Size: {x: 1.2726288, y: 2.2985415}
   m_EdgeRadius: 0
---- !u!111 &111484876550893240
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1520991197647006}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: a2342b116a28151419789f7e99bde4e8, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: a2342b116a28151419789f7e99bde4e8, type: 2}
-  - {fileID: 7400000, guid: 22187a22f9b4daa41889d2391a1b3f93, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114166936672684780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roleAnimation: {fileID: 114581394339901872}
-  roleNewAnimation: {fileID: 111484876550893240}
+  roleNewAnimation: {fileID: 0}
   currentSortingGroup: {fileID: 210381083782170370}
   blueSelectObj: {fileID: 1976879906025892}
   redSelectObj: {fileID: 1476424319365740}

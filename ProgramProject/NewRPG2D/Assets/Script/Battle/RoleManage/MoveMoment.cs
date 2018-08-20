@@ -41,7 +41,7 @@ namespace Assets.Script.Battle
                 SetTargetTranformDir();
             }
 
-            nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
+            nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed * 0.8f);
             //if (MapColliderMgr.instance.CheckCollider(nextPosition))
             //{
                 roleTransform.position = nextPosition;

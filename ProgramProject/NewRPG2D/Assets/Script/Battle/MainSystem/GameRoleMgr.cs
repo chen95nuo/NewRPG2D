@@ -127,6 +127,7 @@ namespace Assets.Script.Battle
             perfab.transform.parent = transform;
             perfab.transform.position = mPosition;
             perfab.transform.localEulerAngles = new Vector3(angle, 0);
+            perfab.transform.localScale = Vector3.one;
             return perfab.GetComponent<T>();
         }
 

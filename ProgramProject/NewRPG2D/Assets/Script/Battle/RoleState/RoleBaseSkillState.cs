@@ -42,8 +42,8 @@ namespace Assets.Script.Battle.RoleState
             addTime = CurrentSkillData.CurrentCD;
             CurrentRole = mRoleBase;
             CurrentRole.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
-            mRoleBase.RoleAnimation.AddCompleteListener(OnCompleteAnimation);
-            mRoleBase.RoleAnimation.AddEventListener(OnAnimationEvent);
+            CurrentRole.RoleAnimation.AddCompleteListener(OnCompleteAnimation);
+            CurrentRole.RoleAnimation.AddEventListener(OnAnimationEvent);
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)
@@ -52,17 +52,17 @@ namespace Assets.Script.Battle.RoleState
             addTime += deltaTime;
             if (addTime > skillCDTime)
             {
-                if (mRoleBase.TeamId == TeamTypeEnum.Hero)
+                if (CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
                     if (GameRoleMgr.instance.CurrentPlayerMp.Value > MP)
                     {
                         GameRoleMgr.instance.CurrentPlayerMp.Value -= MP;
-                        OnceAttack(mRoleBase);
+                        OnceAttack(CurrentRole);
                     }
                 }
                 else
                 {
-                    OnceAttack(mRoleBase);
+                    OnceAttack(CurrentRole);
                 }
 
             }
@@ -71,24 +71,27 @@ namespace Assets.Script.Battle.RoleState
         public override void Exit(RoleBase mRoleBase)
         {
             base.Exit(mRoleBase);
-            mRoleBase.RoleAnimation.RemoveCompleteListener(OnCompleteAnimation);
-            mRoleBase.RoleAnimation.RemoveEventListener(OnAnimationEvent);
+            CurrentRole.RoleAnimation.RemoveCompleteListener(OnCompleteAnimation);
+            CurrentRole.RoleAnimation.RemoveEventListener(OnAnimationEvent);
         }
 
         protected virtual void OnceAttack(RoleBase mRoleBase)
         {
-            mRoleBase.IsCanInterrput = false;
-            TargetRole = mRoleBase.RoleSearchTarget.Target;
-            Vector3 dir = (TargetRole.RoleTransform.position - mRoleBase.RoleTransform.position).normalized;
-            mRoleBase.RoleMoveMoment.SetOffesetVector3(dir);
+            CurrentRole.IsCanInterrput = false;
+            TargetRole = CurrentRole.RoleSearchTarget.Target;
+            if (TargetRole != null)
+            {
+                Vector3 dir = (TargetRole.RoleTransform.position - CurrentRole.RoleTransform.position).normalized;
+                CurrentRole.RoleMoveMoment.SetOffesetVector3(dir);
+            }
             addTime = 0;
             if (TargetRole == null)
             {
-                mRoleBase.SetRoleActionState(ActorStateEnum.Idle);
+                CurrentRole.SetRoleActionState(ActorStateEnum.Idle);
                 return;
             }
             // mRoleBase.RolePropertyValue.SetMp(MP);
-            AnimationEntry = mRoleBase.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
+            AnimationEntry = CurrentRole.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
             CurrentSkillData.UseSkill();
         }
 
@@ -106,7 +109,6 @@ namespace Assets.Script.Battle.RoleState
 
         protected virtual void OnAnimationEvent(TrackEntry animationEntry, Event e)
         {
-            //Debug.LogError("OnAnimationEvent  " + e.data.name);
             CurrentRole.IsCanInterrput = true;
             if (animationEntry.animation.name == AnimationName)
             {

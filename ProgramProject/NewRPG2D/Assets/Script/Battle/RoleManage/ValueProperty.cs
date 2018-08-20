@@ -69,7 +69,10 @@ namespace Assets.Script.Battle
 
         public bool SetHp(float HpChange)
         {
-            RoleHp -= HpChange;
+            if (BattleStaticAndEnum.isGod == false)
+            {
+                RoleHp -= HpChange;
+            }
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
             HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             HUDRoot.NewText(HUDTextInfoinfo);

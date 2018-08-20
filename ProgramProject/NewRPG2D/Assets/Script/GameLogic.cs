@@ -21,7 +21,6 @@ namespace Assets.Script
         public static GameLogic Instance = null;
 
         private bool isGameOver;
-        private LoadLevel loadLevelManager;
 
         public void Awake()
         {
@@ -71,7 +70,6 @@ namespace Assets.Script
         public void InitData()
         {
             isGameOver = false;
-            loadLevelManager = new LoadLevel();
             InputContorlMgr.instance.SetMainCamera(Camera.main);
             InputContorlMgr.instance.SetLayMask(inputLayerMask);
         }

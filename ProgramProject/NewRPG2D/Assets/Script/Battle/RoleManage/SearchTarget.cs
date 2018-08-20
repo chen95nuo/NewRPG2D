@@ -16,6 +16,7 @@ namespace Assets.Script.Battle
         private SkillSlotTypeEnum cacheSkillSlot;
         private float attackDistance;
         private List<RoleBase> allRole;
+        private bool bStartAttack = false;
 
         public void SetCurrentRole(RoleBase mRole)
         {
@@ -56,17 +57,22 @@ namespace Assets.Script.Battle
                 {
                     mCurrentRole.RoleMoveMoment.SetTargetTranform(targetRole.RoleTransform);
                     mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
-                   
+                    bStartAttack = false;
                 }
                 else
                 {
                     //Debug.LogError("have target then attack ");
-                    mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
+                    if (bStartAttack == false)
+                    {
+                        bStartAttack = true;
+                        mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
+                    }
                 }
                 //没到攻击距离时往目标走，
             }
             else
             {
+                bStartAttack = false;
                 SearchEnemyByDistance();
             }
         }

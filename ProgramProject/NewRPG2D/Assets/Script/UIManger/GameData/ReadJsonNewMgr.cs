@@ -11,16 +11,22 @@ public class ReadJsonNewMgr : TSingleton<ReadJsonNewMgr>
     public override void Init()
     {
         base.Init();
+        if (GameMain.Instance == null)
+        {
+            return;
+        }
+        LoadJsonByMono(GameMain.Instance);
+    }
+
+    public void LoadJsonByMono(MonoBehaviour mono)
+    {
         int maxEnum = (int)JsonName.Max;
         AllJsonDataDic = new Dictionary<int, string>(maxEnum);
         for (int i = 0; i < maxEnum; i++)
         {
-            GameMain.Instance.StartCoroutine(LoadJson((JsonName)i));
+            mono.StartCoroutine(LoadJson((JsonName)i));
         }
-
     }
-
-
 
     IEnumerator LoadJson(JsonName name)
     {
