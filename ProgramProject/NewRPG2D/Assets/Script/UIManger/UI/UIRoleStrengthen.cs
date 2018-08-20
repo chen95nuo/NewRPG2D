@@ -75,11 +75,12 @@ public class UIRoleStrengthen : MonoBehaviour
     }
     public void CloseThisPage()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_out");
+        //UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_out");
 
-        UIAnimTools.Instance.PlayAnim(roleInformation.anim, "UIRoleMain");
+        //UIAnimTools.Instance.PlayAnim(roleInformation.anim, "UIRoleMain");
 
-        Invoke("Close", .5f);
+        //Invoke("Close", .5f);
+        Close();
     }
 
     public void Close()
@@ -141,7 +142,7 @@ public class UIRoleStrengthen : MonoBehaviour
 
         roleData = data.RoleData;
         gameObject.SetActive(true);
-        UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_in");
+        //UIAnimTools.Instance.PlayAnim(anim, "UIRoleStreng_in");
         Debug.Log("强化 ");
         if (data.RoleData.AnimationName == "Anim_Dabai")
         {

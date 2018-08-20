@@ -172,7 +172,7 @@ public class UIFurnace : MonoBehaviour
 
                 if (crystal.AnimationState.ToString() == "chuxian")
                 {
-                    //crystal.AnimationState.AddAnimation(0, "stand", true, 0);
+                    crystal.AnimationState.AddAnimation(0, "stand", true, 0);
                 }
 
                 else if (crystal.AnimationState.ToString() != "stand" && crystalIsRun)
@@ -389,12 +389,12 @@ public class UIFurnace : MonoBehaviour
             {
                 currentButton = i;
                 TinyTeam.UI.TTUIPage.ShowPage<UIUseItemBagPage>();
-                Debug.Log("this");
-                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out", false);
-                Invoke("CloseMainGo", .2f);
+                //Debug.Log("this");
+                //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out", false);
+                //Invoke("CloseMainGo", .2f);
 
-                UIAnimTools.Instance.GetBG(mainBG, true, .4f);
-                UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
+                //UIAnimTools.Instance.GetBG(mainBG, true, .4f);
+                //UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
 
                 UIEventManager.instance.SendEvent<PropMeltingType>(UIEventDefineEnum.UpdatePropsEvent, PropMeltingType.isTrue);
             }
@@ -597,8 +597,8 @@ public class UIFurnace : MonoBehaviour
         {
             case FurnaceTipType.addFurnace:
                 TipGO.SetActive(true);
-                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
-                Invoke("CloseMainGo", .2f);
+                //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                //Invoke("CloseMainGo", .2f);
                 UIAnimTools.Instance.GetBG(tipBG, false, .2f);
 
                 if (playerData.GoldCoin - (2000 * playerData.Furnace.Count) >= 0)
@@ -616,12 +616,12 @@ public class UIFurnace : MonoBehaviour
                 TipGO.SetActive(true);
                 UIAnimTools.Instance.GetBG(tipBG, false, .2f);
 
-                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
-                Invoke("CloseMainGo", .2f);
+                //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                //Invoke("CloseMainGo", .2f);
 
                 if (playerData.GoldCoin - chickCoin >= 0)
                 {
-                    Tip.text = "<color=#FFFFFF>是否花费 " + chickCoin + " 金币开始熔炼</color>";
+                    Tip.text = "<color=#FED44D>是否花费 " + chickCoin + " 金币开始熔炼</color>";
                     isTrue.interactable = true;
                 }
                 else
@@ -635,8 +635,8 @@ public class UIFurnace : MonoBehaviour
                 equipTipGO.SetActive(true);
                 UIAnimTools.Instance.GetBG(equipBG, false, .2f);
 
-                UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
-                Invoke("CloseMainGo", .2f);
+                //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+                //Invoke("CloseMainGo", .2f);
 
                 if (crystal.AnimationState.ToString() != "on" && crystal.AnimationState.ToString() != "click")
                     crystal.AnimationState.SetAnimation(0, "on", false);
@@ -669,24 +669,29 @@ public class UIFurnace : MonoBehaviour
             default:
                 break;
         }
-        UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
-        UIAnimTools.Instance.PlayAnim(equipAnim, "UIFurnaceEqTip_out");
-        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
-        UIAnimTools.Instance.GetBG(tipBG, true, .2f);
-        UIAnimTools.Instance.GetBG(equipBG, true, .2f);
-        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
+        //UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
+        //UIAnimTools.Instance.PlayAnim(equipAnim, "UIFurnaceEqTip_out");
+        //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
+        //UIAnimTools.Instance.GetBG(tipBG, true, .2f);
+        //UIAnimTools.Instance.GetBG(equipBG, true, .2f);
+        //UIAnimTools.Instance.GetBG(mainBG, false, .2f);
 
-        Invoke("CloseTipPage", .8f);
-        Invoke("CloseEquipTipPage", .8f);
+        //Invoke("CloseTipPage", .8f);
+        //Invoke("CloseEquipTipPage", .8f);
+
+        CloseTipPage();
+        CloseEquipTipPage();
     }
     public void TipFalse()
     {
-        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
-        UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
-        UIAnimTools.Instance.GetBG(tipBG, true, .2f);
-        UIAnimTools.Instance.GetBG(mainBG, false, .2f);
+        //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in");
+        //UIAnimTools.Instance.PlayAnim(tipAnim, "UIFurnaceTip_out");
+        //UIAnimTools.Instance.GetBG(tipBG, true, .2f);
+        //UIAnimTools.Instance.GetBG(mainBG, false, .2f);
 
-        Invoke("CloseTipPage", .8f);
+        //Invoke("CloseTipPage", .8f);
+
+        CloseTipPage();
     }
 
     private void CloseEquipTipPage()
@@ -849,10 +854,14 @@ public class UIFurnace : MonoBehaviour
     private void CloseThisPage()
     {
         RemoveMaterial();
-        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
-        Invoke("CloseMainGo", .2f);
-        UIAnimTools.Instance.GetBG(mainBG, true, .2f);
+        //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_out");
+        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", true);
+        Invoke("CloseMainGo", .4f);
+        UIAnimTools.Instance.GetBG(mainBG, true, .4f);
         Invoke("ClosePage", .8f);
+
+        //CloseMainGo();
+        //ClosePage();
     }
     private void CloseMainGo()
     {

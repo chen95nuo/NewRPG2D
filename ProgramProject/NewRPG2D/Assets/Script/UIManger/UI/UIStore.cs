@@ -90,13 +90,13 @@ public class UIStore : MonoBehaviour
 
     public void OutPage()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_in", true);
+        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_in", false);
         UIAnimTools.Instance.GetBG(BG, true);
     }
 
     public void PageBack()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_out");
+        UIAnimTools.Instance.PlayAnim(anim, "UIStoreMain_in", true);
         UIAnimTools.Instance.GetBG(BG, true);
         Invoke("ClosePage", .8f);
     }

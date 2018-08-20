@@ -52,8 +52,8 @@ public class UIUseItemBag : MonoBehaviour
 
     private void OnEnable()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_in", false);
-        UIAnimTools.Instance.GetBG(BG, false, .2f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_in", false);
+        //UIAnimTools.Instance.GetBG(BG, false, .2f);
     }
     /// <summary>
     /// 打开道具包时刷新物品
@@ -135,7 +135,8 @@ public class UIUseItemBag : MonoBehaviour
     private void Callback(GameObject obj)
     {
         go = obj;
-        Invoke("CloseGoPage", .5f);
+        //Invoke("CloseGoPage", .5f);
+        CloseGoPage();
     }
     private void CloseGoPage()
     {
@@ -144,37 +145,34 @@ public class UIUseItemBag : MonoBehaviour
 
     private void CloseThisPage()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", false);
-        UIAnimTools.Instance.GetBG(BG, false, .8f);
-        if (go != null)
-        {
-            go.SetActive(false);
-            go.SetActive(true);
-            go = null;
-        }
-        Debug.Log("这里");
-        Invoke("ClosePage", 0.8f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", false);
+        //UIAnimTools.Instance.GetBG(BG, false, .8f);
+        //if (go != null)
+        //{
+        //    go.SetActive(false);
+        //    go.SetActive(true);
+        //    go = null;
+        //}
+        //Invoke("ClosePage", 0.8f);
+        ClosePage();
     }
     private void CloseThisPage(bool isTrue)
     {
-        if (isTrue)
-        {
-            UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", isTrue);
-            UIAnimTools.Instance.GetBG(BG, !isTrue, .8f);
-        }
-        else
-        {
-            UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", !isTrue);
-            UIAnimTools.Instance.GetBG(BG, isTrue, .8f);
-        }
-        Debug.Log("这里");
+        //if (isTrue)
+        //    UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", isTrue);
+        //else
+        //    UIAnimTools.Instance.PlayAnim(anim, "UIUseItemBagMain_out", !isTrue);
 
-        Invoke("ClosePage", 0.8f);
+        //UIAnimTools.Instance.GetBG(BG, !isTrue, .8f);
+        //Debug.Log("这里");
+
+        //Invoke("ClosePage", 0.8f);
+
+        ClosePage();
     }
     private void ClosePage()
     {
         TinyTeam.UI.TTUIPage.ClosePage<UIUseItemBagPage>();
-        Debug.Log("CLose");
     }
 }
 

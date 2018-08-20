@@ -105,10 +105,10 @@ public class UIRoleInformation : MonoBehaviour
     //动画系统
     private void OnEnable()
     {
-        anim.Play("UIRoleMain");
-        Image image = transform.Find("BG").GetComponent<Image>();
-        UIAnimTools.Instance.GetBG(image, true, .2f);
-        image.DOFade(0.5f, 0.4f);
+        //anim.Play("UIRoleMain");
+        //Image image = transform.Find("BG").GetComponent<Image>();
+        //UIAnimTools.Instance.GetBG(image, true, .2f);
+        //image.DOFade(0.5f, 0.4f);
     }
 
     public void Start()
@@ -148,9 +148,9 @@ public class UIRoleInformation : MonoBehaviour
         }
 
         pickUpRoleStrentthen.UpdateRole(this);
-        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
-        Image image = transform.Find("BG").GetComponent<Image>();
-        UIAnimTools.Instance.GetBG(image, true, .2f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
+        //Image image = transform.Find("BG").GetComponent<Image>();
+        //UIAnimTools.Instance.GetBG(image, true, .2f);
     }
     /// <summary>
     /// 天赋
@@ -219,9 +219,9 @@ public class UIRoleInformation : MonoBehaviour
     public void OpenEquipOpitions()
     {
         TTUIPage.ShowPage<UIUseItemBagPage>();
-        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
-        Image image = transform.Find("BG").GetComponent<Image>();
-        UIAnimTools.Instance.GetBG(image, true, .2f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
+        //Image image = transform.Find("BG").GetComponent<Image>();
+        //UIAnimTools.Instance.GetBG(image, true, .2f);
         UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateUsePage, this.gameObject);
 
 
@@ -416,11 +416,14 @@ public class UIRoleInformation : MonoBehaviour
     }
     public void ChickBack()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
-        Image image = transform.Find("BG").GetComponent<Image>();
-        UIAnimTools.Instance.GetBG(image, true, .2f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIRoleMain_out", false);
+        //Image image = transform.Find("BG").GetComponent<Image>();
+        //UIAnimTools.Instance.GetBG(image, true, .2f);
 
-        Invoke("CloseThisPage", .2f);
+        //Invoke("CloseThisPage", .2f);
+
+
+        CloseThisPage();
     }
 
     public void CloseMainGo()

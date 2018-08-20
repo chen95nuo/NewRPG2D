@@ -7,7 +7,7 @@ using TinyTeam.UI;
 public class UICardHouse : MonoBehaviour
 {
     private GameObject roleMenu;
-    public UIBag createMenu;
+    private UIBag createMenu;
     private UIBagGrid grid;
     private UIBagItem updateBagItem;
 
@@ -101,11 +101,12 @@ public class UICardHouse : MonoBehaviour
     }
     public void CloseCardsPage(bool isTrue)
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UICardHouseMain_out", isTrue);
-        UIAnimTools.Instance.GetBG(BG, !isTrue, .2f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UICardHouseMain_in", isTrue);
+        //UIAnimTools.Instance.GetBG(BG, !isTrue, .2f);
         if (isTrue == false)
         {
-            Invoke("CloseThisPage", .8f);
+            //Invoke("CloseThisPage", .8f);
+            CloseThisPage();
         }
     }
 

@@ -40,11 +40,6 @@ public class UIBag : MonoBehaviour
         UIAnimTools.Instance.GetBG(bg, false);
     }
 
-    private void OnDisable()
-    {
-        UIAnimTools.Instance.PlayAnim(anim, "UIbag_in", true);
-    }
-
     private void Init()
     {
         //this.bagMenu_1 = transform.Find("Cry_BottomBG_2").gameObject;
@@ -313,8 +308,8 @@ public class UIBag : MonoBehaviour
 
     public void CloseBagPage()
     {
-        UIAnimTools.Instance.PlayAnim(anim, "UIbag_out", false);
-        UIAnimTools.Instance.GetBG(bg, true,.3f);
+        UIAnimTools.Instance.PlayAnim(anim, "UIbag_in", true);
+        UIAnimTools.Instance.GetBG(bg, true, .3f);
 
         Invoke("CloseThisPage", .3f);
     }

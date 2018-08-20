@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*每次鼠标抬起进行动画判定，鼠标按下则进行拖动，在动画完成之前无法进行拖动*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +11,18 @@ using TinyTeam.UI;
 public class UIMapMgr : MonoBehaviour
 {
 
-    public Scrollbar m_Scrollbar;
     public ScrollRect m_ScrollRect;
+    public float m_Value;
     public Transform m_content;
     private float mTargetValue;
     private bool mNeedMove = false;
-    private const float MOVE_SPEED = 1.5F;
-    private const float SMOOTH_TIME = 0.2F;
-    private float mMoveSpeed = 0f;
+    private const float MOVE_SPEED = 0.1F;
+    public float SMOOTH_TIME = 0.2F;
+    private float mMoveSpeed = 0;
     private float imageNumber = 0;
+    private float currentTime = 0;
+    public int pageNumber = 0;
+    public Ease style;
 
 
     public Button btn_MapType;//地图选择
@@ -28,9 +33,13 @@ public class UIMapMgr : MonoBehaviour
     public Button btn_Store;//超市
     public Button btn_Reward;//任务板
     public Button btn_Explore;//探险
+    private Vector2 first;
+    private Vector2 second;
 
     private void Awake()
     {
+        Input.multiTouchEnabled = false;//关闭多点触控
+
         imageNumber = 1.0f / (m_content.childCount - 1.0f);
 
         btn_MapType.onClick.AddListener(ShowMapType);
@@ -41,13 +50,14 @@ public class UIMapMgr : MonoBehaviour
         btn_Store.onClick.AddListener(ShowStore);
         btn_Reward.onClick.AddListener(ShowReward);
         btn_Explore.onClick.AddListener(ShowExplore);
+
+        m_ScrollRect.horizontalNormalizedPosition = 0;
     }
 
     private void Start()
     {
         mTargetValue = 0;
         mNeedMove = true;
-        mMoveSpeed = 0;
     }
 
     private void ShowMapType() { }
@@ -63,40 +73,54 @@ public class UIMapMgr : MonoBehaviour
 
     public void OnPointerUp()
     {
-        //// 判断当前位于哪个区间，设置自动滑动至的位置
-        if (m_Scrollbar.value <= 1 && mTargetValue + 0.03f < m_Scrollbar.value)
+        m_Value = m_ScrollRect.horizontalNormalizedPosition;
+
+        // 判断当前位于哪个区间，设置自动滑动至的位置
+        if (m_Value <= 1 && mTargetValue + 0.03f < m_Value)
         {
-            mTargetValue += imageNumber;
+            //下一页
+            pageNumber++;
         }
-        else if (m_Scrollbar.value > 0 && mTargetValue - 0.03f > m_Scrollbar.value)
+        else if (m_Value > 0 && mTargetValue - 0.03f > m_Value)
         {
-            mTargetValue -= imageNumber;
+            //上一页
+            pageNumber--;
         }
         else
         {
-
+            Debug.Log("else");
         }
-        mNeedMove = true;
-        mMoveSpeed = 0;
+
+        mTargetValueNormalized(pageNumber);
+
+    }
+
+    private void mTargetValueNormalized(int number)
+    {
+        Mathf.Clamp(number, 0, 4);
+        Debug.Log(number);
+        switch (number)
+        {
+            case 0: mTargetValue = 0; break;
+            case 1: mTargetValue = 0.33f; break;
+            case 2: mTargetValue = 0.67f; break;
+            case 3: mTargetValue = 1; break;
+            default:
+                break;
+        }
+        m_ScrollRect.DOHorizontalNormalizedPos(mTargetValue, SMOOTH_TIME);
     }
 
     void Update()
     {
-
-        if (Input.GetMouseButtonUp(0) && mNeedMove == false)
+        if (Input.GetMouseButtonUp(0))
         {
             OnPointerUp();
         }
+    }
 
-        if (mNeedMove)
-        {
-            if (Mathf.Abs(m_Scrollbar.value - mTargetValue) < 0.001f)
-            {
-                m_Scrollbar.value = mTargetValue;
-                mNeedMove = false;
-                return;
-            }
-            m_Scrollbar.value = Mathf.SmoothDamp(m_Scrollbar.value, mTargetValue, ref mMoveSpeed, SMOOTH_TIME);
-        }
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 0, 200, 50), first.ToString());
     }
 }

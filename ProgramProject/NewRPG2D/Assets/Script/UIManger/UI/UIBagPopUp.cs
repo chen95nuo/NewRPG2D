@@ -109,8 +109,8 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
             default:
                 break;
         }
-
-        itemName.text = data.Name.ToString();
+        itemName.text = UIAnimTools.Instance.ItemNameColor(data.Quality, data.Name);
+        //itemName.text = data.Name.ToString();
         itemDescribe.text = data.Describe;
         Debug.Log("同步");
     }
@@ -164,7 +164,8 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
             default:
                 break;
         }
-        itemName.text = data.Name;
+        //itemName.text = data.Name;
+        itemName.text = UIAnimTools.Instance.ItemNameColor(data.Quality, data.Name);
         itemDescribe.text = data.Describe;
         if (data.Affix_1 == null)
         {

@@ -20,7 +20,8 @@ public class GameMain : MonoBehaviour
         ReadJsonNewMgr.CreateInstance();
         GoFightMgr.CreateInstance();
 
-        Instantiate(MapCanvas);
+        GameObject go = Instantiate(MapCanvas) as GameObject;
+        go.SetActive(true);
     }
 
     // Use this for initialization

@@ -30,6 +30,7 @@ public class UIAnimTools
     /// <param name="run">是否倒放 f是正</param>
     public void PlayAnim(Animation anim, string name, bool run)
     {
+        Debug.Log(name);
         anim.gameObject.SetActive(true);
         Debug.Log(name);
         if (run)
@@ -84,6 +85,30 @@ public class UIAnimTools
         {
             image.DOFade(0.5f, time);
         }
+    }
+
+    public string ItemNameColor(int level, string name)
+    {
+        string color = "";
+        switch (level)
+        {
+            case 1:
+                color = "A59791";
+                break;
+            case 2:
+                color = "DA9C60";
+                break;
+            case 3:
+                color = "AAD3D6";
+                break;
+            case 4:
+                color = "FAC83E";
+                break;
+            default:
+                break;
+        }
+
+        return "<color=#" + color + ">" + name + "</color>";
     }
 
 }

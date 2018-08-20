@@ -34,8 +34,8 @@ public class UIBusinessTip : MonoBehaviour
     private void OnEnable()
     {
         slider_BuyNumber.value = 1;
-        UIAnimTools.Instance.GetBG(BG, false, .8f);
-        UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_in", false);
+        //UIAnimTools.Instance.GetBG(BG, false, .8f);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_in", false);
     }
     private void Awake()
     {
@@ -156,8 +156,8 @@ public class UIBusinessTip : MonoBehaviour
         Debug.Log("确认购买");
         string message = "是否使用" + currentPrice + "购买" + uiBagGrid.propData.Name + "*" + slider_BuyNumber.value;
         TinyTeam.UI.TTUIPage.ShowPage<UIMessageTipPage>();
-        UIAnimTools.Instance.GetBG(BG, true);
-        UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_out");
+        //UIAnimTools.Instance.GetBG(BG, true);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_out");
         UIEventManager.instance.SendEvent<string>(UIEventDefineEnum.UpdateMessageTipEvent, message);
         UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateMessageTipGoEvent, this.gameObject);
         ////如果点击确认 获取当前道具信息 道具价格 为背包中的道具添加数量;
@@ -165,8 +165,8 @@ public class UIBusinessTip : MonoBehaviour
     }
     private void ChickBack()
     {
-        UIAnimTools.Instance.GetBG(BG, true);
-        UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_out");
+        //UIAnimTools.Instance.GetBG(BG, true);
+        //UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_out");
 
         if (go != null)
         {
@@ -175,7 +175,8 @@ public class UIBusinessTip : MonoBehaviour
             go = null;
         }
 
-        Invoke("ClosePage", .8f);
+        //Invoke("ClosePage", .8f);
+        ClosePage();
     }
 
     private void ClosePage()
