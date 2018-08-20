@@ -18,6 +18,7 @@ namespace Assets.Script.Battle
         public float Prompt { get; private set; }   //敏捷
         public float CriticalPercent { get; private set; }  //暴击
         public float MoveSpeed { get; private set; }
+        public RoleBase AttackRole { get; private set; }
 
         private RoleBase currenRole;
         private bl_HUDText HUDRoot;
@@ -59,13 +60,20 @@ namespace Assets.Script.Battle
         {
             MoveSpeed = moveSpeed;
         }
+
+        public bool SetHp(float HpChange, RoleBase attackRole)
+        {
+            AttackRole = attackRole;
+            return SetHp(HpChange);
+        }
+
         public bool SetHp(float HpChange)
         {
             RoleHp -= HpChange;
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
             HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             HUDRoot.NewText(HUDTextInfoinfo);
-            DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
+           // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
 

@@ -23,7 +23,6 @@ namespace Assets.Script.Battle
         private Vector3 nextPosition = Vector3.zero;
         public void Update(float deltaTime)
         {
-           
             if (targetTransform == null)
             {
                 if ((roleTransform.position - currentTargetPosition).magnitude < StaticAndConstParamter.MOVE_SPEED_MIN_THRESHOLD)
@@ -31,6 +30,7 @@ namespace Assets.Script.Battle
                     mCurrentRole.FinishMoveToPoint = true;
                     return;
                 }
+                SetTargetPosition(currentTargetPosition);
             }
             else
             {
@@ -38,6 +38,7 @@ namespace Assets.Script.Battle
                 {
                     return;
                 }
+                SetTargetTranformDir();
             }
 
             nextPosition = roleTransform.position + addOffesetVector3 * (deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
@@ -70,9 +71,14 @@ namespace Assets.Script.Battle
         public void SetTargetTranform(Transform target)
         {
             targetTransform = target;
+            SetTargetTranformDir();
+            mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
+        }
+
+        public void SetTargetTranformDir()
+        {
             Vector3 dir = (targetTransform.position - roleTransform.position).normalized;
             SetOffesetVector3(dir);
-            mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 
         public void SetTargetMinDistance(float minDistance)

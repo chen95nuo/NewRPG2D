@@ -23,6 +23,7 @@ namespace Assets.Script.Battle
         public int InstanceId { get; private set; }
         public int RoleId { get; private set; }
         public SkeletonAnimation RoleAnimator { get; private set; }
+        public Animation RoleNewAnimator { get; private set; }
         public TeamTypeEnum TeamId { get; private set; }
         public RoleTypeEnum RoleType { get; private set; }
         public Transform RoleTransform { get; private set; }
@@ -76,6 +77,7 @@ namespace Assets.Script.Battle
         {
             RoleAnimator = MonoRoleRender.roleAnimation;
             RoleTransform = MonoRoleRender.transform;
+            RoleNewAnimator = MonoRoleRender.roleNewAnimation;
         }
 
         public virtual void InitData()
@@ -188,6 +190,11 @@ namespace Assets.Script.Battle
         public virtual void Death()
         { 
             IsDead = true;
+        }
+
+        public void ChangeRoleColor(Color c)
+        {
+            MonoRoleRender.ChangeColor(c);
         }
 
         public abstract void FixedUpdateLogic(float deltaTime);

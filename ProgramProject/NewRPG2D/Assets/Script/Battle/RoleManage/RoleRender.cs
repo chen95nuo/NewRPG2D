@@ -7,12 +7,17 @@ using Transform = UnityEngine.Transform;
 public class RoleRender : MonoBehaviour
 {
     public SkeletonAnimation roleAnimation;
+    public Animation roleNewAnimation;
     [SerializeField] private SortingGroup currentSortingGroup;
     [SerializeField] private GameObject blueSelectObj, redSelectObj;
+    [SerializeField] private MeshRenderer currentRenderer;
+
     public RoleBase CurrentRole { get; private set; }
     private Transform _trans;
     private Transform _renderTrans;
     private bool bCanContorl;
+    private Material currentMaterial;
+    private MaterialPropertyBlock mpb;
 
     // Use this for initialization
     private void Awake()
@@ -20,6 +25,8 @@ public class RoleRender : MonoBehaviour
         _trans = transform;
         EventManager.instance.AddListener<int>(EventDefineEnum.ClickMyRole, OnClickMyRole);
         EventManager.instance.AddListener<RoleBase>(EventDefineEnum.ClickEnemyRole, OnClickEnemyRole);
+        currentMaterial = currentRenderer.material;
+        mpb = new MaterialPropertyBlock();
     }
 
     private void OnDestory()
@@ -48,6 +55,13 @@ public class RoleRender : MonoBehaviour
     {
         movePostion.y = Mathf.Min(movePostion.y, 4);
         CurrentRole.RoleMoveMoment.SetTargetPositionAndChangeActionState(movePostion);
+    }
+
+    public void ChangeColor(Color HittedColor)
+    {
+        // currentMaterial.color = c;
+        mpb.SetColor("_Color", HittedColor);
+        currentRenderer.SetPropertyBlock(mpb);
     }
 
     public void ChangeTarget(RoleBase targetRole)

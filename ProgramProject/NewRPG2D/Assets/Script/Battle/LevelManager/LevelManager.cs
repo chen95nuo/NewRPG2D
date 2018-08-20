@@ -57,7 +57,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void Start()
         {
-            CTimerManager.instance.AddListener(0.1f, 1, AddRole);
+            CTimerManager.instance.AddListener(0.5f, 1, AddRole);
         }
 
         private void Update()

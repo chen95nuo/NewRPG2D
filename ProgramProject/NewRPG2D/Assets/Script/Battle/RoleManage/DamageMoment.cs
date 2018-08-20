@@ -35,7 +35,7 @@ namespace Assets.Script.Battle
                     break;
             }
 
-            bool isLive = hurtInfo.TargeRole.RolePropertyValue.SetHp(hurtValue);
+            bool isLive = hurtInfo.TargeRole.RolePropertyValue.SetHp(hurtValue, hurtInfo.AttackRole);
             if (isLive == false)
             {
                 hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Death);

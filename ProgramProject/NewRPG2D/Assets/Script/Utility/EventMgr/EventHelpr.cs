@@ -20,6 +20,8 @@ public enum EventDefineEnum : uint
     DragStart,
     Draging,
     DragEnd,
+    AnimationHit,
+    AnimationEnd,
     EventMax,
 }
 

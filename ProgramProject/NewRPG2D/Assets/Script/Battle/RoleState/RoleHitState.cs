@@ -6,21 +6,37 @@ namespace Assets.Script.Battle.RoleState
     {
         private float addTime;
         private Vector3 originalPosition;
+        private bool changedColor;
+        private Vector3 hitDir;
         public override void Enter(RoleBase mRoleBase)
         {
             base.Enter(mRoleBase);
             addTime = 0;
-            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Hit);
+              mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Hit);
             mRoleBase.IsCanControl = false;
             originalPosition = mRoleBase.RoleTransform.position;
             //DebugHelper.LogError("  Hit  " + mRoleBase.ToString());
+          //  mRoleBase.RoleAnimation.ChangeAniamtionName(RoleAnimationName.Hit);
+            mRoleBase.ChangeRoleColor(Color.red);
+            changedColor = true;
+            RoleBase attackRole = mRoleBase.RolePropertyValue.AttackRole;
+
+            if (attackRole != null)
+            {
+                hitDir = (attackRole.RoleTransform.position - originalPosition).normalized;
+            }
+            else
+            {
+                hitDir = mRoleBase.RoleTransform.right;
+            }
         }
+
 
         public override void Update(RoleBase mRoleBase, float deltaTime)
         {
             base.Update(mRoleBase, deltaTime);
-         
-            if (addTime > 0.05f)
+
+            if (addTime > 0.15f)
             {
                 mRoleBase.IsCanControl = true;
                 mRoleBase.RestartRoleLastActorState();
@@ -28,15 +44,20 @@ namespace Assets.Script.Battle.RoleState
             else
             {
                 addTime += Time.deltaTime;
-                mRoleBase.RoleTransform.position += mRoleBase.RoleTransform.right * (-6f * Time.deltaTime);
-            }
+                mRoleBase.RoleTransform.position += hitDir * (-1f * Time.deltaTime);
 
+            }
+            if (changedColor && addTime > 0.1f)
+            {
+                changedColor = false;
+                mRoleBase.ChangeRoleColor(Color.white);
+            }
         }
 
         public override void Exit(RoleBase mRoleBase)
         {
             base.Exit(mRoleBase);
-            mRoleBase.RoleTransform.position = originalPosition;
+            //  mRoleBase.RoleTransform.position = originalPosition;
         }
 
     }
