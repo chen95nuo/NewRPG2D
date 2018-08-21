@@ -179,7 +179,10 @@ namespace Assets.Script.Battle
 
             if (IsCanControl)
             {
-                if (RoleMoveMoment != null){RoleMoveMoment.Update(deltaTime);}
+                if (RoleMoveMoment != null && CurrentActorState == ActorStateEnum.Run)
+                {
+                    RoleMoveMoment.Update(deltaTime);
+                }
                 if (RoleSearchTarget != null) RoleSearchTarget.Update();
                 if(RoleSkill != null) RoleSkill.UpdateLogic(deltaTime);
             }

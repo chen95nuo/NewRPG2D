@@ -35,7 +35,7 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.VerticalAceleration = -2;
             HUDTextInfoinfo.VerticalFactorScale = 0.1f;
             HUDTextInfoinfo.VerticalPositionOffset = 0;
-            HUDTextInfoinfo.Side = bl_Guidance.RightDown;
+            HUDTextInfoinfo.Side = mRole.TeamId == TeamTypeEnum.Hero ? bl_Guidance.RightDown : bl_Guidance.LeftDown;
           
         }
 
