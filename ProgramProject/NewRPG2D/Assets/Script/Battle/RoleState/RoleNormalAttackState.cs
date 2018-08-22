@@ -37,6 +37,7 @@ namespace Assets.Script.Battle.RoleState
             {
                 mRoleBase.RoleDamageMoment.HurtDamage(ref info);
                 FxManger.instance.PlayFx("SwordSlashBlue", mRoleBase.RoleTransform);
+                FxManger.instance.PlayFx("MagicSwordHitRed", TargetRole.RoleTransform);
             }
             else
             {

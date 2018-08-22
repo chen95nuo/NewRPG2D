@@ -9,7 +9,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Enter(mRoleBase);
             mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
-            mRoleBase.RoleMoveMoment.SetTargetPosition(mRoleBase.RoleTransform.position);
+           // mRoleBase.RoleMoveMoment.SetTargetPosition(mRoleBase.RoleTransform.position);
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)

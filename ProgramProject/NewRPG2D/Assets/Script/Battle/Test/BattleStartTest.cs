@@ -34,7 +34,7 @@ public class BattleStartTest : MonoBehaviour
         role2.TeamPos = 1;
         GoFightMgr.instance.cardData = new[]
        {
-            role1
+            role1, role2
         };
         BattleStaticAndEnum.isGod = IsGod.isOn;
         GoFightMgr.instance.PlayerLevel = 1;

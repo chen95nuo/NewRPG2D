@@ -17,6 +17,7 @@ namespace Assets.Script.Battle
         private float attackDistance;
         private List<RoleBase> allRole;
         private bool bStartAttack = false;
+        private float limitAngle;
 
         public void SetCurrentRole(RoleBase mRole)
         {
@@ -28,8 +29,9 @@ namespace Assets.Script.Battle
         {
             cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
             attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
-           // Debug.LogError("attack range == " + attackDistance);
-          //  attackDistance = attackDistance * attackDistance;
+            // Debug.LogError("attack range == " + attackDistance);
+            //  attackDistance = attackDistance * attackDistance;
+            limitAngle = mCurrentRole.AttackType == AttackTypeEnum.ShortRange ? 40 : 90;
         }
 
         public void SetTarget(RoleBase targetRole)
@@ -39,7 +41,7 @@ namespace Assets.Script.Battle
 
         public void Update()
         {
-            if(mCurrentRole.FinishMoveToPoint == false)
+            if (mCurrentRole.FinishMoveToPoint == false)
             {
                 targetRole = null;
                 return;
@@ -50,14 +52,19 @@ namespace Assets.Script.Battle
                 {
                     cacheSkillSlot = mCurrentRole.CurrentSlot;
                     attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
-                  //  attackDistance = attackDistance * attackDistance;
+                    //  attackDistance = attackDistance * attackDistance;
                 }
-
-                if ((targetRole.RoleTransform.position - roleTransform.position).magnitude > attackDistance)
+                Vector3 dis = targetRole.RoleTransform.position - roleTransform.position;
+                if (dis.magnitude > attackDistance)
                 {
                     mCurrentRole.RoleMoveMoment.SetTargetTranform(targetRole.RoleTransform);
                     mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
                     bStartAttack = false;
+                }
+                else if (Vector3.Angle(dis.normalized, roleTransform.right) > limitAngle)
+                {
+                    int moveDir = dis.y > 0 ? 1 : -1;
+                    mCurrentRole.RoleTransform.position += roleTransform.up * (moveDir * Time.deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
                 }
                 else
                 {

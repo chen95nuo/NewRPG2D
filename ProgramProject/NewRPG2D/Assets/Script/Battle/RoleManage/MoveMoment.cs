@@ -65,6 +65,7 @@ namespace Assets.Script.Battle
         public void SetTargetPositionAndChangeActionState(Vector3 targetPosition)
         {
             SetTargetPosition(targetPosition);
+            mCurrentRole.IsCanInterrput = true;
             mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 
@@ -72,6 +73,7 @@ namespace Assets.Script.Battle
         {
             targetTransform = target;
             SetTargetTranformDir();
+            mCurrentRole.IsCanInterrput = true;
             mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
         }
 

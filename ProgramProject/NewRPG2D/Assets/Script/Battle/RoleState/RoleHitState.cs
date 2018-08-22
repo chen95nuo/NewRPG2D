@@ -38,6 +38,7 @@ namespace Assets.Script.Battle.RoleState
 
             if (addTime > 0.15f)
             {
+                mRoleBase.ChangeRoleColor(Color.white);
                 mRoleBase.IsCanControl = true;
                 mRoleBase.RestartRoleLastActorState();
             }
@@ -47,11 +48,11 @@ namespace Assets.Script.Battle.RoleState
                 mRoleBase.RoleTransform.position += hitDir * (-1f * Time.deltaTime);
 
             }
-            if (changedColor && addTime > 0.1f)
-            {
-                changedColor = false;
-                mRoleBase.ChangeRoleColor(Color.white);
-            }
+            //if (changedColor && addTime > 0.1f)
+            //{
+            //    changedColor = false;
+            //    mRoleBase.ChangeRoleColor(Color.white);
+            //}
         }
 
         public override void Exit(RoleBase mRoleBase)
