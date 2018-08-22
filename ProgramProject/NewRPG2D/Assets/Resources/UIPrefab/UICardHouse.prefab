@@ -726,7 +726,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a8c4008aac9c1479f73d6b10b4bd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createMenu: {fileID: 0}
+  roleMenu: {fileID: 1428104355487414}
+  updateBagItem: {fileID: 114430211092526186}
+  btn_back: {fileID: 114582830769572076}
+  btn_sort: {fileID: 114136938778209364}
+  grid: {fileID: 114080629906262994}
+  anim: {fileID: 111210972009477570}
   BG: {fileID: 114454636519776128}
 --- !u!114 &114061008456778930
 MonoBehaviour:
@@ -850,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: -1
-  itemType: 0
+  itemType: 4
   gridType: 0
   type: {fileID: 1880774852846606}
   eggData:
@@ -898,40 +903,38 @@ MonoBehaviour:
     affix_4: 
     describe: 
   roleData:
-    name: 
     id: 0
+    name: 
     spriteName: 
     iconSpriteName: 
     animationName: 
+    stars: 0
+    attribute: 0
+    health: 0
+    helthMaxGrow: 
+    attack: 0
+    attackMaxGrow: 0
+    defense: 0
+    defenseMaxGrow: 0
+    agile: 0
+    agileMaxGrow: 0
+    skill_1: 
+    skill_2: 
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
-    quality: 0
     exp: 0
+    quality: 0
     useAddExp: 0
     equipdata: []
-    health: 0
     healthGrow: 0
-    healthMinGrow: 0
-    healthMaxGrow: 0
-    attack: 0
     attackGrow: 0
-    attackMinGrow: 0
-    attackMaxGrow: 0
-    agile: 0
-    agileGrow: 0
-    agileMinGrow: 0
-    agileMaxGrow: 0
-    defense: 0
     defenseGrow: 0
-    defenseMinGrow: 0
-    defenseMaxGrow: 0
+    agileGrow: 0
     goodFeeling: 0
     maxFeeling: 0
-    stars: 0
     itemType: 0
-    attribute: 0
     BattleIconSpriteName: 
   eggGrid:
     egg: {fileID: 0}
@@ -1280,9 +1283,9 @@ MonoBehaviour:
   grids: []
   gridsSpare: []
   objctPool: {fileID: 224183694860825804}
-  bagGrid: {fileID: 0}
+  bagGrid: {fileID: 1677961552907430}
   itemType: 4
-  h_gridNumber: 4
+  h_gridNumber: 0
 --- !u!114 &114437608119780662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2473,9 +2476,9 @@ RectTransform:
   m_Father: {fileID: 224982442642558090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 106.5, y: -53.5}
   m_SizeDelta: {x: 173, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224558375570605058
@@ -2607,7 +2610,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 329.58}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224721722286241428
 RectTransform:
@@ -2701,10 +2704,10 @@ RectTransform:
   m_Father: {fileID: 224716018660845936}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 153.61, y: -171.29}
+  m_SizeDelta: {x: 261.22, y: 316.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224817584707613308
 RectTransform:

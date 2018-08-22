@@ -866,7 +866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1307830930215406
 GameObject:
   m_ObjectHideFlags: 1
@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 222037981371858472}
   - component: {fileID: 114918359066877942}
   m_Layer: 5
-  m_Name: Level_1
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,7 +1271,7 @@ GameObject:
   - component: {fileID: 222660738511046366}
   - component: {fileID: 114314903248062624}
   m_Layer: 5
-  m_Name: Level_1
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2197,7 +2197,7 @@ GameObject:
   - component: {fileID: 222740986237465372}
   - component: {fileID: 114243753731786040}
   m_Layer: 5
-  m_Name: Level_1
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 222264723035688376}
   - component: {fileID: 114223895984445754}
   m_Layer: 5
-  m_Name: Level_1
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5800,146 +5800,138 @@ MonoBehaviour:
   backButton: {fileID: 114746991743439106}
   RoleMaterial: {fileID: 1774015207433324}
   roleData:
-    name: 
     id: 0
+    name: 
     spriteName: 
     iconSpriteName: 
     animationName: 
+    stars: 0
+    attribute: 0
+    health: 0
+    helthMaxGrow: 
+    attack: 0
+    attackMaxGrow: 0
+    defense: 0
+    defenseMaxGrow: 0
+    agile: 0
+    agileMaxGrow: 0
+    skill_1: 
+    skill_2: 
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
-    quality: 0
     exp: 0
+    quality: 0
     useAddExp: 0
     equipdata: []
-    health: 0
     healthGrow: 0
-    healthMinGrow: 0
-    healthMaxGrow: 0
-    attack: 0
     attackGrow: 0
-    attackMinGrow: 0
-    attackMaxGrow: 0
-    agile: 0
-    agileGrow: 0
-    agileMinGrow: 0
-    agileMaxGrow: 0
-    defense: 0
     defenseGrow: 0
-    defenseMinGrow: 0
-    defenseMaxGrow: 0
+    agileGrow: 0
     goodFeeling: 0
     maxFeeling: 0
-    stars: 0
     itemType: 0
-    attribute: 0
     BattleIconSpriteName: 
   cardData:
-  - name: 
-    id: 0
+  - id: 0
+    name: 
     spriteName: 
     iconSpriteName: 
     animationName: 
+    stars: 0
+    attribute: 0
+    health: 0
+    helthMaxGrow: 
+    attack: 0
+    attackMaxGrow: 0
+    defense: 0
+    defenseMaxGrow: 0
+    agile: 0
+    agileMaxGrow: 0
+    skill_1: 
+    skill_2: 
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
-    quality: 0
     exp: 0
+    quality: 0
     useAddExp: 0
     equipdata: []
-    health: 0
     healthGrow: 0
-    healthMinGrow: 0
-    healthMaxGrow: 0
-    attack: 0
     attackGrow: 0
-    attackMinGrow: 0
-    attackMaxGrow: 0
-    agile: 0
-    agileGrow: 0
-    agileMinGrow: 0
-    agileMaxGrow: 0
-    defense: 0
     defenseGrow: 0
-    defenseMinGrow: 0
-    defenseMaxGrow: 0
+    agileGrow: 0
     goodFeeling: 0
     maxFeeling: 0
-    stars: 0
     itemType: 0
-    attribute: 0
     BattleIconSpriteName: 
-  - name: 
-    id: 0
+  - id: 0
+    name: 
     spriteName: 
     iconSpriteName: 
     animationName: 
+    stars: 0
+    attribute: 0
+    health: 0
+    helthMaxGrow: 
+    attack: 0
+    attackMaxGrow: 0
+    defense: 0
+    defenseMaxGrow: 0
+    agile: 0
+    agileMaxGrow: 0
+    skill_1: 
+    skill_2: 
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
-    quality: 0
     exp: 0
+    quality: 0
     useAddExp: 0
     equipdata: []
-    health: 0
     healthGrow: 0
-    healthMinGrow: 0
-    healthMaxGrow: 0
-    attack: 0
     attackGrow: 0
-    attackMinGrow: 0
-    attackMaxGrow: 0
-    agile: 0
-    agileGrow: 0
-    agileMinGrow: 0
-    agileMaxGrow: 0
-    defense: 0
     defenseGrow: 0
-    defenseMinGrow: 0
-    defenseMaxGrow: 0
+    agileGrow: 0
     goodFeeling: 0
     maxFeeling: 0
-    stars: 0
     itemType: 0
-    attribute: 0
     BattleIconSpriteName: 
-  - name: 
-    id: 0
+  - id: 0
+    name: 
     spriteName: 
     iconSpriteName: 
     animationName: 
+    stars: 0
+    attribute: 0
+    health: 0
+    helthMaxGrow: 
+    attack: 0
+    attackMaxGrow: 0
+    defense: 0
+    defenseMaxGrow: 0
+    agile: 0
+    agileMaxGrow: 0
+    skill_1: 
+    skill_2: 
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
-    quality: 0
     exp: 0
+    quality: 0
     useAddExp: 0
     equipdata: []
-    health: 0
     healthGrow: 0
-    healthMinGrow: 0
-    healthMaxGrow: 0
-    attack: 0
     attackGrow: 0
-    attackMinGrow: 0
-    attackMaxGrow: 0
-    agile: 0
-    agileGrow: 0
-    agileMinGrow: 0
-    agileMaxGrow: 0
-    defense: 0
     defenseGrow: 0
-    defenseMinGrow: 0
-    defenseMaxGrow: 0
+    agileGrow: 0
     goodFeeling: 0
     maxFeeling: 0
-    stars: 0
     itemType: 0
-    attribute: 0
     BattleIconSpriteName: 
   roleMaterial:
   - {fileID: 0}
@@ -7531,22 +7523,18 @@ MonoBehaviour:
     roleValue: {fileID: 114247536219496398}
     roleScore: {fileID: 114273436492268458}
     roleQuality: {fileID: 114314903248062624}
-    roleQualityImage: {fileID: 114314903248062624}
   roleAttack:
     roleValue: {fileID: 114443567578493398}
     roleScore: {fileID: 114756988496426822}
     roleQuality: {fileID: 114918359066877942}
-    roleQualityImage: {fileID: 114918359066877942}
   roleAgile:
     roleValue: {fileID: 114331974393286312}
     roleScore: {fileID: 114638410930427928}
     roleQuality: {fileID: 114243753731786040}
-    roleQualityImage: {fileID: 114243753731786040}
   roleDefense:
     roleValue: {fileID: 114030086863974024}
     roleScore: {fileID: 114973558242493356}
     roleQuality: {fileID: 114223895984445754}
-    roleQualityImage: {fileID: 114223895984445754}
   role1Skill:
     roleSkillBG: {fileID: 114219862821532372}
     roleSkillImage: {fileID: 114089120266611944}
@@ -7569,6 +7557,11 @@ MonoBehaviour:
   Anim_DaBai: {fileID: 114804573482949572}
   Anim_MoWu: {fileID: 114812334032501492}
   anim: {fileID: 0}
+  levelSprite:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114715436918588988
 MonoBehaviour:
   m_ObjectHideFlags: 1

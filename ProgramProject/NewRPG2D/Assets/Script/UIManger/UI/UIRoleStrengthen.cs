@@ -231,8 +231,8 @@ public class UIRoleStrengthen : MonoBehaviour
         cardData[3] = roleData; //主卡ID为3
         Debug.Log(cardData[3].Name);
         TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
-        UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Use);
-        UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
+        UpdateCardData data = new UpdateCardData(cardData, GridType.Use);
+        UIEventManager.instance.SendEvent<UpdateCardData>(UIEventDefineEnum.UpdateRolesEvent, data);
     }
 
     public void Confirmed()

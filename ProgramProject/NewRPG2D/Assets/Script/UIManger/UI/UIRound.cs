@@ -180,8 +180,8 @@ public class UIRound : MonoBehaviour
     {
         currentGrid = gridID;
         TinyTeam.UI.TTUIPage.ShowPage<UICardHousePage>();
-        UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Team);
-        UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cardData);
+        UpdateCardData data = new UpdateCardData(cardData, GridType.Team);
+        UIEventManager.instance.SendEvent<UpdateCardData>(UIEventDefineEnum.UpdateRolesEvent, data);
     }
 
     private void ChickRounds()

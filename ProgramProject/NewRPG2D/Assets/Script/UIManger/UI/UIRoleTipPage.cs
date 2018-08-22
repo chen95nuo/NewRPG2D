@@ -25,37 +25,37 @@ public class UIRoleTipPage : TTUIPage
     public void UpdateRole(CardData data)
     {
         Debug.Log(data.Id);
-        float atk = Random.Range(data.AttackMinGrow, data.AttackMaxGrow + 0.1f);
-        if (atk > data.AttackMaxGrow)
-            atk = data.AttackMaxGrow;
-        else if (atk < data.AttackMinGrow)
-            atk = data.AttackMinGrow;
+        float atkMin = data.AttackMinGrow;
+        float atkMax = data.AttackMaxGrow;
+        float atk = Random.Range(atkMin, atkMax + 0.01f);
+        atk = float.Parse(atk.ToString("#0.0"));
+        Debug.Log(atk);
 
-        int _atk = RoleGrade(atk, data.AttackMinGrow, data.AttackMaxGrow);
+        int _atk = RoleGrade(atk, atkMin, atkMax);
 
-        float heal = Random.Range(data.HealthMinGrow, data.HealthMaxGrow + 0.1f);
-        if (heal > data.HealthMaxGrow)
-            heal = data.HealthMaxGrow;
-        else if (heal < data.HealthMinGrow)
-            heal = data.HealthMinGrow;
+        float heMin = data.HealthMinGrow;
+        float heMax = data.HealthMaxGrow;
+        float heal = Random.Range(heMin, heMax + 0.01f);
+        heal = float.Parse(heal.ToString("#0.0"));
+        Debug.Log(heal);
 
-        int _heal = RoleGrade(heal, data.HealthMinGrow, data.HealthMaxGrow);
+        int _heal = RoleGrade(heal, heMin, heMax);
 
-        float def = Random.Range(data.DefenseMinGrow, data.DefenseMaxGrow + 0.1f);
-        if (def > data.DefenseMaxGrow)
-            def = data.DefenseMaxGrow;
-        else if (def < data.DefenseMinGrow)
-            def = data.DefenseMinGrow;
+        float deMin = data.DefenseMinGrow;
+        float deMax = data.DefenseMaxGrow;
+        float def = Random.Range(deMin, deMax + 0.01f);
+        def = float.Parse(def.ToString("#0.0"));
+        Debug.Log(def);
 
-        int _def = RoleGrade(def, data.DefenseMinGrow, data.DefenseMaxGrow);
+        int _def = RoleGrade(def, deMin, deMax);
 
-        float agile = Random.Range(data.AgileMinGrow, data.AgileMaxGrow + 0.1f);
-        if (agile > data.AgileMaxGrow)
-            agile = data.AgileMaxGrow;
-        else if (agile < data.AgileMinGrow)
-            agile = data.AgileMinGrow;
+        float agMin = data.AgileMinGrow;
+        float agMax = data.AgileMaxGrow;
+        float agile = Random.Range(agMin, agMax + 0.01f);
+        agile = float.Parse(agile.ToString("#0.0"));
+        Debug.Log(agile);
 
-        int _agile = RoleGrade(agile, data.AgileMinGrow, data.AgileMaxGrow);
+        int _agile = RoleGrade(agile, agMin, agMax);
 
         int index = Quality(_atk + _heal + _def + _agile);
         CardData newData = new CardData(data, atk, heal, def, agile, index);
@@ -80,7 +80,7 @@ public class UIRoleTipPage : TTUIPage
         {
             return 3;
         }
-        else if (index >= 13 && index < 17)
+        else if (index >= 13)
         {
             return 4;
         }

@@ -6,38 +6,37 @@ using TinyTeam.UI;
 
 public class UICardHouse : MonoBehaviour
 {
-    private GameObject roleMenu;
+    public GameObject roleMenu;
+    public UIBagItem updateBagItem;
+    public Button btn_back;
+    public Button btn_sort;
+    public UIBagGrid grid;
     private UIBag createMenu;
-    private UIBagGrid grid;
-    private UIBagItem updateBagItem;
 
     private GridType gridType;
     private int level;
 
     private bool isNothing = true;
 
-    private Animation anim;
+    public Animation anim;
     public Image BG;
+
+    private CardData[] cardDatas;
 
     private void Awake()
     {
         Init();//初始化
 
-        UIEventManager.instance.AddListener<GridType>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleGridType);
         UIEventManager.instance.AddListener<int>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleLevel);
-        UIEventManager.instance.AddListener<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleItem);
+        UIEventManager.instance.AddListener<UpdateCardData>(UIEventDefineEnum.UpdateRolesEvent, UpdateRoleItem);
         UIEventManager.instance.AddListener<bool>(UIEventDefineEnum.UpdateRolesEvent, CloseCardsPage);
     }
 
     public void Init()
     {
-        anim = transform.Find("UICardHouseMain").GetComponent<Animation>();
-        this.gameObject.transform.Find("UICardHouseMain/btn_back").GetComponent<Button>().onClick.AddListener(PageBack);
-        this.gameObject.transform.Find("UICardHouseMain/btn_sort").GetComponent<Button>().onClick.AddListener(ItemSortEvent);
-        updateBagItem = transform.Find("UICardHouseMain/ItemList/Viewport/Content").GetComponent<UIBagItem>();
-        grid = transform.Find("UICardHouseMain/ItemList/Viewport/Content/Card_UIItem").GetComponent<UIBagGrid>();
+        btn_back.GetComponent<Button>().onClick.AddListener(PageBack);
+        btn_sort.GetComponent<Button>().onClick.AddListener(ItemSortEvent);
         createMenu = new UIBag();
-        roleMenu = transform.Find("UICardHouseMain/MenuType/btn_type").gameObject;
         roleMenu.SetActive(false);
         createMenu.CreateMenu(10, roleMenu, roleMenu.transform.parent.transform);
     }
@@ -53,11 +52,6 @@ public class UICardHouse : MonoBehaviour
         Debug.Log("排序");
         createMenu.ItemSortEvent(transform);
     }
-
-    private void UpdateRoleGridType(GridType type)
-    {
-        gridType = type;
-    }
     private void UpdateRoleLevel(int level)
     {
         this.level = level;
@@ -67,24 +61,34 @@ public class UICardHouse : MonoBehaviour
     /// 刷新角色
     /// </summary>
     /// <param name="data">撇除当前角色</param>
-    public void UpdateRoleItem(CardData[] datas)
+    public void UpdateRoleItem(UpdateCardData datas)
     {
+        Debug.Log("this ");
         isNothing = false;
+        gridType = datas.gridType;
         grid.gridType = gridType;
+        cardDatas = datas.cardDatas;
+
+        UpdateRoleItem();
+    }
+
+    public void UpdateRoleItem()
+    {
         switch (gridType)
         {
             case GridType.Nothing:
+                updateBagItem.UpdateRole();
                 break;
             case GridType.Use:
-                updateBagItem.UpdateRole(datas, gridType);
+                updateBagItem.UpdateRole(cardDatas, gridType);
                 break;
             case GridType.Store:
                 break;
             case GridType.Explore:
-                updateBagItem.UpdateRole(datas, level);
+                updateBagItem.UpdateRole(cardDatas, level);
                 break;
             case GridType.Team:
-                updateBagItem.UpdateRole(datas, gridType);
+                updateBagItem.UpdateRole(cardDatas, gridType);
                 break;
             case GridType.NoClick:
                 break;
@@ -115,4 +119,17 @@ public class UICardHouse : MonoBehaviour
         TTUIPage.ClosePage<UICardHousePage>();
     }
 
+}
+
+public class UpdateCardData
+{
+    public CardData[] cardDatas;
+    public GridType gridType;
+
+    public UpdateCardData() { }
+    public UpdateCardData(CardData[] data, GridType type)
+    {
+        this.cardDatas = data;
+        this.gridType = type;
+    }
 }

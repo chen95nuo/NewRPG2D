@@ -76,8 +76,6 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
 
         Init();
-
-
     }
 
     private void OnDestroy()
@@ -306,9 +304,10 @@ public class UIRoleInformation : MonoBehaviour
         roleQuality.sprite = getImage.GetSprite("roleQuality_" + data.Quality);
         roleAttribute.sprite = IconMgr.Instance.GetIcon("Att_" + data.Attribute);
         roleStars.sprite = IconMgr.Instance.GetIcon("Stars_" + data.Stars);
+
         for (int i = 0; i < roleEquip.Length; i++)
         {
-            if (data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
+            if (data.Equipdata != null && data.Equipdata[i] != null && data.Equipdata[i].EquipType != EquipType.Nothing)
             {
                 Debug.Log("刷新了");
                 roleEquip[i].roleEquipQuality.gameObject.SetActive(true);
@@ -323,20 +322,19 @@ public class UIRoleInformation : MonoBehaviour
         }
         roleHealth.roleValue.text = data.Health.ToString();
         roleHealth.roleScore.text = data.HealthGrow.ToString("#0.0");
-        Sprite level = RoleGrade(data.HealthGrow, data.HealthMinGrow, data.HealthMaxGrow);
-        roleHealth.roleQualityImage.sprite = level;
+        roleHealth.roleQuality.sprite = RoleGrade(data.HealthGrow, data.HealthMinGrow, data.HealthMaxGrow);
 
         roleAttack.roleValue.text = data.Attack.ToString();
         roleAttack.roleScore.text = data.AttackGrow.ToString("#0.0");
-        roleAttack.roleQualityImage.sprite = RoleGrade(data.AttackGrow, data.AttackMinGrow, data.AttackMaxGrow);
+        roleAttack.roleQuality.sprite = RoleGrade(data.AttackGrow, data.AttackMinGrow, data.AttackMaxGrow);
 
         roleAgile.roleValue.text = data.Agile.ToString();
         roleAgile.roleScore.text = data.AgileGrow.ToString("#0.0");
-        roleAgile.roleQualityImage.sprite = RoleGrade(data.AgileGrow, data.AgileMinGrow, data.AgileMaxGrow);
+        roleAgile.roleQuality.sprite = RoleGrade(data.AgileGrow, data.AgileMinGrow, data.AgileMaxGrow);
 
         roleDefense.roleValue.text = data.Defense.ToString();
         roleDefense.roleScore.text = data.DefenseGrow.ToString("#0.0");
-        roleDefense.roleQualityImage.sprite = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
+        roleDefense.roleQuality.sprite = RoleGrade(data.DefenseGrow, data.DefenseMinGrow, data.DefenseMaxGrow);
     }
 
     private void ShowLittleTip(RoleAtrType type)
@@ -392,24 +390,29 @@ public class UIRoleInformation : MonoBehaviour
 
         if (grade <= Cmax)
         {
-            return getImage.GetSprite("Level_1");
+            Sprite lvSprite = getImage.GetSprite("Level_1");
+            return lvSprite;
         }
-        else if (grade >= Bmin && grade <= Bmax)
+        else if (grade > Cmax && grade <= Bmax)
         {
-            return getImage.GetSprite("Level_2");
+            Sprite lvSprite = getImage.GetSprite("Level_2");
+            return lvSprite;
         }
-        else if (grade >= Amin && grade <= Amax)
+        else if (grade > Bmax && grade <= Amax)
         {
-            return getImage.GetSprite("Level_3");
+            Sprite lvSprite = getImage.GetSprite("Level_3");
+            return lvSprite;
         }
-        else if (grade >= Smin)
+        else if (grade > Amax)
         {
-            return getImage.GetSprite("Level_4");
+            Sprite lvSprite = getImage.GetSprite("Level_4");
+            return lvSprite;
         }
         else
         {
-            Debug.Log(grade);
-            return getImage.GetSprite("Level_4");
+            Debug.LogError("错误参数" + grade);
+            Sprite lvSprite = getImage.GetSprite("Level_4");
+            return lvSprite;
         }
 
 
@@ -451,7 +454,6 @@ public class UIRoleInformation : MonoBehaviour
         public Text roleValue;
         public Text roleScore;
         public Image roleQuality;
-        public Image roleQualityImage;
     }
     [System.Serializable]
     public class UIRoleSkill

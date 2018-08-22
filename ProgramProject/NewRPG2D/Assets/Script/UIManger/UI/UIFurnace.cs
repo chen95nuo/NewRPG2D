@@ -80,6 +80,8 @@ public class UIFurnace : MonoBehaviour
     private void Start()
     {
         crystal.AnimationState.Complete += HandleEvent;
+
+        ChickMenu();
     }
 
     private void Update()
@@ -120,7 +122,6 @@ public class UIFurnace : MonoBehaviour
             }
             else if (playerData.Furnace[i].FurnaceType == FurnaceType.End)
             {
-
                 //进度条满值修改颜色
                 furnacesMenu[i].menuSlider.fillRect.GetComponent<Image>().color = Color.green;
             }
@@ -226,10 +227,10 @@ public class UIFurnace : MonoBehaviour
         TimeSerialization(0, needTime);
         goldCoin.text = "0";
 
-        ChickMenu();
         UpdateFurnaceMenu();
         UpdateFurnace();
     }
+     
     /// <summary>
     /// 刷新熔炉菜单栏
     /// </summary>
@@ -287,6 +288,7 @@ public class UIFurnace : MonoBehaviour
                 rawMaterials[i].noPorp.gameObject.SetActive(false);
                 rawMaterials[i].propQuality.gameObject.SetActive(true);
                 rawMaterials[i].btn_rawMaterials.interactable = false;
+                rawMaterials[i].propImage.color = new Color(.5f, .5f, .5f, 1);
                 rawMaterials[i].propImage.sprite = IconMgr.Instance.GetIcon(playerData.Furnace[currentMenu].Material[i].SpriteName);
                 rawMaterials[i].propQuality.sprite = IconMgr.Instance.GetIcon("quality_" + playerData.Furnace[currentMenu].Material[i].Quality);
             }
@@ -319,6 +321,7 @@ public class UIFurnace : MonoBehaviour
                 rawMaterials[i].propQuality.gameObject.SetActive(false);
                 rawMaterials[i].noPorp.gameObject.SetActive(true);
                 rawMaterials[i].btn_rawMaterials.interactable = true;
+                rawMaterials[i].propImage.color = Color.white;
             }
             typeTime.SetActive(false);
             typeStart.SetActive(true);
@@ -336,47 +339,52 @@ public class UIFurnace : MonoBehaviour
         for (int i = 0; i < furnacesMenu.Length; i++)
         {
             furnacesMenu[i].menu.interactable = true;
+            furnacesMenu[i].menu.image.color = Color.white;
             if (go == furnacesMenu[i].menu.gameObject && go != furnacesMenu[currentMenu].menu.gameObject)
             {
-                //如果当前选择的熔炉不是正在使用的熔炉,如果上面没有材料,那么清空材料列表
-                Debug.Log("切换熔炉");
-                crystalIsRun = true;
-
-                RemoveMaterial();
-                //先将材料返还在重置数据
-                temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
-
-                ChickMaterial();
                 currentMenu = i;
-                furnacesMenu[i].menu.interactable = false;
-                switch (playerData.Furnace[currentMenu].FurnaceType)
-                {
-                    case FurnaceType.Nothing:
-                        if (furnace.AnimationState.ToString() != "clone")
-                        {
-                            furnace.AnimationState.Data.defaultMix = 0f;
-                            furnace.AnimationState.SetAnimation(0, "clone", true);
-                        }
-                        break;
-                    case FurnaceType.Run:
-                        if (furnace.AnimationState.ToString() != "stand")
-                        {
-                            furnace.AnimationState.Data.defaultMix = 0f;
-                            furnace.AnimationState.SetAnimation(0, "stand", true);
-                        }
-                        break;
-                    case FurnaceType.End:
-                        if (furnace.AnimationState.ToString() != "clone")
-                        {
-                            furnace.AnimationState.Data.defaultMix = 0f;
-                            furnace.AnimationState.SetAnimation(0, "clone", true);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                UpdateFurnace();
             }
+        }
+        {
+            //如果当前选择的熔炉不是正在使用的熔炉,如果上面没有材料,那么清空材料列表
+            Debug.Log("切换熔炉");
+            crystalIsRun = true;
+
+            RemoveMaterial();
+            //先将材料返还在重置数据
+            temporaryData = new FurnaceData(new ItemData[4], new FurnacePopUpMaterial[6]);
+
+            ChickMaterial();
+            furnacesMenu[currentMenu].menu.interactable = false;
+            furnacesMenu[currentMenu].menu.image.color = Color.gray;
+            Debug.Log(furnace.AnimationState == null);
+            switch (playerData.Furnace[currentMenu].FurnaceType)
+            {
+                case FurnaceType.Nothing:
+                    if (furnace.AnimationState.ToString() != "clone")
+                    {
+                        furnace.AnimationState.Data.defaultMix = 0f;
+                        furnace.AnimationState.SetAnimation(0, "clone", true);
+                    }
+                    break;
+                case FurnaceType.Run:
+                    if (furnace.AnimationState.ToString() != "stand")
+                    {
+                        furnace.AnimationState.Data.defaultMix = 0f;
+                        furnace.AnimationState.SetAnimation(0, "stand", true);
+                    }
+                    break;
+                case FurnaceType.End:
+                    if (furnace.AnimationState.ToString() != "clone")
+                    {
+                        furnace.AnimationState.Data.defaultMix = 0f;
+                        furnace.AnimationState.SetAnimation(0, "clone", true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            UpdateFurnace();
         }
     }
     //检查材料栏

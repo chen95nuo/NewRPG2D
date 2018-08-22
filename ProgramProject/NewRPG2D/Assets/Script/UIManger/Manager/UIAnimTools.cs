@@ -32,7 +32,6 @@ public class UIAnimTools
     {
         Debug.Log(name);
         anim.gameObject.SetActive(true);
-        Debug.Log(name);
         if (run)
         {
             anim[name].speed = -1;

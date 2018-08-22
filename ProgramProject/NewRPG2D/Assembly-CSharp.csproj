@@ -80,6 +80,7 @@
     <Compile Include="Assets\Script\Battle\FxManger.cs" />
     <Compile Include="Assets\Script\Battle\LevelManager\LevelManager.cs" />
     <Compile Include="Assets\Script\Battle\LevelManager\LoadLevel.cs" />
+    <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\AnimationEventHelper.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\AnimationSystem\RoleAnimationSys.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\BaseSystem.cs" />
     <Compile Include="Assets\Script\Battle\MainSystem\GameRoleMgr.cs" />
@@ -108,9 +109,11 @@
     <Compile Include="Assets\Script\Battle\Skill\AIObjectLogic.cs" />
     <Compile Include="Assets\Script\Battle\Skill\AIObjectRenderer.cs" />
     <Compile Include="Assets\Script\GameLogic.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\BagCardData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\CardData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\CardExpData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\CardGainData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameData\CardSkillData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\ComposedTableData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\DropBagData.cs" />
     <Compile Include="Assets\Script\UIManger\GameData\EggData.cs" />
@@ -415,6 +418,7 @@
     <None Include="Assets\Spine Examples\Spine\Gauge\Gauge.atlas.txt" />
     <None Include="Assets\StreamingAssets\Config\CreateEnemyData.xml" />
     <None Include="Assets\StreamingAssets\Json\BagFurnaceData.txt" />
+    <None Include="Assets\StreamingAssets\Json\SkillData.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\SkeletonGraphic\Shaders\Spine-SkeletonGraphic-TintBlack.shader" />
     <None Include="Assets\Res\Texture\UITexture\Map\场景角色\建筑\商店\01shangdian.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\FootSoldier\FS_White.atlas.txt" />

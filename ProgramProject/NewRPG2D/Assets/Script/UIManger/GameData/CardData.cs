@@ -6,10 +6,10 @@ using UnityEngine;
 public class CardData
 {
     [SerializeField]
-    private string name;//名字
+    private int id;//物品id
 
     [SerializeField]
-    private int id;//物品id
+    private string name;//名字
 
     [SerializeField]
     private string spriteName;//图片ID
@@ -19,6 +19,42 @@ public class CardData
 
     [SerializeField]
     private string animationName;//动画ID
+
+    [SerializeField]
+    private int stars;//星级
+
+    [SerializeField]
+    private int attribute;//元素
+
+    [SerializeField]
+    private float health; //生命值
+
+    [SerializeField]
+    private string helthMaxGrow;//生命值成长上限
+
+    [SerializeField]
+    private float attack;//攻击
+
+    [SerializeField]
+    private string attackMaxGrow;//攻击成长上限
+
+    [SerializeField]
+    private float defense;//防御
+
+    [SerializeField]
+    private string defenseMaxGrow;//防御成长
+
+    [SerializeField]
+    private float agile;//敏捷
+
+    [SerializeField]
+    private string agileMaxGrow;//敏捷成长上限
+
+    [SerializeField]
+    private string skill_1;//技能1
+
+    [SerializeField]
+    private string skill_2;//技能2
 
     [SerializeField]
     private TeamType teamType; //状态信息
@@ -33,10 +69,10 @@ public class CardData
     private int level;//等级
 
     [SerializeField]
-    private int quality;//稀有度
+    private float exp;//经验
 
     [SerializeField]
-    private float exp;//经验
+    private int quality;//品质
 
     [SerializeField]
     private float useAddExp;//使用获得经验
@@ -45,55 +81,16 @@ public class CardData
     private EquipData[] equipdata; //装备
 
     [SerializeField]
-    private float health; //生命值
-
-    [SerializeField]
     private float healthGrow; //生命值成长
-
-    [SerializeField]
-    private float healthMinGrow;//生命值成长下限
-
-    [SerializeField]
-    private float healthMaxGrow;//生命值成长上限
-
-    [SerializeField]
-    private float attack;//攻击
 
     [SerializeField]
     private float attackGrow;//攻击成长
 
     [SerializeField]
-    private float attackMinGrow;//攻击成长下限
-
-    [SerializeField]
-    private float attackMaxGrow;//攻击成长上限
-
-    [SerializeField]
-    private float agile;//敏捷
-
-    [SerializeField]
-    private float agileGrow;//敏捷成长
-
-    [SerializeField]
-    private float agileMinGrow;//敏捷成长下限
-
-    [SerializeField]
-    private float agileMaxGrow;//敏捷成长上限
-
-    [SerializeField]
-    private float defense;//防御
-
-    [SerializeField]
     private float defenseGrow;//防御成长
 
     [SerializeField]
-    private float defenseMinGrow;//防御成长
-
-    [SerializeField]
-    private float defenseMaxGrow;//防御成长
-
-    //[SerializeField]
-    //private 
+    private float agileGrow;//敏捷成长
 
     [SerializeField]
     private int goodFeeling;//好感度
@@ -102,13 +99,7 @@ public class CardData
     private int maxFeeling;//好感度上限
 
     [SerializeField]
-    private int stars;//星级
-
-    [SerializeField]
     private ItemType itemType;//物品类型
-
-    [SerializeField]
-    private int attribute;//属性
 
     public string Name
     {
@@ -142,6 +133,10 @@ public class CardData
     {
         get
         {
+            if (level == 0)
+            {
+                return 1;
+            }
             return level;
         }
     }
@@ -293,7 +288,7 @@ public class CardData
     {
         get
         {
-            return itemType;
+            return ItemType.Role;
         }
     }
 
@@ -338,7 +333,8 @@ public class CardData
     {
         get
         {
-            return healthMinGrow;
+
+            return FormatGrow(helthMaxGrow, 0);
         }
     }
 
@@ -346,7 +342,7 @@ public class CardData
     {
         get
         {
-            return healthMaxGrow;
+            return FormatGrow(helthMaxGrow, 1);
         }
     }
 
@@ -354,7 +350,7 @@ public class CardData
     {
         get
         {
-            return attackMinGrow;
+            return FormatGrow(attackMaxGrow, 0);
         }
     }
 
@@ -362,7 +358,7 @@ public class CardData
     {
         get
         {
-            return attackMaxGrow;
+            return FormatGrow(attackMaxGrow, 1);
         }
     }
 
@@ -370,7 +366,7 @@ public class CardData
     {
         get
         {
-            return agileMinGrow;
+            return FormatGrow(agileMaxGrow, 0);
         }
     }
 
@@ -378,7 +374,7 @@ public class CardData
     {
         get
         {
-            return agileMaxGrow;
+            return FormatGrow(agileMaxGrow, 1);
         }
     }
 
@@ -386,7 +382,7 @@ public class CardData
     {
         get
         {
-            return defenseMinGrow;
+            return FormatGrow(defenseMaxGrow, 0);
         }
     }
 
@@ -394,7 +390,7 @@ public class CardData
     {
         get
         {
-            return defenseMaxGrow;
+            return FormatGrow(defenseMaxGrow, 1);
         }
     }
 
@@ -447,17 +443,14 @@ public class CardData
         this.agile = data.agile;
         this.agileGrow = data.agileGrow;
         this.agileMaxGrow = data.agileMaxGrow;
-        this.agileMinGrow = data.agileMinGrow;
         this.spriteName = data.spriteName;
         this.attack = data.attack;
         this.attackGrow = data.attackGrow;
         this.attackMaxGrow = data.attackMaxGrow;
-        this.attackMinGrow = data.attackMinGrow;
         this.attribute = data.attribute;
         this.defense = data.defense;
         this.defenseGrow = data.defenseGrow;
         this.defenseMaxGrow = data.defenseMaxGrow;
-        this.defenseMinGrow = data.defenseMinGrow;
         this.equipdata = data.equipdata;
         this.exp = data.exp;
         this.fighting = data.fighting;
@@ -465,8 +458,7 @@ public class CardData
         this.maxFeeling = data.maxFeeling;
         this.health = data.health;
         this.healthGrow = data.healthGrow;
-        this.healthMaxGrow = data.healthMaxGrow;
-        this.healthMinGrow = data.healthMinGrow;
+        this.helthMaxGrow = data.helthMaxGrow;
         this.id = data.id;
         this.itemType = data.itemType;
         this.level = data.level;
@@ -484,17 +476,14 @@ public class CardData
         this.agile = data.agile;
         this.agileGrow = agile;
         this.agileMaxGrow = data.agileMaxGrow;
-        this.agileMinGrow = data.agileMinGrow;
         this.spriteName = data.spriteName;
         this.attack = data.attack;
         this.attackGrow = attack;
         this.attackMaxGrow = data.attackMaxGrow;
-        this.attackMinGrow = data.attackMinGrow;
         this.attribute = data.attribute;
         this.defense = data.defense;
         this.defenseGrow = defense;
         this.defenseMaxGrow = data.defenseMaxGrow;
-        this.defenseMinGrow = data.defenseMinGrow;
         this.equipdata = data.equipdata;
         this.exp = data.exp;
         this.fighting = data.fighting;
@@ -502,8 +491,7 @@ public class CardData
         this.maxFeeling = data.maxFeeling;
         this.health = data.health;
         this.healthGrow = health;
-        this.healthMaxGrow = data.healthMaxGrow;
-        this.healthMinGrow = data.healthMinGrow;
+        this.helthMaxGrow = data.helthMaxGrow;
         this.id = data.id;
         this.itemType = data.itemType;
         this.level = data.level;
@@ -526,6 +514,22 @@ public class CardData
         this.id = id;
         this.name = name;
         this.itemType = type;
+    }
+
+    private float FormatGrow(string grow, int type)
+    {
+        if (grow != "")
+        {
+            string[] str;
+            str = grow.Split(',');
+            float value = System.Convert.ToSingle(str[type]);
+            return value;
+        }
+        else
+        {
+            Debug.LogError("角色属性参数不正确" + grow + " " + type);
+            return 0;
+        }
     }
 }
 

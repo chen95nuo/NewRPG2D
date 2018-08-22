@@ -15,7 +15,5 @@ public class UICardHousePage : TTUIPage
     public override void Refresh()
     {
         this.transform.SetSiblingIndex(transform.parent.childCount - 1);
-        //gridType = GridType.Nothing;
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRolesEvent);
     }
 }

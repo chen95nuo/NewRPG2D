@@ -17,7 +17,7 @@ public class UIExplore : MonoBehaviour
     private int currentMenu = 0;
     private int currentRoleBtn = 0;
     private ExploreData currentExplore;//当前地图
-    private CardData[] cards = new CardData[4];//临时卡牌数据
+    private CardData[] cards = new CardData[3];//临时卡牌数据
     private UIExpBtnGrid[] expGrids;
     private List<ExpeditionData> expData = new List<ExpeditionData>();//所有探险小队
 
@@ -209,7 +209,7 @@ public class UIExplore : MonoBehaviour
         expData = PlayerExpeditionData.Instance.items;
         if (expData[currentMenu].CardsData == null || expData[currentMenu].CardsData.Length <= 0)
         {
-            expData[currentMenu].CardsData = new CardData[4];
+            expData[currentMenu].CardsData = new CardData[3];
         }
         for (int i = 0; i < expData[currentMenu].CardsData.Length; i++)
         {
@@ -256,8 +256,8 @@ public class UIExplore : MonoBehaviour
                     UIEventManager.instance.SendEvent<int>(UIEventDefineEnum.UpdateRolesEvent, currentExplore.OtherLevel);
             }
         }
-        UIEventManager.instance.SendEvent<GridType>(UIEventDefineEnum.UpdateRolesEvent, GridType.Explore);
-        UIEventManager.instance.SendEvent<CardData[]>(UIEventDefineEnum.UpdateRolesEvent, cards);
+        UpdateCardData data = new UpdateCardData(cards, GridType.Explore);
+        UIEventManager.instance.SendEvent<UpdateCardData>(UIEventDefineEnum.UpdateRolesEvent, data);
     }
 
     /// <summary>

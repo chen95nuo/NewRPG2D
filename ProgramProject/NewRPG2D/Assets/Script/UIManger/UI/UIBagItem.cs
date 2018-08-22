@@ -24,10 +24,6 @@ public class UIBagItem : MonoBehaviour
         {
             PreloadingGrids(h_gridNumber);
         }
-        else if (itemType == ItemType.Role)
-        {
-            UpdateRole();
-        }
 
 
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);//更新鸡蛋
@@ -188,7 +184,6 @@ public class UIBagItem : MonoBehaviour
             return;
 
         GridsControl(BagRoleData.Instance.roles.Count, GridType.Nothing);
-
         for (int i = 0; i < BagRoleData.Instance.roles.Count; i++)
         {
             grids[i].UpdateItem(BagRoleData.Instance.roles[i]);

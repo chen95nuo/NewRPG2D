@@ -128,7 +128,7 @@ public class UIBag : MonoBehaviour
             for (int i = 0; i < firstMenu.Length; i++)
             {
                 firstMenu[i].GetComponentInChildren<Image>().GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                firstMenu[i].GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_1");
+                firstMenu[i].GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_2");
                 firstMenu[i].GetComponent<Button>().interactable = true;
             }
             GameObject go;
@@ -142,7 +142,7 @@ public class UIBag : MonoBehaviour
                 go = bagMenu_1.transform.GetChild(firstLoad).gameObject;
             }
             go.GetComponentInChildren<Image>().GetComponent<RectTransform>().anchoredPosition = Vector2.down * 18.0f;
-            go.GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_2");
+            go.GetComponentInChildren<Image>().sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Btn_1");
             go.GetComponent<Button>().interactable = false;
 
 
