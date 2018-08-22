@@ -15,7 +15,7 @@ public class PlayerExpeditionData
                 instance = JsonUtility.FromJson<PlayerExpeditionData>(json);
                 if (instance.items == null)
                 {
-                    instance.items = new List<ExpeditionData>();
+                    instance.items = new ExpeditionData();
                 }
 
             }
@@ -23,22 +23,6 @@ public class PlayerExpeditionData
         }
     }
 
-    public List<ExpeditionData> items;//库中的道具
+    public ExpeditionData items;//库中的道具
 
-    /// <summary>
-    /// 查找道具的数据
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public ExpeditionData GetItem(int id)
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i].Id == id)
-            {
-                return items[i];
-            }
-        }
-        return null;
-    }
 }

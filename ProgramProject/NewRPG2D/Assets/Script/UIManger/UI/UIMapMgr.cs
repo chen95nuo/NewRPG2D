@@ -98,7 +98,6 @@ public class UIMapMgr : MonoBehaviour
     private void mTargetValueNormalized(int number)
     {
         Mathf.Clamp(number, 0, 4);
-        Debug.Log(number);
         switch (number)
         {
             case 0: mTargetValue = 0; break;

@@ -6,10 +6,6 @@ using TinyTeam.UI;
 
 public class UIUseItemBagPage : TTUIPage
 {
-    private GameObject bagMenu;
-    private GameObject bagItem;
-    private UIBagItem updateBagItem;
-    private bool itemSort = true;
     private EquipType equipType;
 
     public UIUseItemBagPage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)

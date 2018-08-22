@@ -197,7 +197,7 @@ public class UIRoleInformation : MonoBehaviour
                 currentNumber = i;
                 Debug.Log(i);
                 Debug.Log(currentNumber + "变动了");
-                if (RoleData.Equipdata[i].EquipType != EquipType.Nothing)
+                if (RoleData.Equipdata[i] != null && RoleData.Equipdata[i].EquipType != EquipType.Nothing)
                 {
                     TTUIPage.ShowPage<UIBagItemMessage>();
                     UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBagItemMessageEvent, RoleData.Equipdata[i]);
@@ -259,7 +259,7 @@ public class UIRoleInformation : MonoBehaviour
     {
         //获取当前角色在当前武器类型的位置是否有装备 如果有将原装备放回背包，将新的装备放到角色身上
         //如果当前角色装备栏上这件装备不是空的
-        if (RoleData.Equipdata[currentNumber].EquipType != EquipType.Nothing)
+        if (RoleData.Equipdata[currentNumber] != null && RoleData.Equipdata[currentNumber].EquipType != EquipType.Nothing)
         {
             EquipData equipData;
             //将原有装备放回背包序列

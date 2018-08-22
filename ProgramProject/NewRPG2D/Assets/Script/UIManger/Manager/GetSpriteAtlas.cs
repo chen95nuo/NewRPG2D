@@ -26,6 +26,7 @@ public class GetSpriteAtlas : MonoBehaviour
         }
         return null;
     }
+
     public void SetImage(Image[] images)
     {
         StartCoroutine(SetSprite(images, currencyImage));

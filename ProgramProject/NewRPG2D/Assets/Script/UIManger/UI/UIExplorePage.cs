@@ -11,10 +11,4 @@ public class UIExplorePage : TTUIPage
     {
         uiPath = "UIPrefab/UIExplore";
     }
-
-    public override void Awake(GameObject go)
-    {
-        this.gameObject.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UIExplorePage>);
-
-    }
 }

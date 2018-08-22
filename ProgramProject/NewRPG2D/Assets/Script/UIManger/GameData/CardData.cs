@@ -152,7 +152,7 @@ public class CardData
     {
         get
         {
-            float index = GameCardExpData.Instance.GetItem(level).NeedExp;
+            float index = GameCardExpData.Instance.GetItem(Level).NeedExp;
             return index;
         }
 
@@ -180,6 +180,10 @@ public class CardData
     {
         get
         {
+            if (equipdata == null)
+            {
+                equipdata = new EquipData[4];
+            }
             return equipdata;
         }
     }

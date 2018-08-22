@@ -7,6 +7,50 @@ using UnityEngine;
 public class ExpeditionData
 {
     [SerializeField]
+    private List<ExpeditionTeam> expeditionTeam;
+    [SerializeField]
+    private List<int> unLockMap;
+
+    public List<ExpeditionTeam> ExpeditionTeam
+    {
+        get
+        {
+            return expeditionTeam;
+        }
+
+        set
+        {
+            expeditionTeam = value;
+        }
+    }
+    public List<int> UnLockMap
+    {
+        get
+        {
+            return unLockMap;
+        }
+    }
+    public int addMap //添加地图信息
+    {
+        set
+        {
+            for (int i = 0; i < unLockMap.Count; i++)
+            {
+                if (unLockMap[i] == value)
+                {
+                    Debug.LogError("这个地图已经有了");
+                    return;
+                }
+            }
+            unLockMap.Add(value);
+        }
+    }
+}
+
+[System.Serializable]
+public class ExpeditionTeam
+{
+    [SerializeField]
     private int id;
     [SerializeField]
     private CardData[] cardsData;
@@ -28,7 +72,6 @@ public class ExpeditionData
             return id;
         }
     }
-
     public CardData[] CardsData
     {
         get
@@ -91,11 +134,4 @@ public class ExpeditionData
             return currentMap;
         }
     }
-
-    public ExpeditionData() { }
-    public ExpeditionData(int id)
-    {
-        this.id = id;
-    }
-
 }

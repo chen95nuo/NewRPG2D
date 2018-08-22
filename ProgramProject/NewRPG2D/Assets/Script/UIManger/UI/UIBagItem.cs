@@ -17,6 +17,7 @@ public class UIBagItem : MonoBehaviour
     void Awake()
     {
         bagGrid = GetComponentInChildren<UIBagGrid>().gameObject;
+        objctPool.gameObject.SetActive(false);
 
         bagGrid.SetActive(false);
 
@@ -24,7 +25,6 @@ public class UIBagItem : MonoBehaviour
         {
             PreloadingGrids(h_gridNumber);
         }
-
 
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEggsEvent, UpdateEggs);//更新鸡蛋
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);//更新道具
