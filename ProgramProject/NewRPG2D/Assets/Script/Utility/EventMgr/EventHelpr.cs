@@ -41,6 +41,12 @@ public class LoadLevelParam
 
 }
 
+public class SelectTargetParam
+{
+    public Transform OriginalTransform;
+    public Transform TargetTransform;
+}
+
 public class SwitchRoleActionParam
 {
     public RoleBase SwitchRole;

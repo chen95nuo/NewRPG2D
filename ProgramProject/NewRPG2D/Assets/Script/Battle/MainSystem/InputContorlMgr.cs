@@ -30,6 +30,7 @@ namespace Assets.Script.Battle
             touchMask = mask;
         }
 
+        private SelectTargetParam selectTargetData =new SelectTargetParam();
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
@@ -77,7 +78,10 @@ namespace Assets.Script.Battle
             {
                 if (cacheRole != null && cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
-                    EventManager.instance.SendEvent(EventDefineEnum.Draging, cacheRole);
+                    RoleRender role = GetTouchRoleRender();
+                    selectTargetData.OriginalTransform = cacheRole.transform;
+                    selectTargetData.TargetTransform = role != null && role.CurrentRole.TeamId != TeamTypeEnum.Hero ? role.transform : null;
+                    EventManager.instance.SendEvent(EventDefineEnum.Draging, selectTargetData);
                 }
             }
         }
