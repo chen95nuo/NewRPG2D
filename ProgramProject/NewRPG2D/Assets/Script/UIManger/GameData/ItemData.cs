@@ -33,7 +33,7 @@ public class ItemData
     private PropType propType;//道具类型
 
     [SerializeField]
-    private StorePropType storePropType;//商品类型
+    private CurrencyType storePropType;//商品类型
 
     [SerializeField]
     private int sellPrice;//物品价格
@@ -206,7 +206,7 @@ public class ItemData
         }
     }
 
-    public StorePropType StorePropType
+    public CurrencyType StorePropType
     {
         get
         {

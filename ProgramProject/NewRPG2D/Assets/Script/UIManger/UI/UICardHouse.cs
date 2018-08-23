@@ -15,6 +15,7 @@ public class UICardHouse : MonoBehaviour
 
     private GridType gridType;
     private int level;
+    private bool isHight;
 
     private bool isNothing = true;
 
@@ -54,7 +55,7 @@ public class UICardHouse : MonoBehaviour
     }
     private void UpdateRoleLevel(int level)
     {
-        this.level = level;
+
     }
 
     /// <summary>
@@ -68,6 +69,8 @@ public class UICardHouse : MonoBehaviour
         gridType = datas.gridType;
         grid.gridType = gridType;
         cardDatas = datas.cardDatas;
+        level = datas.level;
+        isHight = datas.isHight;
 
         UpdateRoleItem();
     }
@@ -85,7 +88,7 @@ public class UICardHouse : MonoBehaviour
             case GridType.Store:
                 break;
             case GridType.Explore:
-                updateBagItem.UpdateRole(cardDatas, level);
+                updateBagItem.UpdateRole(cardDatas, level, isHight);
                 break;
             case GridType.Team:
                 updateBagItem.UpdateRole(cardDatas, gridType);
@@ -125,11 +128,20 @@ public class UpdateCardData
 {
     public CardData[] cardDatas;
     public GridType gridType;
+    public int level;
+    public bool isHight;
 
     public UpdateCardData() { }
     public UpdateCardData(CardData[] data, GridType type)
     {
         this.cardDatas = data;
         this.gridType = type;
+    }
+    public UpdateCardData(CardData[] data, GridType type, int level, bool isHight)
+    {
+        this.cardDatas = data;
+        this.gridType = type;
+        this.level = level;
+        this.isHight = isHight;
     }
 }

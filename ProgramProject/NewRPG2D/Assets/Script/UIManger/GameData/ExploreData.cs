@@ -11,15 +11,15 @@ public class ExploreData
     [SerializeField]
     private string name;
     [SerializeField]
-    private string spriteId;
+    private string iconName;
+    [SerializeField]
+    private string spriteName;
     [SerializeField]
     private int needTime;
     [SerializeField]
     private int needFatigue;
     [SerializeField]
     private int captainLevel;
-    [SerializeField]
-    private int otherLevel;
     [SerializeField]
     private int progressLimit;//进度上限
     [SerializeField]
@@ -40,11 +40,19 @@ public class ExploreData
         }
     }
 
-    public string SpriteId
+    public string IconName
     {
         get
         {
-            return spriteId;
+            return iconName;
+        }
+    }
+
+    public string SpriteName
+    {
+        get
+        {
+            return spriteName;
         }
     }
 
@@ -61,14 +69,6 @@ public class ExploreData
         get
         {
             return captainLevel;
-        }
-    }
-
-    public int OtherLevel
-    {
-        get
-        {
-            return otherLevel;
         }
     }
 
@@ -111,4 +111,5 @@ public class ExploreData
             return name;
         }
     }
+
 }

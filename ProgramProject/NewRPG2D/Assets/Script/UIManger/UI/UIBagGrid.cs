@@ -189,7 +189,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
     public void BackExplore()
     {
-        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateExploreEvent, roleData);
+        UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateExploreEvent, roleData);
         TTUIPage.ClosePage<UICardHousePage>();
     }
 
@@ -254,13 +254,13 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         {
             switch (data.StorePropType)
             {
-                case StorePropType.Nothing:
+                case CurrencyType.Nothing:
                     break;
-                case StorePropType.GoldCoin:
+                case CurrencyType.GoldCoin:
                     storeGrid.price.text = "<color=#E7BE2F>" + data.BuyPrice + "</color>";
                     storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("GoldImage");
                     break;
-                case StorePropType.Diamonds:
+                case CurrencyType.Diamonds:
                     storeGrid.price.text = "<color=#79D2FF>" + data.BuyPrice + "</color>";
                     storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("DiamondsImage");
                     break;
@@ -324,6 +324,12 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         stars = data.Stars;
         grow = data.Quality;
         goodFeeling = data.GoodFeeling;
+    }
+    public void UpdateItem(DroppingData data)
+    {
+        otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
+        otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
+        type.SetActive(true);
     }
 
 

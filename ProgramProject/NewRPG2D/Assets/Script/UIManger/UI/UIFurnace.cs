@@ -230,7 +230,7 @@ public class UIFurnace : MonoBehaviour
         UpdateFurnaceMenu();
         UpdateFurnace();
     }
-     
+
     /// <summary>
     /// 刷新熔炉菜单栏
     /// </summary>

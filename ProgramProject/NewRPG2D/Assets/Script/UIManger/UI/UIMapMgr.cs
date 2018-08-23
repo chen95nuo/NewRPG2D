@@ -88,7 +88,6 @@ public class UIMapMgr : MonoBehaviour
         }
         else
         {
-            Debug.Log("else");
         }
 
         mTargetValueNormalized(pageNumber);

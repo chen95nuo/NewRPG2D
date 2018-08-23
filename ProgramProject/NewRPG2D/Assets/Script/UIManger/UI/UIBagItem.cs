@@ -224,7 +224,7 @@ public class UIBagItem : MonoBehaviour
         }
         GridsControl(index, type);
     }
-    public void UpdateRole(CardData[] datas, int level)
+    public void UpdateRole(CardData[] datas, int level, bool isHight)
     {
         Debug.Log("排除等级");
 
@@ -238,7 +238,15 @@ public class UIBagItem : MonoBehaviour
         for (int i = 0; i < roles.Count; i++)
         {
             int temp = 0;
-            if (roles[i].Fighting || roles[i].Level < level)
+            if (roles[i].Fighting)
+            {
+                continue;
+            }
+            if (isHight && roles[i].Level < level)
+            {
+                continue;
+            }
+            else if (!isHight && roles[i].Level > level)
             {
                 continue;
             }

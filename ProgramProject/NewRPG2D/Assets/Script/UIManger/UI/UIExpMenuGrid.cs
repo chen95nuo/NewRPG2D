@@ -20,7 +20,15 @@ public class UIExpMenuGrid : MonoBehaviour
 
     private void Awake()
     {
-        btn_menu.onClick.AddListener(ChickBtn);
+        btn_menu.onClick.AddListener(ChickMenu);
+    }
+    private void Update()
+    {
+        if (isRun)
+        {
+            SystemTime.insatnce.TimeNormalized((int)expedData.NowTime, timeNumber);
+            timeSlider.value = -expedData.NowTime;
+        }
     }
     public void UpdateMenu()
     {
@@ -48,24 +56,25 @@ public class UIExpMenuGrid : MonoBehaviour
                 break;
             case ExploreType.Run:
                 typeIcon.sprite = Icon[1];
-                timeBG.SetActive(false);
+                timeBG.SetActive(true);
+                timeSlider.maxValue = 0;
+                timeSlider.minValue = -expedData.MaxTime;
                 isRun = true;
                 break;
             case ExploreType.End:
                 isRun = false;
                 timeSlider.value = timeSlider.maxValue;
-
                 break;
             default:
                 break;
         }
     }
-    public void ChickBtn()
+    public void ChickMenu()
     {
-
+        explore.UpdateMenu(this);
     }
-    public void ChickBtn(bool isTrue)
+    public void ChickMenu(bool isTrue)
     {
-
+        btn_menu.interactable = isTrue;
     }
 }

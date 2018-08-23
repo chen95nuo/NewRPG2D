@@ -59,9 +59,7 @@ public class ExpeditionTeam
     [SerializeField]
     private long endTime;
     [SerializeField]
-    private float needTime;
-    [SerializeField]
-    private int nowTime;
+    private int maxTime;
     [SerializeField]
     private ExploreData currentMap;
 
@@ -96,33 +94,33 @@ public class ExpeditionTeam
         }
     }
 
-    public long EndTime
+    public int EndTime
     {
-        get
-        {
-            return endTime;
-        }
         set
         {
-            endTime = value;
+            if (endTime == 0)
+            {
+                maxTime = value;
+                endTime = SystemTime.insatnce.GetTime().AddHours(value).ToFileTime();
+            }
         }
     }
 
-    public float NeedTime
+    public int MaxTime
     {
         get
         {
-
-            return needTime;
+            return maxTime * 60 * 60;
         }
     }
 
-    public int NowTime
+    public float NowTime
     {
         get
         {
             TimeSpan sp = DateTime.FromFileTime(endTime).Subtract(SystemTime.insatnce.GetTime());
-            nowTime = sp.Seconds;
+
+            float nowTime = (float)sp.TotalSeconds;
             return nowTime;
         }
     }
@@ -133,5 +131,14 @@ public class ExpeditionTeam
         {
             return currentMap;
         }
+        set
+        {
+            currentMap = value;
+        }
+    }
+    public ExpeditionTeam() { }
+    public ExpeditionTeam(int id)
+    {
+        this.id = id;
     }
 }

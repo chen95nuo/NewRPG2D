@@ -83,7 +83,7 @@ public enum RoleAtrType
     Defense,
 }
 
-public enum StorePropType
+public enum CurrencyType
 {
     Nothing,//无
     GoldCoin,//金币道具
@@ -141,7 +141,13 @@ public enum DifficultyType
     Easy,//简单
     Normal,//普通
     Difficult,//困难
+}
 
+public enum UIMessageType
+{
+    Nothing,//空
+    OnlyTip,//仅仅文字提示
+    BuyOrSell,//购买或者出售
 
 }
 

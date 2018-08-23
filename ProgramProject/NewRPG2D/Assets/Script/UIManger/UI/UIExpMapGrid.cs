@@ -17,6 +17,7 @@ public class UIExpMapGrid : MonoBehaviour
     public Sprite lockSprite;
 
     public UIExplore explore;
+    public ExploreData exploreData;
 
 
     private void Awake()
@@ -37,6 +38,7 @@ public class UIExpMapGrid : MonoBehaviour
 
     public void UpdateMapGrid(ExploreData data, Sprite mapSprite)
     {
+        exploreData = data;
         timeBG.SetActive(true);
         BG.gameObject.SetActive(true);
         mapName.gameObject.SetActive(true);
@@ -50,7 +52,7 @@ public class UIExpMapGrid : MonoBehaviour
     public void ChickMap(bool isTrue)
     {
         BG.gameObject.SetActive(!isTrue);
-        btn_Start.gameObject.SetActive(isTrue);
+        //btn_Start.gameObject.SetActive(isTrue);
     }
     private void ChickBtn()
     {
@@ -58,7 +60,7 @@ public class UIExpMapGrid : MonoBehaviour
     }
     private void ChickStart()
     {
-
+        explore.ChickStart();
     }
 
 

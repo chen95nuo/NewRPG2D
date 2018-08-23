@@ -125,12 +125,12 @@ public class UIBusinessTip : MonoBehaviour
                 itemPrice = data.propData.BuyPrice;
                 switch (data.propData.StorePropType)
                 {
-                    case StorePropType.Nothing:
+                    case CurrencyType.Nothing:
                         break;
-                    case StorePropType.GoldCoin:
+                    case CurrencyType.GoldCoin:
                         currencyType.sprite = goldCoin;
                         break;
-                    case StorePropType.Diamonds:
+                    case CurrencyType.Diamonds:
                         currencyType.sprite = diamonds;
                         break;
                 }
@@ -205,9 +205,9 @@ public class UIBusinessTip : MonoBehaviour
         }
         switch (uiBagGrid.propData.StorePropType)
         {
-            case StorePropType.Nothing:
+            case CurrencyType.Nothing:
                 break;
-            case StorePropType.GoldCoin:
+            case CurrencyType.GoldCoin:
                 if (currentPrice > playerData.GoldCoin)
                 {
                     btn_Buy.interactable = false;
@@ -218,7 +218,7 @@ public class UIBusinessTip : MonoBehaviour
                     state();
                 }
                 break;
-            case StorePropType.Diamonds:
+            case CurrencyType.Diamonds:
                 if (currentPrice > playerData.Diamonds)
                 {
                     btn_Buy.interactable = false;
@@ -247,12 +247,12 @@ public class UIBusinessTip : MonoBehaviour
             }
             switch (uiBagGrid.propData.StorePropType)
             {
-                case StorePropType.Nothing:
+                case CurrencyType.Nothing:
                     break;
-                case StorePropType.GoldCoin:
+                case CurrencyType.GoldCoin:
                     text_currentPrice.text = "<color=#E7BE2F>" + currentPrice + "</color>";
                     break;
-                case StorePropType.Diamonds:
+                case CurrencyType.Diamonds:
                     text_currentPrice.text = "<color=#79D2FF>" + currentPrice + "</color>";
                     break;
                 default:
