@@ -6,12 +6,14 @@ namespace Assets.Script.Battle
 {
     public class BattleSelectTargetLine : MonoBehaviour
     {
-        public Transform lineImg, targetImg;
-        private Transform selectTarget;
+        public SpriteRenderer lineImg, targetImg;
+        public Sprite redLine, redCicle, greenLine, greenCicle;
+
         private Vector3 originalVector;
         private float defaultZ;
 
         private Vector3 lineScale, worldPosition;
+        private bool haveTarget;
 
         public void Awake()
         {
@@ -20,7 +22,7 @@ namespace Assets.Script.Battle
             EventManager.instance.AddListener<RoleRender>(EventDefineEnum.DragEnd, OnDragEnd);
             SetSelectLineState(false);
             defaultZ = transform.position.z;
-            lineScale = lineImg.localScale;
+            lineScale = lineImg.transform.localScale;
         }
 
         public void OnDestroy()
@@ -34,32 +36,38 @@ namespace Assets.Script.Battle
 
         private void OnDragStart(RoleRender role)
         {
-            selectTarget = role.transform;
             SetSelectLineState(true);
             worldPosition = ScreenToWorldPoint(Input.mousePosition);
-            targetImg.position = worldPosition;
+            targetImg.transform.position = worldPosition;
         }
 
         private void OnDraging(SelectTargetParam data)
         {
-            lineImg.position = data.OriginalTransform.position;
+            lineImg.transform.position = data.OriginalTransform.position;
             worldPosition = ScreenToWorldPoint(Input.mousePosition);
-            lineImg.up = (data.OriginalTransform.position - worldPosition).normalized;
-            lineScale.y = Vector3.Distance(data.OriginalTransform.position, worldPosition) * 3f;
+            lineImg.transform.up = (data.OriginalTransform.position - worldPosition).normalized;
+            lineScale.y = Vector3.Distance(data.OriginalTransform.position, worldPosition) * 17f;
 
-            targetImg.position = worldPosition;
+            targetImg.transform.position = worldPosition;
 
             if (data.TargetTransform != null)
             {
-                lineScale.x = 1.2f;
-                targetImg.localScale = Vector3.one * 1.5f;
+                if (haveTarget == false)
+                {
+                    haveTarget = true;
+                    lineScale.x = 1.2f;
+                    lineImg.sprite = redLine;
+                    targetImg.sprite = redCicle;
+                }
             }
-            else
+            else if (haveTarget)
             {
-                lineScale.x = 0.4f;
-                targetImg.localScale = Vector3.one;
+                haveTarget = false;
+                lineImg.sprite = greenLine;
+                targetImg.sprite = greenCicle;
+                lineScale.x = 1f;
             }
-            lineImg.localScale = lineScale;
+            lineImg.transform.localScale = lineScale;
         }
 
         private void OnDragEnd(RoleRender role)

@@ -27,7 +27,6 @@ namespace Assets.Script.Battle.RoleState
 
         protected override void HitTarget(RoleBase mRoleBase)
         {
-            base.HitTarget(mRoleBase);
             HurtInfo info = new HurtInfo();
             info.HurtValue = 30;
             info.AttackRole = mRoleBase;
@@ -46,6 +45,7 @@ namespace Assets.Script.Battle.RoleState
                     mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position + mRoleBase.RoleTransform.up, 0);
                 aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 10 });
             }
+            base.HitTarget(mRoleBase);
         }
     }
 }

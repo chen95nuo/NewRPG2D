@@ -97,6 +97,7 @@ namespace Assets.Script.Battle.RoleState
 
         protected virtual void HitTarget(RoleBase mRoleBase)
         {
+            CurrentRole.RoleSearchTarget.SetTarget(null);
         }
 
         protected virtual void OnCompleteAnimation(TrackEntry animationEntry)

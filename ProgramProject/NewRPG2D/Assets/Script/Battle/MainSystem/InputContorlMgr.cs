@@ -61,14 +61,14 @@ namespace Assets.Script.Battle
                 if (cacheRole != null && cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
                     RoleRender role = GetTouchRoleRender();
-                    if (role == null)
-                    {
-                        cacheRole.Move(ScreenToWorldPoint(Input.mousePosition));
-                    }
-                    else if (role != null)
+                    if (role != null && cacheRole.CurrentRole.TeamId != TeamTypeEnum.Hero)
                     {
                         DebugHelper.Log("role = " + role.name);
                         cacheRole.ChangeTarget(role.CurrentRole);
+                    }
+                    else
+                    {
+                        cacheRole.Move(ScreenToWorldPoint(Input.mousePosition));
                     }
 
                     cacheRole = null;
