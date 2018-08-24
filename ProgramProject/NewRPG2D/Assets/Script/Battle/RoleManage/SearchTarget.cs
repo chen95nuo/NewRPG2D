@@ -63,8 +63,16 @@ namespace Assets.Script.Battle
                 }
                 else if (Vector3.Angle(dis.normalized, roleTransform.right) > limitAngle)
                 {
-                    int moveDir = dis.y > 0 ? 1 : -1;
-                    mCurrentRole.RoleTransform.position += roleTransform.up * (moveDir * Time.deltaTime * mCurrentRole.RolePropertyValue.MoveSpeed);
+                    if (mCurrentRole.IsCanInterrput)
+                    {
+                        int moveDir = dis.y > 0 ? 1 : -1;
+                        mCurrentRole.RoleMoveMoment.SetOffesetVector3(dis);
+                        mCurrentRole.RoleTransform.position += roleTransform.up *
+                                                               (moveDir * Time.deltaTime *
+                                                                mCurrentRole.RolePropertyValue.MoveSpeed * 0.5f);
+                        mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
+                        bStartAttack = false;
+                    }
                 }
                 else
                 {

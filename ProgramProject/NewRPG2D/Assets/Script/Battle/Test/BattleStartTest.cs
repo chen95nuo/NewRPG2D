@@ -30,8 +30,8 @@ public class BattleStartTest : MonoBehaviour
     {
         CardData role1 = GameCardData.Instance.GetItem(Int32.Parse(Role1Field.text));
         CardData role2 = GameCardData.Instance.GetItem(Int32.Parse(Role2Field.text));
-        role1.TeamPos = 0;
-        role2.TeamPos = 1;
+        if(role1 != null) role1.TeamPos = 0;
+        if(role2 != null) role2.TeamPos = 1;
         GoFightMgr.instance.cardData = new[]
        {
             role1, role2

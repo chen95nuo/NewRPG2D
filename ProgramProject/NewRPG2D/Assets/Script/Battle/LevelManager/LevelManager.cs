@@ -86,6 +86,10 @@ namespace Assets.Script.Battle.LevelManager
             {
                 for (int j = 0; j < roleInfoArray.Length; j++)
                 {
+                    if (roleInfoArray[i] == null)
+                    {
+                        continue;
+                    }
                     if ((int)heroPoint[i].BornPositionType == roleInfoArray[j].TeamPos)
                     {
                         BornHero(heroPoint[i].Point, currentInstanceId++, roleInfoArray[j], 0);

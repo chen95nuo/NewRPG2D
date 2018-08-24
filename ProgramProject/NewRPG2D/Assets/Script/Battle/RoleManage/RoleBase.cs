@@ -136,11 +136,11 @@ namespace Assets.Script.Battle
             RoleDetailInfo = detailInfo;
         }
 
-        public void SetRoleActionState(ActorStateEnum state)
+        public bool SetRoleActionState(ActorStateEnum state)
         {
             if (CurrentActorState == state || IsCanControl == false || IsCanInterrput == false)
             {
-                return;
+                return false;
             }
             LastActorState = CurrentActorState;
             CurrentActorState = state;
@@ -148,11 +148,12 @@ namespace Assets.Script.Battle
             {
                 RoleActionMachine.ChangeState(RoleActionStateDic[(int)state]);
             }
+            return true;
         }
 
         public void RestartRoleLastActorState()
         {
-            DebugHelper.Log(" LastActorState   " + LastActorState);
+           // DebugHelper.Log(" LastActorState   " + LastActorState);
             SetRoleActionState(LastActorState);
         }
 
