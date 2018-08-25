@@ -169,10 +169,12 @@ public class UIHatcheryPool : MonoBehaviour
             }
         }
         List<ItemData> data = BagItemData.Instance.GetItems(propId);
+        int index = 0;
         for (int i = 0; i < data.Count; i++)
         {
-            propNumber += data[i].Number;
+            index += data[i].Number;
         }
+        propNumber = index;
         AddSpeedOBJ.SetActive(true);
         addSpeed.propImage.sprite = IconMgr.Instance.GetIcon(data[0].SpriteName);
         addSpeed.propSlider.maxValue = propNumber;
@@ -213,11 +215,6 @@ public class UIHatcheryPool : MonoBehaviour
     }
     #endregion
 }
-
-
-
-
-
 
 
 [System.Serializable]

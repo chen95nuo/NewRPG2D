@@ -9,12 +9,14 @@ using Assets.Script;
 
 public enum JsonName
 {
+    MapData,
     EggData,
     CardData,
     ItemsData,
     EquipData,
     StoreData,
-    RoundData,
+    //RoundData,
+    //LessonData,
     PlayerData,
     ExploreData,
     CardExpData,
@@ -22,6 +24,7 @@ public enum JsonName
     HatcheryData,
     PlayerExpData,
     ExpeditionData,
+    //LessonFightData,
     ComposedTableData,
     BagEggData,
     BagEquipData,

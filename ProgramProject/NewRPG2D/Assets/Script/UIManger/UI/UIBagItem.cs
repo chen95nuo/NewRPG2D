@@ -30,6 +30,8 @@ public class UIBagItem : MonoBehaviour
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);//更新道具
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateEquipsEvent, UpdateEquip);//更新装备
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateRolesEvent, UpdateRole);//更新角色
+
+        UIEventManager.instance.AddListener<GainData[]>(UIEventDefineEnum.UpdateRewardMessageEvent, UpdateReward);//探险奖励面板更新
     }
 
     void OnDestroy()
@@ -38,6 +40,9 @@ public class UIBagItem : MonoBehaviour
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdatePropsEvent, UpdateProp);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateEquipsEvent, UpdateEquip);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateRolesEvent, UpdateRole);
+
+        UIEventManager.instance.RemoveListener<GainData[]>(UIEventDefineEnum.UpdateRewardMessageEvent, UpdateReward);
+
     }
 
     /// <summary>
@@ -281,73 +286,42 @@ public class UIBagItem : MonoBehaviour
         }
     }
 
-    void GridsControl(int number, GridType type)
+    public void UpdateReward(GainData[] datas)
     {
-        if (number > grids.Count + gridsSpare.Count)
+        if (itemType != ItemType.Reward)
         {
-            if (gridsSpare.Count > 0)
-            {
-                for (int i = 0; i < gridsSpare.Count; i++)
-                {
-                    gridsSpare[0].transform.SetParent(transform);
-                    grids.Add(gridsSpare[0]);
-                    gridsSpare.Remove(gridsSpare[0]);
-                }
-            }
-            while (grids.Count < number)
-            {
-                GameObject go = Instantiate(bagGrid, transform) as GameObject;
-                go.name = bagGrid.name;
-                go.SetActive(true);
-                grids.Add(go.GetComponent<UIBagGrid>());
-            }
+            return;
         }
-        else if (number < grids.Count + gridsSpare.Count)
+        GridsControl(datas.Length);
+        for (int i = 0; i < datas.Length; i++)
         {
-            if (number < grids.Count)
-            {
-                for (int i = grids.Count; i > number; i--)
-                {
-                    grids[i - 1].transform.SetParent(objctPool);
-                    gridsSpare.Add(grids[i - 1]);
-                    grids.Remove(grids[i - 1]);
-                }
-            }
-            else
-            {
-                int data = number - grids.Count;
-                for (int i = 0; i < data; i++)
-                {
-                    gridsSpare[0].transform.SetParent(transform);
-                    grids.Add(gridsSpare[0]);
-                    gridsSpare.Remove(gridsSpare[0]);
-                }
-            }
-        }
-        else
-        {
-            if (number > grids.Count)
-            {
-                int data = number - grids.Count;
-                for (int i = 0; i < data; i++)
-                {
-                    gridsSpare[0].transform.SetParent(transform);
-                    grids.Add(gridsSpare[0]);
-                    gridsSpare.Remove(gridsSpare[0]);
-                }
-            }
-            else
-            {
 
+            switch (datas[i].itemtype)
+            {
+                case ItemType.Nothing:
+                    break;
+                case ItemType.Egg:
+                    EggData eggData = GameEggData.Instance.GetItem(datas[i].itemId);
+                    grids[i].UpdateItem(eggData);
+                    break;
+                case ItemType.Prop:
+                    ItemData itemData = GamePropData.Instance.GetItem(datas[i].itemId);
+                    itemData.Number = datas[i].itemNumber;
+                    Debug.Log(itemData.Name);
+                    grids[i].UpdateItem(itemData);
+                    break;
+                case ItemType.Equip:
+                    EquipData equipData = GameEquipData.Instance.GetItem(datas[i].itemId);
+                    grids[i].UpdateItem(equipData);
+                    break;
+                case ItemType.Role:
+                    break;
+                default:
+                    break;
             }
-        }
-        for (int i = 0; i < grids.Count; i++)
-        {
-            grids[i].gridType = type;
         }
     }
-
-
+    
     /// <summary>
     /// 控制背包格子数量
     /// </summary>
@@ -441,5 +415,77 @@ public class UIBagItem : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="type"></param>
+    void GridsControl(int number, GridType type)
+    {
+        if (number > grids.Count + gridsSpare.Count)
+        {
+            if (gridsSpare.Count > 0)
+            {
+                for (int i = 0; i < gridsSpare.Count; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+            while (grids.Count < number)
+            {
+                GameObject go = Instantiate(bagGrid, transform) as GameObject;
+                go.name = bagGrid.name;
+                go.SetActive(true);
+                grids.Add(go.GetComponent<UIBagGrid>());
+            }
+        }
+        else if (number < grids.Count + gridsSpare.Count)
+        {
+            if (number < grids.Count)
+            {
+                for (int i = grids.Count; i > number; i--)
+                {
+                    grids[i - 1].transform.SetParent(objctPool);
+                    gridsSpare.Add(grids[i - 1]);
+                    grids.Remove(grids[i - 1]);
+                }
+            }
+            else
+            {
+                int data = number - grids.Count;
+                for (int i = 0; i < data; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+        }
+        else
+        {
+            if (number > grids.Count)
+            {
+                int data = number - grids.Count;
+                for (int i = 0; i < data; i++)
+                {
+                    gridsSpare[0].transform.SetParent(transform);
+                    grids.Add(gridsSpare[0]);
+                    gridsSpare.Remove(gridsSpare[0]);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        for (int i = 0; i < grids.Count; i++)
+        {
+            grids[i].gridType = type;
+        }
+    }
+
+
 }
 

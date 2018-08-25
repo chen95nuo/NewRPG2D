@@ -1527,7 +1527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1623757482574952
 GameObject:
   m_ObjectHideFlags: 1
@@ -2655,6 +2655,7 @@ MonoBehaviour:
   exploreData:
     id: 0
     name: 
+    iconName: 
     spriteName: 
     needTime: 0
     needFatigue: 0
@@ -4002,6 +4003,7 @@ MonoBehaviour:
   isRun: 1
   cardPoint: {fileID: 224457720819849582}
   btn_Box: {fileID: 114880769457330706}
+  explore: {fileID: 114779991899136170}
 --- !u!114 &114236072378473210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9579,8 +9581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -278}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_SizeDelta: {x: -89.10004, y: -278}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224345283242036900
 RectTransform:
@@ -10744,7 +10746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 137, y: -89.4}
+  m_AnchoredPosition: {x: 0, y: 6.7}
   m_SizeDelta: {x: 399, y: 317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224822131903904712

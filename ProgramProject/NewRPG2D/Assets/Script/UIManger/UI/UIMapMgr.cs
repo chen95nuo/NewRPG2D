@@ -60,14 +60,14 @@ public class UIMapMgr : MonoBehaviour
         mNeedMove = true;
     }
 
-    private void ShowMapType() { }
+    private void ShowMapType() { TTUIPage.ShowPage<UIMapTypePage>(); }
     private void ShowRound() { TTUIPage.ShowPage<UIRoundPage>(); }
     private void ShowEmail() { TTUIPage.ShowPage<UIEmailPage>(); }
-    private void ShowFurnace() { TTUIPage.ShowPage<UIFurnacePage>(); }
+    private void ShowFurnace() { ShowFurnacePage(); }
     private void ShowEggStore() { TTUIPage.ShowPage<UIEggStore>(); }
-    private void ShowStore() { TTUIPage.ShowPage<UIStorePage>(); }
+    private void ShowStore() { ShowStorePage(); }
     private void ShowReward() { TTUIPage.ShowPage<UIRewardPage>(); }
-    private void ShowExplore() { TTUIPage.ShowPage<UIExplorePage>(); }
+    private void ShowExplore() { ShowExplorePage(); }
 
 
 
@@ -117,8 +117,21 @@ public class UIMapMgr : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    private void ShowFurnacePage()
     {
-        GUI.Label(new Rect(0, 0, 200, 50), first.ToString());
+        TTUIPage.ShowPage<UITalkPage>();
+        UIEventManager.instance.SendEvent<UITalkType>(UIEventDefineEnum.UpdateTalkEvent, UITalkType.Furnace);
+    }
+
+    private void ShowStorePage()
+    {
+        TTUIPage.ShowPage<UITalkPage>();
+        UIEventManager.instance.SendEvent<UITalkType>(UIEventDefineEnum.UpdateTalkEvent, UITalkType.Store);
+    }
+
+    private void ShowExplorePage()
+    {
+        TTUIPage.ShowPage<UITalkPage>();
+        UIEventManager.instance.SendEvent<UITalkType>(UIEventDefineEnum.UpdateTalkEvent, UITalkType.Explore);
     }
 }

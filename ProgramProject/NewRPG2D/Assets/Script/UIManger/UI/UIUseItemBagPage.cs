@@ -8,7 +8,7 @@ public class UIUseItemBagPage : TTUIPage
 {
     private EquipType equipType;
 
-    public UIUseItemBagPage() : base(UIType.Normal, UIMode.NeedBack, UICollider.None)
+    public UIUseItemBagPage() : base(UIType.Normal, UIMode.DoNothing, UICollider.None)
     {
         uiPath = "UIPrefab/UIUseItemBag";
     }

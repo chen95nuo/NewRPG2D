@@ -465,7 +465,9 @@ public class UIFurnace : MonoBehaviour
     /// <param name="data">材料信息</param>
     public void AddMaterial(ItemData data)
     {
-        UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", false);
+        Debug.Log("动画");
+
+        //UIAnimTools.Instance.PlayAnim(mainAnim, "UIFurnaceMain_in", false);
 
         if (temporaryData.Material[currentButton] == null || temporaryData.Material[currentButton].ItemType == ItemType.Nothing)
         {

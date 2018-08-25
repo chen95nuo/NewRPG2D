@@ -101,7 +101,7 @@ public class ExpeditionTeam
             if (endTime == 0)
             {
                 maxTime = value;
-                endTime = SystemTime.insatnce.GetTime().AddHours(value).ToFileTime();
+                endTime = SystemTime.insatnce.GetTime().AddSeconds(value).ToFileTime();
             }
         }
     }
@@ -110,7 +110,7 @@ public class ExpeditionTeam
     {
         get
         {
-            return maxTime * 60 * 60;
+            return maxTime;
         }
     }
 

@@ -22,9 +22,11 @@ public class UIExplore : MonoBehaviour
     private UIExpMapGrid currentMap;
     private UIExpMenuGrid currentMenu;
     private UIExpCardGrid currentCard;
-    private int currentCardId;
     private CardData[] cardData;
     private SpriteAtlas mapSprite;
+
+    private int currentCardId;
+    private bool chickStartBtn;
 
 
     private void Awake()
@@ -72,6 +74,7 @@ public class UIExplore : MonoBehaviour
         }
         currentMenu = menuGrids[0];
         currentMenu.ChickMenu(false);
+
     }
 
     private void ChickCard()
@@ -98,6 +101,10 @@ public class UIExplore : MonoBehaviour
                 fightmapGrid.UpdateMap(expData, sp);
                 break;
             case ExploreType.End:
+                waitScene.SetActive(false);
+                fightScene.SetActive(true);
+                Sprite sp1 = mapSprite.GetSprite(currentMap.exploreData.SpriteName);
+                fightmapGrid.UpdateMap(expData, sp1);
                 break;
             default:
                 break;
@@ -183,6 +190,7 @@ public class UIExplore : MonoBehaviour
             currentMenu.ChickMenu(true);
             menuData.ChickMenu(false);
             currentMenu = menuData;
+            chickStartBtn = false;
             ChickCard();
             ChickMap();
         }
@@ -198,6 +206,20 @@ public class UIExplore : MonoBehaviour
             if (currentMap != null)
             {
                 currentMap.ChickMap(false);
+            }
+            else
+            {
+                currentMap = mapData;
+            }
+            if (chickStartBtn)
+            {
+                mapData.btn_Start.gameObject.SetActive(true);
+                currentMap.btn_Start.gameObject.SetActive(false);
+            }
+            else
+            {
+                mapData.btn_Start.gameObject.SetActive(false);
+                currentMap.btn_Start.gameObject.SetActive(false);
             }
             mapData.ChickMap(true);
             currentMap = mapData;
@@ -222,6 +244,7 @@ public class UIExplore : MonoBehaviour
                     bagGrids[i].gameObject.SetActive(false);
                 }
             }
+
         }
     }
     /// <summary>
@@ -277,10 +300,12 @@ public class UIExplore : MonoBehaviour
         {
             if (cardData[i] == null)
             {
-                currentMap.btn_Start.gameObject.SetActive(false);
+                chickStartBtn = false;
+
                 return;
             }
         }
+        chickStartBtn = true;
         currentMap.btn_Start.gameObject.SetActive(true);
     }
 
@@ -330,6 +355,12 @@ public class UIExplore : MonoBehaviour
         ChickCard();
     }
 
+    public void ResetPage()
+    {
+        ChickMenu();
+        ChickMap();
+        ChickCard();
+    }
 
     #endregion
 }

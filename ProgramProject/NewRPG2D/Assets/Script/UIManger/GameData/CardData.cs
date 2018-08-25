@@ -414,6 +414,7 @@ public class CardData
     {
         get
         {
+            useAddExp *= Level;
             return useAddExp;
         }
     }

@@ -166,7 +166,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             TTUIPage.ClosePage<UIUseItemBagPage>();
             Debug.Log("Close");
             UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
-
         }
     }
     public void BuyProp()
@@ -228,11 +227,10 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 
     public void UpdateItem(ItemData data)
     {
+        type.gameObject.SetActive(true);
         propData = data;
         itemID = data.Id;
         itemType = data.ItemType;
-        type.gameObject.SetActive(true);
-
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);
         if (otherGrid.otherBG != null)
@@ -258,11 +256,11 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     break;
                 case CurrencyType.GoldCoin:
                     storeGrid.price.text = "<color=#E7BE2F>" + data.BuyPrice + "</color>";
-                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("GoldImage");
+                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_GoldImage");
                     break;
                 case CurrencyType.Diamonds:
                     storeGrid.price.text = "<color=#79D2FF>" + data.BuyPrice + "</color>";
-                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("DiamondsImage");
+                    storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_DiamondsImage");
                     break;
                 default:
                     break;
@@ -273,10 +271,10 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     }
     public void UpdateItem(EquipData data)
     {
+        type.gameObject.SetActive(true);
         equipData = data;
         itemID = data.Id;
         itemType = data.ItemType;
-        type.gameObject.SetActive(true);
 
         eggGrid.egg.SetActive(false);
         otherGrid.other.SetActive(true);

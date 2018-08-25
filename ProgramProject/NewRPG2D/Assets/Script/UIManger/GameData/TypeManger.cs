@@ -9,7 +9,8 @@ public enum ItemType
     Egg,//蛋
     Prop,//道具
     Equip,//装备
-    Role//角色
+    Role,//角色
+    Reward//奖励界面
 }
 
 public enum GridType
@@ -151,6 +152,14 @@ public enum UIMessageType
 
 }
 
+public enum UITalkType
+{
+    Nothing,//空
+    Furnace,//炼金
+    Store,//商店
+    Explore//探险
+}
+
 public enum UIEventDefineEnum
 {
     UpdateUsePage,
@@ -174,12 +183,14 @@ public enum UIEventDefineEnum
     UpdatePlayerFatigue,
     UpdateStoreEvent,
     UpdateExploreEvent,
+    UpdateTalkEvent,
     UpdateExploreTipEvent,
     UpdateHatcheryEvent,
     UpdateLittleTipEvent,
     UpdateMessageTipEvent,
     UpdateMessageTipGoEvent,
     UpdateMessagePopTipEvent,
+    UpdateRewardMessageEvent,
     MissionComplete,
     MissionFailed,
     FightMessage,

@@ -14,7 +14,6 @@ public class UIRoundPage : TTUIPage
 
     public override void Awake(GameObject go)
     {
-        this.gameObject.transform.Find("MainLesson/btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UIRoundPage>);
-
+        this.gameObject.transform.Find("Lesson/btn_back").GetComponent<Button>().onClick.AddListener(ClosePage<UIRoundPage>);
     }
 }
