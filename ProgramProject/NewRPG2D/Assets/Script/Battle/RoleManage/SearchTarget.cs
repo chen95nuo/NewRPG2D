@@ -61,22 +61,21 @@ namespace Assets.Script.Battle
                     mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
                     bStartAttack = false;
                 }
-                else if (Vector3.Angle(dis.normalized, roleTransform.right) > limitAngle)
-                {
-                    if (mCurrentRole.IsCanInterrput)
-                    {
-                        int moveDir = dis.y > 0 ? 1 : -1;
-                        mCurrentRole.RoleMoveMoment.SetOffesetVector3(dis);
-                        mCurrentRole.RoleTransform.position += roleTransform.up *
-                                                               (moveDir * Time.deltaTime *
-                                                                mCurrentRole.RolePropertyValue.MoveSpeed * 0.5f);
-                        mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
-                        bStartAttack = false;
-                    }
-                }
+                //else if (Vector3.Angle(dis.normalized, roleTransform.right) > limitAngle)
+                //{
+                //    if (mCurrentRole.IsCanInterrput)
+                //    {
+                //        int moveDir = dis.y > 0 ? 1 : -1;
+                //        mCurrentRole.RoleMoveMoment.SetOffesetVector3(dis);
+                //        mCurrentRole.RoleTransform.position += roleTransform.up *
+                //                                               (moveDir * Time.deltaTime *
+                //                                                mCurrentRole.RolePropertyValue.MoveSpeed * 0.5f);
+                //        mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
+                //        bStartAttack = false;
+                //    }
+                //}
                 else
                 {
-                    //Debug.LogError("have target then attack ");
                     if (bStartAttack == false)
                     {
                         bStartAttack = true;

@@ -70,6 +70,9 @@ GameObject:
   - component: {fileID: 114166936672684780}
   - component: {fileID: 61590852933007410}
   - component: {fileID: 210381083782170370}
+  - component: {fileID: 114480053271990586}
+  - component: {fileID: 114831062940760168}
+  - component: {fileID: 114085132668624126}
   m_Layer: 8
   m_Name: Monster
   m_TagString: Untagged
@@ -261,6 +264,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0801086, y: 2.6838531}
   m_EdgeRadius: 0
+--- !u!114 &114085132668624126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718863811104434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  radius: 0.6
+  height: 1
+  locked: 0
+  lockWhenNotMoving: 0
+  agentTimeHorizon: 0.6
+  obstacleTimeHorizon: 0.2
+  maxNeighbours: 10
+  layer: 1
+  collidesWith: -1
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  priority: 0.5
+  center: 0
+  debug: 0
 --- !u!114 &114166936672684780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,6 +303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roleAnimation: {fileID: 114581394339901872}
   roleNewAnimation: {fileID: 0}
+  MoveController: {fileID: 114085132668624126}
+  MoveSeeker: {fileID: 114480053271990586}
   currentSortingGroup: {fileID: 210381083782170370}
   blueSelectObj: {fileID: 1976879906025892}
   redSelectObj: {fileID: 1476424319365740}
@@ -290,6 +321,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roleRender: {fileID: 114166936672684780}
+--- !u!114 &114480053271990586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718863811104434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 0
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 1
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask: -1
 --- !u!114 &114581394339901872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,6 +377,27 @@ MonoBehaviour:
   _animationName: 
   loop: 0
   timeScale: 1
+--- !u!114 &114831062940760168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718863811104434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 2
+  subdivisions: 2
+  iterations: 2
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 2
+  factor: 0.1
 --- !u!210 &210381083782170370
 SortingGroup:
   m_ObjectHideFlags: 1

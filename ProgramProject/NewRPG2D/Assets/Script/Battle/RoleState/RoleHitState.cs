@@ -8,15 +8,17 @@ namespace Assets.Script.Battle.RoleState
         private Vector3 originalPosition;
         private bool changedColor;
         private Vector3 hitDir;
+        private float hitTime = 0.15f;
+
         public override void Enter(RoleBase mRoleBase)
         {
             base.Enter(mRoleBase);
             addTime = 0;
-              mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Hit);
+            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Hit);
             mRoleBase.IsCanControl = false;
             originalPosition = mRoleBase.RoleTransform.position;
             //DebugHelper.LogError("  Hit  " + mRoleBase.ToString());
-          //  mRoleBase.RoleAnimation.ChangeAniamtionName(RoleAnimationName.Hit);
+            //  mRoleBase.RoleAnimation.ChangeAniamtionName(RoleAnimationName.Hit);
             mRoleBase.ChangeRoleColor(Color.red);
             changedColor = true;
             RoleBase attackRole = mRoleBase.RolePropertyValue.AttackRole;
@@ -29,6 +31,7 @@ namespace Assets.Script.Battle.RoleState
             {
                 hitDir = mRoleBase.RoleTransform.right;
             }
+          //  mRoleBase.RoleMoveMoment.SetTargetPosition(originalPosition + hitDir * (-1 * hitTime));
         }
 
 
@@ -36,7 +39,7 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Update(mRoleBase, deltaTime);
 
-            if (addTime > 0.15f)
+            if (addTime > hitTime)
             {
                 mRoleBase.ChangeRoleColor(Color.white);
                 mRoleBase.IsCanControl = true;

@@ -85,7 +85,7 @@ namespace Assets.Script.Battle
             RoleAnimation = new RoleAnimationSys();
             RoleAnimation.SetCurrentRole(this);
             RoleMoveMoment = new MoveMoment();
-            RoleMoveMoment.SetCurrentRole(this);
+            RoleMoveMoment.SetCurrentRole(this, MonoRoleRender.MoveController, MonoRoleRender.MoveSeeker);
             RolePropertyValue = new ValueProperty();
             RolePropertyValue.SetCurrentRole(this);
             InitRoleProperty();
@@ -114,6 +114,7 @@ namespace Assets.Script.Battle
             RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, skillDataId02);
             CurrentSlot = SkillSlotTypeEnum.NormalAttack;
             RoleSearchTarget.InitData();
+            RoleMoveMoment.InitData();
         }
 
         private void InitRoleComponentData()

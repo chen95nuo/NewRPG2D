@@ -30,6 +30,7 @@ namespace Assets.Script.Battle.RoleState
         public override void Enter(RoleBase mRoleBase)
         {
             base.Enter(mRoleBase);
+            mRoleBase.RoleMoveMoment.CancelCurrentPathRequest();
             // OnceAttack(mRoleBase);
             skillCDTime = CurrentSkillData.SkillCDTime;
             MP = CurrentSkillData.MP;

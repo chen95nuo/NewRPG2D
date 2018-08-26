@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Assets.Script.Battle;
+using Pathfinding;
+using Pathfinding.RVO;
 using Spine.Unity;
 using UnityEngine.Rendering;
 using Transform = UnityEngine.Transform;
@@ -8,6 +10,9 @@ public class RoleRender : MonoBehaviour
 {
     public SkeletonAnimation roleAnimation;
     public Animation roleNewAnimation;
+    public RVOController MoveController;
+    public Seeker MoveSeeker;
+
     [SerializeField] private SortingGroup currentSortingGroup;
     [SerializeField] private GameObject blueSelectObj, redSelectObj;
     [SerializeField] private MeshRenderer currentRenderer;

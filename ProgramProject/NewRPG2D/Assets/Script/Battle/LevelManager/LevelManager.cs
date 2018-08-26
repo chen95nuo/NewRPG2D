@@ -86,7 +86,7 @@ namespace Assets.Script.Battle.LevelManager
             {
                 for (int j = 0; j < roleInfoArray.Length; j++)
                 {
-                    if (roleInfoArray[i] == null)
+                    if (roleInfoArray[j] == null)
                     {
                         continue;
                     }
