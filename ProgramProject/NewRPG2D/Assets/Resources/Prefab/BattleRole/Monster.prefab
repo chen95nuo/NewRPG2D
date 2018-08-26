@@ -333,11 +333,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  drawGizmos: 0
+  drawGizmos: 1
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0
-    exactStartPoint: 1
+    exactStartPoint: 3
     exactEndPoint: 3
     useRaycasting: 0
     mask:
@@ -389,12 +389,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  smoothType: 2
+  smoothType: 0
   subdivisions: 2
   iterations: 2
-  strength: 0.5
+  strength: 0.6
   uniformLength: 1
-  maxSegmentLength: 2
+  maxSegmentLength: 0.3
   bezierTangentLength: 0.4
   offset: 2
   factor: 0.1

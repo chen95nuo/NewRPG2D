@@ -43,7 +43,7 @@ namespace Assets.Script.Battle
 
         private float maxSpeed = 10;
         private Vector2 velocity2D;
-        private float repathRate = 1;
+        private float repathRate = 0.5f;
         private float moveNextDist = 1;
         private float nextRepath = 0;
         private Vector3 _target;
@@ -60,7 +60,7 @@ namespace Assets.Script.Battle
             switchActionParam = new SwitchRoleActionParam(mCurrentRole, RoleActionEnum.Idle);
             moveController = controller;
             moveSeeker = seeker;
-          
+
         }
 
         public void InitData()
@@ -75,7 +75,7 @@ namespace Assets.Script.Battle
                 RecalculatePath();
             }
             var currentPosition = roleTransform.position;
-
+            maxSpeed = mCurrentRole.RolePropertyValue.MoveSpeed;
             interpolator.MoveToCircleIntersection2D(currentPosition, pickNextWaypointDist, movementPlane);
             var dir = movementPlane.ToPlane(steeringTarget - currentPosition);
             float distanceToEnd = dir.magnitude + Mathf.Max(0, interpolator.remainingDistance);
@@ -83,36 +83,13 @@ namespace Assets.Script.Battle
             var prevTargetReached = reachedEndOfPath;
             reachedEndOfPath = distanceToEnd <= endReachedDistance && interpolator.valid;
             if (!prevTargetReached && reachedEndOfPath) OnTargetReached();
-            float slowdown;
-            var forwards = movementPlane.ToPlane(Vector3.right);
-
-            if (interpolator.valid)
-            {
-                slowdown = distanceToEnd < slowdownDistance ? Mathf.Sqrt(distanceToEnd / slowdownDistance) : 1;
-
-                if (reachedEndOfPath)
-                {
-                    velocity2D -= Vector2.ClampMagnitude(velocity2D, deltaTime);
-                }
-                else
-                {
-                    velocity2D += MovementUtilities.CalculateAccelerationToReachPoint(dir, dir.normalized * maxSpeed, velocity2D, 1, 1, maxSpeed, forwards) * deltaTime;
-                }
-            }
-            else
-            {
-                slowdown = 1;
-                velocity2D -= Vector2.ClampMagnitude(velocity2D, deltaTime);
-            }
-
-            velocity2D = MovementUtilities.ClampVelocity(velocity2D, maxSpeed, slowdown, true, forwards);
 
             if (moveController != null && moveController.enabled)
             {
-                moveController.SetTarget(_target, mCurrentRole.RolePropertyValue.MoveSpeed, 10);
+                moveController.SetTarget(_target, maxSpeed, maxSpeed);
             }
             var delta2D = lastDeltaPosition = CalculateDeltaToMoveThisFrame(movementPlane.ToPlane(currentPosition), distanceToEnd, deltaTime);
-            nextPosition = currentPosition + movementPlane.ToWorld(delta2D, lastDeltaTime);
+            nextPosition = currentPosition + movementPlane.ToWorld(delta2D, 0);
             roleTransform.position = nextPosition;
         }
 
@@ -137,7 +114,7 @@ namespace Assets.Script.Battle
             else
             {
                 var dir = (targetTransform.position - roleTransform.position).normalized;
-                _target = targetTransform.position + dir * attackDistance;
+                _target = targetTransform.position;
 
             }
             moveSeeker.StartPath(roleTransform.position, _target, OnPathComplete);
@@ -149,15 +126,16 @@ namespace Assets.Script.Battle
 
             canSearchAgain = targetTransform != null;
 
-            if (path != null) path.Release(this);
-            path = p;
             p.Claim(this);
 
             if (p.error)
             {
+                if (p.error)
+                    p.Release(this);
                 return;
             }
-
+            if (path != null) path.Release(this);
+            path = p;
             if (path.vectorPath.Count == 1) path.vectorPath.Add(path.vectorPath[0]);
             interpolator.SetPath(path.vectorPath);
 
@@ -195,7 +173,8 @@ namespace Assets.Script.Battle
         private void OnTargetReached()
         {
             mCurrentRole.FinishMoveToPoint = true;
-            mCurrentRole.RoleSearchTarget.SetTarget(null);
+            //if(targetTransform == null)
+            //mCurrentRole.RoleSearchTarget.SetTarget(null);
         }
 
         public void SetTargetPosition(Vector3 targetPosition)

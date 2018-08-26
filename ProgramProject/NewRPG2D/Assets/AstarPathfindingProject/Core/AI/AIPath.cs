@@ -317,7 +317,7 @@ namespace Pathfinding {
 			float slowdown;
 
 			// Normalized direction of where the agent is looking
-			var forwards = movementPlane.ToPlane(simulatedRotation * (rotationIn2D ? Vector3.right : Vector3.forward));
+			var forwards = movementPlane.ToPlane(simulatedRotation * (rotationIn2D ? Vector3.up : Vector3.forward));
 
 			// Check if we have a valid path to follow and some other script has not stopped the character
 			if (interpolator.valid && !isStopped) {

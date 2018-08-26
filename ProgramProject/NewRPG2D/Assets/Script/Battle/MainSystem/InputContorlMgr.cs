@@ -61,7 +61,7 @@ namespace Assets.Script.Battle
                 if (cacheRole != null && cacheRole.CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
                     RoleRender role = GetTouchRoleRender();
-                    if (role != null && cacheRole.CurrentRole.TeamId != TeamTypeEnum.Hero)
+                    if (role != null && role.CurrentRole.TeamId != TeamTypeEnum.Hero)
                     {
                         DebugHelper.Log("role = " + role.name);
                         cacheRole.ChangeTarget(role.CurrentRole);
