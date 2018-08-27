@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +7,11 @@ using UnityEngine.UI;
 public class UIRound : MonoBehaviour
 {
 
-    public Text name;
+    public Text LessonName;
     public UILessonBtn[] grids;
+    public UITypeTip typeTip;
 
+    public int currentLesson;
 
     private void Awake()
     {
@@ -17,9 +20,12 @@ public class UIRound : MonoBehaviour
 
     private void Init()
     {
+        typeTip.gameObject.SetActive(false);
         PlayerRoundData data = GetPlayerRoundData.Instance.items;
+        currentLesson = GetPlayData.Instance.player[0].MapNumber;
         for (int i = 0; i < grids.Length; i++)
         {
+            grids[i].btn_lesson.onClick.AddListener(ChickLessonbtn);
             if (i < data.UnLockLesson.Count)
             {
                 grids[i].gameObject.SetActive(true);
@@ -28,6 +34,27 @@ public class UIRound : MonoBehaviour
             else
             {
                 grids[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void ChickLessonbtn()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+
+        for (int i = 0; i < grids.Length; i++)
+        {
+            if (go == grids[i].btn_lesson.gameObject)
+            {
+                currentLesson = i;
+                if (currentLesson == 0)
+                {
+                    currentLesson = 1;
+                }
+                LessonFightData data = GameLessonFightData.Instance.GetItem(currentLesson);
+                typeTip.gameObject.SetActive(true);
+                typeTip.UpdateGrids(data);
+                return;
             }
         }
     }

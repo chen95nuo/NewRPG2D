@@ -11,8 +11,8 @@ public class UIFurnacePopUpGrid : MonoBehaviour, IPointerDownHandler
     public Image FMaterialImage;
     public Text FMaterialNumber;
     public int fMaterialNumber;
-
     public ItemMaterialType MType;
+    public Animation anim;
 
     private void Awake()
     {

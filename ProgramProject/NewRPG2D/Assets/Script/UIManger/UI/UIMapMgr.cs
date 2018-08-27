@@ -64,7 +64,7 @@ public class UIMapMgr : MonoBehaviour
     private void ShowRound() { TTUIPage.ShowPage<UIRoundPage>(); }
     private void ShowEmail() { TTUIPage.ShowPage<UIEmailPage>(); }
     private void ShowFurnace() { ShowFurnacePage(); }
-    private void ShowEggStore() { TTUIPage.ShowPage<UIEggStore>(); }
+    private void ShowEggStore() { ShowEggStorePage(); }
     private void ShowStore() { ShowStorePage(); }
     private void ShowReward() { TTUIPage.ShowPage<UIRewardPage>(); }
     private void ShowExplore() { ShowExplorePage(); }
@@ -133,5 +133,11 @@ public class UIMapMgr : MonoBehaviour
     {
         TTUIPage.ShowPage<UITalkPage>();
         UIEventManager.instance.SendEvent<UITalkType>(UIEventDefineEnum.UpdateTalkEvent, UITalkType.Explore);
+    }
+
+    private void ShowEggStorePage()
+    {
+        TTUIPage.ShowPage<UITalkPage>();
+        UIEventManager.instance.SendEvent<UITalkType>(UIEventDefineEnum.UpdateTalkEvent, UITalkType.EggStore);
     }
 }

@@ -5,9 +5,10 @@ using UnityEngine;
 public class DroppingData
 {
 
+    private int id;
     private string spriteName;//道具的图片名称
-
     private int quality;//道具品质
+
 
     public string SpriteName
     {
@@ -25,9 +26,18 @@ public class DroppingData
         }
     }
 
-    public DroppingData() { }
-    public DroppingData(string spriteName, int quality)
+    public int Id
     {
+        get
+        {
+            return id;
+        }
+    }
+
+    public DroppingData() { }
+    public DroppingData(int id, string spriteName, int quality)
+    {
+        this.id = id;
         this.spriteName = spriteName;
         this.quality = quality;
     }

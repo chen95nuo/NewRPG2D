@@ -39,6 +39,7 @@ public class UICardAddExp : MonoBehaviour
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<CardGainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateCardExp);
+
     }
 
     private void OnEnable()
@@ -67,10 +68,10 @@ public class UICardAddExp : MonoBehaviour
                 maxExp = GetPlayerExpData.Instance.GetItem(currentLevel).NeedExp;
             }
 
-            playerLevel.text = "Lv." + currentLevel;
+            playerLevel.text = "lv." + currentLevel;
             playerExpSlider.value = index;
             playerExpSlider.maxValue = maxExp;
-            playerExp.text = "Exp+ " + (currentAddExp - currentValue).ToString("#0.0");
+            playerExp.text = "+" + (currentAddExp - currentValue).ToString("#0.0");
             playerNowExp.text = index.ToString("#0") + " / " + maxExp;
 
             if (currentValue == currentAddExp)
@@ -96,7 +97,7 @@ public class UICardAddExp : MonoBehaviour
             {
                 return;
             }
-            SceneManager.LoadScene(GoFightMgr.instance.mainScene);
+            GoFightMgr.instance.GoMainScene();
         }
         else
         {

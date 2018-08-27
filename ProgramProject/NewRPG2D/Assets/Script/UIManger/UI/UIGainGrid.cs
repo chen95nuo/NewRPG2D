@@ -51,7 +51,7 @@ public class UIGainGrid : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
 
         itemQuality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         itemImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        itemNumber.text = "Exp +" + data.Number;
+        itemNumber.text = data.Number.ToString();
 
         itemStars.gameObject.SetActive(false);
         itemNumber.gameObject.SetActive(true);

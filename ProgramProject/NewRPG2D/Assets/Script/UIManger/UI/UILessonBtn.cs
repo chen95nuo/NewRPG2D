@@ -11,13 +11,8 @@ public class UILessonBtn : MonoBehaviour
     public Text level;
     public Sprite[] sprites;
 
-    private Button lessonBtn;
+    public Button btn_lesson;
 
-    private void Awake()
-    {
-        lessonBtn = GetComponent<Button>();
-        lessonBtn.onClick.AddListener(ChickBtn);
-    }
     public void UpdateBtn(int level)
     {
         for (int i = 0; i < starts.Length; i++)
@@ -31,10 +26,5 @@ public class UILessonBtn : MonoBehaviour
                 starts[i].sprite = sprites[0];
             }
         }
-    }
-
-    private void ChickBtn()
-    {
-
     }
 }

@@ -9,17 +9,21 @@ public class UIGainTip : MonoBehaviour
     public UIGainGrid grid;
     public Text addGoid;
     public Button btn_back;
+    public Button btn_box;
+    public GameObject downTip;
 
     private List<UIGainGrid> grids;
     private bool isNext = false;
     private CardGainData[] cardGainData;
-
+    private GainData[] gainData;
     private void Awake()
     {
         grid.gameObject.SetActive(false);
 
+        btn_box.onClick.AddListener(ChickBox);
+        btn_box.interactable = true;
+        downTip.SetActive(false);
         btn_back.onClick.AddListener(ChickBack);
-
         grids = new List<UIGainGrid>();
         UIEventManager.instance.AddListener<GainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateGrids);
         UIEventManager.instance.AddListener<CardGainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateCardExp);
@@ -32,33 +36,7 @@ public class UIGainTip : MonoBehaviour
 
     public void UpdateGrids(GainData[] gainData)
     {
-        GridsControl(gainData.Length);
-        addGoid.text = "金币 + " + gainData[0].addGoin;
-
-        for (int i = 0; i < gainData.Length; i++)
-        {
-            switch (gainData[i].itemtype)
-            {
-                case ItemType.Nothing:
-                    grids[i].gameObject.SetActive(false);
-                    break;
-                case ItemType.Egg:
-                    EggData eggData = GameEggData.Instance.GetItem(gainData[i].itemId);
-                    grids[i].UpdateItem(eggData);
-                    break;
-                case ItemType.Prop:
-                    ItemData itemData = GamePropData.Instance.GetItem(gainData[i].itemId);
-                    itemData.Number = gainData[i].itemNumber;
-                    grids[i].UpdateItem(itemData);
-                    break;
-                case ItemType.Equip:
-                    EquipData equipData = GameEquipData.Instance.GetItem(gainData[i].itemId);
-                    grids[i].UpdateItem(equipData);
-                    break;
-                default:
-                    break;
-            }
-        }
+        this.gainData = gainData;
     }
 
     public void UpdateCardExp(CardGainData[] datas)
@@ -107,6 +85,40 @@ public class UIGainTip : MonoBehaviour
             }
         }
 
+    }
+
+    private void ChickBox()
+    {
+        btn_box.interactable = false;
+        downTip.SetActive(true);
+
+        GridsControl(gainData.Length);
+        addGoid.text = gainData[0].addGoin.ToString();
+
+        for (int i = 0; i < gainData.Length; i++)
+        {
+            switch (gainData[i].itemtype)
+            {
+                case ItemType.Nothing:
+                    grids[i].gameObject.SetActive(false);
+                    break;
+                case ItemType.Egg:
+                    EggData eggData = GameEggData.Instance.GetItem(gainData[i].itemId);
+                    grids[i].UpdateItem(eggData);
+                    break;
+                case ItemType.Prop:
+                    ItemData itemData = GamePropData.Instance.GetItem(gainData[i].itemId);
+                    itemData.Number = gainData[i].itemNumber;
+                    grids[i].UpdateItem(itemData);
+                    break;
+                case ItemType.Equip:
+                    EquipData equipData = GameEquipData.Instance.GetItem(gainData[i].itemId);
+                    grids[i].UpdateItem(equipData);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 }

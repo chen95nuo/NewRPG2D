@@ -42,6 +42,11 @@ public class UIMessageTip : MonoBehaviour
         text_message.text = message.message + "\n";
         switch (message.messageType)
         {
+            case UIMessageType.Nothing:
+                currencyImage.gameObject.SetActive(false);
+                text_message_2.gameObject.SetActive(false);
+                text_number.gameObject.SetActive(false);
+                break;
             case UIMessageType.OnlyTip:
                 currencyImage.gameObject.SetActive(false);
                 text_message_2.gameObject.SetActive(false);

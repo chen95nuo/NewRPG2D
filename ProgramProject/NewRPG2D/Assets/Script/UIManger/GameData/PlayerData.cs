@@ -44,6 +44,9 @@ public class PlayerData
     [SerializeField]
     private int mapNumber;//玩家所在地图序号
 
+    [SerializeField]
+    private int currentTeam;//当前出击的队伍
+
     public int Id
     {
         get
@@ -172,6 +175,10 @@ public class PlayerData
     {
         get
         {
+            if (mapNumber == 0)
+            {
+                mapNumber = 1;
+            }
             return mapNumber;
         }
         set
@@ -211,6 +218,23 @@ public class PlayerData
         set
         {
             diamondHatch = value;
+        }
+    }
+
+    public int CurrentTeam
+    {
+        get
+        {
+            if (currentTeam == 0)
+            {
+                currentTeam = 1;
+            }
+            return currentTeam;
+        }
+
+        set
+        {
+            currentTeam = value;
         }
     }
 

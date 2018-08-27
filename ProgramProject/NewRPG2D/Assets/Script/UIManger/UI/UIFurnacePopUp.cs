@@ -114,12 +114,15 @@ public class UIFurnacePopUp : MonoBehaviour
     public void InstancePopUp(ItemMaterialType type, int number)
     {
         int index = 0;
+        Debug.Log(type);
         for (int i = 0; i < furnacePops.Length; i++)//查询是否已经有该类型的存在，若已有直接使用
         {
             if (furnacePops[i].MType == type)
             {
                 furnacePops[i].fMaterialNumber = number;
                 furnacePops[i].FMaterialNumber.text = "+" + furnacePops[i].fMaterialNumber;
+                furnacePops[i].anim.Play();
+                Debug.Log("当前已存在气泡");
             }
             else
                 index++;

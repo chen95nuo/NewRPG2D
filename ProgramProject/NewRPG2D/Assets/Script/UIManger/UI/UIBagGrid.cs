@@ -122,7 +122,8 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
             case GridType.Nothing:
                 TTUIPage.ShowPage<UIRolePage>();
                 UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateRolesEvent, false);
-                UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, roleData);
+                RoundCardMessage data = new RoundCardMessage(roleData, GridType.Nothing);
+                UIEventManager.instance.SendEvent<RoundCardMessage>(UIEventDefineEnum.UpdateCardMessageEvent, data);
                 break;
             case GridType.Use:
                 if (!roleData.Fighting)
@@ -140,7 +141,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                 Debug.Log("进入小队菜单");
                 //选中的
                 TTUIPage.ClosePage<UICardHousePage>();
-                UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRoundEvent, roleData);
+                UIEventManager.instance.SendEvent<CardData>(UIEventDefineEnum.UpdateRoundEvent, roleData);
                 break;
             default:
                 break;
@@ -152,7 +153,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
         TTUIPage.ShowPage<UIBusinessTipPage>();
         UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBuyItem, this);
         UIStore store = GetComponentInParent<UIStore>();
-        store.OutPage();
+        //store.OutPage();
         UIEventManager.instance.SendEvent<GameObject>(UIEventDefineEnum.UpdateStoreEvent, store.gameObject);
     }
     public void UseProp()
@@ -164,7 +165,6 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                 UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdatePropsEvent, propData);
             }
             TTUIPage.ClosePage<UIUseItemBagPage>();
-            Debug.Log("Close");
             UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateUsePage, false);
         }
     }
@@ -325,6 +325,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
     }
     public void UpdateItem(DroppingData data)
     {
+        propData = GamePropData.Instance.GetItem(data.Id);
         otherGrid.otherImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
         otherGrid.otherBG.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         type.SetActive(true);

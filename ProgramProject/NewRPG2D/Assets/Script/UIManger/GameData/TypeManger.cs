@@ -157,6 +157,7 @@ public enum UITalkType
     Nothing,//空
     Furnace,//炼金
     Store,//商店
+    EggStore,//扭蛋
     Explore//探险
 }
 

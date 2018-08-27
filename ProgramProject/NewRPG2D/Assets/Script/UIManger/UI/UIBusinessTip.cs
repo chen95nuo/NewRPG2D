@@ -62,8 +62,8 @@ public class UIBusinessTip : MonoBehaviour
     private void Init()
     {
         playerData = GetPlayData.Instance.player[0];
-        goldCoin = GetSpriteAtlas.insatnce.GetIcon("GoldImage");
-        diamonds = GetSpriteAtlas.insatnce.GetIcon("DiamondsImage");
+        goldCoin = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_GoldImage");
+        diamonds = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_DiamondsImage");
 
         btn_Buy.onClick.AddListener(ChickBuy);
         btn_back.onClick.AddListener(ChickBack);
@@ -168,12 +168,12 @@ public class UIBusinessTip : MonoBehaviour
         //UIAnimTools.Instance.GetBG(BG, true);
         //UIAnimTools.Instance.PlayAnim(anim, "UIBusinessTipMain_out");
 
-        if (go != null)
-        {
-            go.SetActive(false);
-            go.SetActive(true);
-            go = null;
-        }
+        //if (go != null)
+        //{
+        //    go.SetActive(false);
+        //    go.SetActive(true);
+        //    go = null;
+        //}
 
         //Invoke("ClosePage", .8f);
         ClosePage();

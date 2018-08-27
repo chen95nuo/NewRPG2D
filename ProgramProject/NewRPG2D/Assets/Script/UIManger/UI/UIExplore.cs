@@ -236,7 +236,7 @@ public class UIExplore : MonoBehaviour
                     bagGrids[i].gameObject.SetActive(true);
                     ItemData data = GamePropData.Instance.QueryItem(droppingId[i]);
                     Debug.Log(data.SpriteName);
-                    DroppingData new_data = new DroppingData(data.SpriteName, data.Quality);
+                    DroppingData new_data = new DroppingData(data.Id, data.SpriteName, data.Quality);
                     bagGrids[i].UpdateItem(new_data);
                 }
                 else

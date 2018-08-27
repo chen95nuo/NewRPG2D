@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GoFightMgr : TSingleton<GoFightMgr>
 {
@@ -17,6 +19,7 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     public CardData[] cardData;//战斗卡牌
     public int PlayerLevel;//玩家等级
     public string mainScene;//进战斗前的场景名称
+    public bool isRound = false;
 
     /// <summary>
     /// 获得并保存信息
@@ -28,7 +31,6 @@ public class GoFightMgr : TSingleton<GoFightMgr>
         cardData = fightData.CardData;
         PlayerLevel = fightData.PlayerLevel;
         currentLesson = fightData.CurrentLesson;
-        //currentLesson = fightData.CurrentLesson;
         mainScene = fightData.CurrentMap;
     }
 
@@ -52,5 +54,11 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     public void MissionFailed()
     {
         TinyTeam.UI.TTUIPage.ShowPage<UIMissionFailedPage>();
+    }
+
+    public void GoMainScene()
+    {
+        isRound = true;
+        SceneManager.LoadScene(GoFightMgr.instance.mainScene);
     }
 }

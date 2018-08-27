@@ -28,11 +28,11 @@ public class UICardGrid : MonoBehaviour
     {
         quality.sprite = IconMgr.Instance.GetIcon("quality_" + data.Quality);
         cardImage.sprite = IconMgr.Instance.GetIcon(data.SpriteName);
-        cardLevel.text = "Lv." + data.Level;
+        cardLevel.text = "lv." + data.Level;
         maxExp = GameCardExpData.Instance.GetItem(data.Level).NeedExp;
         cardExpSlider.maxValue = data.MaxExp;
         cardExpSlider.value = data.CurrentExp;
-        addExp.text = "Exp+ " + data.AddExp;
+        addExp.text = "+" + data.AddExp;
         currentAddExp = data.AddExp;
         currentLevel = data.Level;
         currentExp = data.CurrentExp;

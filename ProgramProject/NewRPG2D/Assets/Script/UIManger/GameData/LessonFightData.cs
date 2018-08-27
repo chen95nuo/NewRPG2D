@@ -60,11 +60,12 @@ public class LessonFightData
         }
     }
 
-    public string DropID
+    public float[] DropID
     {
         get
         {
-            return dropID;
+            float[] ID = UIFormatString.Instance.FormatDataString(dropID);
+            return ID;
         }
     }
 

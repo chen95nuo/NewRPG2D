@@ -55,6 +55,8 @@ public class UIRoleInformation : MonoBehaviour
 
     public Animation anim;
 
+    private GridType gridType;
+
     public CardData RoleData
     {
         get
@@ -74,6 +76,7 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.AddListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
         UIEventManager.instance.AddListener<RoleAtrType>(UIEventDefineEnum.UpdateLittleTipEvent, ShowLittleTip);
         UIEventManager.instance.AddListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
+        UIEventManager.instance.AddListener<RoundCardMessage>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
 
         Init();
     }
@@ -83,7 +86,7 @@ public class UIRoleInformation : MonoBehaviour
         UIEventManager.instance.RemoveListener<UIBagGrid>(UIEventDefineEnum.UpdateEquipsEvent, updateMessage);
         UIEventManager.instance.RemoveListener<RoleAtrType>(UIEventDefineEnum.UpdateExploreTipEvent, ShowLittleTip);
         UIEventManager.instance.RemoveListener(UIEventDefineEnum.UpdateBagItemMessageEvent, RemoveThisEquip);
-        UIEventManager.instance.RemoveListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
+        UIEventManager.instance.RemoveListener<RoundCardMessage>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
 
     }
 
@@ -97,7 +100,6 @@ public class UIRoleInformation : MonoBehaviour
         btn_Disband.GetComponent<Button>().onClick.AddListener(ShowRoleDisbandPage);
         pickUpRoleStrentthen.gameObject.SetActive(false);
 
-        UIEventManager.instance.AddListener<CardData>(UIEventDefineEnum.UpdateCardMessageEvent, GetCardData);
     }
 
     //动画系统
@@ -119,9 +121,10 @@ public class UIRoleInformation : MonoBehaviour
     /// 获取卡牌信息
     /// </summary>
     /// <param name="data"></param>
-    private void GetCardData(CardData data)
+    private void GetCardData(RoundCardMessage data)
     {
-        cardData = data;
+        gridType = data.gridType;
+        cardData = data.cardData;
         ShowRoleMessagePage();
     }
 
@@ -295,7 +298,7 @@ public class UIRoleInformation : MonoBehaviour
             Anim_DaBai.enabled = true;
             //role.AnimationState.SetAnimation(0, "stand", true);
         }
-        else if (data.AnimationName == "Anim_Mowu")
+        else if (data.AnimationName == "Anim_Huoyanjingling")
         {
             Anim_DaBai.enabled = false;
             Anim_MoWu.enabled = true;
@@ -426,6 +429,7 @@ public class UIRoleInformation : MonoBehaviour
         //Invoke("CloseThisPage", .2f);
 
 
+
         CloseThisPage();
     }
 
@@ -436,8 +440,15 @@ public class UIRoleInformation : MonoBehaviour
 
     public void CloseThisPage()
     {
-        TTUIPage.ClosePage<UIRolePage>();
-        TTUIPage.ShowPage<UICardHousePage>();
+        if (gridType == GridType.Nothing)
+        {
+            TTUIPage.ClosePage<UIRolePage>();
+            TTUIPage.ShowPage<UICardHousePage>();
+        }
+        else
+        {
+            TTUIPage.ClosePage<UIRolePage>();
+        }
         UIEventManager.instance.SendEvent<bool>(UIEventDefineEnum.UpdateRolesEvent, true);
     }
 

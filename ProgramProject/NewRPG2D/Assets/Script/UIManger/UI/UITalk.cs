@@ -47,6 +47,11 @@ public class UITalk : MonoBehaviour
                 name.text = "探险家";
                 describe.text = "你想去哪里?";
                 break;
+            case UITalkType.EggStore:
+                //iconImage.sprite = Icons[3];
+                name.text = "扭蛋";
+                describe.text = "试试运气吧!";
+                break;
             default:
                 break;
         }
@@ -67,6 +72,9 @@ public class UITalk : MonoBehaviour
                 break;
             case UITalkType.Explore:
                 TinyTeam.UI.TTUIPage.ShowPage<UIExplorePage>();
+                break;
+            case UITalkType.EggStore:
+                TinyTeam.UI.TTUIPage.ShowPage<UIEggStore>();
                 break;
             default:
                 break;

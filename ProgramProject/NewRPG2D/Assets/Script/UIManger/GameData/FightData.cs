@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -99,11 +100,9 @@ public class LessonDropData
         }
     }
     public LessonDropData() { }
-    public LessonDropData(int lessonId, int[] dropPropId, int dropBoxId)
+    public LessonDropData(int lessonId, int dropBoxId)
     {
         this.lessonId = lessonId;
         this.dropBoxId = dropBoxId;
-        this.dropBoxId = dropBoxId;
     }
-
 }

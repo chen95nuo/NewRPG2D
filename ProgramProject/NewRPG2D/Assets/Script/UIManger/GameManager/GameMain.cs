@@ -28,6 +28,11 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         TTUIPage.ShowPage<UIMainPage>();
+        if (GoFightMgr.instance.isRound)
+        {
+            TinyTeam.UI.TTUIPage.ShowPage<UIRoundPage>();
+            GoFightMgr.instance.isRound = false;
+        }
         //DontDestroyOnLoad(this.gameObject);
     }
 

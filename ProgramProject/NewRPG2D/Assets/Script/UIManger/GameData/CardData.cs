@@ -57,6 +57,9 @@ public class CardData
     private string skill_2;//技能2
 
     [SerializeField]
+    private float useAddExp;//使用获得经验
+
+    [SerializeField]
     private TeamType teamType; //状态信息
 
     [SerializeField]
@@ -73,9 +76,6 @@ public class CardData
 
     [SerializeField]
     private int quality;//品质
-
-    [SerializeField]
-    private float useAddExp;//使用获得经验
 
     [SerializeField]
     private EquipData[] equipdata; //装备

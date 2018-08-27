@@ -32,12 +32,15 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
     public RectTransform r1;
     public RectTransform r2;
 
+    public UIBagSell bagSell;
     private void Awake()
     {
         Image[] images = GetComponentsInChildren<Image>();
         GetSpriteAtlas.insatnce.SetImage(images);
 
         btn_affix = new Button[4];
+
+        bagSell.gameObject.SetActive(false);
 
         for (int i = 0; i < btn_affix.Length; i++)
         {
@@ -47,7 +50,6 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
 
         UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateLittleTipEvent, EquipAffixBtn);
         UIEventManager.instance.AddListener<EquipData>(UIEventDefineEnum.UpdateBagItemMessageEvent, ReplaceEquip);
-        UIEventManager.instance.AddListener<GameObject>(UIEventDefineEnum.UpdateMessageTipEvent, ChickOBJ);
 
         use.onClick.AddListener(ChickUse);
         sell.onClick.AddListener(ChickSell);
@@ -65,7 +67,7 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<GameObject>(UIEventDefineEnum.UpdateLittleTipEvent, EquipAffixBtn);
-        UIEventManager.instance.RemoveListener<GameObject>(UIEventDefineEnum.UpdateMessageTipEvent, ChickOBJ);
+        UIEventManager.instance.RemoveListener<EquipData>(UIEventDefineEnum.UpdateBagItemMessageEvent, ReplaceEquip);
     }
 
     public void ReplaceEquip(EquipData data)
@@ -295,30 +297,13 @@ public class UIBagPopUp : MonoBehaviour, IPointerDownHandler
         if (GridData.itemType == ItemType.Prop)
         {
             Debug.Log("出售 弹出数量选择");
-            string st = "是否出售 " + GridData.propData.Name + "*1\n" + "将获得 : " + GridData.propData.SellPrice + "金币";
-            TTUIPage.ShowPage<UIMessageTipPage>();
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipGoEvent, this.gameObject);
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessageTipEvent, st);
+            bagSell.gameObject.SetActive(true);
+            bagSell.UpdateMessage(GridData.propData);
             return;
         }
         if (GridData.gridType == GridType.Use)
         {
             UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateBagItemMessageEvent);
-        }
-    }
-
-    private void ChickOBJ(GameObject obj)
-    {
-        Debug.Log("运行了");
-        if (obj == this.gameObject)
-        {
-            GetPlayData.Instance.player[0].GoldCoin += GridData.propData.SellPrice;
-            BagItemData.Instance.ReduceItems(GridData.propData.Id, 1);
-            updateMessage(GridData.propData);
-            TTUIPage.ShowPage<UIPopTipPage>();
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateMessagePopTipEvent, GridData.propData.SellPrice.ToString());
-            Debug.Log("运行了");
-            TTUIPage.ClosePage<UIBagItemMessage>();
         }
     }
 
