@@ -14,10 +14,16 @@ namespace Assets.Script.Battle.BattleUI
         public BattleUIMyRoleInfo RoleInfo;
         public BattleUISceneInfo SceneInfo;
         public BattleUIRoleHpInfo HpInfo;
+        public Image StartImage;
+        private Color tempColor;
+
+        private bool startGame;
+        private float addTime = 0;
 
         public void Awake()
         {
             EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+            tempColor = StartImage.color;
         }
 
         public void OnDestroy()
@@ -25,8 +31,30 @@ namespace Assets.Script.Battle.BattleUI
             EventManager.instance.RemoveListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
         }
 
+       
+        private void Update()
+        {
+            addTime += Time.deltaTime;
+            if (startGame && addTime > 1)
+            {
+                if (tempColor.a > 0)
+                {
+                    tempColor.a -= Time.deltaTime;
+                    StartImage.color = tempColor;
+                }
+                else
+                {
+                    StartImage.gameObject.CustomSetActive(false);
+                }
+            }
+          
+        }
+
         private void LoadLevelUpdate(LoadLevelParam param)
         {
+            startGame = true;
+            StartImage.gameObject.SetActive(true);
+            StartImage.color = Color.white;
             SceneInfo.StartGame();
         }
     }

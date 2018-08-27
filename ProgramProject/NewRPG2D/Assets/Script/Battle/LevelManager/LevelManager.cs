@@ -46,6 +46,7 @@ namespace Assets.Script.Battle.LevelManager
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
             roleInfoArray = GoFightMgr.instance.cardData;
+            if (GoFightMgr.instance.currentLesson != null) sceneId = GoFightMgr.instance.currentLesson.LessonId;
             Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
@@ -174,6 +175,7 @@ namespace Assets.Script.Battle.LevelManager
             if (isCreateEnemy && GameRoleMgr.instance.RolesHeroList.Count <= 0)
             {
                 DebugHelper.LogError("  -----------------Lose----- ");
+                UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 isGameOver = true;
                 GameLogic.Instance.IsGameOver();
             }
