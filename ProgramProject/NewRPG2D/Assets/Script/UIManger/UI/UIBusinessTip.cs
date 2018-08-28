@@ -250,10 +250,10 @@ public class UIBusinessTip : MonoBehaviour
                 case CurrencyType.Nothing:
                     break;
                 case CurrencyType.GoldCoin:
-                    text_currentPrice.text = "<color=#E7BE2F>" + currentPrice + "</color>";
+                    text_currentPrice.text = /*"<color=#E7BE2F>" + */currentPrice.ToString()/* + "</color>"*/;
                     break;
                 case CurrencyType.Diamonds:
-                    text_currentPrice.text = "<color=#79D2FF>" + currentPrice + "</color>";
+                    text_currentPrice.text = /*"<color=#A0CDCC>" + */currentPrice.ToString()/* + "</color>"*/;
                     break;
                 default:
                     break;

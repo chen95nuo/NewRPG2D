@@ -259,7 +259,7 @@ public class UIBagGrid : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
                     storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_GoldImage");
                     break;
                 case CurrencyType.Diamonds:
-                    storeGrid.price.text = "<color=#79D2FF>" + data.BuyPrice + "</color>";
+                    storeGrid.price.text = "<color=#A0CDCC>" + data.BuyPrice + "</color>";
                     storeGrid.priceImage.sprite = GetSpriteAtlas.insatnce.GetIcon("Cry_Icon_DiamondsImage");
                     break;
                 default:

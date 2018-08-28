@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class UIGainTip : MonoBehaviour
     public UIGainGrid grid;
     public Text addGoid;
     public Button btn_back;
+    public Button btn_BG;
     public Button btn_box;
     public GameObject downTip;
 
@@ -19,15 +21,51 @@ public class UIGainTip : MonoBehaviour
     private void Awake()
     {
         grid.gameObject.SetActive(false);
-
-        btn_box.onClick.AddListener(ChickBox);
+        btn_BG.gameObject.SetActive(true);
         btn_box.interactable = true;
         downTip.SetActive(false);
         btn_back.onClick.AddListener(ChickBack);
+        btn_BG.onClick.AddListener(ChickBG);
         grids = new List<UIGainGrid>();
         UIEventManager.instance.AddListener<GainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateGrids);
         UIEventManager.instance.AddListener<CardGainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateCardExp);
     }
+
+    private void ChickBG()
+    {
+        btn_BG.gameObject.SetActive(false);
+        btn_box.interactable = false;
+        downTip.SetActive(true);
+
+        GridsControl(gainData.Length);
+        addGoid.text = gainData[0].addGoin.ToString();
+
+        for (int i = 0; i < gainData.Length; i++)
+        {
+            switch (gainData[i].itemtype)
+            {
+                case ItemType.Nothing:
+                    grids[i].gameObject.SetActive(false);
+                    break;
+                case ItemType.Egg:
+                    EggData eggData = GameEggData.Instance.GetItem(gainData[i].itemId);
+                    grids[i].UpdateItem(eggData);
+                    break;
+                case ItemType.Prop:
+                    ItemData itemData = GamePropData.Instance.GetItem(gainData[i].itemId);
+                    itemData.Number = gainData[i].itemNumber;
+                    grids[i].UpdateItem(itemData);
+                    break;
+                case ItemType.Equip:
+                    EquipData equipData = GameEquipData.Instance.GetItem(gainData[i].itemId);
+                    grids[i].UpdateItem(equipData);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void OnDestroy()
     {
         UIEventManager.instance.RemoveListener<GainData[]>(UIEventDefineEnum.UpdateGainTipEvent, UpdateGrids);
@@ -86,39 +124,4 @@ public class UIGainTip : MonoBehaviour
         }
 
     }
-
-    private void ChickBox()
-    {
-        btn_box.interactable = false;
-        downTip.SetActive(true);
-
-        GridsControl(gainData.Length);
-        addGoid.text = gainData[0].addGoin.ToString();
-
-        for (int i = 0; i < gainData.Length; i++)
-        {
-            switch (gainData[i].itemtype)
-            {
-                case ItemType.Nothing:
-                    grids[i].gameObject.SetActive(false);
-                    break;
-                case ItemType.Egg:
-                    EggData eggData = GameEggData.Instance.GetItem(gainData[i].itemId);
-                    grids[i].UpdateItem(eggData);
-                    break;
-                case ItemType.Prop:
-                    ItemData itemData = GamePropData.Instance.GetItem(gainData[i].itemId);
-                    itemData.Number = gainData[i].itemNumber;
-                    grids[i].UpdateItem(itemData);
-                    break;
-                case ItemType.Equip:
-                    EquipData equipData = GameEquipData.Instance.GetItem(gainData[i].itemId);
-                    grids[i].UpdateItem(equipData);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
 }

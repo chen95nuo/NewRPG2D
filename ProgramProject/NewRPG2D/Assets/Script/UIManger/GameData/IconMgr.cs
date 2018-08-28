@@ -14,7 +14,6 @@ public class IconMgr : MonoBehaviour
         {
             Instance = this;
         }
-
         iconImage = Resources.Load<SpriteAtlas>("UISpriteAtlas/IconImage");
 
         Sprite[] sprites = new Sprite[iconImage.spriteCount];

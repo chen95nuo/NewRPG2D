@@ -942,6 +942,7 @@ GameObject:
   - component: {fileID: 224734615945454834}
   - component: {fileID: 222663718614349668}
   - component: {fileID: 114170035736410800}
+  - component: {fileID: 114809883938924574}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1781,13 +1782,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -1911,7 +1912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9843137, g: 0.9529412, b: 0.63529414, a: 1}
+  m_Color: {r: 0.9882353, g: 0.92941177, b: 0.5568628, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2229,7 +2230,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2583,13 +2584,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -2793,8 +2794,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectColor: {r: 0.38431373, g: 0.22745098, b: 0.09411765, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &114452574314370104
 MonoBehaviour:
@@ -2914,7 +2915,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2924,7 +2925,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: 6b49186fa1a9ec9488359f1a14dc09df, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2955,7 +2956,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2965,7 +2966,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: 6b49186fa1a9ec9488359f1a14dc09df, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3331,13 +3332,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -3603,7 +3604,16 @@ MonoBehaviour:
   - {fileID: 114788271115182134}
   - {fileID: 114368767848894850}
   typeTip: {fileID: 114605938272467214}
+  currentMap: 0
   currentLesson: 0
+  currentFight:
+    id: 0
+    name: 0
+    spriteName: 
+    description: 
+    needFatigue: 0
+    dropID: 
+    dropBoxID: 0
 --- !u!114 &114655769795958000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4157,6 +4167,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!114 &114809883938924574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620368316193932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.38431373, g: 0.22745098, b: 0.09411765, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114810937808262168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4680,13 +4704,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -4842,13 +4866,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -4963,13 +4987,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -6002,8 +6026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52.000008, y: 0}
-  m_SizeDelta: {x: 104, y: 78}
+  m_AnchoredPosition: {x: -54.5, y: 0}
+  m_SizeDelta: {x: 95.42, y: 78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224326030017072156
 RectTransform:
@@ -6622,7 +6646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00390625}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.005127}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224680023416979716
@@ -7216,6 +7240,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48, y: 0}
+  m_AnchoredPosition: {x: 45.2, y: 0}
   m_SizeDelta: {x: 81, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}

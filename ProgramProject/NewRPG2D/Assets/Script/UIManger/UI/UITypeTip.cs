@@ -54,10 +54,7 @@ public class UITypeTip : MonoBehaviour
 
         if (cardNumber > 0)
         {
-            Debug.Log("人数足够进入战斗");
             //进入战斗
-            Debug.Log("进入战斗");
-            Debug.Log("有 " + cardNumber + " 卡牌进入战斗");
             CardData[] cardData = new CardData[cardNumber];
             int index = 0;
             for (int i = 0; i < cardDatas.Count; i++)
@@ -68,16 +65,14 @@ public class UITypeTip : MonoBehaviour
                     index++;
                 }
             }
-            LessonFightData data = GameLessonFightData.Instance.GetItem(round.currentLesson);
-            Debug.Log(data);
-            LessonDropData currentLesson = new LessonDropData(data.Id, data.DropBoxID);
+            LessonDropData currentLesson = new LessonDropData(round.currentFight.Id, round.currentFight.DropBoxID);
             int level = GetPlayData.Instance.player[0].Level;
             FightData fightData = new FightData(SceneManager.GetActiveScene().name, cardData, currentLesson, level);
-            
 
-            UIEventManager.instance.SendEvent(UIEventDefineEnum.FightMessage, fightData);
+            GoFightMgr.instance.FightMessage(fightData);
             TinyTeam.UI.TTUIPage.ClosePage<UIRoundPage>();
             SceneManager.LoadScene("SceneLoad");
+            //SceneManager.LoadScene("Scene_Test");
             Debug.Log("进入战斗场景");
         }
         else

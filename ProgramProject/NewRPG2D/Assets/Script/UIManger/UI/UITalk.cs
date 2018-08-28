@@ -33,22 +33,22 @@ public class UITalk : MonoBehaviour
             case UITalkType.Nothing:
                 break;
             case UITalkType.Furnace:
-                //iconImage.sprite = Icons[0];
+                iconImage.sprite = Icons[0];
                 name.text = "炼金术士";
                 describe.text = "想要增加魔物实力嘛？来找我吧!";
                 break;
             case UITalkType.Store:
-                //iconImage.sprite = Icons[1];
+                iconImage.sprite = Icons[1];
                 name.text = "商店";
                 describe.text = "挑一个你喜欢的东西吧!";
                 break;
             case UITalkType.Explore:
-                //iconImage.sprite = Icons[2];
+                iconImage.sprite = Icons[2];
                 name.text = "探险家";
                 describe.text = "你想去哪里?";
                 break;
             case UITalkType.EggStore:
-                //iconImage.sprite = Icons[3];
+                iconImage.sprite = Icons[3];
                 name.text = "扭蛋";
                 describe.text = "试试运气吧!";
                 break;

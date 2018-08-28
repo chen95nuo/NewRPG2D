@@ -339,7 +339,7 @@ public class UIFurnace : MonoBehaviour
         for (int i = 0; i < furnacesMenu.Length; i++)
         {
             furnacesMenu[i].menu.interactable = true;
-            furnacesMenu[i].menu.image.color = Color.white;
+            //furnacesMenu[i].menu.image.color = Color.white;
             if (go == furnacesMenu[i].menu.gameObject && go != furnacesMenu[currentMenu].menu.gameObject)
             {
                 currentMenu = i;
@@ -356,7 +356,7 @@ public class UIFurnace : MonoBehaviour
 
             ChickMaterial();
             furnacesMenu[currentMenu].menu.interactable = false;
-            furnacesMenu[currentMenu].menu.image.color = Color.gray;
+            //furnacesMenu[currentMenu].menu.image.color = Color.gray;
             Debug.Log(furnace.AnimationState == null);
             switch (playerData.Furnace[currentMenu].FurnaceType)
             {

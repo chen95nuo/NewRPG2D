@@ -30,7 +30,6 @@ public class UIAnimTools
     /// <param name="run">是否倒放 f是正</param>
     public void PlayAnim(Animation anim, string name, bool run)
     {
-        Debug.Log(name);
         anim.gameObject.SetActive(true);
         if (run)
         {

@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1239472897912426
 GameObject:
   m_ObjectHideFlags: 1
@@ -2198,7 +2198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1925282371900374
 GameObject:
   m_ObjectHideFlags: 1
@@ -2698,13 +2698,13 @@ MonoBehaviour:
     agileMaxGrow: 
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -2796,9 +2796,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
-    m_FontSize: 28
+    m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -2931,7 +2931,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 45
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3020,13 +3020,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -3445,13 +3445,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -3599,13 +3599,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -3720,13 +3720,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -4027,10 +4027,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
     m_FontSize: 42
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 4
+    m_BestFit: 0
+    m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4204,10 +4204,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
     m_FontSize: 42
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 4
-    m_MaxSize: 50
-    m_Alignment: 5
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 97
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4256,9 +4256,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
-    m_FontSize: 28
+    m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -4702,13 +4702,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -4817,8 +4817,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectColor: {r: 0.38431373, g: 0.22745098, b: 0.09411765, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &114426326433729712
 MonoBehaviour:
@@ -5552,9 +5552,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
-    m_FontSize: 28
+    m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -5626,13 +5626,13 @@ MonoBehaviour:
     agileMaxGrow: 
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -5792,13 +5792,13 @@ MonoBehaviour:
     agileMaxGrow: 
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -6625,10 +6625,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 99ee62779f7a8874980fb2484f3bfaa0, type: 3}
     m_FontSize: 42
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 4
+    m_BestFit: 0
+    m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -6835,7 +6835,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -6845,7 +6845,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: 6b49186fa1a9ec9488359f1a14dc09df, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -6998,7 +6998,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 45
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -7009,7 +7009,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u961F\u957F"
+  m_Text: "\u961F\u5458"
 --- !u!114 &114854180065203794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7250,13 +7250,13 @@ MonoBehaviour:
     agileMaxGrow: 0
     skill_1: 
     skill_2: 
+    useAddExp: 0
     teamType: 0
     teamPos: 0
     fighting: 0
     level: 0
     exp: 0
     quality: 0
-    useAddExp: 0
     equipdata: []
     healthGrow: 0
     attackGrow: 0
@@ -7497,7 +7497,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 45
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -7508,7 +7508,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u961F\u957F"
+  m_Text: "\u961F\u5458"
 --- !u!114 &114943278158657358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8789,7 +8789,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038453903, y: 0.35177776}
   m_AnchorMax: {x: 0.5775461, y: 0.8982222}
-  m_AnchoredPosition: {x: 0.31549072, y: 0.0000019073486}
+  m_AnchoredPosition: {x: 0.31549072, y: -1.8993845}
   m_SizeDelta: {x: 0.61900043, y: 0.6500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224077510391303292
@@ -8881,8 +8881,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.11, y: 0}
-  m_SizeDelta: {x: 112.68, y: 39.6}
+  m_AnchoredPosition: {x: -21.82, y: 0}
+  m_SizeDelta: {x: 120.65, y: 47.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224124385567192598
 RectTransform:
@@ -9111,7 +9111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038453903, y: 0.35177776}
   m_AnchorMax: {x: 0.5775461, y: 0.8982222}
-  m_AnchoredPosition: {x: 0.31549072, y: 0.0000019073486}
+  m_AnchoredPosition: {x: 0.31549072, y: -1.9}
   m_SizeDelta: {x: 0.61900043, y: 0.6500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224214934715787356
@@ -9203,8 +9203,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.8, y: 0}
-  m_SizeDelta: {x: 43.3, y: 53.6}
+  m_AnchoredPosition: {x: 60.154984, y: -3.23}
+  m_SizeDelta: {x: 43.3, y: 58.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224235124219101728
 RectTransform:
@@ -9351,8 +9351,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.11, y: 0}
-  m_SizeDelta: {x: 112.68, y: 39.6}
+  m_AnchoredPosition: {x: -21.82, y: 0}
+  m_SizeDelta: {x: 120.65, y: 47.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224295008115122116
 RectTransform:
@@ -9407,8 +9407,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.8, y: 0}
-  m_SizeDelta: {x: 43.3, y: 53.6}
+  m_AnchoredPosition: {x: 60.154984, y: -3.23}
+  m_SizeDelta: {x: 43.3, y: 58.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224307774651232932
 RectTransform:
@@ -9469,8 +9469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.8, y: 0}
-  m_SizeDelta: {x: 43.3, y: 53.6}
+  m_AnchoredPosition: {x: 60.154984, y: -3.23}
+  m_SizeDelta: {x: 43.3, y: 58.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224326539157842928
 RectTransform:
@@ -9726,8 +9726,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.11, y: 0}
-  m_SizeDelta: {x: 112.68, y: 39.6}
+  m_AnchoredPosition: {x: -21.82, y: 0}
+  m_SizeDelta: {x: 120.65, y: 47.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224430896167614302
 RectTransform:
@@ -9894,8 +9894,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 38.07, y: 59.4}
+  m_AnchoredPosition: {x: 0, y: -1.43}
+  m_SizeDelta: {x: 38.07, y: 56.53}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &224502764141292064
 RectTransform:
@@ -10007,8 +10007,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100.73001, y: 59.4}
+  m_AnchoredPosition: {x: 0, y: -2.63}
+  m_SizeDelta: {x: 100.73, y: 54.14}
   m_Pivot: {x: 0.000000020396826, y: 0.5}
 --- !u!224 &224540670749404658
 RectTransform:
@@ -10907,7 +10907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 490.45673, y: -160.83804}
+  m_AnchoredPosition: {x: 445.9067, y: -160.83804}
   m_SizeDelta: {x: 842, y: 217}
   m_Pivot: {x: 0.56705076, y: 0.25881085}
 --- !u!224 &224917989452624554
@@ -11001,7 +11001,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038453903, y: 0.35177776}
   m_AnchorMax: {x: 0.5775461, y: 0.8982222}
-  m_AnchoredPosition: {x: 0.31549072, y: 0.0000019073486}
+  m_AnchoredPosition: {x: 0.31549072, y: -1.8993845}
   m_SizeDelta: {x: 0.61900043, y: 0.6500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224940317844449456

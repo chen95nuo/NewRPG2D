@@ -10,8 +10,9 @@ public class UIRound : MonoBehaviour
     public Text LessonName;
     public UILessonBtn[] grids;
     public UITypeTip typeTip;
-
+    public int currentMap;
     public int currentLesson;
+    public LessonFightData currentFight;
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class UIRound : MonoBehaviour
     {
         typeTip.gameObject.SetActive(false);
         PlayerRoundData data = GetPlayerRoundData.Instance.items;
-        currentLesson = GetPlayData.Instance.player[0].MapNumber;
+        currentMap = GetPlayData.Instance.player[0].MapNumber;
         for (int i = 0; i < grids.Length; i++)
         {
             grids[i].btn_lesson.onClick.AddListener(ChickLessonbtn);
@@ -47,13 +48,13 @@ public class UIRound : MonoBehaviour
             if (go == grids[i].btn_lesson.gameObject)
             {
                 currentLesson = i;
-                if (currentLesson == 0)
-                {
-                    currentLesson = 1;
-                }
-                LessonFightData data = GameLessonFightData.Instance.GetItem(currentLesson);
+                //if (currentLesson == 0)
+                //{
+                //    currentLesson = 1;
+                //}
+                currentFight = GameLessonFightData.Instance.items[currentLesson];
                 typeTip.gameObject.SetActive(true);
-                typeTip.UpdateGrids(data);
+                typeTip.UpdateGrids(currentFight);
                 return;
             }
         }

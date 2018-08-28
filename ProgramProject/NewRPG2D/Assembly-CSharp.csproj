@@ -299,6 +299,7 @@
     <Compile Include="Assets\Script\UIManger\GameManager\PlayerHatcheryData.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\UIEventManager.cs" />
     <Compile Include="Assets\Script\UIManger\Manager\AsyncLoadFightScene.cs" />
+    <Compile Include="Assets\Script\UIManger\Manager\FightControl.cs" />
     <Compile Include="Assets\Script\UIManger\Manager\GetSpriteAtlas.cs" />
     <Compile Include="Assets\Script\UIManger\Manager\GoFightMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Manager\MainCameraMgr.cs" />
@@ -565,6 +566,7 @@
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteShadows.cginc" />
     <None Include="Assets\StreamingAssets\Json\BagEquipData.txt" />
     <None Include="Assets\Res\Texture\UITexture\Map\动画\熔炉宝石\baoshi.atlas.txt" />
+    <None Include="Assets\Res\Texture\UITexture\Map\动画\扭蛋\npc_cd.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteShadows.cginc" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritePixelLighting.cginc" />
     <None Include="Assets\StreamingAssets\Json\StoreData.txt" />
@@ -575,6 +577,7 @@
     <None Include="Assets\StreamingAssets\Json\BagFurnaceData.txt" />
     <None Include="Assets\StreamingAssets\Json\SkillData.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\SkeletonGraphic\Shaders\Spine-SkeletonGraphic-TintBlack.shader" />
+    <None Include="Assets\Res\Texture\UITexture\Map\动画\探险\npc_tx.atlas.txt" />
     <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\DotNetZipLicense.txt" />
     <None Include="Assets\Res\Texture\UITexture\Map\场景角色\建筑\商店\01shangdian.atlas.txt" />
     <None Include="Assets\AstarPathfindingProject\Plugins\Poly2Tri\Poly2TriLicense.txt" />
@@ -633,6 +636,7 @@
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton-TintBlack.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\ShaderShared.cginc" />
+    <None Include="Assets\Res\Texture\UITexture\Map\动画\熔炉\npc_rl.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\SkeletonGraphic\Shaders\Spine-SkeletonGraphic.shader" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton.shader" />
     <None Include="Assets\Res\Texture\UITexture\Map\动画\熔炉\rongluUI.atlas.txt" />
@@ -856,6 +860,15 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.ClipperLib">
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/Clipper/Pathfinding.ClipperLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/Poly2Tri/Pathfinding.Poly2Tri.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -876,15 +889,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.ClipperLib">
-      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/Clipper/Pathfinding.ClipperLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.Poly2Tri">
-      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/Poly2Tri/Pathfinding.Poly2Tri.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>D:/NewRPG2D/ProgramProject/NewRPG2D/Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

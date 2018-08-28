@@ -51,6 +51,7 @@ public class DropBagData
     {
         get
         {
+            addGold = Random.Range(100, 151);
             return addGold;
         }
     }

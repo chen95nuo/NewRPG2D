@@ -40,7 +40,6 @@ public class UITeamType : MonoBehaviour
     {
         int index = 0;
         cardData = new CardData[4];
-        Debug.Log(cardGrids.Length);
         for (int i = 0; i < cardGrids.Length; i++)
         {
             cardGrids[i].isCard = false;
@@ -61,7 +60,6 @@ public class UITeamType : MonoBehaviour
     }
     private void UpdateCard(CardData data)
     {
-        Debug.Log(currentGrid);
         cardData[currentGrid] = data;
         data.TeamPos = currentGrid;
         data.TeamType = (TeamType)(currentTeam + 1);

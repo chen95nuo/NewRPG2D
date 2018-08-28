@@ -16,12 +16,14 @@ public class GameMain : MonoBehaviour
         {
             Instance = this;
         }
+
         //读取存档的信息;
         ReadJsonNewMgr.CreateInstance();
-        GoFightMgr.CreateInstance();
+        //GoFightMgr.CreateInstance();
 
         GameObject go = Instantiate(MapCanvas) as GameObject;
         go.SetActive(true);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     // Use this for initialization
@@ -33,7 +35,10 @@ public class GameMain : MonoBehaviour
             TinyTeam.UI.TTUIPage.ShowPage<UIRoundPage>();
             GoFightMgr.instance.isRound = false;
         }
-        //DontDestroyOnLoad(this.gameObject);
+        //if (GoFightMgr.instance.isWin)
+        //{
+        //    GoFightMgr.instance.AddLesson();
+        //}
     }
 
     // Update is called once per frame

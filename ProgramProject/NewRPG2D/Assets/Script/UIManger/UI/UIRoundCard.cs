@@ -51,7 +51,6 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void UpdateRoundCard()
     {
         grid.gameObject.SetActive(false);
-        Debug.Log("运行了");
     }
 
     public void UpdateRoundCard(CardData data)
@@ -157,6 +156,17 @@ public class UIRoundCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         rt.anchoredPosition = Vector2.zero;
     }
 
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if (currentTime<maxTime)
+    //    {
+    //        isDown = false;
+
+    //        UIEventManager.instance.SendEvent(UIEventDefineEnum.UpdateRoundEvent, number);
+    //        currentTime = 0;
+
+    //    }
+    //}
 }
 
 public class RoundCardMessage

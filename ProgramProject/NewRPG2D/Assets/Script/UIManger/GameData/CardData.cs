@@ -165,9 +165,7 @@ public class CardData
         }
         set
         {
-            Debug.Log(exp);
             exp += value;
-            Debug.Log(value);
             while (exp >= maxExp)
             {
                 exp -= maxExp;
@@ -192,7 +190,8 @@ public class CardData
     {
         get
         {
-            return health;
+            float heValue = health + (healthGrow * Level);
+            return heValue;
         }
     }
 
@@ -208,7 +207,8 @@ public class CardData
     {
         get
         {
-            return attack;
+            float atkValue = attack + (attackGrow * Level);
+            return atkValue;
         }
     }
 
@@ -224,6 +224,7 @@ public class CardData
     {
         get
         {
+            float agValue = agile + (agileGrow * Level);
             return agile;
         }
     }
@@ -240,6 +241,7 @@ public class CardData
     {
         get
         {
+            float deValue = defense + (defenseGrow * Level);
             return defense;
         }
     }

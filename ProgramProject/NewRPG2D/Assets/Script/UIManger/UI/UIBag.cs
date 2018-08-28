@@ -29,6 +29,8 @@ public class UIBag : MonoBehaviour
 
     public Animation anim;
     public Image bg;
+
+    private Button currentMenu;
     private void Awake()
     {
         Init();
@@ -110,16 +112,31 @@ public class UIBag : MonoBehaviour
     public void OnClickMenu()
     {
         Debug.Log("触发点击");
-        if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name != "btn_Pack")
+        GameObject obj = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        if (obj == null)
+        {
+            return;
+        }
+        if (obj.name != "btn_Pack")
         {
             string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
             int index = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             data = BagMenuData.Instance.GetMenu(name, index);
+            Button btn_ = obj.GetComponent<Button>();
+            btn_.interactable = false;
+
+            if (currentMenu != null && currentMenu != btn_)
+            {
+                currentMenu.interactable = true;
+            }
+            currentMenu = btn_;
         }
         else
         {
             data = BagMenuData.Instance.GetMenu(0, firstLoad - 1);
         }
+
+
 
         if (data.ParentNumber == 0)
         {
@@ -132,9 +149,9 @@ public class UIBag : MonoBehaviour
                 firstMenu[i].GetComponent<Button>().interactable = true;
             }
             GameObject go;
-            if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name != "btn_Pack")
+            if (obj.name != "btn_Pack")
             {
-                go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+                go = obj;
 
             }
             else

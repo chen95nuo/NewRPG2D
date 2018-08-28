@@ -14,13 +14,11 @@ public class PlayerRoundData
     {
         get
         {
-            Debug.Log(unlockMapID.Count + "CT");
             if (unlockMapID == null || unlockMapID.Count < 1)
             {
 
                 unlockMapID = new List<int>();
                 unlockMapID.Add(100001);
-                Debug.Log(unlockMapID.Count + "CT");
             }
             return unlockMapID;
         }
@@ -39,6 +37,21 @@ public class PlayerRoundData
                 }
             }
             unlockMapID.Add(value);
+        }
+    }
+    public int AddUnlockLesson
+    {
+        set
+        {
+            for (int i = 0; i < UnLockLesson.Count; i++)
+            {
+                if (UnLockLesson[i].unLockLessonID == value)
+                {
+                    Debug.LogError("已经解锁该地图了 重复解锁" + value);
+                    return;
+                }
+            }
+            UnLockLesson.Add(new PlayerLessonData(value, 100001));
         }
     }
 

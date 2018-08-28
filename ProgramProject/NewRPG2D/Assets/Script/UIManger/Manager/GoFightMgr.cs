@@ -9,9 +9,10 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     public override void Init()
     {
 
-        UIEventManager.instance.AddListener<FightData>(UIEventDefineEnum.FightMessage, FightMessage);
-        UIEventManager.instance.AddListener(UIEventDefineEnum.MissionComplete, MissionComplete);
-        UIEventManager.instance.AddListener(UIEventDefineEnum.MissionFailed, MissionFailed);
+        //Debug.LogError("战斗场景事件加载");
+        //UIEventManager.instance.AddListener<FightData>(UIEventDefineEnum.FightMessage, FightMessage);
+        //UIEventManager.instance.AddListener(UIEventDefineEnum.MissionComplete, MissionComplete);
+        //UIEventManager.instance.AddListener(UIEventDefineEnum.MissionFailed, MissionFailed);
 
     }
 
@@ -27,7 +28,7 @@ public class GoFightMgr : TSingleton<GoFightMgr>
     /// <param name="fightData"></param>
     public void FightMessage(FightData fightData)
     {
-        Debug.Log("确认信息");
+        Debug.LogError("确认信息" + fightData.CurrentLesson.LessonId);
         cardData = fightData.CardData;
         PlayerLevel = fightData.PlayerLevel;
         currentLesson = fightData.CurrentLesson;
@@ -36,8 +37,12 @@ public class GoFightMgr : TSingleton<GoFightMgr>
 
     public void MissionComplete()
     {
+        if (currentLesson.LessonId < 100003)
+        {
+            GetPlayerRoundData.Instance.items.AddUnlockLesson = currentLesson.LessonId + 1;
+        }
         //掉落包，角色
-        Debug.Log("收到提示");
+        Debug.LogError("收到提示 关卡：" + currentLesson.LessonId);
         //将道具添加到背包并获取道具信息
         DropBagData dropData = GameDropBagData.Instance.GetItem(currentLesson.DropBoxId);
         int addExp = dropData.AddExp;
