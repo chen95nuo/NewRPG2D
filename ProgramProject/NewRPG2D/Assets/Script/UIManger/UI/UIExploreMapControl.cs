@@ -97,7 +97,6 @@ public class UIExploreMapControl : MonoBehaviour
     {
         Debug.Log("ChickBox");
         //宝箱失活 重置小队信息 获得道具
-        teamData.ExploreType = ExploreType.Nothing;
         for (int i = 0; i < teamData.CardsData.Length; i++)
         {
             teamData.CardsData[i].Fighting = false;
@@ -113,6 +112,7 @@ public class UIExploreMapControl : MonoBehaviour
             Debug.Log("无奖励");
             return;
         }
+        teamData.ExploreType = ExploreType.Nothing;
         //打开奖励面板
         TinyTeam.UI.TTUIPage.ShowPage<UIRewardTipPage>();
         UIEventManager.instance.SendEvent<GainData[]>(UIEventDefineEnum.UpdateRewardMessageEvent, datas);

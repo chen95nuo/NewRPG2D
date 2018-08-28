@@ -27,7 +27,9 @@ public class UIExpCardGrid : MonoBehaviour
         gameObject.SetActive(true);
         levelType.SetActive(false);
         cardAnim.gameObject.SetActive(false);
-
+        Color color = btn_AddCard.image.color;
+        color.a = 1f;
+        btn_AddCard.image.color = color;
     }
     public void UpdateCard(ExploreData data)
     {
@@ -39,7 +41,9 @@ public class UIExpCardGrid : MonoBehaviour
         cardAnim.gameObject.SetActive(false);
         levelType.SetActive(true);
         needLevel.text = data.CaptainLevel.ToString();
-
+        Color color = btn_AddCard.image.color;
+        color.a = 1f;
+        btn_AddCard.image.color = color;
     }
 
     public void UpdateCard(CardData data)
@@ -58,7 +62,9 @@ public class UIExpCardGrid : MonoBehaviour
         needLevel.gameObject.SetActive(false);
         currentLevel.gameObject.SetActive(true);
         currentLevel.text = "lv." + data.Level;
-
+        Color color = btn_AddCard.image.color;
+        color.a = 0.01f;
+        btn_AddCard.image.color = color;
     }
 
     private void ChickAddCard()

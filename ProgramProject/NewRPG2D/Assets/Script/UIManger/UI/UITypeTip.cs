@@ -66,6 +66,7 @@ public class UITypeTip : MonoBehaviour
                 }
             }
             LessonDropData currentLesson = new LessonDropData(round.currentFight.Id, round.currentFight.DropBoxID);
+            Debug.LogError(currentLesson.LessonId);
             int level = GetPlayData.Instance.player[0].Level;
             FightData fightData = new FightData(SceneManager.GetActiveScene().name, cardData, currentLesson, level);
 

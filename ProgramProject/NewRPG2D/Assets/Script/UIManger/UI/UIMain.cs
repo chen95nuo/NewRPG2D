@@ -35,7 +35,6 @@ public class UIMain : MonoBehaviour
 
     private void UpdateUI()
     {
-
         text_GoldCoin.text = GetPlayData.Instance.player[0].GoldCoin.ToString();
         text_Diamonds.text = GetPlayData.Instance.player[0].Diamonds.ToString();
         text_Fatigue.text = GetPlayData.Instance.player[0].Fatigue.ToString();
@@ -46,7 +45,6 @@ public class UIMain : MonoBehaviour
         text_Exp.text = data.Exp + "/" + data.maxExp;
         text_Level.text = "lv." + data.Level;
         text_Name.text = data.Name;
-
     }
 
     private void UpdateGoldCoin()

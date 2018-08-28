@@ -52,9 +52,7 @@ public class UIExpMenuGrid : MonoBehaviour
             case ExploreType.Nothing:
                 typeIcon.sprite = Icon[0];
                 timeBG.SetActive(false);
-                timeSlider.maxValue = 1;
-                timeSlider.minValue = 0;
-                timeSlider.value = 0;
+                timeSlider.value = timeSlider.minValue;
                 break;
             case ExploreType.Run:
                 typeIcon.sprite = Icon[1];

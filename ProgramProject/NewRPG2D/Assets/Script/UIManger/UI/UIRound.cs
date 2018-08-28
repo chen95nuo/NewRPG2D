@@ -14,6 +14,14 @@ public class UIRound : MonoBehaviour
     public int currentLesson;
     public LessonFightData currentFight;
 
+    public Text text_GoldCoin;
+    public Text text_Diamonds;
+    public Text text_Fatigue;
+    public Slider slider_Exp;
+    public Text text_Exp;
+    public Text text_Level;
+    public Text text_Name;
+
     private void Awake()
     {
         Init();
@@ -37,6 +45,8 @@ public class UIRound : MonoBehaviour
                 grids[i].gameObject.SetActive(false);
             }
         }
+
+        UpdateUI();
     }
 
     public void ChickLessonbtn()
@@ -58,5 +68,20 @@ public class UIRound : MonoBehaviour
                 return;
             }
         }
+    }
+    private void UpdateUI()
+    {
+
+        text_GoldCoin.text = GetPlayData.Instance.player[0].GoldCoin.ToString();
+        text_Diamonds.text = GetPlayData.Instance.player[0].Diamonds.ToString();
+        text_Fatigue.text = GetPlayData.Instance.player[0].Fatigue.ToString();
+        PlayerData data = GetPlayData.Instance.player[0];
+        text_Exp.text = data.Level.ToString();
+        float maxExp = GetPlayerExpData.Instance.GetItem(data.Level).NeedExp;
+        slider_Exp.maxValue = maxExp;
+        text_Exp.text = data.Exp + "/" + data.maxExp;
+        text_Level.text = "lv." + data.Level;
+        text_Name.text = data.Name;
+
     }
 }

@@ -45,11 +45,21 @@ public class UIExplore : MonoBehaviour
         mapSprite = Resources.Load<SpriteAtlas>("UISpriteAtlas/ExploreMap");
         btn_back.onClick.AddListener(ChickBtnBack);
         addMenu.onClick.AddListener(ChickAddMenu);
+        currentMenu = menuGrids[0];
+
 
         ChickMenu();
         ChickMap();
         ChickCard();
     }
+    private void Update()
+    {
+        ChickMenu();
+    }
+    //private void OnEnable()
+    //{
+    //    ChickMenu();
+    //}
     #region 初始化
     private void ChickMenu()
     {
@@ -72,9 +82,7 @@ public class UIExplore : MonoBehaviour
         {
             addMenu.gameObject.SetActive(false);
         }
-        currentMenu = menuGrids[0];
         currentMenu.ChickMenu(false);
-
     }
 
     private void ChickCard()

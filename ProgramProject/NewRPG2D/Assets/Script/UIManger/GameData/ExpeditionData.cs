@@ -91,6 +91,10 @@ public class ExpeditionTeam
         set
         {
             exploreType = value;
+            if (exploreType == ExploreType.Nothing)
+            {
+                endTime = 0;
+            }
         }
     }
 
