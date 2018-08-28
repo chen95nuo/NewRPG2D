@@ -29,8 +29,13 @@ namespace Assets.Script
             {
                 Instance = this;
                 DontDestroyOnLoad(this);
+                Init();
             }
-            Init();
+            else
+            {
+                Destroy(this);
+            }
+        
           //  Debug.Log("-----------GameHallScene-----------" + ((1 << 6) | 3).ToString());
         }
 
@@ -40,10 +45,6 @@ namespace Assets.Script
         public void Init()
         {
             //AudioControl.GetInstance().Init();
-            if (Instance != null)
-            {
-                Destroy(this);
-            }
             InitComponent();
             InitListener();
             InitData();
