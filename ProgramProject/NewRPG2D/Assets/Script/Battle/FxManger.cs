@@ -20,6 +20,11 @@ namespace Assets.Script.Battle
             FxList = new Dictionary<int, Transform>();
         }
 
+        public void Clean()
+        {
+            FxList.Clear();
+        }
+
         public void PlayFx(string FxName, Transform parent)
         {
             Transform hitObject = GameRoleMgr.instance.SetRoleTransform<Transform>("BattleFX/" + FxName, parent.name + FxName, 1,

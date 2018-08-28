@@ -29,7 +29,7 @@ namespace Assets.Script.Battle.LevelManager
 
         public static ushort currentInstanceId = 100;
 
-        private int sceneId = 100001;
+        private int sceneId = 100002;
         private Queue<CreateEnemyData> enemyDatas;
         private CreateEnemyData currentEnemyData;
         private List<BornEnemyInfo> currentEnemyInfoList;
@@ -116,8 +116,9 @@ namespace Assets.Script.Battle.LevelManager
             {
                 isGameOver = true;
                 DebugHelper.LogError("  -----------------Win----- ");
+                EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-                GoFightMgr.instance.MissionComplete();
+               GoFightMgr.instance.MissionComplete();
                 return;
             }
             currentEnemyInfoList.Clear();
@@ -179,7 +180,7 @@ namespace Assets.Script.Battle.LevelManager
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 GoFightMgr.instance.MissionComplete();
                 isGameOver = true;
-                GameLogic.Instance.IsGameOver();
+                EventManager.instance.SendEvent(EventDefineEnum.GameOver, false);
             }
         }
 

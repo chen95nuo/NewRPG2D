@@ -23,12 +23,14 @@ namespace Assets.Script.Battle.BattleUI
         public void Awake()
         {
             EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+            EventManager.instance.AddListener<bool>(EventDefineEnum.GameOver, IsGameOver);
             tempColor = StartImage.color;
         }
 
         public void OnDestroy()
         {
             EventManager.instance.RemoveListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+            EventManager.instance.RemoveListener<bool>(EventDefineEnum.GameOver, IsGameOver);
         }
 
        
@@ -56,6 +58,11 @@ namespace Assets.Script.Battle.BattleUI
             StartImage.gameObject.SetActive(true);
             StartImage.color = Color.white;
             SceneInfo.StartGame();
+        }
+
+        public void IsGameOver(bool win)
+        {
+            gameObject.CustomSetActive(false);
         }
     }
 }

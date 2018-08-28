@@ -20,7 +20,7 @@ namespace Assets.Script
        // public float audioTime = 0.5f;
         public static GameLogic Instance = null;
 
-        private bool isGameOver;
+        private bool isGameOver, isInit = false;
 
         public void Awake()
         {
@@ -44,6 +44,7 @@ namespace Assets.Script
         /// </summary>
         public void Init()
         {
+            isInit = true;
             //AudioControl.GetInstance().Init();
             InitComponent();
             InitListener();
@@ -70,6 +71,7 @@ namespace Assets.Script
         public void InitListener()
         {
             EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+            EventManager.instance.AddListener<bool>(EventDefineEnum.GameOver, IsGameOver);
         }
 
         public void InitData()
@@ -85,6 +87,7 @@ namespace Assets.Script
         public void RemoveListener()
         {
             EventManager.instance.RemoveListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
+            EventManager.instance.RemoveListener<bool>(EventDefineEnum.GameOver, IsGameOver);
         }
 
         #region Mono Update
@@ -125,6 +128,11 @@ namespace Assets.Script
 
         public void FixedUpdate()
         {
+            if (isGameOver)
+            {
+                return;
+            }
+
             using (var mRole = GameRoleMgr.instance.RolesList.GetEnumerator())
             {
                 while (mRole.MoveNext())
@@ -134,15 +142,15 @@ namespace Assets.Script
             }
         }
 
-        public void IsGameOver()
-        {
-            isGameOver = true;
-            GameRoleMgr.instance.ClearAllRole();
-        }
+       
 
         public void OnDestroy()
         {
             //AudioControl.Destory();
+            if (isInit == false)
+            {
+                return;
+            }
             RemoveListener();
             StringHelper.DestroyInstance();
             EventManager.DestroyInstance();
@@ -158,6 +166,13 @@ namespace Assets.Script
         private void LoadLevelUpdate(LoadLevelParam param)
         {
             isGameOver = false;
+        }
+        public void IsGameOver(bool bWin)
+        {
+            isGameOver = true;
+            GameRoleMgr.instance.ClearAllRole();
+            FxManger.instance.Clean();
+            CTimerManager.instance.RemoveAll();
         }
 
         #endregion
