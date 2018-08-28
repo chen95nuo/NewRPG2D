@@ -28,7 +28,7 @@ namespace Assets.Script.Battle.RoleState
         protected override void HitTarget(RoleBase mRoleBase)
         {
             HurtInfo info = new HurtInfo();
-            info.HurtValue = 30;
+            info.HurtValue = mRoleBase.RolePropertyValue.Attack;
             info.AttackRole = mRoleBase;
             info.TargeRole = TargetRole;
             info.HurtType = HurtTypeEnum.Physic;

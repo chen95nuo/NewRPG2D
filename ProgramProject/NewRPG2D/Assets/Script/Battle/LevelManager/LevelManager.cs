@@ -116,7 +116,8 @@ namespace Assets.Script.Battle.LevelManager
             {
                 isGameOver = true;
                 DebugHelper.LogError("  -----------------Win----- ");
-                UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+                GoFightMgr.instance.MissionComplete();
                 return;
             }
             currentEnemyInfoList.Clear();
@@ -175,7 +176,8 @@ namespace Assets.Script.Battle.LevelManager
             if (isCreateEnemy && GameRoleMgr.instance.RolesHeroList.Count <= 0)
             {
                 DebugHelper.LogError("  -----------------Lose----- ");
-                UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+                GoFightMgr.instance.MissionComplete();
                 isGameOver = true;
                 GameLogic.Instance.IsGameOver();
             }

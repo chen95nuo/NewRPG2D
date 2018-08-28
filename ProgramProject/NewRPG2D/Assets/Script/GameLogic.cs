@@ -40,6 +40,10 @@ namespace Assets.Script
         public void Init()
         {
             //AudioControl.GetInstance().Init();
+            if (Instance != null)
+            {
+                Destroy(this);
+            }
             InitComponent();
             InitListener();
             InitData();
@@ -69,7 +73,7 @@ namespace Assets.Script
 
         public void InitData()
         {
-            isGameOver = false;
+            isGameOver = true;
             InputContorlMgr.instance.SetMainCamera(Camera.main);
             InputContorlMgr.instance.SetLayMask(inputLayerMask);
         }
