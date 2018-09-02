@@ -56,7 +56,7 @@ namespace Assets.Script.Battle.BattleUI
             }
         }
 
-        private void SetRoleInfo(CardData info, int instanceId)
+        private void SetRoleInfo(RoleDetailData info, int instanceId)
         {
             currentInstanceId = instanceId;
             roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.BattleIconSpriteName);

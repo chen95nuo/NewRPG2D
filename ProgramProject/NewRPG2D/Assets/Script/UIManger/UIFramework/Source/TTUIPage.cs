@@ -41,10 +41,8 @@
     }
     #endregion
 
-    public abstract class TTUIPage
+    public abstract class TTUIPage : MonoBehaviour
     {
-        public string name = string.Empty;
-
         //this page's id
         public int id = -1;
 
@@ -59,10 +57,6 @@
 
         //path to load ui
         public string uiPath = string.Empty;
-
-        //this ui's gameobject
-        public GameObject gameObject;
-        public Transform transform;
 
         //all pages with the union type
         private static Dictionary<string, TTUIPage> m_allPages;
@@ -117,15 +111,11 @@
         #endregion
 
         #region internal api
-
-        private TTUIPage() { }
-        public TTUIPage(UIType type, UIMode mod, UICollider col)
+        public void  SetUIPage(UIType type, UIMode mod, UICollider col)
         {
             this.type = type;
             this.mode = mod;
             this.collider = col;
-            this.name = this.GetType().ToString();
-
             //when create one page.
             //bind special delegate .
             TTUIBind.Bind();
@@ -249,9 +239,6 @@
         protected void AnchorUIGameObject(GameObject ui)
         {
             if (TTUIRoot.Instance == null || ui == null) return;
-
-            this.gameObject = ui;
-            this.transform = ui.transform;
 
             //check if this is ugui or (ngui)?
             Vector3 anchorPos = Vector3.zero;

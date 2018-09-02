@@ -33,15 +33,20 @@ namespace Assets.Script.Utility
         public Dictionary<int, XmlData[]> AllXmlDataDic;
         public override void Init()
         {
-            base.Init();
-            int maxEnum = (int)XmlName.Max;
-            AllXmlDataDic = new Dictionary<int, XmlData[]>(maxEnum);
-            for (int i = 0; i < maxEnum; i++)
-            {
-                XmlName name = (XmlName) i;
-                GameLogic.Instance.StartCoroutine(LoadConfig(name, name.ToString()));
-            }
+            base.Init();   
+            AllXmlDataDic = new Dictionary<int, XmlData[]>(10);
+        }
 
+        public void ReadXmlByType(XmlName startXmlName, XmlName maXmlName)
+        {
+            int maxEnum = (int)maXmlName;
+            int startEnum = (int)startXmlName;
+            XmlTypeEnum xmlType = maXmlName == XmlName.Hall ? XmlTypeEnum.Hall : XmlTypeEnum.Battle;
+            for (int i = startEnum; i < maxEnum; i++)
+            {
+                XmlName name = (XmlName)i;
+                GameLogic.Instance.StartCoroutine(LoadConfig(name, name.ToString(), xmlType));
+            }
         }
 
         public void LoadSpecialXML(XmlName xmlName, string pathName)
@@ -50,7 +55,7 @@ namespace Assets.Script.Utility
         }
 
         private XmlNode LoadConfigNode;
-        private IEnumerator LoadConfig(XmlName name, string xmlPathName)
+        private IEnumerator LoadConfig(XmlName name, string xmlPathName, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {
             XmlNode node = null;
             yield return GameLogic.Instance.StartCoroutine(ReadTxt(xmlPathName));
@@ -64,7 +69,15 @@ namespace Assets.Script.Utility
             XmlData[] xmlDataArray = new XmlData[childrenNodeList.Count];
             for (int i = 0; i < childrenNodeList.Count; i++)
             {
-                XmlData data = ReadXmlDataMgr.GetXmlData(name);
+                XmlData data = null;
+                if (xmlType == XmlTypeEnum.Hall)
+                {
+                    data = ReadHallXmlDataMgr.GetXmlData(name);
+                }
+                else if (xmlType == XmlTypeEnum.Battle)
+                {
+                    data = ReadBattleXmlDataMgr.GetXmlData(name);
+                }
                 data.GetXmlDataAttribute(childrenNodeList[i]);
                 xmlDataArray[i] = data;
             }

@@ -23,7 +23,7 @@ namespace Assets.Script.Battle.BattleUI
             EventManager.instance.AddListener<int>(EventDefineEnum.ClickMyRole, OnClickMyRole);
         }
 
-        public void SetRoleInfo(CardData info, int instanceId)
+        public void SetRoleInfo(RoleDetailData info, int instanceId)
         {
             CurrentInstanceId = instanceId;
             roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.BattleIconSpriteName);

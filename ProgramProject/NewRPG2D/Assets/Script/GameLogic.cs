@@ -16,11 +16,9 @@ namespace Assets.Script
     public class GameLogic : MonoBehaviour
     {
 
-        [SerializeField]private LayerMask inputLayerMask;
-       // public float audioTime = 0.5f;
         public static GameLogic Instance = null;
 
-        private bool isGameOver, isInit = false;
+        private bool isInit = false;
 
         public void Awake()
         {
@@ -45,7 +43,6 @@ namespace Assets.Script
         public void Init()
         {
             isInit = true;
-            //AudioControl.GetInstance().Init();
             InitComponent();
             InitListener();
             InitData();
@@ -61,8 +58,6 @@ namespace Assets.Script
             ReadXmlNewMgr.CreateInstance();
             CTimerManager.CreateInstance();
             ResourcesLoadMgr.GetInstance();
-            // MapColliderMgr.CreateInstance();
-            InputContorlMgr.CreateInstance();
         }
 
         /// <summary>
@@ -70,15 +65,11 @@ namespace Assets.Script
         /// </summary>
         public void InitListener()
         {
-            EventManager.instance.AddListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
-            EventManager.instance.AddListener<bool>(EventDefineEnum.GameOver, IsGameOver);
         }
 
         public void InitData()
         {
-            isGameOver = true;
-            InputContorlMgr.instance.SetMainCamera(Camera.main);
-            InputContorlMgr.instance.SetLayMask(inputLayerMask);
+            //isGameOver = true;
         }
 
         /// <summary>
@@ -86,8 +77,6 @@ namespace Assets.Script
         /// </summary>
         public void RemoveListener()
         {
-            EventManager.instance.RemoveListener<LoadLevelParam>(EventDefineEnum.LoadLevel, LoadLevelUpdate);
-            EventManager.instance.RemoveListener<bool>(EventDefineEnum.GameOver, IsGameOver);
         }
 
         #region Mono Update
@@ -95,22 +84,7 @@ namespace Assets.Script
         //private float addTime = 0;
         public void Update()
         {
-            if (isGameOver)
-            {
-                return;
-            }
-            //addTime += Time.deltaTime;
-            //if (addTime > StaticAndConstParamter.DeltaTime)
-            {
-                //addTime = 0;
-                using (var mRole = GameRoleMgr.instance.RolesList.GetEnumerator())
-                {
-                    while (mRole.MoveNext())
-                    {
-                        if (mRole.Current != null) mRole.Current.UpdateLogic(Time.smoothDeltaTime);
-                    }
-                }
-                //AudioControl.GetInstance().Update(audioTime);
+
                 if (CTimerManager.HasInstance())
                 {
                     CTimerManager.instance.Update(Time.smoothDeltaTime);
@@ -123,23 +97,10 @@ namespace Assets.Script
                 {
                     InputContorlMgr.instance.Update(Time.deltaTime);
                 }
-            }
         }
 
         public void FixedUpdate()
         {
-            if (isGameOver)
-            {
-                return;
-            }
-
-            using (var mRole = GameRoleMgr.instance.RolesList.GetEnumerator())
-            {
-                while (mRole.MoveNext())
-                {
-                    if (mRole.Current != null) mRole.Current.FixedUpdateLogic(Time.fixedDeltaTime);
-                }
-            }
         }
 
        
@@ -156,24 +117,10 @@ namespace Assets.Script
             EventManager.DestroyInstance();
             ReadXmlNewMgr.DestroyInstance();
             ResourcesLoadMgr.DestroyInstance();
-            //     MapColliderMgr.DestroyInstance();
-            InputContorlMgr.DestroyInstance();
         }
         #endregion
 
         #region Event
-
-        private void LoadLevelUpdate(LoadLevelParam param)
-        {
-            isGameOver = false;
-        }
-        public void IsGameOver(bool bWin)
-        {
-            isGameOver = true;
-            GameRoleMgr.instance.ClearAllRole();
-            FxManger.instance.Clean();
-            CTimerManager.instance.RemoveAll();
-        }
 
         #endregion
     }

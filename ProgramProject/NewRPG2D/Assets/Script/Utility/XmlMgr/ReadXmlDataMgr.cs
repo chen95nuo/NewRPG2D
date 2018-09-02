@@ -20,35 +20,27 @@ namespace Assets.Script.Utility
         RolePropertyData,
         SkillData,
         CreateEnemyData,
+        Hall,
+
+
+        Battle,
+
+
+
         Max,
         MapSceneLevel,
         BufferData,
     }
 
+    public enum XmlTypeEnum
+    {
+        Hall,
+        Battle,
+    }
+
 
     public class ReadXmlDataMgr
     {
-
-        public static XmlData GetXmlData(XmlName name)
-        {
-            switch (name)
-            {
-                case XmlName.RoleData:
-                    return new RoleData();
-                case XmlName.RolePropertyData:
-                    return new RolePropertyData();
-                case XmlName.SkillData:
-                    return new SkillData();
-                case XmlName.BufferData:
-                    return new RolePropertyData();
-                case XmlName.MapSceneLevel:
-                    return new MapSceneLevelData();
-                case XmlName.CreateEnemyData:
-                    return new CreateEnemyData();
-                default: return new XmlData();
-            }
-        }
-
         public static string GetXmlPath(string name)
         {
             string path = "";

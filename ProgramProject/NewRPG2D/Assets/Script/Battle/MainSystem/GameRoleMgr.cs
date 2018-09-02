@@ -45,7 +45,7 @@ namespace Assets.Script.Battle
             info.RoleId = roleId;
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
-            CardData roleData = GameCardData.Instance.GetItem(roleId);
+            RoleDetailData roleData = null;//GameCardData.Instance.GetItem(roleId);
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
             roleData.BattleIconSpriteName = currentRoleData.IconName;
@@ -63,7 +63,7 @@ namespace Assets.Script.Battle
             RoleDic[instanceId] = role;
         }
 
-        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, CardData roleData, float angle)
+        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
         {
             RoleRender roleMono = SetRoleTransform(roleData.Id, indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
@@ -131,7 +131,7 @@ namespace Assets.Script.Battle
             return perfab.GetComponent<T>();
         }
 
-        private PropertyBaseData GetPropertyBaseData(CardData data)
+        private PropertyBaseData GetPropertyBaseData(RoleDetailData data)
         {
             if (data == null)
             {

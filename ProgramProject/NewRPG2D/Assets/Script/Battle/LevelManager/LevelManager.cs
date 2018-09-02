@@ -37,7 +37,7 @@ namespace Assets.Script.Battle.LevelManager
         private bool isCreateEnemy;
         private float addTime;
         private bool isGameOver;
-        private CardData[] roleInfoArray;
+        private RoleDetailData[] roleInfoArray;
 
         private void Awake()
         {
@@ -45,12 +45,12 @@ namespace Assets.Script.Battle.LevelManager
             ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName);
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
-            roleInfoArray = GoFightMgr.instance.cardData;
-            if (GoFightMgr.instance.currentLesson != null) sceneId = GoFightMgr.instance.currentLesson.LessonId;
-            Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
+           // roleInfoArray = GoFightMgr.instance.cardData;
+//             if (GoFightMgr.instance.currentLesson != null) sceneId = GoFightMgr.instance.currentLesson.LessonId;
+//             Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
-            GameRoleMgr.instance.CurrentPlayerMp.Value = GoFightMgr.instance.PlayerLevel * 500;
+            GameRoleMgr.instance.CurrentPlayerMp.Value = 1 * 500;
             currentInstanceId = 100;
             isCreateEnemy = false;
             isGameOver = false;
@@ -130,7 +130,7 @@ namespace Assets.Script.Battle.LevelManager
             InitEnemyInfoDic(BornPositionTypeEnum.Point05);
         }
 
-        private void BornHero(Transform mPoint, ushort instanceId, CardData roleData, float angle)
+        private void BornHero(Transform mPoint, ushort instanceId, RoleDetailData roleData, float angle)
         {
             GameRoleMgr.instance.AddHeroRole("Hero", mPoint, mPoint.position, instanceId, roleData, angle);
         }
