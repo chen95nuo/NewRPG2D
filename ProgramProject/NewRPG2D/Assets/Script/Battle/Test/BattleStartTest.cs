@@ -16,7 +16,7 @@ public class BattleStartTest : MonoBehaviour
 
     public void Awake()
     {
-        ReadJsonNewMgr.instance.LoadJsonByMono(this);
+        //ReadJsonNewMgr.instance.LoadJsonByMono(this);
     }
 
     // Use this for initialization

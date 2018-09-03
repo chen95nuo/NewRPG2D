@@ -118,7 +118,7 @@ namespace Assets.Script.Battle.LevelManager
                 DebugHelper.LogError("  -----------------Win----- ");
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-               GoFightMgr.instance.MissionComplete();
+               //GoFightMgr.instance.MissionComplete();
                 return;
             }
             currentEnemyInfoList.Clear();
@@ -178,7 +178,7 @@ namespace Assets.Script.Battle.LevelManager
             {
                 DebugHelper.LogError("  -----------------Lose----- ");
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-                GoFightMgr.instance.MissionComplete();
+                //GoFightMgr.instance.MissionComplete();
                 isGameOver = true;
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, false);
             }

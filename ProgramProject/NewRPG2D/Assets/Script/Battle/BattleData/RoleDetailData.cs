@@ -59,8 +59,8 @@ public class RoleDetailData
     [SerializeField]
     private float useAddExp;//使用获得经验
 
-    [SerializeField]
-    private TeamType teamType; //状态信息
+    //[SerializeField]
+    //private TeamType teamType; //状态信息
 
     [SerializeField]
     private int teamPos; //小队位置编号
@@ -77,8 +77,8 @@ public class RoleDetailData
     [SerializeField]
     private int quality;//品质
 
-    [SerializeField]
-    private EquipData[] equipdata; //装备
+    //[SerializeField]
+    //private EquipData[] equipdata; //装备
 
     [SerializeField]
     private float healthGrow; //生命值成长
@@ -99,7 +99,7 @@ public class RoleDetailData
     private int maxFeeling;//好感度上限
 
     [SerializeField]
-    private ItemType itemType;//物品类型
+    //private ItemType itemType;//物品类型
 
     public string Name
     {
@@ -117,17 +117,17 @@ public class RoleDetailData
         }
     }
 
-    public TeamType TeamType
-    {
-        get
-        {
-            return teamType;
-        }
-        set
-        {
-            teamType = value;
-        }
-    }
+    //public TeamType TeamType
+    //{
+    //    get
+    //    {
+    //        return teamType;
+    //    }
+    //    set
+    //    {
+    //        teamType = value;
+    //    }
+    //}
 
     public int Level
     {
@@ -148,43 +148,43 @@ public class RoleDetailData
             return exp;
         }
     }
-    public float maxExp
-    {
-        get
-        {
-            float index = GameCardExpData.Instance.GetItem(Level).NeedExp;
-            return index;
-        }
+    //public float maxExp
+    //{
+    //    get
+    //    {
+    //        float index = GameCardExpData.Instance.GetItem(Level).NeedExp;
+    //        return index;
+    //    }
 
-    }
-    public float AddExp
-    {
-        get
-        {
-            return exp;
-        }
-        set
-        {
-            exp += value;
-            while (exp >= maxExp)
-            {
-                exp -= maxExp;
-                level++;
-            }
-        }
-    }
+    //}
+    //public float AddExp
+    //{
+    //    get
+    //    {
+    //        return exp;
+    //    }
+    //    set
+    //    {
+    //        exp += value;
+    //        while (exp >= maxExp)
+    //        {
+    //            exp -= maxExp;
+    //            level++;
+    //        }
+    //    }
+    //}
 
-    public EquipData[] Equipdata
-    {
-        get
-        {
-            if (equipdata == null)
-            {
-                equipdata = new EquipData[4];
-            }
-            return equipdata;
-        }
-    }
+    //public EquipData[] Equipdata
+    //{
+    //    get
+    //    {
+    //        if (equipdata == null)
+    //        {
+    //            equipdata = new EquipData[4];
+    //        }
+    //        return equipdata;
+    //    }
+    //}
 
     public float Health
     {
@@ -290,13 +290,13 @@ public class RoleDetailData
         }
     }
 
-    public ItemType ItemType
-    {
-        get
-        {
-            return ItemType.Role;
-        }
-    }
+    //public ItemType ItemType
+    //{
+    //    get
+    //    {
+    //        return ItemType.Role;
+    //    }
+    //}
 
     public bool Fighting
     {
