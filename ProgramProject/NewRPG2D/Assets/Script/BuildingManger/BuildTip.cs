@@ -20,37 +20,131 @@ public class BuildTip : MonoBehaviour
     public EmptyPoint emptyPoint;
     public bool isMerge = false;
 
+    public int startX = 0;
+
     /// <summary>
     /// 移动提示框位置 并扩大提示框
     /// </summary>
     /// <param name="point">空位数据</param>
     /// <param name="size">建筑数据</param>
     /// <param name="startPoint">坐标数据</param>
-    public void UpdateTip(EmptyPoint point, BuildingData data, BuildPoint[,] points)
+    public bool UpdateTip(EmptyPoint point, List<EmptyPoint> emptyPoints, BuildingData data, BuildPoint[,] points)
     {
         int size = data.RoomSize;
         //如果房间相同并且之前房间可合并 那么提示可并入
-        if (point.buildingData != null && point.buildingData.RoomType == data.RoomType
-            && point.buildingData.RoomMerge && data.RoomMerge)
-        {
-            isMerge = true;
-            //显示并入框
+        //if (point.buildingData != null && point.buildingData.RoomType == data.RoomType
+        //    && point.buildingData.RoomMerge && data.RoomMerge)
+        //{
+        //    isMerge = true;
+        //    //显示并入框
 
-        }
+        //}
+
         emptyPoint = point;
         roomSize = size;
         Vector2 tsSize = new Vector2(width * size, high);
         sr.size = tsSize;//图片大小
         bc.size = tsSize;//碰撞框大小
         transform.localPosition = new Vector3(width * (size * 0.5f), high * 0.5f);
-        if (point.startPoint.x < point.endPoint)
+
+        //如果创建这个位置的建筑的起点位置比这个位置的起点位置小 判定起点位置在右侧
+        if (point.roomData == null || point.roomData.buidStartPoint.x < point.startPoint.x)
         {
-            parentPoint.position = points[(int)point.startPoint.x, (int)point.startPoint.y].pointWall.position;
+            startX = (int)point.startPoint.x;
         }
         else
         {
-            parentPoint.position = points[(int)point.startPoint.x - size + 1, (int)point.startPoint.y].pointWall.position;
+            startX = point.endPoint - size;
         }
+        int index = 0;
+        //验证当前空位信息是否正确 若不正确 则更正 避免重复显示和错误显示
+        for (int i = startX; i < startX + size; i++)
+        {
+            //如果是墙面则继续 如果已经是提示框了则判断两个提示框 如果已经是墙面了 那么表示格子并不够根据情况删除或修改当前空位信息
+            switch (points[i, (int)point.startPoint.y].pointType)
+            {
+                case BuildingType.Nothing:
+                    Debug.LogError("提示框探测到空墙");
+                    break;
+                case BuildingType.Wall:
+                    //是墙面的话 正常 略过
+                    if (points[i, (int)point.startPoint.y].tip == null)
+                        index++;
+                    break;
+                case BuildingType.Full:
+                    //是房间则表示格子不够更改空位信息
+                    if (index > 0)//如果说还是有格子 只是变少了那么修改
+                    {
+                        Debug.LogError("空格内已有建筑只是变少了");
+
+                        point.endPoint = i;
+                        point.emptyNumber = index;
+                        //清理之前更改的位置信息
+                        for (int j = startX; j < index; j++)
+                        {
+                            points[i, (int)point.startPoint.y].tip = null;
+                        }
+                    }
+                    else//如果没有格子了直接删除这个位置信息
+                    {
+                        Debug.LogError("空格内已有建筑没有格子了,空位信息" + i + "," + (int)point.startPoint.y);
+                        point.emptyNumber = 0;
+                        //emptyPoints.Remove(point);
+                    }
+                    return false;
+                default:
+                    break;
+            }
+            if (points[i, (int)point.startPoint.y].tip != null)
+            {
+                //出现重复区域根据情况修改提示框状态
+                //如果部分重叠判定左右，依左优先
+                if (index > 0)
+                {
+                    Debug.LogError("空格内已有提示框依左,空位信息" + i + "," + (int)point.startPoint.y);
+                    //如果本提示比已存在的更靠左 那么清除该提示
+                    if (points[i, (int)point.startPoint.y].tip.startX > startX)
+                    {
+                        points[i, (int)point.startPoint.y].tip.RestartThisTip(points);
+                    }
+                    else//如果已存在的比较靠左 清除本提示
+                    {
+                        for (int j = startX; j < index; j++)
+                        {
+                            points[i, (int)point.startPoint.y].tip = null;
+                        }
+                        //清理之前更改的位置信息
+                        return false;
+                    }
+                }
+                else//如果完全重叠那么删除该信息 如何排除改次完全重叠但若房间足够小却不会重叠？
+                {
+                    Debug.LogError("空格内已有提示框完全重叠 不能删除,保留当前信息 排除出发点方向不同");
+
+                    //emptyPoints.Remove(point);
+                    return false;
+                }
+            }
+            points[i, (int)point.startPoint.y].tip = this;
+        }
+
+        parentPoint.position = points[startX, (int)point.startPoint.y].pointWall.position;
+        return true;
+    }
+
+    public void RestartThisTip(BuildPoint[,] points)
+    {
+        for (int i = startX; i < startX + roomSize; i++)
+        {
+            points[i, (int)emptyPoint.startPoint.y].tip = null;
+        }
+    }
+
+    public void InstanceRoom(RoomMgr room)
+    {
+        emptyPoint.startPoint = new Vector2(startX, emptyPoint.startPoint.y);
+        emptyPoint.endPoint = startX + roomSize;
+        room.UpdateBuilding(emptyPoint);
     }
 
     ///// <summary>

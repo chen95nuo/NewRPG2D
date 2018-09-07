@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildStairs : MonoBehaviour
+public class BuildStairs : RoomMgr
 {
 
-    private void Start()
+    protected override void ThisRoomFunc()
     {
 
     }
-
 }

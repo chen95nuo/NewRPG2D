@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class CastleMgr : MonoBehaviour
 {
-    private float high = 10.8f;
-    private float width = 4.77f;
+    public static CastleMgr instance;
+
+    public const float high = 10.8f;
+    public const float width = 4.77f;
 
     public Button louti;
     public Button woshi;
@@ -19,19 +21,24 @@ public class CastleMgr : MonoBehaviour
     public Vector2 startPoint;
     public Vector2 limitPoint_1;
 
-    public int maxLength = 100;
-    public int maxWidth = 100;
+    public int maxLength = 20;
+    public int maxWidth = 5;
     private int buildLength = 17;//当前等级的长度
     private int buildWidth = 4;//当前等级的高度
-    private BuildPoint[,] buildPoint;
+    public BuildPoint[,] buildPoint;
 
-    //public List<RoomMgr> room;//所有建成的房间
-    private List<BuildTip> buildTips;//所有标签的位置
-    private List<EmptyPoint> emptyPoint;//所有空位
-    private BuildingData buildingData;
+    public List<GameObject> room;//所有建成的房间
+    public List<GameObject> removeRoom;//被删除的建筑
+    public List<BuildTip> buildTips;//所有标签的位置
+    public List<EmptyPoint> emptyPoint;//所有空位
+    public BuildingData buildingData;
+
+    private int useEmptyIndex = 0;
 
     void Awake()
     {
+        instance = this;
+
         Init();
     }
     // Use this for initialization
@@ -66,7 +73,6 @@ public class CastleMgr : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.name);
                 if (hit.collider.tag == "BuildTip")
                 {
                     //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
@@ -81,14 +87,14 @@ public class CastleMgr : MonoBehaviour
                         InstanceRoom(tip);
                     }
 
-
                     //删除当前已使用空位
                     emptyPoint.Remove(tip.emptyPoint);
                     //将所有标签移出屏幕
-                    for (int i = 0; i < buildTips.Count; i++)
-                    {
-                        buildTips[i].transform.position = new Vector2(-1000, -1000);
-                    }
+                    ResetRoomTip();
+                }
+                else if (hit.collider.tag == "Room")
+                {
+                    hit.collider.gameObject.GetComponent<RoomMgr>().RemoveBuilding();
                 }
             }
         }
@@ -136,8 +142,9 @@ public class CastleMgr : MonoBehaviour
             }
         }
     }
+
     /// <summary>
-    /// 建筑生成提示
+    /// 建筑生成提示框
     /// </summary>
     private void BuildRoomTip(BuildingData data)
     {
@@ -151,18 +158,18 @@ public class CastleMgr : MonoBehaviour
         if (emptyPoint == null || emptyPoint.Count < 1)
         {
             emptyPoint = new List<EmptyPoint>();
-            Debug.Log("新建");
-            emptyPoint.Add(new EmptyPoint());
+            EmptyPoint empty = new EmptyPoint(new Vector2(6, 1), 16, 9, null);
+            emptyPoint.Add(empty);
         }
-        //if (room == null || room.Count < 1)
-        //{
-        //    room = new List<RoomMgr>();
-        //    emptyPoint.Add(new EmptyPoint());
-        //}
         int index = 0;
         //有空位那么遍历所有已知空位寻找符合大小的空间
         for (int i = 0; i < emptyPoint.Count; i++)
         {
+            if (emptyPoint[i].emptyNumber == 0)
+            {
+                Debug.LogError("发现空地址");
+                emptyPoint.Remove(emptyPoint[i]);
+            }
             if (emptyPoint[i].emptyNumber >= data.RoomSize)
             {
                 //如果提示框数量不足 新建一个
@@ -173,12 +180,31 @@ public class CastleMgr : MonoBehaviour
                     buildTips.Add(buidTip);
                 }
                 //给符合条件的位置放置提示框
-                buildTips[index].UpdateTip(emptyPoint[i], data, buildPoint);
-                index++;
+                bool isRead = buildTips[index].UpdateTip(emptyPoint[i], emptyPoint, data, buildPoint);
+                if (isRead == true)
+                {
+                    index++;
+                }
             }
         }
+        for (int i = index; i < useEmptyIndex; i++)
+        {
+            buildTips[i].transform.position = new Vector2(-1000, -1000);
+        }
+        useEmptyIndex = index;
     }
 
+    /// <summary>
+    /// 重置建筑生成提示框
+    /// </summary>
+    private void ResetRoomTip()
+    {
+        for (int i = 0; i < buildTips.Count; i++)
+        {
+            buildTips[i].RestartThisTip(buildPoint);
+            buildTips[i].transform.position = new Vector2(-1000, -1000);
+        }
+    }
     /// <summary>
     /// 合并房间
     /// </summary>
@@ -189,74 +215,25 @@ public class CastleMgr : MonoBehaviour
     /// </summary>
     private void InstanceRoom(BuildTip tip)
     {
+        //如果该房间在对象池内 那么直接调用
+        for (int i = 0; i < removeRoom.Count; i++)
+        {
+            if (removeRoom[i].gameObject.name == buildingData.SprintName)
+            {
+                removeRoom[i].transform.position = tip.parentPoint.position;
+                RoomMgr room = removeRoom[i].GetComponent<RoomMgr>();
+                tip.InstanceRoom(room);
+                removeRoom.Remove(removeRoom[i]);
+                return;
+            }
+        }
         GameObject go = Resources.Load<GameObject>("UIPrefab/Building/" + buildingData.SprintName);
         go = Instantiate(go, buildingPoint) as GameObject;
+        go.name = buildingData.SprintName;
         go.transform.position = tip.parentPoint.position;
-        go.GetComponent<RoomMgr>().UpdateBuilding(buildPoint, emptyPoint, tip.emptyPoint, buildingData);
-
-        //EmptyPoint point = tip.emptyPoint;
-        ////寻找附近空位 如果结束的X轴比开始的X轴小 那么这个物体是向右延伸的
-        //if (point.startPoint.x < point.endPoint)//向右
-        //{
-        //    int index = 0;
-        //    //向右遍历到最大数量
-        //    for (int i = (int)point.startPoint.x; i < point.startPoint.x + buildingData.RoomSize + 9; i++)
-        //    {
-        //        if (i >= buildLength)
-        //        {
-        //            break;
-        //        }
-        //        if (i < point.startPoint.x + buildingData.RoomSize)
-        //        {
-        //            buildPoint[i, (int)point.startPoint.y].pointType = BuildingType.Full;
-        //            buildPoint[i, (int)point.startPoint.y].pointWall.Translate(Vector3.back * 1000);
-        //        }
-        //        else if (buildPoint[i, (int)point.startPoint.y].pointType == BuildingType.Wall)
-        //        {
-        //            index++;
-        //        }
-        //    }
-        //    EmptyPoint empty = new EmptyPoint(new Vector2(point.startPoint.x + buildingData.RoomSize, point.startPoint.y), (int)point.startPoint.x + buildingData.RoomSize + index, index);
-        //    Debug.Log("空位起点 :" + (point.startPoint.x + buildingData.RoomSize + index));
-        //    empty.buildingData = buildingData;
-        //    emptyPoint.Add(empty);
-        //}
-        //else
-        //{
-        //    int index = 0;
-        //    //向左遍历到最大数量
-        //    for (int i = (int)point.startPoint.x; i > point.startPoint.x - buildingData.RoomSize - 9; i--)
-        //    {
-        //        if (i <= 0)
-        //        {
-        //            break;
-        //        }
-        //        if (i > point.startPoint.x - buildingData.RoomSize)
-        //        {
-        //            buildPoint[i, (int)point.startPoint.y].pointType = BuildingType.Full;
-        //            buildPoint[i, (int)point.startPoint.y].pointWall.Translate(Vector3.back * 1000);
-        //        }
-        //        else if (buildPoint[i, (int)point.startPoint.y].pointType == BuildingType.Wall)
-        //        {
-        //            index++;
-        //        }
-        //    }
-        //    EmptyPoint empty = new EmptyPoint(new Vector2(point.startPoint.x - buildingData.RoomSize, point.startPoint.y), (int)point.startPoint.x - buildingData.RoomSize - index, index);
-        //    Debug.Log("空位起点 :" + (index));
-        //    empty.buildingData = buildingData;
-        //    emptyPoint.Add(empty);
-        //}
+        RoomMgr room_1 = go.GetComponent<RoomMgr>();
+        tip.InstanceRoom(room_1);
     }
-
-    private void ChangeLeftOrRight()
-    {
-
-    }
-    private void ChangeUpOrDown()
-    {
-
-    }
-
 
     #region 测试区域
     private void ChickLouTi()
@@ -265,6 +242,7 @@ public class CastleMgr : MonoBehaviour
         louTi.RoomSize = 1;
         louTi.SprintName = "Build_Stairs";
         louTi.RoomType = BuildRoomType.Stairs;
+        ResetRoomTip();
         BuildRoomTip(louTi);
     }
 
@@ -273,39 +251,46 @@ public class CastleMgr : MonoBehaviour
         BuildingData woShi = new BuildingData();
         woShi.RoomSize = 3;
         woShi.SprintName = "Build_Bedroom";
+        ResetRoomTip();
         BuildRoomTip(woShi);
     }
     #endregion
 }
 
-
+/// <summary>
+/// 墙面信息
+/// </summary>
 public class BuildPoint
 {
-    public BuildingType pointType;
-    public Transform pointWall;
+    public BuildingType pointType;//当前位置类型
+    public Transform pointWall;//当前位置墙体引用
+    public RoomMgr roomMgr;//当前位置房间信息
+    public BuildTip tip;//当前位置提示框信息
 }
 
 /// <summary>
 /// 空位信息
 /// </summary>
+[System.Serializable]
 public class EmptyPoint
 {
     public Vector2 startPoint;//起点位置
     public int endPoint;//结束位置
     public int emptyNumber;//空位数量
-    public BuildingData buildingData;
+    public RoomMgr roomData;//链接的建筑信息
 
     public EmptyPoint()
     {
-        startPoint = new Vector2(16, 1);
-        endPoint = 6;
-        emptyNumber = 9;
+        //startPoint = new Vector2(6, 1);
+        //endPoint = 16;
+        //emptyNumber = 9;
     }
 
-    public EmptyPoint(Vector2 startPoint, int endPoint, int emptyNumber)
+    public EmptyPoint(Vector2 startPoint, int endPoint, int emptyNumber, RoomMgr roomData)
     {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.emptyNumber = emptyNumber;
+        this.roomData = roomData;
     }
 }

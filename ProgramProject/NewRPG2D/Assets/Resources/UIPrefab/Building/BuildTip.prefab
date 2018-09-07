@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498567371162274}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.385, y: -12.950001, z: 0}
+  m_LocalPosition: {x: -1000, y: -1000, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4786535172180416}
@@ -128,7 +128,13 @@ MonoBehaviour:
   sr: {fileID: 212599238428564778}
   bc: {fileID: 65976923027466010}
   parentPoint: {fileID: 4300964208414640}
+  emptyPoint:
+    startPoint: {x: 6, y: 1}
+    endPoint: 16
+    emptyNumber: 9
+    roomData: {fileID: 0}
   isMerge: 0
+  startX: 0
 --- !u!212 &212376399422230300
 SpriteRenderer:
   m_ObjectHideFlags: 1
