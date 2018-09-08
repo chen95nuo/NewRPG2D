@@ -22,25 +22,16 @@ public abstract class RoomMgr : MonoBehaviour
     private bool isUsed = true;
     private EmptyPoint[] emptyPoints = new EmptyPoint[4]; //左,右,上,下的空位;
     public RoomMgr[] nearbyRoom = new RoomMgr[4]; // 附近的房间 左,右,上,下;
-    public RoomMgr[] roomDependency = new RoomMgr[4];//链接依赖项，右,左,下,上;
-    public GameObject[] littleTip = new GameObject[4];//右左下上
+    //public RoomMgr[] roomDependency = new RoomMgr[4];//链接依赖项，右,左,下,上;
+    //public GameObject[] littleTip = new GameObject[4];//右左下上
     public int maxRoomSize = 9;
 
     public bool mainLink = false;//主链接
     public bool linkType = false;//连接状态
     public GameObject disTip;//断开连接的标签
 
+    private List<RoomMgr> disconnectRoom = new List<RoomMgr>();
 
-    private void Awake()
-    {
-        for (int i = 0; i < littleTip.Length; i++)
-        {
-            if (littleTip[i] != null)
-            {
-                littleTip[i].SetActive(false);
-            }
-        }
-    }
     /// <summary>
     /// 新建建筑
     /// </summary>
@@ -134,7 +125,7 @@ public abstract class RoomMgr : MonoBehaviour
                 left = false;
 
             //向右
-            if (buildPoint[endX + i, startY] != null && right
+            if (right && buildPoint[endX + i, startY] != null
                 && buildPoint[endX + i, startY].pointType == BuildingType.Wall)
             {
                 rightIndex++;
@@ -265,18 +256,6 @@ public abstract class RoomMgr : MonoBehaviour
                 CastleMgr.instance.emptyPoint.Add(emptyPoints[i]);
             }
         }
-
-        if (linkType == true)//如果我自身链接正常则检查附近连接失败的房间 讲本房间添加进去并让其自检
-        {
-            for (int i = 0; i < nearbyRoom.Length; i++)
-            {
-                if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
-                {
-                    nearbyRoom[i].roomDependency[i] = this;
-                    nearbyRoom[i].CheckConnection(this);
-                }
-            }
-        }
     }
     /// <summary>
     /// 删除建筑
@@ -314,423 +293,194 @@ public abstract class RoomMgr : MonoBehaviour
             if (nearbyRoom[i] != null)
             {
                 nearbyRoom[i].UpdateBuilding();
-                nearbyRoom[i].CheckConnection(this);//通知附近房间检查自身链接
+                nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
             }
         }
+    }
+
+    /// <summary>
+    /// 检查连接、断开、路径点
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="n"></param>
+    protected bool ChickConnection(RoomMgr data, bool islink)
+    {
+        if (mainLink)
+        {
+            linkType = true;
+            ChickDisTip();
+            return true;
+        }
+        if (linkType == true)
+        {
+            if (islink)
+            {
+                Debug.Log("我是通的对方也是通的");
+                return true;
+            }
+            else//我方通畅对方堵塞 判断己方链接是否有效
+            {
+                Debug.Log("主要 ：对方堵塞 判断己方连接是否有效");
+                RoomMgr room = null;
+                int length = nearbyRoom.Length - 1;
+                for (int i = length; i > -1; i--)//反向遍历 从大往小
+                {
+                    if (nearbyRoom[i] != null && nearbyRoom[i].linkType == true && nearbyRoom[i] != data) //如果对方是连接状态 搜索到楼梯 判断是否可通向大门
+                    {
+                        if (Mathf.Abs(nearbyRoom[i].buidStartPoint.y - 1) < Mathf.Abs(buidStartPoint.y - 1))//如果对方楼梯离大门比较近且对方是通的那么本条路线通畅
+                        {
+                            if (nearbyRoom[i].linkType == true)
+                            {
+                                //本就是通常所以不需要改变状态
+                                return true;
+                            }
+                        }
+                        else if (Mathf.Abs(nearbyRoom[i].buidStartPoint.y - 1) > Mathf.Abs(buidStartPoint.y - 1))//先不着急便利远的 如果有楼上的存下先便利本层
+                        {
+                            room = nearbyRoom[i];//存下远的
+                        }
+                        else if ((nearbyRoom[i].buidStartPoint.y == buidStartPoint.y))
+                        {
+                            bool thisLink = nearbyRoom[i].ChickConnection(this, false);
+                            if (thisLink == false) //保存断开的房间信息
+                            {
+                                disconnectRoom.Add(nearbyRoom[i]);
+                            }
+                            //当前这个路线回来是通畅那么就返回了 所以不会出现通畅之后在堵塞的问题
+                            linkType = thisLink; //如果返回的信息是通畅那么就不用管了 如果是堵塞那就改成堵塞
+                            ChickDisTip();
+                            if (thisLink == true)//如果某条路线返回通畅 查询附近堵塞的路线 将其改为通畅 然后返回通畅
+                            {
+                                for (int j = 0; j < disconnectRoom.Count; j++)
+                                {
+                                    if (disconnectRoom[j] != null && disconnectRoom[j] == false)
+                                    {
+                                        disconnectRoom[j].ChickConnection(this, linkType);
+                                    }
+                                }
+                                disconnectRoom.Clear();
+                                return true;
+                            }
+                        }
+                    }
+                }
+                //走到这里说明 要么所有路线都堵塞 要么还剩余一个远的楼层没有检查
+                if (room != null)//检查远的楼层
+                {
+                    if (linkType == true)//通常这种情况出现在楼梯 且楼梯只向上
+                    {
+                        if (Mathf.Abs(buidStartPoint.y - 1) == 0)//如果我就是离门最近的那层的
+                        {
+                            bool l_thisLink = room.ChickConnection(this, linkType);
+                            Debug.Log(linkType);
+                            if (l_thisLink == true)//如果远的楼层返回true
+                            {
+                                return true;
+                            }
+                        }
+                        Debug.LogError("发生故障 当前路线为通畅 事故房间类型 : " + roomType);
+                        linkType = false;
+                        ChickDisTip();
+                        return false;
+                    }
+                    bool thisLink = room.ChickConnection(this, linkType);
+                    Debug.Log(linkType);
+                    if (thisLink == true)//如果远的楼层返回true
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    linkType = false;
+                    ChickDisTip();
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            if (islink)//我方堵塞 对方通畅
+            {
+                Debug.Log("我方堵塞 对方通畅");
+                linkType = true;
+                ChickDisTip();
+                for (int i = 0; i < nearbyRoom.Length; i++)
+                {
+                    if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
+                    {
+                        nearbyRoom[i].ChickConnection(this, linkType);
+                    }
+                }
+                return true;
+            }
+            else //双方堵塞 因为对方发消息的时候己方这条线已经拥堵 所以没必要检测
+            {
+                Debug.Log("双方堵塞");
+                return false;
+            }
+        }
+
+        return false;
     }
 
     /*
-     * 
+     * 遍历附近的房间 检查连接状态
      */
-
     /// <summary>
-    /// 检查链接
+    /// 建造房间 检查附近连接
     /// </summary>
-    /// <param name="room">发送消息的房间</param>
-    /// <param name="number">位置</param>
-    protected void CheckConnection(RoomMgr room)
-    {
-        //有附近所有房间的链接 如果是主房间则不需要与其他房间链接
-        //问题 新建房屋如何告诉已建成的房屋添加新节点
-        //如果本房间断开则通知附近房间自检
-        //如果本房间没有断开则无视
-        if (mainLink)
-        {
-            disTip.SetActive(false);
-            return;
-        }
-
-        
-        
-        int lineIndex = 0;
-        int offIndex = 0;
-
-        int index = 0;
-        for (int i = 0; i < nearbyRoom.Length; i++)
-        {
-            //如果这个房间是连接状态 检查他是否与本房间连接
-            if (nearbyRoom[i] != null && nearbyRoom[i].linkType == true)
-            {
-                for (int j = 0; j < nearbyRoom[i].roomDependency.Length; j++)
-                {
-                    //判断连接点是否有效
-                    if (nearbyRoom[i].roomDependency[j] != null && nearbyRoom[i].roomDependency[j] != this)
-                    {
-                        lineIndex++;
-                        index = i;
-                    }
-                }
-            }
-            //如果当前这个房间断开连接了 记录数量
-            else if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
-            {
-                offIndex++;
-
-            }
-            //如果附近是空的 但是链接里却有 那么判断该物体已经被移除
-            else if (nearbyRoom[i] == null)
-            {
-                switch (i)
-                {
-                    case 0:
-                        if (roomDependency[1] == null)
-                        {
-                            break;
-                        }
-                        littleTip[1].SetActive(false);
-                        roomDependency[1] = null;
-                        break;
-                    case 1:
-                        if (roomDependency[0] == null)
-                        {
-                            break;
-                        }
-                        littleTip[0].SetActive(false);
-                        roomDependency[0] = null;
-                        break;
-                    case 2:
-                        if (roomDependency[3] == null)
-                        {
-                            break;
-                        }
-                        littleTip[3].SetActive(false);
-                        roomDependency[3] = null;
-                        break;
-                    case 3:
-                        if (roomDependency[2] == null)
-                        {
-                            break;
-                        }
-                        littleTip[2].SetActive(false);
-                        roomDependency[2] = null;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        Debug.Log(lineIndex);
-        if (lineIndex > 0)
-        {
-            //如果只有一个有效链接 检查对方内是否有本链接 是的话清除节点并断开 不是或对方任有其他节点则连接
-            if (lineIndex == 1)
-            {
-                Debug.Log("让对方运行自检");
-                //如果对方连接有效 那么自身激活连接
-                bool isTrue = nearbyRoom[index].ChickConnection(this, 1);
-            }
-        }
-        //如果一个有效连接都没有 就是断开了
-        else
-        {
-            linkType = false;
-
-            roomDependency = new RoomMgr[4];
-            for (int i = 0; i < littleTip.Length; i++)
-            {
-                if (littleTip[i] != null)
-                {
-                    littleTip[i].SetActive(false);
-                }
-            }
-
-            for (int i = 0; i < nearbyRoom.Length; i++)
-            {
-                if (nearbyRoom[i] != null)
-                {
-                    nearbyRoom[i].ChickConnection(this, 1);
-                }
-            }
-        }
-
-        #region 暂停使用2
-        ////只有链接
-        //if (lineIndex > 0 && offIndex <= 0)
-        //{
-        //    Debug.Log("只有连接");
-        //    if (linkType == true)
-        //    {
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        linkType = true;
-        //    }
-        //}
-        ////只有断开 我断开了就通知附近的房间自检
-        //else if (lineIndex <= 0 && offIndex > 0)
-        //{
-        //    Debug.Log("只有断开");
-        //    linkType = false;
-        //    for (int i = 0; i < nearbyRoom.Length; i++)
-        //    {
-        //        //排除发出这个消息的对象，防止死循环
-        //        if (nearbyRoom[i] != null && nearbyRoom[i] != room)
-        //        {
-        //            nearbyRoom[i].CheckConnection(this);
-        //        }
-        //    }
-        //}
-        //else if (lineIndex > 0 && offIndex > 0)//有断开有连接
-        //{
-        //    Debug.Log("有断开有链接");
-        //    if (lineIndex == 1)
-        //    {
-        //        Debug.Log("只有一个连接");
-        //        for (int i = 0; i < roomDependency.Length; i++)
-        //        {
-        //            if (roomDependency[i] != null && roomDependency[i].linkType == true)
-        //            {
-        //                for (int j = 0; j < roomDependency[i].roomDependency.Length; j++)
-        //                {
-        //                    if (roomDependency[i].roomDependency[j] == this)
-        //                    {
-        //                        roomDependency[i].roomDependency[j] = null;
-        //                        roomDependency[i].littleTip[j].SetActive(false);
-        //                        roomDependency[i].CheckConnection(this);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else if (lineIndex >= 1) //超过一个链接
-        //    {
-        //        Debug.Log("大于一个连接");
-        //    }
-        //    //找到那些断开的链接
-        //    for (int i = 0; i < nearbyRoom.Length; i++)
-        //    {
-        //        if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
-        //        {
-        //            nearbyRoom[i].roomDependency[i] = this;
-        //            nearbyRoom[i].CheckConnection(this);
-        //        }
-        //    }
-
-        //}
-        //else if (lineIndex <= 0 && offIndex <= 0)
-        //{
-        //    Debug.LogError("附近无建筑");
-        //    linkType = false;
-        //} 
-        #endregion
-
-        #region 暂停使用
-        ////检查所有连接点判断自身是否断开
-        //int link = 0;
-        //for (int i = 0; i < nearbyRoom.Length; i++)
-        //{
-        //    //如果有链接可以使用则记录数量
-        //    if (nearbyRoom[i] != null && nearbyRoom[i].linkType == true)
-        //    {
-        //        //排除这个链接虽然是链接状态但是连接对象却是本房间
-        //        for (int j = 0; j < nearbyRoom[i].roomDependency.Length; j++)
-        //        {
-        //            if (nearbyRoom[i].roomDependency[j] != null && nearbyRoom[i].roomDependency[j] != this)
-        //            {
-        //                link++;
-        //            }
-        //        }
-        //    }
-        //    //如果该链接不可使用则清除
-        //    else
-        //    {
-        //        roomDependency[i] = null;
-        //    }
-        //}
-        ////如果自己没断开
-        //if (link > 0)
-        //{
-        //    linkType = true;
-        //    //遍历附近房间若有房间断开将自身添加进去
-        //    for (int i = 0; i < nearbyRoom.Length; i++)
-        //    {
-        //        //若该房间断开 将本房间添加进去并为其添加节点再让其自检
-        //        if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false && nearbyRoom[i] != room)
-        //        {
-        //            nearbyRoom[i].roomDependency[i] = this;
-        //            nearbyRoom[i].CheckConnection(this);
-        //        }
-        //    }
-        //}
-        ////如果自己断开了
-        //else
-        //{
-        //    linkType = false;
-        //    for (int i = 0; i < nearbyRoom.Length; i++)
-        //    {
-        //        if (nearbyRoom[i] != null && nearbyRoom[i] != room)
-        //        {
-        //            nearbyRoom[i].CheckConnection(this);
-        //        }
-        //    }
-        //}
-
-        #endregion
-        if (linkType == false)
-        {
-            disTip.SetActive(true);
-        }
-        else
-        {
-            disTip.SetActive(false);
-        }
-    }
-    //检查连接
-    protected bool ChickConnection(RoomMgr data, int n)
-    {
-        if (mainLink)
-        {
-            disTip.SetActive(false);
-            return true;
-        }
-
-        //判断剩余多少个链接
-        int index = 0;
-        RoomMgr room = null;
-        for (int i = 0; i < roomDependency.Length; i++)
-        {
-            //如果等于发起消息的 那么清除他
-            if (roomDependency[i] != null && roomDependency[i] == data)
-            {
-                roomDependency[i] = null;
-                littleTip[i].SetActive(false);
-                Debug.Log("清除DATA数据");
-            }
-            //如果是连接状态
-            else if (roomDependency[i] != null && roomDependency[i].linkType == true)
-            {
-                if (index == 0)
-                {
-                    room = roomDependency[i];
-                }
-                index++;
-            }
-            //如果是断开状态 清除
-            else if (roomDependency[i] != null && roomDependency[i].linkType == false)
-            {
-                roomDependency[i] = null;
-                littleTip[i].SetActive(false);
-            }
-        }
-        Debug.Log("自检数量" + index);
-        if (index == 1)
-        {
-            room.ChickConnection(this, 1);
-            return false;
-        }
-        else if (index == 0)
-        {
-            linkType = false;
-            disTip.SetActive(true);
-            for (int i = 0; i < nearbyRoom.Length; i++)
-            {
-                if (nearbyRoom[i] != null && nearbyRoom[i].linkType == true)
-                {
-                    nearbyRoom[i].CheckConnection(this);
-                }
-            }
-            return false;
-        }
-        return true;
-    }
-
     protected void AddConnection()
     {
-        int lineIndex = 0;
+        int linkIndex = 0;
         int offIndex = 0;
-        //检查周边所有房间的连接状态
+
+        if (mainLink)
+        {
+            linkType = true;
+            ChickDisTip();
+            return;
+        }
         for (int i = 0; i < nearbyRoom.Length; i++)
         {
             if (nearbyRoom[i] != null && nearbyRoom[i].linkType == true)
             {
-                lineIndex++;
-                //roomDependency[i] = nearbyRoom[i]; //如果对方是连接状态那么添加到本地可连接列表
-
-                switch (i)
-                {
-                    case 0:
-                        littleTip[1].SetActive(true);
-                        roomDependency[1] = nearbyRoom[i];
-                        break;
-                    case 1:
-                        littleTip[0].SetActive(true);
-                        roomDependency[0] = nearbyRoom[i];
-                        break;
-                    case 2:
-                        littleTip[3].SetActive(true);
-                        roomDependency[3] = nearbyRoom[i];
-                        break;
-                    case 3:
-                        littleTip[2].SetActive(true);
-                        roomDependency[2] = nearbyRoom[i];
-                        break;
-                    default:
-                        break;
-                }
-
+                linkIndex++;
             }
             else if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
             {
                 offIndex++;
             }
         }
-        //如果 1、只有断开 2、只有链接 3、有链接有断开 4、全部没有....
-        if (lineIndex <= 0 && offIndex > 0)
+        if (linkIndex > 0)//建造的时候因为附近的建筑都与自己无关所以只要有连接就可以使用
         {
-            linkType = false;
-        }
-        else if (lineIndex > 0 && offIndex <= 0)
-        {//只有链接 连接数量大于1
             linkType = true;
-            if (lineIndex > 1)
-            {
-                for (int i = 0; i < nearbyRoom.Length; i++)
-                {
-                    if (nearbyRoom[i] != null)
-                    {
-                        nearbyRoom[i].roomDependency[i] = this;
-                        nearbyRoom[i].littleTip[i].SetActive(true);
-                    }
-                }
-            }
-        }
-        else if (lineIndex > 0 && offIndex > 0)
-        {//有链接也有断开 连接大于1 断开等于1 断开大于1
-            linkType = true;
-            if (lineIndex > 1)
-            {
-                for (int i = 0; i < nearbyRoom.Length; i++)
-                {
-                    if (nearbyRoom != null)
-                    {
-                        nearbyRoom[i].roomDependency[i] = this;
-                        nearbyRoom[i].littleTip[i].SetActive(true);
-                    }
-                }
-            }
             for (int i = 0; i < nearbyRoom.Length; i++)
             {
                 if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
                 {
-                    nearbyRoom[i].roomDependency[i] = this;
-                    nearbyRoom[i].littleTip[i].SetActive(true);
-                    nearbyRoom[i].CheckConnection(this);
+                    //如果我有多个连接 但是也有一些断开的那就顺便让他们连接并检查;
+                    nearbyRoom[i].ChickConnection(this, linkType);//将自己的连接状态发给对方
                 }
             }
         }
-        if (mainLink)
+        else if (linkIndex <= 0)
         {
-            linkType = true;
-            littleTip[1].SetActive(true);
+            linkType = false;
         }
-        if (linkType == false)
+
+        ChickDisTip();
+    }
+
+    protected void ChickDisTip()
+    {
+        if (linkType == true)
         {
-            disTip.SetActive(true);
+            disTip.SetActive(false);
         }
         else
         {
-            disTip.SetActive(false);
+            disTip.SetActive(true);
         }
     }
 

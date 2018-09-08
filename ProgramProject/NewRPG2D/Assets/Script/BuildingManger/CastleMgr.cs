@@ -21,8 +21,8 @@ public class CastleMgr : MonoBehaviour
     public Vector2 startPoint;
     public Vector2 limitPoint_1;
 
-    public int maxLength = 20;
-    public int maxWidth = 5;
+    public int maxLength = 100;
+    public int maxWidth = 100;
     private int buildLength = 17;//当前等级的长度
     private int buildWidth = 4;//当前等级的高度
     public BuildPoint[,] buildPoint;
