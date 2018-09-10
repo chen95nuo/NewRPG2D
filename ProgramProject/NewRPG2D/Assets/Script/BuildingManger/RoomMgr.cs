@@ -22,8 +22,6 @@ public abstract class RoomMgr : MonoBehaviour
     private bool isUsed = true;
     private EmptyPoint[] emptyPoints = new EmptyPoint[4]; //左,右,上,下的空位;
     public RoomMgr[] nearbyRoom = new RoomMgr[4]; // 附近的房间 左,右,上,下;
-    //public RoomMgr[] roomDependency = new RoomMgr[4];//链接依赖项，右,左,下,上;
-    //public GameObject[] littleTip = new GameObject[4];//右左下上
     public int maxRoomSize = 9;
 
     public bool mainLink = false;//主链接
@@ -153,11 +151,6 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 nearbyRoom[0] = buildPoint[startX - 1, startY].roomMgr;
                 buildPoint[startX - 1, startY].roomMgr.nearbyRoom[1] = this;
-                //if (buildPoint[startX - 1, startY].roomMgr.linkType == true)
-                //{
-                //    linkType = true;
-                //    roomDependency[1] = buildPoint[startX - 1, startY].roomMgr;
-                //}
             }
         }
         //右侧空位
@@ -175,11 +168,6 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 nearbyRoom[1] = buildPoint[endX, startY].roomMgr;
                 buildPoint[endX, startY].roomMgr.nearbyRoom[0] = this;
-                //if (buildPoint[endX, startY].roomMgr.linkType == true)
-                //{
-                //    linkType = true;
-                //    roomDependency[0] = buildPoint[endX, startY].roomMgr;
-                //}
             }
         }
 
@@ -260,7 +248,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// <summary>
     /// 删除建筑
     /// </summary>
-    public void RemoveBuilding()
+    public void RemoveBuilding(BuildPoint[,] buildPoint)
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
         CastleMgr.instance.room.Remove(this.gameObject);
@@ -288,12 +276,68 @@ public abstract class RoomMgr : MonoBehaviour
         }
         emptyPoints = new EmptyPoint[4];
         linkType = false; //断开自身链接
+        int index = 0;
         for (int i = 0; i < nearbyRoom.Length; i++)
         {
             if (nearbyRoom[i] != null)
             {
                 nearbyRoom[i].UpdateBuilding();
                 nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
+                nearbyRoom[i] = null;
+                index++;
+            }
+        }
+        if (nearbyRoom[0] == null && nearbyRoom[1] != null)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                }
+                if (buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                }
+            }
+        }
+        else if (nearbyRoom[0] != null && nearbyRoom[1] == null)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                }
+                if (buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                }
+            }
+        }
+
+        if (nearbyRoom[0] == null && nearbyRoom[1] == null)
+        {
+            bool right = true;
+            bool left = true;
+            for (int i = 0; i < 9; i++)
+            {
+                if (left && buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y] != null
+                    && buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    left = false;
+                }
+                if (right && buildPoint[buildEndPoint + i, (int)buidStartPoint.y] != null
+                    && buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                {
+                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    right = false;
+                }
+                if (left == false && right == false)
+                {
+                    return;
+                }
             }
         }
     }
@@ -331,8 +375,20 @@ public abstract class RoomMgr : MonoBehaviour
                         {
                             if (nearbyRoom[i].linkType == true)
                             {
-                                //本就是通常所以不需要改变状态
+                                for (int j = 0; j < nearbyRoom.Length; j++)
+                                {
+                                    if (nearbyRoom[i].linkType == false)
+                                    {
+                                        nearbyRoom[i].ChickConnection(this, true);
+                                    }
+                                }
+                                //本就是通常所以不需要改变状态.
                                 return true;
+                            }
+                            else
+                            {
+                                Debug.Log("下方楼梯是false");
+                                disconnectRoom.Add(nearbyRoom[i]);
                             }
                         }
                         else if (Mathf.Abs(nearbyRoom[i].buidStartPoint.y - 1) > Mathf.Abs(buidStartPoint.y - 1))//先不着急便利远的 如果有楼上的存下先便利本层
@@ -341,9 +397,11 @@ public abstract class RoomMgr : MonoBehaviour
                         }
                         else if ((nearbyRoom[i].buidStartPoint.y == buidStartPoint.y))
                         {
+                            linkType = false;
                             bool thisLink = nearbyRoom[i].ChickConnection(this, false);
                             if (thisLink == false) //保存断开的房间信息
                             {
+                                Debug.Log("保存断开的房间信息");
                                 disconnectRoom.Add(nearbyRoom[i]);
                             }
                             //当前这个路线回来是通畅那么就返回了 所以不会出现通畅之后在堵塞的问题
@@ -353,8 +411,9 @@ public abstract class RoomMgr : MonoBehaviour
                             {
                                 for (int j = 0; j < disconnectRoom.Count; j++)
                                 {
-                                    if (disconnectRoom[j] != null && disconnectRoom[j] == false)
+                                    if (disconnectRoom[j].linkType == false)
                                     {
+                                        Debug.Log("运行了");
                                         disconnectRoom[j].ChickConnection(this, linkType);
                                     }
                                 }
@@ -369,19 +428,11 @@ public abstract class RoomMgr : MonoBehaviour
                 {
                     if (linkType == true)//通常这种情况出现在楼梯 且楼梯只向上
                     {
-                        if (Mathf.Abs(buidStartPoint.y - 1) == 0)//如果我就是离门最近的那层的
-                        {
-                            bool l_thisLink = room.ChickConnection(this, linkType);
-                            Debug.Log(linkType);
-                            if (l_thisLink == true)//如果远的楼层返回true
-                            {
-                                return true;
-                            }
-                        }
-                        Debug.LogError("发生故障 当前路线为通畅 事故房间类型 : " + roomType);
-                        linkType = false;
+                        Debug.LogError("走到边缘楼梯 楼梯可通往上下" + roomType);
+                        bool link = room.ChickConnection(this, false);
+                        linkType = link;
                         ChickDisTip();
-                        return false;
+                        return link;
                     }
                     bool thisLink = room.ChickConnection(this, linkType);
                     Debug.Log(linkType);
@@ -439,6 +490,13 @@ public abstract class RoomMgr : MonoBehaviour
         {
             linkType = true;
             ChickDisTip();
+            for (int i = 0; i < nearbyRoom.Length; i++)
+            {
+                if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
+                {
+                    nearbyRoom[i].ChickConnection(this, true);
+                }
+            }
             return;
         }
         for (int i = 0; i < nearbyRoom.Length; i++)

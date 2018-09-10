@@ -10,9 +10,6 @@ public class CastleMgr : MonoBehaviour
     public const float high = 10.8f;
     public const float width = 4.77f;
 
-    public Button louti;
-    public Button woshi;
-
     public GameObject[] Wall;
     public GameObject buildTip;
     public Transform buildingPoint;
@@ -55,9 +52,6 @@ public class CastleMgr : MonoBehaviour
 
     private void Init()
     {
-        louti.onClick.AddListener(ChickLouTi);
-        woshi.onClick.AddListener(ChickWoShi);
-
         UpdateBGNumber();
         instanceWall();
     }
@@ -94,7 +88,7 @@ public class CastleMgr : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Room")
                 {
-                    hit.collider.gameObject.GetComponent<RoomMgr>().RemoveBuilding();
+                    hit.collider.gameObject.GetComponent<RoomMgr>().RemoveBuilding(buildPoint);
                 }
             }
         }
