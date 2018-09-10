@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TinyTeam.UI;
 
 public class GameMain : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class GameMain : MonoBehaviour
 
     private void Start()
     {
-        TTUIPage.ShowPage<UIMain>();
+       // TTUIPage.ShowPage<UIMain>();
     }
 
     private void Update()

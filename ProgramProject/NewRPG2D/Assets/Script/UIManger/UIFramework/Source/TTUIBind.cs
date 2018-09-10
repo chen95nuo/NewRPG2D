@@ -1,4 +1,4 @@
-﻿namespace TinyTeam.UI
+﻿namespace Assets.Script.UIManger
 {
     using UnityEngine;
     using System.Collections;
@@ -18,7 +18,7 @@
                 //Debug.LogWarning("Bind For UI Framework.");
 
                 //bind for your loader api to load UI.
-                TTUIPage.delegateSyncLoadUI = Resources.Load;
+                UIPanelManager.instance.delegateSyncLoadUI = Resources.Load;
                 //TTUIPage.delegateAsyncLoadUI = UILoader.Load;
 
             }

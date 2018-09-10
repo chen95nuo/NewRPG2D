@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TinyTeam.UI;
+using Assets.Script.UIManger;
 
 public class UIMain : TTUIPage
 {

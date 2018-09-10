@@ -4,7 +4,8 @@
  * @Last Modified by: chiuan wei
  * @Last Modified time: 2017-05-27 18:33:48
  */
-namespace TinyTeam.UI {
+namespace Assets.Script.UIManger
+{
    using System.Collections;
    using UnityEngine.EventSystems;
    using UnityEngine.UI;
