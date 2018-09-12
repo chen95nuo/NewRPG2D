@@ -61,11 +61,13 @@ namespace Assets.Script.UIManger
                 if (delegateSyncLoadUI != null)
                 {
                     Object o = delegateSyncLoadUI(uiPath);
-                    page = o != null ? GameObject.Instantiate(o) as T : null;
+                    T obj = o as T;
+                    page = obj != null ? GameObject.Instantiate(obj): null;
                 }
                 else
                 {
-                    page = GameObject.Instantiate(Resources.Load(uiPath)) as T;
+                    T obj = Resources.Load<T>(uiPath);
+                    page = MonoBehaviour.Instantiate(obj);
                 }
 
                 //protected.
@@ -144,7 +146,7 @@ namespace Assets.Script.UIManger
 
         protected void AnchorUIGameObject(GameObject ui)
         {
-            if (TTUIRoot.Instance == null || ui == null) return;
+            if (ui == null) return;
 
             //check if this is ugui or (ngui)?
             Vector3 anchorPos = Vector3.zero;
