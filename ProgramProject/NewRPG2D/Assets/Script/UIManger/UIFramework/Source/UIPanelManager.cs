@@ -35,19 +35,19 @@ namespace Assets.Script.UIManger
     {
 
         //all pages with the union type
-        private  Dictionary<string, TTUIPage> m_allPages;
-        public  Dictionary<string, TTUIPage> allPages
+        private Dictionary<string, TTUIPage> m_allPages;
+        public Dictionary<string, TTUIPage> allPages
         { get { return m_allPages; } }
 
         //control 1>2>3>4>5 each page close will back show the previus page.
-        private  List<TTUIPage> m_currentPageNodes;
-        public  List<TTUIPage> currentPageNodes
+        private List<TTUIPage> m_currentPageNodes;
+        public List<TTUIPage> currentPageNodes
         { get { return m_currentPageNodes; } }
 
 
         //delegate load ui function.
-        public  Func<string, Object> delegateSyncLoadUI = null;
-        public  Action<string, Action<Object>> delegateAsyncLoadUI = null;
+        public Func<string, Object> delegateSyncLoadUI = null;
+        public Action<string, Action<Object>> delegateAsyncLoadUI = null;
 
         /// <summary>
         /// Sync Show UI Logic
@@ -62,7 +62,7 @@ namespace Assets.Script.UIManger
                 {
                     Object o = delegateSyncLoadUI(uiPath);
                     T obj = o as T;
-                    page = obj != null ? GameObject.Instantiate(obj): null;
+                    page = obj != null ? GameObject.Instantiate(obj) : null;
                 }
                 else
                 {
@@ -194,7 +194,7 @@ namespace Assets.Script.UIManger
 
         #region  api
 
-        private  bool CheckIfNeedBack(TTUIPage page)
+        private bool CheckIfNeedBack(TTUIPage page)
         {
             return page != null && page.CheckIfNeedBack();
         }
@@ -202,7 +202,7 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// make the target node to the top.
         /// </summary>
-        private  void PopNode(TTUIPage page)
+        private void PopNode(TTUIPage page)
         {
             if (m_currentPageNodes == null)
             {
@@ -244,7 +244,7 @@ namespace Assets.Script.UIManger
             HideOldNodes();
         }
 
-        private  void HideOldNodes()
+        private void HideOldNodes()
         {
             if (m_currentPageNodes.Count < 0) return;
             TTUIPage topPage = m_currentPageNodes[m_currentPageNodes.Count - 1];
@@ -259,12 +259,12 @@ namespace Assets.Script.UIManger
             }
         }
 
-        public  void ClearNodes()
+        public void ClearNodes()
         {
             m_currentPageNodes.Clear();
         }
 
-        private  void ShowPage<T>(string pagePath, Action callback, object pageData, bool isAsync) where T : TTUIPage
+        private void ShowPage<T>(string pagePath, Action callback, object pageData, bool isAsync) where T : TTUIPage
         {
             string pageName = pagePath;
 
@@ -274,12 +274,12 @@ namespace Assets.Script.UIManger
             }
             else
             {
-                T instance = ShowUIPage<T>(pageName,null, pageData);
+                T instance = ShowUIPage<T>(pageName, null, pageData);
                 ShowPage(pageName, instance, callback, pageData, isAsync);
             }
         }
 
-        private  void ShowPage(string pageName, TTUIPage pageInstance, Action callback, object pageData, bool isAsync)
+        private void ShowPage(string pageName, TTUIPage pageInstance, Action callback, object pageData, bool isAsync)
         {
             if (string.IsNullOrEmpty(pageName) || pageInstance == null)
             {
@@ -319,20 +319,30 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// Sync Show Page
         /// </summary>
-        public  void ShowPage<T>(string pagePath) where T : TTUIPage
+        public void ShowPage<T>(string pagePath) where T : TTUIPage
         {
+            ShowPage<T>(pagePath, null, null, false);
+        }
+
+        /// <summary>
+        /// Sync Show Page
+        /// </summary>
+        public void ShowPage<T>() where T : TTUIPage
+        {
+            Type t = typeof(T);
+            string pagePath = "UIPrefab/" + t.Name;
             ShowPage<T>(pagePath, null, null, false);
         }
 
         /// <summary>
         /// Sync Show Page With Page Data Input.
         /// </summary>
-        public  void ShowPage<T>(string pagePath, object pageData) where T : TTUIPage
+        public void ShowPage<T>(string pagePath, object pageData) where T : TTUIPage
         {
             ShowPage<T>(pagePath, null, pageData, false);
         }
 
-        public  void ShowPage(string pageName, TTUIPage pageInstance)
+        public void ShowPage(string pageName, TTUIPage pageInstance)
         {
             ShowPage(pageName, pageInstance, null, null, false);
         }
@@ -345,12 +355,12 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// Async Show Page with Async loader bind in 'TTUIBind.Bind()'
         /// </summary>
-        public  void ShowPage<T>(string pagePath, Action callback) where T : TTUIPage
+        public void ShowPage<T>(string pagePath, Action callback) where T : TTUIPage
         {
             ShowPage<T>(pagePath, callback, null, true);
         }
 
-        public  void ShowPage<T>(string pagePath, Action callback, object pageData) where T : TTUIPage
+        public void ShowPage<T>(string pagePath, Action callback, object pageData) where T : TTUIPage
         {
             ShowPage<T>(pagePath, callback, pageData, true);
         }
@@ -358,12 +368,12 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// Async Show Page with Async loader bind in 'TTUIBind.Bind()'
         /// </summary>
-        public  void ShowPage(string pageName, TTUIPage pageInstance, Action callback)
+        public void ShowPage(string pageName, TTUIPage pageInstance, Action callback)
         {
             ShowPage(pageName, pageInstance, callback, null, true);
         }
 
-        public  void ShowPage(string pageName, TTUIPage pageInstance, Action callback, object pageData)
+        public void ShowPage(string pageName, TTUIPage pageInstance, Action callback, object pageData)
         {
             ShowPage(pageName, pageInstance, callback, pageData, true);
         }
@@ -371,7 +381,7 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// close current page in the "top" node.
         /// </summary>
-        public  void ClosePage()
+        public void ClosePage()
         {
             //Debug.Log("Back&Close PageNodes Count:" + m_currentPageNodes.Count);
 
@@ -403,7 +413,7 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// Close target page
         /// </summary>
-        public  void ClosePage(TTUIPage target)
+        public void ClosePage(TTUIPage target)
         {
             if (target == null) return;
             if (target.isActive() == false)
@@ -461,10 +471,24 @@ namespace Assets.Script.UIManger
             target.Hide();
         }
 
-        public  void ClosePage<T>() where T : TTUIPage
+        //public void ClosePage<T>() where T : TTUIPage
+        //{
+        //    Type t = typeof(T);
+        //    string pageName = t.ToString();
+
+        //    if (m_allPages != null && m_allPages.ContainsKey(pageName))
+        //    {
+        //        ClosePage(m_allPages[pageName]);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError(pageName + "havnt show yet!");
+        //    }
+        //}
+        public void ClosePage<T>() where T : TTUIPage
         {
             Type t = typeof(T);
-            string pageName = t.ToString();
+            string pageName = "UIPrefab/" + t.Name;
 
             if (m_allPages != null && m_allPages.ContainsKey(pageName))
             {
@@ -476,7 +500,7 @@ namespace Assets.Script.UIManger
             }
         }
 
-        public  void ClosePage(string pageName)
+        public void ClosePage(string pageName)
         {
             if (m_allPages != null && m_allPages.ContainsKey(pageName))
             {
@@ -487,7 +511,7 @@ namespace Assets.Script.UIManger
                 Debug.LogError(pageName + " havnt show yet!");
             }
         }
-
+       
         #endregion
 
     }

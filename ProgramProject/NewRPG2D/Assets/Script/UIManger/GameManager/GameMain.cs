@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.UIManger;
 
 public class GameMain : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class GameMain : MonoBehaviour
 
     private void Start()
     {
-       // TTUIPage.ShowPage<UIMain>();
+        UIPanelManager.instance.ShowPage<UIMain>();
     }
 
     private void Update()

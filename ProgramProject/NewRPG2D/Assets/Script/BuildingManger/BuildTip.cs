@@ -18,7 +18,7 @@ public class BuildTip : MonoBehaviour
     private float width = 4.77f;
 
     public EmptyPoint emptyPoint;
-    public bool isMerge = false;
+    public bool isMerge = false;//合并房间
 
     public int startX = 0;
 
@@ -28,7 +28,7 @@ public class BuildTip : MonoBehaviour
     /// <param name="point">空位数据</param>
     /// <param name="size">建筑数据</param>
     /// <param name="startPoint">坐标数据</param>
-    public bool UpdateTip(EmptyPoint point, List<EmptyPoint> emptyPoints, BuildingData data, BuildPoint[,] points)
+    public bool UpdateTip(EmptyPoint point, List<EmptyPoint> emptyPoints, BuildingData data, CastleMgr castleMgr)
     {
         int size = data.RoomSize;
         //如果房间相同并且之前房间可合并 那么提示可并入
@@ -64,14 +64,14 @@ public class BuildTip : MonoBehaviour
         for (int i = startX; i < startX + size; i++)
         {
             //如果是墙面则继续 如果已经是提示框了则判断两个提示框 如果已经是墙面了 那么表示格子并不够根据情况删除或修改当前空位信息
-            switch (points[i, (int)point.startPoint.y].pointType)
+            switch (castleMgr.buildPoint[i, (int)point.startPoint.y].pointType)
             {
                 case BuildingType.Nothing:
                     Debug.LogError("提示框探测到空墙");
                     break;
                 case BuildingType.Wall:
                     //是墙面的话 正常 略过
-                    if (points[i, (int)point.startPoint.y].tip == null)
+                    if (castleMgr.buildPoint[i, (int)point.startPoint.y].tip == null)
                         index++;
                     break;
                 case BuildingType.Full:
@@ -85,7 +85,7 @@ public class BuildTip : MonoBehaviour
                         //清理之前更改的位置信息
                         for (int j = startX; j < index; j++)
                         {
-                            points[i, (int)point.startPoint.y].tip = null;
+                            castleMgr.buildPoint[i, (int)point.startPoint.y].tip = null;
                         }
                     }
                     else//如果没有格子了直接删除这个位置信息
@@ -103,7 +103,7 @@ public class BuildTip : MonoBehaviour
                 default:
                     break;
             }
-            if (points[i, (int)point.startPoint.y].tip != null)
+            if (castleMgr.buildPoint[i, (int)point.startPoint.y].tip != null)
             {
                 //出现重复区域根据情况修改提示框状态
                 //如果部分重叠判定左右，依左优先
@@ -111,15 +111,15 @@ public class BuildTip : MonoBehaviour
                 {
                     Debug.LogError("空格内已有提示框依左,空位信息" + i + "," + (int)point.startPoint.y);
                     //如果本提示比已存在的更靠左 那么清除该提示
-                    if (points[i, (int)point.startPoint.y].tip.startX > startX)
+                    if (castleMgr.buildPoint[i, (int)point.startPoint.y].tip.startX > startX)
                     {
-                        points[i, (int)point.startPoint.y].tip.RestartThisTip(points);
+                        castleMgr.buildPoint[i, (int)point.startPoint.y].tip.RestartThisTip(castleMgr);
                     }
                     else//如果已存在的比较靠左 清除本提示
                     {
                         for (int j = startX; j < index; j++)
                         {
-                            points[i, (int)point.startPoint.y].tip = null;
+                            castleMgr.buildPoint[i, (int)point.startPoint.y].tip = null;
                         }
                         //清理之前更改的位置信息
                         return false;
@@ -133,27 +133,26 @@ public class BuildTip : MonoBehaviour
                     return false;
                 }
             }
-            points[i, (int)point.startPoint.y].tip = this;
+            castleMgr.buildPoint[i, (int)point.startPoint.y].tip = this;
         }
 
-        parentPoint.position = points[startX, (int)point.startPoint.y].pointWall.position;
+        parentPoint.position = castleMgr.buildPoint[startX, (int)point.startPoint.y].pointWall.position;
         return true;
     }
 
-    public void RestartThisTip(BuildPoint[,] points)
+    public void RestartThisTip(CastleMgr castleMgr)
     {
         for (int i = startX; i < startX + roomSize; i++)
         {
-            points[i, (int)emptyPoint.startPoint.y].tip = null;
+            castleMgr.buildPoint[i, (int)emptyPoint.startPoint.y].tip = null;
         }
-        transform.position =new Vector2(-1000, -1000);
+        transform.position = new Vector2(-1000, -1000);
     }
 
-    public void InstanceRoom(RoomMgr room)
+    public void InstanceRoom(RoomMgr room, BuildingData data,CastleMgr castleMgr)
     {
         emptyPoint.startPoint = new Vector2(startX, emptyPoint.startPoint.y);
-        emptyPoint.endPoint = startX + roomSize;
-        room.UpdateBuilding(emptyPoint);
+        room.UpdateBuilding(emptyPoint.startPoint, data, castleMgr);
     }
 
     ///// <summary>

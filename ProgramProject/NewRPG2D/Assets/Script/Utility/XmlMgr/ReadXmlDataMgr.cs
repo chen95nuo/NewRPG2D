@@ -21,7 +21,7 @@ namespace Assets.Script.Utility
         SkillData,
         CreateEnemyData,
         Hall,
-
+        //BuildingRoomData,
 
         Battle,
 

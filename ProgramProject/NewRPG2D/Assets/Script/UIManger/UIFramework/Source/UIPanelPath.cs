@@ -8,7 +8,6 @@ namespace Assets.Script.UIManger
 {
     public class UIPanelPath
     {
-        public const string MainUIPath = "";
 
     }
 }

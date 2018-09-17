@@ -3,20 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIEventManager : TSingleton<UIEventManager>
+public class HallEventManager : TSingleton<HallEventManager>
 {
     private List<Delegate>[] listenerTarget;
     public override void Init()
     {
         base.Init();
-        listenerTarget = new List<Delegate>[(int)UIEventDefineEnum.EventMax];
-        for (int i = 0; i < (int)UIEventDefineEnum.EventMax; i++)
+        listenerTarget = new List<Delegate>[(int)HallEventDefineEnum.EventMax];
+        for (int i = 0; i < (int)HallEventDefineEnum.EventMax; i++)
         {
             listenerTarget[i] = new List<Delegate>(10);
         }
     }
 
-    public void AddListener(UIEventDefineEnum eventID, TDelegate eventHadle)
+    public void AddListener(HallEventDefineEnum eventID, TDelegate eventHadle)
     {
         int index = (int)eventID;
         if (CheckValid(index, eventHadle))
@@ -25,7 +25,7 @@ public class UIEventManager : TSingleton<UIEventManager>
         }
     }
 
-    public void RemoveListener(UIEventDefineEnum eventID, TDelegate eventHadle)
+    public void RemoveListener(HallEventDefineEnum eventID, TDelegate eventHadle)
     {
         int index = (int)eventID;
         if (CheckValid(index, eventHadle, true))
@@ -34,7 +34,7 @@ public class UIEventManager : TSingleton<UIEventManager>
         }
     }
 
-    public void SendEvent(UIEventDefineEnum eventID)
+    public void SendEvent(HallEventDefineEnum eventID)
     {
         int index = (int)eventID;
         if (index > listenerTarget.Length)
@@ -52,7 +52,7 @@ public class UIEventManager : TSingleton<UIEventManager>
         }
     }
 
-    public void AddListener<TParam>(UIEventDefineEnum eventID, TDelegate<TParam> eventHadle)
+    public void AddListener<TParam>(HallEventDefineEnum eventID, TDelegate<TParam> eventHadle)
     {
         int index = (int)eventID;
         if (CheckValid(index, eventHadle))
@@ -61,7 +61,7 @@ public class UIEventManager : TSingleton<UIEventManager>
         }
     }
 
-    public void RemoveListener<TParam>(UIEventDefineEnum eventID, TDelegate<TParam> eventHadle)
+    public void RemoveListener<TParam>(HallEventDefineEnum eventID, TDelegate<TParam> eventHadle)
     {
         int index = (int)eventID;
         if (CheckValid(index, eventHadle, true))
@@ -69,7 +69,7 @@ public class UIEventManager : TSingleton<UIEventManager>
             listenerTarget[index].Remove(eventHadle);
         }
     }
-    public void SendEvent<TParam>(UIEventDefineEnum eventID, TParam param)
+    public void SendEvent<TParam>(HallEventDefineEnum eventID, TParam param)
     {
         int index = (int)eventID;
         if (index > listenerTarget.Length)
@@ -125,7 +125,7 @@ public class UIEventManager : TSingleton<UIEventManager>
         {
             if (bRemove == false)
             {
-                DebugHelper.LogError(" -------------have same event and same reference------  " + (UIEventDefineEnum)evt);
+                DebugHelper.LogError(" -------------have same event and same reference------  " + (HallEventDefineEnum)evt);
             }
         }
         return true;

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class CastleMgr : MonoBehaviour
 {
-    public static CastleMgr instance;
-
-    public const float high = 10.8f;
-    public const float width = 4.77f;
+    public const float high = 10.8f;//默认最小房间高度
+    public const float width = 4.77f;//默认最小房间宽度
+    private const int buildHigh = 4;//默认最小等级的高度
+    private const int buildWidth = 17;//默认最小等级的长度
+    private int buildH = 4;//可变高度
+    private int buildW = 17;//可变长度
 
     public GameObject[] Wall;
     public GameObject buildTip;
@@ -20,23 +22,36 @@ public class CastleMgr : MonoBehaviour
 
     public int maxLength = 100;
     public int maxWidth = 100;
-    private int buildLength = 17;//当前等级的长度
-    private int buildWidth = 4;//当前等级的高度
     public BuildPoint[,] buildPoint;
 
-    public List<GameObject> room;//所有建成的房间
+    public List<RoomMgr> room;//所有建成的房间
     public List<GameObject> removeRoom;//被删除的建筑
     public List<BuildTip> buildTips;//所有标签的位置
     public List<EmptyPoint> emptyPoint;//所有空位
+    public List<ServerBuildData> serverRoom;//服务器中的房间
     public BuildingData buildingData;
 
-    private int useEmptyIndex = 0;
 
-    void Awake()
+    public bool editMode = false;//是否可以建造
+    public CastleType castleType;
+
+    private int useEmptyIndex = 0;//使用过的空格数量
+    private PlayerData playerData;
+
+
+    private void Awake()
     {
-        instance = this;
-
+        HallEventManager.instance.AddListener<RaycastHit>(HallEventDefineEnum.InEditMode, ChickReycast);
+        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.InEditMode, RemoveRoom);
+        HallEventManager.instance.AddListener<BuildingData>(HallEventDefineEnum.AddBuild, BuildRoomTip);
         Init();
+    }
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<RaycastHit>(HallEventDefineEnum.InEditMode, ChickReycast);
+        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.InEditMode, RemoveRoom);
+        HallEventManager.instance.RemoveListener<BuildingData>(HallEventDefineEnum.AddBuild, BuildRoomTip);
+
     }
     // Use this for initialization
     void Start()
@@ -44,54 +59,69 @@ public class CastleMgr : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void Init()
     {
-        ChickReycast();
-    }
-
-    private void Init()
-    {
+        Debug.Log(" awake  ");
+        playerData = GetPlayerData.Instance.GetData();
         UpdateBGNumber();
         instanceWall();
+    }
+
+    protected void AcceptServerRoom(List<ServerBuildData> room)//游戏开始时将已建造的房间直接建造出来
+    {
+        if (room != null && room.Count > 0)
+        {
+            for (int i = 0; i < room.Count; i++)
+            {
+                InstanceRoom(room[i]);
+                switch (room[i].buildingData.RoomType)
+                {
+                    case BuildRoomType.GlodSpace:
+                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.GlodSpace, room[i].buildingData);
+                        break;
+                    case BuildRoomType.FoodSpace:
+                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.FoodSpace, room[i].buildingData);
+                        break;
+                    case BuildRoomType.ManaSpace:
+                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.ManaSpace, room[i].buildingData);
+                        break;
+                    case BuildRoomType.WoodSpace:
+                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.WoodSpace, room[i].buildingData);
+                        break;
+                    case BuildRoomType.IronSpace:
+                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.IronSpace, room[i].buildingData);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     /// <summary>
     /// 射线检测
     /// </summary>
-    private void ChickReycast()
+    private void ChickReycast(RaycastHit hit)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (editMode == false)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.tag == "BuildTip")
-                {
-                    //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
-                    BuildTip tip = hit.collider.GetComponent<BuildTip>();
-                    //生成建筑
-                    if (tip.isMerge)
-                    {
-                        MergeRoom();
-                    }
-                    else
-                    {
-                        InstanceRoom(tip);
-                    }
-
-                    //删除当前已使用空位
-                    emptyPoint.Remove(tip.emptyPoint);
-                    //将所有标签移出屏幕
-                    ResetRoomTip();
-                }
-                else if (hit.collider.tag == "Room")
-                {
-                    hit.collider.gameObject.GetComponent<RoomMgr>().RemoveBuilding(buildPoint);
-                }
-            }
+            return;
         }
+        //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
+        BuildTip tip = hit.collider.GetComponent<BuildTip>();
+        //生成建筑
+        if (tip.isMerge)
+        {
+            MergeRoom();
+        }
+        else
+        {
+            InstanceRoom(tip);
+        }
+        //删除当前已使用空位
+        emptyPoint.Remove(tip.emptyPoint);
+        //将所有标签移出屏幕
+        ResetRoomTip();
     }
 
     /// <summary>
@@ -104,17 +134,16 @@ public class CastleMgr : MonoBehaviour
     /// <summary>
     /// 刷新背景墙
     /// </summary>
-    private void instanceWall()
+    protected void instanceWall()
     {
-        int index = 0;
-        for (int i = 0; i < buildWidth; i++)
+        buildH = buildHigh + playerData.mainHallLevel;
+        buildW = buildWidth + (playerData.mainHallLevel * 3);
+
+
+        for (int i = 0; i < buildH; i++)
         {
-            for (int j = 0; j < buildLength; j++)
+            for (int j = 0; j < buildW; j++)
             {
-                if (index > 2)
-                {
-                    index = 0;
-                }
                 if (startPoint.x + (width * j) < limitPoint_1.x && startPoint.y + (high * i) > limitPoint_1.y)
                 {
                     buildPoint[j, i] = new BuildPoint();
@@ -127,12 +156,11 @@ public class CastleMgr : MonoBehaviour
                 }
                 if (buildPoint[j, i].pointType == BuildingType.Wall)
                 {
-                    GameObject go = Instantiate(Wall[index], buildingPoint) as GameObject;
+                    GameObject go = Instantiate(Wall[j % 3], buildingPoint) as GameObject;
                     Vector2 point = new Vector2(startPoint.x + (width * j), startPoint.y + (high * i));
-                    go.transform.position = point;
+                    go.transform.localPosition = point;
                     buildPoint[j, i].pointWall = go.transform;
                 }
-                index++;
             }
         }
     }
@@ -140,8 +168,13 @@ public class CastleMgr : MonoBehaviour
     /// <summary>
     /// 建筑生成提示框
     /// </summary>
-    private void BuildRoomTip(BuildingData data)
+    public void BuildRoomTip(BuildingData data)
     {
+        if (editMode == false)
+        {
+            return;
+        }
+        ResetRoomTip();
         buildingData = data;
         //如果没有提示框那么新建
         if (buildTips == null)
@@ -174,7 +207,7 @@ public class CastleMgr : MonoBehaviour
                     buildTips.Add(buidTip);
                 }
                 //给符合条件的位置放置提示框
-                bool isRead = buildTips[index].UpdateTip(emptyPoint[i], emptyPoint, data, buildPoint);
+                bool isRead = buildTips[index].UpdateTip(emptyPoint[i], emptyPoint, data, this);
                 if (isRead == true)
                 {
                     index++;
@@ -195,46 +228,82 @@ public class CastleMgr : MonoBehaviour
     {
         for (int i = 0; i < buildTips.Count; i++)
         {
-            buildTips[i].RestartThisTip(buildPoint);
+            buildTips[i].RestartThisTip(this);
             buildTips[i].transform.position = new Vector2(-1000, -1000);
         }
     }
+
     /// <summary>
     /// 合并房间
     /// </summary>
     private void MergeRoom() { Debug.Log("合并房间"); }
 
     /// <summary>
-    /// 生成房间
+    /// 通过提示框生成房间
     /// </summary>
-    private void InstanceRoom(BuildTip tip)
+    public void InstanceRoom(BuildTip tip)
     {
         //如果该房间在对象池内 那么直接调用
         for (int i = 0; i < removeRoom.Count; i++)
         {
-            if (removeRoom[i].gameObject.name == buildingData.SprintName)
+            if (removeRoom[i].gameObject.name == buildingData.RoomType.ToString())
             {
                 removeRoom[i].transform.position = tip.parentPoint.position;
                 RoomMgr room = removeRoom[i].GetComponent<RoomMgr>();
-                tip.InstanceRoom(room);
+                tip.InstanceRoom(room, buildingData, this);
                 removeRoom.Remove(removeRoom[i]);
                 return;
             }
         }
-        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/" + buildingData.SprintName);
+        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + buildingData.RoomType.ToString());
         go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = buildingData.SprintName;
+        go.name = buildingData.RoomType.ToString();
         go.transform.position = tip.parentPoint.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
-        tip.InstanceRoom(room_1);
+        tip.InstanceRoom(room_1, buildingData, this);
     }
 
+    /// <summary>
+    /// 直接生成房间
+    /// </summary>
+    public void InstanceRoom(ServerBuildData data)
+    {
+        for (int i = 0; i < removeRoom.Count; i++)
+        {
+            if (removeRoom[i].gameObject.name == data.buildingData.RoomType.ToString())
+            {
+                removeRoom[i].transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
+                RoomMgr room = removeRoom[i].GetComponent<RoomMgr>();
+                room.UpdateBuilding(data.buildingPoint, data.buildingData, this);
+                removeRoom.Remove(removeRoom[i]);
+                return;
+            }
+        }
+        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomType.ToString());
+        go = Instantiate(go, buildingPoint) as GameObject;
+        go.name = data.buildingData.RoomType.ToString();
+        go.transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
+        RoomMgr room_1 = go.GetComponent<RoomMgr>();
+        room_1.UpdateBuilding(data.buildingPoint, data.buildingData, this);
+    }
+
+    /// <summary>
+    /// 删除房间 只有建造模式可用
+    /// </summary>
+    /// <param name="room"></param>
+    public void RemoveRoom(RoomMgr room)
+    {
+        if (castleType == CastleType.main)
+        {
+            return;
+        }
+        room.RemoveBuilding(buildPoint);
+    }
     #region 测试区域
     private void ChickLouTi()
     {
         BuildingData louTi = new BuildingData();
         louTi.RoomSize = 1;
-        louTi.SprintName = "Build_Stairs";
         louTi.RoomType = BuildRoomType.Stairs;
         ResetRoomTip();
         BuildRoomTip(louTi);
@@ -244,47 +313,46 @@ public class CastleMgr : MonoBehaviour
     {
         BuildingData woShi = new BuildingData();
         woShi.RoomSize = 3;
-        woShi.SprintName = "Build_Bedroom";
         ResetRoomTip();
         BuildRoomTip(woShi);
     }
+    //private void TestAddLength()  //*3
+    //{
+    //    for (int i = 0; i < buildHigh; i++)
+    //    {
+    //        for (int j = buildWidth; j < buildWidth + 3; j++)
+    //        {
+    //            buildPoint[j, i] = new BuildPoint();
+    //            buildPoint[j, i].pointType = BuildingType.Wall;
+    //            GameObject go = Instantiate(Wall[j % 3], buildingPoint) as GameObject;
+    //            Vector2 point = new Vector2(startPoint.x + (width * j), startPoint.y + (high * i));
+    //            go.transform.position = point;
+    //            buildPoint[j, i].pointWall = go.transform;
+    //        }
+    //    }
+    //    buildLength += 3;
+    //    for (int i = 0; i < room.Count; i++)
+    //    {
+    //        room[i].UpdateBuilding();
+    //    }
+    //}
+    //private void TestAddWidth()
+    //{
+    //    for (int i = 6; i < buildWidth; i++)
+    //    {
+    //        buildPoint[i, buildHigh] = new BuildPoint();
+    //        buildPoint[i, buildHigh].pointType = BuildingType.Wall;
+    //        GameObject go = Instantiate(Wall[i % 3], buildingPoint) as GameObject;
+    //        Vector2 point = new Vector2(startPoint.x + (width * i), startPoint.y + (high * buildHigh));
+    //        go.transform.position = point;
+    //        buildPoint[i, buildHigh].pointWall = go.transform;
+    //    }
+    //    buildWidth++;
+    //    for (int i = 0; i < room.Count; i++)
+    //    {
+    //        room[i].UpdateBuilding();
+    //    }
+    //}
     #endregion
 }
 
-/// <summary>
-/// 墙面信息
-/// </summary>
-public class BuildPoint
-{
-    public BuildingType pointType;//当前位置类型
-    public Transform pointWall;//当前位置墙体引用
-    public RoomMgr roomMgr;//当前位置房间信息
-    public BuildTip tip;//当前位置提示框信息
-}
-
-/// <summary>
-/// 空位信息
-/// </summary>
-[System.Serializable]
-public class EmptyPoint
-{
-    public Vector2 startPoint;//起点位置
-    public int endPoint;//结束位置
-    public int emptyNumber;//空位数量
-    public RoomMgr roomData;//链接的建筑信息
-
-    public EmptyPoint()
-    {
-        //startPoint = new Vector2(6, 1);
-        //endPoint = 16;
-        //emptyNumber = 9;
-    }
-
-    public EmptyPoint(Vector2 startPoint, int endPoint, int emptyNumber, RoomMgr roomData)
-    {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.emptyNumber = emptyNumber;
-        this.roomData = roomData;
-    }
-}

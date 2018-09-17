@@ -139,7 +139,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924997626073618}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -255,8 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd79ff2c04e8cf498fb3eeb6eff0466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  louti: {fileID: 0}
-  woshi: {fileID: 0}
   Wall:
   - {fileID: 1736309713143004, guid: 9c8c159fd87796740b2772185644c2bf, type: 2}
   - {fileID: 1650243235116496, guid: 0cbad01047e7961448734394f4f85773, type: 2}
@@ -264,11 +262,35 @@ MonoBehaviour:
   buildTip: {fileID: 1498567371162274, guid: ee79801e920848545b04db2f4c20a5c8, type: 2}
   buildingPoint: {fileID: 4792065590668298}
   buildTipPoint: {fileID: 4099814582263506}
-  maxRoomSize: 9
   startPoint: {x: -29.76, y: -47.15}
   limitPoint_1: {x: -1.34, y: -45}
-  buildLength: 17
-  buildWidth: 4
+  maxLength: 100
+  maxWidth: 100
+  room: []
+  removeRoom: []
+  buildTips: []
+  emptyPoint: []
+  buildingData:
+    ID: 0
+    Description: 
+    Level: 0
+    RoomType: 0
+    NeedGold: 0
+    NeedMana: 0
+    NeedWood: 0
+    NeedIron: 0
+    NeedTime: 0
+    NeedLevel: 0
+    RoomSize: 0
+    MergeID: 0
+    SplitID: 0
+    UnlockLevel: 0
+    NexLevelID: 0
+    Param1: 0
+    Param2: 0
+    Param3: 0
+    Param4: 0
+  editMode: 0
 --- !u!212 &212300379711300052
 SpriteRenderer:
   m_ObjectHideFlags: 1

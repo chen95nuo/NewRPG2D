@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class BuildBedroom : RoomMgr
 {
-    protected override void ThisRoomFunc()
+    public override void GetRoomMaterial(int number)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void RoomAwake()
+    {
+    }
+
+    public override void ThisRoomFunc()
     {
         throw new System.NotImplementedException();
     }
