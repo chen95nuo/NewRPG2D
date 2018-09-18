@@ -14,14 +14,18 @@ public class MapControl : MonoBehaviour
     private void Awake()
     {
         HallEventManager.instance.AddListener(HallEventDefineEnum.InEditMode, ShowEditMap);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.EditMode, ShowMainMap);
         ShowMainMap();
     }
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.InEditMode, ShowEditMap);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.EditMode, ShowMainMap);
+
     }
     public void ShowMainMap()
     {
+        Debug.Log("运行了");
         mainCastle.editMode = true;
         editCastle.editMode = false;
         MainMap.SetActive(true);

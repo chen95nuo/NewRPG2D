@@ -54,3 +54,11 @@ public class EmptyPoint
         this.roomData = roomData;
     }
 }
+
+public class EditRoom
+{
+    public RoomMgr room;
+
+}
+
+

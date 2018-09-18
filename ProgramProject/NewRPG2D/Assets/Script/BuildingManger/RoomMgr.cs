@@ -39,12 +39,17 @@ public abstract class RoomMgr : MonoBehaviour
     public GameObject roomLock;//房间选定框
     [System.NonSerialized]
     public GameObject roomProp;//资源获取框
+
+    /// <summary>
+    /// 将数据添加到服务器
+    /// </summary>
     protected void SetUpInformation()
     {
         ServerBuildData data = new ServerBuildData();
         data.buildingData = this.buildingData;
-        data.buildingPoint = this.buidStartPoint;
+        data.buildingPoint = this.startPoint;
         LocalServer.instance.AddRoom(data);
+        castleMgr.serverRoom.Add(data);
     }
     /// <summary>
     /// 新建建筑
@@ -58,13 +63,11 @@ public abstract class RoomMgr : MonoBehaviour
         buildingData = data;
         startPoint = point;
         roomType = buildingData.RoomType;
-        SetUpInformation();
         if (castleMgr.castleType == CastleType.main)//如果不是建造模式生成的建筑
         {
             roomFunc = true;//房间功能开启
-            ServerBuildData serverData = new ServerBuildData(point, data);
             //将其添加到服务器
-            castleMgr.serverRoom.Add(serverData);
+            SetUpInformation();
         }
         RoomAwake();
         //将房间这一段墙壁移出 给这一段空间添加该房间引用
@@ -93,7 +96,7 @@ public abstract class RoomMgr : MonoBehaviour
 
         ChickLeftOrRight(castleMgr.buildPoint);
 
-        castleMgr.room.Add(this);
+        castleMgr.rooms.Add(this);
         AddConnection();
     }
 
@@ -275,7 +278,7 @@ public abstract class RoomMgr : MonoBehaviour
     public void RemoveBuilding(BuildPoint[,] buildPoint)
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        castleMgr.room.Remove(this);
+        castleMgr.rooms.Remove(this);
 
         this.gameObject.transform.position = new Vector2(-1000, -1000);
         castleMgr.removeRoom.Add(this.gameObject);

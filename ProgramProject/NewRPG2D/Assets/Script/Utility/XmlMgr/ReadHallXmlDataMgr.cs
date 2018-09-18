@@ -31,6 +31,8 @@ namespace Assets.Script.Utility
                     return new MapSceneLevelData();
                 case XmlName.CreateEnemyData:
                     return new CreateEnemyData();
+                case XmlName.BuildingData:
+                    return new BuildingData();
                 default: return new XmlData();
             }
         }

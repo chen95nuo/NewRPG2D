@@ -13,18 +13,26 @@ public class LocalServer : TSingleton<LocalServer>
     private List<ServerBuildData> serverRoom = new List<ServerBuildData>();
     private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();
 
+
     public void AddRoom(ServerBuildData data)
     {
         for (int i = 0; i < serverRoom.Count; i++)
         {
-            if (serverRoom[i] == data)
+            if (serverRoom[i].buildingData == data.buildingData
+                && serverRoom[i].buildingPoint == data.buildingPoint)
             {
+                Debug.LogError("重复了跳过");
                 return;
             }
         }
+        Debug.LogError("没有重复继续运行");
         serverRoom.Add(data);
-        Debug.Log(data.buildingData.RoomType);
         SendSpaceEvent(data);
+    }
+    public void GetNewRoom(List<ServerBuildData> rooms)
+    {
+        serverRoom = rooms;
+        HallEventManager.instance.SendEvent<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, serverRoom);
     }
     public void ReplaceRoom(ServerBuildData data_1, ServerBuildData data_2)
     {
@@ -55,7 +63,7 @@ public class LocalServer : TSingleton<LocalServer>
 
         switch (data.RoomType)
         {
-            case BuildRoomType.Restaurant:
+            case BuildRoomType.Food:
                 type = BuildRoomType.FoodSpace;
                 break;
             default:
@@ -70,7 +78,7 @@ public class LocalServer : TSingleton<LocalServer>
         }
         switch (data.RoomType)
         {
-            case BuildRoomType.Restaurant:
+            case BuildRoomType.Food:
                 //如果食物空间加上仓库空间 小于食物数量 那么说明仓库满了
                 if (player.foodSpace + (int)thisRoom.Param2
                     < player.food + data.Param4)
@@ -84,7 +92,6 @@ public class LocalServer : TSingleton<LocalServer>
                 {
                     player.food += (int)data.Param4;
                     data.Param4 -= (int)data.Param4;
-                    Debug.Log("剩余" + data.Param4);
                     return true;
                 }
             default:

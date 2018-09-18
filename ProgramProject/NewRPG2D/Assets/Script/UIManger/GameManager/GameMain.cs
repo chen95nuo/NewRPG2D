@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.UIManger;
+using Assets.Script.Utility;
 
 public class GameMain : MonoBehaviour
 {
@@ -19,10 +20,17 @@ public class GameMain : MonoBehaviour
     private void Start()
     {
         UIPanelManager.instance.ShowPage<UIMain>();
+        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Battle);
+        //ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
+        Invoke("test", 1f);
     }
 
     private void Update()
     {
+    }
 
+    private void test()
+    {
+        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10001);
     }
 }

@@ -28,14 +28,12 @@ public class BuildRestaurant : RoomMgr
             //如果数量小于1 那么关闭提示框 关闭收获提示
             if (buildingData.Param4 <= 1)
             {
-                Debug.Log(" 关闭提示框 ");
                 roomProp.SetActive(false);
                 isHarvest = false;
             }
             //显示动画并刷新数字
             else
             {
-                Debug.Log("显示了1");
                 roomProp.SetActive(true);
                 isHarvest = true;
             }
@@ -56,7 +54,6 @@ public class BuildRestaurant : RoomMgr
         }
         //显示可获取
         isHarvest = true;
-        Debug.Log("显示了2");
         roomProp.SetActive(true);
     }
 

@@ -8,8 +8,10 @@ using UnityEngine;
 public enum HallEventDefineEnum
 {
     AddBuild,
+    ChickBuild,
     ChickFood,
     EditMode,
+    EditMgr,
     AddFood,
     InEditMode,
     GlodSpace,
@@ -17,6 +19,8 @@ public enum HallEventDefineEnum
     ManaSpace,
     WoodSpace,
     IronSpace,
+    ClearAllRoom,
+    CloseRoomLock,
     diamondsSpace,
     EventMax
 }

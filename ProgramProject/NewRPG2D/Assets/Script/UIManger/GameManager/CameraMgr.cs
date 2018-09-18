@@ -39,31 +39,25 @@ public class CameraMgr : MonoBehaviour
     private void Awake()
     {
         HallEventManager.instance.AddListener(HallEventDefineEnum.InEditMode, InTheEditMode);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
 
         m_Camera = GetComponent<Camera>();
         m_CameraPosition = m_Camera.transform.position;
-        //slider_2.value = MoveSpeed;
 
         GetSpeed();
     }
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.InEditMode, InTheEditMode);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
     }
-
-    ////只有建造模式才可以删除 删除系统
-    //private void TestRemoveRoom()
-    //{
-    //    HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.InEditMode, room);
-    //    room.roomLock.SetActive(false);
-    //    room = null;
-    //}
 
     private void Update()
     {
         if (mapType == MapType.MainMap)
         {
             MainMap();
+            TouchMove();
         }
         else
         {
@@ -212,20 +206,20 @@ public class CameraMgr : MonoBehaviour
                 if (hit.collider.tag == "Room")
                 {
                     RoomMgr data = hit.collider.GetComponent<RoomMgr>();
-                    if (room == null)
-                    {
-                        room = data;
-                        //子物体启动
-                        room.roomLock.SetActive(true);
-                        //出现提示框
-                        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, data);
-                    }
-                    else if (room != data)//更换选中房间
+                    if (room != null && room != data)//更换选中房间
                     {
                         room.roomLock.SetActive(false);
                         data.roomLock.SetActive(true);
                         room = data;
                         //切换提示框
+                        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, data);
+                    }
+                    else /*(room == null)*/
+                    {
+                        room = data;
+                        //子物体启动
+                        room.roomLock.SetActive(true);
+                        //出现提示框
                         HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, data);
                     }
                 }
@@ -247,6 +241,18 @@ public class CameraMgr : MonoBehaviour
     private void ChangeMap()//更换地图
     {
 
+    }
+
+    /// <summary>
+    /// 关闭锁定状态
+    /// </summary>
+    private void ClickRoomLock()
+    {
+        if (room != null)
+        {
+            room.roomLock.SetActive(false);
+        }
+        room = null;
     }
 
     private void CameraMove(Vector3 point)

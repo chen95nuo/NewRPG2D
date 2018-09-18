@@ -24,7 +24,7 @@ public class CastleMgr : MonoBehaviour
     public int maxWidth = 100;
     public BuildPoint[,] buildPoint;
 
-    public List<RoomMgr> room;//所有建成的房间
+    public List<RoomMgr> rooms;//所有建成的房间
     public List<GameObject> removeRoom;//被删除的建筑
     public List<BuildTip> buildTips;//所有标签的位置
     public List<EmptyPoint> emptyPoint;//所有空位
@@ -44,6 +44,7 @@ public class CastleMgr : MonoBehaviour
         HallEventManager.instance.AddListener<RaycastHit>(HallEventDefineEnum.InEditMode, ChickReycast);
         HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.InEditMode, RemoveRoom);
         HallEventManager.instance.AddListener<BuildingData>(HallEventDefineEnum.AddBuild, BuildRoomTip);
+        HallEventManager.instance.AddListener<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, AcceptServerRoom);//监听服务器推送的建筑信息
         Init();
     }
     private void OnDestroy()
@@ -51,7 +52,7 @@ public class CastleMgr : MonoBehaviour
         HallEventManager.instance.RemoveListener<RaycastHit>(HallEventDefineEnum.InEditMode, ChickReycast);
         HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.InEditMode, RemoveRoom);
         HallEventManager.instance.RemoveListener<BuildingData>(HallEventDefineEnum.AddBuild, BuildRoomTip);
-
+        HallEventManager.instance.RemoveListener<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, AcceptServerRoom);//监听服务器推送的建筑信息
     }
     // Use this for initialization
     void Start()
@@ -69,6 +70,20 @@ public class CastleMgr : MonoBehaviour
 
     protected void AcceptServerRoom(List<ServerBuildData> room)//游戏开始时将已建造的房间直接建造出来
     {
+        serverRoom.Clear();
+        if (castleType != CastleType.main)
+        {
+            return;
+        }
+        //判断是否为初始阶段 若不是先清空在重建
+        if (this.rooms.Count > 0)
+        {
+            for (int i = this.rooms.Count - 1; i >= 0; i--)
+            {
+                this.rooms[i].RemoveBuilding(buildPoint);
+            }
+        }
+        //建造房间
         if (room != null && room.Count > 0)
         {
             for (int i = 0; i < room.Count; i++)
@@ -272,6 +287,7 @@ public class CastleMgr : MonoBehaviour
         {
             if (removeRoom[i].gameObject.name == data.buildingData.RoomType.ToString())
             {
+                Debug.Log("有相同的  : " + data.buildingData);
                 removeRoom[i].transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
                 RoomMgr room = removeRoom[i].GetComponent<RoomMgr>();
                 room.UpdateBuilding(data.buildingPoint, data.buildingData, this);
@@ -282,7 +298,7 @@ public class CastleMgr : MonoBehaviour
         GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomType.ToString());
         go = Instantiate(go, buildingPoint) as GameObject;
         go.name = data.buildingData.RoomType.ToString();
-        go.transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
+        go.transform.position = this.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         room_1.UpdateBuilding(data.buildingPoint, data.buildingData, this);
     }
@@ -297,7 +313,7 @@ public class CastleMgr : MonoBehaviour
         {
             return;
         }
-        room.RemoveBuilding(buildPoint);
+        room.RemoveBuilding(this.buildPoint);
     }
     #region 测试区域
     private void ChickLouTi()
