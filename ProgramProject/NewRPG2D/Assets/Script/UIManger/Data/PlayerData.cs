@@ -4,36 +4,253 @@ using UnityEngine;
 
 public class PlayerData
 {
-    public string name;//玩家昵称
-    public int level;//城堡等级
-    public int gold;//金币数量
-    public int diamonds;//钻石数量
-    public int food;//食物
-    public int mana;//法力值
-    public int wood;//木材
-    public int iron;//铁矿
-    public int mainHallLevel;//大殿等级
-    public int goldSpace;//金币空间
-    public int foodSpace;//食物空间
-    public int manaSpace;//魔法空间
-    public int woodSpace;//木材空间
-    public int ironSpace;//铁矿空间
+    private string name;//玩家昵称
+    private int level;//城堡等级
+    private int gold;//金币数量
+    private int diamonds;//钻石数量
+    private int food;//食物
+    private int mana;//法力值
+    private int wood;//木材
+    private int iron;//铁矿
+    private int mainHallLevel;//大殿等级
+    private int goldSpace;//金币空间
+    private int foodSpace;//食物空间
+    private int manaSpace;//魔法空间
+    private int woodSpace;//木材空间
+    private int ironSpace;//铁矿空间
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+
+        set
+        {
+            name = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != level)
+            {
+                level = temp;
+                //HallEventManager.instance.SendEvent(HallEventDefineEnum.)
+            }
+        }
+    }
+
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != gold)
+            {
+                gold = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.GoldSpace);
+            }
+        }
+    }
+
+    public int Diamonds
+    {
+        get
+        {
+            return diamonds;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != diamonds)
+            {
+                diamonds = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.diamondsSpace);
+            }
+        }
+    }
+
+    public int Food
+    {
+        get
+        {
+            return food;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != food)
+            {
+                food = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.FoodSpace);
+            }
+        }
+    }
+
+    public int Mana
+    {
+        get
+        {
+            return mana;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != mana)
+            {
+                mana = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.ManaSpace);
+            }
+        }
+    }
+
+    public int Wood
+    {
+        get
+        {
+            return wood;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != wood)
+            {
+                wood = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.WoodSpace);
+            }
+        }
+    }
+
+    public int Iron
+    {
+        get
+        {
+            return iron;
+        }
+
+        set
+        {
+            int temp = value;
+            if (temp != iron)
+            {
+                iron = temp;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.IronSpace);
+            }
+        }
+    }
+
+    public int MainHallLevel
+    {
+        get
+        {
+            return mainHallLevel;
+        }
+
+        set
+        {
+            mainHallLevel = value;
+        }
+    }
+
+    public int GoldSpace
+    {
+        get
+        {
+            return goldSpace;
+        }
+
+        set
+        {
+            goldSpace = value;
+        }
+    }
+
+    public int FoodSpace
+    {
+        get
+        {
+            return foodSpace;
+        }
+
+        set
+        {
+            foodSpace = value;
+        }
+    }
+
+    public int ManaSpace
+    {
+        get
+        {
+            return manaSpace;
+        }
+
+        set
+        {
+            manaSpace = value;
+        }
+    }
+
+    public int WoodSpace
+    {
+        get
+        {
+            return woodSpace;
+        }
+
+        set
+        {
+            woodSpace = value;
+        }
+    }
+
+    public int IronSpace
+    {
+        get
+        {
+            return ironSpace;
+        }
+
+        set
+        {
+            ironSpace = value;
+        }
+    }
 
     public PlayerData()
     {
-        name = "Baymax";
-        level = 1;
-        gold = 100;
-        diamonds = 100;
-        food = 0;
-        mana = 0;
-        wood = 0;
-        iron = 0;
-        mainHallLevel = 1;
-        goldSpace = 5000;
-        foodSpace = 5000;
-        manaSpace = 5000;
-        woodSpace = 5000;
-        ironSpace = 5000;
+        Name = "Baymax";
+        Level = 1;
+        Gold = 1000;
+        Diamonds = 100;
+        Food = 0;
+        Mana = 0;
+        Wood = 0;
+        Iron = 0;
+        MainHallLevel = 1;
+        GoldSpace = 5000;
+        FoodSpace = 5000;
+        ManaSpace = 5000;
+        WoodSpace = 5000;
+        IronSpace = 5000;
     }
 }

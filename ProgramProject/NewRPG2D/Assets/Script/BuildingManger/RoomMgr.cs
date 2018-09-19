@@ -12,7 +12,7 @@ public abstract class RoomMgr : MonoBehaviour
 {
     private CastleMgr castleMgr;//主城堡信息
     public int roomID;//用于区分第几个相同房间
-    public BuildRoomType roomType;//房间类型
+    public string RoomName;//房间类型
     public Vector2 buidStartPoint;//起点坐标
     public int buildEndPoint;//终点坐标
     [SerializeField]
@@ -40,6 +40,8 @@ public abstract class RoomMgr : MonoBehaviour
     [System.NonSerialized]
     public GameObject roomProp;//资源获取框
 
+    protected float yield = 0;
+    protected float stock = 0;
     /// <summary>
     /// 将数据添加到服务器
     /// </summary>
@@ -48,6 +50,11 @@ public abstract class RoomMgr : MonoBehaviour
         ServerBuildData data = new ServerBuildData();
         data.buildingData = this.buildingData;
         data.buildingPoint = this.startPoint;
+        if (buildingData.RoomType == RoomType.Production)//如果是生产类
+        {
+            data.Yield = yield;
+            data.Stock = stock;
+        }
         LocalServer.instance.AddRoom(data);
         castleMgr.serverRoom.Add(data);
     }
@@ -62,7 +69,7 @@ public abstract class RoomMgr : MonoBehaviour
         disTip.SetActive(false);//关闭断开图标
         buildingData = data;
         startPoint = point;
-        roomType = buildingData.RoomType;
+        RoomName = buildingData.RoomName;
         if (castleMgr.castleType == CastleType.main)//如果不是建造模式生成的建筑
         {
             roomFunc = true;//房间功能开启
@@ -198,7 +205,7 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
 
-        if (roomType == BuildRoomType.Stairs)
+        if (RoomName == "Stairs")
             ChickUpOrDown(castleMgr.buildPoint);
         else
         {
@@ -225,7 +232,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (buildPoint[startX, startY + 1] != null
             && buildPoint[startX, startY + 1].pointType == BuildingType.Full
-            && buildPoint[startX, startY + 1].roomMgr.roomType == BuildRoomType.Stairs)
+            && buildPoint[startX, startY + 1].roomMgr.RoomName == "Stairs")
         //如果上面位置不是空的且有房间且房间类型是楼梯 那么上方添加该房间
         {
             nearbyRoom[2] = buildPoint[startX, startY + 1].roomMgr;
@@ -246,7 +253,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (startY - 1 >= 0 && buildPoint[startX, startY - 1] != null
             && buildPoint[startX, startY - 1].pointType == BuildingType.Full
-            && buildPoint[startX, startY - 1].roomMgr.roomType == BuildRoomType.Stairs)
+            && buildPoint[startX, startY - 1].roomMgr.RoomName == "Stairs")
         {
             nearbyRoom[3] = buildPoint[startX, startY - 1].roomMgr;
             buildPoint[startX, startY - 1].roomMgr.nearbyRoom[2] = this;
@@ -465,7 +472,7 @@ public abstract class RoomMgr : MonoBehaviour
                 {
                     if (linkType == true)//通常这种情况出现在楼梯 且楼梯只向上
                     {
-                        Debug.LogError("走到边缘楼梯 楼梯可通往上下" + roomType);
+                        Debug.LogError("走到边缘楼梯 楼梯可通往上下" + RoomName);
                         bool link = room.ChickConnection(this, false);
                         linkType = link;
                         ChickDisTip();
@@ -581,7 +588,6 @@ public abstract class RoomMgr : MonoBehaviour
 
     public abstract void ThisRoomFunc();
     public abstract void RoomAwake();
-    public abstract void GetRoomMaterial(int number);
 
     protected void GetCompoment()
     {

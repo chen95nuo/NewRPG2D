@@ -20,13 +20,8 @@ public class GameMain : MonoBehaviour
     private void Start()
     {
         UIPanelManager.instance.ShowPage<UIMain>();
-        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Battle);
-        //ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
+        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
         Invoke("test", 1f);
-    }
-
-    private void Update()
-    {
     }
 
     private void test()

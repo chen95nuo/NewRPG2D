@@ -12,7 +12,7 @@ public class LocalServer : TSingleton<LocalServer>
 {
     private List<ServerBuildData> serverRoom = new List<ServerBuildData>();
     private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();
-
+    private PlayerData player;
 
     public void AddRoom(ServerBuildData data)
     {
@@ -25,9 +25,9 @@ public class LocalServer : TSingleton<LocalServer>
                 return;
             }
         }
-        Debug.LogError("没有重复继续运行");
+        Debug.Log("没有重复继续运行");
         serverRoom.Add(data);
-        SendSpaceEvent(data);
+        SendSpaceEvent(data.buildingData);
     }
     public void GetNewRoom(List<ServerBuildData> rooms)
     {
@@ -49,78 +49,172 @@ public class LocalServer : TSingleton<LocalServer>
     private void JustTime(int key)
     {
         RoomMgr thisRoom = buildNumber[key];
-        thisRoom.buildingData.Param4 += thisRoom.buildingData.Param1 / 60 / 60 * 30;
-        if (thisRoom.buildingData.Param4 / thisRoom.buildingData.Param1 * 100 > 3)
+        IProduction index = thisRoom.GetComponent<IProduction>();
+
+        index.Stock += index.Yield / 60 / 60 * 30;
+        index.Stock = Mathf.Clamp(index.Stock, 0, thisRoom.buildingData.Param2);
+        if (index.Stock / thisRoom.buildingData.Param1 * 100 > 3)
         {
-            thisRoom.GetRoomMaterial((int)thisRoom.buildingData.Param4);
+            index.GetNumber((int)index.Stock);
         }
     }
-    public bool SetNumber(BuildingData data)
+    /*  
+     *  添加的时候先加仓库仓库不够在使用玩家储存
+     *  减少的时候先减少玩家库存在减少仓库
+     *  返回值是是否使用成功
+     */
+    public bool SetNumber(RoomMgr roomData)
     {
-        PlayerData player = GetPlayerData.Instance.GetData();
-        BuildingData thisRoom = new BuildingData();
-        BuildRoomType type = BuildRoomType.Nothing;
-
-        switch (data.RoomType)
+        BuildingData data = roomData.buildingData;
+        if (player == null)
         {
-            case BuildRoomType.Food:
-                type = BuildRoomType.FoodSpace;
-                break;
-            default:
-                break;
+            player = GetPlayerData.Instance.GetData();//获取玩家数据
         }
+        ServerBuildData StorageRoom = null;//对应仓库
+
+        float index = 0;
         for (int i = 0; i < serverRoom.Count; i++)
         {
-            if (serverRoom[i].buildingData.RoomType == type)
+            if (serverRoom[i].buildingData.RoomType == RoomType.Production
+                && serverRoom[i].buildingData.RoomName == data.RoomName + "Space")
             {
-                thisRoom = serverRoom[i].buildingData;
+                Debug.Log("有仓库 仓库Name :" + serverRoom[i].Stock);
+                StorageRoom = serverRoom[i];
+                index = serverRoom[i].Stock;
+                break;
             }
         }
-        switch (data.RoomType)
+        IProduction dataIndex = (IProduction)roomData;
+        if (StorageRoom != null)
         {
-            case BuildRoomType.Food:
-                //如果食物空间加上仓库空间 小于食物数量 那么说明仓库满了
-                if (player.foodSpace + (int)thisRoom.Param2
-                    < player.food + data.Param4)
-                {
-                    //填满仓库
-                    data.Param4 -= (player.food - (player.foodSpace + (int)thisRoom.Param2));
-                    player.food = player.foodSpace + (int)thisRoom.Param2;
-                    return true;
-                }
-                else
-                {
-                    player.food += (int)data.Param4;
-                    data.Param4 -= (int)data.Param4;
-                    return true;
-                }
-            default:
-                break;
+            if (index + (int)dataIndex.Stock <= StorageRoom.buildingData.Param2)
+            {
+                index = (int)Mathf.Clamp(index + dataIndex.Stock, 0, data.Param2);
+                Debug.Log(index);
+                StorageRoom.Stock = index;
+                HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, StorageRoom);
+                SendSpaceEvent(data);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(StorageRoom.buildingData.Param2 - index, 0, StorageRoom.buildingData.Param2);
+            Debug.Log(temp);
+            dataIndex.Stock -= temp;
+            index += temp;
+            StorageRoom.Stock = index;
+            HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, StorageRoom);
+            SendSpaceEvent(data);
         }
+
+        #region 区分类型
+        if (data.RoomName == "Gold")
+        {
+            if (player.Gold + (int)dataIndex.Stock <= player.GoldSpace)
+            {
+                player.Gold += (int)dataIndex.Stock;
+                Debug.Log(player.Gold);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(player.GoldSpace - player.Gold, 0, player.GoldSpace);
+            player.Gold += temp;
+            dataIndex.Stock -= temp;
+            return false;
+            //return SetNumberType(player.Gold, player.GoldSpace, dataIndex);
+        }
+        else if (data.RoomName == "Food")
+        {
+            if (player.Food + (int)dataIndex.Stock <= player.GoldSpace)
+            {
+                player.Food += (int)dataIndex.Stock;
+                Debug.Log(player.Food);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(player.FoodSpace - player.Food, 0, player.FoodSpace);
+            player.Food += temp;
+            dataIndex.Stock -= temp;
+            return false;
+            //return SetNumberType(player.Food, player.FoodSpace, dataIndex);
+        }
+        else if (data.RoomName == "Mana")
+        {
+            if (player.Mana + (int)dataIndex.Stock <= player.ManaSpace)
+            {
+                player.Mana += (int)dataIndex.Stock;
+                Debug.Log(player.Mana);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(player.ManaSpace - player.Mana, 0, player.ManaSpace);
+            player.Mana += temp;
+            dataIndex.Stock -= temp;
+            return false;
+            //return SetNumberType(player.Mana, player.ManaSpace, dataIndex);
+        }
+        else if (data.RoomName == "Wood")
+        {
+            if (player.Wood + (int)dataIndex.Stock <= player.WoodSpace)
+            {
+                player.Wood += (int)dataIndex.Stock;
+                Debug.Log(player.Wood);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(player.WoodSpace - player.Wood, 0, player.WoodSpace);
+            player.Wood += temp;
+            dataIndex.Stock -= temp;
+            return false;
+            //return SetNumberType(player.Wood, player.WoodSpace, dataIndex);
+        }
+        else if (data.RoomName == "Iron")
+        {
+            if (player.Iron + (int)dataIndex.Stock <= player.IronSpace)
+            {
+                player.Iron += (int)dataIndex.Stock;
+                Debug.Log(player.Iron);
+                return true;
+            }
+            int temp = (int)Mathf.Clamp(player.IronSpace - player.Iron, 0, player.IronSpace);
+            player.Iron += temp;
+            dataIndex.Stock -= temp;
+            return false;
+            //return SetNumberType(player.Iron, player.IronSpace, dataIndex);
+        }
+        #endregion
         return false;
     }
 
-    private void SendSpaceEvent(ServerBuildData data)
+    private bool SetNumberType(int index, int indexSpace, IProduction dataIndex)
     {
-        switch (data.buildingData.RoomType)
+        if (index + (int)dataIndex.Stock <= indexSpace)
         {
-            case BuildRoomType.GlodSpace:
-                HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.GlodSpace, data.buildingData);
-                break;
-            case BuildRoomType.FoodSpace:
-                HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.FoodSpace, data.buildingData);
-                break;
-            case BuildRoomType.ManaSpace:
-                HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.ManaSpace, data.buildingData);
-                break;
-            case BuildRoomType.WoodSpace:
-                HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.WoodSpace, data.buildingData);
-                break;
-            case BuildRoomType.IronSpace:
-                HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.IronSpace, data.buildingData);
-                break;
-            default:
-                break;
+            index += (int)dataIndex.Stock;
+            Debug.Log(index);
+            return true;
+        }
+        int temp = (int)Mathf.Clamp(indexSpace - index, 0, indexSpace);
+        index += temp;
+        dataIndex.Stock -= temp;
+        return false;
+    }
+
+    private void SendSpaceEvent(BuildingData data)
+    {
+        if (data.RoomName == "Gold")
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.GoldSpace);
+        }
+        else if (data.RoomName == "Food")
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.FoodSpace);
+        }
+        else if (data.RoomName == "Mana")
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.ManaSpace);
+        }
+        else if (data.RoomName == "Wood")
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.WoodSpace);
+        }
+        else if (data.RoomName == "Iron")
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.IronSpace);
         }
     }
 }

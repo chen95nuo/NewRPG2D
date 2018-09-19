@@ -89,26 +89,6 @@ public class CastleMgr : MonoBehaviour
             for (int i = 0; i < room.Count; i++)
             {
                 InstanceRoom(room[i]);
-                switch (room[i].buildingData.RoomType)
-                {
-                    case BuildRoomType.GlodSpace:
-                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.GlodSpace, room[i].buildingData);
-                        break;
-                    case BuildRoomType.FoodSpace:
-                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.FoodSpace, room[i].buildingData);
-                        break;
-                    case BuildRoomType.ManaSpace:
-                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.ManaSpace, room[i].buildingData);
-                        break;
-                    case BuildRoomType.WoodSpace:
-                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.WoodSpace, room[i].buildingData);
-                        break;
-                    case BuildRoomType.IronSpace:
-                        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.IronSpace, room[i].buildingData);
-                        break;
-                    default:
-                        break;
-                }
             }
         }
     }
@@ -151,9 +131,8 @@ public class CastleMgr : MonoBehaviour
     /// </summary>
     protected void instanceWall()
     {
-        buildH = buildHigh + playerData.mainHallLevel;
-        buildW = buildWidth + (playerData.mainHallLevel * 3);
-
+        buildH = buildHigh + playerData.MainHallLevel;
+        buildW = buildWidth + (playerData.MainHallLevel * 3);
 
         for (int i = 0; i < buildH; i++)
         {
@@ -261,7 +240,7 @@ public class CastleMgr : MonoBehaviour
         //如果该房间在对象池内 那么直接调用
         for (int i = 0; i < removeRoom.Count; i++)
         {
-            if (removeRoom[i].gameObject.name == buildingData.RoomType.ToString())
+            if (removeRoom[i].gameObject.name == buildingData.RoomName.ToString())
             {
                 removeRoom[i].transform.position = tip.parentPoint.position;
                 RoomMgr room = removeRoom[i].GetComponent<RoomMgr>();
@@ -270,9 +249,9 @@ public class CastleMgr : MonoBehaviour
                 return;
             }
         }
-        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + buildingData.RoomType.ToString());
+        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + buildingData.RoomName);
         go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = buildingData.RoomType.ToString();
+        go.name = buildingData.RoomName;
         go.transform.position = tip.parentPoint.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         tip.InstanceRoom(room_1, buildingData, this);
@@ -285,7 +264,7 @@ public class CastleMgr : MonoBehaviour
     {
         for (int i = 0; i < removeRoom.Count; i++)
         {
-            if (removeRoom[i].gameObject.name == data.buildingData.RoomType.ToString())
+            if (removeRoom[i].gameObject.name == data.buildingData.RoomName)
             {
                 Debug.Log("有相同的  : " + data.buildingData);
                 removeRoom[i].transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
@@ -295,9 +274,9 @@ public class CastleMgr : MonoBehaviour
                 return;
             }
         }
-        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomType.ToString());
+        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName);
         go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = data.buildingData.RoomType.ToString();
+        go.name = data.buildingData.RoomName;
         go.transform.position = this.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         room_1.UpdateBuilding(data.buildingPoint, data.buildingData, this);
@@ -315,23 +294,7 @@ public class CastleMgr : MonoBehaviour
         }
         room.RemoveBuilding(this.buildPoint);
     }
-    #region 测试区域
-    private void ChickLouTi()
-    {
-        BuildingData louTi = new BuildingData();
-        louTi.RoomSize = 1;
-        louTi.RoomType = BuildRoomType.Stairs;
-        ResetRoomTip();
-        BuildRoomTip(louTi);
-    }
 
-    private void ChickWoShi()
-    {
-        BuildingData woShi = new BuildingData();
-        woShi.RoomSize = 3;
-        ResetRoomTip();
-        BuildRoomTip(woShi);
-    }
     //private void TestAddLength()  //*3
     //{
     //    for (int i = 0; i < buildHigh; i++)
@@ -369,6 +332,5 @@ public class CastleMgr : MonoBehaviour
     //        room[i].UpdateBuilding();
     //    }
     //}
-    #endregion
 }
 

@@ -20,8 +20,8 @@ namespace Assets.Script.Utility
         RolePropertyData,
         SkillData,
         CreateEnemyData,
-        Hall,
         BuildingData,
+        Hall,
 
         Battle,
 
@@ -84,6 +84,22 @@ namespace Assets.Script.Utility
                 DebugHelper.LogError(ex.Message + " name ===" + name);
                 return defaultValue;
             }
+        }
+
+        public static float[] FloatArray(XmlNode node, string name)
+        {
+            string a = StrParse(node, name);
+            string[] astr = a.Split(',');
+            float[] f = new float[astr.Length];
+            for (int i = 0; i < astr.Length; i++)
+            {
+                f[i] = float.Parse(astr[i]);
+                if (f[i] == 0)
+                {
+                    return null;
+                }
+            }
+            return f;
         }
     }
 }

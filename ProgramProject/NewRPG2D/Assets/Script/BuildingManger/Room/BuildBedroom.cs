@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class BuildBedroom : RoomMgr
 {
-    public override void GetRoomMaterial(int number)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void RoomAwake()
     {
     }

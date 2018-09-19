@@ -127,7 +127,7 @@ public class UIEditMode : TTUIPage
             if (i < rooms.Count)
             {
                 roomGrid[i].gameObject.SetActive(true);
-                roomGrid[i].txt_name.text = rooms[i].roomType.ToString();
+                roomGrid[i].txt_name.text = rooms[i].RoomName.ToString();
                 roomGrid[i].roomMgr = rooms[i];
             }
             else

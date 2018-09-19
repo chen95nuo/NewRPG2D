@@ -8,10 +8,9 @@ using System.Xml;
 public class BuildingData : ItemBaseData
 {
 
-    //public int ID;
-    public string Description;
     public int Level;
-    public BuildRoomType RoomType;//房间类型
+    public string RoomName;//房间类型
+    public RoomType RoomType;
     public int NeedGold;
     public int NeedMana;
     public int NeedWood;
@@ -21,12 +20,10 @@ public class BuildingData : ItemBaseData
     public int RoomSize;//房间大小  
     public int MergeID;//合并ID
     public int SplitID;//拆分ID
-    public int UnlockLevel;//解锁等级
+    public float[] UnlockLevel;//解锁等级
     public int NexLevelID;//下一级ID
     public float Param1;//参数1
     public float Param2;//参数2
-    public float Param3;//参数3
-    public float Param4;//参数4
 
     public override XmlName ItemXmlName
     {
@@ -35,10 +32,10 @@ public class BuildingData : ItemBaseData
 
     public override bool GetXmlDataAttribute(XmlNode node)
     {
-        //ID = ReadXmlDataMgr.IntParse(node, "ID");
         Level = ReadXmlDataMgr.IntParse(node, "Level");
         Description = ReadXmlDataMgr.StrParse(node, "Description");
-        RoomType = (BuildRoomType)ReadXmlDataMgr.IntParse(node, "RoomType");
+        RoomName = ReadXmlDataMgr.StrParse(node, "RoomName");
+        RoomType = (RoomType)ReadXmlDataMgr.IntParse(node, "RoomType");
         NeedGold = ReadXmlDataMgr.IntParse(node, "NeedGold");
         NeedMana = ReadXmlDataMgr.IntParse(node, "NeedMana");
         NeedWood = ReadXmlDataMgr.IntParse(node, "NeedWood");
@@ -48,7 +45,7 @@ public class BuildingData : ItemBaseData
         RoomSize = ReadXmlDataMgr.IntParse(node, "RoomSize");
         MergeID = ReadXmlDataMgr.IntParse(node, "MergeID");
         SplitID = ReadXmlDataMgr.IntParse(node, "SplitID");
-        UnlockLevel = ReadXmlDataMgr.IntParse(node, "UnlockLevel");
+        UnlockLevel = ReadXmlDataMgr.FloatArray(node, "UnlockLevel");
         Param1 = ReadXmlDataMgr.FloatParse(node, "Param1");
         Param2 = ReadXmlDataMgr.FloatParse(node, "Param2");
         return base.GetXmlDataAttribute(node);

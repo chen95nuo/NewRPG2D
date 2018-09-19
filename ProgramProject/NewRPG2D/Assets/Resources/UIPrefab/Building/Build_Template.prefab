@@ -51,7 +51,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4884436840583496}
-  - component: {fileID: 212889693611701796}
   m_Layer: 0
   m_Name: RoomFrame
   m_TagString: Untagged
@@ -114,7 +113,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4940476007556378}
-  - component: {fileID: 114783250516490758}
   - component: {fileID: 65475474801227382}
   m_Layer: 0
   m_Name: Build_Template
@@ -230,52 +228,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.3, y: 10.8, z: 1}
+  m_Size: {x: 28.62, y: 10.8, z: 1}
   m_Center: {x: 7.155, y: 5.4, z: 0}
---- !u!114 &114783250516490758
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821547384958074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afeaf192d77bdb41acbd1f59cbbd2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomID: 0
-  roomType: 0
-  buidStartPoint: {x: 0, y: 0}
-  buildEndPoint: 0
-  buildingData:
-    ID: 0
-    Description: 
-    Level: 0
-    RoomType: 0
-    NeedGold: 0
-    NeedMana: 0
-    NeedWood: 0
-    NeedIron: 0
-    NeedTime: 0
-    NeedLevel: 0
-    RoomSize: 0
-    MergeID: 0
-    SplitID: 0
-    UnlockLevel: 0
-    NexLevelID: 0
-    Param1: 0
-    Param2: 0
-    Param3: 0
-    Param4: 0
-  nearbyRoom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  maxRoomSize: 9
-  mainLink: 0
-  linkType: 0
-  isHarvest: 0
 --- !u!212 &212038835861391148
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -316,7 +270,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 4.77, y: 10.8}
+  m_Size: {x: 9.145321, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -406,7 +360,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 14.282307, y: 10.8}
+  m_Size: {x: 28.62, y: 10.8}
   m_AdaptiveModeThreshold: 1
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -446,57 +400,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69c4d1ddd15c5d54a935e22d178a1700, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 13.51, y: 10}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
---- !u!212 &212889693611701796
-SpriteRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473096537994064}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 0768e14d3f1b7114c8579f58df090aff, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 14.31, y: 10.8}
+  m_Size: {x: 28.62, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

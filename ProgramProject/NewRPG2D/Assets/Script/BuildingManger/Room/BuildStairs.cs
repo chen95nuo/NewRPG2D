@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class BuildStairs : RoomMgr
 {
-    public override void GetRoomMaterial(int number)
-    {
-    }
-
     public override void RoomAwake()
     {
     }

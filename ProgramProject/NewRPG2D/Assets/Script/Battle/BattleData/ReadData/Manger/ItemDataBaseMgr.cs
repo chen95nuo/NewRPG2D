@@ -7,14 +7,14 @@ using Assets.Script.Utility;
 namespace Assets.Script.Battle.BattleData
 {
 
-    public class ItemDataBaseMgr<TK>: TSingleton<TK> 
+    public class ItemDataBaseMgr<TK> : TSingleton<TK>
     {
         protected ItemBaseData[] CurrentItemData;
         private int CurrentXmlIndex;
 
         protected virtual XmlName CurrentXmlName
         {
-            get {return XmlName.RoleData;}
+            get { return XmlName.RoleData; }
         }
 
         public virtual T GetXmlDataByItemId<T>(int itemId) where T : ItemBaseData
@@ -34,7 +34,7 @@ namespace Assets.Script.Battle.BattleData
         {
             base.Init();
             CurrentXmlIndex = (int)CurrentXmlName;
-           // DebugHelper.LogError("CurrentXmlName  " + CurrentXmlName);
+            // DebugHelper.LogError("CurrentXmlName  " + CurrentXmlName);
             XmlData[] tempData = ReadXmlNewMgr.instance.AllXmlDataDic[CurrentXmlIndex];
             CurrentItemData = new ItemBaseData[tempData.Length];
             for (int i = 0; i < tempData.Length; i++)
@@ -50,6 +50,26 @@ namespace Assets.Script.Battle.BattleData
         public override void Dispose()
         {
             base.Dispose();
+        }
+
+
+        public Dictionary<RoomType, List<BuildingData>> GetBuildingType()
+        {
+            Dictionary<RoomType, List<BuildingData>> dic = new Dictionary<RoomType, List<BuildingData>>();
+
+            for (int i = 0; i < CurrentItemData.Length; i++)
+            {
+                BuildingData data = CurrentItemData[i] as BuildingData;
+                if (data.UnlockLevel != null)
+                {
+                    if (dic.ContainsKey(data.RoomType) == false)
+                    {
+                        dic.Add(data.RoomType, new List<BuildingData>());
+                    }
+                    dic[data.RoomType].Add(data);
+                }
+            }
+            return dic;
         }
     }
 }

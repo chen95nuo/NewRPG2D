@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildRestaurant : RoomMgr
+public class BuildFood : RoomMgr, IProduction
 {
     public int index = 0;
+
+
+    //暂无角色先用默认产能代替
+    public float Yield { get { return buildingData.Param1; } }
+    public float Stock { get { return stock; } set { stock = value; } }
 
     public override void RoomAwake()
     {
@@ -21,12 +26,12 @@ public class BuildRestaurant : RoomMgr
         {
             return;
         }
-        bool isTrue = LocalServer.instance.SetNumber(buildingData);
+        bool isTrue = LocalServer.instance.SetNumber(this);
 
         if (isTrue)
         {
             //如果数量小于1 那么关闭提示框 关闭收获提示
-            if (buildingData.Param4 <= 1)
+            if (stock <= 1)
             {
                 roomProp.SetActive(false);
                 isHarvest = false;
@@ -46,7 +51,7 @@ public class BuildRestaurant : RoomMgr
         }
     }
 
-    public override void GetRoomMaterial(int number)
+    public void GetNumber(int number)
     {
         if (roomFunc == false)
         {
@@ -56,6 +61,4 @@ public class BuildRestaurant : RoomMgr
         isHarvest = true;
         roomProp.SetActive(true);
     }
-
-
 }

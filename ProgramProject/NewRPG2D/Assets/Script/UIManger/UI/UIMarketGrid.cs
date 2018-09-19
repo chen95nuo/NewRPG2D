@@ -8,6 +8,7 @@ public class UIMarketGrid : MonoBehaviour
 
     public BuildingData building;
     public UIMarket market;
+    public Text buildName;
     private Button thisGrid;
     private void Awake()
     {
@@ -15,15 +16,16 @@ public class UIMarketGrid : MonoBehaviour
         thisGrid.onClick.AddListener(AddBuilding);
     }
 
+    public void UpdateBuilding(BuildingData data)
+    {
+        buildName.text = data.RoomName;
+        building = data;
+    }
+
     private void AddBuilding()
     {
-        BuildingData build = new BuildingData();
-        build.Level = building.Level;
-        build.RoomSize = building.RoomSize;
-        build.RoomType = building.RoomType;
-        build.Param1 = building.Param1;
-        build.Param2 = building.Param2;
-        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.AddBuild, build);
+        Debug.Log(building.RoomName);
+        HallEventManager.instance.SendEvent<BuildingData>(HallEventDefineEnum.AddBuild, building);
         market.ClosePage();
     }
 }

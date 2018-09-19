@@ -32,12 +32,14 @@ public class UIMain : TTUIPage
 
     private PlayerData playerData;
 
+    private float[] spaceStock = new float[5];
+
     private void Awake()
     {
         btn_UIMarket.onClick.AddListener(ShowMarket);
         market.gameObject.SetActive(false);
 
-        HallEventManager.instance.AddListener(HallEventDefineEnum.GlodSpace, ChickGlodSpace);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.GoldSpace, ChickGlodSpace);
         HallEventManager.instance.AddListener(HallEventDefineEnum.FoodSpace, ChickFoodSpace);
         HallEventManager.instance.AddListener(HallEventDefineEnum.ManaSpace, ChickManaSpace);
         HallEventManager.instance.AddListener(HallEventDefineEnum.WoodSpace, ChickWoodSpace);
@@ -49,7 +51,7 @@ public class UIMain : TTUIPage
 
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.GlodSpace, ChickGlodSpace);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.GoldSpace, ChickGlodSpace);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.FoodSpace, ChickFoodSpace);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.ManaSpace, ChickManaSpace);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.WoodSpace, ChickWoodSpace);
@@ -59,29 +61,29 @@ public class UIMain : TTUIPage
     private void Init()
     {
         playerData = GetPlayerData.Instance.GetData();
-        if (playerData.mainHallLevel > 0)
+        if (playerData.MainHallLevel > 0)
         {
             btn_gold.gameObject.SetActive(true);
-            text_gold.text = playerData.gold.ToString();
+            text_gold.text = playerData.Gold.ToString();
             btn_food.gameObject.SetActive(true);
-            text_food.text = playerData.food.ToString();
+            text_food.text = playerData.Food.ToString();
         }
-        if (playerData.mainHallLevel >= 4)
+        if (playerData.MainHallLevel >= 4)
         {
             btn_mana.gameObject.SetActive(true);
-            text_mana.text = playerData.mana.ToString();
+            text_mana.text = playerData.Mana.ToString();
         }
-        if (playerData.mainHallLevel >= 6)
+        if (playerData.MainHallLevel >= 6)
         {
             btn_wood.gameObject.SetActive(true);
-            text_wood.text = playerData.wood.ToString();
+            text_wood.text = playerData.Wood.ToString();
         }
-        if (playerData.mainHallLevel >= 9)
+        if (playerData.MainHallLevel >= 9)
         {
             btn_iron.gameObject.SetActive(true);
-            text_iron.text = playerData.iron.ToString();
+            text_iron.text = playerData.Iron.ToString();
         }
-        text_diamonds.text = playerData.diamonds.ToString();
+        text_diamonds.text = playerData.Diamonds.ToString();
     }
     private void ShowMarket()
     {
@@ -98,28 +100,53 @@ public class UIMain : TTUIPage
         btn_UIFightInfor.gameObject.SetActive(isTrue);
     }
 
+    private void GetSpace()
+    {
+
+    }
+
     private void ChickGlodSpace()
     {
-        text_gold.text = playerData.gold.ToString();
+        if (spaceStock[0] != 0)
+        {
+            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
+        }
+        text_gold.text = playerData.Gold.ToString();
     }
     private void ChickFoodSpace()
     {
-        text_food.text = playerData.food.ToString();
+        if (spaceStock[1] != 0)
+        {
+            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
+        }
+        text_food.text = playerData.Food.ToString();
     }
     private void ChickManaSpace()
     {
-        text_mana.text = playerData.mana.ToString();
+        if (spaceStock[2] != 0)
+        {
+            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
+        }
+        text_mana.text = playerData.Mana.ToString();
     }
     private void ChickWoodSpace()
     {
-        text_wood.text = playerData.wood.ToString();
+        if (spaceStock[3] != 0)
+        {
+            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
+        }
+        text_wood.text = playerData.Wood.ToString();
     }
     private void ChickIronSpace()
     {
-        text_iron.text = playerData.iron.ToString();
+        if (spaceStock[4] != 0)
+        {
+            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
+        }
+        text_iron.text = playerData.Iron.ToString();
     }
     private void ChickDiamonds()
     {
-        text_diamonds.text = playerData.diamonds.ToString();
+        text_diamonds.text = playerData.Diamonds.ToString();
     }
 }

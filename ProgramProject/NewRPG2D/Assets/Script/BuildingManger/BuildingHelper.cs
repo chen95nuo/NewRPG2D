@@ -7,14 +7,23 @@ using UnityEngine;
 [System.Serializable]
 public class ServerBuildData
 {
-    public Vector2 buildingPoint;
-    public BuildingData buildingData;
+    public Vector2 buildingPoint;//房间位置
+    public BuildingData buildingData;//房间ID
+    public float Yield = 0;
+    public float Stock = 0;
 
     public ServerBuildData() { }
     public ServerBuildData(Vector2 point, BuildingData data)
     {
         this.buildingPoint = point;
         this.buildingData = data;
+    }
+    public ServerBuildData(Vector2 point, BuildingData data, float Yield, float Stock)
+    {
+        this.buildingPoint = point;
+        this.buildingData = data;
+        this.Yield = Yield;
+        this.Stock = Stock;
     }
 }
 /// <summary>
