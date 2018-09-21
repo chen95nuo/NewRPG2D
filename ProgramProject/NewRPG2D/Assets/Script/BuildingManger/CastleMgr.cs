@@ -251,7 +251,7 @@ public class CastleMgr : MonoBehaviour
         }
         GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + buildingData.RoomName);
         go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = buildingData.RoomName;
+        go.name = buildingData.RoomName.ToString();
         go.transform.position = tip.parentPoint.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         tip.InstanceRoom(room_1, buildingData, this);
@@ -264,7 +264,7 @@ public class CastleMgr : MonoBehaviour
     {
         for (int i = 0; i < removeRoom.Count; i++)
         {
-            if (removeRoom[i].gameObject.name == data.buildingData.RoomName)
+            if (removeRoom[i].gameObject.name == data.buildingData.RoomName.ToString())
             {
                 Debug.Log("有相同的  : " + data.buildingData);
                 removeRoom[i].transform.position = buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
@@ -276,7 +276,7 @@ public class CastleMgr : MonoBehaviour
         }
         GameObject go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName);
         go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = data.buildingData.RoomName;
+        go.name = data.buildingData.RoomName.ToString();
         go.transform.position = this.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         room_1.UpdateBuilding(data.buildingPoint, data.buildingData, this);

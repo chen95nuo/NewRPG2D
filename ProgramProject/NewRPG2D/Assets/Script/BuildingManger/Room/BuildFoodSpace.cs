@@ -17,7 +17,6 @@ public class BuildFoodSpace : RoomMgr, IStorage
             if (index != stock)
             {
                 stock = index;
-                //HallEventManager.instance.AddListener<>(HallEventDefineEnum.ChickStock, GetNumber);
             }
         }
     }
@@ -28,7 +27,6 @@ public class BuildFoodSpace : RoomMgr, IStorage
             return;
         }
         HallEventManager.instance.AddListener<ServerBuildData>(HallEventDefineEnum.ChickStock, GetNumber);
-
     }
 
     private void OnDestroy()
@@ -50,16 +48,8 @@ public class BuildFoodSpace : RoomMgr, IStorage
 
     }
 
-    public void GetNumber(ServerBuildData storageRoom)
+    public override void GetNumber(ServerBuildData storageRoom)
     {
-        if (roomFunc == false)
-        {
-            return;
-        }
-        if (storageRoom.buildingData.RoomName == RoomName)
-        {
-            stock = storageRoom.Stock;
-            Debug.Log("仓库库存 :" + stock);
-        }
+        base.GetNumber(storageRoom);
     }
 }

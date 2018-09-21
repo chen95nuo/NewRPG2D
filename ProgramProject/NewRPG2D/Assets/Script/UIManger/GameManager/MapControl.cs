@@ -25,7 +25,6 @@ public class MapControl : MonoBehaviour
     }
     public void ShowMainMap()
     {
-        Debug.Log("运行了");
         mainCastle.editMode = true;
         editCastle.editMode = false;
         MainMap.SetActive(true);

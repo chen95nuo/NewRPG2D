@@ -27,11 +27,86 @@ public class LocalServer : TSingleton<LocalServer>
         }
         Debug.Log("没有重复继续运行");
         serverRoom.Add(data);
-        SendSpaceEvent(data.buildingData);
+        ChickPlayerInfo.instance.ChickBuildDicAdd(data);
+        if (data.buildingData.RoomType == RoomType.Production)
+        {
+            PlayerData playData = GetPlayerData.Instance.GetData();
+            Debug.Log("新建生产类建筑,可能为仓库 若为仓库将物资转移");
+            switch (data.buildingData.RoomName)
+            {
+                case BuildRoomName.GoldSpace:
+                    int index = (int)data.buildingData.Param2 - playData.Gold;
+                    if (index < 0)
+                    {
+                        data.Stock = data.buildingData.Param2;
+                        playData.Gold -= (int)data.buildingData.Param2;
+                        HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, data);
+                        return;
+                    }
+                    data.Stock = playData.Gold;
+                    playData.Gold = 0;
+                    break;
+                case BuildRoomName.FoodSpace:
+                    int index_1 = (int)data.buildingData.Param2 - playData.Food;
+                    if (index_1 < 0)
+                    {
+                        data.Stock = data.buildingData.Param2;
+                        playData.Food -= (int)data.buildingData.Param2;
+                        HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, data);
+                        return;
+                    }
+                    data.Stock = playData.Food;
+                    playData.Food = 0;
+                    break;
+                case BuildRoomName.WoodSpace:
+                    int index_2 = (int)data.buildingData.Param2 - playData.Wood;
+                    if (index_2 < 0)
+                    {
+                        data.Stock = data.buildingData.Param2;
+                        playData.Wood -= (int)data.buildingData.Param2;
+                        HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, data);
+                        return;
+                    }
+                    data.Stock = playData.Wood;
+                    playData.Wood = 0;
+                    break;
+                case BuildRoomName.ManaSpace:
+                    int index_3 = (int)data.buildingData.Param2 - playData.Mana;
+                    if (index_3 < 0)
+                    {
+                        data.Stock = data.buildingData.Param2;
+                        playData.Mana -= (int)data.buildingData.Param2;
+                        HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, data);
+                        return;
+                    }
+                    data.Stock = playData.Mana;
+                    playData.Mana = 0;
+
+                    break;
+                case BuildRoomName.IronSpace:
+                    int index_4 = (int)data.buildingData.Param2 - playData.Iron;
+                    if (index_4 < 0)
+                    {
+                        data.Stock = data.buildingData.Param2;
+                        playData.Iron -= (int)data.buildingData.Param2;
+                        HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, data);
+                        return;
+                    }
+                    data.Stock = playData.Iron;
+                    playData.Iron = 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, data.buildingData.RoomName);
     }
     public void GetNewRoom(List<ServerBuildData> rooms)
     {
-        serverRoom = rooms;
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            serverRoom[i] = rooms[i];
+        }
         HallEventManager.instance.SendEvent<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, serverRoom);
     }
     public void ReplaceRoom(ServerBuildData data_1, ServerBuildData data_2)
@@ -55,7 +130,7 @@ public class LocalServer : TSingleton<LocalServer>
         index.Stock = Mathf.Clamp(index.Stock, 0, thisRoom.buildingData.Param2);
         if (index.Stock / thisRoom.buildingData.Param1 * 100 > 3)
         {
-            index.GetNumber((int)index.Stock);
+            thisRoom.GetNumber((int)index.Stock);
         }
     }
     /*  
@@ -76,9 +151,8 @@ public class LocalServer : TSingleton<LocalServer>
         for (int i = 0; i < serverRoom.Count; i++)
         {
             if (serverRoom[i].buildingData.RoomType == RoomType.Production
-                && serverRoom[i].buildingData.RoomName == data.RoomName + "Space")
+                && serverRoom[i].buildingData.RoomName.ToString() == data.RoomName + "Space")
             {
-                Debug.Log("有仓库 仓库Name :" + serverRoom[i].Stock);
                 StorageRoom = serverRoom[i];
                 index = serverRoom[i].Stock;
                 break;
@@ -90,10 +164,9 @@ public class LocalServer : TSingleton<LocalServer>
             if (index + (int)dataIndex.Stock <= StorageRoom.buildingData.Param2)
             {
                 index = (int)Mathf.Clamp(index + dataIndex.Stock, 0, data.Param2);
-                Debug.Log(index);
                 StorageRoom.Stock = index;
+                dataIndex.Stock -= index;
                 HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, StorageRoom);
-                SendSpaceEvent(data);
                 return true;
             }
             int temp = (int)Mathf.Clamp(StorageRoom.buildingData.Param2 - index, 0, StorageRoom.buildingData.Param2);
@@ -102,15 +175,15 @@ public class LocalServer : TSingleton<LocalServer>
             index += temp;
             StorageRoom.Stock = index;
             HallEventManager.instance.SendEvent<ServerBuildData>(HallEventDefineEnum.ChickStock, StorageRoom);
-            SendSpaceEvent(data);
         }
 
         #region 区分类型
-        if (data.RoomName == "Gold")
+        if (data.RoomName == BuildRoomName.Gold)
         {
             if (player.Gold + (int)dataIndex.Stock <= player.GoldSpace)
             {
                 player.Gold += (int)dataIndex.Stock;
+                dataIndex.Stock -= (int)dataIndex.Stock;
                 Debug.Log(player.Gold);
                 return true;
             }
@@ -118,13 +191,13 @@ public class LocalServer : TSingleton<LocalServer>
             player.Gold += temp;
             dataIndex.Stock -= temp;
             return false;
-            //return SetNumberType(player.Gold, player.GoldSpace, dataIndex);
         }
-        else if (data.RoomName == "Food")
+        else if (data.RoomName == BuildRoomName.Food)
         {
             if (player.Food + (int)dataIndex.Stock <= player.GoldSpace)
             {
                 player.Food += (int)dataIndex.Stock;
+                dataIndex.Stock -= (int)dataIndex.Stock;
                 Debug.Log(player.Food);
                 return true;
             }
@@ -132,13 +205,14 @@ public class LocalServer : TSingleton<LocalServer>
             player.Food += temp;
             dataIndex.Stock -= temp;
             return false;
-            //return SetNumberType(player.Food, player.FoodSpace, dataIndex);
         }
-        else if (data.RoomName == "Mana")
+        else if (data.RoomName == BuildRoomName.Mana)
         {
             if (player.Mana + (int)dataIndex.Stock <= player.ManaSpace)
             {
                 player.Mana += (int)dataIndex.Stock;
+                dataIndex.Stock -= (int)dataIndex.Stock;
+
                 Debug.Log(player.Mana);
                 return true;
             }
@@ -146,13 +220,14 @@ public class LocalServer : TSingleton<LocalServer>
             player.Mana += temp;
             dataIndex.Stock -= temp;
             return false;
-            //return SetNumberType(player.Mana, player.ManaSpace, dataIndex);
         }
-        else if (data.RoomName == "Wood")
+        else if (data.RoomName == BuildRoomName.Wood)
         {
             if (player.Wood + (int)dataIndex.Stock <= player.WoodSpace)
             {
                 player.Wood += (int)dataIndex.Stock;
+                dataIndex.Stock -= (int)dataIndex.Stock;
+
                 Debug.Log(player.Wood);
                 return true;
             }
@@ -160,13 +235,13 @@ public class LocalServer : TSingleton<LocalServer>
             player.Wood += temp;
             dataIndex.Stock -= temp;
             return false;
-            //return SetNumberType(player.Wood, player.WoodSpace, dataIndex);
         }
-        else if (data.RoomName == "Iron")
+        else if (data.RoomName == BuildRoomName.Iron)
         {
             if (player.Iron + (int)dataIndex.Stock <= player.IronSpace)
             {
                 player.Iron += (int)dataIndex.Stock;
+                dataIndex.Stock -= (int)dataIndex.Stock;
                 Debug.Log(player.Iron);
                 return true;
             }
@@ -174,7 +249,6 @@ public class LocalServer : TSingleton<LocalServer>
             player.Iron += temp;
             dataIndex.Stock -= temp;
             return false;
-            //return SetNumberType(player.Iron, player.IronSpace, dataIndex);
         }
         #endregion
         return false;
@@ -192,29 +266,5 @@ public class LocalServer : TSingleton<LocalServer>
         index += temp;
         dataIndex.Stock -= temp;
         return false;
-    }
-
-    private void SendSpaceEvent(BuildingData data)
-    {
-        if (data.RoomName == "Gold")
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.GoldSpace);
-        }
-        else if (data.RoomName == "Food")
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.FoodSpace);
-        }
-        else if (data.RoomName == "Mana")
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.ManaSpace);
-        }
-        else if (data.RoomName == "Wood")
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.WoodSpace);
-        }
-        else if (data.RoomName == "Iron")
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.IronSpace);
-        }
     }
 }

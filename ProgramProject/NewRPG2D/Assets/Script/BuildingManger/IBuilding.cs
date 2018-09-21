@@ -9,7 +9,6 @@ public interface IProduction
 {
     float Yield { get; }//产量
     float Stock { get; set; }//库存
-    void GetNumber(int number);
 }
 
 /// <summary>
@@ -18,5 +17,4 @@ public interface IProduction
 public interface IStorage
 {
     float Stock { get; set; }//库存
-    void GetNumber(ServerBuildData storageRoom);
 }

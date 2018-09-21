@@ -9,39 +9,39 @@ public enum BuildingType : byte
     Full
 }
 
-//public enum BuildRoomName
-//{
-//    Nothing,
-//    Glod,//贸易厅
-//    GlodSpace,//金库
-//    Food,//食堂
-//    FoodSpace,//地窖
-//    Wood,//伐木场
-//    WoodSpace,//木材库
-//    Mana,//炼金房
-//    ManaSpace,//法力池
-//    Iron,//铁矿场
-//    IronSpace,//铁矿库
-//    FighterRoom,//战斗训练场
-//    Kitchen,//厨房 厨师训练
-//    Mint,//账房 会计训练
-//    Laboratory,//实验室 炼金训练
-//    Crafting,//手工房 伐木等级
-//    Foundry,//健身房 挖矿等级
-//    LivingRoom,//起居室
-//    TrophyRoom,//荣耀大厅
-//    Hospital,//医院
-//    ClanHall,//氏族大厅
-//    MagicWorkShop,//魔法工坊
-//    MagicLab,//魔法工坊
-//    WeaponsWorkShop,//武器工坊
-//    ArmorWorkShop,//护甲工坊
-//    GemWorkSpho,//宝石工坊
-//    Stairs,//楼梯
-//    ThroneRoom,//国王大厅
-//    Barracks,//军营
-//    MaxRoom
-//}
+public enum BuildRoomName
+{
+    Nothing,
+    Gold,//贸易厅
+    GoldSpace,//金库
+    Food,//食堂
+    FoodSpace,//地窖
+    Mana,//炼金房
+    ManaSpace,//法力池
+    Wood,//伐木场
+    WoodSpace,//木材库
+    Iron,//铁矿场
+    IronSpace,//铁矿库
+    FighterRoom,//战斗训练场
+    Kitchen,//厨房 厨师训练
+    Mint,//账房 会计训练
+    Laboratory,//实验室 炼金训练
+    Crafting,//手工房 伐木等级
+    Foundry,//健身房 挖矿等级
+    LivingRoom,//起居室
+    TrophyRoom,//荣耀大厅
+    Hospital,//医院
+    ClanHall,//氏族大厅
+    MagicWorkShop,//魔法工坊
+    MagicLab,//魔法工坊
+    WeaponsWorkShop,//武器工坊
+    ArmorWorkShop,//护甲工坊
+    GemWorkSpho,//宝石工坊
+    Stairs,//楼梯
+    ThroneRoom,//国王大厅
+    Barracks,//军营
+    MaxRoom
+}
 public enum RoomType
 {
     Nothing,

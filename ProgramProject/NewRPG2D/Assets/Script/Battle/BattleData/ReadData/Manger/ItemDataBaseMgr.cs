@@ -71,5 +71,27 @@ namespace Assets.Script.Battle.BattleData
             }
             return dic;
         }
+
+        /// <summary>
+        /// 获取每个建筑的建造数量信息
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<BuildRoomName, BuildingData[]> GetBuilding()
+        {
+            Dictionary<BuildRoomName, BuildingData[]> dic = new Dictionary<BuildRoomName, BuildingData[]>();
+
+            for (int i = 0; i < CurrentItemData.Length; i++)
+            {
+                BuildingData data = CurrentItemData[i] as BuildingData;
+                if (data.UnlockLevel != null)
+                {
+                    if (dic.ContainsKey(data.RoomName) == false)
+                    {
+                        dic.Add(data.RoomName, new BuildingData[data.UnlockLevel.Length]);
+                    }
+                }
+            }
+            return dic;
+        }
     }
 }

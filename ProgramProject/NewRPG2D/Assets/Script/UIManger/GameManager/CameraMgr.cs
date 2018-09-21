@@ -114,6 +114,7 @@ public class CameraMgr : MonoBehaviour
                     {
                         room.roomLock.SetActive(false);
                         room = null;
+                        UIPanelManager.instance.ClosePage<UILockRoomTip>();//关闭底侧UI
                     }
                     return;
                 }
@@ -125,7 +126,7 @@ public class CameraMgr : MonoBehaviour
                         if (data.isHarvest)//如果有产出那么不更换选中房间
                         {
                             Debug.Log("获得产出");
-                            data.ThisRoomFunc();
+                            data.ProductionType();
                             return;
                         }
                         if (room == null)
@@ -133,9 +134,15 @@ public class CameraMgr : MonoBehaviour
                             room = data;
                             //子物体启动
                             room.roomLock.SetActive(true);
+                            UIPanelManager.instance.ShowPage<UILockRoomTip>();//显示底侧UI
+                            HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.UILockRoomTip, data);
                         }
                         else if (room != data)//更换选中房间
                         {
+                            UIPanelManager.instance.ClosePage<UILockRoomTip>();//更换UI
+                            UIPanelManager.instance.ShowPage<UILockRoomTip>();
+                            HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.UILockRoomTip, data);
+
                             room.roomLock.SetActive(false);
                             data.roomLock.SetActive(true);
                             room = data;
@@ -235,12 +242,6 @@ public class CameraMgr : MonoBehaviour
     {
         UIPanelManager.instance.ClosePage<UIMain>();
         UIPanelManager.instance.ShowPage<UIEditMode>();
-        ChangeMap();
-    }
-
-    private void ChangeMap()//更换地图
-    {
-
     }
 
     /// <summary>

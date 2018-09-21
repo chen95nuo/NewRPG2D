@@ -7,21 +7,16 @@ using UnityEngine;
 
 public enum HallEventDefineEnum
 {
-    AddBuild,
-    ChickBuild,
-    ChickStock,
-    EditMode,
-    EditMgr,
-    AddFood,
-    InEditMode,
-    GoldSpace,
-    FoodSpace,
-    ManaSpace,
-    WoodSpace,
-    IronSpace,
-    ClearAllRoom,
-    CloseRoomLock,
-    diamondsSpace,
+    AddBuild,//添加建筑
+    ChickBuild,//检查建筑
+    ChickStock,//检查空间
+    EditMode,//建造模式
+    EditMgr,//建造模式辅助
+    InEditMode,//进入建造模式
+    ClearAllRoom,//清除所有房间
+    CloseRoomLock,//关闭房间锁定
+    diamondsSpace,//钻石检测
+    UILockRoomTip,//检查房间锁定
     EventMax
 }
 

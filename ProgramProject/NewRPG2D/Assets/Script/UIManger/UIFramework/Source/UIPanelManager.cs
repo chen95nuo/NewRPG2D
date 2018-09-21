@@ -342,6 +342,16 @@ namespace Assets.Script.UIManger
             ShowPage<T>(pagePath, null, pageData, false);
         }
 
+        /// <summary>
+        /// 该方法不需要路径
+        /// </summary>
+        public void ShowPage<T>(object pageData) where T : TTUIPage
+        {
+            Type t = typeof(T);
+            string pagePath = "UIPrefab/" + t.Name;
+            ShowPage<T>(pagePath, null, pageData, false);
+        }
+
         public void ShowPage(string pageName, TTUIPage pageInstance)
         {
             ShowPage(pageName, pageInstance, null, null, false);
@@ -511,7 +521,7 @@ namespace Assets.Script.UIManger
                 Debug.LogError(pageName + " havnt show yet!");
             }
         }
-       
+
         #endregion
 
     }

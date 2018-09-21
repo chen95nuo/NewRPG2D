@@ -63,7 +63,7 @@ public class PlayerData
             if (temp != gold)
             {
                 gold = temp;
-                HallEventManager.instance.SendEvent(HallEventDefineEnum.GoldSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
             }
         }
     }
@@ -99,7 +99,7 @@ public class PlayerData
             if (temp != food)
             {
                 food = temp;
-                HallEventManager.instance.SendEvent(HallEventDefineEnum.FoodSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
             }
         }
     }
@@ -117,7 +117,7 @@ public class PlayerData
             if (temp != mana)
             {
                 mana = temp;
-                HallEventManager.instance.SendEvent(HallEventDefineEnum.ManaSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
             }
         }
     }
@@ -135,7 +135,7 @@ public class PlayerData
             if (temp != wood)
             {
                 wood = temp;
-                HallEventManager.instance.SendEvent(HallEventDefineEnum.WoodSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
             }
         }
     }
@@ -153,7 +153,7 @@ public class PlayerData
             if (temp != iron)
             {
                 iron = temp;
-                HallEventManager.instance.SendEvent(HallEventDefineEnum.IronSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
             }
         }
     }
@@ -240,7 +240,7 @@ public class PlayerData
     {
         Name = "Baymax";
         Level = 1;
-        Gold = 1000;
+        Gold = 16000;
         Diamonds = 100;
         Food = 0;
         Mana = 0;

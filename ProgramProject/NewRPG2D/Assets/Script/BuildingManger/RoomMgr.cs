@@ -12,7 +12,7 @@ public abstract class RoomMgr : MonoBehaviour
 {
     private CastleMgr castleMgr;//主城堡信息
     public int roomID;//用于区分第几个相同房间
-    public string RoomName;//房间类型
+    public BuildRoomName RoomName;//房间类型
     public Vector2 buidStartPoint;//起点坐标
     public int buildEndPoint;//终点坐标
     [SerializeField]
@@ -21,7 +21,6 @@ public abstract class RoomMgr : MonoBehaviour
     private BuildPoint[] wall;
 
     private Vector2 startPoint;
-    private bool isUsed = true;
     private EmptyPoint[] emptyPoints = new EmptyPoint[4]; //左,右,上,下的空位;
     public RoomMgr[] nearbyRoom = new RoomMgr[4]; // 附近的房间 左,右,上,下;
     public int maxRoomSize = 9;
@@ -30,6 +29,7 @@ public abstract class RoomMgr : MonoBehaviour
     public bool linkType = false;//连接状态
     public bool isHarvest = false;//可否收获
     public bool roomFunc = false;//房间功能是否开启
+    public bool levelUp = false;//是否在升级中
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();
 
@@ -70,6 +70,7 @@ public abstract class RoomMgr : MonoBehaviour
         buildingData = data;
         startPoint = point;
         RoomName = buildingData.RoomName;
+        Debug.Log(castleMgr.castleType);
         if (castleMgr.castleType == CastleType.main)//如果不是建造模式生成的建筑
         {
             roomFunc = true;//房间功能开启
@@ -205,7 +206,7 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
 
-        if (RoomName == "Stairs")
+        if (RoomName == BuildRoomName.Stairs)
             ChickUpOrDown(castleMgr.buildPoint);
         else
         {
@@ -232,16 +233,11 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (buildPoint[startX, startY + 1] != null
             && buildPoint[startX, startY + 1].pointType == BuildingType.Full
-            && buildPoint[startX, startY + 1].roomMgr.RoomName == "Stairs")
+            && buildPoint[startX, startY + 1].roomMgr.RoomName == BuildRoomName.Stairs)
         //如果上面位置不是空的且有房间且房间类型是楼梯 那么上方添加该房间
         {
             nearbyRoom[2] = buildPoint[startX, startY + 1].roomMgr;
             buildPoint[startX, startY + 1].roomMgr.nearbyRoom[3] = this;
-            //if (buildPoint[startX, startY + 1].roomMgr.linkType == true)
-            //{
-            //    linkType = true;
-            //    roomDependency[3] = buildPoint[startX, startY + 1].roomMgr;
-            //}
         }
         if (startY - 1 >= 0 && buildPoint[startX, startY - 1] != null
             && buildPoint[startX, startY - 1].pointType == BuildingType.Wall)
@@ -253,15 +249,10 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (startY - 1 >= 0 && buildPoint[startX, startY - 1] != null
             && buildPoint[startX, startY - 1].pointType == BuildingType.Full
-            && buildPoint[startX, startY - 1].roomMgr.RoomName == "Stairs")
+            && buildPoint[startX, startY - 1].roomMgr.RoomName == BuildRoomName.Stairs)
         {
             nearbyRoom[3] = buildPoint[startX, startY - 1].roomMgr;
             buildPoint[startX, startY - 1].roomMgr.nearbyRoom[2] = this;
-            //if (buildPoint[startX, startY - 1].roomMgr.linkType == true)
-            //{
-            //    linkType = true;
-            //    roomDependency[2] = buildPoint[startX, startY - 1].roomMgr;
-            //}
         }
 
         UpdateEmptyPoint();
@@ -591,9 +582,64 @@ public abstract class RoomMgr : MonoBehaviour
 
     protected void GetCompoment()
     {
-        Debug.Log("运行了");
         disTip = this.transform.Find("RoomFrame/SelectSign").gameObject;
         roomLock = this.transform.Find("RoomTypes/RoomLock").gameObject;
         roomProp = this.transform.Find("RoomTypes/RoomProp").gameObject;
     }
+
+    #region ProductionType
+    public virtual void ProductionType()
+    {
+        if (roomFunc == false)
+        {
+            return;
+        }
+        bool isTrue = LocalServer.instance.SetNumber(this);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, RoomName);
+        if (isTrue)
+        {
+            //如果数量小于1 那么关闭提示框 关闭收获提示
+            if (stock <= 1)
+            {
+                roomProp.SetActive(false);
+                isHarvest = false;
+            }
+            //显示动画并刷新数字
+            else
+            {
+                roomProp.SetActive(true);
+                isHarvest = true;
+            }
+        }
+        else
+        {
+            //仓库已满
+            Debug.Log("仓库已满");
+        }
+    }
+    public virtual void GetNumber(ServerBuildData storageRoom)
+    {
+        if (roomFunc == false)
+        {
+            return;
+        }
+        if (storageRoom.buildingData.RoomName == RoomName)
+        {
+            stock = storageRoom.Stock;
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickStock, RoomName);
+            Debug.Log("仓库库存 :" + stock);
+        }
+    }
+
+    public virtual void GetNumber(int number)
+    {
+        if (roomFunc == false)
+        {
+            return;
+        }
+        //显示可获取
+        isHarvest = true;
+        roomProp.SetActive(true);
+    }
+    #endregion
 }

@@ -22,11 +22,13 @@ public class UIMarket : MonoBehaviour
 
     private void Awake()
     {
+        HallEventManager.instance.AddListener<RoomType>(HallEventDefineEnum.ChickBuild, UpdateType);
+
         Init();
     }
-    void Start()
+    private void OnDestroy()
     {
-
+        HallEventManager.instance.RemoveListener<RoomType>(HallEventDefineEnum.ChickBuild, UpdateType);
     }
 
     private void Init()
@@ -44,7 +46,8 @@ public class UIMarket : MonoBehaviour
         GameObject go = Instantiate(grid, gridTrans);
         grids.Add(go.GetComponent<UIMarketGrid>());
 
-        Invoke("GetDic", 0.5f);
+        GetDic();
+        //Invoke("GetDic", 0.5f);
     }
 
     private void GetDic()
@@ -92,6 +95,7 @@ public class UIMarket : MonoBehaviour
 
     private void UpdateType(RoomType type)
     {
+        List<UIMarketGrid> fullGrids = new List<UIMarketGrid>();
         for (int i = 0; i < dic[type].Count; i++)
         {
             if (grids.Count <= i)//如果格子数量不足 新建
@@ -101,7 +105,14 @@ public class UIMarket : MonoBehaviour
             }
             grids[i].market = this;
             grids[i].gameObject.SetActive(true);
-            grids[i].UpdateBuilding(dic[type][i]);//当前格子更新信息
+            int[] index = ChickPlayerInfo.instance.GetBuildiDicInfo(dic[type][i]);
+            bool isTrue = true;
+            if (index[0] >= index[1])
+            {
+                isTrue = false;
+                fullGrids.Add(grids[i]);
+            }
+            grids[i].UpdateBuilding(dic[type][i], index, isTrue);//当前格子更新信息
         }
         ClearGrids(dic[type].Count);//将多余的格子关闭
     }
@@ -113,5 +124,4 @@ public class UIMarket : MonoBehaviour
             grids[i].gameObject.SetActive(false);
         }
     }
-
 }

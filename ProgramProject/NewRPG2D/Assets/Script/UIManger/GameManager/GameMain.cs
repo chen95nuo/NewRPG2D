@@ -26,6 +26,6 @@ public class GameMain : MonoBehaviour
 
     private void test()
     {
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10001);
+        ChickPlayerInfo.instance.ChickBuilding();
     }
 }

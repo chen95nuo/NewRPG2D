@@ -32,31 +32,23 @@ public class UIMain : TTUIPage
 
     private PlayerData playerData;
 
-    private float[] spaceStock = new float[5];
+    private ServerBuildData[] spaceStock = new ServerBuildData[5];
 
     private void Awake()
     {
         btn_UIMarket.onClick.AddListener(ShowMarket);
         market.gameObject.SetActive(false);
 
-        HallEventManager.instance.AddListener(HallEventDefineEnum.GoldSpace, ChickGlodSpace);
-        HallEventManager.instance.AddListener(HallEventDefineEnum.FoodSpace, ChickFoodSpace);
-        HallEventManager.instance.AddListener(HallEventDefineEnum.ManaSpace, ChickManaSpace);
-        HallEventManager.instance.AddListener(HallEventDefineEnum.WoodSpace, ChickWoodSpace);
-        HallEventManager.instance.AddListener(HallEventDefineEnum.IronSpace, ChickIronSpace);
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
+        HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
 
         Init();
     }
 
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.GoldSpace, ChickGlodSpace);
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.FoodSpace, ChickFoodSpace);
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ManaSpace, ChickManaSpace);
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.WoodSpace, ChickWoodSpace);
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.IronSpace, ChickIronSpace);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
+        HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
     }
     private void Init()
     {
@@ -100,51 +92,45 @@ public class UIMain : TTUIPage
         btn_UIFightInfor.gameObject.SetActive(isTrue);
     }
 
-    private void GetSpace()
+    private void GetSpace(BuildRoomName name)
     {
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                text_gold.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold).ToString();
+                break;
+            case BuildRoomName.GoldSpace:
+                text_gold.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold).ToString();
+                break;
+            case BuildRoomName.Food:
+                text_food.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food).ToString();
+                break;
+            case BuildRoomName.FoodSpace:
+                text_food.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food).ToString();
+                break;
+            case BuildRoomName.Mana:
+                text_mana.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana).ToString();
+                break;
+            case BuildRoomName.ManaSpace:
+                text_mana.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana).ToString();
+                break;
+            case BuildRoomName.Wood:
+                text_wood.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood).ToString();
+                break;
+            case BuildRoomName.WoodSpace:
+                text_wood.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood).ToString();
+                break;
+            case BuildRoomName.Iron:
+                text_iron.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron).ToString();
+                break;
+            case BuildRoomName.IronSpace:
+                text_iron.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron).ToString();
+                break;
+            default:
+                break;
+        }
+    }
 
-    }
-
-    private void ChickGlodSpace()
-    {
-        if (spaceStock[0] != 0)
-        {
-            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
-        }
-        text_gold.text = playerData.Gold.ToString();
-    }
-    private void ChickFoodSpace()
-    {
-        if (spaceStock[1] != 0)
-        {
-            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
-        }
-        text_food.text = playerData.Food.ToString();
-    }
-    private void ChickManaSpace()
-    {
-        if (spaceStock[2] != 0)
-        {
-            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
-        }
-        text_mana.text = playerData.Mana.ToString();
-    }
-    private void ChickWoodSpace()
-    {
-        if (spaceStock[3] != 0)
-        {
-            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
-        }
-        text_wood.text = playerData.Wood.ToString();
-    }
-    private void ChickIronSpace()
-    {
-        if (spaceStock[4] != 0)
-        {
-            text_gold.text = (playerData.Gold + (int)spaceStock[0]).ToString();
-        }
-        text_iron.text = playerData.Iron.ToString();
-    }
     private void ChickDiamonds()
     {
         text_diamonds.text = playerData.Diamonds.ToString();
