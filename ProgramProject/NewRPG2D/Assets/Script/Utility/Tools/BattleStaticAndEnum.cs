@@ -120,6 +120,10 @@ namespace Assets.Script.Battle
         Point03,
         Point04,
         Point05,
+        Point06,
+        Point07,
+        Point08,
+        Point09,
     }
 
     public enum TeamTypeEnum

@@ -30,12 +30,12 @@ namespace Assets.Script.Battle
                 return;
         }
 
-        public void AddMonsterRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
+        public bool AddMonsterRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, int roleId, float angle)
         {
             RoleRender roleMono = SetRoleTransform(roleId, indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
             {
-                return;
+                return false;
             }
 
             RoleInfo info = new RoleInfo();
@@ -45,7 +45,9 @@ namespace Assets.Script.Battle
             info.RoleId = roleId;
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
-            RoleDetailData roleData = null;//GameCardData.Instance.GetItem(roleId);
+            RoleDetailData roleData = new RoleDetailData();
+            roleData.InitData();
+            roleData.Id = 100001;
             role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
             roleData.BattleIconSpriteName = currentRoleData.IconName;
@@ -61,14 +63,15 @@ namespace Assets.Script.Battle
             RolesList.Add(role);
             RolesEnemyList.Add(role);
             RoleDic[instanceId] = role;
+            return true;
         }
 
-        public void AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
+        public bool AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
         {
             RoleRender roleMono = SetRoleTransform(roleData.Id, indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
             {
-                return;
+                return false;
             }
 
             Debug.Log("AddHeroRole addrole:" + instanceId);
@@ -95,6 +98,7 @@ namespace Assets.Script.Battle
             RoleDic[instanceId] = role;
             //Debug.LogError(" AddHeroRole ");
             EventManager.instance.SendEvent<RoleBase>(EventDefineEnum.CreateRole, role);
+            return true;
         }
 
         public RoleBase GetRole(ushort inatancdid)

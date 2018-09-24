@@ -38,6 +38,7 @@ namespace Assets.Script.Battle
         public bool FinishMoveToPoint;
         public bool IsCanControl;
         public bool IsCanInterrput;
+        public bool CanStartMove;
 
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -123,6 +124,7 @@ namespace Assets.Script.Battle
             IsCanControl = true;
             IsDead = false;
             IsCanInterrput = true;
+            CanStartMove = false;
         }
 
         private void InitRoleProperty()
@@ -185,7 +187,10 @@ namespace Assets.Script.Battle
                 {
                     RoleMoveMoment.Update(deltaTime);
                 }
-                if (RoleSearchTarget != null) RoleSearchTarget.Update();
+                if (RoleSearchTarget != null && CanStartMove)
+                {
+                    RoleSearchTarget.Update();
+                }
                 if(RoleSkill != null) RoleSkill.UpdateLogic(deltaTime);
             }
 

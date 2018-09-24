@@ -3,6 +3,7 @@ using Assets.Script.Timer;
 using Assets.Script.Utility;
 using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Script.Battle.BattleData;
@@ -20,10 +21,13 @@ namespace Assets.Script.Battle.LevelManager
             public CreateEnemyInfo enemyInfo;
         }
 
-        [SerializeField]
-        private BornPoint[] heroPoint;
-        [SerializeField]
-        private BornPoint[] monsterPoint;
+        [SerializeField] private LayerMask inputLayerMask;
+        [SerializeField] private BornPoint[] heroPoint;
+        [SerializeField]  private Transform[] heroBornPoint;
+
+        [SerializeField] private BornPoint[] monsterPoint;
+        [SerializeField] private Transform[] monsterBornPoint;
+
         [SerializeField]
         private string sceneName;
 
@@ -41,24 +45,26 @@ namespace Assets.Script.Battle.LevelManager
 
         private void Awake()
         {
-
+            InputContorlMgr.CreateInstance();
+            ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle);
             ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName);
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
-           // roleInfoArray = GoFightMgr.instance.cardData;
-//             if (GoFightMgr.instance.currentLesson != null) sceneId = GoFightMgr.instance.currentLesson.LessonId;
-//             Debug.LogError(" roleInfoArray " + roleInfoArray.Length);
+            roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;
+
             LoadLevelParam temp = new LoadLevelParam();
             EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
             GameRoleMgr.instance.CurrentPlayerMp.Value = 1 * 500;
             currentInstanceId = 100;
             isCreateEnemy = false;
             isGameOver = false;
+            InputContorlMgr.instance.SetMainCamera(Camera.main);
+            InputContorlMgr.instance.SetLayMask(inputLayerMask);
         }
 
         private void Start()
         {
-            CTimerManager.instance.AddListener(0.5f, 1, AddRole);
+            CTimerManager.instance.AddListener(1.5f, 1, AddRole);
         }
 
         private void Update()
@@ -67,14 +73,38 @@ namespace Assets.Script.Battle.LevelManager
             {
                 return;
             }
+
             addTime += Time.deltaTime;
             StartBornEnemy();
             CheckEnemyCount();
+            using (var mRole = GameRoleMgr.instance.RolesList.GetEnumerator())
+            {
+                while (mRole.MoveNext())
+                {
+                    if (mRole.Current != null) mRole.Current.UpdateLogic(Time.smoothDeltaTime);
+                }
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            if (isGameOver)
+            {
+                return;
+            }
+
+            using (var mRole = GameRoleMgr.instance.RolesList.GetEnumerator())
+            {
+                while (mRole.MoveNext())
+                {
+                    if (mRole.Current != null) mRole.Current.FixedUpdateLogic(Time.fixedDeltaTime);
+                }
+            }
         }
 
         private void OnDestroy()
         {
-
+            InputContorlMgr.DestroyInstance();
         }
 
         private void AddRole(int timeId)
@@ -93,7 +123,7 @@ namespace Assets.Script.Battle.LevelManager
                     }
                     if ((int)heroPoint[i].BornPositionType == roleInfoArray[j].TeamPos)
                     {
-                        BornHero(heroPoint[i].Point, currentInstanceId++, roleInfoArray[j], 0);
+                        BornHero(heroPoint[i], currentInstanceId++, roleInfoArray[j], 0);
                         break;
                     }
                 }
@@ -118,7 +148,7 @@ namespace Assets.Script.Battle.LevelManager
                 DebugHelper.LogError("  -----------------Win----- ");
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-               //GoFightMgr.instance.MissionComplete();
+                //GoFightMgr.instance.MissionComplete();
                 return;
             }
             currentEnemyInfoList.Clear();
@@ -128,17 +158,36 @@ namespace Assets.Script.Battle.LevelManager
             InitEnemyInfoDic(BornPositionTypeEnum.Point03);
             InitEnemyInfoDic(BornPositionTypeEnum.Point04);
             InitEnemyInfoDic(BornPositionTypeEnum.Point05);
+            InitEnemyInfoDic(BornPositionTypeEnum.Point06);
+            InitEnemyInfoDic(BornPositionTypeEnum.Point07);
+            InitEnemyInfoDic(BornPositionTypeEnum.Point08);
+            InitEnemyInfoDic(BornPositionTypeEnum.Point09);
         }
 
-        private void BornHero(Transform mPoint, ushort instanceId, RoleDetailData roleData, float angle)
+        private void BornHero(BornPoint mPoint, ushort instanceId, RoleDetailData roleData, float angle)
         {
-            GameRoleMgr.instance.AddHeroRole("Hero", mPoint, mPoint.position, instanceId, roleData, angle);
+            Vector3 startPoint = mPoint.Point.position;
+            int pointIndex = (int)mPoint.BornPositionType % 3;
+            startPoint = heroBornPoint[pointIndex].position;
+            bool success = GameRoleMgr.instance.AddHeroRole("Hero", mPoint.Point, startPoint, instanceId, roleData, angle);
+            if (success) StartCoroutine(DelayMoveRole(instanceId, mPoint.Point.position));
         }
 
-        private void BornEnemy(Transform mPoint, ushort instanceId, int roleId, float angle)
+        private IEnumerator DelayMoveRole(ushort instanceId, Vector3 position)
         {
-            Debug.Log(" monster id " + roleId);
-            GameRoleMgr.instance.AddMonsterRole("Monster", mPoint, mPoint.position, instanceId, roleId, angle);
+            yield return null;
+            RoleBase role = GameRoleMgr.instance.GetRole(instanceId);
+            role.SetRoleActionState(ActorStateEnum.Run);
+            role.RoleMoveMoment.SetTargetPosition(position);
+        }
+
+        private void BornEnemy(BornPoint mPoint, ushort instanceId, int roleId, float angle)
+        {
+            Vector3 startPoint = mPoint.Point.position;
+            int pointIndex = (int)mPoint.BornPositionType % 3;
+            startPoint = monsterBornPoint[pointIndex].position;
+            bool success = GameRoleMgr.instance.AddMonsterRole("Monster", mPoint.Point, startPoint, instanceId, roleId, angle);
+            if (success) StartCoroutine(DelayMoveRole(instanceId, mPoint.Point.position));
         }
 
         private void GetEnemyData(int enemyDataId)
@@ -216,7 +265,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void BornEnemy(BornPositionTypeEnum bornPositionType, int enemyRoleId)
         {
-            Transform bornPoint = GetEnemyBornPoisition(bornPositionType);
+            BornPoint bornPoint = GetEnemyBornPoisition(bornPositionType);
             BornEnemy(bornPoint, currentInstanceId++, enemyRoleId, 0);
         }
 
@@ -232,16 +281,16 @@ namespace Assets.Script.Battle.LevelManager
             }
         }
 
-        private Transform GetEnemyBornPoisition(BornPositionTypeEnum bornPositionType)
+        private BornPoint GetEnemyBornPoisition(BornPositionTypeEnum bornPositionType)
         {
             for (int i = 0; i < monsterPoint.Length; i++)
             {
                 if (monsterPoint[i].BornPositionType == bornPositionType)
                 {
-                    return monsterPoint[i].Point;
+                    return monsterPoint[i];
                 }
             }
-            return transform;
+            return null;
         }
     }
 }

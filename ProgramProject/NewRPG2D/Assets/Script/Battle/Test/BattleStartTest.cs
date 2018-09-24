@@ -28,17 +28,23 @@ public class BattleStartTest : MonoBehaviour
     // Update is called once per frame
     public void StartGame()
     {
-       // RoleDetailData role1 = GameCardData.Instance.GetItem(Int32.Parse(Role1Field.text));
-       // RoleDetailData role2 = GameCardData.Instance.GetItem(Int32.Parse(Role2Field.text));
-       // if(role1 != null) role1.TeamPos = 0;
-       // if(role2 != null) role2.TeamPos = 1;
-       // GoFightMgr.instance.cardData = new[]
-       //{
-       //     role1, role2
-       // };
-       // BattleStaticAndEnum.isGod = IsGod.isOn;
-       // GoFightMgr.instance.PlayerLevel = 1;
-       // SceneManager.LoadScene("SceneLoad");
+        RoleDetailData role1 = new RoleDetailData();//GameCardData.Instance.GetItem(Int32.Parse(Role1Field.text));
+        role1.InitData();
+        role1.Id = Int32.Parse(Role1Field.text);
+
+        RoleDetailData role2 = new RoleDetailData(); //GameCardData.Instance.GetItem(Int32.Parse(Role2Field.text));
+        role2.InitData();
+        role2.Id = Int32.Parse(Role2Field.text);
+
+        role1.TeamPos = 0;
+        role2.TeamPos = 1;
+        BattleDetailDataMgr.instance.RoleDatas = new[]
+        {
+            role1, role2
+        };
+        BattleStaticAndEnum.isGod = IsGod.isOn;
+        // GoFightMgr.instance.PlayerLevel = 1;
+        SceneManager.LoadScene("SceneLoad");
 
     }
 }

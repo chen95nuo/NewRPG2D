@@ -109,13 +109,7 @@ public class RoleDetailData
         }
     }
 
-    public int Id
-    {
-        get
-        {
-            return id;
-        }
-    }
+    public int Id;
 
     //public TeamType TeamType
     //{
@@ -455,6 +449,17 @@ public class RoleDetailData
             Debug.LogError("角色属性参数不正确" + grow + " " + type);
             return 0;
         }
+    }
+
+    public void InitData()
+    {
+        this.agile = 1;
+        this.attack = 1;
+        this.defense = 1;
+        this.health = 10;
+        this.id = 100001;
+        this.level = 1;
+        this.name = "test";
     }
 }
 

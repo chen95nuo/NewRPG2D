@@ -16,16 +16,14 @@ namespace Assets.Script.Utility
     /// </summary>
     public enum XmlName
     {
+        BuildingData,
+        Hall,
+
         RoleData,
         RolePropertyData,
         SkillData,
         CreateEnemyData,
-        BuildingData,
-        Hall,
-
         Battle,
-
-
 
         Max,
         MapSceneLevel,

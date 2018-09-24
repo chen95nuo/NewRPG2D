@@ -27,7 +27,7 @@ namespace Assets.Script.Battle
         public void SetCurrentRole(RoleBase mRole)
         {
             currenRole = mRole;
-            HUDRoot = bl_UHTUtils.GetHUDText;
+          //  HUDRoot = bl_UHTUtils.GetHUDText;
             HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform,"");
             HUDTextInfoinfo.Color = Color.white;
             HUDTextInfoinfo.Size = 150;
@@ -36,7 +36,6 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.VerticalFactorScale = 0.1f;
             HUDTextInfoinfo.VerticalPositionOffset = 0;
             HUDTextInfoinfo.Side = mRole.TeamId == TeamTypeEnum.Hero ? bl_Guidance.RightDown : bl_Guidance.LeftDown;
-          
         }
 
         public void InitBaseRoleValue(PropertyBaseData rolePropertyData)
@@ -74,8 +73,8 @@ namespace Assets.Script.Battle
                 RoleHp -= HpChange;
             }
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
-            HUDTextInfoinfo.Text = ((int)HpChange).ToString();
-            HUDRoot.NewText(HUDTextInfoinfo);
+            //HUDTextInfoinfo.Text = ((int)HpChange).ToString();
+            //HUDRoot.NewText(HUDTextInfoinfo);
            // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
