@@ -4,30 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SystemTime : MonoBehaviour
+public class SystemTime : TSingleton<SystemTime>
 {
-    public static SystemTime insatnce = null;
-
-
     private DateTime startTime;
     private float onlineTime;
 
     private float currentTime;
 
-    private void Awake()
-    {
-        insatnce = this;
-        startTime = DateTime.Now;
-    }
-    private void Update()
-    {
-        currentTime += Time.deltaTime;
-        if (currentTime >= 1)
-        {
-            currentTime = 0;
-            onlineTime += 1;
-        }
-    }
+    //private void Awake()
+    //{
+    //    insatnce = this;
+    //    startTime = DateTime.Now;
+    //}
+    //private void Update()
+    //{
+    //    currentTime += Time.deltaTime;
+    //    if (currentTime >= 1)
+    //    {
+    //        currentTime = 0;
+    //        onlineTime += 1;
+    //    }
+    //}
 
     public DateTime GetTime()
     {

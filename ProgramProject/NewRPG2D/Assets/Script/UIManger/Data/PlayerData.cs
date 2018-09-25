@@ -162,7 +162,7 @@ public class PlayerData
     {
         get
         {
-            return mainHallLevel;
+            return mainHallLevel = 4;
         }
 
         set

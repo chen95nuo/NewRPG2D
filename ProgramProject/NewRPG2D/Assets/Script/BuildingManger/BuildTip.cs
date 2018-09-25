@@ -18,7 +18,6 @@ public class BuildTip : MonoBehaviour
     private float width = 4.77f;
 
     public EmptyPoint emptyPoint;
-    public bool isMerge = false;//合并房间
 
     public int startX = 0;
 
@@ -149,11 +148,11 @@ public class BuildTip : MonoBehaviour
         transform.position = new Vector2(-1000, -1000);
     }
 
-    public void InstanceRoom(RoomMgr room, BuildingData data, CastleMgr castleMgr)
-    {
-        emptyPoint.startPoint = new Vector2(startX, emptyPoint.startPoint.y);
-        room.UpdateBuilding(emptyPoint.startPoint, data, castleMgr);
-    }
+    //public void InstanceRoom(RoomMgr room, BuildingData data, CastleMgr castleMgr)
+    //{
+    //    emptyPoint.startPoint = new Vector2(startX, emptyPoint.startPoint.y);
+    //    room.UpdateBuilding(emptyPoint.startPoint, data, castleMgr);
+    //}
 
     ///// <summary>
     ///// 建造建筑

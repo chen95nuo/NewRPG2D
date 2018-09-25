@@ -93,12 +93,14 @@ public class UILockRoomTip : TTUIPage
     /// </summary>
     private void ProductionRoom()
     {
+        Debug.Log("当前房间状态" + roomData.levelUp);
         if (roomData.levelUp == true)
         {
             btn_Message.gameObject.SetActive(isOpen);
-            RoomLevelUp();
+            RoomLevelUp(true);
             return;
         }
+        RoomLevelUp(false);
         btn_Message.gameObject.SetActive(isOpen);
         btn_LevelUp.gameObject.SetActive(isOpen);
     }
@@ -110,9 +112,10 @@ public class UILockRoomTip : TTUIPage
     {
         if (roomData.levelUp == true)
         {
-            RoomLevelUp();
+            RoomLevelUp(true);
             return;
         }
+        RoomLevelUp(false);
         btn_LevelUp.gameObject.SetActive(isOpen);
         btn_Train.gameObject.SetActive(isOpen);
         //这边还需要判断有多少个角色对应角色出现提示框
@@ -122,19 +125,20 @@ public class UILockRoomTip : TTUIPage
         if (roomData.levelUp == true)
         {
             btn_Message.gameObject.SetActive(isOpen);
-            RoomLevelUp();
+            RoomLevelUp(true);
             return;
         }
+        RoomLevelUp(false);
         btn_Message.gameObject.SetActive(isOpen);
         btn_LevelUp.gameObject.SetActive(isOpen);
         btn_CastleEditor.gameObject.SetActive(isOpen);
         btn_CastleMod.gameObject.SetActive(isOpen);
     }
 
-    private void RoomLevelUp()
+    private void RoomLevelUp(bool isTrue)
     {
-        btn_Cancel.gameObject.SetActive(isOpen);
-        btn_SpeedUp.gameObject.SetActive(isOpen);
+        btn_Cancel.gameObject.SetActive(isTrue);
+        btn_SpeedUp.gameObject.SetActive(isTrue);
     }
 
     private void ChickMessage()

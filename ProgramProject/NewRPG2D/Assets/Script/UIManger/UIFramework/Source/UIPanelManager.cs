@@ -264,18 +264,20 @@ namespace Assets.Script.UIManger
             m_currentPageNodes.Clear();
         }
 
-        private void ShowPage<T>(string pagePath, Action callback, object pageData, bool isAsync) where T : TTUIPage
+        private T ShowPage<T>(string pagePath, Action callback, object pageData, bool isAsync) where T : TTUIPage
         {
             string pageName = pagePath;
 
             if (m_allPages != null && m_allPages.ContainsKey(pageName))
             {
                 ShowPage(pageName, m_allPages[pageName], callback, pageData, isAsync);
+                return m_allPages[pageName] as T;
             }
             else
             {
                 T instance = ShowUIPage<T>(pageName, null, pageData);
                 ShowPage(pageName, instance, callback, pageData, isAsync);
+                return instance;
             }
         }
 
@@ -345,11 +347,12 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// 该方法不需要路径
         /// </summary>
-        public void ShowPage<T>(object pageData) where T : TTUIPage
+        public T ShowPage<T>(object pageData) where T : TTUIPage
         {
             Type t = typeof(T);
             string pagePath = "UIPrefab/" + t.Name;
-            ShowPage<T>(pagePath, null, pageData, false);
+            T page = ShowPage<T>(pagePath, null, pageData, false);
+            return page;
         }
 
         public void ShowPage(string pageName, TTUIPage pageInstance)

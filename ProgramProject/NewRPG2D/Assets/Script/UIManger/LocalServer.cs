@@ -27,7 +27,11 @@ public class LocalServer : TSingleton<LocalServer>
         }
         Debug.Log("没有重复继续运行");
         serverRoom.Add(data);
-        ChickPlayerInfo.instance.ChickBuildDicAdd(data);
+        if (data.buildingData.RoomType != RoomType.Production
+            && data.buildingData.RoomSize <= 3)
+        {
+            ChickPlayerInfo.instance.ChickBuildDicAdd(data);
+        }
         if (data.buildingData.RoomType == RoomType.Production)
         {
             PlayerData playData = GetPlayerData.Instance.GetData();
@@ -108,7 +112,25 @@ public class LocalServer : TSingleton<LocalServer>
             serverRoom[i] = rooms[i];
         }
         HallEventManager.instance.SendEvent<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, serverRoom);
+
+
     }
+
+    /// <summary>
+    /// 删除房间
+    /// </summary>
+    /// <param name="data"></param>
+    public bool RemoveRoom(ServerBuildData data)
+    {
+        bool isTrue = serverRoom.Remove(data);
+        return isTrue;
+    }
+
+    /// <summary>
+    /// 删除1 添加2
+    /// </summary>
+    /// <param name="data_1"></param>
+    /// <param name="data_2"></param>
     public void ReplaceRoom(ServerBuildData data_1, ServerBuildData data_2)
     {
         serverRoom.Remove(data_1);
@@ -124,6 +146,10 @@ public class LocalServer : TSingleton<LocalServer>
     private void JustTime(int key)
     {
         RoomMgr thisRoom = buildNumber[key];
+        if (thisRoom.levelUp == true)
+        {
+            return;
+        }
         IProduction index = thisRoom.GetComponent<IProduction>();
 
         index.Stock += index.Yield / 60 / 60 * 30;
@@ -133,6 +159,26 @@ public class LocalServer : TSingleton<LocalServer>
             thisRoom.GetNumber((int)index.Stock);
         }
     }
+
+    public void RoomLevelTime(RoomMgr data, int time)
+    {
+        Debug.Log("升级需要时间" + time);
+        int index = CTimerManager.instance.AddListener(1f, time, LevelTime);
+        buildNumber.Add(index, data);
+    }
+
+    public void RemoveLevelTime(int sequenceTime)
+    {
+        CTimerManager.instance.RemoveLister(sequenceTime);
+    }
+
+    public void LevelTime(int key)
+    {
+        RoomMgr thisRoom = buildNumber[key];
+        thisRoom.LevelNowTime();
+    }
+
+
     /*  
      *  添加的时候先加仓库仓库不够在使用玩家储存
      *  减少的时候先减少玩家库存在减少仓库

@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.UIManger;
 
 public abstract class RoomMgr : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public abstract class RoomMgr : MonoBehaviour
     public int buildEndPoint;//终点坐标
     [SerializeField]
     public BuildingData buildingData;
+
+    public ServerBuildData s_Data;
 
     private BuildPoint[] wall;
 
@@ -42,6 +45,27 @@ public abstract class RoomMgr : MonoBehaviour
 
     protected float yield = 0;
     protected float stock = 0;
+
+    private int needTime = 0;
+    private int listNumber = 0;
+    private UILevelUpTip levelUpTip;
+
+    public float Yield
+    {
+        get
+        {
+            return yield;
+        }
+    }
+
+    public float Stock
+    {
+        get
+        {
+            return stock;
+        }
+    }
+
     /// <summary>
     /// 将数据添加到服务器
     /// </summary>
@@ -52,9 +76,10 @@ public abstract class RoomMgr : MonoBehaviour
         data.buildingPoint = this.startPoint;
         if (buildingData.RoomType == RoomType.Production)//如果是生产类
         {
-            data.Yield = yield;
-            data.Stock = stock;
+            data.Yield = Yield;
+            data.Stock = Stock;
         }
+        s_Data = data;
         LocalServer.instance.AddRoom(data);
         castleMgr.serverRoom.Add(data);
     }
@@ -103,6 +128,8 @@ public abstract class RoomMgr : MonoBehaviour
         }
 
         ChickLeftOrRight(castleMgr.buildPoint);
+
+        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.ChickRoomMerge, this);
 
         castleMgr.rooms.Add(this);
         AddConnection();
@@ -279,7 +306,7 @@ public abstract class RoomMgr : MonoBehaviour
         castleMgr.rooms.Remove(this);
 
         this.gameObject.transform.position = new Vector2(-1000, -1000);
-        castleMgr.removeRoom.Add(this.gameObject);
+        castleMgr.removeRoom.Add(this);
 
         int startX = (int)startPoint.x;
         int startY = (int)startPoint.y;
@@ -373,6 +400,50 @@ public abstract class RoomMgr : MonoBehaviour
                 {
                     return;
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 删除建筑
+    /// </summary>
+    public void RemoveBuilding()
+    {
+        //将建筑的使用信息改为停用 将墙面移动回原位
+        castleMgr.rooms.Remove(this);
+
+        this.gameObject.transform.position = new Vector2(-1000, -1000);
+        castleMgr.removeRoom.Add(this);
+
+        int startX = (int)startPoint.x;
+        int startY = (int)startPoint.y;
+
+        for (int i = 0; i < wall.Length; i++)
+        {
+            wall[i].pointType = BuildingType.Wall;
+            wall[i].pointWall.Translate(Vector3.forward * 1000);
+            wall[i].roomMgr = null;
+        }
+
+        //删除当前建筑提供的位置信息
+        for (int i = 0; i < emptyPoints.Length; i++)
+        {
+            if (emptyPoints[i] != null)
+            {
+                castleMgr.emptyPoint.Remove(emptyPoints[i]);
+            }
+        }
+        emptyPoints = new EmptyPoint[4];
+        linkType = false; //断开自身链接
+        int index = 0;
+        for (int i = 0; i < nearbyRoom.Length; i++)
+        {
+            if (nearbyRoom[i] != null)
+            {
+                nearbyRoom[i].UpdateBuilding();
+                nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
+                nearbyRoom[i] = null;
+                index++;
             }
         }
     }
@@ -577,6 +648,65 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 升级
+    /// </summary>
+    public void RoomLevelUp()
+    {
+        if (roomFunc == false)
+        {
+            return;
+        }
+        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(buildingData.NexLevelID);
+        needTime = data.NeedTime * 6;
+        //开始升级添加计时事件
+        LocalServer.instance.RoomLevelTime(this, data.NeedTime * 6);
+        levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
+        listNumber = levelUpTip.AddLister();
+        levelUpTip.UpdateTime(needTime, listNumber);
+        roomFunc = false;
+        isHarvest = false;
+        roomProp.SetActive(false);
+        levelUp = true;
+        UIPanelManager.instance.ClosePage<UILockRoomTip>();
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
+
+    }
+
+    public void LevelNowTime()
+    {
+        needTime--;
+        levelUpTip.UpdateTime(needTime, listNumber);
+        if (needTime <= 0)
+        {
+            needTime = 0;
+            LevelUpIsDown();
+        }
+    }
+
+    /// <summary>
+    /// 升级完成 数据更改
+    /// </summary>
+    protected void LevelUpIsDown()
+    {
+        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(buildingData.NexLevelID);
+        ServerBuildData data_1 = new ServerBuildData(s_Data.buildingPoint, data, s_Data.Yield, s_Data.Stock);
+        LocalServer.instance.ReplaceRoom(s_Data, data_1);
+        buildingData = data;
+        s_Data.buildingData = buildingData;
+        levelUpTip.RemoveLister(listNumber);
+        levelUpTip = null;
+        roomFunc = true;
+        levelUp = false;
+        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.CloseRoomLock, this);
+
+        //升级完成后检查附近的房间是否可以合并
+        if (buildingData.RoomType == RoomType.Production)
+        {
+            //ChickRoomMerge();
+        }
+    }
+
     public abstract void ThisRoomFunc();
     public abstract void RoomAwake();
 
@@ -599,7 +729,7 @@ public abstract class RoomMgr : MonoBehaviour
         if (isTrue)
         {
             //如果数量小于1 那么关闭提示框 关闭收获提示
-            if (stock <= 1)
+            if (Stock <= 1)
             {
                 roomProp.SetActive(false);
                 isHarvest = false;
@@ -627,7 +757,7 @@ public abstract class RoomMgr : MonoBehaviour
         {
             stock = storageRoom.Stock;
             HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickStock, RoomName);
-            Debug.Log("仓库库存 :" + stock);
+            Debug.Log("仓库库存 :" + Stock);
         }
     }
 

@@ -14,11 +14,11 @@ public class BuildGoldSpace : RoomMgr, IStorage
         set
         {
             float index = value;
-            if (index != stock)
+            if (index != base.Stock)
             {
                 stock = index;
             }
-            Debug.Log(stock);
+            Debug.Log(base.Stock);
         }
     }
     private void Awake()

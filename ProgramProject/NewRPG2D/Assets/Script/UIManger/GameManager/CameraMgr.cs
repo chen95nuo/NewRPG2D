@@ -40,6 +40,7 @@ public class CameraMgr : MonoBehaviour
     {
         HallEventManager.instance.AddListener(HallEventDefineEnum.InEditMode, InTheEditMode);
         HallEventManager.instance.AddListener(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
+        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
 
         m_Camera = GetComponent<Camera>();
         m_CameraPosition = m_Camera.transform.position;
@@ -50,6 +51,7 @@ public class CameraMgr : MonoBehaviour
     {
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.InEditMode, InTheEditMode);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
+        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.CloseRoomLock, ClickRoomLock);
     }
 
     private void Update()
@@ -72,7 +74,7 @@ public class CameraMgr : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         float z = Input.GetAxis("Mouse ScrollWheel");
-
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize += -(z * 4.0f), zMin, zMax);
         transform.localPosition += (new Vector3(x * 0.2f, y * 0.2f, 0));
         if (Input.GetMouseButton(0))
@@ -254,6 +256,18 @@ public class CameraMgr : MonoBehaviour
             room.roomLock.SetActive(false);
         }
         room = null;
+    }
+    /// <summary>
+    /// 刷新锁定状态
+    /// </summary>
+    private void ClickRoomLock(RoomMgr data)
+    {
+        if (room != null && room == data)
+        {
+            UIPanelManager.instance.ClosePage<UILockRoomTip>();
+            UIPanelManager.instance.ShowPage<UILockRoomTip>();
+            HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.UILockRoomTip, data);
+        }
     }
 
     private void CameraMove(Vector3 point)

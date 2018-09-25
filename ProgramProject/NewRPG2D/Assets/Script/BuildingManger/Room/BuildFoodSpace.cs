@@ -14,7 +14,7 @@ public class BuildFoodSpace : RoomMgr, IStorage
         set
         {
             float index = value;
-            if (index != stock)
+            if (index != base.Stock)
             {
                 stock = index;
             }

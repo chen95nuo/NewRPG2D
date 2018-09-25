@@ -86,17 +86,30 @@ public class UIProdLevelUp : TTUIPage
 
     private void UpdateInfo(RoomMgr data)
     {
+        txt_Tip_1.text = "升级增加";
+        txt_Tip_2.text = "每小时产量";
+        txt_Tip_3.text = "房间容量";
+        txt_Tip_4.text = "升级增加产量和容量";
+        txt_Tip_5.text = "立即升级";
+        txt_Tip_6.text = "升级";
+
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
         BuildingData b_Data_2;//下一级房间信息
         b_Data_1 = data.buildingData;
-        Debug.Log(b_Data_1.NexLevelID);
-        b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NexLevelID);
         txt_Name.text = b_Data_1.RoomName.ToString();
         txt_Level.text = b_Data_1.Level.ToString();
         txt_Yield.text = b_Data_1.Param1.ToString("#0");
-        txt_YieldUp.text = "+" + (b_Data_2.Param1 - b_Data_1.Param1);
         txt_Stock.text = b_Data_1.Param2.ToString("#0");
+        if (b_Data_1.NexLevelID == 0)//如果满级了
+        {
+            CloseTxt(false);
+            txt_YieldUp.text = "+" + 0;
+            txt_StockUp.text = "+" + 0;
+            return;
+        }
+        b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NexLevelID);
+        txt_YieldUp.text = "+" + (b_Data_2.Param1 - b_Data_1.Param1);
         txt_StockUp.text = "+" + (b_Data_2.Param2 - b_Data_1.Param2);
         if (b_Data_2.NeedGold > 0)
         {
@@ -124,12 +137,6 @@ public class UIProdLevelUp : TTUIPage
             needIron = playerData.Iron - b_Data_2.NeedIron;
         }
 
-        txt_Tip_1.text = "升级增加";
-        txt_Tip_2.text = "每小时产量";
-        txt_Tip_3.text = "房间容量";
-        txt_Tip_4.text = "升级增加产量和容量";
-        txt_Tip_5.text = "立即升级";
-        txt_Tip_6.text = "升级";
         txt_Tip_7.text = b_Data_2.NeedTime + "min";
     }
 
@@ -152,6 +159,7 @@ public class UIProdLevelUp : TTUIPage
         }
         else
         {
+            Debug.Log("钻石不足");
             //跳转到购买钻石界面
         }
         ClosePage();
@@ -169,8 +177,8 @@ public class UIProdLevelUp : TTUIPage
         //需要各个材料的值，若不足需要知道还缺多少
         if (needGold >= 0 && needMana >= 0 && needWood >= 0 && needIron >= 0)
         {
-
-            //材料足够直接升级
+            //材料足够倒计时升级
+            roomData.RoomLevelUp();
             ClosePage();
             return;
         }

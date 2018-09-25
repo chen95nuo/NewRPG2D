@@ -21,6 +21,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         var index = BuildingDataMgr.instance.GetBuilding();
         foreach (var item in index)
         {
+            if (item.Key == BuildRoomName.Stairs)
+            {
+                dic.Add(item.Key, new ServerBuildData[30]);
+                break;
+            }
             dic.Add(item.Key, new ServerBuildData[item.Value.Length]);
         }
         Debug.Log(dic);
@@ -39,6 +44,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 if (dic[s_BuildData[i].buildingData.RoomName][j] == null)
                 {
                     dic[s_BuildData[i].buildingData.RoomName][j] = s_BuildData[i];
+                    return;
                 }
             }
         }
@@ -81,6 +87,22 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
+    /// 删除建筑信息
+    /// </summary>
+    public void ChickBuildMerge(ServerBuildData data)
+    {
+        for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
+        {
+            if (dic[data.buildingData.RoomName][i].buildingData == data.buildingData
+                && dic[data.buildingData.RoomName][i].buildingPoint == data.buildingPoint)
+            {
+                Debug.Log("找到了 删除");
+                dic[data.buildingData.RoomName][i] = null;
+            }
+        }
+    }
+
+    /// <summary>
     /// 给主菜单建造房间提供当前房间数量
     /// </summary>
     /// <returns></returns>
@@ -107,6 +129,16 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             if (dic[data.RoomName][i] != null)
             {
                 index[0]++;//获取该类建筑已建造数量
+                if (dic[data.RoomName][i].buildingData.RoomType == RoomType.Production)
+                {
+                    switch (dic[data.RoomName][i].buildingData.RoomSize)
+                    {
+                        case 6: index[0]++; break;
+                        case 9: index[0] += 2; break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
         return index;

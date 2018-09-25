@@ -6,7 +6,7 @@ public class BuildGold : RoomMgr, IProduction
 {
     //暂无角色先用默认产能代替
     public float Yield { get { return buildingData.Param1; } }
-    public float Stock { get { return stock; } set { stock = value; } }
+    public float Stock { get { return stock; } set {stock = value; } }
 
     public override void GetNumber(int number)
     {
