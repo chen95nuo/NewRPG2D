@@ -28,9 +28,8 @@ public class CastleMgr : MonoBehaviour
     public List<RoomMgr> removeRoom;//被删除的建筑
     public List<BuildTip> buildTips;//所有标签的位置
     public List<EmptyPoint> emptyPoint;//所有空位
-    public List<ServerBuildData> serverRoom;//服务器中的房间
+    //public List<ServerBuildData> serverRoom;//服务器中的房间
     public BuildingData buildingData;
-
 
     public bool editMode = false;//是否可以建造
     public CastleType castleType;
@@ -66,7 +65,6 @@ public class CastleMgr : MonoBehaviour
 
     protected void Init()
     {
-        Debug.Log(" awake  ");
         playerData = GetPlayerData.Instance.GetData();
         UpdateBGNumber();
         instanceWall();
@@ -74,7 +72,6 @@ public class CastleMgr : MonoBehaviour
 
     protected void AcceptServerRoom(List<ServerBuildData> room)//游戏开始时将已建造的房间直接建造出来
     {
-        serverRoom.Clear();
         if (castleType != CastleType.main)
         {
             return;
@@ -229,7 +226,7 @@ public class CastleMgr : MonoBehaviour
     /// <summary>
     /// 检查当前房间是否可以合并
     /// </summary>
-    public void ChickMergeRoom(RoomMgr data)
+    public virtual void ChickMergeRoom(RoomMgr data)
     {
         if (data.buildingData.MergeID == 0)
         {
@@ -245,22 +242,38 @@ public class CastleMgr : MonoBehaviour
             if (data.RoomName == data.nearbyRoom[i].RoomName
                 && data.buildingData.Level == data.nearbyRoom[i].buildingData.Level)
             {
+                BuildingData b_data = new BuildingData();
                 //如果这是个可以合并的组合
-                BuildingData b_data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.buildingData.MergeID);
+                if (data.buildingData.RoomSize < data.nearbyRoom[i].buildingData.RoomSize)
+                {
+                    b_data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nearbyRoom[i].buildingData.MergeID);
+                }
+                else
+                {
+                    b_data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.buildingData.MergeID);
+                }
                 float Yield = data.Yield + data.nearbyRoom[i].Yield;
                 float Stock = data.Stock + data.nearbyRoom[i].Stock;
+                ServerBuildData s_data = new ServerBuildData();
                 //判断谁在左边
                 if (data.nearbyRoom[i].buidStartPoint.x < data.buidStartPoint.x)
                 {
                     Debug.Log("对方靠左");
                     //和对方合并
-                    ServerBuildData s_data = new ServerBuildData(data.nearbyRoom[i].buidStartPoint, b_data, Yield, Stock);
-                    LocalServer.instance.RemoveRoom(data.nearbyRoom[i].s_Data);
-                    data.nearbyRoom[i].RemoveBuilding();//移除该房间
-                    LocalServer.instance.RemoveRoom(data.s_Data);//删除服务器中的数据
-                    data.RemoveBuilding();//移除该房间
-                    InstanceRoom(s_data);
+                    s_data = new ServerBuildData(data.nearbyRoom[i].buidStartPoint, b_data, Yield, Stock);
                 }
+                else
+                {
+                    Debug.Log("我方靠左");
+                    s_data = new ServerBuildData(data.buidStartPoint, b_data, Yield, Stock);
+                }
+                LocalServer.instance.RemoveRoom(data.nearbyRoom[i].s_Data);//删除服务器数据
+                ChickPlayerInfo.instance.ChickBuildMerge(data.nearbyRoom[i].s_Data);//删除本地储存的数据
+                LocalServer.instance.RemoveRoom(data.s_Data);//删除服务器中的数据
+                ChickPlayerInfo.instance.ChickBuildMerge(data.s_Data);//删除本地储存的数据
+                data.nearbyRoom[i].RemoveBuilding();//移除该房间
+                data.RemoveBuilding();//移除该房间
+                InstanceRoom(s_data);
             }
         }
     }

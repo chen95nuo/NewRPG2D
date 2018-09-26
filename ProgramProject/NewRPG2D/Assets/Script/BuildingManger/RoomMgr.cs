@@ -81,7 +81,6 @@ public abstract class RoomMgr : MonoBehaviour
         }
         s_Data = data;
         LocalServer.instance.AddRoom(data);
-        castleMgr.serverRoom.Add(data);
     }
     /// <summary>
     /// 新建建筑
@@ -129,9 +128,8 @@ public abstract class RoomMgr : MonoBehaviour
 
         ChickLeftOrRight(castleMgr.buildPoint);
 
-        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.ChickRoomMerge, this);
-
         castleMgr.rooms.Add(this);
+        castleMgr.ChickMergeRoom(this);
         AddConnection();
     }
 
@@ -410,8 +408,10 @@ public abstract class RoomMgr : MonoBehaviour
     public void RemoveBuilding()
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        castleMgr.rooms.Remove(this);
-
+        int indexis = castleMgr.rooms.IndexOf(this);
+        Debug.Log("当前房间序号 :" + indexis);
+        bool isTrue = castleMgr.rooms.Remove(this);
+        Debug.Log("删除结果 :" + isTrue);
         this.gameObject.transform.position = new Vector2(-1000, -1000);
         castleMgr.removeRoom.Add(this);
 

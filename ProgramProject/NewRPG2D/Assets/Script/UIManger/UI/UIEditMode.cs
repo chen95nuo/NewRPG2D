@@ -30,14 +30,12 @@ public class UIEditMode : TTUIPage
         HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.EditMode, ShowMenu);
         HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.ClearAllRoom, ClearCallBack);
         HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
-        HallEventManager.instance.AddListener<List<RoomMgr>>(HallEventDefineEnum.ChickBuild, RoomSave);
     }
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.EditMode, ShowMenu);
         HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.ClearAllRoom, ClearCallBack);
         HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
-        HallEventManager.instance.RemoveListener<List<RoomMgr>>(HallEventDefineEnum.ChickBuild, RoomSave);
 
 
     }
@@ -155,26 +153,26 @@ public class UIEditMode : TTUIPage
         }
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
     }
-    private void RoomSave(List<RoomMgr> rooms)
-    {
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            if (rooms[i].linkType == false)
-            {
-                //有建筑无法连通，保存失败
-                Debug.Log("有建筑无法连通，保存失败");
-                return;
-            }
-        }
-        serverRoom.Clear();
-        //将新位置保存成服务器格式上传服务器
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            Debug.Log("上传服务器");
-            serverRoom.Add(new ServerBuildData(rooms[i].buidStartPoint, rooms[i].buildingData));
-        }
-        LocalServer.instance.GetNewRoom(serverRoom);
-    }
+    //private void RoomSave(List<RoomMgr> rooms)
+    //{
+    //    for (int i = 0; i < rooms.Count; i++)
+    //    {
+    //        if (rooms[i].linkType == false)
+    //        {
+    //            //有建筑无法连通，保存失败
+    //            Debug.Log("有建筑无法连通，保存失败");
+    //            return;
+    //        }
+    //    }
+    //    serverRoom.Clear();
+    //    //将新位置保存成服务器格式上传服务器
+    //    for (int i = 0; i < rooms.Count; i++)
+    //    {
+    //        Debug.Log("上传服务器");
+    //        serverRoom.Add(new ServerBuildData(rooms[i].buidStartPoint, rooms[i].buildingData));
+    //    }
+    //    LocalServer.instance.GetNewRoom(serverRoom);
+    //}
 
     private void ChickRepair()
     {

@@ -93,7 +93,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     {
         for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
         {
-            if (dic[data.buildingData.RoomName][i].buildingData == data.buildingData
+            if (dic[data.buildingData.RoomName][i] != null 
+                && dic[data.buildingData.RoomName][i].buildingData == data.buildingData
                 && dic[data.buildingData.RoomName][i].buildingPoint == data.buildingPoint)
             {
                 Debug.Log("找到了 删除");

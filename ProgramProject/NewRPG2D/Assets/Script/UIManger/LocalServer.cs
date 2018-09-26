@@ -1,5 +1,5 @@
 ﻿/*
- * 这是一个假的本地服务器 用于测试时模拟服务器发送的消息
+ * 这是本地模拟的服务器 将服务器数据存放于此
  */
 
 
@@ -14,6 +14,14 @@ public class LocalServer : TSingleton<LocalServer>
     private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();
     private PlayerData player;
 
+    public List<ServerBuildData> ServerRoom
+    {
+        get
+        {
+            return serverRoom;
+        }
+    }
+
     public void AddRoom(ServerBuildData data)
     {
         for (int i = 0; i < serverRoom.Count; i++)
@@ -27,11 +35,7 @@ public class LocalServer : TSingleton<LocalServer>
         }
         Debug.Log("没有重复继续运行");
         serverRoom.Add(data);
-        if (data.buildingData.RoomType != RoomType.Production
-            && data.buildingData.RoomSize <= 3)
-        {
-            ChickPlayerInfo.instance.ChickBuildDicAdd(data);
-        }
+        ChickPlayerInfo.instance.ChickBuildDicAdd(data);
         if (data.buildingData.RoomType == RoomType.Production)
         {
             PlayerData playData = GetPlayerData.Instance.GetData();
@@ -107,13 +111,13 @@ public class LocalServer : TSingleton<LocalServer>
     }
     public void GetNewRoom(List<ServerBuildData> rooms)
     {
+        serverRoom.Clear();
         for (int i = 0; i < rooms.Count; i++)
         {
-            serverRoom[i] = rooms[i];
+            serverRoom.Add(rooms[i]);
         }
         HallEventManager.instance.SendEvent<List<ServerBuildData>>(HallEventDefineEnum.AddBuild, serverRoom);
-
-
+        ChickPlayerInfo.instance.ChickBuildDic(serverRoom);
     }
 
     /// <summary>
