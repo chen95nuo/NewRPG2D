@@ -9,7 +9,6 @@ using Assets.Script.Tools;
 using Assets.Script.Timer;
 using UnityEngine;
 using Assets.Script.Battle;
-using Assets.Script.Battle.LevelManager;
 
 namespace Assets.Script
 {

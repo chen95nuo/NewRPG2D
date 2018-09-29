@@ -19,18 +19,6 @@ namespace Assets.Script.Utility
         {
             switch (name)
             {
-                case XmlName.RoleData:
-                    return new RoleData();
-                case XmlName.RolePropertyData:
-                    return new RolePropertyData();
-                case XmlName.SkillData:
-                    return new SkillData();
-                case XmlName.BufferData:
-                    return new RolePropertyData();
-                case XmlName.MapSceneLevel:
-                    return new MapSceneLevelData();
-                case XmlName.CreateEnemyData:
-                    return new CreateEnemyData();
                 case XmlName.BuildingData:
                     return new BuildingData();
                 default: return new XmlData();

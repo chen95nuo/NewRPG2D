@@ -46,8 +46,8 @@ namespace Assets.Script.Battle.LevelManager
         private void Awake()
         {
             InputContorlMgr.CreateInstance();
-            ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle);
-            ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName);
+            ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
+            ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
             enemyDatas = new Queue<CreateEnemyData>();
             currentEnemyInfoList = new List<BornEnemyInfo>();
             roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;

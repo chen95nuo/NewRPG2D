@@ -16,16 +16,24 @@ namespace Assets.Script.Utility
     /// </summary>
     public enum XmlName
     {
+        //城堡大厅的
         BuildingData,
         Hall,
 
+        //战斗内的
         RoleData,
         RolePropertyData,
         SkillData,
         CreateEnemyData,
         Battle,
 
+        //公共的
+        Equipment,
+        EquipProperty,
+
         Max,
+
+        //动态读取
         MapSceneLevel,
         BufferData,
     }
@@ -34,24 +42,24 @@ namespace Assets.Script.Utility
     {
         Hall,
         Battle,
+        Common,
+        Special,
     }
 
 
     public class ReadXmlDataMgr
     {
-        public static string GetXmlPath(string name)
+        public static string GetXmlPath(string name, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {
             string path = "";
 #if UNITY_EDITOR
-            path = string.Format("{0}/Config/{1}.xml", Application.streamingAssetsPath, name);
-
+            path = string.Format("{0}/Config/{1}/{2}.xml", Application.streamingAssetsPath, xmlType, name);
 #elif UNITY_IPHONE
-	   path = string.Format("{0}/Raw/Config/{1}.xml", Application.dataPath, name); 
- 
+	   path = string.Format("{0}/Raw/Config/{1}/{2}.xml", Application.dataPath, xmlType, name); 
 #elif UNITY_ANDROID
-	    path = string.Format("{0}/Config/{1}.xml", Application.streamingAssetsPath, name);
+	    path = string.Format("{0}/Config/{1}/{2}.xml", Application.streamingAssetsPath, xmlType, name);
 #else
-        path = string.Format("{0}/Config/{1}.xml", Application.streamingAssetsPath, name);
+        path = string.Format("{0}/Config/{1}/{2}.xml", Application.streamingAssetsPath, xmlType, name);
 #endif
             return path;
         }

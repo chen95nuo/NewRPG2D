@@ -7,7 +7,6 @@ namespace Assets.Script.Battle
 {
     public class WeaponMoment
     {
-        public WeaponType CurrentWeaponType;
         private RoleBase currentHeroRole;
         public void SetCurrentRole(RoleBase mRole)
         {

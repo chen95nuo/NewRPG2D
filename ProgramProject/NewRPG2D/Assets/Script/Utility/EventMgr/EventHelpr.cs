@@ -51,13 +51,13 @@ public class SelectTargetParam
 public class SwitchRoleActionParam
 {
     public RoleBase SwitchRole;
-    public RoleActionEnum NextAction;
+    //public RoleActionEnum NextAction;
 
-    public SwitchRoleActionParam(RoleBase switchRole, RoleActionEnum nextAction)
-    {
-        SwitchRole = switchRole;
-        NextAction = nextAction;
-    }
+    //public SwitchRoleActionParam(RoleBase switchRole, RoleActionEnum nextAction)
+    //{
+    //    SwitchRole = switchRole;
+    //    NextAction = nextAction;
+    //}
 }
 
 public delegate void TDelegate();

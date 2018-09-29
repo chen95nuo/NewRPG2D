@@ -31,24 +31,6 @@ public class StaticAndConstParamter
     public const string ItemRootPath = "ItemRoot";
 }
 
-public enum RoleActionEnum
-{
-    Idle,
-    Run,
-    Walk,
-    Attack,
-}
-
-public enum RoleBehaviorEnum
-{
-    Idle,
-    Attack,
-    UseItem,
-    ChangeWeapon,
-}
-
-
-
 public enum ItemTypeEnum
 {
 
@@ -66,11 +48,24 @@ public enum CameraStateEnum
     FreeState,
 }
 
-public enum WeaponType
+public enum EquipTypeEnum
 {
-    Knief,
-    Gun,
-    Magic,
+
+}
+
+public enum QualityTypeEnum
+{
+
+}
+
+public enum TirggerTypeEnum
+{
+
+}
+
+public enum PropertyTypeEnum
+{
+
 }
 
 public enum SexTypeEnum : byte

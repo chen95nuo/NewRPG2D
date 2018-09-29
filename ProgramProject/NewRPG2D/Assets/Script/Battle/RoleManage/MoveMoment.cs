@@ -57,7 +57,7 @@ namespace Assets.Script.Battle
         {
             mCurrentRole = mRole;
             roleTransform = mRole.RoleTransform;
-            switchActionParam = new SwitchRoleActionParam(mCurrentRole, RoleActionEnum.Idle);
+          //  switchActionParam = new SwitchRoleActionParam(mCurrentRole, RoleActionEnum.Idle);
             moveController = controller;
             moveSeeker = seeker;
 

@@ -35,13 +35,13 @@ namespace Assets.Script.Utility
         {
             base.Init();   
             AllXmlDataDic = new Dictionary<int, XmlData[]>(10);
+            ReadXmlByType(XmlName.Battle + 1, XmlName.Max, XmlTypeEnum.Common);
         }
 
-        public void ReadXmlByType(XmlName startXmlName, XmlName maXmlName)
+        public void ReadXmlByType(XmlName startXmlName, XmlName maXmlName, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {
             int maxEnum = (int)maXmlName;
             int startEnum = (int)startXmlName;
-            XmlTypeEnum xmlType = maXmlName == XmlName.Hall ? XmlTypeEnum.Hall : XmlTypeEnum.Battle;
             for (int i = startEnum; i < maxEnum; i++)
             {
                 XmlName name = (XmlName)i;
@@ -49,16 +49,16 @@ namespace Assets.Script.Utility
             }
         }
 
-        public void LoadSpecialXML(XmlName xmlName, string pathName)
+        public void LoadSpecialXML(XmlName xmlName, string pathName, XmlTypeEnum xmlType)
         {
-            GameLogic.Instance.StartCoroutine(LoadConfig(xmlName, pathName));
+            GameLogic.Instance.StartCoroutine(LoadConfig(xmlName, pathName, xmlType));
         }
 
         private XmlNode LoadConfigNode;
         private IEnumerator LoadConfig(XmlName name, string xmlPathName, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {
             XmlNode node = null;
-            yield return GameLogic.Instance.StartCoroutine(ReadTxt(xmlPathName));
+            yield return GameLogic.Instance.StartCoroutine(ReadTxt(xmlPathName, xmlType));
             node = LoadConfigNode;
             if (node == null)
             {
@@ -78,6 +78,10 @@ namespace Assets.Script.Utility
                 {
                     data = ReadBattleXmlDataMgr.GetXmlData(name);
                 }
+                else if (xmlType == XmlTypeEnum.Common)
+                {
+                    data = ReadCommonlXmlDataMgr.GetXmlData(name);
+                }
                 data.GetXmlDataAttribute(childrenNodeList[i]);
                 xmlDataArray[i] = data;
             }
@@ -92,7 +96,7 @@ namespace Assets.Script.Utility
             AllXmlDataDic = null;
         }
 
-        private MemoryStream LoadFile(string name)
+ /*       private MemoryStream LoadFile(string name)
         {
             string mPath = ReadXmlDataMgr.GetXmlPath(name);
             StreamReader reader = new StreamReader(mPath);
@@ -100,11 +104,11 @@ namespace Assets.Script.Utility
             byte[] binary = encode.GetBytes(reader.ReadToEnd());
             reader.Close();
             return new MemoryStream(binary);
-        }
+        }*/
 
-        private IEnumerator ReadTxt(string name)
+        private IEnumerator ReadTxt(string name, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {
-            string mPath = ReadXmlDataMgr.GetXmlPath(name);
+            string mPath = ReadXmlDataMgr.GetXmlPath(name, xmlType);
             string content;
             WWW www = new WWW(mPath);
             yield return www;
