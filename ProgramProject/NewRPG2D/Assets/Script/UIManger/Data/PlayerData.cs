@@ -19,6 +19,7 @@ public class PlayerData
     private int woodSpace;//木材空间
     private int ironSpace;//铁矿空间
 
+
     public string Name
     {
         get
@@ -162,7 +163,7 @@ public class PlayerData
     {
         get
         {
-            return mainHallLevel = 4;
+            return mainHallLevel;
         }
 
         set

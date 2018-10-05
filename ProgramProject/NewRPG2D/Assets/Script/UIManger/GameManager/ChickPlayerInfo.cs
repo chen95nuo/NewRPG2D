@@ -465,8 +465,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     {
         RemoveBuilding(data_1);
         RemoveBuilding(data_2);
+        data_3.Stock = data_1.Stock + data_2.Stock;
         AddBuilding(data_3);
-        Debug.Log("合并后房间总数据" + AllBuilding.Count);
     }
 
     /// <summary>

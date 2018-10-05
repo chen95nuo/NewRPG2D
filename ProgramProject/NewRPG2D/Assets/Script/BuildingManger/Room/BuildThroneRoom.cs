@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class BuildThroneRoom : RoomMgr
 {
+    private void Awake()
+    {
+        GetCompoment();
+        ThisRoomFunc();
+    }
+
     public override void RoomAwake()
     {
     }
 
     public override void ThisRoomFunc()
     {
-        throw new System.NotImplementedException();
+        GetPlayerData.Instance.GetData();
     }
 }

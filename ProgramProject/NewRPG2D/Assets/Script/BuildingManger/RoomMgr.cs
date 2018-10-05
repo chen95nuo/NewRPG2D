@@ -80,13 +80,13 @@ public abstract class RoomMgr : MonoBehaviour
                 {
                     if (value == false)
                     {
-                        Debug.Log("施工结束");
+                        Debug.Log("施工结束 添加监听事件");
                         //施工结束就添加事件
                         ChickPlayerInfo.instance.ThisProduction(currentBuildData);
                     }
                     else
                     {
-                        Debug.Log("施工中");
+                        Debug.Log("施工中 关闭监听事件");
                         //施工中就关闭事件
                         ChickPlayerInfo.instance.ClostProduction(currentBuildData);
                     }
@@ -287,7 +287,14 @@ public abstract class RoomMgr : MonoBehaviour
             }
             else
             {
+                //不需要建造时间的判断是否需要添加事件
                 ConstructionType = false;
+                if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+                {
+                    Debug.Log("添加监听");
+                    //施工结束就添加事件
+                    ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+                }
             }
         }
         else

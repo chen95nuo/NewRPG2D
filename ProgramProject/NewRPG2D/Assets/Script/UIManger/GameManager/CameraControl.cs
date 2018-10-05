@@ -292,7 +292,7 @@ public class CameraControl : MonoBehaviour
         RoomMgr data = hit.collider.GetComponent<RoomMgr>();
         if (data.IsHarvest)//如果有产出那么获取产出
         {
-            Debug.Log("获得产出");
+            Debug.Log("获取产出");
             float temp = data.currentBuildData.Stock;
             ChickPlayerInfo.instance.GetProductionStock(data.currentBuildData);
 
