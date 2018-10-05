@@ -12,13 +12,12 @@ public class PlayerData
     private int mana;//法力值
     private int wood;//木材
     private int iron;//铁矿
-    private int mainHallLevel;//大殿等级
     private int goldSpace;//金币空间
     private int foodSpace;//食物空间
     private int manaSpace;//魔法空间
     private int woodSpace;//木材空间
     private int ironSpace;//铁矿空间
-
+    private LocalBuildingData mainHall;
 
     public string Name
     {
@@ -163,12 +162,11 @@ public class PlayerData
     {
         get
         {
-            return mainHallLevel;
-        }
-
-        set
-        {
-            mainHallLevel = value;
+            if (MainHall != null)
+            {
+                return MainHall.buildingData.Level;
+            }
+            else return 1;
         }
     }
 
@@ -237,6 +235,27 @@ public class PlayerData
         }
     }
 
+    public LocalBuildingData MainHall
+    {
+        get
+        {
+            return mainHall;
+        }
+
+        set
+        {
+            mainHall = value;
+            if (EditCastle.instance != null)
+            {
+                EditCastle.instance.instanceWall();
+            }
+            if (MainCastle.instance != null)
+            {
+                MainCastle.instance.instanceWall();
+            }
+        }
+    }
+
     public PlayerData()
     {
         Name = "Baymax";
@@ -247,7 +266,6 @@ public class PlayerData
         Mana = 0;
         Wood = 0;
         Iron = 0;
-        MainHallLevel = 1;
         GoldSpace = 5000;
         FoodSpace = 5000;
         ManaSpace = 5000;

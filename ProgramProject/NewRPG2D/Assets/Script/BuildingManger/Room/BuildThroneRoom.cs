@@ -16,6 +16,13 @@ public class BuildThroneRoom : RoomMgr
 
     public override void ThisRoomFunc()
     {
-        GetPlayerData.Instance.GetData();
+        PlayerData data = GetPlayerData.Instance.GetData();
+        data.MainHall = currentBuildData;
+    }
+
+    public override void ChickComplete()
+    {
+        PlayerData data = GetPlayerData.Instance.GetData();
+        data.MainHall = currentBuildData;
     }
 }

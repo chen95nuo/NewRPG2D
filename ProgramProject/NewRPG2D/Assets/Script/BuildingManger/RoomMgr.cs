@@ -787,10 +787,15 @@ public abstract class RoomMgr : MonoBehaviour
         CameraControl.instance.RefreshRoomLock(this);
         //检查合并
         castleMgr.ChickMergeRoom(this);
+        ChickComplete();
     }
 
     public abstract void ThisRoomFunc();
     public abstract void RoomAwake();
+    public virtual void ChickComplete()
+    {
+
+    }
 
     protected void GetCompoment()
     {
