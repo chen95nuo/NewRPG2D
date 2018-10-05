@@ -48,16 +48,13 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_ANDROID
-        AndroidMove();
-#endif
 
-#if UNITY_IPHONE
-        
-#endif
-
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         PCMove();
+#elif UNITY_ANDROID
+        AndroidMove();
+#elif UNITY_IPHONE
+
 #endif
 
         if (isMove == true)
