@@ -16,9 +16,7 @@ public enum HallEventDefineEnum
     EditMgr,//建造模式辅助
     InEditMode,//进入建造模式
     ClearAllRoom,//清除所有房间
-    CloseRoomLock,//关闭房间锁定
     diamondsSpace,//钻石检测
-    UILockRoomTip,//检查房间锁定
     ChickRoomMerge,//检查房间合并
     EventMax
 }

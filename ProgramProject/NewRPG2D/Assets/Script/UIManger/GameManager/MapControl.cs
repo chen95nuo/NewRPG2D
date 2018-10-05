@@ -8,8 +8,7 @@ public class MapControl : MonoBehaviour
     public static MapControl instance;
     public GameObject MainMap;
     public GameObject EditMap;
-    public CameraMgr mainCamera;
-    public CameraMgr editCamera;
+    public CameraControl mainCamera;
     public MainCastle mainCastle;
     public EditCastle editCastle;
     public CastleType type;//当前建筑模式
@@ -18,10 +17,13 @@ public class MapControl : MonoBehaviour
     public GameObject buildTip;//提示框
     public Transform TipPoint;//提示框位置
 
+    private Camera cam;
+    private Vector3 SaveCameraPoint;
     private bool first = true;
 
     private void Awake()
     {
+        cam = Camera.main;
         instance = this;
         ShowMainMap();
     }
@@ -29,11 +31,15 @@ public class MapControl : MonoBehaviour
     {
         type = CastleType.main;
         MainMap.SetActive(true);
-        mainCamera.gameObject.SetActive(true);
         EditMap.SetActive(false);
-        editCamera.gameObject.SetActive(false);
-        mainCamera.transform.localPosition = editCamera.transform.localPosition;
+        SaveCameraPoint = cam.transform.localPosition;
+        cam.transform.parent = MainMap.transform;
+        cam.transform.localPosition = SaveCameraPoint;
         UIPanelManager.instance.ShowPage<UIMain>();
+        if (EditCastle.instance == null)
+        {
+            return;
+        }
         UIPanelManager.instance.ClosePage<UIEditMode>();
         EditCastle.instance.RemoveAllRoom();
     }
@@ -41,12 +47,13 @@ public class MapControl : MonoBehaviour
     {
         type = CastleType.edit;
         EditMap.SetActive(true);
-        editCamera.gameObject.SetActive(true);
-        mainCamera.gameObject.SetActive(false);
-        editCamera.transform.localPosition = mainCamera.transform.localPosition;
+        SaveCameraPoint = cam.transform.localPosition;
+        cam.transform.parent = EditMap.transform;
+        cam.transform.localPosition = SaveCameraPoint;
         UIPanelManager.instance.ClosePage<UIMain>();
         UIPanelManager.instance.ShowPage<UIEditMode>();
-        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.CloseRoomLock, null);
+        CameraControl.instance.CloseRoomLock();
+        CameraControl.instance.RefreshRoomLock(null);
         if (first == true)
         {
             EditCastle.instance.ResetEditRoom();

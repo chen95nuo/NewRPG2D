@@ -28,13 +28,16 @@ public class UILockRoomTip : TTUIPage
     private bool isOpen = true;
     private void Awake()
     {
-        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.UILockRoomTip, LockRoomData);
         Init();
     }
-    private void OnDestroy()
+
+    public override void Show(object mData)
     {
-        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.UILockRoomTip, LockRoomData);
+        base.Show(mData);
+        RoomMgr data = mData as RoomMgr;
+        LockRoomData(data);
     }
+
     private void OnDisable()
     {
         if (roomData != null)
@@ -67,7 +70,6 @@ public class UILockRoomTip : TTUIPage
     {
         roomData = data;
         txt_Name.text = roomData.RoomName + "(" + roomData.BuildingData.Level + "级" + ")";
-        Debug.Log(data.RoomName.ToString());
         switch (data.BuildingData.RoomType)
         {
             case RoomType.Nothing:
@@ -94,7 +96,6 @@ public class UILockRoomTip : TTUIPage
     private void ProductionRoom()
     {
         ClostAllBtn(false);
-        Debug.Log("当前房间状态" + roomData.ConstructionType);
         if (roomData.ConstructionType == true)
         {
             btn_Message.gameObject.SetActive(isOpen);
@@ -366,4 +367,5 @@ public class UILockRoomTip : TTUIPage
                 break;
         }
     }
+
 }

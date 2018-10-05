@@ -12,7 +12,7 @@ public class HallRoleData
     public int manaLevel;//炼金等级
     public int woodLevel;//木工等级
     public int ironLevel;//矿工等级
-    private int[] equip;//装备 1武器2防具3戒指4项链5神器
+    private int[] equip;//装备 1武器2防具3戒指4项链 5神器
 
     public int Id
     {
@@ -123,9 +123,8 @@ public class HallRoleData
 
 
     public HallRoleData() { }
-    public HallRoleData(int id, int star, int[] level)
+    public HallRoleData(int star, int[] level)
     {
-        this.id = id;
         this.star = star;
         this.fightLevel = level[0];
         this.goldLevel = level[1];

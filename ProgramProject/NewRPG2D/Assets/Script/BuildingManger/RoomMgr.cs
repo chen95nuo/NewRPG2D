@@ -749,7 +749,7 @@ public abstract class RoomMgr : MonoBehaviour
         levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
         listNumber = levelUpTip.AddLister();
         levelUpTip.UpdateTime(needTime, listNumber);
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
+        CameraControl.instance.CloseRoomLock();
     }
 
     public void TimerCallBack()
@@ -777,7 +777,7 @@ public abstract class RoomMgr : MonoBehaviour
         levelUpTip.RemoveLister(listNumber);
         levelUpTip = null;
         ConstructionType = false;
-        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.CloseRoomLock, this);
+        CameraControl.instance.RefreshRoomLock(this);
         //检查合并
         castleMgr.ChickMergeRoom(this);
     }

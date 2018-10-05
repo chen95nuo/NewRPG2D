@@ -164,7 +164,7 @@ public class UIEditMode : TTUIPage
     private void ChickRepair()
     {
         //关闭锁定状态
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
+        CameraControl.instance.CloseRoomLock();
         //恢复至原城堡形象
         HallEventManager.instance.SendEvent(HallEventDefineEnum.EditMgr);
         rooms.Clear();//清除被删除的房间信息
@@ -175,7 +175,7 @@ public class UIEditMode : TTUIPage
         ShowMenu(null);
 
         //关闭锁定状态
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
+        CameraControl.instance.CloseRoomLock();
 
         //清除所有建筑
         EditCastle.instance.ResetEditRoom();
@@ -188,7 +188,7 @@ public class UIEditMode : TTUIPage
     {
         ShowMenu(null);
 
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
+        CameraControl.instance.CloseRoomLock();
         //清除模式 清除点击的建筑
         removeType = !removeType;
         if (removeType == true)

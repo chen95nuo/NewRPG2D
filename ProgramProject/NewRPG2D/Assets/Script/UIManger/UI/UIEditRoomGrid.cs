@@ -39,6 +39,10 @@ public class UIEditRoomGrid : MonoBehaviour
     }
     public void ChickNumber()
     {
+        if (s_data.buildingData.Count >= 0)
+        {
+            return;
+        }
         txt_name.text = s_data.buildingData[0].buildingData.RoomName.ToString() + " 数量 : " + s_data.number;
     }
 }

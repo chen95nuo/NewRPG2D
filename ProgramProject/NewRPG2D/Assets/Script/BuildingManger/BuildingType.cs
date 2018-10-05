@@ -69,3 +69,12 @@ public enum ThroneInfoType
     Upgraded,
     Build
 }
+
+public enum MaterialName
+{
+    Gold,
+    Food,
+    Mana,
+    Wood,
+    Iron
+}

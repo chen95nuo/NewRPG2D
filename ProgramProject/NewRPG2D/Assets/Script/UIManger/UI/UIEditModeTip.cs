@@ -8,10 +8,26 @@ public class UIEditModeTip : TTUIPage
 {
     public Image BG;
 
+    private void Awake()
+    {
+        HallEventManager.instance.AddListener(HallEventDefineEnum.CameraMove, closePage);
+
+    }
+
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, closePage);
+    }
+
     private void OnEnable()
     {
         BG.fillAmount = 1;
     }
+    public override void Show(object mData)
+    {
+        base.Show(mData);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +36,14 @@ public class UIEditModeTip : TTUIPage
         {
             BG.fillAmount = 0;
             MapControl.instance.ShowEditMap();
-            UIPanelManager.instance.ClosePage(this);
+            closePage();
         }
     }
+
+    public void closePage()
+    {
+        CameraControl.instance.isShowEdit = false;
+        UIPanelManager.instance.ClosePage(this);
+    }
+
 }

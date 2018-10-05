@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
 
 
 public class UILevelUpHelper : MonoBehaviour
@@ -110,29 +111,25 @@ public class UILevelUpHelper : MonoBehaviour
         }
         else
         {
-            int[] needStock = new int[4];
-            string temp = "还需要 ：";
+            Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
             if (needGold > 0)
             {
-                needStock[0] = (int)needGold;
-                temp += "金币 :" + needGold;
+                needStock[MaterialName.Gold] = (int)needGold;
             }
-            if (needMana < 0)
+            if (needMana > 0)
             {
-                needStock[1] = (int)needMana;
-                temp += "魔法 :" + needMana;
+                needStock[MaterialName.Mana] = (int)needMana;
             }
-            if (needWood < 0)
+            if (needWood > 0)
             {
-                needStock[2] = (int)needWood;
-                temp += "木头 :" + needWood;
+                needStock[MaterialName.Wood] = (int)needWood;
             }
-            if (needIron < 0)
+            if (needIron > 0)
             {
-                needStock[3] = (int)needIron;
-                temp += "铁 :" + needIron;
+                needStock[MaterialName.Iron] = (int)needIron;
             }
-            Debug.Log("材料不足" + temp);
+            UIPanelManager.instance.ShowPage<UIPopUp_1>();
+            UIPopUp_1.instance.UpdateInfo(needStock);
         }
     }
 
