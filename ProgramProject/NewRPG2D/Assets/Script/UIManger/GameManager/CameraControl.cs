@@ -217,7 +217,7 @@ public class CameraControl : MonoBehaviour
             }
             else if (hit.collider.tag == "BuildTip")
             {
-                MainCastle.instance.ChickReycast(hit);
+                MainCastle.instance.ChickRaycast(hit);
             }
             else if (hit.collider.tag == "Role")
             {
@@ -243,7 +243,7 @@ public class CameraControl : MonoBehaviour
             }
             else if (hit.collider.tag == "BuildTip")
             {
-                EditCastle.instance.ChickReycast(hit);
+                EditCastle.instance.ChickRaycast(hit);
             }
         }
     }
@@ -351,7 +351,7 @@ public class CameraControl : MonoBehaviour
         }
         else if (hit.collider.tag == "BuildTip")
         {
-            EditCastle.instance.ChickReycast(hit);
+            EditCastle.instance.ChickRaycast(hit);
         }
     }
     /// <summary>
