@@ -29,7 +29,7 @@ public class UILevelUpTipGrid : MonoBehaviour
 
     public void UpdatePos()
     {
-        if (transform.position.z >= 100)
+        if (transform.position.z >= 100 || MapControl.instance.type == CastleType.edit)
         {
             return;
         }
@@ -43,6 +43,15 @@ public class UILevelUpTipGrid : MonoBehaviour
 
     public void UpdateTime(int time)
     {
+        if (MapControl.instance.type == CastleType.edit)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+        }
         SystemTime.instance.TimeNormalized(time, txt_time);
     }
 }

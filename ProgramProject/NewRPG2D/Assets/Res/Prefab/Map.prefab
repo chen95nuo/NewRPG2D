@@ -41,6 +41,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1144454356679954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4785114407613282}
+  m_Layer: 0
+  m_Name: TipPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1157959339366794
 GameObject:
   m_ObjectHideFlags: 1
@@ -83,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4138902681958440}
   m_Layer: 0
-  m_Name: BuildingGroup
+  m_Name: BuildingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,16 +150,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1335253548568774
+--- !u!1 &1465986332388142
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4529794428187176}
+  - component: {fileID: 4901309811553168}
   m_Layer: 0
-  m_Name: BuildTip
+  m_Name: NewRolePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,21 +197,6 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!1 &1551064488665352
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4922057060153952}
-  m_Layer: 0
-  m_Name: BuildTip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1574081969489258
 GameObject:
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4402562249822374}
-  - component: {fileID: 114136829001734048}
+  - component: {fileID: 114630510995869922}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4506083366916732}
-  - component: {fileID: 114182482027166436}
+  - component: {fileID: 114679580912099918}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -416,6 +416,7 @@ Transform:
   m_Children:
   - {fileID: 4432503343186552}
   - {fileID: 4507930635770664}
+  - {fileID: 4785114407613282}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -432,7 +433,6 @@ Transform:
   - {fileID: 4387135235096042}
   - {fileID: 4491476238222158}
   - {fileID: 4994475959839218}
-  - {fileID: 4922057060153952}
   m_Father: {fileID: 4507930635770664}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -448,6 +448,7 @@ Transform:
   m_Children:
   - {fileID: 4688793930516956}
   - {fileID: 4506083366916732}
+  - {fileID: 4901309811553168}
   m_Father: {fileID: 4392169336914266}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -490,7 +491,6 @@ Transform:
   - {fileID: 4742942332757374}
   - {fileID: 4244608884625446}
   - {fileID: 4138902681958440}
-  - {fileID: 4529794428187176}
   m_Father: {fileID: 4432503343186552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -508,19 +508,6 @@ Transform:
   - {fileID: 4402562249822374}
   m_Father: {fileID: 4392169336914266}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4529794428187176
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1335253548568774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4506083366916732}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4596175889367602
 Transform:
@@ -541,8 +528,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1157959339366794}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -50}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4432503343186552}
@@ -567,7 +554,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200675244468688}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -577,6 +564,19 @@ Transform:
   m_Father: {fileID: 4506083366916732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4785114407613282
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144454356679954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4392169336914266}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4899637000930612
 Transform:
   m_ObjectHideFlags: 1
@@ -584,24 +584,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211224832922234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.34, y: -36.08, z: 0}
+  m_LocalPosition: {x: -1.34, y: -36.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4742942332757374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4922057060153952
+--- !u!4 &4901309811553168
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1551064488665352}
+  m_GameObject: {fileID: 1465986332388142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9, y: -33.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4402562249822374}
-  m_RootOrder: 3
+  m_Father: {fileID: 4432503343186552}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4962102993872284
 Transform:
@@ -701,55 +701,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &114136829001734048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1663589153685022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1295968932997ac4aa32503dc419f709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Wall:
-  - {fileID: 1736309713143004, guid: 9c8c159fd87796740b2772185644c2bf, type: 2}
-  - {fileID: 1650243235116496, guid: 0cbad01047e7961448734394f4f85773, type: 2}
-  - {fileID: 1756610593864164, guid: 514cf8083f66eda479a0e5d6238c1c87, type: 2}
-  buildTip: {fileID: 1498567371162274, guid: ee79801e920848545b04db2f4c20a5c8, type: 2}
-  buildingPoint: {fileID: 4994475959839218}
-  buildTipPoint: {fileID: 4922057060153952}
-  startPoint: {x: -29.76, y: -47.15}
-  limitPoint_1: {x: -1.34, y: -45}
-  maxLength: 100
-  maxWidth: 100
-  room: []
-  removeRoom: []
-  buildTips: []
-  emptyPoint: []
-  serverRoom: []
-  buildingData:
-    ID: 0
-    Description: 
-    Level: 0
-    RoomType: 0
-    NeedGold: 0
-    NeedMana: 0
-    NeedWood: 0
-    NeedIron: 0
-    NeedTime: 0
-    NeedLevel: 0
-    RoomSize: 0
-    MergeID: 0
-    SplitID: 0
-    UnlockLevel: 0
-    NexLevelID: 0
-    Param1: 0
-    Param2: 0
-    Param3: 0
-    Param4: 0
-  editMode: 0
-  castleType: 1
 --- !u!114 &114166542137718628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -765,57 +716,13 @@ MonoBehaviour:
   EditMap: {fileID: 1544819384003524}
   mainCamera: {fileID: 114383274152811654}
   editCamera: {fileID: 114433791347446218}
-  mainCastle: {fileID: 114182482027166436}
-  editCastle: {fileID: 114136829001734048}
---- !u!114 &114182482027166436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1808032341110192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd79ff2c04e8cf498fb3eeb6eff0466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Wall:
-  - {fileID: 1736309713143004, guid: 9c8c159fd87796740b2772185644c2bf, type: 2}
-  - {fileID: 1650243235116496, guid: 0cbad01047e7961448734394f4f85773, type: 2}
-  - {fileID: 1756610593864164, guid: 514cf8083f66eda479a0e5d6238c1c87, type: 2}
-  buildTip: {fileID: 1498567371162274, guid: ee79801e920848545b04db2f4c20a5c8, type: 2}
-  buildingPoint: {fileID: 4138902681958440}
-  buildTipPoint: {fileID: 4529794428187176}
-  startPoint: {x: -29.76, y: -47.15}
-  limitPoint_1: {x: -1.34, y: -45}
-  maxLength: 100
-  maxWidth: 100
-  room: []
+  mainCastle: {fileID: 114679580912099918}
+  editCastle: {fileID: 114630510995869922}
+  type: 0
   removeRoom: []
-  buildTips: []
-  emptyPoint: []
-  serverRoom: []
-  buildingData:
-    ID: 0
-    Description: 
-    Level: 0
-    RoomType: 0
-    NeedGold: 0
-    NeedMana: 0
-    NeedWood: 0
-    NeedIron: 0
-    NeedTime: 0
-    NeedLevel: 0
-    RoomSize: 0
-    MergeID: 0
-    SplitID: 0
-    UnlockLevel: 0
-    NexLevelID: 0
-    Param1: 0
-    Param2: 0
-    Param3: 0
-    Param4: 0
-  editMode: 0
-  castleType: 0
+  allTips: []
+  buildTip: {fileID: 1498567371162274, guid: ee79801e920848545b04db2f4c20a5c8, type: 2}
+  TipPoint: {fileID: 4785114407613282}
 --- !u!114 &114383274152811654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -833,7 +740,6 @@ MonoBehaviour:
   zMin: 5.4
   zMax: 28
   mapType: 0
-  Map: {fileID: 114166542137718628}
 --- !u!114 &114433791347446218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -850,8 +756,100 @@ MonoBehaviour:
   scaleSpeed: 1
   zMin: 5.4
   zMax: 28
-  mapType: 1
-  Map: {fileID: 114166542137718628}
+  mapType: 0
+--- !u!114 &114630510995869922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663589153685022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06db46a709a75fd4e85b95ab26ecb84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallStartPoint: {x: -29.76, y: -47.11}
+  limitPoint_1: {x: -1.34, y: -37}
+  maxLength: 100
+  maxWidth: 100
+  Wall:
+  - {fileID: 1736309713143004, guid: 9c8c159fd87796740b2772185644c2bf, type: 2}
+  - {fileID: 1650243235116496, guid: 0cbad01047e7961448734394f4f85773, type: 2}
+  - {fileID: 1756610593864164, guid: 514cf8083f66eda479a0e5d6238c1c87, type: 2}
+  WallPoint: {fileID: 4491476238222158}
+  buildingPoint: {fileID: 4994475959839218}
+  allroom: []
+  allEmptyPoint: []
+  currentBuilding:
+    ItemId: 0
+    ItemName: 
+    Description: 
+    Level: 0
+    RoomName: 0
+    RoomType: 0
+    NeedGold: 0
+    NeedMana: 0
+    NeedWood: 0
+    NeedIron: 0
+    NeedTime: 0
+    NeedLevel: 0
+    RoomSize: 0
+    RoomRole: 0
+    MergeID: 0
+    SplitID: 0
+    UnlockLevel: []
+    NextLevelID: 0
+    Param1: 0
+    Param2: 0
+  castleType: 1
+  editAllBuilding: []
+  allRemoveRoom: []
+  allMergeRoom: []
+--- !u!114 &114679580912099918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808032341110192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c22f6fe7c320940bd7944d2e058610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallStartPoint: {x: -29.76, y: -47.11}
+  limitPoint_1: {x: -1.34, y: -37}
+  maxLength: 100
+  maxWidth: 100
+  Wall:
+  - {fileID: 1736309713143004, guid: 9c8c159fd87796740b2772185644c2bf, type: 2}
+  - {fileID: 1650243235116496, guid: 0cbad01047e7961448734394f4f85773, type: 2}
+  - {fileID: 1756610593864164, guid: 514cf8083f66eda479a0e5d6238c1c87, type: 2}
+  WallPoint: {fileID: 4244608884625446}
+  buildingPoint: {fileID: 4138902681958440}
+  allroom: []
+  allEmptyPoint: []
+  currentBuilding:
+    ItemId: 0
+    ItemName: 
+    Description: 
+    Level: 0
+    RoomName: 0
+    RoomType: 0
+    NeedGold: 0
+    NeedMana: 0
+    NeedWood: 0
+    NeedIron: 0
+    NeedTime: 0
+    NeedLevel: 0
+    RoomSize: 0
+    RoomRole: 0
+    MergeID: 0
+    SplitID: 0
+    UnlockLevel: []
+    NextLevelID: 0
+    Param1: 0
+    Param2: 0
+  castleType: 0
 --- !u!124 &124687125791232944
 Behaviour:
   m_ObjectHideFlags: 1

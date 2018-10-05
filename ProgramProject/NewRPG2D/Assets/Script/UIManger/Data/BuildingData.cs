@@ -5,6 +5,7 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using System.Xml;
 
+[System.Serializable]
 public class BuildingData : ItemBaseData
 {
 
@@ -22,7 +23,7 @@ public class BuildingData : ItemBaseData
     public int MergeID;//合并ID
     public int SplitID;//拆分ID
     public float[] UnlockLevel;//解锁等级
-    public int NexLevelID;//下一级ID
+    public int NextLevelID;//下一级ID
     public float Param1;//参数1
     public float Param2;//参数2
 
@@ -49,7 +50,7 @@ public class BuildingData : ItemBaseData
         MergeID = ReadXmlDataMgr.IntParse(node, "MergeID");
         SplitID = ReadXmlDataMgr.IntParse(node, "SplitID");
         UnlockLevel = ReadXmlDataMgr.FloatArray(node, "UnlockLevel");
-        NexLevelID = ReadXmlDataMgr.IntParse(node, "NextLevelID");
+        NextLevelID = ReadXmlDataMgr.IntParse(node, "NextLevelID");
         Param1 = ReadXmlDataMgr.FloatParse(node, "Param1");
         Param2 = ReadXmlDataMgr.FloatParse(node, "Param2");
         return base.GetXmlDataAttribute(node);

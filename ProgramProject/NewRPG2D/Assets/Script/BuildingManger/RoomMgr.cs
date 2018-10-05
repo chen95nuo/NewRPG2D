@@ -11,15 +11,9 @@ using Assets.Script.UIManger;
 
 public abstract class RoomMgr : MonoBehaviour
 {
-    private CastleMgr castleMgr;//主城堡信息
-    public int roomID;//用于区分第几个相同房间
-    public BuildRoomName RoomName;//房间类型
+    private Castle castleMgr;
     public Vector2 buidStartPoint;//起点坐标
     public int buildEndPoint;//终点坐标
-    [SerializeField]
-    public BuildingData buildingData;
-
-    public ServerBuildData s_Data;
 
     private BuildPoint[] wall;
 
@@ -30,11 +24,11 @@ public abstract class RoomMgr : MonoBehaviour
 
     public bool mainLink = false;//主链接
     public bool linkType = false;//连接状态
-    public bool isHarvest = false;//可否收获
+    private bool isHarvest = false;//可否收获
     public bool roomFunc = false;//房间功能是否开启
-    public bool levelUp = false;//是否在升级中
+    private bool constructionType = false;//是否在施工中
 
-    private List<RoomMgr> disconnectRoom = new List<RoomMgr>();
+    private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
 
     [System.NonSerialized]
     public GameObject disTip;//断开连接的标签
@@ -49,107 +43,92 @@ public abstract class RoomMgr : MonoBehaviour
     private int needTime = 0;
     private int listNumber = 0;
     private UILevelUpTip levelUpTip;
+    public LocalBuildingData currentBuildData;
+    private BuildingData changeData;
 
-    public float Yield
+    public Vector2 StartPoint
     {
         get
         {
-            return yield;
+            return currentBuildData.buildingPoint;
         }
     }
 
-    public float Stock
+    public BuildingData BuildingData
     {
         get
         {
-            return stock;
+            return currentBuildData.buildingData;
         }
     }
 
-    /// <summary>
-    /// 将数据添加到服务器
-    /// </summary>
-    protected void SetUpInformation()
+    public bool ConstructionType
     {
-        ServerBuildData data = new ServerBuildData();
-        data.buildingData = this.buildingData;
-        data.buildingPoint = this.startPoint;
-        if (buildingData.RoomType == RoomType.Production)//如果是生产类
+        get
         {
-            data.Yield = Yield;
-            data.Stock = Stock;
+            return constructionType;
         }
-        s_Data = data;
-        LocalServer.instance.AddRoom(data);
-    }
-    /// <summary>
-    /// 新建建筑
-    /// </summary>
-    /// <param name="point"></param>
-    public void UpdateBuilding(Vector2 point, BuildingData data, CastleMgr castleMgr)
-    {
-        this.castleMgr = castleMgr;
-        GetCompoment();
-        disTip.SetActive(false);//关闭断开图标
-        buildingData = data;
-        startPoint = point;
-        RoomName = buildingData.RoomName;
-        Debug.Log(castleMgr.castleType);
-        if (castleMgr.castleType == CastleType.main)//如果不是建造模式生成的建筑
+        set
         {
-            roomFunc = true;//房间功能开启
-            //将其添加到服务器
-            SetUpInformation();
-        }
-        RoomAwake();
-        //将房间这一段墙壁移出 给这一段空间添加该房间引用
-        int startX = (int)startPoint.x;
-        int startY = (int)startPoint.y;
-        wall = new BuildPoint[buildingData.RoomSize];
-        buidStartPoint = new Vector2(startX, startY);
-        if (buidStartPoint == new Vector2(6, 1))
-        {
-            mainLink = true;
-            linkType = true;
-        }
-        else
-        {
-            mainLink = false;
-        }
-        buildEndPoint = startX + buildingData.RoomSize;
-
-        for (int i = startX; i < startX + buildingData.RoomSize; i++)
-        {
-            wall[i - startX] = castleMgr.buildPoint[i, startY];
-            wall[i - startX].pointType = BuildingType.Full;
-            wall[i - startX].pointWall.Translate((Vector3.back * 1000));
-            wall[i - startX].roomMgr = this;
-        }
-
-        ChickLeftOrRight(castleMgr.buildPoint);
-
-        castleMgr.rooms.Add(this);
-        castleMgr.ChickMergeRoom(this);
-        AddConnection();
-    }
-
-    /// <summary>
-    /// 附近建筑被删除重新检测附近空位
-    /// </summary>
-    public void UpdateBuilding()
-    {
-        //删除当前建筑提供的位置信息
-        for (int i = 0; i < emptyPoints.Length; i++)
-        {
-            if (emptyPoints[i] != null)
+            bool index = value;
+            if (index != constructionType)
             {
-                castleMgr.emptyPoint.Remove(emptyPoints[i]);
+                constructionType = value;
+                currentBuildData.ConstructionType = value;
+                BuildingFunc(!constructionType);
+                if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+                {
+                    if (value == false)
+                    {
+                        Debug.Log("施工结束");
+                        //施工结束就添加事件
+                        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+                    }
+                    else
+                    {
+                        Debug.Log("施工中");
+                        //施工中就关闭事件
+                        ChickPlayerInfo.instance.ClostProduction(currentBuildData);
+                    }
+                }
             }
         }
-        emptyPoints = new EmptyPoint[4];
-        nearbyRoom = new RoomMgr[4];
-        //重新检测附近空位
-        ChickLeftOrRight(castleMgr.buildPoint);
+    }
+
+    public int Id
+    {
+        get
+        {
+            return currentBuildData.id;
+        }
+    }
+
+    private int timeIndex;
+
+    public BuildRoomName RoomName
+    {
+        get
+        {
+            return currentBuildData.buildingData.RoomName;
+        }
+    }
+
+    public bool IsHarvest
+    {
+        get
+        {
+            return isHarvest;
+        }
+
+        set
+        {
+            bool temp = value;
+            if (temp != isHarvest)
+            {
+                isHarvest = value;
+                roomProp.SetActive(value);
+            }
+        }
     }
 
     /// <summary>
@@ -157,11 +136,11 @@ public abstract class RoomMgr : MonoBehaviour
     /// </summary>
     /// <param name="buildPoint"></param>
     /// <param name="points"></param>
-    protected void ChickLeftOrRight(BuildPoint[,] buildPoint)
+    public void ChickLeftOrRight(BuildPoint[,] buildPoint)
     {
-        int startX = (int)startPoint.x;//当前房间开始位置
-        int startY = (int)startPoint.y;//当前房间楼层
-        int endX = (int)startPoint.x + buildingData.RoomSize;//当前房间结束位置
+        int startX = (int)StartPoint.x;//当前房间开始位置
+        int startY = (int)StartPoint.y;//当前房间楼层
+        int endX = (int)StartPoint.x + BuildingData.RoomSize;//当前房间结束位置
         int endPoint = 0;
         Vector2 sPoint = new Vector2();
 
@@ -245,8 +224,8 @@ public abstract class RoomMgr : MonoBehaviour
     /// <param name="points"></param>
     protected void ChickUpOrDown(BuildPoint[,] buildPoint)
     {
-        int startX = (int)startPoint.x;
-        int startY = (int)startPoint.y;
+        int startX = (int)StartPoint.x;
+        int startY = (int)StartPoint.y;
         Vector2 sPoint = new Vector2();
         if (buildPoint[startX, startY + 1] != null
             && buildPoint[startX, startY + 1].pointType == BuildingType.Wall)
@@ -282,6 +261,51 @@ public abstract class RoomMgr : MonoBehaviour
 
         UpdateEmptyPoint();
     }
+
+    private void Awake()
+    {
+        GetCompoment();
+    }
+    /// <summary>
+    /// 创建或重新激活建筑
+    /// </summary>
+    /// <param name="data"></param>
+    public void UpdateBuilding(LocalBuildingData data, Castle castle)
+    {
+        currentBuildData = data;
+        castleMgr = castle;
+        BuildingMove(data, castle);
+        ChickLeftOrRight(castle.buildPoint);
+
+        //如果是主场景 那么施工
+        if (castle.castleType == CastleType.main)
+        {
+            if (data.buildingData.NeedTime != 0)
+            {
+                //新建的建筑需要建造时间 那么开始施工
+                ConstructionStart(data.buildingData);
+            }
+            else
+            {
+                ConstructionType = false;
+            }
+        }
+        else
+        {
+            castleMgr.ChickMergeRoom(this);
+            AddConnection();
+        }
+    }
+
+    /// <summary>
+    /// 是否开启功能
+    /// </summary>
+    /// <param name="isTrue"></param>
+    public void BuildingFunc(bool isTrue)
+    {
+        roomFunc = isTrue;
+    }
+
     /// <summary>
     /// 添加空位信息
     /// </summary>
@@ -291,23 +315,22 @@ public abstract class RoomMgr : MonoBehaviour
         {
             if (emptyPoints[i] != null && emptyPoints[i].roomData != null)
             {
-                castleMgr.emptyPoint.Add(emptyPoints[i]);
+                castleMgr.allEmptyPoint.Add(emptyPoints[i]);
             }
         }
     }
+
     /// <summary>
     /// 删除建筑
     /// </summary>
-    public void RemoveBuilding(BuildPoint[,] buildPoint)
+    public void RemoveBuilding()
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        castleMgr.rooms.Remove(this);
-
         this.gameObject.transform.position = new Vector2(-1000, -1000);
-        castleMgr.removeRoom.Add(this);
-
-        int startX = (int)startPoint.x;
-        int startY = (int)startPoint.y;
+        MapControl.instance.removeRoom.Add(this);
+        castleMgr.allroom.Remove(this);
+        int startX = (int)StartPoint.x;
+        int startY = (int)StartPoint.y;
 
         for (int i = 0; i < wall.Length; i++)
         {
@@ -321,10 +344,17 @@ public abstract class RoomMgr : MonoBehaviour
         {
             if (emptyPoints[i] != null)
             {
-                castleMgr.emptyPoint.Remove(emptyPoints[i]);
+                castleMgr.allEmptyPoint.Remove(emptyPoints[i]);
             }
         }
         emptyPoints = new EmptyPoint[4];
+    }
+
+    /// <summary>
+    /// 建造模式删除建筑
+    /// </summary>
+    public void EditRemoveBuilding()
+    {
         linkType = false; //断开自身链接
         int index = 0;
         for (int i = 0; i < nearbyRoom.Length; i++)
@@ -341,13 +371,13 @@ public abstract class RoomMgr : MonoBehaviour
         {
             for (int i = 0; i < 9; i++)
             {
-                if (buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
+                if (castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                 }
-                if (buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                if (castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                 }
             }
         }
@@ -355,13 +385,13 @@ public abstract class RoomMgr : MonoBehaviour
         {
             for (int i = 0; i < 9; i++)
             {
-                if (buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
+                if (castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                 }
-                if (buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                if (castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                 }
             }
         }
@@ -373,24 +403,24 @@ public abstract class RoomMgr : MonoBehaviour
             for (int i = 0; i < 9; i++)
             {
                 //Debug.Log(buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].pointType);
-                if (left && ((int)buidStartPoint.x - (i + 1) <= 0 || buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y] == null
-                    || buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].pointType == BuildingType.Nothing))
+                if (left && ((int)buidStartPoint.x - (i + 1) <= 0 || castleMgr.buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y] == null
+                    || castleMgr.buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].pointType == BuildingType.Nothing))
                 {
                     left = false;
                 }
-                else if (left && buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].roomMgr != null)
+                else if (left && castleMgr.buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[(int)buidStartPoint.x - (i + 1), (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                     left = false;
                 }
-                if (right && (buildPoint[buildEndPoint + i, (int)buidStartPoint.y] == null
-                    || buildPoint[buildEndPoint + i, (int)buidStartPoint.y].pointType == BuildingType.Nothing))
+                if (right && (castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y] == null
+                    || castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].pointType == BuildingType.Nothing))
                 {
                     right = false;
                 }
-                else if (right && buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
+                else if (right && castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
                 {
-                    buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
+                    castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
                     right = false;
                 }
 
@@ -403,50 +433,97 @@ public abstract class RoomMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 删除建筑
+    /// 附近建筑被删除重新检测附近空位
     /// </summary>
-    public void RemoveBuilding()
+    public void UpdateBuilding()
     {
-        //将建筑的使用信息改为停用 将墙面移动回原位
-        int indexis = castleMgr.rooms.IndexOf(this);
-        Debug.Log("当前房间序号 :" + indexis);
-        bool isTrue = castleMgr.rooms.Remove(this);
-        Debug.Log("删除结果 :" + isTrue);
-        this.gameObject.transform.position = new Vector2(-1000, -1000);
-        castleMgr.removeRoom.Add(this);
-
-        int startX = (int)startPoint.x;
-        int startY = (int)startPoint.y;
-
-        for (int i = 0; i < wall.Length; i++)
-        {
-            wall[i].pointType = BuildingType.Wall;
-            wall[i].pointWall.Translate(Vector3.forward * 1000);
-            wall[i].roomMgr = null;
-        }
-
         //删除当前建筑提供的位置信息
         for (int i = 0; i < emptyPoints.Length; i++)
         {
             if (emptyPoints[i] != null)
             {
-                castleMgr.emptyPoint.Remove(emptyPoints[i]);
+                castleMgr.allEmptyPoint.Remove(emptyPoints[i]);
             }
         }
         emptyPoints = new EmptyPoint[4];
+        nearbyRoom = new RoomMgr[4];
+        //重新检测附近空位
+        ChickLeftOrRight(castleMgr.buildPoint);
+    }
+
+    /// <summary>
+    /// 将房间移动到某位置 重置附近房间和空位信息 移动到指定位置移出背景墙
+    /// </summary>
+    /// <param name="data"></param>
+    public void BuildingMove(LocalBuildingData data, Castle castle)
+    {
+        castleMgr = castle;
+        currentBuildData = data;
+        nearbyRoom = new RoomMgr[4];
+        emptyPoints = new EmptyPoint[4];
+        if (castle.castleType == CastleType.main)
+        {
+            linkType = true;
+            ChickDisTip();
+        }
+        //将房间移动到指定位置
+        transform.position = castle.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
+        //将房间这一段墙壁移出 给这一段空间添加该房间引用
+        int startX = (int)StartPoint.x;
+        int startY = (int)StartPoint.y;
+        //重置墙面信息
+        wall = new BuildPoint[BuildingData.RoomSize];
+        buidStartPoint = new Vector2(startX, startY);
+
+        for (int i = startX; i < startX + BuildingData.RoomSize; i++)
+        {
+            wall[i - startX] = castle.buildPoint[i, startY];
+            wall[i - startX].pointType = BuildingType.Full;
+            wall[i - startX].pointWall.Translate((Vector3.back * 1000));
+            wall[i - startX].roomMgr = this;
+        }
+    }
+
+
+
+    /// <summary>
+    /// 检查链接信息 让附近房间递归搜寻信息
+    /// </summary>
+    public void BuildingChickLink()
+    {
         linkType = false; //断开自身链接
         int index = 0;
         for (int i = 0; i < nearbyRoom.Length; i++)
         {
             if (nearbyRoom[i] != null)
             {
-                nearbyRoom[i].UpdateBuilding();
+                nearbyRoom[i].ChickNearBuilding();
                 nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
                 nearbyRoom[i] = null;
                 index++;
             }
         }
     }
+
+    /// <summary>
+    /// 递归检查附近房间链接信息
+    /// </summary>
+    public void ChickNearBuilding()
+    {
+        //删除当前建筑提供的位置信息
+        for (int i = 0; i < emptyPoints.Length; i++)
+        {
+            if (emptyPoints[i] != null)
+            {
+                castleMgr.allEmptyPoint.Remove(emptyPoints[i]);
+            }
+        }
+        emptyPoints = new EmptyPoint[4];
+        nearbyRoom = new RoomMgr[4];
+        //重新检测附近空位
+        ChickLeftOrRight(castleMgr.buildPoint);
+    }
+
 
     /// <summary>
     /// 检查连接、断开、路径点
@@ -470,7 +547,6 @@ public abstract class RoomMgr : MonoBehaviour
             }
             else//我方通畅对方堵塞 判断己方链接是否有效
             {
-                Debug.Log("主要 ：对方堵塞 判断己方连接是否有效");
                 RoomMgr room = null;
                 int length = nearbyRoom.Length - 1;
                 for (int i = length; i > -1; i--)//反向遍历 从大往小
@@ -507,7 +583,6 @@ public abstract class RoomMgr : MonoBehaviour
                             bool thisLink = nearbyRoom[i].ChickConnection(this, false);
                             if (thisLink == false) //保存断开的房间信息
                             {
-                                Debug.Log("保存断开的房间信息");
                                 disconnectRoom.Add(nearbyRoom[i]);
                             }
                             //当前这个路线回来是通畅那么就返回了 所以不会出现通畅之后在堵塞的问题
@@ -587,10 +662,20 @@ public abstract class RoomMgr : MonoBehaviour
     /// <summary>
     /// 建造房间 检查附近连接
     /// </summary>
-    protected void AddConnection()
+    public void AddConnection()
     {
         int linkIndex = 0;
         int offIndex = 0;
+
+        if (buidStartPoint == new Vector2(6, 1))
+        {
+            mainLink = true;
+            linkType = true;
+        }
+        else
+        {
+            mainLink = false;
+        }
 
         if (mainLink)
         {
@@ -636,6 +721,9 @@ public abstract class RoomMgr : MonoBehaviour
         ChickDisTip();
     }
 
+    /// <summary>
+    /// 检查断开连接提示框状态
+    /// </summary>
     protected void ChickDisTip()
     {
         if (linkType == true)
@@ -649,62 +737,49 @@ public abstract class RoomMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 升级
+    /// 开始施工
     /// </summary>
-    public void RoomLevelUp()
+    /// <param name="data">当前房间需要变成哪个</param>
+    public void ConstructionStart(BuildingData data)
     {
-        if (roomFunc == false)
-        {
-            return;
-        }
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(buildingData.NexLevelID);
+        ConstructionType = true;
+        changeData = data;//记录需要升级的DATA信息 
         needTime = data.NeedTime * 6;
-        //开始升级添加计时事件
-        LocalServer.instance.RoomLevelTime(this, data.NeedTime * 6);
+        timeIndex = ChickPlayerInfo.instance.Timer(this, needTime);
         levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
         listNumber = levelUpTip.AddLister();
         levelUpTip.UpdateTime(needTime, listNumber);
-        roomFunc = false;
-        isHarvest = false;
-        roomProp.SetActive(false);
-        levelUp = true;
-        UIPanelManager.instance.ClosePage<UILockRoomTip>();
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
-
     }
 
-    public void LevelNowTime()
+    public void TimerCallBack()
     {
         needTime--;
         levelUpTip.UpdateTime(needTime, listNumber);
         if (needTime <= 0)
         {
             needTime = 0;
-            LevelUpIsDown();
         }
     }
 
-    /// <summary>
-    /// 升级完成 数据更改
-    /// </summary>
-    protected void LevelUpIsDown()
+    public void ConstructionCancel()
     {
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(buildingData.NexLevelID);
-        ServerBuildData data_1 = new ServerBuildData(s_Data.buildingPoint, data, s_Data.Yield, s_Data.Stock);
-        LocalServer.instance.ReplaceRoom(s_Data, data_1);
-        buildingData = data;
-        s_Data.buildingData = buildingData;
+
+    }
+
+    /// <summary>
+    /// 施工完成
+    /// </summary>
+    public void ConstructionComplete()
+    {
+        ChickPlayerInfo.instance.RemoveThisTime(timeIndex);
+        ChickPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
         levelUpTip.RemoveLister(listNumber);
         levelUpTip = null;
-        roomFunc = true;
-        levelUp = false;
+        ConstructionType = false;
         HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.CloseRoomLock, this);
-
-        //升级完成后检查附近的房间是否可以合并
-        if (buildingData.RoomType == RoomType.Production)
-        {
-            //ChickRoomMerge();
-        }
+        //检查合并
+        castleMgr.ChickMergeRoom(this);
     }
 
     public abstract void ThisRoomFunc();
@@ -718,58 +793,23 @@ public abstract class RoomMgr : MonoBehaviour
     }
 
     #region ProductionType
-    public virtual void ProductionType()
+    public virtual void ShowHarvest()
     {
-        if (roomFunc == false)
+        IsHarvest = true;
+    }
+
+    public virtual void ChickRoomStock()
+    {
+        Debug.Log(currentBuildData.Stock);
+        if (currentBuildData.Stock < 1)
         {
-            return;
-        }
-        bool isTrue = LocalServer.instance.SetNumber(this);
-        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, RoomName);
-        if (isTrue)
-        {
-            //如果数量小于1 那么关闭提示框 关闭收获提示
-            if (Stock <= 1)
-            {
-                roomProp.SetActive(false);
-                isHarvest = false;
-            }
-            //显示动画并刷新数字
-            else
-            {
-                roomProp.SetActive(true);
-                isHarvest = true;
-            }
+            Debug.Log("资源被取走了");
+            IsHarvest = false;
         }
         else
         {
-            //仓库已满
-            Debug.Log("仓库已满");
+            Debug.Log("部分资源被取走了");
         }
-    }
-    public virtual void GetNumber(ServerBuildData storageRoom)
-    {
-        if (roomFunc == false)
-        {
-            return;
-        }
-        if (storageRoom.buildingData.RoomName == RoomName)
-        {
-            stock = storageRoom.Stock;
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickStock, RoomName);
-            Debug.Log("仓库库存 :" + Stock);
-        }
-    }
-
-    public virtual void GetNumber(int number)
-    {
-        if (roomFunc == false)
-        {
-            return;
-        }
-        //显示可获取
-        isHarvest = true;
-        roomProp.SetActive(true);
     }
     #endregion
 }

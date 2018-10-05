@@ -43,6 +43,35 @@ public class SystemTime : TSingleton<SystemTime>
         text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
 
+    public string TimeNormalized(int HowManySecond)
+    {
+        HowManySecond *= 60;
+        if (HowManySecond == 0)
+        {
+            return "0";
+        }
+        string ShowStr = "";
+        if (HowManySecond >= (24 * 3600))
+        {
+            ShowStr += (HowManySecond / (24 * 3600)) + " 天 ";
+            HowManySecond %= (24 * 3600);
+        }
+        if (HowManySecond >= 3600)
+        {
+            ShowStr += (HowManySecond / 3600) + " 小时 ";
+            HowManySecond %= 3600;
+        }
+        if (HowManySecond >= 60)
+        {
+            ShowStr += (HowManySecond / 60) + " 分钟 ";
+        }
+        if (HowManySecond > 0 && HowManySecond < 60)
+        {
+            ShowStr += HowManySecond + "秒";
+        }
+        return ShowStr;
+    }
+
     void OnApplicationPause(bool isPause)
     {
 

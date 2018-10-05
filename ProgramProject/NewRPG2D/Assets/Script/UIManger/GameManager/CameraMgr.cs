@@ -34,7 +34,6 @@ public class CameraMgr : MonoBehaviour
     private bool moving = false; //移动中
     private bool isShowEdit = false;//是否显示建造提示
     public MapType mapType;
-    public MapControl Map;
 
     private void Awake()
     {
@@ -56,7 +55,18 @@ public class CameraMgr : MonoBehaviour
 
     private void Update()
     {
-        if (mapType == MapType.MainMap)
+#if UNITY_ANDROID
+        Debug.Log("这里是安卓设备^_^");
+#endif
+
+#if UNITY_IPHONE
+        Debug.Log("这里是苹果设备>_<");
+#endif
+
+#if UNITY_STANDALONE_WIN
+        Debug.Log("我是从Windows的电脑上运行的T_T");
+#endif
+        if (MapControl.instance.type == CastleType.main)
         {
             MainMap();
             TouchMove();
@@ -125,10 +135,11 @@ public class CameraMgr : MonoBehaviour
                     if (hit.collider.tag == "Room")
                     {
                         RoomMgr data = hit.collider.GetComponent<RoomMgr>();
-                        if (data.isHarvest)//如果有产出那么不更换选中房间
+                        if (data.IsHarvest)//如果有产出那么不更换选中房间
                         {
                             Debug.Log("获得产出");
-                            data.ProductionType();
+                            ChickPlayerInfo.instance.GetProductionStock(data.currentBuildData);
+                            data.ChickRoomStock();
                             return;
                         }
                         if (room == null)
@@ -169,7 +180,7 @@ public class CameraMgr : MonoBehaviour
                     }
                     else if (hit.collider.tag == "BuildTip")
                     {
-                        HallEventManager.instance.SendEvent<RaycastHit>(HallEventDefineEnum.InEditMode, hit);
+                        MainCastle.instance.ChickReycast(hit);
                     }
                 }
             }
@@ -206,7 +217,7 @@ public class CameraMgr : MonoBehaviour
                     room.roomLock.SetActive(false);
                     room = null;
                     //关闭提示框
-                    HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, null);
+                    UIEditMode.instance.ShowMenu(null);
                 }
                 return;
             }
@@ -221,7 +232,7 @@ public class CameraMgr : MonoBehaviour
                         data.roomLock.SetActive(true);
                         room = data;
                         //切换提示框
-                        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, data);
+                        UIEditMode.instance.ShowMenu(data);
                     }
                     else /*(room == null)*/
                     {
@@ -229,12 +240,12 @@ public class CameraMgr : MonoBehaviour
                         //子物体启动
                         room.roomLock.SetActive(true);
                         //出现提示框
-                        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.EditMode, data);
+                        UIEditMode.instance.ShowMenu(data);
                     }
                 }
                 else if (hit.collider.tag == "BuildTip")
                 {
-                    HallEventManager.instance.SendEvent<RaycastHit>(HallEventDefineEnum.InEditMode, hit);
+                    EditCastle.instance.ChickReycast(hit);
                 }
             }
         }
@@ -254,6 +265,7 @@ public class CameraMgr : MonoBehaviour
         if (room != null)
         {
             room.roomLock.SetActive(false);
+            UIPanelManager.instance.ClosePage<UILockRoomTip>();
         }
         room = null;
     }

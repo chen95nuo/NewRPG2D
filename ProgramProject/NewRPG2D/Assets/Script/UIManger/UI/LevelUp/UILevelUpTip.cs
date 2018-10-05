@@ -11,8 +11,9 @@ public class UILevelUpTip : TTUIPage
     public GameObject tip;
     private RoomMgr roomData;
     private Camera cam;
-    private List<UILevelUpTipGrid> timeTextGrids = new List<UILevelUpTipGrid>();
+    private Dictionary<int, UILevelUpTipGrid> timeTextGrids = new Dictionary<int, UILevelUpTipGrid>();
     private List<UILevelUpTipGrid> outGrids = new List<UILevelUpTipGrid>();
+    private int dicIndex = 0;
     public override void Show(object mData)
     {
         base.Show(mData);
@@ -28,26 +29,25 @@ public class UILevelUpTip : TTUIPage
             Canvas canvas = TTUIRoot.Instance.GetComponent<Canvas>();
             Transform ts = roomData.disTip.transform;
             data.GetInfo(ts, canvas);
-            timeTextGrids.Add(data);
-            return timeTextGrids.IndexOf(data);
+            timeTextGrids.Add(dicIndex, data);
         }
         else
         {
             outGrids[0].transform.position = Vector3.zero;
             outGrids[0].ts = roomData.disTip.transform;
             outGrids[0].UpdatePos();
-            timeTextGrids.Add(outGrids[0]);
-            int index = timeTextGrids.IndexOf(outGrids[0]);
+            timeTextGrids.Add(dicIndex, outGrids[0]);
             outGrids.RemoveAt(0);
-            return index;
         }
+        dicIndex++;
+        return dicIndex - 1;
     }
 
     public void RemoveLister(int index)
     {
         outGrids.Add(timeTextGrids[index]);
         timeTextGrids[index].transform.position = Vector3.back * 1000;
-        timeTextGrids.RemoveAt(index);
+        timeTextGrids.Remove(index);
     }
 
     public void SetCamMove()

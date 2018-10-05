@@ -30,10 +30,11 @@ public class UIProductionInfo : TTUIPage
     private void Awake()
     {
         btn_back.onClick.AddListener(ChickBack);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, RefreshStock);
     }
     private void OnDestroy()
     {
-
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickStock, RefreshStock);
     }
     private void Start()
     {
@@ -42,20 +43,24 @@ public class UIProductionInfo : TTUIPage
         txt_Tip_3.text = "该建筑生产资源";
     }
 
+    private void RefreshStock()
+    {
+        txt_Stock.text = roomData.currentBuildData.Stock.ToString("#0") + "/" + roomData.BuildingData.Param2.ToString("#0");
+    }
+
     private void UpdateInfo(RoomMgr data)
     {
         roomData = data;
         txt_Name.text = data.RoomName.ToString();
-        IProduction Iprod = data.GetComponent<IProduction>();
-        txt_Level.text = data.buildingData.Level.ToString();
-        txt_Yield.text = Iprod.Yield.ToString();
-        txt_Stock.text = Iprod.Stock.ToString("#0") + "/" + data.buildingData.Param2.ToString("#0");
-        Debug.Log(data.buildingData.RoomRole);
+        txt_Level.text = data.BuildingData.Level.ToString();
+        txt_Yield.text = data.currentBuildData.buildingData.Param1.ToString();
+        txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
         ChickRoleNumber();
+        ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
     }
     private void ChickRoleNumber()
     {
-        int index = roomData.buildingData.RoomRole - roleGrids.Count;
+        int index = roomData.BuildingData.RoomRole - roleGrids.Count;
         if (index > 0) //证明已有角色卡数量不足
         {
             for (int i = 0; i < index; i++)
@@ -70,5 +75,6 @@ public class UIProductionInfo : TTUIPage
     private void ChickBack()
     {
         UIPanelManager.instance.ClosePage<UIProductionInfo>();
+        ChickPlayerInfo.instance.RemoveRoomEvent();
     }
 }

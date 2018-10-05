@@ -63,7 +63,7 @@ public class PlayerData
             if (temp != gold)
             {
                 gold = temp;
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
             }
         }
     }
@@ -99,7 +99,7 @@ public class PlayerData
             if (temp != food)
             {
                 food = temp;
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
             }
         }
     }
@@ -117,7 +117,7 @@ public class PlayerData
             if (temp != mana)
             {
                 mana = temp;
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
             }
         }
     }
@@ -135,7 +135,7 @@ public class PlayerData
             if (temp != wood)
             {
                 wood = temp;
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
             }
         }
     }
@@ -153,7 +153,7 @@ public class PlayerData
             if (temp != iron)
             {
                 iron = temp;
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
             }
         }
     }

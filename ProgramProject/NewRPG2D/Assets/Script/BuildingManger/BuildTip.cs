@@ -18,7 +18,7 @@ public class BuildTip : MonoBehaviour
     private float width = 4.77f;
 
     public EmptyPoint emptyPoint;
-
+    private Castle currentCastle;
     public int startX = 0;
 
     /// <summary>
@@ -27,17 +27,11 @@ public class BuildTip : MonoBehaviour
     /// <param name="point">空位数据</param>
     /// <param name="size">建筑数据</param>
     /// <param name="startPoint">坐标数据</param>
-    public bool UpdateTip(EmptyPoint point, List<EmptyPoint> emptyPoints, BuildingData data, CastleMgr castleMgr)
+    public bool UpdateTip(EmptyPoint point, List<EmptyPoint> emptyPoints, BuildingData data, Castle castleMgr)
     {
+        currentCastle = castleMgr;
         int size = data.RoomSize;
         //如果房间相同并且之前房间可合并 那么提示可并入
-        //if (point.buildingData != null && point.buildingData.RoomType == data.RoomType
-        //    && point.buildingData.RoomMerge && data.RoomMerge)
-        //{
-        //    isMerge = true;
-        //    //显示并入框
-
-        //}
 
         emptyPoint = point;
         roomSize = size;
@@ -45,10 +39,6 @@ public class BuildTip : MonoBehaviour
         sr.size = tsSize;//图片大小
         bc.size = tsSize;//碰撞框大小
         transform.localPosition = new Vector3(width * (size * 0.5f), high * 0.5f);
-        if (point.startPoint != null && point.roomData != null)
-        {
-            Debug.Log(point.startPoint + " " + point.roomData.buidStartPoint);
-        }
         //如果创建这个位置的建筑的起点位置比这个位置的起点位置小 判定起点位置在右侧
         if (point.roomData == null || point.roomData.buidStartPoint.x < point.startPoint.x)
         {
@@ -112,7 +102,7 @@ public class BuildTip : MonoBehaviour
                     //如果本提示比已存在的更靠左 那么清除该提示
                     if (castleMgr.buildPoint[i, (int)point.startPoint.y].tip.startX > startX)
                     {
-                        castleMgr.buildPoint[i, (int)point.startPoint.y].tip.RestartThisTip(castleMgr);
+                        castleMgr.buildPoint[i, (int)point.startPoint.y].tip.RestartThisTip();
                     }
                     else//如果已存在的比较靠左 清除本提示
                     {
@@ -139,39 +129,12 @@ public class BuildTip : MonoBehaviour
         return true;
     }
 
-    public void RestartThisTip(CastleMgr castleMgr)
+    public void RestartThisTip()
     {
         for (int i = startX; i < startX + roomSize; i++)
         {
-            castleMgr.buildPoint[i, (int)emptyPoint.startPoint.y].tip = null;
+            currentCastle.buildPoint[i, (int)emptyPoint.startPoint.y].tip = null;
         }
         transform.position = new Vector2(-1000, -1000);
     }
-
-    //public void InstanceRoom(RoomMgr room, BuildingData data, CastleMgr castleMgr)
-    //{
-    //    emptyPoint.startPoint = new Vector2(startX, emptyPoint.startPoint.y);
-    //    room.UpdateBuilding(emptyPoint.startPoint, data, castleMgr);
-    //}
-
-    ///// <summary>
-    ///// 建造建筑
-    ///// </summary>
-    //public void UpdateBuild(Transform buildGroup)
-    //{
-    //    //判断是否合并
-    //    if (isMerge && emptyPoint.buildingData.Level == buildData.Level)
-    //    {
-    //        //GameObject go = Resources.Load<GameObject>("");
-    //        //isMerge = false;
-    //        Debug.Log("合并房间");
-    //    }
-    //    else
-    //    {
-    //        GameObject go = Resources.Load<GameObject>("UIPrefab/Building/" + buildData.SprintName);
-    //        go = Instantiate(go, buildGroup) as GameObject;
-    //        go.transform.position = this.transform.position;
-
-    //    }
-    //}
 }

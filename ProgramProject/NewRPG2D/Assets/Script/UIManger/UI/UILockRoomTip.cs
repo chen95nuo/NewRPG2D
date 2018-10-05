@@ -66,20 +66,20 @@ public class UILockRoomTip : TTUIPage
     private void LockRoomData(RoomMgr data)
     {
         roomData = data;
-        txt_Name.text = roomData.RoomName + "(" + roomData.buildingData.Level + "级" + ")";
+        txt_Name.text = roomData.RoomName + "(" + roomData.BuildingData.Level + "级" + ")";
         Debug.Log(data.RoomName.ToString());
-        switch (data.buildingData.RoomType)
+        switch (data.BuildingData.RoomType)
         {
             case RoomType.Nothing:
                 break;
             case RoomType.Production:
                 ProductionRoom();
                 break;
+            case RoomType.Training:
+                TrainingRoom();
+                break;
             case RoomType.Support:
                 SupportRoom();
-                break;
-            case RoomType.Training:
-
                 break;
             case RoomType.Max:
                 break;
@@ -93,8 +93,9 @@ public class UILockRoomTip : TTUIPage
     /// </summary>
     private void ProductionRoom()
     {
-        Debug.Log("当前房间状态" + roomData.levelUp);
-        if (roomData.levelUp == true)
+        ClostAllBtn(false);
+        Debug.Log("当前房间状态" + roomData.ConstructionType);
+        if (roomData.ConstructionType == true)
         {
             btn_Message.gameObject.SetActive(isOpen);
             RoomLevelUp(true);
@@ -108,9 +109,10 @@ public class UILockRoomTip : TTUIPage
     /// <summary>
     /// 训练类房间
     /// </summary>
-    private void SupportRoom()
+    private void TrainingRoom()
     {
-        if (roomData.levelUp == true)
+        ClostAllBtn(false);
+        if (roomData.ConstructionType == true)
         {
             RoomLevelUp(true);
             return;
@@ -120,9 +122,62 @@ public class UILockRoomTip : TTUIPage
         btn_Train.gameObject.SetActive(isOpen);
         //这边还需要判断有多少个角色对应角色出现提示框
     }
+
+    /// <summary>
+    /// 功能类房间
+    /// </summary>
+    private void SupportRoom()
+    {
+        ClostAllBtn(false);
+        if (roomData.ConstructionType == true)
+        {
+            RoomLevelUp(true);
+            return;
+        }
+        switch (roomData.BuildingData.RoomName)
+        {
+            case BuildRoomName.Nothing:
+                Debug.LogError("错误房间类型超限");
+                break;
+            case BuildRoomName.LivingRoom:
+                btn_Message.gameObject.SetActive(isOpen);
+                btn_LevelUp.gameObject.SetActive(isOpen);
+                break;
+            case BuildRoomName.TrophyRoom:
+                break;
+            case BuildRoomName.Hospital:
+                break;
+            case BuildRoomName.ClanHall:
+                break;
+            case BuildRoomName.MagicWorkShop:
+                break;
+            case BuildRoomName.MagicLab:
+                break;
+            case BuildRoomName.WeaponsWorkShop:
+                break;
+            case BuildRoomName.ArmorWorkShop:
+                break;
+            case BuildRoomName.GemWorkSpho:
+                break;
+            case BuildRoomName.Stairs:
+                break;
+            case BuildRoomName.ThroneRoom:
+                btn_Message.gameObject.SetActive(isOpen);
+                btn_LevelUp.gameObject.SetActive(isOpen);
+                break;
+            case BuildRoomName.Barracks:
+                break;
+            case BuildRoomName.MaxRoom:
+                Debug.LogError("错误房间类型超限");
+                break;
+            default:
+                break;
+        }
+    }
+
     private void mainHouse()
     {
-        if (roomData.levelUp == true)
+        if (roomData.ConstructionType == true)
         {
             btn_Message.gameObject.SetActive(isOpen);
             RoomLevelUp(true);
@@ -144,7 +199,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickMessage()
     {
         Debug.Log("根据类型弹出信息框");
-        switch (roomData.buildingData.RoomName)
+        switch (roomData.BuildingData.RoomName)
         {
             case BuildRoomName.Nothing:
                 break;
@@ -186,18 +241,22 @@ public class UILockRoomTip : TTUIPage
     private void ChickLevelUp()
     {
         Debug.Log("根据类型弹出升级框");
-        switch (roomData.buildingData.RoomType)
+        switch (roomData.BuildingData.RoomType)
         {
             case RoomType.Nothing:
+                Debug.LogError("错误房间类型超限");
                 break;
             case RoomType.Production:
                 UIPanelManager.instance.ShowPage<UIProdLevelUp>(roomData);
                 break;
             case RoomType.Training:
+                UIPanelManager.instance.ShowPage<UIProdLevelUp>(roomData);
                 break;
             case RoomType.Support:
+                SupportType();
                 break;
             case RoomType.Max:
+                Debug.LogError("错误房间类型超限");
                 break;
             default:
                 break;
@@ -212,6 +271,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickSpeedUp()
     {
         Debug.Log("升级中进行加速");
+        LocalServer.instance.ChickTime(roomData);
     }
 
     private void ChickCastleEddit()
@@ -266,13 +326,15 @@ public class UILockRoomTip : TTUIPage
         btn_Research.gameObject.SetActive(isTrue);
     }
 
-    private void TrainingType()
+    private void SupportType()
     {
-        switch (roomData.buildingData.RoomName)
+        switch (roomData.BuildingData.RoomName)
         {
             case BuildRoomName.Nothing:
+                Debug.LogError("错误房间类型超限");
                 break;
             case BuildRoomName.LivingRoom:
+                UIPanelManager.instance.ShowPage<UIProdLevelUp>(roomData);
                 break;
             case BuildRoomName.TrophyRoom:
                 break;
@@ -293,10 +355,12 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.Stairs:
                 break;
             case BuildRoomName.ThroneRoom:
+                UIPanelManager.instance.ShowPage<UIThroneLevelUp>(roomData);
                 break;
             case BuildRoomName.Barracks:
                 break;
             case BuildRoomName.MaxRoom:
+                Debug.LogError("错误房间类型超限");
                 break;
             default:
                 break;

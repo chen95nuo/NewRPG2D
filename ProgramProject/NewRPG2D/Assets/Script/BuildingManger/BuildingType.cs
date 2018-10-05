@@ -63,3 +63,9 @@ public enum MapType
     MainMap,
     EditMap
 }
+
+public enum ThroneInfoType
+{
+    Upgraded,
+    Build
+}

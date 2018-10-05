@@ -11,6 +11,7 @@ public class ServerBuildData
     public BuildingData buildingData;//房间ID
     public float Yield = 0;
     public float Stock = 0;
+    public bool levelUp = false;
 
     public ServerBuildData() { }
     public ServerBuildData(Vector2 point, BuildingData data)
@@ -26,6 +27,32 @@ public class ServerBuildData
         this.Stock = Stock;
     }
 }
+
+[System.Serializable]
+public class LocalBuildingData
+{
+    public int id;//房间ID
+    public Vector2 buildingPoint;//房间位置
+    public BuildingData buildingData;//房间ID
+    public float Stock = 0;
+    public bool ConstructionType = false;
+
+    public LocalBuildingData() { }
+    public LocalBuildingData(int id, Vector2 point, BuildingData data)
+    {
+        this.id = id;
+        this.buildingPoint = point;
+        this.buildingData = data;
+    }
+    public LocalBuildingData(int id, Vector2 point, BuildingData data, float Stock)
+    {
+        this.id = id;
+        this.buildingPoint = point;
+        this.buildingData = data;
+        this.Stock = Stock;
+    }
+}
+
 /// <summary>
 /// 墙面信息
 /// </summary>
@@ -64,10 +91,15 @@ public class EmptyPoint
     }
 }
 
-public class EditRoom
+[System.Serializable]
+public class EditMergeRoomData
 {
-    public RoomMgr room;
+    public LocalBuildingData room_1;
+    public LocalBuildingData room_2;
+    public LocalBuildingData room_3;
+    public LocalBuildingData mergeRoom;
 
+    public EditMergeRoomData() { }
 }
 
 

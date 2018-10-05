@@ -7,10 +7,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.Timer;
 
 public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
 {
-    public Dictionary<BuildRoomName, ServerBuildData[]> dic = new Dictionary<BuildRoomName, ServerBuildData[]>();
+    public Dictionary<BuildRoomName, LocalBuildingData[]> dic = new Dictionary<BuildRoomName, LocalBuildingData[]>();
+    private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();//房间序号 用于储存施工中的房间
+    private List<LocalBuildingData> AllBuilding = new List<LocalBuildingData>();//储存全部已经建造的房间
+    private Dictionary<int, LocalBuildingData> production = new Dictionary<int, LocalBuildingData>();//产出房间
+    private List<LocalBuildingData> storage;
+    public int buildingIdIndex = 0;
+
+    private int EventKey = 0;
 
     /// <summary>
     /// 将建筑数量和信息格式化
@@ -23,10 +31,10 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             if (item.Key == BuildRoomName.Stairs)
             {
-                dic.Add(item.Key, new ServerBuildData[30]);
+                dic.Add(item.Key, new LocalBuildingData[30]);
                 break;
             }
-            dic.Add(item.Key, new ServerBuildData[item.Value.Length]);
+            dic.Add(item.Key, new LocalBuildingData[item.Value.Length]);
         }
         Debug.Log(dic);
     }
@@ -35,7 +43,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 获取服务器上的建筑数据后 将其转为本地信息
     /// </summary>
     /// <param name="s_BuildData"></param>
-    public void ChickBuildDic(List<ServerBuildData> s_BuildData)
+    public void ChickBuildDic(List<LocalBuildingData> s_BuildData)
     {
         for (int i = 0; i < s_BuildData.Count; i++)
         {
@@ -53,7 +61,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <summary>
     /// 有新的建筑 给字典添加信息
     /// </summary>
-    public void ChickBuildDicAdd(ServerBuildData data)
+    public void ChickBuildDicAdd(LocalBuildingData data)
     {
         for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
         {
@@ -62,6 +70,10 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 Debug.Log("有空位 添加");
                 dic[data.buildingData.RoomName][i] = data;
                 HallEventManager.instance.SendEvent<RoomType>(HallEventDefineEnum.ChickBuild, data.buildingData.RoomType);
+                if (ChickStorage(data))
+                {
+                    ThisStorage(data);
+                }
                 return;
             }
         }
@@ -73,17 +85,18 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// </summary>
     /// <param name="data">原数据</param>
     /// <param name="changeData">改变后的数据</param>
-    public void ChickBuildDicChange(ServerBuildData data, ServerBuildData changeData)
+    public LocalBuildingData ChickBuildDicChange(LocalBuildingData data, BuildingData changeData)
     {
         for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
         {
-            if (dic[data.buildingData.RoomName][i].buildingData == data.buildingData
-                && dic[data.buildingData.RoomName][i].buildingPoint == data.buildingPoint)
+            if (dic[data.buildingData.RoomName][i].id == data.id)
             {
-                Debug.Log("找到了 转换");
-                dic[data.buildingData.RoomName][i] = changeData;
+                dic[data.buildingData.RoomName][i].buildingData = changeData;
+                return dic[data.buildingData.RoomName][i];
             }
         }
+        Debug.LogError("没有找到匹配的 信息错误");
+        return null;
     }
 
     /// <summary>
@@ -93,14 +106,69 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     {
         for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
         {
-            if (dic[data.buildingData.RoomName][i] != null 
+            if (dic[data.buildingData.RoomName][i] != null
                 && dic[data.buildingData.RoomName][i].buildingData == data.buildingData
                 && dic[data.buildingData.RoomName][i].buildingPoint == data.buildingPoint)
             {
                 Debug.Log("找到了 删除");
                 dic[data.buildingData.RoomName][i] = null;
+                return;
             }
         }
+        Debug.LogError("没有找到要删除的建筑 :" + data.buildingData.RoomName);
+    }
+
+    /// <summary>
+    /// 检查是否是生产类
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool ChickProduction(LocalBuildingData data)
+    {
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.Gold:
+                return true;
+            case BuildRoomName.Food:
+                return true;
+            case BuildRoomName.Mana:
+                return true;
+            case BuildRoomName.Wood:
+                return true;
+            case BuildRoomName.Iron:
+                return true;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 检查是否是储存类
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool ChickStorage(LocalBuildingData data)
+    {
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.GoldSpace:
+                return true;
+            case BuildRoomName.FoodSpace:
+                return true;
+
+            case BuildRoomName.ManaSpace:
+                return true;
+
+            case BuildRoomName.WoodSpace:
+                return true;
+
+            case BuildRoomName.IronSpace:
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
     /// <summary>
@@ -156,7 +224,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             if (dic[name][i] != null)
             {
-                index += (int)dic[name][i].Yield;
+                //这里应该计算房间内人物节能加房间默认产量
+                index += (int)dic[name][i].buildingData.Param1;
             }
         }
         return index;
@@ -341,5 +410,386 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// 获取服务器上数据转成本地数据
+    /// </summary>
+    /// <param name="allBuidling"></param>
+    public void SetAllBuilding(List<ServerBuildData> allBuidling)
+    {
+        for (int i = 0; i < allBuidling.Count; i++)
+        {
+            int index = MainCastle.instance.AddBuilding(allBuidling[i]);
+            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, allBuidling[i].buildingData);
+            AllBuilding.Add(data);
+        }
+    }
+
+
+
+    /// <summary>
+    /// 新建建筑 添加建筑
+    /// </summary>
+    /// <param name="data"></param>
+    public void AddBuilding(LocalBuildingData data)
+    {
+        AllBuilding.Add(data);
+        ChickBuildDicAdd(data);
+    }
+
+    /// <summary>
+    /// 删除建筑
+    /// </summary>
+    /// <param name="data"></param>
+    public void RemoveBuilding(LocalBuildingData data)
+    {
+        if (ChickProduction(data))
+        {
+            ClostProduction(data);
+        }
+        bool isTrue = AllBuilding.Remove(data);
+        if (isTrue == false)
+        {
+            Debug.LogError("没找到要删除的建筑 :" + data.buildingData.RoomName);
+        }
+    }
+
+    /// <summary>
+    /// 房间合并
+    /// </summary>
+    /// <param name="data_1">合并一号</param>
+    /// <param name="data_2">合并二号</param>
+    /// <param name="data_3">合并结果</param>
+    public void MergeRoom(LocalBuildingData data_1, LocalBuildingData data_2, LocalBuildingData data_3)
+    {
+        RemoveBuilding(data_1);
+        RemoveBuilding(data_2);
+        AddBuilding(data_3);
+        Debug.Log("合并后房间总数据" + AllBuilding.Count);
+    }
+
+    /// <summary>
+    /// 建造模式数据保存
+    /// </summary>
+    /// <param name="datas"></param>
+    public void SaveEditModInfo(List<LocalBuildingData> datas)
+    {
+
+    }
+
+    /// <summary>
+    /// 计时器
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="time"></param>
+    public int Timer(RoomMgr data, int time)
+    {
+        int index = CTimerManager.instance.AddListener(1f, time, ChickTime);
+        buildNumber.Add(index, data);
+        LocalServer.instance.Timer(data, time);
+        return index;
+    }
+
+    /// <summary>
+    /// 计时器返回的信息 本地返回信息只是用于显示计时器信息
+    /// </summary>
+    /// <param name="key"></param>
+    public void ChickTime(int key)
+    {
+        buildNumber[key].TimerCallBack();
+    }
+
+    /// <summary>
+    /// 删除这个计时事件
+    /// </summary>
+    /// <param name="sequenceTime"></param>
+    public void RemoveThisTime(int sequenceTime)
+    {
+        CTimerManager.instance.RemoveLister(sequenceTime);
+    }
+
+    /// <summary>
+    /// 新建生产房间 添加生产事件
+    /// </summary>
+    /// <param name="data"></param>
+    public void ThisProduction(LocalBuildingData data)
+    {
+        int index = CTimerManager.instance.AddListener(1f, -1, ChickProduction);
+        production.Add(index, data);
+    }
+
+    /// <summary>
+    /// 事件 CallBack
+    /// </summary>
+    /// <param name="key"></param>
+    public void ChickProduction(int key)
+    {
+        float number = production[key].buildingData.Param1 / 60 / 60;
+        production[key].Stock += number * 30f;
+        if (production[key].Stock > production[key].buildingData.Param2 * 0.005f)
+        {
+            MainCastle.instance.FindRoom(production[key].id);
+        }
+        if (EventKey == key)
+        {
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickStock);
+        }
+    }
+
+    /// <summary>
+    /// 删除这个事件
+    /// </summary>
+    /// <param name="data"></param>
+    public void ClostProduction(LocalBuildingData data)
+    {
+        foreach (var item in production)
+        {
+            if (item.Value == data)
+            {
+                CTimerManager.instance.RemoveLister(item.Key);
+                production.Remove(item.Key);
+                return;
+            }
+        }
+        Debug.LogError("删除产出事件时没有找到对象");
+    }
+
+    /// <summary>
+    /// 获取该生产类房间资源
+    /// </summary>
+    /// <param name="data"></param>
+    public void GetProductionStock(LocalBuildingData data)
+    {
+        PlayerData player = GetPlayerData.Instance.GetData();
+        LocalBuildingData space = null;
+        int playerIndex = 0;
+        int playerSpace = 0;
+        float allStock = 0;
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.Gold:
+                space = dic[BuildRoomName.GoldSpace][0];
+                playerIndex = player.Gold;
+                playerSpace = player.GoldSpace;
+                allStock = data.Stock;
+                player.Gold += GetProductionStockHpr(data, space, playerIndex, playerSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
+                break;
+            case BuildRoomName.Food:
+                space = dic[BuildRoomName.FoodSpace][0];
+                playerIndex = player.Food;
+                playerSpace = player.FoodSpace;
+                allStock = data.Stock;
+                player.Food += GetProductionStockHpr(data, space, playerIndex, playerSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
+                break;
+            case BuildRoomName.Mana:
+                space = dic[BuildRoomName.ManaSpace][0];
+                playerIndex = player.Mana;
+                playerSpace = player.ManaSpace;
+                allStock = data.Stock;
+                player.Mana += GetProductionStockHpr(data, space, playerIndex, playerSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
+                break;
+            case BuildRoomName.Wood:
+                space = dic[BuildRoomName.WoodSpace][0];
+                playerIndex = player.Wood;
+                playerSpace = player.WoodSpace;
+                allStock = data.Stock;
+                player.Wood += GetProductionStockHpr(data, space, playerIndex, playerSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
+                break;
+            case BuildRoomName.Iron:
+                space = dic[BuildRoomName.IronSpace][0];
+                playerIndex = player.Iron;
+                playerSpace = player.IronSpace;
+                allStock = data.Stock;
+                player.Iron += GetProductionStockHpr(data, space, playerIndex, playerSpace);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
+                break;
+            default:
+                break;
+        }
+    }
+    private int GetProductionStockHpr(LocalBuildingData data, LocalBuildingData space, int playerIndex, int playerSpace)
+    {
+        float allStock = data.Stock;
+        if (space != null)
+        {
+            float index = (space.buildingData.Param2 - space.Stock);//剩余空间
+            if (index < 0)
+            {
+                Debug.LogError("库存出错");
+                return 0;
+            }
+            if (index - allStock > 0)//如果仓库容量足够
+            {
+                space.Stock += (int)data.Stock;
+                data.Stock = 0;
+                return 0;
+            }
+            else
+            {
+                data.Stock = ((int)allStock - index);
+                allStock = data.Stock;
+            }
+        }
+        //如果没有仓库或者仓库容量不足
+        int temp = playerSpace - playerIndex;
+        if (temp - allStock > 0)
+        {
+            //playerIndex += (int)data.Stock;
+            int number = (int)data.Stock;
+            data.Stock = 0;
+            return number;
+        }
+        else
+        {
+            data.Stock = ((int)allStock - temp);
+            //playerIndex += temp;
+            return temp;
+        }
+    }
+
+    /// <summary>
+    /// 新建仓库 检查库存
+    /// </summary>
+    /// <param name="data"></param>
+    public void ThisStorage(LocalBuildingData data)
+    {
+        PlayerData player = GetPlayerData.Instance.GetData();
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.GoldSpace:
+                player.Gold = ChickStock(data, player.Gold);
+                break;
+            case BuildRoomName.FoodSpace:
+                player.Food = ChickStock(data, player.Food);
+                break;
+            case BuildRoomName.ManaSpace:
+                player.Mana = ChickStock(data, player.Mana);
+                break;
+            case BuildRoomName.WoodSpace:
+                player.Wood = ChickStock(data, player.Wood);
+                break;
+            case BuildRoomName.IronSpace:
+                player.Iron = ChickStock(data, player.Iron);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 检查房间库存
+    /// </summary>
+    /// <param name="data">仓库</param>
+    /// <param name="number">转入数值</param>
+    /// <returns></returns>
+    public int ChickStock(LocalBuildingData data, int number)
+    {
+        data.Stock += number;
+        float index = data.Stock - data.buildingData.Param2;
+        if (index > 0)
+        {
+            data.Stock = data.buildingData.Param2;
+            return (int)index;
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// 获取某建筑的库存值
+    /// </summary>
+    /// <param name="room"></param>
+    /// <returns></returns>
+    public int ThisRoomStock(RoomMgr room)
+    {
+        AllBuilding.IndexOf(room.currentBuildData);
+        return 0;
+    }
+
+    /// <summary>
+    /// 用于确认是否有该类型仓库
+    /// </summary>
+    public bool ThisRoomStock()
+    {
+        return true;
+    }
+
+    /// <summary>
+    /// 获取房间事件
+    /// </summary>
+    /// <param name="data"></param>
+    public void GetRoomEvent(LocalBuildingData data)
+    {
+        foreach (var item in production)
+        {
+            if (item.Value == data)
+            {
+                EventKey = item.Key;
+                return;
+            }
+        }
+        Debug.LogError("没有找到需要监听的对象");
+    }
+
+    /// <summary>
+    /// 删除房间事件
+    /// </summary>
+    public void RemoveRoomEvent()
+    {
+        EventKey = 0;
+    }
+
+    /// <summary>
+    /// 给予所有已建造房间
+    /// </summary>
+    /// <returns></returns>
+    public List<LocalBuildingData> GetAllBuilding()
+    {
+        return AllBuilding;
+    }
+
+    /// <summary>
+    /// 用于国王大厅升级
+    /// </summary>
+    /// <param name="data">升级后的信息</param>
+    public Dictionary<ThroneInfoType, List<BuildingData>> ThroneLeveUpRoomInfo(BuildingData data)
+    {
+        List<BuildingData> allBuiliding = BuildingDataMgr.instance.AllRoomData();
+        int id = data.NextLevelID;
+        BuildingData newData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(id);
+        Dictionary<ThroneInfoType, List<BuildingData>> temp = new Dictionary<ThroneInfoType, List<BuildingData>>();
+        temp.Add(ThroneInfoType.Build, new List<BuildingData>());
+        temp.Add(ThroneInfoType.Upgraded, new List<BuildingData>());
+
+        for (int i = 0; i < allBuiliding.Count; i++)
+        {
+            if (allBuiliding[i].RoomName == BuildRoomName.ThroneRoom)
+            {
+                continue;
+            }
+            //如果这个房间需要登记等于当前等级，且无法拆分 避免可拆分的房间重复出现
+            if (allBuiliding[i].NeedLevel == newData.Level
+                && allBuiliding[i].SplitID == 0)
+            {
+                temp[ThroneInfoType.Upgraded].Add(allBuiliding[i]);
+            }
+            if (allBuiliding[i].UnlockLevel == null)
+            {
+                continue;
+            }
+            //可建造
+            for (int j = 0; j < allBuiliding[i].UnlockLevel.Length; j++)
+            {
+                if (allBuiliding[i].UnlockLevel[j] == newData.Level)
+                {
+                    temp[ThroneInfoType.Build].Add(allBuiliding[i]);
+                }
+            }
+        }
+        return temp;
     }
 }

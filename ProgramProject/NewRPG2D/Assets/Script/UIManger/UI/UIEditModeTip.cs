@@ -19,7 +19,7 @@ public class UIEditModeTip : TTUIPage
         if (BG.fillAmount <= 0)
         {
             BG.fillAmount = 0;
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.InEditMode);
+            MapControl.instance.ShowEditMap();
             UIPanelManager.instance.ClosePage(this);
         }
     }

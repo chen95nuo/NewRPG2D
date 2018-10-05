@@ -133,6 +133,6 @@ public class UIMain : TTUIPage
 
     private void ChickDiamonds()
     {
-        text_diamonds.text = playerData.Diamonds.ToString();
+        //text_diamonds.text = playerData.Diamonds.ToString();
     }
 }

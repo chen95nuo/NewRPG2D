@@ -18,8 +18,8 @@ public abstract class UIRoomInfo : TTUIPage
 
     protected virtual void UpdateName(RoomMgr data)
     {
-        txt_Name.text = data.buildingData.RoomName.ToString();
-        txt_Level.text = data.buildingData.Level.ToString();
+        txt_Name.text = data.BuildingData.RoomName.ToString();
+        txt_Level.text = data.BuildingData.Level.ToString();
     }
 
     protected abstract void UpdateInfo();

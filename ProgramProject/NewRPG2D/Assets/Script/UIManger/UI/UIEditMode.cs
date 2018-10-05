@@ -7,6 +7,11 @@ using System;
 
 public class UIEditMode : TTUIPage
 {
+    public static UIEditMode instance;
+
+    //条件相同的存在一起 等级名称大小一致且不在升级中
+    public List<EditModeHelper> rooms = new List<EditModeHelper>();
+
     public Button btn_back;//后退
     public Button btn_save;//保存
     public Button btn_repair;//修福城堡
@@ -16,28 +21,21 @@ public class UIEditMode : TTUIPage
     public Button btn_split;//拆分
     public Text txt_ClearType;//清除模式文字提示
     public Transform Content;//建筑框创建地址
-    public List<RoomMgr> rooms;//被删除的房间 放置到下方列表
     public List<UIEditRoomGrid> roomGrid;//被删除的房间 放置到下方列表
-    public List<ServerBuildData> serverRoom;//将新位置上传服务器
     private RoomMgr selectRoom;//记录当前指定的房间
     private bool removeType = false;//删除模式
 
     private void Awake()
     {
+        instance = this;
+
         btn_Remove.gameObject.SetActive(false);
         btn_split.gameObject.SetActive(false);
-        rooms = new List<RoomMgr>();
-        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.EditMode, ShowMenu);
-        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.ClearAllRoom, ClearCallBack);
-        HallEventManager.instance.AddListener<RoomMgr>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
+        HallEventManager.instance.AddListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
     }
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.EditMode, ShowMenu);
-        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.ClearAllRoom, ClearCallBack);
-        HallEventManager.instance.RemoveListener<RoomMgr>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
-
-
+        HallEventManager.instance.RemoveListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
     }
 
     void Start()
@@ -60,7 +58,7 @@ public class UIEditMode : TTUIPage
     /// <summary>
     /// 显示菜单选项
     /// </summary>
-    private void ShowMenu(RoomMgr data)
+    public void ShowMenu(RoomMgr data)
     {
         selectRoom = data;
         if (removeType == true && data != null)
@@ -70,16 +68,12 @@ public class UIEditMode : TTUIPage
         }
         if (data != null)
         {
-            if (data.buildingData.SplitID == 0)
-            {
-                btn_Remove.gameObject.SetActive(true);
-                btn_split.gameObject.SetActive(false);
-            }
-            else
-            {
-                btn_Remove.gameObject.SetActive(true);
+            if (data.BuildingData.SplitID != 0 && data.ConstructionType == false)
                 btn_split.gameObject.SetActive(true);
-            }
+            else
+                btn_split.gameObject.SetActive(false);
+
+            btn_Remove.gameObject.SetActive(true);
         }
         else
         {
@@ -88,56 +82,69 @@ public class UIEditMode : TTUIPage
         }
     }
 
-    private void ChickSplit()//拆分
+    /// <summary>
+    /// 拆分
+    /// </summary>
+    private void ChickSplit()
     {
+        int index = selectRoom.BuildingData.RoomSize / 3;
+        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(selectRoom.BuildingData.SplitID);
+        List<EditMergeRoomData> mergeRoom = EditCastle.instance.allMergeRoom;
+        EditCastle.instance.RemoveRoom(selectRoom);
+        //查找合并表内是否有改建筑 如果有 释放
+        for (int i = 0; i < mergeRoom.Count; i++)
+        {
+            if (mergeRoom[i].mergeRoom.id == selectRoom.currentBuildData.id)
+            {
+                ReleaseRoom(mergeRoom[i].room_1);
+                ReleaseRoom(mergeRoom[i].room_2);
+                ReleaseRoom(mergeRoom[i].room_3);
+                ShowMenu(null);
+                return;
+            }
+        }
+        Debug.Log(index);
+        for (int i = 0; i < index; i++)
+        {
+            int id = ChickPlayerInfo.instance.buildingIdIndex++;
+            LocalBuildingData s_data = new LocalBuildingData(id, Vector2.zero, data);
+            ListAddData(s_data);
+        }
+        ShowMenu(null);
+    }
 
+    /// <summary>
+    /// 拆分时发现曾合并过则拆分
+    /// </summary>
+    /// <param name="data"></param>
+    private void ReleaseRoom(LocalBuildingData data)
+    {
+        if (data == null)
+        {
+            return;
+        }
+        ListAddData(data);
     }
 
     private void ChickRemove()
     {
-        rooms.Add(selectRoom);
-        HallEventManager.instance.SendEvent<RoomMgr>(HallEventDefineEnum.InEditMode, selectRoom);
+        ListAddData(selectRoom.currentBuildData);
+        EditCastle.instance.RemoveRoom(selectRoom);
         ShowMenu(null);
-        ShowBuildingList();
     }
-    /// <summary>
-    /// 显示建筑列表
-    /// </summary>
-    private void ShowBuildingList()
-    {
-        Debug.Log("Rooms :" + rooms.Count);
-        Debug.Log("RoomGrid :" + roomGrid.Count);
-        if (roomGrid.Count < rooms.Count)
-        {
-            int index = rooms.Count - roomGrid.Count;
-            for (int i = 0; i < index; i++)
-            {
-                GameObject go = Resources.Load<GameObject>("UIPrefab/UIEditRoomGrid");
-                go = Instantiate(go, Content) as GameObject;
-                UIEditRoomGrid RG = go.GetComponent<UIEditRoomGrid>();
-                roomGrid.Add(RG);
-            }
-        }
 
-        for (int i = 0; i < roomGrid.Count; i++)
-        {
-            Debug.Log(roomGrid[i].gameObject.activeInHierarchy);
-            if (i < rooms.Count)
-            {
-                roomGrid[i].gameObject.SetActive(true);
-                roomGrid[i].txt_name.text = rooms[i].RoomName.ToString();
-                roomGrid[i].roomMgr = rooms[i];
-            }
-            else
-            {
-                roomGrid[i].gameObject.SetActive(false);
-            }
-        }
+    public void ChickRemove(RoomMgr room)
+    {
+        ListAddData(room.currentBuildData);
+        EditCastle.instance.RemoveRoom(room);
+        ShowMenu(null);
     }
+
+
     private void ChickBack()
     {
         //返回城堡 不恢复操作
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.EditMode);
+        MapControl.instance.ShowMainMap();
         UIPanelManager.instance.ClosePage<UIEditMode>();
         UIPanelManager.instance.ShowPage<UIMain>();
     }
@@ -153,48 +160,29 @@ public class UIEditMode : TTUIPage
         }
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
     }
-    //private void RoomSave(List<RoomMgr> rooms)
-    //{
-    //    for (int i = 0; i < rooms.Count; i++)
-    //    {
-    //        if (rooms[i].linkType == false)
-    //        {
-    //            //有建筑无法连通，保存失败
-    //            Debug.Log("有建筑无法连通，保存失败");
-    //            return;
-    //        }
-    //    }
-    //    serverRoom.Clear();
-    //    //将新位置保存成服务器格式上传服务器
-    //    for (int i = 0; i < rooms.Count; i++)
-    //    {
-    //        Debug.Log("上传服务器");
-    //        serverRoom.Add(new ServerBuildData(rooms[i].buidStartPoint, rooms[i].buildingData));
-    //    }
-    //    LocalServer.instance.GetNewRoom(serverRoom);
-    //}
 
     private void ChickRepair()
     {
+        //关闭锁定状态
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
         //恢复至原城堡形象
         HallEventManager.instance.SendEvent(HallEventDefineEnum.EditMgr);
         rooms.Clear();//清除被删除的房间信息
-        ShowBuildingList();
+
     }
     private void ChickClearAll()
     {
         ShowMenu(null);
 
+        //关闭锁定状态
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CloseRoomLock);
 
         //清除所有建筑
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.ClearAllRoom);
+        EditCastle.instance.ResetEditRoom();
     }
-    private void ClearCallBack(RoomMgr room)
+    private void ClearCallBack(LocalBuildingData data)
     {
-        rooms.Add(room);
-        ShowBuildingList();
+        ListAddData(data);
     }
     private void ChickClearType()
     {
@@ -212,8 +200,132 @@ public class UIEditMode : TTUIPage
             txt_ClearType.text = "清除模式";
         }
     }
-    private void RemoveBuildingList(RoomMgr room)
+
+    //链表中删除消息
+    private void RemoveBuildingList(LocalBuildingData data)
     {
-        rooms.Remove(room);
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if (rooms[i].buildingData[0].id == data.id)
+            {
+                rooms[i].buildingData.RemoveAt(0);
+                if (rooms[i].number <= 0)
+                {
+                    //把删除的那个元素调到最后一位格子也移动到最后
+                    roomGrid[i].gameObject.SetActive(false);
+                    roomGrid[i].transform.SetSiblingIndex(transform.parent.childCount - 1);
+                    UIEditRoomGrid temp = roomGrid[i];
+                    roomGrid.RemoveAt(i);
+                    roomGrid.Add(temp);
+                    rooms.RemoveAt(i);
+                    return;
+                }
+                roomGrid[i].ChickNumber();
+                return;
+            }
+        }
+        Debug.LogError("没有找到需要删除的信息");
+    }
+
+    /// <summary>
+    /// 下方列表添加被删除的建筑信息
+    /// </summary>
+    /// <param name="s_data"></param>
+    private void ListAddData(LocalBuildingData s_data)
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if (s_data.ConstructionType == true)
+            {
+                break;
+            }
+            if (rooms[i].buildingData[0].buildingData.RoomName == s_data.buildingData.RoomName
+                && rooms[i].buildingData[0].buildingData.Level == s_data.buildingData.Level
+                && rooms[i].buildingData[0].buildingData.RoomSize == s_data.buildingData.RoomSize
+                && s_data.ConstructionType == false && rooms[i].buildingData[0].ConstructionType == false)
+            {
+                rooms[i].buildingData.Add(s_data);
+                roomGrid[i].ChickNumber();
+                return;
+            }
+        }
+        Debug.Log("没有找到同类 添加新的");
+        rooms.Add(new EditModeHelper(s_data));
+        ChickRoomGrid();
+        roomGrid[rooms.Count - 1].gameObject.SetActive(true);
+        roomGrid[rooms.Count - 1].UpdateInfo(rooms[rooms.Count - 1]);
+    }
+
+    /// <summary>
+    /// 寻找升级中的房间并将信息更改
+    /// </summary>
+    /// <param name="data"></param>
+    public void FindLevelUpData(LocalBuildingData data)
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if (rooms[i].buildingData[0].id == data.id)
+            {
+                Debug.Log("等级" + rooms[i].buildingData[0].buildingData.Level);
+                //把删除的那个元素调到最后一位格子也移动到最后
+                //rooms[i].buildingData[0] = data;//直接把数据转变不合并或移动格子
+            }
+        }
+    }
+
+    /// <summary>
+    /// 刷新下方列表信息
+    /// </summary>
+    private void RefreshMenu()
+    {
+        ChickRoomGrid();
+        for (int i = 0; i < roomGrid.Count; i++)
+        {
+            if (i < rooms.Count)
+            {
+                roomGrid[i].UpdateInfo(rooms[i]);
+            }
+            else
+            {
+                roomGrid[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 检查UI格子是否足够 不足则添加
+    /// </summary>
+    private void ChickRoomGrid()
+    {
+        if (roomGrid.Count < rooms.Count)
+        {
+            int index = rooms.Count - roomGrid.Count;
+            for (int i = 0; i < index; i++)
+            {
+                GameObject go = Resources.Load<GameObject>("UIPrefab/UIEditRoomGrid");
+                go = Instantiate(go, Content) as GameObject;
+                UIEditRoomGrid RG = go.GetComponent<UIEditRoomGrid>();
+                roomGrid.Add(RG);
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class EditModeHelper
+{
+    public List<LocalBuildingData> buildingData;
+    public int number
+    {
+        get { return buildingData.Count; }
+    }
+
+    public EditModeHelper(LocalBuildingData data)
+    {
+        if (buildingData == null)
+        {
+            buildingData = new List<LocalBuildingData>();
+        }
+        this.buildingData.Add(data);
     }
 }

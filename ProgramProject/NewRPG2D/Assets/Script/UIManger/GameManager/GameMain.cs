@@ -15,16 +15,23 @@ public class GameMain : MonoBehaviour
         {
             Instance = this;
         }
+        Init();
     }
 
-    private void Start()
+    private void Init()
     {
+        UIPanelManager.instance.ShowPage<UIEditMode>();
         UIPanelManager.instance.ShowPage<UIMain>();
-        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
-        Invoke("test", 1f);
+        Invoke("test", 0.5f);
     }
 
     private void test()
+    {
+        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
+        Invoke("test_1", 0.5f);
+    }
+
+    private void test_1()
     {
         ChickPlayerInfo.instance.ChickBuilding();
     }

@@ -32,10 +32,9 @@ public class UIStockInfo : TTUIPage
     }
     private void UpdateInfo(RoomMgr data)
     {
-        txt_Name.text = data.buildingData.RoomName.ToString();
-        txt_Level.text = data.buildingData.Level.ToString();
-        IStorage Iprod = data.GetComponent<IStorage>();
-        txt_Stock.text = Iprod.Stock.ToString() + "/" + data.buildingData.Param2;
+        txt_Name.text = data.BuildingData.RoomName.ToString();
+        txt_Level.text = data.BuildingData.Level.ToString();
+        txt_Stock.text = data.currentBuildData.Stock.ToString() + "/" + data.currentBuildData.buildingData.Param2;
     }
     private void ChickBack()
     {

@@ -10,6 +10,7 @@ public enum HallEventDefineEnum
     AddBuild,//添加建筑
     ChickBuild,//检查建筑
     ChickStock,//检查空间
+    ChickLevelUpRoom,//检查升级的房间
     CameraMove,//相机移动了
     EditMode,//建造模式
     EditMgr,//建造模式辅助
