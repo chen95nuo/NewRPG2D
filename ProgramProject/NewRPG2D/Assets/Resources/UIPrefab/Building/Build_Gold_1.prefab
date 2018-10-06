@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 4995925960551712}
   - component: {fileID: 65475891973787312}
   - component: {fileID: 114802080549132750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Build_Gold_1
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -242,8 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8679f251542bc49a7cf3fc53048b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: 0
-  RoomName: 0
   buidStartPoint: {x: 0, y: 0}
   buildEndPoint: 0
   nearbyRoom:
@@ -254,9 +252,33 @@ MonoBehaviour:
   maxRoomSize: 9
   mainLink: 0
   linkType: 0
-  isHarvest: 0
   roomFunc: 0
-  levelUp: 0
+  currentBuildData:
+    id: 0
+    buildingPoint: {x: 0, y: 0}
+    buildingData:
+      ItemId: 0
+      ItemName: 
+      Description: 
+      Level: 0
+      RoomName: 0
+      RoomType: 0
+      NeedGold: 0
+      NeedMana: 0
+      NeedWood: 0
+      NeedIron: 0
+      NeedTime: 0
+      NeedLevel: 0
+      RoomSize: 0
+      RoomRole: 0
+      MergeID: 0
+      SplitID: 0
+      UnlockLevel: []
+      NextLevelID: 0
+      Param1: 0
+      Param2: 0
+    Stock: 0
+    ConstructionType: 0
 --- !u!212 &212226715833396022
 SpriteRenderer:
   m_ObjectHideFlags: 1

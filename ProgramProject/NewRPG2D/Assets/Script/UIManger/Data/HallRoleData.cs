@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HallRoleData
 {
-    private int id;
+    private string name;//名字
     private int star;//星级
     public int fightLevel;//战斗等级
     public int goldLevel;//财务等级
@@ -12,16 +12,20 @@ public class HallRoleData
     public int manaLevel;//炼金等级
     public int woodLevel;//木工等级
     public int ironLevel;//矿工等级
+    public Dictionary<RoleAttribute, float> attribute;//属性
     private int[] equip;//装备 1武器2防具3戒指4项链 5神器
 
-    public int Id
+    public string Name
     {
         get
         {
-            return id;
+            return name;
+        }
+        set
+        {
+            name = value;
         }
     }
-
     public int Star
     {
         get
@@ -38,9 +42,6 @@ public class HallRoleData
             }
         }
     }
-
-
-
     public int[] Equip
     {
         get
@@ -54,72 +55,424 @@ public class HallRoleData
         get
         {
             float temp = (fightLevel * 40) + 200;
+            temp += HP;
             return (int)temp;
         }
     }
-
     public int Attack
     {
         get
         {
             float temp = 10 + 1 * fightLevel * 1.1f;
+            temp += DPS;
             return (int)temp;
         }
     }
 
-    public int FoodProduce
+    #region 装备所增加的各属性值
+    public float Gold
     {
         get
         {
-            float temp = foodLevel * 9;
-            return (int)temp;
+            if (attribute.ContainsKey(RoleAttribute.Gold))
+            {
+                float temp = attribute[RoleAttribute.Gold];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Gold))
+            {
+                attribute[RoleAttribute.Gold] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Gold, value);
+            }
         }
     }
-
-    public int ManaProduce
+    public float Food
     {
         get
         {
-            float temp = manaLevel * 4;
-            return (int)temp;
+            if (attribute.ContainsKey(RoleAttribute.Food))
+            {
+                float temp = attribute[RoleAttribute.Food];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Food))
+            {
+                attribute[RoleAttribute.Food] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Food, value);
+            }
         }
     }
-
-    public float ManaSpeedUp
+    public float Mana
     {
         get
         {
-            float temp = (manaLevel * 0.05f) + 1.25f;
-            return temp;
+            if (attribute.ContainsKey(RoleAttribute.Mana))
+            {
+                float temp = attribute[RoleAttribute.Mana];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Mana))
+            {
+                attribute[RoleAttribute.Mana] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Mana, value);
+            }
         }
     }
-
-    public int WoodProduce
+    public float ManaSpeed
     {
         get
         {
-            float temp = woodLevel * 3;
-            return (int)temp;
+            if (attribute.ContainsKey(RoleAttribute.ManaSpeed))
+            {
+                float temp = attribute[RoleAttribute.ManaSpeed];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.ManaSpeed))
+            {
+                attribute[RoleAttribute.ManaSpeed] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.ManaSpeed, value);
+            }
         }
     }
-
-    public int IronProduce
+    public float Wood
     {
         get
         {
-            float temp = ironLevel * 3;
-            return (int)temp;
+            if (attribute.ContainsKey(RoleAttribute.Wood))
+            {
+                float temp = attribute[RoleAttribute.Wood];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Wood))
+            {
+                attribute[RoleAttribute.Wood] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Wood, value);
+            }
         }
     }
+    public float Iron
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.Iron))
+            {
+                float temp = attribute[RoleAttribute.Iron];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Iron))
+            {
+                attribute[RoleAttribute.Iron] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Iron, value);
+            }
+        }
+    }
+    public float HurtType
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.HurtType))
+            {
+                float temp = attribute[RoleAttribute.HurtType];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.HurtType))
+            {
+                attribute[RoleAttribute.HurtType] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.HurtType, value);
+            }
+        }
+    }
+    public float DPS
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.DPS))
+            {
+                float temp = attribute[RoleAttribute.DPS];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.DPS))
+            {
+                attribute[RoleAttribute.DPS] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.DPS, value);
+            }
+        }
+    }
+    public float Crt
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.Crt))
+            {
+                float temp = attribute[RoleAttribute.Crt];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Crt))
+            {
+                attribute[RoleAttribute.Crt] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Crt, value);
+            }
+        }
+    }
+    public float PArmor
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.PArmor))
+            {
+                float temp = attribute[RoleAttribute.PArmor];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.PArmor))
+            {
+                attribute[RoleAttribute.PArmor] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.PArmor, value);
+            }
+        }
+    }
+    public float MArmor
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.MArmor))
+            {
+                float temp = attribute[RoleAttribute.MArmor];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.MArmor))
+            {
+                attribute[RoleAttribute.MArmor] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.MArmor, value);
+            }
+        }
+    }
+    public float Dodge
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.Dodge))
+            {
+                float temp = attribute[RoleAttribute.Dodge];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.Dodge))
+            {
+                attribute[RoleAttribute.Dodge] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.Dodge, value);
+            }
+        }
+    }
+    public float HIT
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.HIT))
+            {
+                float temp = attribute[RoleAttribute.HIT];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.HIT))
+            {
+                attribute[RoleAttribute.HIT] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.HIT, value);
+            }
+        }
+    }
+    public float INT
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.INT))
+            {
+                float temp = attribute[RoleAttribute.INT];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.INT))
+            {
+                attribute[RoleAttribute.INT] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.INT, value);
+            }
+        }
+    }
+    public float HP
+    {
+        get
+        {
+            if (attribute.ContainsKey(RoleAttribute.HP))
+            {
+                float temp = attribute[RoleAttribute.HP];
+                return temp;
+            }
+            return 0;
+        }
+        set
+        {
+            if (attribute.ContainsKey(RoleAttribute.HP))
+            {
+                attribute[RoleAttribute.HP] = value;
+            }
+            else
+            {
+                attribute.Add(RoleAttribute.HP, value);
+            }
+        }
+    }
+    #endregion
 
+    #region 各属性产量
     public int GoldProduce
     {
         get
         {
             float temp = goldLevel * 4;
+            temp += Gold;
             return (int)temp;
         }
     }
+    public int FoodProduce
+    {
+        get
+        {
+            float temp = foodLevel * 9;
+            temp += Food;
+            return (int)temp;
+        }
+    }
+    public int ManaProduce
+    {
+        get
+        {
+            float temp = manaLevel * 4;
+            temp += Mana;
+            return (int)temp;
+        }
+    }
+    public float ManaSpeedUp
+    {
+        get
+        {
+            float temp = (manaLevel * 0.05f) + 1.25f;
+            temp += ManaSpeed;
+            return temp;
+        }
+    }
+    public int WoodProduce
+    {
+        get
+        {
+            float temp = woodLevel * 3;
+            temp += Wood;
+            return (int)temp;
+        }
+    }
+    public int IronProduce
+    {
+        get
+        {
+            float temp = ironLevel * 3;
+            temp += Iron;
+            return (int)temp;
+        }
+    }
+    #endregion
 
 
     public HallRoleData() { }
@@ -132,5 +485,7 @@ public class HallRoleData
         this.manaLevel = level[3];
         this.woodLevel = level[4];
         this.ironLevel = level[5];
+
+        attribute = new Dictionary<RoleAttribute, float>();
     }
 }

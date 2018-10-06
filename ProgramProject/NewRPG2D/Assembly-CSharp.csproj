@@ -248,10 +248,8 @@
     <Compile Include="Assets\Script\Battle\Skill\AIObjectRenderer.cs" />
     <Compile Include="Assets\Script\Battle\Test\BattleStartTest.cs" />
     <Compile Include="Assets\Script\BuildingManger\BuildingHelper.cs" />
-    <Compile Include="Assets\Script\BuildingManger\BuildingType.cs" />
     <Compile Include="Assets\Script\BuildingManger\BuildTip.cs" />
     <Compile Include="Assets\Script\BuildingManger\EditCastle.cs" />
-    <Compile Include="Assets\Script\BuildingManger\IBuilding.cs" />
     <Compile Include="Assets\Script\BuildingManger\MainCastle.cs" />
     <Compile Include="Assets\Script\BuildingManger\Room\BuildBarracks.cs" />
     <Compile Include="Assets\Script\BuildingManger\Room\BuildBedroom.cs" />
@@ -270,10 +268,12 @@
     <Compile Include="Assets\Script\UIManger\Data\GetPlayerData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\HallRoleData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\PlayerData.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\BuildingType.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\CameraControl.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\Castle.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\ChickPlayerInfo.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GameMain.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\HallRole.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallRoleMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LanguageMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LocalServer.cs" />
@@ -291,6 +291,7 @@
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIThroneLevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIThroneLevelUpGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UITrainLevelUp.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIDraggingRole.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIEditMode.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIEditModeTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIEditRoomGrid.cs" />

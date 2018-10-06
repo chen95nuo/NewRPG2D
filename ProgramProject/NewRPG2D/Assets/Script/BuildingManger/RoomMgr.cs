@@ -790,12 +790,17 @@ public abstract class RoomMgr : MonoBehaviour
         ChickComplete();
     }
 
-    public abstract void ThisRoomFunc();
-    public abstract void RoomAwake();
-    public virtual void ChickComplete()
+    /// <summary>
+    /// 添加角色
+    /// </summary>
+    public void AddRole(HallRole role)
     {
 
     }
+
+    public abstract void ThisRoomFunc();
+    public abstract void RoomAwake();
+    public virtual void ChickComplete() { }
 
     protected void GetCompoment()
     {

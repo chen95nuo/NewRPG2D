@@ -21,3 +21,35 @@ public enum HallEventDefineEnum
     EventMax
 }
 
+public enum RoleHurtType
+{
+    Nothing,
+    AttackDamage,
+    AbilityDamage,
+}
+
+public enum RoleAttribute
+{
+    Gold,//财务属性
+    Food,//烹饪属性
+    Mana,//炼金属性
+    ManaSpeed,//炼金加速
+    Wood,//木工属性
+    Iron,//矿工属性
+    HurtType,//伤害类型
+    DPS,//秒伤
+    Crt,//暴击率
+    PArmor,//物理护甲
+    MArmor,//魔法护甲
+    Dodge,//闪避
+    HIT,//命中
+    INT,//法强
+    HP,//血量
+    Max
+}
+
+public enum RoleType
+{
+
+}
+

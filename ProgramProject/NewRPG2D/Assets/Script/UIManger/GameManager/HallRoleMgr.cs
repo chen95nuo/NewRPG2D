@@ -2,14 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HallRoleMgr : MonoBehaviour
+public class HallRoleMgr
 {
-
-
-    public void UpdateInfo(HallRoleData data)
-    {
-
-    }
-
 
 }

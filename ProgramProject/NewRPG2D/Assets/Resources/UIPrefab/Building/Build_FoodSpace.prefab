@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4460518958343778}
   - component: {fileID: 65032200570181042}
   - component: {fileID: 114527653617542948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Build_FoodSpace
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -242,8 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05c419e5404e3f4fa3acd6279f6419c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: 0
-  RoomName: 
   buidStartPoint: {x: 0, y: 0}
   buildEndPoint: 0
   nearbyRoom:
@@ -254,8 +252,33 @@ MonoBehaviour:
   maxRoomSize: 9
   mainLink: 0
   linkType: 0
-  isHarvest: 0
   roomFunc: 0
+  currentBuildData:
+    id: 0
+    buildingPoint: {x: 0, y: 0}
+    buildingData:
+      ItemId: 0
+      ItemName: 
+      Description: 
+      Level: 0
+      RoomName: 0
+      RoomType: 0
+      NeedGold: 0
+      NeedMana: 0
+      NeedWood: 0
+      NeedIron: 0
+      NeedTime: 0
+      NeedLevel: 0
+      RoomSize: 0
+      RoomRole: 0
+      MergeID: 0
+      SplitID: 0
+      UnlockLevel: []
+      NextLevelID: 0
+      Param1: 0
+      Param2: 0
+    Stock: 0
+    ConstructionType: 0
 --- !u!212 &212315554405989830
 SpriteRenderer:
   m_ObjectHideFlags: 1

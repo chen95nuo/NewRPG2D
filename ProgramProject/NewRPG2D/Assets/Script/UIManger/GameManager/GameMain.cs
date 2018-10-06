@@ -21,6 +21,7 @@ public class GameMain : MonoBehaviour
     private void Init()
     {
         UIPanelManager.instance.ShowPage<UIMain>();
+
         Invoke("test", 0.5f);
     }
 

@@ -4,28 +4,27 @@ using UnityEngine;
 
 
 
-[System.Serializable]
 public class ServerBuildData
 {
+    public int id;//房间ID
     public Vector2 buildingPoint;//房间位置
-    public BuildingData buildingData;//房间ID
-    public float Yield = 0;
     public float Stock = 0;
     public bool levelUp = false;
 
     public ServerBuildData() { }
-    public ServerBuildData(Vector2 point, BuildingData data)
+    public ServerBuildData(int id, Vector2 point, float Stock)
     {
+        this.id = id;
         this.buildingPoint = point;
-        this.buildingData = data;
-    }
-    public ServerBuildData(Vector2 point, BuildingData data, float Yield, float Stock)
-    {
-        this.buildingPoint = point;
-        this.buildingData = data;
-        this.Yield = Yield;
         this.Stock = Stock;
     }
+}
+
+public class ServerRoleData
+{
+    public int sex;//性别
+    public int[] Skin;//皮肤ID
+
 }
 
 [System.Serializable]

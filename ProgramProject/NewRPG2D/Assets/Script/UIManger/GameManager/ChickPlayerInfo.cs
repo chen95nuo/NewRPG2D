@@ -104,18 +104,19 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// </summary>
     public void ChickBuildMerge(ServerBuildData data)
     {
-        for (int i = 0; i < dic[data.buildingData.RoomName].Length; i++)
+        BuildingData TempData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.id);
+        for (int i = 0; i < dic[TempData.RoomName].Length; i++)
         {
-            if (dic[data.buildingData.RoomName][i] != null
-                && dic[data.buildingData.RoomName][i].buildingData == data.buildingData
-                && dic[data.buildingData.RoomName][i].buildingPoint == data.buildingPoint)
+            if (dic[TempData.RoomName][i] != null
+                && dic[TempData.RoomName][i].id == data.id
+                && dic[TempData.RoomName][i].buildingPoint == data.buildingPoint)
             {
                 Debug.Log("找到了 删除");
-                dic[data.buildingData.RoomName][i] = null;
+                dic[TempData.RoomName][i] = null;
                 return;
             }
         }
-        Debug.LogError("没有找到要删除的建筑 :" + data.buildingData.RoomName);
+        Debug.LogError("没有找到要删除的建筑 :" + TempData.RoomName);
     }
 
     /// <summary>
@@ -421,7 +422,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         for (int i = 0; i < allBuidling.Count; i++)
         {
             int index = MainCastle.instance.AddBuilding(allBuidling[i]);
-            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, allBuidling[i].buildingData);
+            BuildingData TempData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(allBuidling[i].id);
+            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, TempData);
             AllBuilding.Add(data);
         }
     }

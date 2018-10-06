@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4134399326455052}
   - component: {fileID: 65418415334434992}
   - component: {fileID: 114199850190601544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Build_Food_2
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -243,14 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8738e99c7d0501f4f95599c24c799dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: 0
-  RoomName: 0
   buidStartPoint: {x: 0, y: 0}
   buildEndPoint: 0
-  s_Data:
-    buildingPoint: {x: 0, y: 0}
-    Yield: 0
-    Stock: 0
   nearbyRoom:
   - {fileID: 0}
   - {fileID: 0}
@@ -259,9 +253,33 @@ MonoBehaviour:
   maxRoomSize: 9
   mainLink: 0
   linkType: 0
-  isHarvest: 0
   roomFunc: 0
-  levelUp: 0
+  currentBuildData:
+    id: 0
+    buildingPoint: {x: 0, y: 0}
+    buildingData:
+      ItemId: 0
+      ItemName: 
+      Description: 
+      Level: 0
+      RoomName: 0
+      RoomType: 0
+      NeedGold: 0
+      NeedMana: 0
+      NeedWood: 0
+      NeedIron: 0
+      NeedTime: 0
+      NeedLevel: 0
+      RoomSize: 0
+      RoomRole: 0
+      MergeID: 0
+      SplitID: 0
+      UnlockLevel: []
+      NextLevelID: 0
+      Param1: 0
+      Param2: 0
+    Stock: 0
+    ConstructionType: 0
 --- !u!114 &114942253071053408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,14 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8738e99c7d0501f4f95599c24c799dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: 0
-  RoomName: 0
   buidStartPoint: {x: 0, y: 0}
   buildEndPoint: 0
-  s_Data:
-    buildingPoint: {x: 0, y: 0}
-    Yield: 0
-    Stock: 0
   nearbyRoom:
   - {fileID: 0}
   - {fileID: 0}
@@ -289,9 +301,33 @@ MonoBehaviour:
   maxRoomSize: 9
   mainLink: 0
   linkType: 0
-  isHarvest: 0
   roomFunc: 0
-  levelUp: 0
+  currentBuildData:
+    id: 0
+    buildingPoint: {x: 0, y: 0}
+    buildingData:
+      ItemId: 0
+      ItemName: 
+      Description: 
+      Level: 0
+      RoomName: 0
+      RoomType: 0
+      NeedGold: 0
+      NeedMana: 0
+      NeedWood: 0
+      NeedIron: 0
+      NeedTime: 0
+      NeedLevel: 0
+      RoomSize: 0
+      RoomRole: 0
+      MergeID: 0
+      SplitID: 0
+      UnlockLevel: []
+      NextLevelID: 0
+      Param1: 0
+      Param2: 0
+    Stock: 0
+    ConstructionType: 0
 --- !u!212 &212581989516127484
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -35,6 +35,7 @@ public class CameraControl : MonoBehaviour
     private bool moveRoomType = false; //判断放大缩小
     private bool moving = false; //移动中
     public bool isShowEdit = false;//是否显示建造提示
+    public bool isHoldRole = false;//是否抓住角色
 
     private void Awake()
     {
@@ -51,11 +52,33 @@ public class CameraControl : MonoBehaviour
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         PCMove();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID||UNITY_IPHONE
         AndroidMove();
-#elif UNITY_IPHONE
-
 #endif
+
+        if (moving)
+        {
+            isMove = true;
+            if (moveRoomType == true)
+            {
+                Vector3 point = new Vector3(room.roomLock.transform.position.x, room.roomLock.transform.position.y, zMin);
+
+                CameraMove(point);
+                if (m_Camera.orthographicSize == zMin)
+                {
+                    moving = false;
+                }
+            }
+            else
+            {
+                Vector3 point = new Vector3(room.roomLock.transform.position.x, room.roomLock.transform.position.y, zMax);
+                if (m_Camera.orthographicSize == zMax)
+                {
+                    moving = false;
+                }
+                CameraMove(point);
+            }
+        }
 
         if (isMove == true)
         {
@@ -129,6 +152,8 @@ public class CameraControl : MonoBehaviour
 
                     oldTouch1 = newTouch1;
                     oldTouch2 = newTouch2;
+
+                    isMove = true;
                 }
                 MoveSpeed = (a * m_Camera.orthographicSize) + b;
             }
@@ -221,7 +246,11 @@ public class CameraControl : MonoBehaviour
             }
             else if (hit.collider.tag == "Role")
             {
-
+                Debug.Log("点击角色");
+                if (isHoldRole == true)
+                {
+                    UIPanelManager.instance.ClosePage<UIDraggingRole>();
+                }
             }
         }
         else //编辑模式点击效果
@@ -246,6 +275,7 @@ public class CameraControl : MonoBehaviour
                 EditCastle.instance.ChickRaycast(hit);
             }
         }
+        currentTime = 0;
     }
 
     /// <summary>
@@ -257,7 +287,21 @@ public class CameraControl : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) { }
         if (hit.collider == null) return;
-        if (MapControl.instance.type == CastleType.main && isShowEdit == false
+        if (hit.collider.tag == "Role" && isHoldRole == false)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > 0.5f)
+            {
+                currentTime = 0;
+                HallRole role = hit.collider.GetComponent<HallRole>();
+                UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
+                isHoldRole = true;
+                return;
+            }
+            Debug.Log("长按角色");
+        }
+        else if (MapControl.instance.type == CastleType.main
+            && isShowEdit == false
             && hit.collider.tag == "Room")
         {
             currentTime += Time.deltaTime;//建造模式计时
@@ -269,6 +313,7 @@ public class CameraControl : MonoBehaviour
                 return;
             }
         }
+
     }
 
     private void CameraMove(Vector3 point)
