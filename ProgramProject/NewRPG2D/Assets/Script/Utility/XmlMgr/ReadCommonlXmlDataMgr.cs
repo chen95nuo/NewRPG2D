@@ -22,8 +22,9 @@ namespace Assets.Script.Utility
                 case XmlName.Equipment:
                     return new EquipmentData();
                 case XmlName.EquipProperty:
-                    return new EquipPropertytData();
-               
+                    return new EquipPropertyData();
+                case XmlName.EquipBaseProperty:
+                    return new EquipBasePropertyData();
                 default: return new XmlData();
             }
         }

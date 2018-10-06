@@ -7,7 +7,7 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class EquipPropertytData : ItemBaseData
+    public class EquipPropertyData : ItemBaseData
     {
 
         public TirggerTypeEnum TirggerType;
@@ -34,7 +34,6 @@ namespace Assets.Script.Battle.BattleData
             BufferDataId02 = ReadXmlDataMgr.IntParse(node, "BufferDataId02");
             BufferDataId03 = ReadXmlDataMgr.IntParse(node, "BufferDataId03");
           
-
             return base.GetXmlDataAttribute(node);
         }
     }

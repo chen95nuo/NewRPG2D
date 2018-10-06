@@ -13,7 +13,7 @@ namespace Assets.Script.Battle.BattleData
         public EquipTypeEnum EquipType;
         public QualityTypeEnum QualityType;
         public int NeedLevel;
-        public string LevelRange;
+        public int LevelMin, LevelMax;
         public int DamageMinRange;
         public int DamageMaxRange;
         public int NormalPropertyId1;
@@ -37,9 +37,13 @@ namespace Assets.Script.Battle.BattleData
         {
             ItemName = ReadXmlDataMgr.StrParse(node, "Name");
             Description = ReadXmlDataMgr.StrParse(node, "Description");
-            EquipType = (EquipTypeEnum) ReadXmlDataMgr.IntParse(node, "EquipType");
+            EquipType = (EquipTypeEnum)ReadXmlDataMgr.IntParse(node, "EquipType");
             QualityType = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
-            LevelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
+
+            string levelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
+            string[] levelRangeArray = levelRange.Split(',');
+            LevelMin = Int32.Parse(levelRangeArray[0]);
+            if (levelRangeArray.Length > 1) LevelMax = Int32.Parse(levelRangeArray[1]);
             NeedLevel = ReadXmlDataMgr.IntParse(node, "NeedLevel");
 
             DamageMinRange = ReadXmlDataMgr.IntParse(node, "DamageMinRange");

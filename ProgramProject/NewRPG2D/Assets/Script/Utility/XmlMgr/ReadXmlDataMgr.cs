@@ -30,6 +30,7 @@ namespace Assets.Script.Utility
         //公共的
         Equipment,
         EquipProperty,
+        EquipBaseProperty,
 
         Max,
 

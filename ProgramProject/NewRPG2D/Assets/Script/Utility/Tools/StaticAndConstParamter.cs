@@ -50,23 +50,43 @@ public enum CameraStateEnum
 
 public enum EquipTypeEnum
 {
+    Arrow,
+    Sword,
 
 }
 
 public enum QualityTypeEnum
 {
-
+    White,
+    Green,
+    Blue,
+    Purple,
+    Orange,
 }
 
 public enum TirggerTypeEnum
 {
-
+    Always,
+    Death,
+    Attack,
+    Hurt,
+    Reborn,
 }
 
 public enum PropertyTypeEnum
 {
-
+    Normal,
+    Random,
+    Special,
 }
+
+public enum RolePropertyTypeEnum
+{
+    Normal,
+    Random,
+    Special,
+}
+
 
 public enum SexTypeEnum : byte
 {
