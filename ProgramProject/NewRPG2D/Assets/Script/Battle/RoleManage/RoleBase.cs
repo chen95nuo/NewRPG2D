@@ -40,6 +40,7 @@ namespace Assets.Script.Battle
         public bool IsCanInterrput;
         public bool CanStartMove;
 
+        public WeaponMoment RoleWeapon { get; private set; }
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
         public RoleAnimationSys RoleAnimation { get; private set; }
@@ -83,6 +84,8 @@ namespace Assets.Script.Battle
 
         public virtual void InitData()
         {
+            RoleWeapon = new WeaponMoment();
+            RoleWeapon.SetCurrentRole(this);
             RoleAnimation = new RoleAnimationSys();
             RoleAnimation.SetCurrentRole(this);
             RoleMoveMoment = new MoveMoment();

@@ -16,8 +16,14 @@ public class RoleRender : MonoBehaviour
     [SerializeField] private SortingGroup currentSortingGroup;
     [SerializeField] private GameObject blueSelectObj, redSelectObj;
     [SerializeField] private MeshRenderer currentRenderer;
+    [SerializeField] private ChangeRoleEquip roleEquip;
 
     public RoleBase CurrentRole { get; private set; }
+    public ChangeRoleEquip CurrentRoleEquip
+    {
+        get { return roleEquip; }
+    }
+
     private Transform _trans;
     private Transform _renderTrans;
     private bool bCanContorl;

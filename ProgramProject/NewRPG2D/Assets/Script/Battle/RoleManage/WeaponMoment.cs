@@ -12,5 +12,10 @@ namespace Assets.Script.Battle
         {
             currentHeroRole = mRole;
         }
+
+        public void SetEquipSlot(EquipTypeEnum equipType, int equipId)
+        {
+
+        }
     }
 }

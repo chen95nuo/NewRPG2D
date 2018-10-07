@@ -117,7 +117,6 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         }
     }
 
-
     private void CalculateRoleProperty(Dictionary<RoleAttribute, PropertyValueRange> roleProperty, int propertyId, float minValueTimes, float maxValueTimes)
     {
         if (propertyId <= 0)
