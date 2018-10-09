@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Script.UIManger;
+using System.Collections;
 
 namespace Assets.Script.UIManger
 {
@@ -25,6 +26,24 @@ namespace Assets.Script.UIManger
         //record this ui load mode.async or sync.
         public bool isAsyncUI = false;
 
+        public Animation UIAnimation;
+
+        protected virtual string ShowAnimationName
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        protected virtual string HideAnimationName
+        {
+            get
+            {
+                return "";
+            }
+        }
+
         //this page active flag
         protected bool isActived = false;
 
@@ -35,12 +54,6 @@ namespace Assets.Script.UIManger
 
         #region virtual api
 
-        ///Active this UI
-        private void Active()
-        {
-            this.gameObject.SetActive(true);
-            isActived = true;
-        }
 
         public virtual void Show(object mData)
         {
@@ -63,10 +76,45 @@ namespace Assets.Script.UIManger
         /// </summary>
         public virtual void Hide()
         {
-            this.gameObject.SetActive(false);
+            if(UIAnimation!=null)
+            {
+                float delayTime = UIAnimation[HideAnimationName].time;
+                StartCoroutine(DelayHidePage(delayTime));
+            }
+            else
+            {
+                
+                this.gameObject.SetActive(false);
+            }
             isActived = false;
             //set this page's data null when hide.
             this.m_data = null;
+        }
+
+        ///Active this UI
+        private void Active()
+        {
+            if(UIAnimation!=null)
+            {
+                float delayTime = UIAnimation[ShowAnimationName].time;
+                StartCoroutine(DelayShowPage(delayTime));
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+            isActived = true;
+        }
+        private IEnumerator DelayShowPage(float time)
+        {
+            yield return new WaitForSeconds(time);
+            gameObject.CustomSetActive(true);
+        }
+
+        private IEnumerator DelayHidePage(float time)
+        {
+            yield return new WaitForSeconds(time);
+            gameObject.CustomSetActive(false);
         }
 
         #endregion
