@@ -29,10 +29,20 @@ public class GameMain : MonoBehaviour
     {
         ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
         Invoke("test_1", 0.5f);
+        Invoke("test_2", 1.0f);
     }
 
     private void test_1()
     {
         ChickPlayerInfo.instance.ChickBuilding();
+    }
+
+    private void test_2()
+    {
+        LocalServer.instance.TestRoom();
+        for (int i = 0; i < 20; i++)
+        {
+            HallRoleMgr.instance.BuildNewRole();
+        }
     }
 }

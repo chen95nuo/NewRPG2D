@@ -21,6 +21,8 @@ namespace Assets.Script.Utility
             {
                 case XmlName.BuildingData:
                     return new BuildingData();
+                case XmlName.TrainData:
+                    return new TrainData();
                 default: return new XmlData();
             }
         }

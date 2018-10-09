@@ -105,6 +105,56 @@ public abstract class RoomMgr : MonoBehaviour
 
     private int timeIndex;
 
+    public RoleAttribute NeedAttribute
+    {
+        get
+        {
+            switch (RoomName)
+            {
+                case BuildRoomName.Nothing:
+                    break;
+                case BuildRoomName.Gold:
+                    return RoleAttribute.Gold;
+                case BuildRoomName.Food:
+                    return RoleAttribute.Food;
+                case BuildRoomName.Mana:
+                    return RoleAttribute.Mana;
+                case BuildRoomName.Wood:
+                    return RoleAttribute.Wood;
+                case BuildRoomName.Iron:
+                    return RoleAttribute.Iron;
+                case BuildRoomName.FighterRoom:
+                    return RoleAttribute.Fight;
+                case BuildRoomName.Kitchen:
+                    return RoleAttribute.Food;
+                case BuildRoomName.Mint:
+                    return RoleAttribute.Gold;
+                case BuildRoomName.Laboratory:
+                    return RoleAttribute.Mana;
+                case BuildRoomName.Crafting:
+                    return RoleAttribute.Wood;
+                case BuildRoomName.Foundry:
+                    return RoleAttribute.Fight;
+                case BuildRoomName.Hospital:
+                    return RoleAttribute.HP;
+                case BuildRoomName.MagicWorkShop:
+                    return RoleAttribute.ManaSpeed;
+                case BuildRoomName.MagicLab:
+                    return RoleAttribute.ManaSpeed;
+                case BuildRoomName.WeaponsWorkShop:
+                case BuildRoomName.ArmorWorkShop:
+                    return RoleAttribute.ManaSpeed;
+                case BuildRoomName.GemWorkSpho:
+                    return RoleAttribute.ManaSpeed;
+                case BuildRoomName.Barracks:
+                    return RoleAttribute.Fight;
+                case BuildRoomName.MaxRoom:
+                default:
+                    break;
+            }
+            return RoleAttribute.Nothing;
+        }
+    }
     public BuildRoomName RoomName
     {
         get
@@ -273,6 +323,11 @@ public abstract class RoomMgr : MonoBehaviour
     public void UpdateBuilding(LocalBuildingData data, Castle castle)
     {
         currentBuildData = data;
+        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
+        {
+            PlayerData playerdata = GetPlayerData.Instance.GetData();
+            playerdata.MainHall = currentBuildData;
+        }
         castleMgr = castle;
         BuildingMove(data, castle);
         ChickLeftOrRight(castle.buildPoint);
@@ -301,6 +356,41 @@ public abstract class RoomMgr : MonoBehaviour
         {
             castleMgr.ChickMergeRoom(this);
             AddConnection();
+        }
+    }
+
+    /// <summary>
+    /// 直接创建建筑
+    /// </summary>
+    /// <param name="data"></param>
+    public void UpdateBuilding(LocalBuildingData data, Castle castle, bool isRun)
+    {
+        currentBuildData = data;
+        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
+        {
+            PlayerData playerdata = GetPlayerData.Instance.GetData();
+            playerdata.MainHall = currentBuildData;
+        }
+        castleMgr = castle;
+        BuildingMove(data, castle);
+        ChickLeftOrRight(castle.buildPoint);
+
+        //不需要建造时间的判断是否需要添加事件
+        ConstructionType = false;
+        if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+        {
+            Debug.Log("添加监听");
+            //施工结束就添加事件
+            ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+        }
+
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] != null)
+            {
+                Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 1)), transform.position.y + 4f, 0);
+                HallRoleMgr.instance.BuildServerRole(currentBuildData.roleData[i], this);
+            }
         }
     }
 
@@ -749,6 +839,11 @@ public abstract class RoomMgr : MonoBehaviour
     /// <param name="data">当前房间需要变成哪个</param>
     public void ConstructionStart(BuildingData data)
     {
+        if (ConstructionType == true)
+        {
+            Debug.LogError("已在升级");
+            return;
+        }
         ConstructionType = true;
         changeData = data;//记录需要升级的DATA信息 
         needTime = data.NeedTime * 6;
@@ -795,12 +890,125 @@ public abstract class RoomMgr : MonoBehaviour
     /// </summary>
     public void AddRole(HallRole role)
     {
+        if (currentBuildData.roleData == null)
+        {
+            Debug.LogError("房间角色空间出错");
+        }
+        if (currentBuildData.buildingData.RoomType == RoomType.Training)
+        {
+            ChickAddTrainRole(role.RoleData);
+        }
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] == null)
+            {
+                currentBuildData.roleData[i] = role.RoleData;
+                Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 1)), transform.position.y + 4f, role.transform.position.z);
+                role.transform.position = point;
+                role.ChangeType(RoomName);
+                if (role.RoleData.currentRoom != null)
+                {
+                    role.RoleData.currentRoom.RemoveRole(role);
+                }
+                role.RoleData.currentRoom = this;
+                return;
+            }
+        }
 
+        //这边筛选出属性较低的更换位置
+        int index = currentBuildData.ScreenAllYeild(NeedAttribute, false);
+        if (role.RoleData.currentRoom != null)
+        {
+            Debug.Log("切换房间 调换角色");
+            role.RoleData.currentRoom.RemoveRole(role);
+            HallRoleMgr.instance.RoleChangeRoom(role.RoleData.currentRoom, currentBuildData.roleData[index]);
+            currentBuildData.roleData[index] = null;
+            role.RoleData.currentRoom = null;
+            AddRole(role);
+        }
+        else
+        {
+            Debug.Log("当前角色原房间为空 进入漫游状态");
+            role.RoleData.currentRoom.RemoveRole(role);
+            HallRoleData data = currentBuildData.roleData[index];
+            HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
+            roleTemp.ChangeType(BuildRoomName.Nothing);
+            currentBuildData.roleData[index] = role.RoleData;
+        }
+    }
+
+    /// <summary>
+    /// 删除房间内的角色
+    /// </summary>
+    /// <param name="role"></param>
+    public void RemoveRole(HallRole role)
+    {
+        if (currentBuildData.buildingData.RoomType == RoomType.Training)
+        {
+            ChickRemoveTrainRole(role.RoleData);
+        }
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] == role.RoleData)
+            {
+                currentBuildData.roleData[i] = null;
+                return;
+            }
+        }
+        Debug.LogError("没有找到要删除的角色");
     }
 
     public abstract void ThisRoomFunc();
     public abstract void RoomAwake();
     public virtual void ChickComplete() { }
+    public virtual void ChickAddTrainRole(HallRoleData role)
+    {
+        switch (RoomName)
+        {
+            case BuildRoomName.FighterRoom:
+                if (role.RoleLevel[0].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Fight);
+                }
+                break;
+            case BuildRoomName.Mint:
+                if (role.RoleLevel[1].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Gold);
+                }
+                break;
+            case BuildRoomName.Kitchen:
+                if (role.RoleLevel[2].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Food);
+                }
+                break;
+            case BuildRoomName.Laboratory:
+                if (role.RoleLevel[3].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Mana);
+                }
+                break;
+            case BuildRoomName.Crafting:
+                if (role.RoleLevel[4].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Wood);
+                }
+                break;
+            case BuildRoomName.Foundry:
+                if (role.RoleLevel[5].Level <= currentBuildData.buildingData.Param1)
+                {
+                    HallRoleMgr.instance.StartTrain(role, TrainType.Iron);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    public virtual void ChickRemoveTrainRole(HallRoleData role)
+    {
+
+    }
 
     protected void GetCompoment()
     {

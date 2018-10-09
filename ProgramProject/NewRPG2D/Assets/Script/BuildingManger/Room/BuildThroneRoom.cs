@@ -7,7 +7,6 @@ public class BuildThroneRoom : RoomMgr
     private void Awake()
     {
         GetCompoment();
-        ThisRoomFunc();
     }
 
     public override void RoomAwake()
@@ -16,8 +15,6 @@ public class BuildThroneRoom : RoomMgr
 
     public override void ThisRoomFunc()
     {
-        PlayerData data = GetPlayerData.Instance.GetData();
-        data.MainHall = currentBuildData;
     }
 
     public override void ChickComplete()

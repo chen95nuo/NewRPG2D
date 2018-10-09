@@ -8,17 +8,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.UIManger;
 
 public class HallRole : MonoBehaviour
 {
     private HallRoleData currentData;
-    public HallRoleData RoleData { get { return currentData; } }
+    public HallRoleData RoleData
+    {
+        get
+        {
+            if (currentData == null)
+            {
+                currentData = new HallRoleData();
+            }
+            return currentData;
+        }
+    }
 
 
 
     public void UpdateInfo(HallRoleData data)
     {
-
+        currentData = data;
+        HallRoleMgr.instance.AddRole(data, this);
     }
 
     public void ChangeSkil()
@@ -26,10 +38,16 @@ public class HallRole : MonoBehaviour
 
     }
 
-    public void ChangeAnim()
+    public void ChangeType(BuildRoomName name)
     {
-
+        Debug.Log("漫游状态");
     }
 
+    public void TrainComplete(TrainType type)
+    {
+        UIPanelManager.instance.ShowPage<UIRoleTrainGroup>();
+        UIRoleTrainGroup.instance.ShowIcon(this, type);
+
+    }
 
 }

@@ -6,13 +6,15 @@ public class HallRoleData
 {
     private string name;//名字
     private int star;//星级
-    public int fightLevel;//战斗等级
-    public int goldLevel;//财务等级
-    public int foodLevel;//烹饪等级
-    public int manaLevel;//炼金等级
-    public int woodLevel;//木工等级
-    public int ironLevel;//矿工等级
-    public Dictionary<RoleAttribute, float> attribute;//属性
+    private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
+    //private int fightLevel;//战斗等级
+    //public int goldLevel;//财务等级
+    //public int foodLevel;//烹饪等级
+    //public int manaLevel;//炼金等级
+    //public int woodLevel;//木工等级
+    //public int ironLevel;//矿工等级
+    //public int MaxLevel;//最大等级
+    public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
     private int[] equip;//装备 1武器2防具3戒指4项链 5神器
 
     public string Name
@@ -54,7 +56,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = (fightLevel * 40) + 200;
+            float temp = (roleLevel[0].Level * 40) + 200;
             temp += HP;
             return (int)temp;
         }
@@ -63,11 +65,13 @@ public class HallRoleData
     {
         get
         {
-            float temp = 10 + 1 * fightLevel * 1.1f;
+            float temp = 10 + 1 * roleLevel[0].Level * 1.1f;
             temp += DPS;
             return (int)temp;
         }
     }
+
+    public RoomMgr currentRoom;
 
     #region 装备所增加的各属性值
     public float Gold
@@ -422,7 +426,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = goldLevel * 4;
+            float temp = roleLevel[1].Level * 4;
             temp += Gold;
             return (int)temp;
         }
@@ -431,7 +435,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = foodLevel * 9;
+            float temp = roleLevel[2].Level * 9;
             temp += Food;
             return (int)temp;
         }
@@ -440,7 +444,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = manaLevel * 4;
+            float temp = roleLevel[3].Level * 4;
             temp += Mana;
             return (int)temp;
         }
@@ -449,7 +453,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = (manaLevel * 0.05f) + 1.25f;
+            float temp = (roleLevel[3].Level * 0.05f) + 1.25f;
             temp += ManaSpeed;
             return temp;
         }
@@ -458,7 +462,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = woodLevel * 3;
+            float temp = roleLevel[4].Level * 3;
             temp += Wood;
             return (int)temp;
         }
@@ -467,25 +471,253 @@ public class HallRoleData
     {
         get
         {
-            float temp = ironLevel * 3;
+            float temp = roleLevel[5].Level * 3;
             temp += Iron;
             return (int)temp;
         }
     }
+
+    public int FightLevel
+    {
+        get
+        {
+            return roleLevel[0].Level;
+        }
+    }
+
+    public HallRoleLevel[] RoleLevel
+    {
+        get
+        {
+            return roleLevel;
+        }
+    } //0战斗 1金币 2食物 3魔法 4木材 5铁
     #endregion
+
+    public float Attribute(RoleAttribute attribute)
+    {
+        switch (attribute)
+        {
+            case RoleAttribute.Fight:
+                return FightLevel;
+            case RoleAttribute.Gold:
+                return GoldProduce;
+            case RoleAttribute.Food:
+                return FoodProduce;
+            case RoleAttribute.Mana:
+                return ManaProduce;
+            case RoleAttribute.ManaSpeed:
+                return ManaSpeedUp;
+            case RoleAttribute.Wood:
+                return WoodProduce;
+            case RoleAttribute.Iron:
+                return IronProduce;
+            case RoleAttribute.HurtType:
+                return HurtType;
+            case RoleAttribute.DPS:
+                return DPS;
+            case RoleAttribute.Crt:
+                return Crt;
+            case RoleAttribute.PArmor:
+                return PArmor;
+            case RoleAttribute.MArmor:
+                return MArmor;
+            case RoleAttribute.Dodge:
+                return Dodge;
+            case RoleAttribute.HIT:
+                return HIT;
+            case RoleAttribute.INT:
+                return INT;
+            case RoleAttribute.HP:
+                return HP;
+            default:
+                break;
+        }
+        return 0;
+    }
 
 
     public HallRoleData() { }
     public HallRoleData(int star, int[] level)
     {
         this.star = star;
-        this.fightLevel = level[0];
-        this.goldLevel = level[1];
-        this.foodLevel = level[2];
-        this.manaLevel = level[3];
-        this.woodLevel = level[4];
-        this.ironLevel = level[5];
+        this.name = "Json";
+        roleLevel[0] = new HallRoleLevel(RoleAttribute.Fight, level[0]);
+        roleLevel[1] = new HallRoleLevel(RoleAttribute.Gold, level[1]);
+        roleLevel[2] = new HallRoleLevel(RoleAttribute.Food, level[2]);
+        roleLevel[3] = new HallRoleLevel(RoleAttribute.Mana, level[3]);
+        roleLevel[4] = new HallRoleLevel(RoleAttribute.Wood, level[4]);
+        roleLevel[5] = new HallRoleLevel(RoleAttribute.Iron, level[5]);
+        //this.fightLevel = level[0];
+        //this.goldLevel = level[1];
+        //this.foodLevel = level[2];
+        //this.manaLevel = level[3];
+        //this.woodLevel = level[4];
+        //this.ironLevel = level[5];
+        ChickMaxLevel();
+    }
 
-        attribute = new Dictionary<RoleAttribute, float>();
+    public int GetAtrLevel(RoleAttribute atr)
+    {
+        switch (atr)
+        {
+            case RoleAttribute.Fight:
+                return roleLevel[0].Level;
+            case RoleAttribute.Gold:
+                return roleLevel[1].Level;
+            case RoleAttribute.Food:
+                return roleLevel[2].Level;
+            case RoleAttribute.Mana:
+                return roleLevel[3].Level;
+            case RoleAttribute.Wood:
+                return roleLevel[4].Level;
+            case RoleAttribute.Iron:
+                return roleLevel[5].Level;
+            case RoleAttribute.Max:
+                return roleLevel[6].Level;
+            default:
+                break;
+        }
+        return 0;
+    }
+    public float GetAtrProduce(RoleAttribute atr)
+    {
+        switch (atr)
+        {
+            case RoleAttribute.Fight:
+                return FightLevel;
+            case RoleAttribute.Gold:
+                return GoldProduce;
+            case RoleAttribute.Food:
+                return FoodProduce;
+            case RoleAttribute.Mana:
+                return ManaProduce;
+            case RoleAttribute.ManaSpeed:
+                return ManaSpeed;
+            case RoleAttribute.Wood:
+                return WoodProduce;
+            case RoleAttribute.Iron:
+                return IronProduce;
+            default:
+                break;
+        }
+        return 0;
+    }
+    public float GetArtProduce(BuildRoomName atr)
+    {
+        switch (atr)
+        {
+            case BuildRoomName.Gold:
+                return GoldProduce;
+            case BuildRoomName.Food:
+                return FoodProduce;
+            case BuildRoomName.Mana:
+                return ManaProduce;
+            case BuildRoomName.Wood:
+                return WoodProduce;
+            case BuildRoomName.Iron:
+                return IronProduce;
+            case BuildRoomName.FighterRoom:
+                return FightLevel;
+            case BuildRoomName.Kitchen:
+                return roleLevel[2].Level++;
+            case BuildRoomName.Mint:
+                return roleLevel[1].Level++;
+            case BuildRoomName.Laboratory:
+                return roleLevel[3].Level++;
+            case BuildRoomName.Crafting:
+                return roleLevel[4].Level++;
+            case BuildRoomName.Foundry:
+                return roleLevel[5].Level++;
+            case BuildRoomName.Hospital:
+                return HP;
+            case BuildRoomName.Barracks:
+                return FightLevel;
+            default:
+                break;
+        }
+        return ManaSpeedUp;
+    }
+    public void LevelUp(RoleAttribute atr)
+    {
+        switch (atr)
+        {
+            case RoleAttribute.Fight:
+                roleLevel[0].Level++;
+                break;
+            case RoleAttribute.Gold:
+                roleLevel[1].Level++;
+                break;
+            case RoleAttribute.Food:
+                roleLevel[2].Level++;
+                break;
+            case RoleAttribute.Mana:
+                roleLevel[3].Level++;
+                break;
+            case RoleAttribute.Wood:
+                roleLevel[4].Level++;
+                break;
+            case RoleAttribute.Iron:
+                roleLevel[5].Level++;
+                break;
+            default:
+                break;
+        }
+    }
+    public void LevelUp(BuildRoomName atr)
+    {
+        switch (atr)
+        {
+            case BuildRoomName.FighterRoom:
+                roleLevel[0].Level++;
+                break;
+            case BuildRoomName.Mint:
+                roleLevel[1].Level++;
+                break;
+            case BuildRoomName.Kitchen:
+                roleLevel[2].Level++;
+                break;
+            case BuildRoomName.Laboratory:
+                roleLevel[3].Level++;
+                break;
+            case BuildRoomName.Crafting:
+                roleLevel[4].Level++;
+                break;
+            case BuildRoomName.Foundry:
+                roleLevel[5].Level++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 检查最高等级
+    /// </summary>
+    public void ChickMaxLevel()
+    {
+        int temp = 0;
+        int index = 0;
+        for (int i = 0; i < roleLevel.Length - 1; i++)
+        {
+            if (roleLevel[i].Level > temp)
+            {
+                temp = roleLevel[i].Level;
+                index = i;
+            }
+        }
+        roleLevel[6] = roleLevel[index];
+    }
+}
+
+public class HallRoleLevel
+{
+    public RoleAttribute atr;
+    public int Level;
+
+    public HallRoleLevel(RoleAttribute atr, int level)
+    {
+        this.atr = atr;
+        this.Level = level;
     }
 }

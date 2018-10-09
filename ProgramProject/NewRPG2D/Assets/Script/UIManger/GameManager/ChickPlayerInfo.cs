@@ -43,16 +43,26 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 获取服务器上的建筑数据后 将其转为本地信息
     /// </summary>
     /// <param name="s_BuildData"></param>
-    public void ChickBuildDic(List<LocalBuildingData> s_BuildData)
+    public void ChickBuildDic(List<ServerBuildData> s_BuildData)
     {
         for (int i = 0; i < s_BuildData.Count; i++)
         {
-            for (int j = 0; j < dic[s_BuildData[i].buildingData.RoomName].Length; j++)
+            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(s_BuildData[i].id);
+            for (int j = 0; j < dic[data.RoomName].Length; j++)
             {
-                if (dic[s_BuildData[i].buildingData.RoomName][j] == null)
+                if (dic[data.RoomName][j] == null)
                 {
-                    dic[s_BuildData[i].buildingData.RoomName][j] = s_BuildData[i];
-                    return;
+                    buildingIdIndex++;
+                    int size = ChickRoomSize(data);
+                    dic[data.RoomName][j] = new LocalBuildingData(buildingIdIndex, s_BuildData[i].buildingPoint, data, size);
+                    MainCastle.instance.AddBuilding(dic[data.RoomName][j], false);
+                    if (ChickStorage(dic[data.RoomName][j]))
+                    {
+                        dic[data.RoomName][j].Stock = s_BuildData[i].Stock;
+                        ThisStorage(dic[data.RoomName][j]);
+                        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, data.RoomName);
+                    }
+                    break;
                 }
             }
         }
@@ -225,8 +235,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             if (dic[name][i] != null)
             {
-                //这里应该计算房间内人物节能加房间默认产量
-                index += (int)dic[name][i].buildingData.Param1;
+                //这里应该计算房间内人物技能加房间默认产量
+                index += (int)(dic[name][i].buildingData.Param1 + dic[name][i].AllRoleProduction());
             }
         }
         return index;
@@ -414,6 +424,52 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
+    /// 增加某类资源
+    /// </summary>
+    public void AddStock(BuildRoomName name, int index)
+    {
+        float temp = 0;
+        PlayerData play = GetPlayerData.Instance.GetData();
+        if (dic.ContainsKey(name))
+        {
+            temp += dic[name][0].buildingData.Param2 - dic[name][0].Stock;
+            if (index - (int)temp > 0)
+            {
+                index -= (int)temp;
+                dic[name][0].Stock += temp;
+            }
+            else
+            {
+                dic[name][0].Stock += index;
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+                return;
+            }
+        }
+
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                play.Gold += index;
+                break;
+            case BuildRoomName.Food:
+                play.Food += index;
+                break;
+            case BuildRoomName.Mana:
+                play.Mana += index;
+                break;
+            case BuildRoomName.Wood:
+                play.Wood += index;
+                break;
+            case BuildRoomName.Iron:
+                play.Iron += index;
+                break;
+            default:
+                break;
+        }
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+    }
+
+    /// <summary>
     /// 获取服务器上数据转成本地数据
     /// </summary>
     /// <param name="allBuidling"></param>
@@ -423,12 +479,10 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             int index = MainCastle.instance.AddBuilding(allBuidling[i]);
             BuildingData TempData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(allBuidling[i].id);
-            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, TempData);
+            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, TempData, ChickRoomSize(TempData));
             AllBuilding.Add(data);
         }
     }
-
-
 
     /// <summary>
     /// 新建建筑 添加建筑
@@ -522,12 +576,14 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
-    /// 事件 CallBack
+    /// 生产事件 CallBack
     /// </summary>
     /// <param name="key"></param>
     public void ChickProduction(int key)
     {
-        float number = production[key].buildingData.Param1 / 60 / 60;
+        float roleNumber = production[key].AllRoleProduction();
+        float Yeild = roleNumber + production[key].buildingData.Param1;
+        float number = Yeild / 60 / 60;
         production[key].Stock += number * 30f;
         if (production[key].Stock > production[key].buildingData.Param2 * 0.005f)
         {
@@ -639,7 +695,12 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         }
         //如果没有仓库或者仓库容量不足
         int temp = playerSpace - playerIndex;
-        if (temp - allStock > 0)
+        if (temp < 0)
+        {
+            Debug.LogError("库存出错");
+            return 0;
+        }
+        else if (temp - allStock > 0)
         {
             //playerIndex += (int)data.Stock;
             int number = (int)data.Stock;
@@ -699,6 +760,46 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             return (int)index;
         }
         return 0;
+    }
+
+
+    /// <summary>
+    /// 返回该类资源的总库存
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public int ChickAllStock(BuildRoomName name)
+    {
+        float index = 0;
+        PlayerData play = GetPlayerData.Instance.GetData();
+        if (dic.ContainsKey(name))
+        {
+            LocalBuildingData[] data = dic[name];
+            float p2 = dic[name][0].buildingData.Param2;
+            float stock = dic[name][0].Stock;
+            index += dic[name][0].buildingData.Param2 - dic[name][0].Stock;
+        }
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                index += (play.GoldSpace - play.Gold);
+                break;
+            case BuildRoomName.Food:
+                index += (play.FoodSpace - play.Food);
+                break;
+            case BuildRoomName.Mana:
+                index += (play.ManaSpace - play.Mana);
+                break;
+            case BuildRoomName.Wood:
+                index += (play.WoodSpace - play.Wood);
+                break;
+            case BuildRoomName.Iron:
+                index += (play.IronSpace - play.Iron);
+                break;
+            default:
+                break;
+        }
+        return (int)index;
     }
 
     /// <summary>
@@ -793,5 +894,55 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             }
         }
         return temp;
+    }
+
+    /// <summary>
+    /// 返回房间对应人数
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public int ChickRoomSize(BuildingData data)
+    {
+        int roomSize = data.RoomSize;
+        switch (roomSize)
+        {
+            case 1:
+                break;
+            case 3:
+                return 2;
+            case 6:
+                return 4;
+            case 9:
+                return 6;
+            default:
+                break;
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// 检查当前等级可显示的属性数目
+    /// </summary>
+    public int ChickAtrNumber()
+    {
+        PlayerData playerData = GetPlayerData.Instance.GetData();
+        int index = 0;
+        if (playerData.MainHallLevel > 0)
+        {
+            index = 2;
+        }
+        else if (playerData.MainHallLevel >= 4)
+        {
+            index = 3;
+        }
+        else if (playerData.MainHallLevel >= 6)
+        {
+            index = 4;
+        }
+        else if (playerData.MainHallLevel >= 9)
+        {
+            index = 5;
+        }
+        return index;
     }
 }

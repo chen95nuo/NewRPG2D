@@ -36,6 +36,7 @@ public class CameraControl : MonoBehaviour
     private bool moving = false; //移动中
     public bool isShowEdit = false;//是否显示建造提示
     public bool isHoldRole = false;//是否抓住角色
+    public bool isUI = false;//点击的是UI
 
     private void Awake()
     {
@@ -49,6 +50,19 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+        {
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("点击到UGUI的UI界面，会返回true");
+                isUI = true;
+            }
+            else
+            {
+                Debug.Log("如果没点击到UGUI上的任何东西，就会返回false");
+                isUI = false;
+            }
+        }
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         PCMove();
@@ -211,7 +225,6 @@ public class CameraControl : MonoBehaviour
     {
         if (room != null && room == roomMgr)
         {
-            UIPanelManager.instance.ClosePage<UILockRoomTip>();
             UIPanelManager.instance.ShowPage<UILockRoomTip>(roomMgr);
         }
     }
@@ -221,6 +234,11 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickClick()
     {
+        if (isUI == true)
+        {
+            isUI = false;
+            return;
+        }
         Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) { }
@@ -236,7 +254,15 @@ public class CameraControl : MonoBehaviour
                 }
                 return;
             }
-            if (hit.collider.tag == "Room")
+            if (isHoldRole == true)
+            {
+                UIPanelManager.instance.ClosePage<UIDraggingRole>();
+            }
+            else if (hit.collider.tag == "Role")
+            {
+                Debug.Log("点击角色");
+            }
+            else if (hit.collider.tag == "Room")
             {
                 ChickTouchRoom(hit);
             }
@@ -244,14 +270,7 @@ public class CameraControl : MonoBehaviour
             {
                 MainCastle.instance.ChickRaycast(hit);
             }
-            else if (hit.collider.tag == "Role")
-            {
-                Debug.Log("点击角色");
-                if (isHoldRole == true)
-                {
-                    UIPanelManager.instance.ClosePage<UIDraggingRole>();
-                }
-            }
+
         }
         else //编辑模式点击效果
         {
@@ -283,6 +302,10 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickLongPress()
     {
+        if (isUI == true)
+        {
+            return;
+        }
         Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) { }
@@ -298,11 +321,11 @@ public class CameraControl : MonoBehaviour
                 isHoldRole = true;
                 return;
             }
-            Debug.Log("长按角色");
         }
         else if (MapControl.instance.type == CastleType.main
             && isShowEdit == false
-            && hit.collider.tag == "Room")
+            && hit.collider.tag == "Room"
+            && isHoldRole == false)
         {
             currentTime += Time.deltaTime;//建造模式计时
             if (currentTime > 0.5f)
@@ -334,7 +357,6 @@ public class CameraControl : MonoBehaviour
         RoomMgr data = hit.collider.GetComponent<RoomMgr>();
         if (data.IsHarvest)//如果有产出那么获取产出
         {
-            Debug.Log("获取产出");
             float temp = data.currentBuildData.Stock;
             ChickPlayerInfo.instance.GetProductionStock(data.currentBuildData);
 
@@ -343,8 +365,13 @@ public class CameraControl : MonoBehaviour
             {
                 ChangeRoomMgr(data);
             }
+            else
+            {
+                data.IsHarvest = false;
+                data.roomProp.SetActive(false);
+            }
         }
-        if (room == null)
+        else if (room == null)
         {
             room = data;
             //子物体启动

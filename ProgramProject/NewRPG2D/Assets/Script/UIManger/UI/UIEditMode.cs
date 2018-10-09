@@ -107,7 +107,8 @@ public class UIEditMode : TTUIPage
         for (int i = 0; i < index; i++)
         {
             int id = ChickPlayerInfo.instance.buildingIdIndex++;
-            LocalBuildingData s_data = new LocalBuildingData(id, Vector2.zero, data);
+            int size = ChickPlayerInfo.instance.ChickRoomSize(data);
+            LocalBuildingData s_data = new LocalBuildingData(id, Vector2.zero, data, size);
             ListAddData(s_data);
         }
         ShowMenu(null);

@@ -25,13 +25,16 @@ public class UILevelUpHelper : MonoBehaviour
 
     private RoomMgr roomMgr = null;
 
-    public void Init()
+    private void Awake()
     {
         txt_Tip_1.text = "立即升级";
         txt_Tip_2.text = "升级";
 
         btn_NowUp.onClick.AddListener(ChickNowUp);
         btn_LevelUp.onClick.AddListener(ChickLevelUp);
+    }
+    public void Init()
+    {
         CloseTxt(false);
     }
 

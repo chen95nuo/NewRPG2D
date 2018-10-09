@@ -23,8 +23,8 @@ public enum BuildRoomName
     Iron,//铁矿场
     IronSpace,//铁矿库
     FighterRoom,//战斗训练场
-    Kitchen,//厨房 厨师训练
     Mint,//账房 会计训练
+    Kitchen,//厨房 厨师训练
     Laboratory,//实验室 炼金训练
     Crafting,//手工房 伐木等级
     Foundry,//健身房 挖矿等级

@@ -6,11 +6,9 @@ using Assets.Script.UIManger;
 
 public class UILevelUpTip : TTUIPage
 {
-
     public Transform tipGridPoint;
     public GameObject tip;
     private RoomMgr roomData;
-    private Camera cam;
     private Dictionary<int, UILevelUpTipGrid> timeTextGrids = new Dictionary<int, UILevelUpTipGrid>();
     private List<UILevelUpTipGrid> outGrids = new List<UILevelUpTipGrid>();
     private int dicIndex = 0;
@@ -48,16 +46,6 @@ public class UILevelUpTip : TTUIPage
         outGrids.Add(timeTextGrids[index]);
         timeTextGrids[index].transform.position = Vector3.back * 1000;
         timeTextGrids.Remove(index);
-    }
-
-    public void SetCamMove()
-    {
-
-
-        for (int i = 0; i < timeTextGrids.Count; i++)
-        {
-
-        }
     }
 
     public void UpdateTime(int time, int index)

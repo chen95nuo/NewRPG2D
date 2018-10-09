@@ -30,6 +30,8 @@ public enum RoleHurtType
 
 public enum RoleAttribute
 {
+    Nothing,
+    Fight,//战斗属性
     Gold,//财务属性
     Food,//烹饪属性
     Mana,//炼金属性
@@ -48,8 +50,15 @@ public enum RoleAttribute
     Max
 }
 
-public enum RoleType
+public enum TrainType
 {
-
+    Nothing,
+    Fight,//战斗等级
+    Gold,//财务等级
+    Food,//烹饪等级
+    Mana,//炼金等级
+    Wood,//木工等级
+    Iron,//矿工等级
+    Max
 }
 

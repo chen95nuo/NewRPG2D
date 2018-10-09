@@ -260,7 +260,7 @@ public class PlayerData
     {
         Name = "Baymax";
         Level = 1;
-        Gold = 16000;
+        Gold = 2000;
         Diamonds = 100;
         Food = 0;
         Mana = 0;

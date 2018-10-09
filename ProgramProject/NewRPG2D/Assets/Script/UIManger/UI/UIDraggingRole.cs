@@ -18,6 +18,7 @@ public class UIDraggingRole : TTUIPage
     public Image hand;
 
     private HallRole role;
+    private Vector3 originPoint;
 
     private void Awake()
     {
@@ -28,25 +29,31 @@ public class UIDraggingRole : TTUIPage
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
         int layerMask = 1 << 8;
-        layerMask = ~layerMask;
-        Debug.Log(layerMask);
-        if (Physics.Raycast(ray, out hit, layerMask)) { }
-        if (hit.collider.tag == "Room")
+        int layerName = LayerMask.NameToLayer("Room");
+        int layer = LayerMask.GetMask("Room");
+        //layerMask = ~layerMask;
+        if (Physics.Raycast(ray, out hit, 100, layerMask))
+        { Debug.Log(hit.collider.name); }
+        if (hit.collider == null)
+        {
+            //放回原处
+            role.transform.position = originPoint;
+        }
+        else if (hit.collider.tag == "Room")
         {
             RoomMgr room = hit.collider.GetComponent<RoomMgr>();
             room.AddRole(role);
         }
-        else
-        {
-            //role.
-        }
+        CameraControl.instance.isHoldRole = false;
     }
 
     public override void Show(object mData)
     {
         base.Show(mData);
         role = mData as HallRole;
+        originPoint = role.transform.position;
     }
 
     private void Update()

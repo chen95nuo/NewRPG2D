@@ -25,7 +25,7 @@ public class UILockRoomTip : TTUIPage
     private UILockTrainSpeed uiTrainSpeed_2;
 
     private RoomMgr roomData;
-    private bool isOpen = true;
+    private bool isOpen = false;
     private void Awake()
     {
         Init();
@@ -36,15 +36,9 @@ public class UILockRoomTip : TTUIPage
         base.Show(mData);
         RoomMgr data = mData as RoomMgr;
         LockRoomData(data);
+        LockRoomData(data);
     }
 
-    private void OnDisable()
-    {
-        if (roomData != null)
-        {
-            LockRoomData(roomData);
-        }
-    }
     private void Init()
     {
         ClostAllBtn(false);
@@ -89,6 +83,14 @@ public class UILockRoomTip : TTUIPage
                 break;
         }
         isOpen = !isOpen;
+        if (isOpen)
+        {
+            Debug.Log("开启");
+        }
+        else
+        {
+            Debug.Log("关闭");
+        }
     }
     /// <summary>
     /// 生产类房间
@@ -288,6 +290,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickTrain()
     {
         Debug.Log("根据类型检查训练");
+        UIPanelManager.instance.ShowPage<UITrainInfo>();
     }
 
     private void ChickTranSpeedUP_1()

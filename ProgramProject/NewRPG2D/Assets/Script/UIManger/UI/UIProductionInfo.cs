@@ -53,7 +53,7 @@ public class UIProductionInfo : TTUIPage
         roomData = data;
         txt_Name.text = data.RoomName.ToString();
         txt_Level.text = data.BuildingData.Level.ToString();
-        txt_Yield.text = data.currentBuildData.buildingData.Param1.ToString();
+        txt_Yield.text = (data.currentBuildData.buildingData.Param1 + data.currentBuildData.AllRoleProduction()).ToString();
         txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
         ChickRoleNumber();
         ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
@@ -68,6 +68,13 @@ public class UIProductionInfo : TTUIPage
                 GameObject go = Instantiate(roleGrid, roleTrans) as GameObject;
                 UIRoleGrid grid = go.GetComponent<UIRoleGrid>();
                 roleGrids.Add(grid);
+            }
+        }
+        for (int i = 0; i < roomData.currentBuildData.roleData.Length; i++)
+        {
+            if (roomData.currentBuildData.roleData[i] != null)
+            {
+                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName);
             }
         }
     }
