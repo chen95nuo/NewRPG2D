@@ -82,6 +82,11 @@ namespace Assets.Script.Battle
         }
     }
 
+    public enum SpecialPropertyEnum
+    {
+        None,
+    }
+
     public struct HurtInfo
     {
         public RoleBase AttackRole;

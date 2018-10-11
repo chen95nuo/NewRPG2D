@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Assets.Script.Battle;
 using Assets.Script.Battle.BattleData;
 using UnityEngine;
 
@@ -9,22 +10,9 @@ public class EquipmentRealProperty
     public int EquipId;
     public EquipTypeEnum EquipType;
     public QualityTypeEnum QualityType;
-    public int NeedLevel;
     public int Level;
-    public Dictionary<RoleAttribute, PropertyValueRange> RoleProperty;
-    public List<int> SpecialProperty;
-}
-
-public struct PropertyValueRange
-{
-    public float MinValue;
-    public float MaxValue;
-
-    public PropertyValueRange(float minValue, float maxValue)
-    {
-        MinValue = minValue;
-        MaxValue = maxValue;
-    }
+    public Dictionary<RoleAttribute, float> RoleProperty;
+    public List<SpecialPropertyData> SpecialProperty;
 }
 
 public class EquipmentMgr : TSingleton<EquipmentMgr>
@@ -47,18 +35,20 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
             return null;
         }
 
-        Dictionary<RoleAttribute, PropertyValueRange> roleProperty = new Dictionary<RoleAttribute, PropertyValueRange>();
-        List<int> specialProperty = new List<int>();
+        Dictionary<RoleAttribute, float> roleProperty = new Dictionary<RoleAttribute, float>();
+        List<SpecialPropertyData> specialProperty = new List<SpecialPropertyData>();
         int equipId = equipInstanceId++;
         EquipmentRealProperty realProperty = new EquipmentRealProperty();
         realProperty.EquipId = equipId;
         realProperty.EquipType = data.EquipType;
-        realProperty.Level = Random.Range(data.LevelMin, data.LevelMax);
-        realProperty.NeedLevel = data.NeedLevel;
+        realProperty.Level = (int)Random.Range(data.LevelRange.Min, data.LevelRange.Max);
+
         GetRoleProperty(roleProperty, data, realProperty.Level);
         realProperty.RoleProperty = roleProperty;
+
         GetSpecialProperty(specialProperty, data);
         realProperty.SpecialProperty = specialProperty;
+
         AllEquipmentData[equipId] = realProperty;
         return realProperty;
     }
@@ -70,66 +60,51 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
 
     public float GetEquipmentValueByEquipIdAndType(int equipId, RoleAttribute type)
     {
-        float minValue = AllEquipmentData[equipId].RoleProperty[type].MinValue;
-        float maxValue = AllEquipmentData[equipId].RoleProperty[type].MaxValue;
-
-        return Random.Range(minValue, maxValue);
+        return AllEquipmentData[equipId].RoleProperty[type];
     }
 
-    private void GetRoleProperty(Dictionary<RoleAttribute, PropertyValueRange> roleProperty, EquipmentData data, int currentLevel)
+    private void GetRoleProperty(Dictionary<RoleAttribute, float> roleProperty, EquipmentData data, int currentLevel)
     {
-        float minValueTimes = data.DamageMinRange*(1 + 0.05f*(currentLevel - data.LevelMin));
-        float maxValueTimes = data.DamageMinRange * (1 + 0.05f * (currentLevel - data.LevelMin));
+        float times = (1 + 0.05f*(currentLevel - data.LevelRange.Min));
 
-        CalculateRoleProperty(roleProperty, data.NormalPropertyId1, minValueTimes, maxValueTimes);
-        CalculateRoleProperty(roleProperty, data.NormalPropertyId2, minValueTimes, maxValueTimes);
-        CalculateRoleProperty(roleProperty, data.NormalPropertyId3, minValueTimes, maxValueTimes);
-        int[] RandomPropertyId = new int[]
+        CalculateRoleProperty(roleProperty, RoleAttribute.Dodge, data.AvoidHurtRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.HP, data.HPRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.PArmor, data.PhysicArmorRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.MArmor, data.MagicArmorRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.HIT, data.HitEnemyRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.INT, data.MagicDamageRange, times);
+        RandomPropertyData[] tempDatas = new RandomPropertyData[3];
+        for (int i = 0; i < tempDatas.Length; i++)
         {
-            data.RandomPropertyId1,
-            data.RandomPropertyId2,
-            data.RandomPropertyId3,
-        };
+            tempDatas[i] = data.RandomPropertyDatas[i];
+        }
 
         int loopCount = data.RandomCount;
         while (loopCount > 0)
         {
-            int selectId = Random.Range(0, RandomPropertyId.Length);
-            if (RandomPropertyId[selectId] != 0)
+            int selectId = Random.Range(0, tempDatas.Length);
+            if (tempDatas[selectId].AttributeType >= 0)
             {
                 loopCount --;
-                CalculateRoleProperty(roleProperty, RandomPropertyId[selectId], minValueTimes, maxValueTimes);
-                RandomPropertyId[selectId] = 0;
+                CalculateRoleProperty(roleProperty, tempDatas[selectId].AttributeType, tempDatas[selectId].ValueRange, times);
+                tempDatas[selectId].AttributeType = RoleAttribute.Nothing;
             }
         }
     }
 
-    private void GetSpecialProperty(List<int> roleProperty, EquipmentData data)
+    private void GetSpecialProperty(List<SpecialPropertyData> roleProperty, EquipmentData data)
     {
-        if (data.SpecialPropertyId1 > 0)
+        for (int i = 0; i < data.SpecialPropertyDatas.Length; i++)
         {
-            roleProperty.Add(data.SpecialPropertyId1);
-        }
-
-        if (data.SpecialPropertyId2 > 0)
-        {
-            roleProperty.Add(data.SpecialPropertyId2);
+            if (data.SpecialPropertyDatas[i].SpecialPropertyType != SpecialPropertyEnum.None)
+            {
+                roleProperty.Add(data.SpecialPropertyDatas[i]);
+            }
         }
     }
 
-    private void CalculateRoleProperty(Dictionary<RoleAttribute, PropertyValueRange> roleProperty, int propertyId, float minValueTimes, float maxValueTimes)
+    private void CalculateRoleProperty(Dictionary<RoleAttribute, float> roleProperty, RoleAttribute rolePropertyType, RangeData value, float times)
     {
-        if (propertyId <= 0)
-        {
-            return;
-        }
-
-        EquipBasePropertyData baseData =
-            EquipBasePropertyDataMgr.instance.GetXmlDataByItemId<EquipBasePropertyData>(propertyId);
-        if (baseData == null)
-        {
-            return;
-        }
-        roleProperty[baseData.RolePropertyType] = new PropertyValueRange(baseData.BaseValue * minValueTimes, baseData.BaseValue * maxValueTimes);
+        roleProperty[rolePropertyType] += Random.Range(value.Min* times, value.Max * times);
     }
 }
