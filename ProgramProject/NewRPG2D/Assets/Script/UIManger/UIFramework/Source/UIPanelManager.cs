@@ -525,6 +525,18 @@ namespace Assets.Script.UIManger
             }
         }
 
+        public void ClosePage(Type type)
+        {
+            string pageName = "UIPrefab/" + type.Name;
+            if (m_allPages != null && m_allPages.ContainsKey(pageName))
+            {
+                ClosePage(m_allPages[pageName]);
+            }
+            else
+            {
+                Debug.LogError(pageName + " havnt show yet!");
+            }
+        }
         #endregion
 
     }

@@ -16,6 +16,9 @@ public class HallRoleData
     //public int MaxLevel;//最大等级
     public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
     private int[] equip;//装备 1武器2防具3戒指4项链 5神器
+    private RoleTrainType trainType;//训练类型
+    public int trainIndex;//训练编号
+    public RoleLoveType LoveType;
 
     public string Name
     {
@@ -492,6 +495,25 @@ public class HallRoleData
             return roleLevel;
         }
     } //0战斗 1金币 2食物 3魔法 4木材 5铁
+
+    public RoleTrainType TrainType
+    {
+        get
+        {
+            return trainType;
+        }
+
+        set
+        {
+            RoleTrainType temp = value;
+            if (temp != trainType)
+            {
+                trainType = value;
+                HallEventManager.instance.SendEvent<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, this);
+            }
+
+        }
+    }
     #endregion
 
     public float Attribute(RoleAttribute attribute)
@@ -580,6 +602,66 @@ public class HallRoleData
         }
         return 0;
     }
+    public int GetAtrLevel(TrainType type)
+    {
+        int index = 0;
+        switch (type)
+        {
+            case global::TrainType.Nothing:
+                break;
+            case global::TrainType.Fight:
+                index = roleLevel[0].Level;
+                break;
+            case global::TrainType.Gold:
+                index = roleLevel[1].Level;
+                break;
+            case global::TrainType.Food:
+                index = roleLevel[2].Level;
+                break;
+            case global::TrainType.Mana:
+                index = roleLevel[3].Level;
+                break;
+            case global::TrainType.Wood:
+                index = roleLevel[4].Level;
+                break;
+            case global::TrainType.Iron:
+                index = roleLevel[5].Level;
+                break;
+            case global::TrainType.Max:
+                break;
+            default:
+                break;
+        }
+        return index;
+    }
+    public int GetAtrLevel(BuildRoomName name)
+    {
+        int index = 0;
+        switch (name)
+        {
+            case BuildRoomName.FighterRoom:
+                index = roleLevel[0].Level;
+                break;
+            case BuildRoomName.Mint:
+                index = roleLevel[1].Level;
+                break;
+            case BuildRoomName.Kitchen:
+                index = roleLevel[2].Level;
+                break;
+            case BuildRoomName.Laboratory:
+                index = roleLevel[3].Level;
+                break;
+            case BuildRoomName.Crafting:
+                index = roleLevel[4].Level;
+                break;
+            case BuildRoomName.Foundry:
+                index = roleLevel[5].Level;
+                break;
+            default:
+                break;
+        }
+        return index;
+    }
     public float GetAtrProduce(RoleAttribute atr)
     {
         switch (atr)
@@ -598,6 +680,8 @@ public class HallRoleData
                 return WoodProduce;
             case RoleAttribute.Iron:
                 return IronProduce;
+            case RoleAttribute.Max:
+                return RoleLevel[6].Level;
             default:
                 break;
         }
@@ -607,6 +691,8 @@ public class HallRoleData
     {
         switch (atr)
         {
+            case BuildRoomName.Nothing:
+                return 0;
             case BuildRoomName.Gold:
                 return GoldProduce;
             case BuildRoomName.Food:

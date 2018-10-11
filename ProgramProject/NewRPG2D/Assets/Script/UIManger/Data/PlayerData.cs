@@ -247,11 +247,11 @@ public class PlayerData
             mainHall = value;
             if (EditCastle.instance != null)
             {
-                EditCastle.instance.instanceWall();
+                EditCastle.instance.ExtensionWall();
             }
             if (MainCastle.instance != null)
             {
-                MainCastle.instance.instanceWall();
+                MainCastle.instance.ExtensionWall();
             }
         }
     }

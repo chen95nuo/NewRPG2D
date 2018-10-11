@@ -571,7 +571,6 @@ public abstract class RoomMgr : MonoBehaviour
         //重置墙面信息
         wall = new BuildPoint[BuildingData.RoomSize];
         buidStartPoint = new Vector2(startX, startY);
-
         for (int i = startX; i < startX + BuildingData.RoomSize; i++)
         {
             wall[i - startX] = castle.buildPoint[i, startY];
@@ -879,6 +878,14 @@ public abstract class RoomMgr : MonoBehaviour
         levelUpTip.RemoveLister(listNumber);
         levelUpTip = null;
         ConstructionType = false;
+        ChickConstructionCompleteRole();
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] != null)
+            {
+                ChickAddTrainRole(currentBuildData.roleData[i]);
+            }
+        }
         CameraControl.instance.RefreshRoomLock(this);
         //检查合并
         castleMgr.ChickMergeRoom(this);
@@ -917,14 +924,11 @@ public abstract class RoomMgr : MonoBehaviour
 
         //这边筛选出属性较低的更换位置
         int index = currentBuildData.ScreenAllYeild(NeedAttribute, false);
+        HallRole oldRole = HallRoleMgr.instance.GetRole(currentBuildData.roleData[index]);
         if (role.RoleData.currentRoom != null)
         {
             Debug.Log("切换房间 调换角色");
-            role.RoleData.currentRoom.RemoveRole(role);
-            HallRoleMgr.instance.RoleChangeRoom(role.RoleData.currentRoom, currentBuildData.roleData[index]);
-            currentBuildData.roleData[index] = null;
-            role.RoleData.currentRoom = null;
-            AddRole(role);
+            HallRoleMgr.instance.RoleChangeRoom(role, oldRole);
         }
         else
         {
@@ -961,53 +965,121 @@ public abstract class RoomMgr : MonoBehaviour
     public abstract void ThisRoomFunc();
     public abstract void RoomAwake();
     public virtual void ChickComplete() { }
+
+    /// <summary>
+    /// 房间开始施工时 角色功能
+    /// </summary>
+    public virtual void ChickConstructionStartRole()
+    {
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] != null)
+            {
+                HallRoleData role = currentBuildData.roleData[i];
+                if (role.TrainType == RoleTrainType.LevelUp)
+                {
+                    HallRoleMgr.instance.PauseTrain(role.trainIndex);
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 房间施工完成 角色功能
+    /// </summary>
+    public virtual void ChickConstructionCompleteRole()
+    {
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] != null)
+            {
+                HallRoleData role = currentBuildData.roleData[i];
+                if (role.TrainType == RoleTrainType.Nothing)
+                {
+                    ChickAddTrainRole(role);
+                }
+                else if (role.TrainType == RoleTrainType.LevelUp)
+                {
+                    HallRoleMgr.instance.ContinueTrain(role.trainIndex);
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 添加角色时角色功能
+    /// </summary>
+    /// <param name="role"></param>
     public virtual void ChickAddTrainRole(HallRoleData role)
     {
+        if (ConstructionType) //如果在施工 跳过
+        {
+            return;
+        }
         switch (RoomName)
         {
             case BuildRoomName.FighterRoom:
-                if (role.RoleLevel[0].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[0].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Fight);
+                    return;
                 }
                 break;
             case BuildRoomName.Mint:
-                if (role.RoleLevel[1].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[1].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Gold);
+                    return;
                 }
                 break;
             case BuildRoomName.Kitchen:
-                if (role.RoleLevel[2].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[2].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Food);
+                    return;
                 }
                 break;
             case BuildRoomName.Laboratory:
-                if (role.RoleLevel[3].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[3].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Mana);
+                    return;
                 }
                 break;
             case BuildRoomName.Crafting:
-                if (role.RoleLevel[4].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[4].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Wood);
+                    return;
                 }
                 break;
             case BuildRoomName.Foundry:
-                if (role.RoleLevel[5].Level <= currentBuildData.buildingData.Param1)
+                if (role.RoleLevel[5].Level <= currentBuildData.buildingData.Param2)
                 {
                     HallRoleMgr.instance.StartTrain(role, TrainType.Iron);
+                    return;
                 }
                 break;
             default:
                 break;
         }
+        //如果不能升级说明等级到达上限了
+        role.TrainType = RoleTrainType.MaxLevel;
     }
+    /// <summary>
+    /// 删除角色时角色功能
+    /// </summary>
+    /// <param name="role"></param>
     public virtual void ChickRemoveTrainRole(HallRoleData role)
     {
+        if (role.TrainType == RoleTrainType.LevelUp)
+        {
+            HallRoleMgr.instance.StopTrain(role);
+        }
+        else if (role.TrainType == RoleTrainType.Complete)
+        {
+            UIRoleTrainGroup.instance.CloseIcon(role);
+        }
 
+        role.TrainType = RoleTrainType.Nothing;
     }
 
     protected void GetCompoment()

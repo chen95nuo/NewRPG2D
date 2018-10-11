@@ -27,7 +27,7 @@ public class Castle : MonoBehaviour
 
     public CastleType castleType;
 
-    protected void Init()
+    public void Init()
     {
         UpdateBGNumber();
         instanceWall();
@@ -44,7 +44,7 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 生成背景墙
     /// </summary>
-    public void instanceWall()
+    protected void instanceWall()
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
         buildH = buildHigh + playerData.MainHallLevel;
@@ -89,6 +89,44 @@ public class Castle : MonoBehaviour
                 buildPoint[j, i].tip = null;
                 Vector2 point = new Vector2(wallStartPoint.x + (width * j), wallStartPoint.y + (high * i));
                 buildPoint[j, i].pointWall.localPosition = point;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 扩建背景墙
+    /// </summary>
+    public void ExtensionWall()
+    {
+        PlayerData playerData = GetPlayerData.Instance.GetData();
+        buildH = buildHigh + playerData.MainHallLevel;
+        buildW = buildWidth + (playerData.MainHallLevel * 3);
+
+        for (int i = 0; i < buildH; i++)
+        {
+            for (int j = 0; j < buildW; j++)
+            {
+                if (buildPoint[j, i] != null)
+                {
+                    continue;
+                }
+                if (wallStartPoint.x + (width * j) < limitPoint_1.x && wallStartPoint.y + (high * i) > limitPoint_1.y)
+                {
+                    buildPoint[j, i] = new BuildPoint();
+                    buildPoint[j, i].pointType = 0;
+                }
+                else
+                {
+                    buildPoint[j, i] = new BuildPoint();
+                    buildPoint[j, i].pointType = BuildingType.Wall;
+                }
+                if (buildPoint[j, i].pointType == BuildingType.Wall)
+                {
+                    GameObject go = Instantiate(Wall[j % 3], WallPoint) as GameObject;
+                    Vector2 point = new Vector2(wallStartPoint.x + (width * j), wallStartPoint.y + (high * i));
+                    go.transform.localPosition = point;
+                    buildPoint[j, i].pointWall = go.transform;
+                }
             }
         }
     }

@@ -27,41 +27,41 @@ public class UIProdLevelUp : UILevelUp
         base.Init(data);
         UIReset();
 
-        BuildingData d1 = data.currentBuildData.buildingData;
-        BuildingData d2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(d1.NextLevelID);
-
         switch (data.BuildingData.RoomName)
         {
             case BuildRoomName.Gold:
                 UpdateInfo_1(data);
-                break;
+                return;
             case BuildRoomName.GoldSpace:
                 UpdateInfo_2(data);
-                break;
+                return;
             case BuildRoomName.Food:
                 UpdateInfo_1(data);
-                break;
+                return;
             case BuildRoomName.FoodSpace:
                 UpdateInfo_2(data);
-                break;
+                return;
             case BuildRoomName.Wood:
                 UpdateInfo_1(data);
-                break;
+                return;
             case BuildRoomName.WoodSpace:
                 UpdateInfo_2(data);
-                break;
+                return;
             case BuildRoomName.Mana:
                 UpdateInfo_1(data);
-                break;
+                return;
             case BuildRoomName.ManaSpace:
                 UpdateInfo_2(data);
-                break;
+                return;
             case BuildRoomName.Iron:
                 UpdateInfo_1(data);
-                break;
+                return;
             case BuildRoomName.IronSpace:
                 UpdateInfo_2(data);
-                break;
+                return;
+            case BuildRoomName.LivingRoom:
+                UpdateInfo_2(data);
+                return;
             default:
                 break;
         }

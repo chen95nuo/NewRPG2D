@@ -9,10 +9,10 @@ public class UIRoleTrainGrid : MonoBehaviour
     public bool IsUse;//是否正在使用
 
     public Image image_Icon;
-    public Transform ts;
+    private Transform ts;
     private Canvas canvas;
-    private TrainType trainType;
-    private HallRole role;
+    [System.NonSerialized]
+    public HallRole role;
 
     private void Awake()
     {
@@ -25,9 +25,14 @@ public class UIRoleTrainGrid : MonoBehaviour
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, UpdatePos);
     }
 
-    public void GetInfo(Transform transform, Canvas canvas, TrainType type, HallRole role)
+    /// <summary>
+    /// 启动这个Icon
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <param name="canvas"></param>
+    /// <param name="role"></param>
+    public void GetInfo(Transform transform, Canvas canvas, HallRole role)
     {
-        this.trainType = type;
         this.role = role;
         IsUse = true;
         ts = transform;
@@ -35,9 +40,20 @@ public class UIRoleTrainGrid : MonoBehaviour
         UpdatePos();
     }
 
+    /// <summary>
+    /// 关掉这个Icon
+    /// </summary>
+    public void RemoveInfo()
+    {
+        IsUse = false;
+        transform.position = Vector3.up * 1000;
+        role = null;
+        ts = null;
+    }
+
     public void UpdatePos()
     {
-        if (transform.position.z >= 100 || MapControl.instance.type == CastleType.edit)
+        if (IsUse == false || transform.position.z >= 100 || MapControl.instance.type == CastleType.edit)
         {
             return;
         }
@@ -51,13 +67,11 @@ public class UIRoleTrainGrid : MonoBehaviour
 
     private void ChickEnter()
     {
-        IsUse = false;
-        transform.position = Vector3.up * 1000;
-        string s_Atr = trainType.ToString();
-        RoleAttribute atr = (RoleAttribute)System.Enum.Parse(typeof(RoleAttribute), s_Atr);
-        Debug.Log("升级技能为" + atr);
-        role.RoleData.LevelUp(atr);
+        HallRoleMgr.instance.LevelComplete(role.RoleData);
+        RemoveInfo();
     }
+
+
 
 
 }

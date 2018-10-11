@@ -9,27 +9,14 @@ public class UIScreenRole : TTUIPage
     public static UIScreenRole instance;
 
     public Button[] btnGroup;
+    public Button btn_back;
     public Transform gridPoint;
-    //public Button btn_All;
-    //public Button btn_Atk;
-    //public Button btn_Gold;
-    //public Button btn_Food;
-    //public Button btn_Mana;
-    //public Button btn_Wood;
-    //public Button btn_Iron;
     private List<HallRoleData> screenRole = new List<HallRoleData>();
     private List<UIScreenRoleGrid> RoleGrid = new List<UIScreenRoleGrid>();
 
     private void Awake()
     {
         instance = this;
-        //btn_All.onClick.AddListener(ChickAll);
-        //btn_Atk.onClick.AddListener(ChickAtk);
-        //btn_Gold.onClick.AddListener(ChickGold);
-        //btn_Food.onClick.AddListener(ChickFood);
-        //btn_Mana.onClick.AddListener(ChickMana);
-        //btn_Wood.onClick.AddListener(ChickWood);
-        //btn_Iron.onClick.AddListener(ChickIron);
         btnGroup[0].onClick.AddListener(ChickAll);
         btnGroup[1].onClick.AddListener(ChickAtk);
         btnGroup[2].onClick.AddListener(ChickGold);
@@ -37,6 +24,7 @@ public class UIScreenRole : TTUIPage
         btnGroup[4].onClick.AddListener(ChickMana);
         btnGroup[5].onClick.AddListener(ChickWood);
         btnGroup[6].onClick.AddListener(ChickIron);
+        btn_back.onClick.AddListener(ClosePage);
     }
 
     private void UpdateInfo()
@@ -53,6 +41,14 @@ public class UIScreenRole : TTUIPage
                 btnGroup[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    /// <summary>
+    /// 开启面板同时显示的界面 默认显示排列
+    /// </summary>
+    public void ShowPage()
+    {
+        ChickAll();
     }
 
     private void ChickAll()

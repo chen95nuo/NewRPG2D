@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
 
 public class UITrainInfo : UIRoomInfo
 {
@@ -11,19 +12,7 @@ public class UITrainInfo : UIRoomInfo
     public Text txt_Tip_4;
     public Text txt_MaxLevel;
 
-
     List<UITrainRoleGrid> roleGrids = new List<UITrainRoleGrid>();
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     protected override void UpdateInfo(RoomMgr roomMgr)
     {
@@ -46,7 +35,4 @@ public class UITrainInfo : UIRoomInfo
             }
         }
     }
-
-
-
 }

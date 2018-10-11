@@ -155,6 +155,9 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.MagicWorkShop:
                 break;
             case BuildRoomName.MagicLab:
+                btn_Message.gameObject.SetActive(isOpen);
+                btn_LevelUp.gameObject.SetActive(isOpen);
+                btn_Research.gameObject.SetActive(isOpen);
                 break;
             case BuildRoomName.WeaponsWorkShop:
                 break;
@@ -236,6 +239,9 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.IronSpace:
                 UIPanelManager.instance.ShowPage<UIStockInfo>(roomData);
                 break;
+            case BuildRoomName.LivingRoom:
+                UIPanelManager.instance.ShowPage<UILivingRoomInfo>(roomData);
+                break;
             default:
                 break;
         }
@@ -290,7 +296,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickTrain()
     {
         Debug.Log("根据类型检查训练");
-        UIPanelManager.instance.ShowPage<UITrainInfo>();
+        UIPanelManager.instance.ShowPage<UITrainInfo>(roomData);
     }
 
     private void ChickTranSpeedUP_1()
@@ -312,6 +318,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickResearch()
     {
         Debug.Log("检查魔法升级");
+        UIPanelManager.instance.ShowPage<UIMagicLevelUp>(roomData);
     }
 
     private void ClostAllBtn(bool isTrue)

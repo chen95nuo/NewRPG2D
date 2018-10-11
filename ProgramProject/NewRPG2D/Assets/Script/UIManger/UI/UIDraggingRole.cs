@@ -44,6 +44,13 @@ public class UIDraggingRole : TTUIPage
         else if (hit.collider.tag == "Room")
         {
             RoomMgr room = hit.collider.GetComponent<RoomMgr>();
+            //如果角色在分娩期 不允许进入军营
+            if (role.RoleData.LoveType == RoleLoveType.ChildBirth
+                && room.RoomName == BuildRoomName.Barracks)
+            {
+                //放回原处
+                role.transform.position = originPoint;
+            }
             room.AddRole(role);
         }
         CameraControl.instance.isHoldRole = false;

@@ -32,8 +32,8 @@ public enum BuildRoomName
     TrophyRoom,//荣耀大厅
     Hospital,//医院
     ClanHall,//氏族大厅
-    MagicWorkShop,//魔法工坊
-    MagicLab,//魔法工坊
+    MagicWorkShop,//魔法制造
+    MagicLab,//魔法升级
     WeaponsWorkShop,//武器工坊
     ArmorWorkShop,//护甲工坊
     GemWorkSpho,//宝石工坊

@@ -85,12 +85,12 @@ namespace Assets.Script.Timer
             mCTimerList.Clear();
         }
 
-        public void PauseTimer(int sequenceTime)
+        public void PauseTimer(int sequenceTime, bool isRun)
         {
             CTimer mCTimer = GetCTimer(sequenceTime);
             if (mCTimer != null)
             {
-                mCTimer.SetRunState(false);
+                mCTimer.SetRunState(isRun);
             }
         }
 

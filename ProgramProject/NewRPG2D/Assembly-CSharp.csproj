@@ -270,8 +270,12 @@
     <Compile Include="Assets\Script\GameLogic.cs" />
     <Compile Include="Assets\Script\UIManger\Data\BuildingData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\BuildingDataMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\ChildData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\ChildDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\GetPlayerData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\HallRoleData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\MagicData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\MagicDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\PlayerData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainDataMgr.cs" />
@@ -280,6 +284,7 @@
     <Compile Include="Assets\Script\UIManger\GameManager\Castle.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\ChickPlayerInfo.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GameMain.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\HallChildren.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallRole.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallRoleMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LanguageMgr.cs" />
@@ -302,9 +307,12 @@
     <Compile Include="Assets\Script\UIManger\UI\UIEditMode.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIEditModeTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIEditRoomGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UILivingRoomInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UILockRoomTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UILockSpeedUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UILockTrainSpeed.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIMagicGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\UIMagicLevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMain.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMarket.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMarketGrid.cs" />
@@ -561,10 +569,12 @@
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton-TintBlack.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\ShaderShared.cginc" />
+    <None Include="Assets\StreamingAssets\Config\Hall\ChildData.xml" />
     <None Include="Assets\Spine\spine-unity\Modules\SkeletonGraphic\Shaders\Spine-SkeletonGraphic.shader" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton.shader" />
     <None Include="Assets\StreamingAssets\Config\Common\EquipProperty.xml" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CameraNormalsTexture.shader" />
+    <None Include="Assets\StreamingAssets\Config\Hall\MagicData.xml" />
     <None Include="Assets\StreamingAssets\Config\Common\Equipment.xml" />
     <None Include="Assets\Spine Examples\Spine\spineboy-pro\spineboy-pro.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Spineunitygirl\Doi.atlas.txt" />

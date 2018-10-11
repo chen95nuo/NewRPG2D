@@ -8,7 +8,6 @@ using System.Xml;
 [System.Serializable]
 public class BuildingData : ItemBaseData
 {
-
     public int Level;
     public BuildRoomName RoomName;//房间类型
     public RoomType RoomType;

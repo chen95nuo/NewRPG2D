@@ -63,11 +63,40 @@ public class SystemTime : TSingleton<SystemTime>
         }
         if (HowManySecond >= 60)
         {
-            ShowStr += (HowManySecond / 60) + " 分钟 ";
+            ShowStr += (HowManySecond /= 60) + " 分钟 ";
         }
         if (HowManySecond > 0 && HowManySecond < 60)
         {
             ShowStr += HowManySecond + "秒";
+        }
+        return ShowStr;
+    }
+
+    public string TimeNormalized(float Second)
+    {
+        int HowManySecond = (int)Second;
+        if (HowManySecond == 0)
+        {
+            return "0";
+        }
+        string ShowStr = "";
+        if (HowManySecond >= (24 * 3600))
+        {
+            ShowStr += (HowManySecond / (24 * 3600)) + " 天 ";
+            HowManySecond %= (24 * 3600);
+        }
+        if (HowManySecond >= 3600)
+        {
+            ShowStr += (HowManySecond / 3600) + " 小时 ";
+            HowManySecond %= 3600;
+        }
+        if (HowManySecond >= 60)
+        {
+            ShowStr += (HowManySecond /= 60) + " 分钟 ";
+        }
+        if (HowManySecond > 0 && HowManySecond < 60)
+        {
+            ShowStr += (HowManySecond) + "秒";
         }
         return ShowStr;
     }

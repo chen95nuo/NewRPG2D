@@ -25,8 +25,6 @@ public class HallRole : MonoBehaviour
         }
     }
 
-
-
     public void UpdateInfo(HallRoleData data)
     {
         currentData = data;
@@ -43,11 +41,14 @@ public class HallRole : MonoBehaviour
         Debug.Log("漫游状态");
     }
 
+    /// <summary>
+    /// 角色训练完成
+    /// </summary>
+    /// <param name="type"></param>
     public void TrainComplete(TrainType type)
     {
         UIPanelManager.instance.ShowPage<UIRoleTrainGroup>();
-        UIRoleTrainGroup.instance.ShowIcon(this, type);
-
+        UIRoleTrainGroup.instance.ShowIcon(this);
     }
 
 }

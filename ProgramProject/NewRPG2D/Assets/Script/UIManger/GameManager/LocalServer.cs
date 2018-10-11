@@ -85,5 +85,20 @@ public class LocalServer : TSingleton<LocalServer>
         }
         HallRoleData r_1 = new HallRoleData(3, level);
         HallRoleData r_2 = new HallRoleData(3, level);
+        MagicLevel();
     }
+
+    /// <summary>
+    /// 魔法技能等级
+    /// </summary>
+    public void MagicLevel()
+    {
+        Dictionary<MagicName, int> dic = new Dictionary<MagicName, int>();
+        for (int i = 0; i < (int)MagicName.Max; i++)
+        {
+            dic.Add((MagicName)i, 1);
+        }
+        ChickPlayerInfo.instance.SetMagicLevel(dic);
+    }
+
 }

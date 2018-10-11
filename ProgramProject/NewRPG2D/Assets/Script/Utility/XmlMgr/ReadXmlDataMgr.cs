@@ -19,6 +19,8 @@ namespace Assets.Script.Utility
         //城堡大厅的
         BuildingData,
         TrainData,
+        MagicData,
+        ChildData,
         Hall,
 
         //战斗内的

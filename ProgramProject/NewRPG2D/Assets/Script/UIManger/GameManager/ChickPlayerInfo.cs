@@ -15,6 +15,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();//房间序号 用于储存施工中的房间
     private List<LocalBuildingData> AllBuilding = new List<LocalBuildingData>();//储存全部已经建造的房间
     private Dictionary<int, LocalBuildingData> production = new Dictionary<int, LocalBuildingData>();//产出房间
+    private Dictionary<MagicName, int> MagicLevel = new Dictionary<MagicName, int>();
     private List<LocalBuildingData> storage;
     public int buildingIdIndex = 0;
 
@@ -32,7 +33,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             if (item.Key == BuildRoomName.Stairs)
             {
                 dic.Add(item.Key, new LocalBuildingData[30]);
-                break;
+                continue;
             }
             dic.Add(item.Key, new LocalBuildingData[item.Value.Length]);
         }
@@ -945,4 +946,24 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         }
         return index;
     }
+
+    /// <summary>
+    /// 获取技能等级
+    /// </summary>
+    public void SetMagicLevel(Dictionary<MagicName, int> MagicData)
+    {
+        this.MagicLevel = MagicData;
+    }
+    /// <summary>
+    /// 获取技能等级
+    /// </summary>
+    /// <returns></returns>
+    public int GetMagicLevel(MagicName name)
+    {
+        return MagicLevel[name];
+    }
+    /// <summary>
+    /// 修改技能等级
+    /// </summary>
+    public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
 }

@@ -18,6 +18,7 @@ public enum HallEventDefineEnum
     ClearAllRoom,//清除所有房间
     diamondsSpace,//钻石检测
     ChickRoomMerge,//检查房间合并
+    ChickRoleTrain,//角色训练时状态
     EventMax
 }
 
@@ -62,3 +63,42 @@ public enum TrainType
     Max
 }
 
+public enum RoleTrainType
+{
+    Nothing,
+    LevelUp,
+    Complete,
+    MaxLevel
+}
+
+public enum RoleLoveType
+{
+    Nothing,
+    Start,
+    Pregnancy,
+    ChildBirth,
+    End
+}
+
+public enum MagicName
+{
+    //Nothing,
+    Fireball,//火球术
+    Horn,//战斗号角
+    Defense,//防御旗帜
+    Treatment,//治疗绷带
+    Call,//佣兵召唤
+    FreezingTrap,//冰冻陷阱
+    BlastingTrap,//爆破陷阱
+    GroupResponse,//群体恢复
+    Max
+}
+
+public enum MagicType
+{
+    AbilityDamage,
+    Buff,
+    Restore,
+    Call,
+    Attack,
+}

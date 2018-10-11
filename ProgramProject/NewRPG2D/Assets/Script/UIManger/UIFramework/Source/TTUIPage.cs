@@ -76,14 +76,14 @@ namespace Assets.Script.UIManger
         /// </summary>
         public virtual void Hide()
         {
-            if(UIAnimation!=null)
+            if (UIAnimation != null)
             {
                 float delayTime = UIAnimation[HideAnimationName].time;
                 StartCoroutine(DelayHidePage(delayTime));
             }
             else
             {
-                
+
                 this.gameObject.SetActive(false);
             }
             isActived = false;
@@ -94,7 +94,7 @@ namespace Assets.Script.UIManger
         ///Active this UI
         private void Active()
         {
-            if(UIAnimation!=null)
+            if (UIAnimation != null)
             {
                 float delayTime = UIAnimation[ShowAnimationName].time;
                 StartCoroutine(DelayShowPage(delayTime));
@@ -143,5 +143,13 @@ namespace Assets.Script.UIManger
 
         #endregion
 
+        /// <summary>
+        /// 关闭面板根据类名
+        /// </summary>
+        public virtual void ClosePage()
+        {
+            System.Type t = this.GetType();
+            UIPanelManager.instance.ClosePage(t);
+        }
     }//TTUIPage
 }//namespace

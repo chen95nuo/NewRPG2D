@@ -18,7 +18,7 @@ public class TrainDataMgr : ItemDataBaseMgr<TrainDataMgr>
             TrainData data = CurrentItemData[i] as TrainData;
             if (data.trainType == type && (data.level[0] < level && level < data.level[1]))
             {
-                return data.needTime;
+                return data.needTime * 5;
             }
         }
         Debug.LogError("没有找到需要的训练类Data");

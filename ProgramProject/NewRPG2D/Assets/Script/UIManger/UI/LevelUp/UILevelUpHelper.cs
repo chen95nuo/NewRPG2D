@@ -49,36 +49,44 @@ public class UILevelUpHelper : MonoBehaviour
         {
             btn_NowUp.interactable = false;
             btn_LevelUp.interactable = false;
+            txt_Tip_3.text = "已满级";
+            txt_Diamonds.text = "";
             return;
         }
         b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
 
+        float allNeed = 0;
         if (b_Data_2.NeedGold > 0)
         {
             txt_Gold.gameObject.SetActive(true);
             txt_Gold.text = b_Data_2.NeedGold.ToString();
             needGold = b_Data_2.NeedGold - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold));
+            allNeed += needGold;
         }
         if (b_Data_2.NeedMana > 0)
         {
             txt_Mana.gameObject.SetActive(true);
             txt_Mana.text = b_Data_2.NeedMana.ToString();
             needMana = b_Data_2.NeedMana - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana));
+            allNeed += needMana;
         }
         if (b_Data_2.NeedWood > 0)
         {
             txt_Wood.gameObject.SetActive(true);
             txt_Wood.text = b_Data_2.NeedWood.ToString();
             needWood = b_Data_2.NeedWood - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood));
+            allNeed += needWood;
         }
         if (b_Data_2.NeedIron > 0)
         {
             txt_Iron.gameObject.SetActive(true);
             txt_Iron.text = b_Data_2.NeedIron.ToString();
             needIron = b_Data_2.NeedIron - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron));
+            allNeed += needIron;
         }
 
         txt_Tip_3.text = SystemTime.instance.TimeNormalized(b_Data_2.NeedTime);
+        txt_Diamonds.text = allNeed.ToString("#0");
     }
     private void ChickNowUp()
     {

@@ -23,6 +23,10 @@ namespace Assets.Script.Utility
                     return new BuildingData();
                 case XmlName.TrainData:
                     return new TrainData();
+                case XmlName.MagicData:
+                    return new MagicData();
+                case XmlName.ChildData:
+                    return new ChildData();
                 default: return new XmlData();
             }
         }
