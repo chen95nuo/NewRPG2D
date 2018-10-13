@@ -13,11 +13,16 @@ namespace Assets.Script.Battle
         public RolePropertyEnum DefenseProperty; // 被克制的属性
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
-        public float Attack { get; private set; }
-        public float Defense { get; private set; }
-        public float Prompt { get; private set; }   //敏捷
+        public float PhysicAttack { get; private set; }
+        public float MagicAttack { get; private set; }
+        public float MagicArmor { get; private set; }
+        public float PhysicArmor { get; private set; }   
         public float CriticalPercent { get; private set; }  //暴击
+        public float AviodHurtPercent { get; private set; } //闪避
+        public float HitPercent { get; private set; }       //命中 
+
         public float MoveSpeed { get; private set; }
+        public float AttackSpeed { get; private set; }
         public RoleBase AttackRole { get; private set; }
 
         private RoleBase currenRole;
@@ -38,21 +43,18 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.Side = mRole.TeamId == TeamTypeEnum.Hero ? bl_Guidance.RightDown : bl_Guidance.LeftDown;
         }
 
-        public void InitBaseRoleValue(PropertyBaseData rolePropertyData)
+        public void InitBaseRoleValue(PropertyData rolePropertyData)
         {
-            RoleProperty = rolePropertyData.RoleProperty;
-            RoleHp = rolePropertyData.Hp.BaseValue;
-            Attack = rolePropertyData.Attack.BaseValue;
-            Defense = rolePropertyData.Defense.BaseValue;
-            Prompt = rolePropertyData.Prompt.BaseValue;
-        }
-
-        public void InitRoleOtherValue(PropertyData rolePropertyData)
-        {
-            AttackProperty = rolePropertyData.AttackProperty;
-            DefenseProperty = rolePropertyData.DefenseProperty;
-            CriticalPercent = rolePropertyData.AttackCritial;
-            MoveSpeed = rolePropertyData.MoveSpeed;
+            RoleHp = rolePropertyData.RoleHp;
+            PhysicAttack = rolePropertyData.PhysicAttack;
+            MagicAttack = rolePropertyData.MagicAttack;
+            MagicArmor = rolePropertyData.MagicArmor;
+            PhysicArmor = rolePropertyData.PhysicArmor;
+            CriticalPercent = rolePropertyData.CriticalPercent;
+            AviodHurtPercent = rolePropertyData.AviodHurtPercent;
+            HitPercent = rolePropertyData.HitPercent;
+            MoveSpeed = 1;
+            AttackSpeed = StaticAndConstParamter.AttackSpeed;
         }
 
         public void SetMoveSeed(float moveSpeed)
@@ -85,19 +87,39 @@ namespace Assets.Script.Battle
             return RoleMp > 0;
         }
 
-        public void SetAttack(float attackChange)
+        public void SetPhysicAttack(float attackChange)
         {
-            Attack += attackChange;
+            PhysicAttack += attackChange;
         }
 
-        public void SetDefense(float defenseChange)
+        public void SetMagicAttack(float attackChange)
         {
-            Defense += defenseChange;
+            MagicAttack += attackChange;
         }
 
-        public void SetPrompt(float promptChange)
+        public void SetPhysicArmor(float defenseChange)
         {
-            Prompt += promptChange;
+            PhysicArmor += defenseChange;
+        }
+
+        public void SetMagicArmor(float defenseChange)
+        {
+            MagicArmor += defenseChange;
+        }
+
+        public void SetCriticalPercent(float criticalPercentChange)
+        {
+            CriticalPercent += criticalPercentChange;
+        }
+
+        public void SeAviodHurtPercent(float aviodHurtPercentChange)
+        {
+            AviodHurtPercent += aviodHurtPercentChange;
+        }
+
+        public void SetHitPercent(float hitPercentChange)
+        {
+            HitPercent += hitPercentChange;
         }
     }
 }

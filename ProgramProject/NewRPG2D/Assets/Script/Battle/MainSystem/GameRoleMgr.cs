@@ -48,7 +48,7 @@ namespace Assets.Script.Battle
             RoleDetailData roleData = new RoleDetailData();
             roleData.InitData();
             roleData.Id = 100001;
-            role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
+            role.InitRoleBaseProperty(default(PropertyData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
             roleData.BattleIconSpriteName = currentRoleData.IconName;
             if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
@@ -82,7 +82,7 @@ namespace Assets.Script.Battle
             info.RoleId = roleData.Id;
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
-            role.InitRoleBaseProperty(GetPropertyBaseData(roleData), roleData);
+            role.InitRoleBaseProperty(default(PropertyData), roleData);
             RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
             roleData.BattleIconSpriteName = currentRoleData.IconName;
             if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)

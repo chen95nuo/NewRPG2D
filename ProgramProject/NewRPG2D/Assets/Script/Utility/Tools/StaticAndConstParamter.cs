@@ -29,6 +29,8 @@ public class StaticAndConstParamter
     public const string HeroRootPath = "HeroRoot";
     public const string MonterRootPath = "MonsterRoot";
     public const string ItemRootPath = "ItemRoot";
+    public const float AttackSpeed = 1;
+
 }
 
 public enum ItemTypeEnum

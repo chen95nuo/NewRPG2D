@@ -19,6 +19,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
 {
     private Dictionary<int, EquipmentRealProperty> AllEquipmentData = new Dictionary<int, EquipmentRealProperty>();
     private static int equipInstanceId = 1000;
+    private float attackSpeed = StaticAndConstParamter.AttackSpeed;
 
     public override void Init()
     {
@@ -73,6 +74,16 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         CalculateRoleProperty(roleProperty, RoleAttribute.MArmor, data.MagicArmorRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.HIT, data.HitEnemyRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.INT, data.MagicDamageRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.Crt, data.CritialRange, times);
+        if (roleProperty.ContainsKey(RoleAttribute.DPS) == false)
+        {
+            roleProperty[RoleAttribute.DPS] = 0;
+        }
+
+        roleProperty[RoleAttribute.DPS] +=
+            ((Random.Range(data.PhysicDamageMinRange.Min*times, data.PhysicDamageMinRange.Max*times) +
+             Random.Range(data.PyhsicDamageMaxRange.Min*times, data.PyhsicDamageMaxRange.Max*times))/ attackSpeed);
+
         RandomPropertyData[] tempDatas = new RandomPropertyData[3];
         for (int i = 0; i < tempDatas.Length; i++)
         {
@@ -105,6 +116,11 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
 
     private void CalculateRoleProperty(Dictionary<RoleAttribute, float> roleProperty, RoleAttribute rolePropertyType, RangeData value, float times)
     {
+        if (roleProperty.ContainsKey(rolePropertyType) == false)
+        {
+            roleProperty[rolePropertyType] = 0;
+        }
+
         roleProperty[rolePropertyType] += Random.Range(value.Min* times, value.Max * times);
     }
 }

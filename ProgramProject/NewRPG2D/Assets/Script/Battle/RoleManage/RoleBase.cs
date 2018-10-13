@@ -132,11 +132,11 @@ namespace Assets.Script.Battle
 
         private void InitRoleProperty()
         {
-            RolePropertyData data = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(CurrentRoleData.PropertyId);
-            RolePropertyValue.InitRoleOtherValue(data.RoleOtherData);
+            //RolePropertyData data = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(CurrentRoleData.PropertyId);
+          //  RolePropertyValue.InitRoleOtherValue(data.RoleOtherData);
         }
 
-        public void InitRoleBaseProperty(PropertyBaseData data, RoleDetailData detailInfo)
+        public void InitRoleBaseProperty(PropertyData data, RoleDetailData detailInfo)
         {
             RolePropertyValue.InitBaseRoleValue(data);
             RoleDetailInfo = detailInfo;
@@ -198,6 +198,11 @@ namespace Assets.Script.Battle
             }
 
             if (RoleActionMachine != null) RoleActionMachine.Update(deltaTime);
+
+            if (RoleWeapon != null)
+            {
+                RoleWeapon.UpdateLogic(deltaTime);
+            }
         }
 
         public virtual void Death()

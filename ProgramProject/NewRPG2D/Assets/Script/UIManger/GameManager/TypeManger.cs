@@ -40,6 +40,7 @@ public enum RoleAttribute
     Wood,//木工属性
     Iron,//矿工属性
     HurtType,//伤害类型
+
     DPS,//秒伤
     Crt,//暴击率
     PArmor,//物理护甲

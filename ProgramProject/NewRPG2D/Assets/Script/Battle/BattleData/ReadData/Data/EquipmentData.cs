@@ -38,7 +38,7 @@ namespace Assets.Script.Battle.BattleData
         public RangeData HPRange = new RangeData();
         public RangeData MagicArmorRange = new RangeData();
         public RangeData PhysicArmorRange = new RangeData();
-        public RangeData DropEquipRange = new RangeData();
+        public RangeData CritialRange = new RangeData();
         public RangeData AvoidHurtRange = new RangeData();
         public RangeData HitEnemyRange = new RangeData();
         public RangeData MagicDamageRange = new RangeData();
@@ -66,11 +66,10 @@ namespace Assets.Script.Battle.BattleData
             GetRange(ReadXmlDataMgr.StrParse(node, "HPRange"), out HPRange.Min, out HPRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "MagicArmorRange"), out MagicArmorRange.Min, out MagicArmorRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "PhysicArmorRange"), out PhysicArmorRange.Min, out PhysicArmorRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "DropEquipRange"), out DropEquipRange.Min, out DropEquipRange.Max);
+            GetRange(ReadXmlDataMgr.StrParse(node, "DropEquipRange"), out CritialRange.Min, out CritialRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "AvoidHurtRange"), out AvoidHurtRange.Min, out AvoidHurtRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "HitEnemyRange"), out HitEnemyRange.Min, out HitEnemyRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "MagicDamageRange"), out MagicDamageRange.Min, out MagicDamageRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "DropEquipRange"), out DropEquipRange.Min, out DropEquipRange.Max);
             for (int i = 0; i < RandomPropertyDatas.Length; i++)
             {
                 RandomPropertyDatas[i] = GetRandomPropertyData(node, i + 1);
