@@ -59,7 +59,7 @@ namespace Assets.Script.Battle
         private void CriticalDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
             float criticalPercent = BattleStaticAndEnum.RoleBaseCriticalPercent + attackProperty.CriticalPercent;
-            int promptOffeset = Mathf.Max(0, (int)(attackProperty.Prompt - targeProperty.Prompt));
+            int promptOffeset = 1;// Mathf.Max(0, (int)(attackProperty.Prompt - targeProperty.Prompt));
             int promptOffesetPercent = promptOffeset / BattleStaticAndEnum.RolePromptCalculate;
             criticalPercent = criticalPercent +
                               (promptOffesetPercent * 1.0f) /
@@ -72,7 +72,7 @@ namespace Assets.Script.Battle
 
         private void FinallyPhysicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-            float promptOffeset = attackProperty.Prompt - targeProperty.Prompt;
+            float promptOffeset = 1;//attackProperty.Prompt - targeProperty.Prompt;
             float hurtPercentRange = 0, hurtPercentRangeMin = 0f, hurtPercentRangeMax = 0f;
             if (promptOffeset > 0)
             {
@@ -92,7 +92,7 @@ namespace Assets.Script.Battle
                             BattleStaticAndEnum.RoleDefenseRangePercentMax);
 
             hurtValue = hurtValue*BattleStaticAndEnum.RoleHurtPercent*hurtPercentRange -
-                        targeProperty.Defense*BattleStaticAndEnum.RoleDefensePercent*defensePercentRange;
+                       BattleStaticAndEnum.RoleDefensePercent*defensePercentRange;
 
             hurtValue = Mathf.Max(1, hurtValue);
 

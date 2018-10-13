@@ -25,7 +25,6 @@ namespace Assets.Script.Utility
 
         //战斗内的
         RoleData,
-        RolePropertyData,
         SkillData,
         CreateEnemyData,
         Battle,
@@ -37,6 +36,7 @@ namespace Assets.Script.Utility
 
         Max,
 
+        RolePropertyData,
         //动态读取
         MapSceneLevel,
         BufferData,

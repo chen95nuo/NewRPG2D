@@ -135,29 +135,29 @@ namespace Assets.Script.Battle
             return perfab.GetComponent<T>();
         }
 
-        private PropertyBaseData GetPropertyBaseData(RoleDetailData data)
-        {
-            if (data == null)
-            {
-                DebugHelper.LogError("dont find role info");
-                return default(PropertyBaseData);
-            }
-            PropertyBaseData propertyBaseData = new PropertyBaseData();
-            // propertyBaseData.RoleProperty = data.AgileGrow
-            float growValueMin = 0;
-            float growValueMax = 0;
-            float baseValue = data.Health;
-            propertyBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+        //private PropertyBaseData GetPropertyBaseData(RoleDetailData data)
+        //{
+        //    if (data == null)
+        //    {
+        //        DebugHelper.LogError("dont find role info");
+        //        return default(PropertyBaseData);
+        //    }
+        //    PropertyBaseData propertyBaseData = new PropertyBaseData();
+        //    // propertyBaseData.RoleProperty = data.AgileGrow
+        //    float growValueMin = 0;
+        //    float growValueMax = 0;
+        //    float baseValue = data.Health;
+        //    propertyBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
 
-             baseValue = data.Defense;
-            propertyBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+        //     baseValue = data.Defense;
+        //    propertyBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
 
-             baseValue = data.Agile;
-            propertyBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+        //     baseValue = data.Agile;
+        //    propertyBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
 
-             baseValue = data.Attack;
-            propertyBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-            return propertyBaseData;
-        }
+        //     baseValue = data.Attack;
+        //    propertyBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
+        //    return propertyBaseData;
+        //}
     }
 }

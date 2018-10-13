@@ -11,7 +11,7 @@ namespace Assets.Script.Battle.BattleData
     {
         public string Name;
         public PropertyData RoleOtherData;
-        public PropertyBaseData RoleBaseData;
+      //  public PropertyBaseData RoleBaseData;
         public override XmlName ItemXmlName
         {
             get { return XmlName.RolePropertyData; }
@@ -19,13 +19,13 @@ namespace Assets.Script.Battle.BattleData
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
-            RoleBaseData = new PropertyBaseData();
+          //  RoleBaseData = new PropertyBaseData();
             RoleOtherData = new PropertyData();
            // Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
             //RoleBaseData.RoleProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "RoleProperty");
-            RoleOtherData.AttackProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "AttackProperty");
-            RoleOtherData.DefenseProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "DefenseProperty");
+            //RoleOtherData.AttackProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "AttackProperty");
+            //RoleOtherData.DefenseProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "DefenseProperty");
 
             //float baseValue = ReadXmlDataMgr.IntParse(node, "BaseHP");
             //float growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowHPMin");
@@ -49,13 +49,13 @@ namespace Assets.Script.Battle.BattleData
 
             RoleOtherData.AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             RoleOtherData.MoveSpeed = ReadXmlDataMgr.FloatParse(node, "BaseMoveSpeed");
-            RoleOtherData.DizzyChance = ReadXmlDataMgr.FloatParse(node, "Dizzy");
-            RoleOtherData.HitEnemyHeal = ReadXmlDataMgr.FloatParse(node, "DrainHP");
-            RoleOtherData.ReduceCD = ReadXmlDataMgr.FloatParse(node, "ReduceCDTime");
-            RoleOtherData.HealTeam = ReadXmlDataMgr.FloatParse(node, "Heal");
-            RoleOtherData.HealPerSecond = ReadXmlDataMgr.FloatParse(node, "HealPerSecond");
-            RoleOtherData.FireHurt = ReadXmlDataMgr.FloatParse(node, "BurnHurt");
-            RoleOtherData.ReflectHurt = ReadXmlDataMgr.FloatParse(node, "ReflectHurt");
+            //RoleOtherData.DizzyChance = ReadXmlDataMgr.FloatParse(node, "Dizzy");
+            //RoleOtherData.HitEnemyHeal = ReadXmlDataMgr.FloatParse(node, "DrainHP");
+            //RoleOtherData.ReduceCD = ReadXmlDataMgr.FloatParse(node, "ReduceCDTime");
+            //RoleOtherData.HealTeam = ReadXmlDataMgr.FloatParse(node, "Heal");
+            //RoleOtherData.HealPerSecond = ReadXmlDataMgr.FloatParse(node, "HealPerSecond");
+            //RoleOtherData.FireHurt = ReadXmlDataMgr.FloatParse(node, "BurnHurt");
+            //RoleOtherData.ReflectHurt = ReadXmlDataMgr.FloatParse(node, "ReflectHurt");
             return base.GetXmlDataAttribute(node);
         }
     }
