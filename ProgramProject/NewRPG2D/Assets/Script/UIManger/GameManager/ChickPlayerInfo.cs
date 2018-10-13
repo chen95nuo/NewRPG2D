@@ -74,6 +74,13 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 }
             }
         }
+
+        //删除所有改变过的房间
+        for (int i = 0; i < ChangeBuilding.Count; i++)
+        {
+            RemoveBuilding(ChangeBuilding[i]);
+        }
+
         List<EditSaveHelper> ChangeData = new List<EditSaveHelper>();
         Debug.Log("将原房间筛选一遍 让同类型的放在一起");
         for (int i = 0; i < newRoom.Count; i++)
@@ -104,6 +111,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 }
             }
         }
+        MainCastle.instance.RefreshBuilding(AllBuilding, newRoom);
     }
 
 

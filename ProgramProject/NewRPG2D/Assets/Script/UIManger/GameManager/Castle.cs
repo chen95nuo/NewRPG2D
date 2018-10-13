@@ -135,15 +135,7 @@ public class Castle : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 刷新建筑 在编辑模式保存后常规模式需要刷新建筑的位置
-    /// </summary>
-    /// <param name="allbuilding"></param>
-    protected virtual void RefreshBuilding(List<LocalBuildingData> allbuilding)
-    {
-        ResetWall();
 
-    }
 
     /// <summary>
     /// 检测当前房间是否可以合并
