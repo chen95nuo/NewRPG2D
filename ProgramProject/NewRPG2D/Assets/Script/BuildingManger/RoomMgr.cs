@@ -94,7 +94,15 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }
-
+    public void Clear()
+    {
+        castleMgr = null;
+        buidStartPoint = Vector3.zero;
+        wall = null;
+        emptyPoints = new EmptyPoint[4];
+        nearbyRoom = new RoomMgr[4];
+        changeData = null;
+    }
     public int Id
     {
         get
@@ -162,6 +170,7 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.buildingData.RoomName;
         }
     }
+
 
     public bool IsHarvest
     {
@@ -323,7 +332,8 @@ public abstract class RoomMgr : MonoBehaviour
     public void UpdateBuilding(LocalBuildingData data, Castle castle)
     {
         currentBuildData = data;
-        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
+        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom
+            && MapControl.instance.type == CastleType.main)
         {
             PlayerData playerdata = GetPlayerData.Instance.GetData();
             playerdata.MainHall = currentBuildData;
@@ -338,7 +348,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (data.buildingData.NeedTime != 0)
             {
                 //新建的建筑需要建造时间 那么开始施工
-                ConstructionStart(data.buildingData);
+                ConstructionStart(data.buildingData.ItemId, 0);
             }
             else
             {
@@ -363,7 +373,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// 直接创建建筑
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateBuilding(LocalBuildingData data, Castle castle, bool isRun)
+    public void UpdateBuilding(LocalBuildingData data, Castle castle, ServerBuildData s_data)
     {
         currentBuildData = data;
         if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
@@ -382,15 +392,6 @@ public abstract class RoomMgr : MonoBehaviour
             Debug.Log("添加监听");
             //施工结束就添加事件
             ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-        }
-
-        for (int i = 0; i < currentBuildData.roleData.Length; i++)
-        {
-            if (currentBuildData.roleData[i] != null)
-            {
-                Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 1)), transform.position.y + 4f, 0);
-                HallRoleMgr.instance.BuildServerRole(currentBuildData.roleData[i], this);
-            }
         }
     }
 
@@ -425,14 +426,15 @@ public abstract class RoomMgr : MonoBehaviour
         //将建筑的使用信息改为停用 将墙面移动回原位
         this.gameObject.transform.position = new Vector2(-1000, -1000);
         MapControl.instance.removeRoom.Add(this);
-        castleMgr.allroom.Remove(this);
+        MapControl.instance.RemoveRoom(this);
+        bool isRemove = castleMgr.allroom.Remove(this);
         int startX = (int)StartPoint.x;
         int startY = (int)StartPoint.y;
 
         for (int i = 0; i < wall.Length; i++)
         {
             wall[i].pointType = BuildingType.Wall;
-            wall[i].pointWall.Translate(Vector3.forward * 1000);
+            wall[i].pointWall.localPosition = new Vector3(wall[i].pointWall.localPosition.x, wall[i].pointWall.localPosition.y, 0);
             wall[i].roomMgr = null;
         }
 
@@ -836,7 +838,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// 开始施工
     /// </summary>
     /// <param name="data">当前房间需要变成哪个</param>
-    public void ConstructionStart(BuildingData data)
+    public void ConstructionStart(int nextId, int time)
     {
         if (ConstructionType == true)
         {
@@ -844,8 +846,16 @@ public abstract class RoomMgr : MonoBehaviour
             return;
         }
         ConstructionType = true;
-        changeData = data;//记录需要升级的DATA信息 
-        needTime = data.NeedTime * 6;
+        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(nextId);
+        changeData = data;//记录需要升级的DATA信息
+        if (time == 0)
+        {
+            time = data.NeedTime;
+        }
+        else
+        {
+            needTime = time;
+        }
         timeIndex = ChickPlayerInfo.instance.Timer(this, needTime);
         levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
         listNumber = levelUpTip.AddLister();
@@ -888,7 +898,10 @@ public abstract class RoomMgr : MonoBehaviour
         }
         CameraControl.instance.RefreshRoomLock(this);
         //检查合并
-        castleMgr.ChickMergeRoom(this);
+        if (MapControl.instance.type == CastleType.main)
+        {
+            castleMgr.ChickMergeRoom(this);
+        }
         ChickComplete();
     }
 

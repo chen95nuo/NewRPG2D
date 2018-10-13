@@ -39,10 +39,7 @@ public class GameMain : MonoBehaviour
 
     private void test_2()
     {
-        LocalServer.instance.TestRoom();
-        for (int i = 0; i < 20; i++)
-        {
-            HallRoleMgr.instance.BuildNewRole();
-        }
+        LocalServer.instance.StartInit();
+
     }
 }

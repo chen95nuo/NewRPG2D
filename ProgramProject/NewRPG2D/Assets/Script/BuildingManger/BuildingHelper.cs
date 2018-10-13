@@ -6,17 +6,27 @@ using UnityEngine;
 
 public class ServerBuildData
 {
-    public int id;//房间ID
+    public int id;//数据ID
+    public int RoomId;//房间ID
     public Vector2 buildingPoint;//房间位置
     public float Stock = 0;
-    public bool levelUp = false;
+    public bool ConstructionType = false;
+    public int levelUPTime;
+    public int levelUpId;
 
     public ServerBuildData() { }
-    public ServerBuildData(int id, Vector2 point, float Stock)
+    public ServerBuildData(int id, int RoomId, Vector2 point, float Stock, int levelUPTime, int levelUpId)
     {
         this.id = id;
+        this.RoomId = RoomId;
         this.buildingPoint = point;
         this.Stock = Stock;
+        this.levelUPTime = levelUPTime;
+        this.levelUpId = levelUpId;
+        if (levelUPTime != 0)
+        {
+            ConstructionType = true;
+        }
     }
 }
 
@@ -162,20 +172,29 @@ public class LocalBuildingData
         return 0;
     }
     public LocalBuildingData() { }
-    public LocalBuildingData(int id, Vector2 point, BuildingData data, int maxRole)
+    public LocalBuildingData(Vector2 point, BuildingData data)
     {
-        this.id = id;
         this.buildingPoint = point;
         this.buildingData = data;
+        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(data);
         roleData = new HallRoleData[maxRole];
     }
-    public LocalBuildingData(int id, Vector2 point, BuildingData data, float Stock, HallRoleData[] roleData)
+    public LocalBuildingData(int id, Vector2 point, BuildingData roomData)
     {
         this.id = id;
         this.buildingPoint = point;
-        this.buildingData = data;
+        this.buildingData = roomData;
+        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
+        roleData = new HallRoleData[maxRole];
+    }
+    public LocalBuildingData(int id, Vector2 point, BuildingData roomData, float Stock)
+    {
+        this.id = id;
+        this.buildingPoint = point;
+        this.buildingData = roomData;
         this.Stock = Stock;
-        this.roleData = roleData;
+        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
+        roleData = new HallRoleData[maxRole];
     }
 }
 

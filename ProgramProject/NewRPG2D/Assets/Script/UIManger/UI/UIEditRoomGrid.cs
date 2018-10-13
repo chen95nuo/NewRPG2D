@@ -39,7 +39,7 @@ public class UIEditRoomGrid : MonoBehaviour
     }
     public void ChickNumber()
     {
-        if (s_data.buildingData.Count >= 0)
+        if (s_data.buildingData.Count <= 0)
         {
             return;
         }

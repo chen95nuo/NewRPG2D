@@ -16,6 +16,7 @@ public class MapControl : MonoBehaviour
     public List<BuildTip> allTips = new List<BuildTip>();
     public GameObject buildTip;//提示框
     public Transform TipPoint;//提示框位置
+    public Transform RemoveRoomPoint;//删除的房间位置
 
     private Camera cam;
     private Vector3 SaveCameraPoint;
@@ -54,12 +55,13 @@ public class MapControl : MonoBehaviour
         UIPanelManager.instance.ShowPage<UIEditMode>();
         CameraControl.instance.CloseRoomLock();
         CameraControl.instance.RefreshRoomLock(null);
-        if (first == true)
-        {
-            EditCastle.instance.ResetEditRoom();
-            return;
-        }
-        EditCastle.instance.ShowMainMapRoom();
+        EditCastle.instance.ResetEditRoom();
+        //if (first == true)
+        //{
+        //    EditCastle.instance.ResetEditRoom();
+        //    return;
+        //}
+        //EditCastle.instance.ShowMainMapRoom();
     }
 
     public bool BuildingRoomTip(BuildingData data, List<EmptyPoint> point, Castle castle, int index, int i)
@@ -98,5 +100,11 @@ public class MapControl : MonoBehaviour
         {
             allTips[i].transform.position = new Vector2(-1000, -1000);
         }
+    }
+
+    public void RemoveRoom(RoomMgr mgr)
+    {
+        mgr.transform.parent = RemoveRoomPoint;
+        mgr.transform.position = Vector3.zero;
     }
 }

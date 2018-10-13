@@ -21,6 +21,9 @@ public class LocalServer : TSingleton<LocalServer>
         }
     }
 
+    private List<ServerBuildData> saveRoomData;
+    private List<HallRoleData> saveRoleData;
+
     /// <summary>
     /// 房间施工用 计时器
     /// </summary>
@@ -56,36 +59,47 @@ public class LocalServer : TSingleton<LocalServer>
         Debug.Log("钻石加速没有找到计时器");
     }
 
+    public void StartInit()
+    {
+        if (saveRoomData == null)
+        {
+            TestRoom();
+        }
+        ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
+        if (saveRoleData == null)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                HallRoleMgr.instance.BuildNewRole();
+            }
+        }
+        MagicLevel();
+    }
+
     /// <summary>
     /// 初始刷新房间
     /// </summary>
-    public void TestRoom()
+    private void TestRoom()
     {
-        List<ServerBuildData> data = new List<ServerBuildData>();
-        ServerBuildData s_1 = new ServerBuildData(10035, new Vector2(6, 0), 0);
-        data.Add(s_1);
-        ServerBuildData s_2 = new ServerBuildData(10035, new Vector2(6, 1), 0);
-        data.Add(s_2);
-        ServerBuildData s_3 = new ServerBuildData(10035, new Vector2(6, 2), 0);
-        data.Add(s_3);
-        ServerBuildData s_4 = new ServerBuildData(10010, new Vector2(7, 1), 0);
-        data.Add(s_4);
-        ServerBuildData s_5 = new ServerBuildData(10013, new Vector2(7, 0), 0);
-        data.Add(s_5);
-        ServerBuildData s_6 = new ServerBuildData(10031, new Vector2(7, 2), 0);
-        data.Add(s_6);
-        ServerBuildData s_7 = new ServerBuildData(10016, new Vector2(3, 0), 3000);
-        data.Add(s_7);
-        ChickPlayerInfo.instance.ChickBuildDic(data);
-
-        int[] level = new int[6];
-        for (int i = 0; i < level.Length; i++)
-        {
-            level[i] = 3;
-        }
-        HallRoleData r_1 = new HallRoleData(3, level);
-        HallRoleData r_2 = new HallRoleData(3, level);
-        MagicLevel();
+        saveRoomData = new List<ServerBuildData>();
+        ServerBuildData s_1 = new ServerBuildData(1,10035, new Vector2(6, 0), 0, 0, 0);
+        saveRoomData.Add(s_1);
+        ServerBuildData s_2 = new ServerBuildData(2, 10035, new Vector2(6, 1), 0, 0, 0);
+        saveRoomData.Add(s_2);
+        ServerBuildData s_3 = new ServerBuildData(3, 10035, new Vector2(6, 2), 0, 0, 0);
+        saveRoomData.Add(s_3);
+        ServerBuildData s_4 = new ServerBuildData(4, 10012, new Vector2(7, 1), 0, 0, 0);
+        saveRoomData.Add(s_4);
+        ServerBuildData s_8 = new ServerBuildData(8, 10001, new Vector2(10, 2), 0, 0, 0);
+        saveRoomData.Add(s_8);
+        ServerBuildData s_9 = new ServerBuildData(9, 10001, new Vector2(13, 2), 0, 0, 0);
+        saveRoomData.Add(s_9);
+        ServerBuildData s_5 = new ServerBuildData(5, 10013, new Vector2(7, 0), 0, 0, 0);
+        saveRoomData.Add(s_5);
+        ServerBuildData s_6 = new ServerBuildData(6, 10031, new Vector2(7, 2), 0, 0, 0);
+        saveRoomData.Add(s_6);
+        ServerBuildData s_7 = new ServerBuildData(7, 10016, new Vector2(3, 0), 3000, 0, 0);
+        saveRoomData.Add(s_7);
     }
 
     /// <summary>

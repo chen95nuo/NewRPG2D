@@ -84,6 +84,10 @@ public class Castle : MonoBehaviour
         {
             for (int j = 0; j < buildW; j++)
             {
+                if (buildPoint[j, i].pointWall == null)
+                {
+                    continue;
+                }
                 buildPoint[j, i].pointType = BuildingType.Wall;
                 buildPoint[j, i].roomMgr = null;
                 buildPoint[j, i].tip = null;
@@ -138,77 +142,8 @@ public class Castle : MonoBehaviour
     protected virtual void RefreshBuilding(List<LocalBuildingData> allbuilding)
     {
         ResetWall();
-        for (int i = 0; i < allbuilding.Count; i++)
-        {
-            for (int j = 0; j < allroom.Count; j++)
-            {
-                if (allbuilding[i].id == allroom[j].Id)
-                {
-                    allroom[j].BuildingMove(allbuilding[i], this);//移动到位置
-                    allroom[j].ChickLeftOrRight(buildPoint);//检查空位信息
-                    break;
-                }
-            }
-            //如果没找到对应的那么新建
-            AddBuilding(allbuilding[i]);
-        }
 
-        //如果房间没找到对应的位置数据 那么删除该房间
-        for (int i = 0; i < allroom.Count; i++)
-        {
-            Vector2 startPoint = allroom[i].buidStartPoint;
-            if (buildPoint[(int)startPoint.x, (int)startPoint.y].roomMgr != allroom[i])
-            {
-                //这里是没有对应数据的房间 可能是被合成或者拆分了
-                allroom[i].RemoveBuilding();
-                allroom.RemoveAt(i);
-            }
-        }
     }
-
-    /// <summary>
-    /// 实例化房间 服务器模式
-    /// </summary>
-    /// <param name="data"></param>
-    /// <returns>返回房间ID</returns>
-    public virtual int AddBuilding(ServerBuildData data)
-    {
-        //让本地新建房间 检测位置 让管理器去
-        ChickPlayerInfo.instance.buildingIdIndex++;
-        return ChickPlayerInfo.instance.buildingIdIndex;
-    }
-    /// <summary>
-    /// 实例化房间 用于合并 直接创建并移动到
-    /// </summary>
-    /// <param name="data"></param>
-    public virtual void AddBuilding(LocalBuildingData data)
-    {
-        InstanceRoom(data);
-    }
-
-    /// <summary>
-    /// 实例化房间 用于合并 直接创建并移动到
-    /// </summary>
-    /// <param name="data"></param>
-    public virtual void AddBuilding(LocalBuildingData data, bool isRun)
-    {
-        InstanceRoom(data, isRun);
-    }
-
-    /// <summary>
-    /// 实例化房间 Data新建
-    /// </summary>
-    /// <param name="data"></param>
-    /// <returns>返回房间ID</returns>
-    public virtual void AddBuilding(Vector2 startPoint)
-    {
-        ChickPlayerInfo.instance.buildingIdIndex++;
-        int size = ChickPlayerInfo.instance.ChickRoomSize(currentBuilding);
-        LocalBuildingData localData = new LocalBuildingData(ChickPlayerInfo.instance.buildingIdIndex, startPoint, currentBuilding, size);
-        ChickPlayerInfo.instance.AddBuilding(localData);
-        InstanceRoom(localData);
-    }
-
 
     /// <summary>
     /// 检测当前房间是否可以合并
@@ -243,45 +178,27 @@ public class Castle : MonoBehaviour
                 }
                 LocalBuildingData s_data = new LocalBuildingData();
                 //判断谁在左边
-                ChickPlayerInfo.instance.buildingIdIndex++;
                 if (data.nearbyRoom[i].buidStartPoint.x < data.buidStartPoint.x)
                 {
                     Debug.Log("对方靠左");
-                    int size = ChickPlayerInfo.instance.ChickRoomSize(b_data);
-
                     //和对方合并
-                    s_data = new LocalBuildingData(ChickPlayerInfo.instance.buildingIdIndex, data.nearbyRoom[i].buidStartPoint, b_data, size);
+                    s_data = new LocalBuildingData(data.nearbyRoom[i].buidStartPoint, b_data);
                 }
                 else
                 {
                     Debug.Log("我方靠左");
-
-                    int size = ChickPlayerInfo.instance.ChickRoomSize(b_data);
-                    s_data = new LocalBuildingData(ChickPlayerInfo.instance.buildingIdIndex, data.buidStartPoint, b_data, size);
+                    s_data = new LocalBuildingData(data.buidStartPoint, b_data);
                 }
-                //这边要匹配是不是编辑模式
-                switch (castleType)
-                {
-                    case CastleType.main:
-                        ChickPlayerInfo.instance.MergeRoom(data.currentBuildData, data.nearbyRoom[i].currentBuildData, s_data);
-                        //如果主场景房间升级或建造成功造成房间合并
-                        if (MapControl.instance.type == CastleType.edit)
-                        {
-                            //如果可以合并但是模式是建造模式 那么通知建造模式删除该建筑并合并该建筑
-                            EditCastle.instance.FindMergeRoom(data, data.nearbyRoom[i]);
-                        }
-                        break;
-                    case CastleType.edit:
-                        EditCastle.instance.ChickMergeRoom(data.currentBuildData, data.nearbyRoom[i].currentBuildData, s_data);
-                        break;
-                    default:
-                        break;
-                }
-                data.nearbyRoom[i].RemoveBuilding();
-                data.RemoveBuilding();
-                InstanceRoom(s_data);
+                MergeRoom(data, data.nearbyRoom[i], s_data);
             }
         }
+    }
+
+    public virtual void MergeRoom(RoomMgr room_1, RoomMgr room_2, LocalBuildingData mergeData)
+    {
+        room_1.RemoveBuilding();
+        room_2.RemoveBuilding();
+        ChickPlayerInfo.instance.AddBuilding(mergeData);
     }
 
     /// <summary>
@@ -292,7 +209,8 @@ public class Castle : MonoBehaviour
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
         BuildTip tip = hit.collider.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
-        AddBuilding(startPoint);
+        LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
+        ChickPlayerInfo.instance.AddBuilding(data);
         //删除当前已使用空位
         allEmptyPoint.Remove(tip.emptyPoint);
         //将所有标签移出屏幕
@@ -344,6 +262,7 @@ public class Castle : MonoBehaviour
                 Debug.Log("有相同的  : " + data.buildingData);
                 RoomMgr room = removeRoom[i];
                 allroom.Add(room);
+                room.transform.parent = buildingPoint;
                 room.UpdateBuilding(data, this);
                 removeRoom.Remove(removeRoom[i]);
                 return room;
@@ -368,8 +287,8 @@ public class Castle : MonoBehaviour
         go = Instantiate(go, buildingPoint) as GameObject;
         go.name = data.buildingData.RoomName.ToString();
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
-        room_1.UpdateBuilding(data, this);
         allroom.Add(room_1);
+        room_1.UpdateBuilding(data, this);
         return room_1;
     }
 
@@ -392,7 +311,7 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 生成房间
     /// </summary>
-    public RoomMgr InstanceRoom(LocalBuildingData data, bool isRun)
+    public RoomMgr InstanceRoom(LocalBuildingData data, ServerBuildData s_data)
     {
         List<RoomMgr> removeRoom = MapControl.instance.removeRoom;
         for (int i = 0; i < removeRoom.Count; i++)
@@ -403,7 +322,7 @@ public class Castle : MonoBehaviour
                 Debug.Log("有相同的  : " + data.buildingData);
                 RoomMgr room = removeRoom[i];
                 allroom.Add(room);
-                room.UpdateBuilding(data, this, isRun);
+                room.UpdateBuilding(data, this, s_data);
                 removeRoom.Remove(removeRoom[i]);
                 return room;
             }
@@ -427,7 +346,7 @@ public class Castle : MonoBehaviour
         go = Instantiate(go, buildingPoint) as GameObject;
         go.name = data.buildingData.RoomName.ToString();
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
-        room_1.UpdateBuilding(data, this, isRun);
+        room_1.UpdateBuilding(data, this, s_data);
         allroom.Add(room_1);
         return room_1;
     }

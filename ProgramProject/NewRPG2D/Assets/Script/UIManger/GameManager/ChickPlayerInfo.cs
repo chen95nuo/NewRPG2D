@@ -17,9 +17,18 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     private Dictionary<int, LocalBuildingData> production = new Dictionary<int, LocalBuildingData>();//产出房间
     private Dictionary<MagicName, int> MagicLevel = new Dictionary<MagicName, int>();
     private List<LocalBuildingData> storage;
-    public int buildingIdIndex = 0;
+    private int buildingIdIndex = 0;
 
     private int EventKey = 0;
+
+    private int BuildingIdIndex
+    {
+        get
+        {
+            buildingIdIndex++;
+            return buildingIdIndex;
+        }
+    }
 
     /// <summary>
     /// 将建筑数量和信息格式化
@@ -41,6 +50,65 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
+    /// 编辑模式保存了
+    /// </summary>
+    public void ChickEditSave(List<LocalBuildingData> editAllBuilding, List<LocalBuildingData> ChangeBuilding)
+    {
+        List<LocalBuildingData> newRoom = new List<LocalBuildingData>();
+        Debug.Log("筛选出新的房间和将移位的房间位置改变");
+        for (int i = 0; i < editAllBuilding.Count; i++)
+        {
+            if (editAllBuilding[i].id == 0)
+            {
+                newRoom.Add(editAllBuilding[i]);
+            }
+            else
+            {
+                for (int j = 0; j < AllBuilding.Count; j++)
+                {
+                    if (editAllBuilding[i].id == AllBuilding[j].id)
+                    {
+                        AllBuilding[j].buildingPoint = editAllBuilding[i].buildingPoint;
+                        break;
+                    }
+                }
+            }
+        }
+        List<EditSaveHelper> ChangeData = new List<EditSaveHelper>();
+        Debug.Log("将原房间筛选一遍 让同类型的放在一起");
+        for (int i = 0; i < newRoom.Count; i++)
+        {
+            int size = newRoom[i].buildingData.RoomSize / 3;
+            for (int j = 0; j < ChangeBuilding.Count; j++)
+            {
+                if (newRoom[i].buildingData.ItemId == ChangeBuilding[j].buildingData.SplitID)
+                {
+                    float stock = ChangeBuilding[j].Stock / (ChangeBuilding[j].buildingData.RoomSize / 3);
+                    newRoom[i].Stock = stock;
+                    break;
+                }
+                else if (newRoom[i].buildingData.MergeID == ChangeBuilding[j].buildingData.ItemId)
+                {
+                    float stock = ChangeBuilding[j].Stock / 3;
+                    newRoom[i].Stock = stock * size;
+                    if (size != 2)
+                    {
+                        Debug.LogError("错误  Size不等于2");
+                    }
+                    break;
+                }
+                else if (newRoom[i].buildingData.SplitID == ChangeBuilding[j].buildingData.ItemId)
+                {
+                    newRoom[i].Stock += ChangeBuilding[j].Stock;
+                    ChangeBuilding.RemoveAt(j);
+                }
+            }
+        }
+    }
+
+
+
+    /// <summary>
     /// 获取服务器上的建筑数据后 将其转为本地信息
     /// </summary>
     /// <param name="s_BuildData"></param>
@@ -48,15 +116,18 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     {
         for (int i = 0; i < s_BuildData.Count; i++)
         {
-            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(s_BuildData[i].id);
+            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(s_BuildData[i].RoomId);
+            if (s_BuildData[i].id > buildingIdIndex)
+            {
+                buildingIdIndex = s_BuildData[i].id;
+            }
             for (int j = 0; j < dic[data.RoomName].Length; j++)
             {
                 if (dic[data.RoomName][j] == null)
                 {
-                    buildingIdIndex++;
-                    int size = ChickRoomSize(data);
-                    dic[data.RoomName][j] = new LocalBuildingData(buildingIdIndex, s_BuildData[i].buildingPoint, data, size);
-                    MainCastle.instance.AddBuilding(dic[data.RoomName][j], false);
+                    dic[data.RoomName][j] = new LocalBuildingData(s_BuildData[i].id, s_BuildData[i].buildingPoint, data, s_BuildData[i].Stock);
+                    AllBuilding.Add(dic[data.RoomName][j]);
+                    MainCastle.instance.InstanceRoom(dic[data.RoomName][j], s_BuildData[i]);
                     if (ChickStorage(dic[data.RoomName][j]))
                     {
                         dic[data.RoomName][j].Stock = s_BuildData[i].Stock;
@@ -471,28 +542,15 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
-    /// 获取服务器上数据转成本地数据
-    /// </summary>
-    /// <param name="allBuidling"></param>
-    public void SetAllBuilding(List<ServerBuildData> allBuidling)
-    {
-        for (int i = 0; i < allBuidling.Count; i++)
-        {
-            int index = MainCastle.instance.AddBuilding(allBuidling[i]);
-            BuildingData TempData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(allBuidling[i].id);
-            LocalBuildingData data = new LocalBuildingData(index, allBuidling[i].buildingPoint, TempData, ChickRoomSize(TempData));
-            AllBuilding.Add(data);
-        }
-    }
-
-    /// <summary>
-    /// 新建建筑 添加建筑
+    /// 新建建筑 添加建筑 注:无ID
     /// </summary>
     /// <param name="data"></param>
     public void AddBuilding(LocalBuildingData data)
     {
+        data.id = BuildingIdIndex;
         AllBuilding.Add(data);
         ChickBuildDicAdd(data);
+        MainCastle.instance.InstanceRoom(data);
     }
 
     /// <summary>
@@ -966,4 +1024,20 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 修改技能等级
     /// </summary>
     public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
+}
+
+public class EditSaveHelper
+{
+    public List<LocalBuildingData> ChangeData;
+    public int number;
+    public int Size { get { return ChangeData[0].buildingData.RoomSize; } }
+    public int Level { get { return ChangeData[0].buildingData.Level; } }
+    public BuildRoomName Name { get { return ChangeData[0].buildingData.RoomName; } }
+
+    public EditSaveHelper(LocalBuildingData data)
+    {
+        ChangeData = new List<LocalBuildingData>();
+        int number = data.buildingData.RoomSize / 3;
+        ChangeData.Add(data);
+    }
 }

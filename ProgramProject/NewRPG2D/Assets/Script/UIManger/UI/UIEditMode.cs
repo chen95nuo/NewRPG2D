@@ -87,57 +87,37 @@ public class UIEditMode : TTUIPage
     /// </summary>
     private void ChickSplit()
     {
+        if (selectRoom.currentBuildData.id > 0)
+        {
+            EditCastle.instance.ChangeBuilding.Add(selectRoom.currentBuildData);
+        }
+        EditCastle.instance.editAllBuilding.Remove(selectRoom.currentBuildData);
         int index = selectRoom.BuildingData.RoomSize / 3;
         BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(selectRoom.BuildingData.SplitID);
-        List<EditMergeRoomData> mergeRoom = EditCastle.instance.allMergeRoom;
         EditCastle.instance.RemoveRoom(selectRoom);
-        //查找合并表内是否有改建筑 如果有 释放
-        for (int i = 0; i < mergeRoom.Count; i++)
-        {
-            if (mergeRoom[i].mergeRoom.id == selectRoom.currentBuildData.id)
-            {
-                ReleaseRoom(mergeRoom[i].room_1);
-                ReleaseRoom(mergeRoom[i].room_2);
-                ReleaseRoom(mergeRoom[i].room_3);
-                ShowMenu(null);
-                return;
-            }
-        }
-        Debug.Log(index);
         for (int i = 0; i < index; i++)
         {
-            int id = ChickPlayerInfo.instance.buildingIdIndex++;
-            int size = ChickPlayerInfo.instance.ChickRoomSize(data);
-            LocalBuildingData s_data = new LocalBuildingData(id, Vector2.zero, data, size);
+            LocalBuildingData s_data = new LocalBuildingData(Vector2.zero, data);
             ListAddData(s_data);
         }
         ShowMenu(null);
     }
 
     /// <summary>
-    /// 拆分时发现曾合并过则拆分
+    /// 检查删除房间
     /// </summary>
-    /// <param name="data"></param>
-    private void ReleaseRoom(LocalBuildingData data)
-    {
-        if (data == null)
-        {
-            return;
-        }
-        ListAddData(data);
-    }
-
     private void ChickRemove()
     {
         ListAddData(selectRoom.currentBuildData);
         EditCastle.instance.RemoveRoom(selectRoom);
         ShowMenu(null);
     }
-
+    /// <summary>
+    /// 检查删除房间
+    /// </summary>
     public void ChickRemove(RoomMgr room)
     {
         ListAddData(room.currentBuildData);
-        EditCastle.instance.RemoveRoom(room);
         ShowMenu(null);
     }
 
@@ -159,17 +139,25 @@ public class UIEditMode : TTUIPage
             //有未建造建筑 保存失败
             return;
         }
+        EditCastle.instance.SaveAllBuild();
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
     }
 
     private void ChickRepair()
     {
+        ChickClearAll();
         //关闭锁定状态
         CameraControl.instance.CloseRoomLock();
         //恢复至原城堡形象
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.EditMgr);
-        rooms.Clear();//清除被删除的房间信息
-
+        EditCastle.instance.ResetEditRoom();
+        rooms.Clear();
+        if (roomGrid != null)
+        {
+            for (int i = 0; i < roomGrid.Count; i++)
+            {
+                roomGrid[i].gameObject.SetActive(false);
+            }
+        }
     }
     private void ChickClearAll()
     {
@@ -179,7 +167,7 @@ public class UIEditMode : TTUIPage
         CameraControl.instance.CloseRoomLock();
 
         //清除所有建筑
-        EditCastle.instance.ResetEditRoom();
+        EditCastle.instance.RemoveAllRoom();
     }
     private void ClearCallBack(LocalBuildingData data)
     {
@@ -207,7 +195,10 @@ public class UIEditMode : TTUIPage
     {
         for (int i = 0; i < rooms.Count; i++)
         {
-            if (rooms[i].buildingData[0].id == data.id)
+            if (rooms[i].buildingData[0].buildingData.RoomName == data.buildingData.RoomName
+                && rooms[i].buildingData[0].buildingData.Level == data.buildingData.Level
+                && rooms[i].buildingData[0].buildingData.RoomSize == data.buildingData.RoomSize
+                && rooms[i].buildingData[0].ConstructionType == data.ConstructionType)
             {
                 rooms[i].buildingData.RemoveAt(0);
                 if (rooms[i].number <= 0)

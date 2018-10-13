@@ -7,7 +7,7 @@ public class EditCastle : Castle
     public static EditCastle instance;
     public List<LocalBuildingData> editAllBuilding = new List<LocalBuildingData>();
     public List<LocalBuildingData> allRemoveRoom = new List<LocalBuildingData>();
-    public List<EditMergeRoomData> allMergeRoom = new List<EditMergeRoomData>();
+    public List<LocalBuildingData> ChangeBuilding = new List<LocalBuildingData>();
     private LocalBuildingData currentLocalData;
     private void Awake()
     {
@@ -15,29 +15,9 @@ public class EditCastle : Castle
         Init();
     }
 
-    private void OnEnable()
+    public void SaveAllBuild()
     {
-        ShowMainMapRoom();
-    }
-
-    /// <summary>
-    /// 显示所有房间
-    /// </summary>
-    public void ShowMainMapRoom()
-    {
-        List<LocalBuildingData> AllBuilding = ChickPlayerInfo.instance.GetAllBuilding();
-
-        for (int i = 0; i < AllBuilding.Count; i++)
-        {
-            for (int j = 0; j < editAllBuilding.Count; j++)
-            {
-                if (AllBuilding[i].id == editAllBuilding[i].id)
-                {
-                    break;
-                }
-            }
-            allRemoveRoom.Add(AllBuilding[i]);
-        }
+        ChickPlayerInfo.instance.ChickEditSave(editAllBuilding, ChangeBuilding);
     }
 
     /// <summary>
@@ -50,8 +30,9 @@ public class EditCastle : Castle
         List<LocalBuildingData> AllBuilding = ChickPlayerInfo.instance.GetAllBuilding();
         for (int i = 0; i < AllBuilding.Count; i++)
         {
-            editAllBuilding.Add(AllBuilding[i]);
-            InstanceRoom(editAllBuilding[i]);
+            LocalBuildingData data = new LocalBuildingData(AllBuilding[i].id, AllBuilding[i].buildingPoint, AllBuilding[i].buildingData);
+            editAllBuilding.Add(data);
+            InstanceRoom(data);
         }
     }
 
@@ -59,11 +40,10 @@ public class EditCastle : Castle
     /// 建造模式新建房间
     /// </summary>
     /// <param name="data"></param>
-    public override void AddBuilding(LocalBuildingData data)
+    public void AddBuilding(LocalBuildingData data)
     {
         currentLocalData = data;
         BuildRoomTip(data.buildingData);
-
     }
 
     /// <summary>
@@ -75,7 +55,21 @@ public class EditCastle : Castle
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
         BuildTip tip = hit.collider.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
+        if (currentLocalData.id == 0)
+        {
+            for (int i = 0; i < ChangeBuilding.Count; i++)
+            {
+                if (ChangeBuilding[i].buildingData.RoomName == currentLocalData.buildingData.RoomName
+                    && ChangeBuilding[i].buildingData.RoomSize == currentLocalData.buildingData.RoomSize)
+                {
+                    currentLocalData = ChangeBuilding[i];
+                    ChangeBuilding.RemoveAt(i);
+                    break;
+                }
+            }
+        }
         currentLocalData.buildingPoint = startPoint;
+        Debug.Log("添加房间");
         editAllBuilding.Add(currentLocalData);
         InstanceRoom(currentLocalData);
         //删除当前已使用空位
@@ -98,58 +92,35 @@ public class EditCastle : Castle
 
     public void RemoveAllRoom()
     {
+        ResetWall();
         for (int i = 0; i < allroom.Count; i++)
         {
-            allroom[i].RemoveBuilding();
-            allroom[i].EditRemoveBuilding();
+            UIEditMode.instance.ChickRemove(allroom[i]);
+            MapControl.instance.RemoveRoom(allroom[i]);
+            allroom[i].Clear();
             editAllBuilding.Clear();
         }
+        allEmptyPoint.Clear();
     }
 
-    public void ChickMergeRoom(LocalBuildingData data_1, LocalBuildingData data_2, LocalBuildingData data_3)
+    public override void MergeRoom(RoomMgr room_1, RoomMgr room_2, LocalBuildingData mergeData)
     {
-        editAllBuilding.Remove(data_1);
-        editAllBuilding.Remove(data_2);
-        editAllBuilding.Add(data_3);
-
-        //查找 有没有合并结果等于本次合并单元的
-        for (int i = 0; i < allMergeRoom.Count; i++)
+        #region 添加改动的
+        if (room_1.currentBuildData.id > 0)
         {
-            if (allMergeRoom[i].mergeRoom.id == data_1.id)
-            {
-                allMergeRoom[i].room_3 = data_2;
-                allMergeRoom[i].mergeRoom = data_3;
-                Debug.Log("该房间合并过的");
-                return;
-            }
-            if (allMergeRoom[i].mergeRoom.id == data_2.id)
-            {
-                allMergeRoom[i].room_3 = data_1;
-                allMergeRoom[i].mergeRoom = data_3;
-                Debug.Log("该房间合并过的");
-                return;
-            }
+            ChangeBuilding.Add(room_1.currentBuildData);
         }
-
-        //匹配建造信息
-        EditMergeRoomData data = new EditMergeRoomData();
-        data.room_1 = data_1;
-        data.room_2 = data_2;
-        data.mergeRoom = data_3;
-        allMergeRoom.Add(data);
-        Debug.Log("该房间没有合并过");
-    }
-    public void FindMergeRoom(RoomMgr data_1, RoomMgr data_2)
-    {
-        int index = editAllBuilding.IndexOf(data_1.currentBuildData);
-        if (index > -1)
+        if (room_2.currentBuildData.id > 0)
         {
-            UIEditMode.instance.ChickRemove(data_1);
+            ChangeBuilding.Add(room_2.currentBuildData);
         }
-        index = editAllBuilding.IndexOf(data_2.currentBuildData);
-        if (index > -1)
-        {
-            UIEditMode.instance.ChickRemove(data_2);
-        }
+        #endregion
+        editAllBuilding.Remove(room_1.currentBuildData);
+        editAllBuilding.Remove(room_2.currentBuildData);
+        room_1.RemoveBuilding();
+        room_2.RemoveBuilding();
+        Debug.Log("添加房间");
+        editAllBuilding.Add(mergeData);
+        InstanceRoom(mergeData);
     }
 }
