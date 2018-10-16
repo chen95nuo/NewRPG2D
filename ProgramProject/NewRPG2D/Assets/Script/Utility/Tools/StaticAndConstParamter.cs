@@ -52,9 +52,16 @@ public enum CameraStateEnum
 
 public enum EquipTypeEnum
 {
-    Arrow,
+    Armor,
     Sword,
 
+}
+
+public enum BodyTypeEnum
+{
+    Head,
+    Hair,
+    Face,
 }
 
 public enum QualityTypeEnum

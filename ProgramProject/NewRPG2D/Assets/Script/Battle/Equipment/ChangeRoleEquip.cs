@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Script.Utility;
 using Assets.Script.Utility.Tools;
 using Spine;
 using Spine.Unity;
@@ -13,22 +14,26 @@ using UnityEngine;
 namespace Assets.Script.Battle
 {
 
-
-
-
     public class ChangeRoleEquip : MonoBehaviour
     {
-       [SerializeField] private SkeletonAnimation skeletonAnimation;
-       [SerializeField] private Material sourceMaterial;
+        [SerializeField]
+        private SkeletonAnimation skeletonAnimation;
+        [SerializeField]
+        private Material sourceMaterial;
 
         private Skin customSkin;
         private Skeleton skeleton;
 
-        private Dictionary<EquipTypeEnum, string> equipSlot = new Dictionary<EquipTypeEnum, string>
+        private Dictionary<EquipTypeEnum, List<string>> equipSlot = new Dictionary<EquipTypeEnum, List<string>>
         {
-            {EquipTypeEnum.Arrow, ""},
+            {EquipTypeEnum.Armor, new List<string> { "body",  "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
         };
-
+        private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
+        {
+            {BodyTypeEnum.Face, "face"},
+            {BodyTypeEnum.Hair, "hair1"},
+            {BodyTypeEnum.Head, "head"},
+        };
 
         private void Start()
         {
@@ -37,9 +42,18 @@ namespace Assets.Script.Battle
             skeleton.SetSkin(customSkin);
         }
 
-        public void ChangeEquip(EquipTypeEnum equipType, string equipName)
+        public void ChangeEquip(EquipTypeEnum equipType, string bodyName)
         {
-            ChangeEquip(equipSlot[equipType], Texture2D.blackTexture);
+            for (int i = 0; i < equipSlot[equipType].Count; i++)
+            {
+                ChangeEquip(equipSlot[equipType][i],
+                    ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", bodyName,i)));
+            }
+        }
+
+        public void ChangeBody(BodyTypeEnum bodyType, string bodyName)
+        {
+            ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
         }
 
         private void ChangeEquip(string targetSlotName, Texture2D newTexture)
