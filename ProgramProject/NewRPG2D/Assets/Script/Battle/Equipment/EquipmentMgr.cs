@@ -10,7 +10,12 @@ public class EquipmentRealProperty
     public int EquipId;
     public EquipTypeEnum EquipType;
     public QualityTypeEnum QualityType;
+    public HurtTypeEnum HurtType;
+    public string SpriteName;
+    public string EquipName;
     public int Level;
+    public int AttackRange;
+    public float AttackSpeed;
     public Dictionary<RoleAttribute, float> RoleProperty;
     public List<SpecialPropertyData> SpecialProperty;
 }
@@ -43,13 +48,16 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         realProperty.EquipId = equipId;
         realProperty.EquipType = data.EquipType;
         realProperty.Level = (int)Random.Range(data.LevelRange.Min, data.LevelRange.Max);
-
+        attackSpeed = data.AttackSpeed;
         GetRoleProperty(roleProperty, data, realProperty.Level);
         realProperty.RoleProperty = roleProperty;
-
+        realProperty.AttackRange = data.AttackRange;
+        realProperty.AttackSpeed = data.AttackSpeed;
         GetSpecialProperty(specialProperty, data);
         realProperty.SpecialProperty = specialProperty;
-
+        realProperty.HurtType = data.HurtType;
+        realProperty.EquipName = data.EquipName;
+        realProperty.SpriteName = data.SpriteName;
         AllEquipmentData[equipId] = realProperty;
         return realProperty;
     }
@@ -75,14 +83,15 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         CalculateRoleProperty(roleProperty, RoleAttribute.HIT, data.HitEnemyRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.INT, data.MagicDamageRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.Crt, data.CritialRange, times);
+
         if (roleProperty.ContainsKey(RoleAttribute.DPS) == false)
         {
             roleProperty[RoleAttribute.DPS] = 0;
         }
 
         roleProperty[RoleAttribute.DPS] +=
-            ((Random.Range(data.PhysicDamageMinRange.Min*times, data.PhysicDamageMinRange.Max*times) +
-             Random.Range(data.PyhsicDamageMaxRange.Min*times, data.PyhsicDamageMaxRange.Max*times))/ attackSpeed);
+            ((Random.Range(data.DamageMinRange.Min*times, data.DamageMinRange.Max*times) +
+             Random.Range(data.DamageMaxRange.Min*times, data.DamageMaxRange.Max*times))/ attackSpeed);
 
         RandomPropertyData[] tempDatas = new RandomPropertyData[3];
         for (int i = 0; i < tempDatas.Length; i++)

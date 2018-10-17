@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Assets.Script.Utility;
 using Assets.Script.Utility.Tools;
 using Spine;
@@ -26,7 +21,7 @@ namespace Assets.Script.Battle
 
         private Dictionary<EquipTypeEnum, List<string>> equipSlot = new Dictionary<EquipTypeEnum, List<string>>
         {
-            {EquipTypeEnum.Armor, new List<string> { "body",  "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
+            {EquipTypeEnum.Armor, new List<string> { "body", "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
         };
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
         {
@@ -42,23 +37,22 @@ namespace Assets.Script.Battle
             skeleton.SetSkin(customSkin);
         }
 
-        public void ChangeEquip(EquipTypeEnum equipType, string bodyName)
+        public void ChangeEquip(EquipTypeEnum equipType, string equipName)
         {
             for (int i = 0; i < equipSlot[equipType].Count; i++)
             {
-                ChangeEquip(equipSlot[equipType][i],
-                    ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", bodyName,i)));
+              ChangeEquip(equipSlot[equipType][i],
+                    ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", equipName, i)));
             }
         }
 
         public void ChangeBody(BodyTypeEnum bodyType, string bodyName)
         {
-            ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
+           ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
         }
 
         private void ChangeEquip(string targetSlotName, Texture2D newTexture)
         {
-
             Slot targetSlot = skeleton.FindSlot(targetSlotName);
 
             if (targetSlot == null)
@@ -75,7 +69,7 @@ namespace Assets.Script.Battle
 
                 Sprite newSpr = SpriteHelper.CreateSprite(newTexture);
 
-                Attachment newAttachment = templateAttachment.GetRemappedClone(newSpr, sourceMaterial, false);
+                Attachment newAttachment = templateAttachment.GetRemappedClone(newSpr, sourceMaterial);
 
                 customSkin.SetAttachment(visorSlotIndex, templateAttachment.Name, newAttachment);
 

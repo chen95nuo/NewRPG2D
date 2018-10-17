@@ -32,9 +32,14 @@ namespace Assets.Script.Battle.BattleData
 
         public EquipTypeEnum EquipType;
         public QualityTypeEnum QualityType;
+        public HurtTypeEnum HurtType;
+        public int AttackRange;
+        public float AttackSpeed;
+        public string SpriteName;
+        public string EquipName;
         public RangeData LevelRange = new RangeData();
-        public RangeData PhysicDamageMinRange = new RangeData();
-        public RangeData PyhsicDamageMaxRange = new RangeData();
+        public RangeData DamageMinRange = new RangeData();
+        public RangeData DamageMaxRange = new RangeData();
         public RangeData HPRange = new RangeData();
         public RangeData MagicArmorRange = new RangeData();
         public RangeData PhysicArmorRange = new RangeData();
@@ -56,13 +61,17 @@ namespace Assets.Script.Battle.BattleData
         {
             ItemName = ReadXmlDataMgr.StrParse(node, "Name");
             Description = ReadXmlDataMgr.StrParse(node, "Description");
+            SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
+            EquipName = ReadXmlDataMgr.StrParse(node, "EquipName");
             EquipType = (EquipTypeEnum)ReadXmlDataMgr.IntParse(node, "EquipType");
             QualityType = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
-
+            HurtType = (HurtTypeEnum)ReadXmlDataMgr.IntParse(node, "HurtType");
+            AttackRange = ReadXmlDataMgr.IntParse(node, "AttackRange");
+            AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             string levelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
             GetRange(levelRange, out LevelRange.Min, out LevelRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "PhysicDamageMinRange"), out PhysicDamageMinRange.Min, out PhysicDamageMinRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "PyhsicDamageMaxRange"), out PyhsicDamageMaxRange.Min, out PyhsicDamageMaxRange.Max);
+            GetRange(ReadXmlDataMgr.StrParse(node, "DamageMinRange"), out DamageMinRange.Min, out DamageMinRange.Max);
+            GetRange(ReadXmlDataMgr.StrParse(node, "DamageMaxRange"), out DamageMaxRange.Min, out DamageMaxRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "HPRange"), out HPRange.Min, out HPRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "MagicArmorRange"), out MagicArmorRange.Min, out MagicArmorRange.Max);
             GetRange(ReadXmlDataMgr.StrParse(node, "PhysicArmorRange"), out PhysicArmorRange.Min, out PhysicArmorRange.Max);

@@ -40,8 +40,8 @@ public enum RoleAttribute
     ManaSpeed,//炼金加速
     Wood,//木工属性
     Iron,//矿工属性
-    HurtType,//伤害类型
 
+    HurtType,//伤害类型
     DPS,//秒伤
     Crt,//暴击率
     PArmor,//物理护甲

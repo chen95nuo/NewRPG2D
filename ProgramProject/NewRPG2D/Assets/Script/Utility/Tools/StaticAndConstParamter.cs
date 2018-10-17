@@ -52,8 +52,8 @@ public enum CameraStateEnum
 
 public enum EquipTypeEnum
 {
-    Armor,
     Sword,
+    Armor,
 
 }
 

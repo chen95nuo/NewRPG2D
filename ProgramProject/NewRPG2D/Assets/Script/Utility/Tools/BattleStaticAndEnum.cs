@@ -45,9 +45,10 @@ namespace Assets.Script.Battle
 
     public struct PropertyData
     {
+        public HurtTypeEnum HurtType;
         public float RoleHp;
         public float RoleMp;
-        public float PhysicAttack;
+        public float Damage;
         public float MagicAttack;
         public float MagicArmor;
         public float PhysicArmor;
@@ -56,13 +57,14 @@ namespace Assets.Script.Battle
         public float HitPercent;
         public float AttackSpeed;
         public float MoveSpeed;
+        public int AttackRange;
     }
 
 
     public enum SpecialPropertyEnum
     {
         None,
-        RebornFriend,                   ///以X+（法术强度*Y)点生命值复活一名盟友。Z秒冷却
+        RebornFriend = 1,               ///以X+（法术强度*Y)点生命值复活一名盟友。Z秒冷却
         ExtraDamage,                    ///攻击时，有x%概率在y秒内造成z%点分裂伤害。
         IncreaseAttackWhenReborn,       ///以任何形式复活后，伤害提升x%。持续y秒。
         HurtAllEnemy,                   ///攻击时，有x%概率对全体敌人造成y%点伤害

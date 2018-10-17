@@ -11,9 +11,10 @@ namespace Assets.Script.Battle
         public RolePropertyEnum RoleProperty;  //自己的属性
         public RolePropertyEnum AttackProperty; //克制的属性
         public RolePropertyEnum DefenseProperty; // 被克制的属性
+        public HurtTypeEnum HurtType { get; private set; } // 伤害类型
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
-        public float PhysicAttack { get; private set; }
+        public float Damage { get; private set; }
         public float MagicAttack { get; private set; }
         public float MagicArmor { get; private set; }
         public float PhysicArmor { get; private set; }   
@@ -23,6 +24,8 @@ namespace Assets.Script.Battle
 
         public float MoveSpeed { get; private set; }
         public float AttackSpeed { get; private set; }
+        public float AttackRange { get; private set; }
+        
         public RoleBase AttackRole { get; private set; }
 
         private RoleBase currenRole;
@@ -46,7 +49,7 @@ namespace Assets.Script.Battle
         public void InitBaseRoleValue(PropertyData rolePropertyData)
         {
             RoleHp = rolePropertyData.RoleHp;
-            PhysicAttack = rolePropertyData.PhysicAttack;
+            Damage = rolePropertyData.Damage;
             MagicAttack = rolePropertyData.MagicAttack;
             MagicArmor = rolePropertyData.MagicArmor;
             PhysicArmor = rolePropertyData.PhysicArmor;
@@ -54,7 +57,9 @@ namespace Assets.Script.Battle
             AviodHurtPercent = rolePropertyData.AviodHurtPercent;
             HitPercent = rolePropertyData.HitPercent;
             MoveSpeed = 1;
-            AttackSpeed = StaticAndConstParamter.AttackSpeed;
+            AttackSpeed = rolePropertyData.AttackSpeed;
+            HurtType = rolePropertyData.HurtType;
+            AttackRange = rolePropertyData.AttackRange;
         }
 
         public void SetMoveSeed(float moveSpeed)
@@ -87,9 +92,9 @@ namespace Assets.Script.Battle
             return RoleMp > 0;
         }
 
-        public void SetPhysicAttack(float attackChange)
+        public void SetDamage(float attackChange)
         {
-            PhysicAttack += attackChange;
+            Damage += attackChange;
         }
 
         public void SetMagicAttack(float attackChange)
