@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HallRoleData
 {
+    public readonly RoleSexType sexType;
     private string name;//名字
     private int star;//星级
     private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
@@ -18,7 +19,9 @@ public class HallRoleData
     private int[] equip;//装备 1武器2防具3戒指4项链 5神器
     private RoleTrainType trainType;//训练类型
     public int trainIndex;//训练编号
-    public RoleLoveType LoveType;
+    public RoleLoveType LoveType;//爱情状态
+    public float nowHp;//当前血量
+    public RoleBabyData babyData;//宝宝数据
 
     public string Name
     {
@@ -487,6 +490,26 @@ public class HallRoleData
             return roleLevel[0].Level;
         }
     }
+    public int GoldLevel
+    {
+        get { return roleLevel[1].Level; }
+    }
+    public int FoodLevel
+    {
+        get { return roleLevel[2].Level; }
+    }
+    public int ManaLevel
+    {
+        get { return roleLevel[3].Level; }
+    }
+    public int WoodLevel
+    {
+        get { return roleLevel[4].Level; }
+    }
+    public int IronLevel
+    {
+        get { return roleLevel[5].Level; }
+    }
 
     public HallRoleLevel[] RoleLevel
     {
@@ -560,8 +583,9 @@ public class HallRoleData
 
 
     public HallRoleData() { }
-    public HallRoleData(int star, int[] level)
+    public HallRoleData(int sex, int star, int[] level)
     {
+        this.sexType = (RoleSexType)sex;
         this.star = star;
         this.name = "Json";
         roleLevel[0] = new HallRoleLevel(RoleAttribute.Fight, level[0]);

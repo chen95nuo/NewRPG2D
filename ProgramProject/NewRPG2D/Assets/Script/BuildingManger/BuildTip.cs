@@ -14,8 +14,8 @@ public class BuildTip : MonoBehaviour
     public SpriteRenderer sr;
     public BoxCollider bc;
     public Transform parentPoint;
-    private float high = 10.8f;
-    private float width = 4.77f;
+    private float high = 2.7f;
+    private float width = 1.2f;
 
     public EmptyPoint emptyPoint;
     private Castle currentCastle;

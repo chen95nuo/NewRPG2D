@@ -33,13 +33,23 @@ public class MainCastle : Castle
         ResetWall();
         for (int i = 0; i < allroom.Count; i++)
         {
+            int index = 0;
             for (int j = 0; j < allbuilding.Count; j++)
             {
                 if (allroom[i].currentBuildData.id == allbuilding[j].id)
                 {
                     allroom[i].BuildingMove(allbuilding[j], this);
                     allroom[i].ChickLeftOrRight(buildPoint);
+                    allroom[i].RoleMove();
+                    break;
                 }
+                index++;
+            }
+            if (index >= allbuilding.Count)
+            {
+                Debug.Log("删除了 ：");
+                allroom[i].RemoveBuilding();
+                i--;
             }
         }
         for (int i = 0; i < newRoom.Count; i++)

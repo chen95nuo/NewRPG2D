@@ -40,6 +40,7 @@ public enum BuildRoomName
     Stairs,//楼梯
     ThroneRoom,//国王大厅
     Barracks,//军营
+    BabyRoom,//婴儿房
     MaxRoom
 }
 public enum RoomType

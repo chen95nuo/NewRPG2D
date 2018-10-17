@@ -30,7 +30,7 @@ public class EditCastle : Castle
         List<LocalBuildingData> AllBuilding = ChickPlayerInfo.instance.GetAllBuilding();
         for (int i = 0; i < AllBuilding.Count; i++)
         {
-            LocalBuildingData data = new LocalBuildingData(AllBuilding[i].id, AllBuilding[i].buildingPoint, AllBuilding[i].buildingData);
+            LocalBuildingData data = new LocalBuildingData(AllBuilding[i].id, AllBuilding[i].buildingPoint, AllBuilding[i].buildingData, AllBuilding[i].ConstructionType);
             editAllBuilding.Add(data);
             InstanceRoom(data);
         }
@@ -88,18 +88,26 @@ public class EditCastle : Castle
     {
         room.RemoveBuilding();
         room.EditRemoveBuilding();
+        //MapControl.instance.RemoveRoom(room);
     }
 
-    public void RemoveAllRoom()
+    /// <summary>
+    /// 删除所有房间
+    /// </summary>
+    /// <param name="isShow">是否添加下方提示</param>
+    public void RemoveAllRoom(bool isShow)
     {
         ResetWall();
         for (int i = 0; i < allroom.Count; i++)
         {
-            UIEditMode.instance.ChickRemove(allroom[i]);
+            if (isShow)
+            {
+                UIEditMode.instance.ChickRemove(allroom[i]);
+            }
             MapControl.instance.RemoveRoom(allroom[i]);
             allroom[i].Clear();
-            editAllBuilding.Clear();
         }
+        editAllBuilding.Clear();
         allEmptyPoint.Clear();
     }
 

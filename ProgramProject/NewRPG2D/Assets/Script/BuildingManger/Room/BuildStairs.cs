@@ -4,12 +4,4 @@ using UnityEngine;
 
 public class BuildStairs : RoomMgr
 {
-    public override void RoomAwake()
-    {
-    }
-
-    public override void ThisRoomFunc()
-    {
-
-    }
 }

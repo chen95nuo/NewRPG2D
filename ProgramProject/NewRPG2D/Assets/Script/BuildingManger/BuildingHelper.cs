@@ -166,6 +166,8 @@ public class LocalBuildingData
                 return data.DPS;
             case RoleAttribute.HP:
                 return data.HP;
+            case RoleAttribute.Max:
+                return data.Star;
             default:
                 break;
         }
@@ -179,11 +181,12 @@ public class LocalBuildingData
         int maxRole = ChickPlayerInfo.instance.ChickRoomSize(data);
         roleData = new HallRoleData[maxRole];
     }
-    public LocalBuildingData(int id, Vector2 point, BuildingData roomData)
+    public LocalBuildingData(int id, Vector2 point, BuildingData roomData, bool ConstructionType)
     {
         this.id = id;
         this.buildingPoint = point;
         this.buildingData = roomData;
+        this.ConstructionType = ConstructionType;
         int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
     }

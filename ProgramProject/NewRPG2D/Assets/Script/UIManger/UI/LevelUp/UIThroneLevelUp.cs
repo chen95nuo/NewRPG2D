@@ -27,13 +27,9 @@ public class UIThroneLevelUp : UILevelUp
             return;
         }
         dic = ChickPlayerInfo.instance.ThroneLeveUpRoomInfo(data.BuildingData);
+        if (dic == null) return;
         ChickGrid();
         level = data.BuildingData.Level;
-    }
-
-    protected override void ClosePage()
-    {
-        UIPanelManager.instance.ClosePage<UIThroneLevelUp>();
     }
 
     /// <summary>

@@ -68,7 +68,7 @@ public class LocalServer : TSingleton<LocalServer>
         ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
         if (saveRoleData == null)
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 2; i++)
             {
                 HallRoleMgr.instance.BuildNewRole();
             }
@@ -82,13 +82,13 @@ public class LocalServer : TSingleton<LocalServer>
     private void TestRoom()
     {
         saveRoomData = new List<ServerBuildData>();
-        ServerBuildData s_1 = new ServerBuildData(1,10035, new Vector2(6, 0), 0, 0, 0);
+        ServerBuildData s_1 = new ServerBuildData(1, 10035, new Vector2(6, 0), 0, 0, 0);
         saveRoomData.Add(s_1);
         ServerBuildData s_2 = new ServerBuildData(2, 10035, new Vector2(6, 1), 0, 0, 0);
         saveRoomData.Add(s_2);
         ServerBuildData s_3 = new ServerBuildData(3, 10035, new Vector2(6, 2), 0, 0, 0);
         saveRoomData.Add(s_3);
-        ServerBuildData s_4 = new ServerBuildData(4, 10012, new Vector2(7, 1), 0, 0, 0);
+        ServerBuildData s_4 = new ServerBuildData(4, 10011, new Vector2(7, 1), 0, 0, 0);
         saveRoomData.Add(s_4);
         ServerBuildData s_8 = new ServerBuildData(8, 10001, new Vector2(10, 2), 0, 0, 0);
         saveRoomData.Add(s_8);

@@ -47,8 +47,14 @@ public class HallRole : MonoBehaviour
     /// <param name="type"></param>
     public void TrainComplete(TrainType type)
     {
-        UIPanelManager.instance.ShowPage<UIRoleTrainGroup>();
-        UIRoleTrainGroup.instance.ShowIcon(this);
+        UIPanelManager.instance.ShowPage<UIRoleTipGroup>();
+        UIRoleTipGroup.instance.ShowIcon(this);
+    }
+
+    public void LoveComplete()
+    {
+        UIPanelManager.instance.ShowPage<UIRoleTipGroup>();
+        UIRoleTipGroup.instance.ShowChildIcon(this);
     }
 
 }

@@ -21,6 +21,8 @@ namespace Assets.Script
 
         public void Awake()
         {
+            Application.targetFrameRate = 60;
+
             DebugHelper.bEnableDebug = true;
             if (Instance == null)
             {

@@ -4,12 +4,4 @@ using UnityEngine;
 
 public class BuildBarracks : RoomMgr
 {
-
-    public override void RoomAwake()
-    {
-    }
-
-    public override void ThisRoomFunc()
-    {
-    }
 }

@@ -101,6 +101,7 @@ public class UITrainRoleGrid : MonoBehaviour
         txt_name.text = data.Name;
         int level = data.GetAtrLevel(data.currentRoom.RoomName);
         txt_level.text = level.ToString() + "+1";
+        btn_SpeedUp.gameObject.SetActive(true);
     }
     private void TypeComplete(HallRoleData data)
     {
@@ -109,6 +110,7 @@ public class UITrainRoleGrid : MonoBehaviour
         txt_name.text = data.Name;
         int level = data.GetAtrLevel(data.currentRoom.RoomName);
         txt_level.text = level.ToString();
+        btn_SpeedUp.gameObject.SetActive(false);
     }
     private void TypeMaxLevel(HallRoleData data)
     {
@@ -116,6 +118,7 @@ public class UITrainRoleGrid : MonoBehaviour
         LevelUpType[2].SetActive(true);
         int level = data.GetAtrLevel(data.currentRoom.RoomName);
         txt_level.text = level.ToString();
+        btn_SpeedUp.gameObject.SetActive(false);
     }
 
     private void ClearType()
@@ -128,10 +131,11 @@ public class UITrainRoleGrid : MonoBehaviour
 
     public void ChickLevelUp()
     {
-        HallRoleMgr.instance.LevelComplete(roleData);
+        HallRoleMgr.instance.LevelComplete(roleData, true);
     }
     public void ChickSpeedUp()
     {
+        HallRoleMgr.instance.LevelComplete(roleData, false);
 
     }
 }

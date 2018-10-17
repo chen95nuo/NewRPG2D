@@ -172,6 +172,8 @@ public class UILockRoomTip : TTUIPage
                 btn_LevelUp.gameObject.SetActive(isOpen);
                 break;
             case BuildRoomName.Barracks:
+                btn_Message.gameObject.SetActive(isOpen);
+                btn_LevelUp.gameObject.SetActive(isOpen);
                 break;
             case BuildRoomName.MaxRoom:
                 Debug.LogError("错误房间类型超限");
@@ -241,6 +243,12 @@ public class UILockRoomTip : TTUIPage
                 break;
             case BuildRoomName.LivingRoom:
                 UIPanelManager.instance.ShowPage<UILivingRoomInfo>(roomData);
+                break;
+            case BuildRoomName.Barracks:
+                UIPanelManager.instance.ShowPage<UIBarracksInfo>(roomData);
+                break;
+            case BuildRoomName.ThroneRoom:
+                UIPanelManager.instance.ShowPage<UIThroneInfo>(roomData);
                 break;
             default:
                 break;
@@ -369,6 +377,7 @@ public class UILockRoomTip : TTUIPage
                 UIPanelManager.instance.ShowPage<UIThroneLevelUp>(roomData);
                 break;
             case BuildRoomName.Barracks:
+                UIPanelManager.instance.ShowPage<UIProdLevelUp>(roomData);
                 break;
             case BuildRoomName.MaxRoom:
                 Debug.LogError("错误房间类型超限");

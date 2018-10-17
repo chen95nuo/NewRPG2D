@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerData
 {
     private string name;//玩家昵称
-    private int level;//城堡等级
+    private Vector2 castle;//城堡等级
     private int gold;//金币数量
     private int diamonds;//钻石数量
     private int food;//食物
@@ -32,20 +32,19 @@ public class PlayerData
         }
     }
 
-    public int Level
+    public Vector2 Castle
     {
         get
         {
-            return level;
+            return castle;
         }
 
         set
         {
-            int temp = value;
-            if (temp != level)
+            Vector2 temp = value;
+            if (temp != castle)
             {
-                level = temp;
-                //HallEventManager.instance.SendEvent(HallEventDefineEnum.)
+                castle = temp;
             }
         }
     }
@@ -245,13 +244,15 @@ public class PlayerData
         set
         {
             mainHall = value;
+            int x = (int)mainHall.buildingData.Param1;
+            int y = (int)mainHall.buildingData.Param2;
             if (EditCastle.instance != null)
             {
-                EditCastle.instance.ExtensionWall();
+                EditCastle.instance.ExtensionWall(x, y);
             }
             if (MainCastle.instance != null)
             {
-                MainCastle.instance.ExtensionWall();
+                MainCastle.instance.ExtensionWall(x, y);
             }
         }
     }
@@ -259,7 +260,7 @@ public class PlayerData
     public PlayerData()
     {
         Name = "Baymax";
-        Level = 1;
+        Castle = new Vector2(17, 5);
         Gold = 2000;
         Diamonds = 100;
         Food = 0;

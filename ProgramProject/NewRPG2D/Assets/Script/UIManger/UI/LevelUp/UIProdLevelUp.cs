@@ -61,6 +61,13 @@ public class UIProdLevelUp : UILevelUp
                 return;
             case BuildRoomName.LivingRoom:
                 UpdateInfo_2(data);
+                txt_Tip_4.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
+                txt_Tip_5.text = "居民数量";
+                return;
+            case BuildRoomName.Barracks:
+                UpdateInfo_2(data);
+                txt_Tip_4.text = "升级可提升参与战斗的人数";
+                txt_Tip_5.text = "可携带人数";
                 return;
             default:
                 break;
@@ -115,7 +122,7 @@ public class UIProdLevelUp : UILevelUp
     }
 
     /// <summary>
-    /// 界面2 通用性强 用于储存类 训练类 起居室等
+    /// 界面2 通用性强 用于储存类 训练类 起居室 军营
     /// </summary>
     /// <param name="data"></param>
     private void UpdateInfo_2(RoomMgr data)
@@ -123,12 +130,11 @@ public class UIProdLevelUp : UILevelUp
         Type_2.anchoredPosition = Vector3.zero;
 
         txt_Tip_5.text = "容量";
-        if (data.RoomName == BuildRoomName.Barracks)
-        {
-            txt_Tip_5.text = "可携带人数";
-        }
 
-        Type_3.anchoredPosition = Vector3.zero;
+        if (data.BuildingData.RoomType == RoomType.Training)
+        {
+            Type_3.anchoredPosition = Vector3.zero;
+        }
 
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
@@ -223,11 +229,6 @@ public class UIProdLevelUp : UILevelUp
             default:
                 break;
         }
-    }
-
-    protected override void ClosePage()
-    {
-        UIPanelManager.instance.ClosePage<UIProdLevelUp>();
     }
 
     private void UIReset()

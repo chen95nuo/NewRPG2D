@@ -20,7 +20,7 @@ public class GameMain : MonoBehaviour
 
     private void Init()
     {
-        UIPanelManager.instance.ShowPage<UIMain>();
+        UIPanelManager.instance.ShowPage<UILogin>();
 
         Invoke("test", 0.5f);
     }

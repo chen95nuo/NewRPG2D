@@ -67,11 +67,7 @@ public class UIRoleTrainGrid : MonoBehaviour
 
     private void ChickEnter()
     {
-        HallRoleMgr.instance.LevelComplete(role.RoleData);
+        HallRoleMgr.instance.LevelComplete(role.RoleData, true);
         RemoveInfo();
     }
-
-
-
-
 }

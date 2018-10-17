@@ -74,44 +74,83 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 }
             }
         }
-
-        //删除所有改变过的房间
+        editAllBuilding.Clear();
+        List<LocalBuildingData> ChangeMainBuilding = new List<LocalBuildingData>();
+        //找到所有改变过的房间
         for (int i = 0; i < ChangeBuilding.Count; i++)
         {
-            RemoveBuilding(ChangeBuilding[i]);
+            for (int j = 0; j < AllBuilding.Count; j++)
+            {
+                if (ChangeBuilding[i].id == AllBuilding[j].id)
+                {
+                    ChangeMainBuilding.Add(AllBuilding[j]);
+                    break;
+                }
+            }
         }
-
+        ChangeBuilding.Clear();
         List<EditSaveHelper> ChangeData = new List<EditSaveHelper>();
         Debug.Log("将原房间筛选一遍 让同类型的放在一起");
         for (int i = 0; i < newRoom.Count; i++)
         {
             int size = newRoom[i].buildingData.RoomSize / 3;
-            for (int j = 0; j < ChangeBuilding.Count; j++)
+            for (int j = 0; j < ChangeMainBuilding.Count; j++)
             {
-                if (newRoom[i].buildingData.ItemId == ChangeBuilding[j].buildingData.SplitID)
+                if (newRoom[i].buildingData.ItemId == ChangeMainBuilding[j].buildingData.SplitID)
                 {
-                    float stock = ChangeBuilding[j].Stock / (ChangeBuilding[j].buildingData.RoomSize / 3);
+                    float stock = ChangeMainBuilding[j].Stock / (ChangeMainBuilding[j].buildingData.RoomSize / 3);
                     newRoom[i].Stock = stock;
+                    ChickEditSaveRoleHelper(newRoom[i], ChangeMainBuilding[j].roleData);
                     break;
                 }
-                else if (newRoom[i].buildingData.MergeID == ChangeBuilding[j].buildingData.ItemId)
+                else if (newRoom[i].buildingData.MergeID == ChangeMainBuilding[j].buildingData.ItemId)
                 {
-                    float stock = ChangeBuilding[j].Stock / 3;
+                    float stock = ChangeMainBuilding[j].Stock / 3;
                     newRoom[i].Stock = stock * size;
                     if (size != 2)
                     {
                         Debug.LogError("错误  Size不等于2");
                     }
+                    ChickEditSaveRoleHelper(newRoom[i], ChangeMainBuilding[j].roleData);
                     break;
                 }
-                else if (newRoom[i].buildingData.SplitID == ChangeBuilding[j].buildingData.ItemId)
+                else if (newRoom[i].buildingData.SplitID == ChangeMainBuilding[j].buildingData.ItemId)
                 {
-                    newRoom[i].Stock += ChangeBuilding[j].Stock;
-                    ChangeBuilding.RemoveAt(j);
+                    newRoom[i].Stock += ChangeMainBuilding[j].Stock;
+                    ChickEditSaveRoleHelper(newRoom[i], ChangeMainBuilding[j].roleData);
+                    RemoveBuilding(ChangeMainBuilding[j]);
+                    ChangeMainBuilding.RemoveAt(j);
+                    j--;
                 }
             }
         }
+        for (int i = 0; i < ChangeMainBuilding.Count; i++)
+        {
+            RemoveBuilding(ChangeMainBuilding[i]);
+        }
         MainCastle.instance.RefreshBuilding(AllBuilding, newRoom);
+    }
+    public void ChickEditSaveRoleHelper(LocalBuildingData data, HallRoleData[] datas)
+    {
+        int index = 0;
+        for (int i = 0; i < datas.Length; i++)
+        {
+            if (index < data.roleData.Length
+                && datas[i] != null)
+            {
+                for (int j = index; j < data.roleData.Length; j++)
+                {
+                    if (data.roleData[j] == null)
+                    {
+                        index = j;
+                        data.roleData[j] = datas[i];
+                        data.roleData[j].currentRoom = null;
+                        datas[i] = null;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -558,7 +597,19 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         data.id = BuildingIdIndex;
         AllBuilding.Add(data);
         ChickBuildDicAdd(data);
-        MainCastle.instance.InstanceRoom(data);
+
+        //若新建的房间内拥有角色 那么将角色加入房间
+        RoomMgr mgr = MainCastle.instance.InstanceRoom(data);
+        for (int i = 0; i < data.roleData.Length; i++)
+        {
+            if (data.roleData[i] != null)
+            {
+                Debug.Log("房间内发现角色");
+                HallRole role = HallRoleMgr.instance.GetRole(data.roleData[i]);
+                data.roleData[i] = null;
+                mgr.AddRole(role);
+            }
+        }
     }
 
     /// <summary>
@@ -575,6 +626,20 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         if (isTrue == false)
         {
             Debug.LogError("没找到要删除的建筑 :" + data.buildingData.RoomName);
+        }
+    }
+    public void RemoveBuilding(int id)
+    {
+        for (int i = 0; i < AllBuilding.Count; i++)
+        {
+            if (AllBuilding[i].id == id)
+            {
+                if (ChickProduction(AllBuilding[i]))
+                {
+                    ClostProduction(AllBuilding[i]);
+                }
+                AllBuilding.RemoveAt(i);
+            }
         }
     }
 
@@ -929,6 +994,10 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     public Dictionary<ThroneInfoType, List<BuildingData>> ThroneLeveUpRoomInfo(BuildingData data)
     {
         List<BuildingData> allBuiliding = BuildingDataMgr.instance.AllRoomData();
+        if (data.NextLevelID == 0)
+        {
+            return null;
+        }
         int id = data.NextLevelID;
         BuildingData newData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(id);
         Dictionary<ThroneInfoType, List<BuildingData>> temp = new Dictionary<ThroneInfoType, List<BuildingData>>();

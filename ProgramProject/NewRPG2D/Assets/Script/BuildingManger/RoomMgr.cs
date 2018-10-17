@@ -25,7 +25,6 @@ public abstract class RoomMgr : MonoBehaviour
     public bool mainLink = false;//主链接
     public bool linkType = false;//连接状态
     private bool isHarvest = false;//可否收获
-    public bool roomFunc = false;//房间功能是否开启
     private bool constructionType = false;//是否在施工中
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
@@ -71,11 +70,10 @@ public abstract class RoomMgr : MonoBehaviour
         set
         {
             bool index = value;
-            if (index != constructionType)
+            if (index != constructionType && MapControl.instance.type == CastleType.main)
             {
                 constructionType = value;
                 currentBuildData.ConstructionType = value;
-                BuildingFunc(!constructionType);
                 if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
                 {
                     if (value == false)
@@ -156,6 +154,8 @@ public abstract class RoomMgr : MonoBehaviour
                     return RoleAttribute.ManaSpeed;
                 case BuildRoomName.Barracks:
                     return RoleAttribute.Fight;
+                case BuildRoomName.LivingRoom:
+                    return RoleAttribute.Max;
                 case BuildRoomName.MaxRoom:
                 default:
                     break;
@@ -364,6 +364,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else
         {
+            constructionType = data.ConstructionType;
             castleMgr.ChickMergeRoom(this);
             AddConnection();
         }
@@ -395,14 +396,6 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 是否开启功能
-    /// </summary>
-    /// <param name="isTrue"></param>
-    public void BuildingFunc(bool isTrue)
-    {
-        roomFunc = isTrue;
-    }
 
     /// <summary>
     /// 添加空位信息
@@ -424,7 +417,6 @@ public abstract class RoomMgr : MonoBehaviour
     public void RemoveBuilding()
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        this.gameObject.transform.position = new Vector2(-1000, -1000);
         MapControl.instance.removeRoom.Add(this);
         MapControl.instance.RemoveRoom(this);
         bool isRemove = castleMgr.allroom.Remove(this);
@@ -850,7 +842,7 @@ public abstract class RoomMgr : MonoBehaviour
         changeData = data;//记录需要升级的DATA信息
         if (time == 0)
         {
-            time = data.NeedTime;
+            needTime = data.NeedTime * 60;
         }
         else
         {
@@ -889,26 +881,38 @@ public abstract class RoomMgr : MonoBehaviour
         levelUpTip = null;
         ConstructionType = false;
         ChickConstructionCompleteRole();
-        for (int i = 0; i < currentBuildData.roleData.Length; i++)
-        {
-            if (currentBuildData.roleData[i] != null)
-            {
-                ChickAddTrainRole(currentBuildData.roleData[i]);
-            }
-        }
         CameraControl.instance.RefreshRoomLock(this);
         //检查合并
         if (MapControl.instance.type == CastleType.main)
         {
             castleMgr.ChickMergeRoom(this);
         }
+        else
+        {
+
+        }
         ChickComplete();
     }
 
     /// <summary>
+    /// 若房间移动 则将角色重新移动到房间位置
+    /// </summary>
+    public virtual void RoleMove()
+    {
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
+        {
+            if (currentBuildData.roleData[i] != null)
+            {
+                HallRole role = HallRoleMgr.instance.GetRole(currentBuildData.roleData[i]);
+                Vector3 point = new Vector3(transform.position.x + (1.8f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
+                role.transform.position = point;
+            }
+        }
+    }
+    /// <summary>
     /// 添加角色
     /// </summary>
-    public void AddRole(HallRole role)
+    public virtual void AddRole(HallRole role)
     {
         if (currentBuildData.roleData == null)
         {
@@ -923,7 +927,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (currentBuildData.roleData[i] == null)
             {
                 currentBuildData.roleData[i] = role.RoleData;
-                Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 1)), transform.position.y + 4f, role.transform.position.z);
+                Vector3 point = new Vector3(transform.position.x + (1.8f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
                 role.transform.position = point;
                 role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)
@@ -975,8 +979,8 @@ public abstract class RoomMgr : MonoBehaviour
         Debug.LogError("没有找到要删除的角色");
     }
 
-    public abstract void ThisRoomFunc();
-    public abstract void RoomAwake();
+    public virtual void ThisRoomFunc() { }
+    public virtual void RoomAwake() { GetCompoment(); }
     public virtual void ChickComplete() { }
 
     /// <summary>
@@ -1089,7 +1093,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (role.TrainType == RoleTrainType.Complete)
         {
-            UIRoleTrainGroup.instance.CloseIcon(role);
+            UIRoleTipGroup.instance.CloseIcon(role);
         }
 
         role.TrainType = RoleTrainType.Nothing;

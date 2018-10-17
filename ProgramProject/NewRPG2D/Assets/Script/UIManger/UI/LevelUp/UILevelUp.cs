@@ -45,6 +45,10 @@ public abstract class UILevelUp : TTUIPage
 
     protected virtual void Init(RoomMgr data) { }
 
-    protected abstract void ClosePage();
+    protected virtual void ChickClose()
+    {
+        System.Type type = GetType();
+        UIPanelManager.instance.ClosePage(type);
+    }
 
 }

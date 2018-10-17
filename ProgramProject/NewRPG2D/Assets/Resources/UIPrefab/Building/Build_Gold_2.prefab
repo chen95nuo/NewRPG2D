@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 1342892467141490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4509193265121384}
   m_RootOrder: 0
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 1148449459923916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.1203713, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4919322252927984}
   m_RootOrder: 1
@@ -171,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579977419814206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.465, y: 5.3999996, z: 0}
+  m_LocalPosition: {x: 5.4, y: 1.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4050898963195596}
@@ -185,7 +185,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638423272444900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.465, y: 5.3999996, z: 0}
+  m_LocalPosition: {x: 5.4, y: 1.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4413484486457122}
@@ -198,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915020205779764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.465, y: 5.3999996, z: 0}
+  m_LocalPosition: {x: 5.4, y: 1.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4978006332759876}
@@ -229,8 +229,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 42.93, y: 10.8, z: 1}
-  m_Center: {x: 21.465, y: 5.4, z: 0}
+  m_Size: {x: 10.8, y: 2.7, z: 1}
+  m_Center: {x: 5.4, y: 1.35, z: 0}
 --- !u!114 &114742815133697838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,7 +252,6 @@ MonoBehaviour:
   maxRoomSize: 9
   mainLink: 0
   linkType: 0
-  roomFunc: 0
   currentBuildData:
     id: 0
     buildingPoint: {x: 0, y: 0}
@@ -364,7 +363,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 13.771391, y: 10.8}
+  m_Size: {x: 10.8, y: 2.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -409,7 +408,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 42.93, y: 10.8}
+  m_Size: {x: 10.8, y: 2.7}
   m_AdaptiveModeThreshold: 1
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

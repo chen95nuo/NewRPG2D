@@ -19,6 +19,7 @@ public enum HallEventDefineEnum
     diamondsSpace,//钻石检测
     ChickRoomMerge,//检查房间合并
     ChickRoleTrain,//角色训练时状态
+    ChickRoleLove,//角色恋爱时间
     EventMax
 }
 
@@ -64,6 +65,14 @@ public enum TrainType
     Max
 }
 
+public enum RoleSexType
+{
+    Nothing,
+    Male,//男
+    Female,//女
+    Max
+}
+
 public enum RoleTrainType
 {
     Nothing,
@@ -75,9 +84,10 @@ public enum RoleTrainType
 public enum RoleLoveType
 {
     Nothing,
+    WaitFor,
     Start,
-    Pregnancy,
     ChildBirth,
+    boredom,
     End
 }
 

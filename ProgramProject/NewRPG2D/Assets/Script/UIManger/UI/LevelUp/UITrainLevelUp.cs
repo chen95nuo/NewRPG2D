@@ -24,9 +24,4 @@ public class UITrainLevelUp : UILevelUp
         txt_Number.text = d1.Param1.ToString();
         txt_UpNumber.text = (d2.Param1 - d1.Param1).ToString();
     }
-
-    protected override void ClosePage()
-    {
-        UIPanelManager.instance.ClosePage<UITrainLevelUp>();
-    }
 }

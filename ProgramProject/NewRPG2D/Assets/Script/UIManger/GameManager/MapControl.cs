@@ -36,13 +36,13 @@ public class MapControl : MonoBehaviour
         SaveCameraPoint = cam.transform.localPosition;
         cam.transform.parent = MainMap.transform;
         cam.transform.localPosition = SaveCameraPoint;
-        UIPanelManager.instance.ShowPage<UIMain>();
         if (EditCastle.instance == null)
         {
             return;
         }
+        UIPanelManager.instance.ShowPage<UIMain>();
         UIPanelManager.instance.ClosePage<UIEditMode>();
-        EditCastle.instance.RemoveAllRoom();
+        EditCastle.instance.RemoveAllRoom(false);
     }
     public void ShowEditMap()
     {
@@ -105,6 +105,6 @@ public class MapControl : MonoBehaviour
     public void RemoveRoom(RoomMgr mgr)
     {
         mgr.transform.parent = RemoveRoomPoint;
-        mgr.transform.position = Vector3.zero;
+        mgr.transform.localPosition = Vector3.zero;
     }
 }

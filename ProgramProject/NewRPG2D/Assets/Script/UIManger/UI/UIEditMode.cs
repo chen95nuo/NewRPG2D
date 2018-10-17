@@ -128,6 +128,8 @@ public class UIEditMode : TTUIPage
         MapControl.instance.ShowMainMap();
         UIPanelManager.instance.ClosePage<UIEditMode>();
         UIPanelManager.instance.ShowPage<UIMain>();
+
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
     }
 
     private void ChickSave()
@@ -141,6 +143,8 @@ public class UIEditMode : TTUIPage
         }
         EditCastle.instance.SaveAllBuild();
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
+
+        ChickBack();
     }
 
     private void ChickRepair()
@@ -167,7 +171,7 @@ public class UIEditMode : TTUIPage
         CameraControl.instance.CloseRoomLock();
 
         //清除所有建筑
-        EditCastle.instance.RemoveAllRoom();
+        EditCastle.instance.RemoveAllRoom(true);
     }
     private void ClearCallBack(LocalBuildingData data)
     {

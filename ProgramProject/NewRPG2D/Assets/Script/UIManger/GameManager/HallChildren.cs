@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HallChildren : MonoBehaviour
 {
-    public RoleChildrenData childData;
+    public RoleBabyData childData;
 
-    private void UpdateInfo(RoleChildrenData data)
+    private void UpdateInfo(RoleBabyData data)
     {
         childData = data;
     }

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Castle : MonoBehaviour
 {
-    public const float high = 10.8f;//默认最小房间高度
-    public const float width = 4.77f;//默认最小房间宽度
-    private const int buildHigh = 4;//默认最小等级的高度
-    private const int buildWidth = 17;//默认最小等级的长度
+    public const float high = 2.7f;//默认最小房间高度
+    public const float width = 1.2f;//默认最小房间宽度
     private int buildH = 4;//可变高度
     private int buildW = 17;//可变长度
     public BuildPoint[,] buildPoint;//城堡墙面信息
-    public Vector2 wallStartPoint;//城堡墙体起点位置
-    public Vector2 limitPoint_1;//城堡墙体限制位置
+    public Transform wallStartPoint;//城堡墙体起点位置
+    public Transform limitPoint_1;//城堡墙体限制位置
     public int maxLength = 100;
     public int maxWidth = 100;
 
@@ -27,9 +25,12 @@ public class Castle : MonoBehaviour
 
     public CastleType castleType;
 
+    public BuildCastleBg castleBg;
+
     public void Init()
     {
         UpdateBGNumber();
+
         instanceWall();
     }
 
@@ -47,14 +48,16 @@ public class Castle : MonoBehaviour
     protected void instanceWall()
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
-        buildH = buildHigh + playerData.MainHallLevel;
-        buildW = buildWidth + (playerData.MainHallLevel * 3);
+        Vector2 buildXY = playerData.Castle;
+        buildH = (int)buildXY.y;
+        buildW = (int)buildXY.x;
+        castleBg.UpdateInfo(buildW, buildH);
 
         for (int i = 0; i < buildH; i++)
         {
             for (int j = 0; j < buildW; j++)
             {
-                if (wallStartPoint.x + (width * j) < limitPoint_1.x && wallStartPoint.y + (high * i) > limitPoint_1.y)
+                if (wallStartPoint.localPosition.x + (width * j) < limitPoint_1.localPosition.x && wallStartPoint.localPosition.y + (high * i) > limitPoint_1.localPosition.y)
                 {
                     buildPoint[j, i] = new BuildPoint();
                     buildPoint[j, i].pointType = 0;
@@ -67,7 +70,7 @@ public class Castle : MonoBehaviour
                 if (buildPoint[j, i].pointType == BuildingType.Wall)
                 {
                     GameObject go = Instantiate(Wall[j % 3], WallPoint) as GameObject;
-                    Vector2 point = new Vector2(wallStartPoint.x + (width * j), wallStartPoint.y + (high * i));
+                    Vector2 point = new Vector2(wallStartPoint.localPosition.x + (width * j), wallStartPoint.localPosition.y + (high * i));
                     go.transform.localPosition = point;
                     buildPoint[j, i].pointWall = go.transform;
                 }
@@ -91,7 +94,7 @@ public class Castle : MonoBehaviour
                 buildPoint[j, i].pointType = BuildingType.Wall;
                 buildPoint[j, i].roomMgr = null;
                 buildPoint[j, i].tip = null;
-                Vector2 point = new Vector2(wallStartPoint.x + (width * j), wallStartPoint.y + (high * i));
+                Vector2 point = new Vector2(wallStartPoint.localPosition.x + (width * j), wallStartPoint.localPosition.y + (high * i));
                 buildPoint[j, i].pointWall.localPosition = point;
             }
         }
@@ -100,11 +103,12 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 扩建背景墙
     /// </summary>
-    public void ExtensionWall()
+    public void ExtensionWall(int x, int y)
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
-        buildH = buildHigh + playerData.MainHallLevel;
-        buildW = buildWidth + (playerData.MainHallLevel * 3);
+        buildH = y;
+        buildW = x;
+        castleBg.UpdateInfo(buildW, buildH);
 
         for (int i = 0; i < buildH; i++)
         {
@@ -114,7 +118,7 @@ public class Castle : MonoBehaviour
                 {
                     continue;
                 }
-                if (wallStartPoint.x + (width * j) < limitPoint_1.x && wallStartPoint.y + (high * i) > limitPoint_1.y)
+                if (wallStartPoint.localPosition.x + (width * j) < limitPoint_1.localPosition.x && wallStartPoint.localPosition.y + (high * i) > limitPoint_1.localPosition.y)
                 {
                     buildPoint[j, i] = new BuildPoint();
                     buildPoint[j, i].pointType = 0;
@@ -127,14 +131,19 @@ public class Castle : MonoBehaviour
                 if (buildPoint[j, i].pointType == BuildingType.Wall)
                 {
                     GameObject go = Instantiate(Wall[j % 3], WallPoint) as GameObject;
-                    Vector2 point = new Vector2(wallStartPoint.x + (width * j), wallStartPoint.y + (high * i));
+                    Vector2 point = new Vector2(wallStartPoint.localPosition.x + (width * j), wallStartPoint.localPosition.y + (high * i));
                     go.transform.localPosition = point;
                     buildPoint[j, i].pointWall = go.transform;
                 }
             }
         }
+        ChangeCastle(x, y);
     }
 
+    public void ChangeCastle(int x, int y)
+    {
+
+    }
 
 
     /// <summary>
