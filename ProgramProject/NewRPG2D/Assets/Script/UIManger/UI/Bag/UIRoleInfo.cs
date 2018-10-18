@@ -6,6 +6,8 @@ using Assets.Script.UIManger;
 
 public class UIRoleInfo : TTUIPage
 {
+    public Button btn_back;
+
     public GameObject Train;
     public GameObject LoveTip;
 
@@ -20,19 +22,32 @@ public class UIRoleInfo : TTUIPage
     public Text txt_iron;
 
     public Text txt_hurtType;
+    public Text txt_hurtTip;
     public Text txt_Dps;
+    public Text txt_DpsTip;
     public Text txt_PArmor;
+    public Text txt_PArmorTip;
     public Text txt_MArmor;
+    public Text txt_MArmorTip;
     public Text txt_Dodge;
+    public Text txt_DodgeTip;
     public Text txt_Hit;
+    public Text txt_HitTip;
     public Text txt_INT;
+    public Text txt_INTTip;
     public Text txt_Hp;
+
+    private void Awake()
+    {
+        btn_back.onClick.AddListener(ClosePage);
+    }
 
     public override void Show(object mData)
     {
         base.Show(mData);
         HallRoleData data = mData as HallRoleData;
         UpdateInfo(data);
+        ChickLevelUI(false);
     }
 
     public void UpdateInfo(HallRoleData data)
@@ -45,34 +60,35 @@ public class UIRoleInfo : TTUIPage
         txt_iron.text = data.IronLevel.ToString();
         ChickLevelUI(true);
 
-        txt_hurtType.text = ((RoleHurtType)data.HurtType).ToString();
-        if (data.DPS > 0)
+        txt_hurtTip.text = ((RoleHurtType)data.HurtType).ToString();
+        txt_hurtType.text = data.Attack.ToString();
+        ChickAtr(data);//检查属性
+
+        if (data.LoveType == RoleLoveType.boredom)
         {
-            txt_Dps.text = data.DPS.ToString();
+            LoveTip.SetActive(true);
         }
-        if (data.PArmor > 0)
+        else
         {
-            txt_PArmor.text = data.PArmor.ToString();
+            LoveTip.SetActive(false);
         }
-        if (data.MArmor > 0)
+
+        if (data.TrainType == RoleTrainType.LevelUp)
         {
-            txt_MArmor.text = data.MArmor.ToString();
+            Train.SetActive(true);
         }
-        if (data.Dodge > 0)
+        else
         {
-            txt_Dodge.text = data.Dodge.ToString();
+            Train.SetActive(false);
         }
-        if (data.HIT > 0)
-        {
-            txt_Hit.text = data.Dodge.ToString();
-        }
-        if (data.INT > 0)
-        {
-            txt_INT.text = data.INT.ToString();
-        }
-        txt_Hp.text = data.nowHp + "/" + data.HP;
+
+        txt_Hp.text = data.NowHp + "/" + data.Health;
     }
 
+    /// <summary>
+    /// 检查等级UI显示数量
+    /// </summary>
+    /// <param name="isTrue"></param>
     public void ChickLevelUI(bool isTrue)
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
@@ -87,6 +103,59 @@ public class UIRoleInfo : TTUIPage
         if (playerData.MainHallLevel >= 9 || isTrue == false)
         {
             txt_iron.transform.parent.gameObject.SetActive(isTrue);
+        }
+    }
+
+
+    public void ChickAtr(HallRoleData data)
+    {
+        if (data.DPS > 0)
+        {
+            txt_Dps.text = data.DPS.ToString();
+        }
+        else
+        {
+            txt_Dps.transform.parent.gameObject.SetActive(false);
+        }
+        if (data.PArmor > 0)
+        {
+            txt_PArmor.text = data.PArmor.ToString();
+        }
+        else
+        {
+            txt_PArmor.transform.parent.gameObject.SetActive(false);
+        }
+        if (data.MArmor > 0)
+        {
+            txt_MArmor.text = data.MArmor.ToString();
+        }
+        else
+        {
+            txt_MArmor.transform.parent.gameObject.SetActive(false);
+        }
+        if (data.Dodge > 0)
+        {
+            txt_Dodge.text = data.Dodge.ToString();
+        }
+        else
+        {
+            txt_Dodge.transform.parent.gameObject.SetActive(false);
+        }
+        if (data.HIT > 0)
+        {
+            txt_Hit.text = data.Dodge.ToString();
+        }
+        else
+        {
+            txt_Hit.transform.parent.gameObject.SetActive(false);
+        }
+        if (data.INT > 0)
+        {
+            txt_INT.text = data.INT.ToString();
+        }
+        else
+        {
+            txt_INT.transform.parent.gameObject.SetActive(false);
         }
     }
 }

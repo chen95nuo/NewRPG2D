@@ -10,15 +10,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using DG.Tweening;
 
 public class UIDraggingRole : TTUIPage
 {
     private Canvas canvas;
 
+    public RectTransform handTs;
     public Image hand;
+    public Sprite[] roleSp;
+    public Text txt_Tip;
 
     private HallRole role;
-    private Vector3 originPoint;
+    private RoomMgr currentRoom;
 
     private void Awake()
     {
@@ -27,31 +31,23 @@ public class UIDraggingRole : TTUIPage
 
     private void OnDisable()
     {
+        hand.rectTransform.anchoredPosition = Vector2.zero;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         int layerMask = 1 << 8;
-        int layerName = LayerMask.NameToLayer("Room");
-        int layer = LayerMask.GetMask("Room");
-        //layerMask = ~layerMask;
+
         if (Physics.Raycast(ray, out hit, 100, layerMask))
-        { Debug.Log(hit.collider.name); }
-        if (hit.collider == null)
         {
-            //放回原处
-            role.transform.position = originPoint;
-        }
-        else if (hit.collider.tag == "Room")
-        {
-            RoomMgr room = hit.collider.GetComponent<RoomMgr>();
-            //如果角色在分娩期 不允许进入军营
-            if (role.RoleData.LoveType == RoleLoveType.ChildBirth
-                && room.RoomName == BuildRoomName.Barracks)
+            Debug.Log(hit.collider.name);
+            if (hit.collider.tag == "Room")
             {
-                //放回原处
-                role.transform.position = originPoint;
+                RoomMgr room = hit.collider.GetComponent<RoomMgr>();
+                if (role.RoleData.currentRoom == null || room.Id != role.RoleData.currentRoom.Id)
+                {
+                    room.AddRole(role);
+                }
             }
-            room.AddRole(role);
         }
         CameraControl.instance.isHoldRole = false;
     }
@@ -60,18 +56,75 @@ public class UIDraggingRole : TTUIPage
     {
         base.Show(mData);
         role = mData as HallRole;
-        originPoint = role.transform.position;
+        MouseMove();
+        hand.rectTransform.DOAnchorPos(new Vector2(0, -50), 0.5f).From();
+        txt_Tip.text = "";
     }
 
     private void Update()
     {
+        MouseMove();
+        ChickRay();
+    }
+
+    private void MouseMove()
+    {
         Vector2 _pos = Vector2.one;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
                     Input.mousePosition, canvas.worldCamera, out _pos);
-        hand.rectTransform.anchoredPosition = _pos;
+        handTs.anchoredPosition = _pos;
+    }
 
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        worldPos.z = role.transform.position.z;
-        role.transform.position = worldPos;
+    private void ChickRay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        if (Physics.Raycast(ray, out hit, 100, layerMask))
+        {
+            if (hit.collider.tag == "Room")
+            {
+                RoomMgr room = hit.collider.GetComponent<RoomMgr>();
+                if (currentRoom != null && room.Id == currentRoom.Id)
+                {
+                    return;
+                }
+                Debug.Log(hit.collider.name);
+                bool isTrue = ChickPlayerInfo.instance.ChickProduction(room.currentBuildData);
+                if (isTrue)
+                {
+                    RoleAttribute roleAtr = room.NeedAttribute;
+                    int index = room.currentBuildData.ScreenAllYeild(roleAtr, false);
+                    float p_1 = role.RoleData.GetArtProduce(room.RoomName);
+                    if (index >= 0)
+                    {
+                        float p_2 = room.currentBuildData.roleData[index].GetArtProduce(room.RoomName);
+                        float p_3 = p_1 - p_2;
+                        if (p_3 >= 0)
+                        {
+                            txt_Tip.text = "+" + (p_3).ToString();
+                        }
+                        else
+                        {
+                            txt_Tip.text = p_3.ToString();
+                        }
+                    }
+                    else
+                    {
+                        txt_Tip.text = "+" + p_1.ToString();
+                    }
+                }
+                else
+                {
+                    txt_Tip.text = "";
+                }
+                currentRoom = room;
+            }
+        }
+        else
+        {
+            txt_Tip.text = "";
+        }
+
     }
 }

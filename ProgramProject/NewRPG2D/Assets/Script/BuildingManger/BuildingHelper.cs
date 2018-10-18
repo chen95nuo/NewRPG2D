@@ -13,6 +13,7 @@ public class ServerBuildData
     public bool ConstructionType = false;
     public int levelUPTime;
     public int levelUpId;
+    public int[] roleID;
 
     public ServerBuildData() { }
     public ServerBuildData(int id, int RoomId, Vector2 point, float Stock, int levelUPTime, int levelUpId)
@@ -32,7 +33,13 @@ public class ServerBuildData
 
 public class ServerHallRoleData
 {
-    public HallRoleData data;
+    public int RoomId;
+    public HallRole role;
+    public ServerHallRoleData(int id, HallRole data)
+    {
+        this.RoomId = id;
+        this.role = data;
+    }
 }
 
 public class ServerRoleData
@@ -107,7 +114,7 @@ public class LocalBuildingData
     public int ScreenAllYeild(RoleAttribute type, bool isUp)
     {
         Debug.Log("角色产量筛选");
-        int index = 0;
+        int index = -1;
         float temp = 0;
         if (isUp)
         {
@@ -124,6 +131,10 @@ public class LocalBuildingData
         }
         for (int i = 0; i < roleData.Length; i++)
         {
+            if (roleData[i] == null)
+            {
+                continue;
+            }
             if (isUp)
             {
                 float temp_1 = ScreenProduceHelper(type, roleData[i]);
@@ -141,7 +152,6 @@ public class LocalBuildingData
                     temp = temp_1;
                     index = i;
                 }
-
             }
         }
         return index;

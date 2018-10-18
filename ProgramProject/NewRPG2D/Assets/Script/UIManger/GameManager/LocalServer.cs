@@ -70,8 +70,14 @@ public class LocalServer : TSingleton<LocalServer>
         {
             for (int i = 0; i < 2; i++)
             {
-                HallRoleMgr.instance.BuildNewRole();
+                HallRoleMgr.instance.BuildNewRole(0);
             }
+            HallRole data_1 = HallRoleMgr.instance.BuildNewRole(1);
+            HallRole data_2 = HallRoleMgr.instance.BuildNewRole(2);
+            List<ServerHallRoleData> s_Data = new List<ServerHallRoleData>();
+            s_Data.Add(new ServerHallRoleData(9, data_1));
+            s_Data.Add(new ServerHallRoleData(9, data_2));
+            ChickPlayerInfo.instance.ChickRoleDic(s_Data);
         }
         MagicLevel();
     }
@@ -90,7 +96,7 @@ public class LocalServer : TSingleton<LocalServer>
         saveRoomData.Add(s_3);
         ServerBuildData s_4 = new ServerBuildData(4, 10011, new Vector2(7, 1), 0, 0, 0);
         saveRoomData.Add(s_4);
-        ServerBuildData s_8 = new ServerBuildData(8, 10001, new Vector2(10, 2), 0, 0, 0);
+        ServerBuildData s_8 = new ServerBuildData(8, 10042, new Vector2(10, 2), 0, 0, 0);
         saveRoomData.Add(s_8);
         ServerBuildData s_9 = new ServerBuildData(9, 10001, new Vector2(13, 2), 0, 0, 0);
         saveRoomData.Add(s_9);

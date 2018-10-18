@@ -12,6 +12,7 @@ using Assets.Script.UIManger;
 
 public class HallRole : MonoBehaviour
 {
+    public RoleBabyData currentBaby;
     private HallRoleData currentData;
     public HallRoleData RoleData
     {
@@ -24,11 +25,21 @@ public class HallRole : MonoBehaviour
             return currentData;
         }
     }
+    public Transform TipPoint;
+    public bool isChildren = false;
 
     public void UpdateInfo(HallRoleData data)
     {
         currentData = data;
         HallRoleMgr.instance.AddRole(data, this);
+        isChildren = false;
+    }
+
+    public void UpdateInfo(RoleBabyData baby)
+    {
+        currentBaby = baby;
+        HallRoleMgr.instance.AddRole(baby.child, this);
+        isChildren = true;
     }
 
     public void ChangeSkil()

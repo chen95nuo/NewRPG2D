@@ -24,6 +24,8 @@ public class CameraControl : MonoBehaviour
 
     public float zMin = 5.4f;
     public float zMax = 28f;
+    public float zMinOF;
+    public float zMaxOF;
 
     private float a = 0;
     private float b = 0;
@@ -51,18 +53,23 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("点击到UGUI的UI界面，会返回true");
-                isUI = true;
-            }
-            else
-            {
-                Debug.Log("如果没点击到UGUI上的任何东西，就会返回false");
-                isUI = false;
-            }
+#if IPHONE || ANDROID
+			if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+#else
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+#endif
+                {
+                    Debug.Log("当前触摸在UI上");
+                    isUI = true;
+                }
+                else
+                {
+                    Debug.Log("当前没有触摸在UI上");
+                    isUI = false;
+                }
         }
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
@@ -235,6 +242,12 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickClick()
     {
+        if (isHoldRole == true)
+        {
+            Debug.Log("关闭了");
+            UIPanelManager.instance.ClosePage<UIDraggingRole>();
+            return;
+        }
         if (isUI == true)
         {
             isUI = false;
@@ -255,13 +268,12 @@ public class CameraControl : MonoBehaviour
                 }
                 return;
             }
-            if (isHoldRole == true)
-            {
-                UIPanelManager.instance.ClosePage<UIDraggingRole>();
-            }
             else if (hit.collider.tag == "Role")
             {
                 Debug.Log("点击角色");
+                HallRole role = hit.collider.GetComponent<HallRole>();
+                UIPanelManager.instance.ShowPage<UIRoleInfo>(role.RoleData);
+                CloseRoomLock();
             }
             else if (hit.collider.tag == "Room")
             {
@@ -370,6 +382,7 @@ public class CameraControl : MonoBehaviour
             {
                 data.IsHarvest = false;
                 data.roomProp.SetActive(false);
+                UIPanelManager.instance.ShowPage<UIProduceAnimator>(data);
             }
         }
         else if (room == null)

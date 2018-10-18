@@ -6,6 +6,8 @@ using Assets.Script.UIManger;
 
 public class UIMain : TTUIPage
 {
+    public static UIMain instance;
+
     public GameObject rightDown;
     public GameObject leftDown;
     public Button btn_UIMarket;
@@ -34,8 +36,17 @@ public class UIMain : TTUIPage
 
     private ServerBuildData[] spaceStock = new ServerBuildData[5];
 
+    public SpaceNumJump gold;
+    public SpaceNumJump food;
+    public SpaceNumJump mana;
+    public SpaceNumJump wood;
+    public SpaceNumJump iron;
+    public SpaceNumJump diamonds;
+
     private void Awake()
     {
+        instance = this;
+
         btn_UIMarket.onClick.AddListener(ShowMarket);
         market.gameObject.SetActive(false);
 
@@ -43,6 +54,13 @@ public class UIMain : TTUIPage
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
 
         Init();
+
+        gold = new SpaceNumJump(text_gold);
+        food = new SpaceNumJump(text_food);
+        mana = new SpaceNumJump(text_mana);
+        wood = new SpaceNumJump(text_wood);
+        iron = new SpaceNumJump(text_iron);
+        diamonds = new SpaceNumJump(text_diamonds);
     }
 
     private void OnDestroy()
@@ -94,37 +112,48 @@ public class UIMain : TTUIPage
 
     private void GetSpace(BuildRoomName name)
     {
+        Debug.Log("检查容量");
         switch (name)
         {
             case BuildRoomName.Gold:
-                text_gold.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold).ToString();
+                gold.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
+                StartCoroutine(JumpNumber(gold));
                 break;
             case BuildRoomName.GoldSpace:
-                text_gold.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold).ToString();
+                gold.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
+                StartCoroutine(JumpNumber(gold));
                 break;
             case BuildRoomName.Food:
-                text_food.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food).ToString();
+                food.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(food));
                 break;
             case BuildRoomName.FoodSpace:
-                text_food.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food).ToString();
+                food.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(food));
                 break;
             case BuildRoomName.Mana:
-                text_mana.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana).ToString();
+                mana.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(mana));
                 break;
             case BuildRoomName.ManaSpace:
-                text_mana.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana).ToString();
+                mana.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(mana));
                 break;
             case BuildRoomName.Wood:
-                text_wood.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood).ToString();
+                wood.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(wood));
                 break;
             case BuildRoomName.WoodSpace:
-                text_wood.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood).ToString();
+                wood.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(wood));
                 break;
             case BuildRoomName.Iron:
-                text_iron.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron).ToString();
+                iron.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(iron));
                 break;
             case BuildRoomName.IronSpace:
-                text_iron.text = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron).ToString();
+                iron.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
+                StartCoroutine(JumpNumber(iron));
                 break;
             default:
                 break;
@@ -133,6 +162,33 @@ public class UIMain : TTUIPage
 
     private void ChickDiamonds()
     {
-        //text_diamonds.text = playerData.Diamonds.ToString();
+        text_diamonds.text = playerData.Diamonds.ToString();
+    }
+
+    public IEnumerator JumpNumber(SpaceNumJump data)
+    {
+        while (data.num < data.maxNum)
+        {
+            data.txt.text = data.num.ToString();
+            float temp = (data.maxNum - data.num) * 0.1f;
+            temp = temp <= 1f ? 1f : temp;
+            data.num += (int)temp;
+            yield return new WaitForSeconds(0.05f);
+        }
+        data.num = data.maxNum;
+        data.txt.text = data.num.ToString();
+    }
+}
+public class SpaceNumJump
+{
+    public int num;
+    public int maxNum;
+    public Text txt;
+
+    public SpaceNumJump(Text txt)
+    {
+        num = 0;
+        this.maxNum = 0;
+        this.txt = txt;
     }
 }

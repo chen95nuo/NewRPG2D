@@ -107,6 +107,7 @@ public class EditCastle : Castle
             MapControl.instance.RemoveRoom(allroom[i]);
             allroom[i].Clear();
         }
+        allroom.Clear();
         editAllBuilding.Clear();
         allEmptyPoint.Clear();
     }

@@ -18,7 +18,7 @@ public class BuildLivingRoom : RoomMgr
                 if (i % 2 == 0 && currentBuildData.roleData[i + 1] == null)
                 {
                     currentBuildData.roleData[i + 1] = role.RoleData;
-                    Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 2)), transform.position.y + 4f, role.transform.position.z);
+                    Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 2)), transform.position.y + 0.3f, role.transform.position.z);
                     role.transform.position = point;
                     role.ChangeType(RoomName);
                     if (role.RoleData.currentRoom != null)
@@ -32,7 +32,7 @@ public class BuildLivingRoom : RoomMgr
                 else if (i % 2 != 0 && currentBuildData.roleData[i - 1] == null)
                 {
                     currentBuildData.roleData[i - 1] = role.RoleData;
-                    Vector3 point = new Vector3(transform.position.x + (4.76f * (i - 2)), transform.position.y + 4f, role.transform.position.z);
+                    Vector3 point = new Vector3(transform.position.x + (1.2f * (i)), transform.position.y + 0.3f, role.transform.position.z);
                     role.transform.position = point;
                     role.ChangeType(RoomName);
                     if (role.RoleData.currentRoom != null)
@@ -50,7 +50,7 @@ public class BuildLivingRoom : RoomMgr
             if (currentBuildData.roleData[i] == null)
             {
                 currentBuildData.roleData[i] = role.RoleData;
-                Vector3 point = new Vector3(transform.position.x + (4.76f * (i + 1)), transform.position.y + 4f, role.transform.position.z);
+                Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
                 role.transform.position = point;
                 role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)

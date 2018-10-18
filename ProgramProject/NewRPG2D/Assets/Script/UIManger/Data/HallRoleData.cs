@@ -20,8 +20,9 @@ public class HallRoleData
     private RoleTrainType trainType;//训练类型
     public int trainIndex;//训练编号
     public RoleLoveType LoveType;//爱情状态
-    public float nowHp;//当前血量
+    private float nowHp;//当前血量
     public RoleBabyData babyData;//宝宝数据
+    public RoomMgr currentRoom;
 
     public string Name
     {
@@ -62,7 +63,7 @@ public class HallRoleData
     {
         get
         {
-            float temp = (roleLevel[0].Level * 40) + 200;
+            float temp = ((roleLevel[0].Level - 1) * 40) + 200;
             temp += HP;
             return (int)temp;
         }
@@ -77,7 +78,6 @@ public class HallRoleData
         }
     }
 
-    public RoomMgr currentRoom;
 
     #region 装备所增加的各属性值
     public float Gold
@@ -227,7 +227,7 @@ public class HallRoleData
                 float temp = attribute[RoleAttribute.HurtType];
                 return temp;
             }
-            return 0;
+            return 1;
         }
         set
         {
@@ -537,6 +537,23 @@ public class HallRoleData
 
         }
     }
+
+    public float NowHp
+    {
+        get
+        {
+            if (nowHp == -1)
+            {
+                nowHp = Health;
+            }
+            return nowHp;
+        }
+
+        set
+        {
+            nowHp = value;
+        }
+    }
     #endregion
 
     public float Attribute(RoleAttribute attribute)
@@ -594,12 +611,7 @@ public class HallRoleData
         roleLevel[3] = new HallRoleLevel(RoleAttribute.Mana, level[3]);
         roleLevel[4] = new HallRoleLevel(RoleAttribute.Wood, level[4]);
         roleLevel[5] = new HallRoleLevel(RoleAttribute.Iron, level[5]);
-        //this.fightLevel = level[0];
-        //this.goldLevel = level[1];
-        //this.foodLevel = level[2];
-        //this.manaLevel = level[3];
-        //this.woodLevel = level[4];
-        //this.ironLevel = level[5];
+        nowHp = -1;
         ChickMaxLevel();
     }
 

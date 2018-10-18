@@ -124,12 +124,22 @@ public class UIEditMode : TTUIPage
 
     private void ChickBack()
     {
-        //返回城堡 不恢复操作
+        //返回城堡不保存操作
         MapControl.instance.ShowMainMap();
         UIPanelManager.instance.ClosePage<UIEditMode>();
         UIPanelManager.instance.ShowPage<UIMain>();
 
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
+
+        //清空下方提示框
+        rooms.Clear();
+        if (roomGrid != null)
+        {
+            for (int i = 0; i < roomGrid.Count; i++)
+            {
+                roomGrid[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     private void ChickSave()

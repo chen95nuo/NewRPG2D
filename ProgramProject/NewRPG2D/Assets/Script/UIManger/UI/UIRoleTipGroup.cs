@@ -8,7 +8,8 @@ public class UIRoleTipGroup : TTUIPage
 {
     public static UIRoleTipGroup instance;
 
-    public GameObject tip;
+    public GameObject Trintip;
+    public GameObject ChildTip;
     public Transform tipGridPoint;
     public Transform childTipPoint;
     private Canvas canvas;
@@ -23,7 +24,7 @@ public class UIRoleTipGroup : TTUIPage
 
     public void ShowIcon(HallRole role)
     {
-        Transform ts = role.transform;
+        Transform ts = role.TipPoint.transform;
         for (int i = 0; i < trainGrid.Count; i++)
         {
             if (trainGrid[i].IsUse == false)
@@ -32,7 +33,7 @@ public class UIRoleTipGroup : TTUIPage
                 return;
             }
         }
-        GameObject go = Instantiate(tip, tipGridPoint) as GameObject;
+        GameObject go = Instantiate(Trintip, tipGridPoint) as GameObject;
         UIRoleTrainGrid data = go.GetComponent<UIRoleTrainGrid>();
         trainGrid.Add(data);
         data.GetInfo(ts, canvas, role);
@@ -40,7 +41,7 @@ public class UIRoleTipGroup : TTUIPage
 
     public void ShowChildIcon(HallRole role)
     {
-        Transform ts = role.transform;
+        Transform ts = role.TipPoint.transform;
         for (int i = 0; i < ChildGrid.Count; i++)
         {
             if (ChildGrid[i].IsUse == false)
@@ -49,7 +50,7 @@ public class UIRoleTipGroup : TTUIPage
                 return;
             }
         }
-        GameObject go = Instantiate(tip, childTipPoint) as GameObject;
+        GameObject go = Instantiate(ChildTip, childTipPoint) as GameObject;
         UIRoleChildGrid data = go.GetComponent<UIRoleChildGrid>();
         ChildGrid.Add(data);
         data.GetInfo(ts, canvas, role);

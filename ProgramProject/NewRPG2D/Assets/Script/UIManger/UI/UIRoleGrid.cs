@@ -26,6 +26,7 @@ public class UIRoleGrid : MonoBehaviour
     }
     public void UpdateInfo(HallRoleData data, BuildRoomName name)
     {
+        txt_Type.text = "";
         txt_Name.text = data.Name;
         txt_Name.gameObject.SetActive(true);
         txt_Level.gameObject.SetActive(true);

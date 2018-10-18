@@ -186,6 +186,20 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             }
         }
     }
+    public void ChickRoleDic(List<ServerHallRoleData> data)
+    {
+        List<RoomMgr> allRoom = MainCastle.instance.allroom;
+        for (int i = 0; i < allRoom.Count; i++)
+        {
+            for (int j = 0; j < data.Count; j++)
+            {
+                if (allRoom[i].currentBuildData.id == data[j].RoomId)
+                {
+                    allRoom[i].AddRole(data[j].role);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// 有新的建筑 给字典添加信息
@@ -764,7 +778,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 playerSpace = player.GoldSpace;
                 allStock = data.Stock;
                 player.Gold += GetProductionStockHpr(data, space, playerIndex, playerSpace);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
                 break;
             case BuildRoomName.Food:
                 space = dic[BuildRoomName.FoodSpace][0];
@@ -772,7 +786,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 playerSpace = player.FoodSpace;
                 allStock = data.Stock;
                 player.Food += GetProductionStockHpr(data, space, playerIndex, playerSpace);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
                 break;
             case BuildRoomName.Mana:
                 space = dic[BuildRoomName.ManaSpace][0];
@@ -780,7 +794,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 playerSpace = player.ManaSpace;
                 allStock = data.Stock;
                 player.Mana += GetProductionStockHpr(data, space, playerIndex, playerSpace);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
                 break;
             case BuildRoomName.Wood:
                 space = dic[BuildRoomName.WoodSpace][0];
@@ -788,7 +802,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 playerSpace = player.WoodSpace;
                 allStock = data.Stock;
                 player.Wood += GetProductionStockHpr(data, space, playerIndex, playerSpace);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
                 break;
             case BuildRoomName.Iron:
                 space = dic[BuildRoomName.IronSpace][0];
@@ -796,7 +810,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 playerSpace = player.IronSpace;
                 allStock = data.Stock;
                 player.Iron += GetProductionStockHpr(data, space, playerIndex, playerSpace);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
+                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
                 break;
             default:
                 break;

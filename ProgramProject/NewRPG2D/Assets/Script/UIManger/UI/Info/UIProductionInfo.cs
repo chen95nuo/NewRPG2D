@@ -76,6 +76,10 @@ public class UIProductionInfo : TTUIPage
             {
                 roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName);
             }
+            else
+            {
+                roleGrids[i].UpdateInfo();
+            }
         }
     }
 
