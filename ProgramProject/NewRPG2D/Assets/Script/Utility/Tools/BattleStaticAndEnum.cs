@@ -46,6 +46,8 @@ namespace Assets.Script.Battle
     public struct PropertyData
     {
         public HurtTypeEnum HurtType;
+        public WeaponTypeEnum WeaponType;
+        public ProfessionNeedEnum ProfessionNeed;
         public float RoleHp;
         public float RoleMp;
         public float Damage;

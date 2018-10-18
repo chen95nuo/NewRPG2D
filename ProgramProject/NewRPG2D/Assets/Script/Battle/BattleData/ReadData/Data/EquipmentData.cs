@@ -33,6 +33,9 @@ namespace Assets.Script.Battle.BattleData
         public EquipTypeEnum EquipType;
         public QualityTypeEnum QualityType;
         public HurtTypeEnum HurtType;
+        public WeaponTypeEnum WeaponType;
+        public WeaponProfessionEnum WeaponProfession;
+        public ProfessionNeedEnum ProfessionNeed;
         public int AttackRange;
         public float AttackSpeed;
         public string SpriteName;
@@ -51,11 +54,19 @@ namespace Assets.Script.Battle.BattleData
         public int RandomCount;
         public SpecialPropertyData[] SpecialPropertyDatas = new SpecialPropertyData[2];
 
+        private Dictionary<WeaponProfessionEnum, int> attackRangeDictionary = new Dictionary<WeaponProfessionEnum, int>()
+        {
+            {WeaponProfessionEnum.Fighter, 10},
+            {WeaponProfessionEnum.Shooter, 20},
+            {WeaponProfessionEnum.Magic, 15},
+        };
 
         public override XmlName ItemXmlName
         {
             get { return XmlName.Equipment; }
         }
+
+
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
@@ -63,10 +74,13 @@ namespace Assets.Script.Battle.BattleData
             Description = ReadXmlDataMgr.StrParse(node, "Description");
             SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
             EquipName = ReadXmlDataMgr.StrParse(node, "EquipName");
+            WeaponType = (WeaponTypeEnum)ReadXmlDataMgr.IntParse(node, "WeaponType");
+            WeaponProfession = (WeaponProfessionEnum)ReadXmlDataMgr.IntParse(node, "WeaponProfession");
+            ProfessionNeed = (ProfessionNeedEnum)ReadXmlDataMgr.IntParse(node, "ProfessionNeed");
             EquipType = (EquipTypeEnum)ReadXmlDataMgr.IntParse(node, "EquipType");
             QualityType = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
             HurtType = (HurtTypeEnum)ReadXmlDataMgr.IntParse(node, "HurtType");
-            AttackRange = ReadXmlDataMgr.IntParse(node, "AttackRange");
+            AttackRange = attackRangeDictionary[WeaponProfession];
             AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             string levelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
             GetRange(levelRange, out LevelRange.Min, out LevelRange.Max);

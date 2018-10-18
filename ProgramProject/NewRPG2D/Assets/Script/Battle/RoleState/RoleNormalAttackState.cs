@@ -31,7 +31,7 @@ namespace Assets.Script.Battle.RoleState
             info.HurtValue = mRoleBase.RolePropertyValue.Damage;
             info.AttackRole = mRoleBase;
             info.TargeRole = TargetRole;
-            info.HurtType = HurtTypeEnum.Physic;
+            info.HurtType = mRoleBase.RolePropertyValue.HurtType;
             if (mRoleBase.AttackType == AttackTypeEnum.ShortRange)
             {
                 mRoleBase.RoleDamageMoment.HurtDamage(ref info);

@@ -73,6 +73,31 @@ public enum QualityTypeEnum
     Orange,
 }
 
+public enum WeaponTypeEnum
+{
+    Life,                //生活
+    Arrow,               //弓箭
+    Wand,                //魔杖
+    Knife,               //匕首
+    Sword,               //剑
+}
+
+public enum WeaponProfessionEnum
+{
+    Fighter,             //战士
+    Shooter,             //射手
+    Magic,               //法师
+}
+
+public enum ProfessionNeedEnum
+{
+    Fighter,             //战士
+    Shooter,             //射手
+    Magic,               //法师
+
+    Accounting,          //会计
+}
+
 public enum TirggerTypeEnum
 {
     Always,

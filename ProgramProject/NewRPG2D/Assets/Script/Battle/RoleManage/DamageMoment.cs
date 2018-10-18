@@ -24,14 +24,14 @@ namespace Assets.Script.Battle
             ValueProperty targeProperty = hurtInfo.TargeRole.RolePropertyValue;
             float hurtValue = hurtInfo.HurtValue;
             RolePropertyDamage(attackProperty, targeProperty, ref hurtValue);
-            CriticalDamage(attackProperty, targeProperty, ref hurtValue);
+          //  CriticalDamage(attackProperty, targeProperty, ref hurtValue);
             switch (hurtInfo.HurtType)
             {
                 case HurtTypeEnum.Physic:
                     FinallyPhysicDamage(attackProperty, targeProperty, ref hurtValue);
                     break;
-                case HurtTypeEnum.Real:
-                    FinallyRealDamage(attackProperty, targeProperty, ref hurtValue);
+                case HurtTypeEnum.Magic:
+                    FinallyMagicDamage(attackProperty, targeProperty, ref hurtValue);
                     break;
             }
 
@@ -49,10 +49,15 @@ namespace Assets.Script.Battle
 
         private void RolePropertyDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-
-            if (attackProperty.RoleProperty == targeProperty.DefenseProperty)
+            bool bCri = (Random.Range(0, 1) < attackProperty.CriticalPercent);
+            if ((Random.Range(0, 1) <
+                 attackProperty.HitPercent / (attackProperty.HitPercent + targeProperty.AviodHurtPercent)))
             {
-                hurtValue = hurtValue * BattleStaticAndEnum.RolePropertyAttackAddtion;
+                hurtValue = 0;
+            }
+            else
+            {
+                hurtValue = hurtValue * (bCri ? 2 : 1);
             }
         }
 
@@ -72,36 +77,15 @@ namespace Assets.Script.Battle
 
         private void FinallyPhysicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-            float promptOffeset = 1;//attackProperty.Prompt - targeProperty.Prompt;
-            float hurtPercentRange = 0, hurtPercentRangeMin = 0f, hurtPercentRangeMax = 0f;
-            if (promptOffeset > 0)
-            {
-                hurtPercentRangeMin = (BattleStaticAndEnum.RoleHurtRangePercentMin +
-                                       BattleStaticAndEnum.RolePromptOffsetTime * promptOffeset /
-                                       BattleStaticAndEnum.RolePromptOffsetMax);
-                hurtPercentRangeMax = BattleStaticAndEnum.RoleHurtRangePercentMax;
-            }
-            else
-            {
-                hurtPercentRangeMin = BattleStaticAndEnum.RoleHurtRangePercentMin;
-                hurtPercentRangeMax = BattleStaticAndEnum.RoleHurtRangePercentMax + BattleStaticAndEnum.RolePromptOffsetTime * promptOffeset /
-                                       BattleStaticAndEnum.RolePromptOffsetMax;
-            }
-            hurtPercentRange = Random.Range(hurtPercentRangeMin, hurtPercentRangeMax);
-            float defensePercentRange = UnityEngine.Random.Range(BattleStaticAndEnum.RoleDefenseRangePercentMin,
-                            BattleStaticAndEnum.RoleDefenseRangePercentMax);
-
-            hurtValue = hurtValue*BattleStaticAndEnum.RoleHurtPercent*hurtPercentRange -
-                       BattleStaticAndEnum.RoleDefensePercent*defensePercentRange;
-
-            hurtValue = Mathf.Max(1, hurtValue);
+           
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.PhysicArmor / (100 + targeProperty.PhysicArmor)));
 
         }
 
-        private void FinallyRealDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
+        private void FinallyMagicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-           
 
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor / (100 + targeProperty.MagicArmor)));
         }
     }
 }

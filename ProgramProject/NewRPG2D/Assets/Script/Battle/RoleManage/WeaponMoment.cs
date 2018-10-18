@@ -24,23 +24,26 @@ namespace Assets.Script.Battle
             {
                 specialBuffs.Add(GetRealBuff(equipment.SpecialProperty[i]));
             }
-            SetPropertyValue(equipment.RoleProperty, equipment.HurtType, equipment.AttackRange, equipment.AttackSpeed);
+            PropertyData data = currentHeroRole.RolePropertyValue.GetPropertyData();
+            data.HurtType = equipment.HurtType;
+            data.AttackRange = equipment.AttackRange;
+            data.AttackSpeed = equipment.AttackSpeed;
+            data.WeaponType = equipment.WeaponType;
+            data.ProfessionNeed = equipment.ProfessionNeed;
+            SetPropertyValue(equipment.RoleProperty, ref data);
         }
 
-        private void SetPropertyValue(Dictionary<RoleAttribute, float> roleProperty, HurtTypeEnum hurtType, int attackRange, float attackSpeed)
+        private void SetPropertyValue(Dictionary<RoleAttribute, float> roleProperty, ref PropertyData data)
         {
-            PropertyData data = default(PropertyData);
             data.RoleHp += roleProperty[RoleAttribute.HP];
-            data.Damage += (roleProperty[RoleAttribute.DPS] / attackSpeed);
+            data.Damage += (roleProperty[RoleAttribute.DPS] / data.AttackRange);
             data.MagicAttack += roleProperty[RoleAttribute.INT];
             data.MagicArmor += roleProperty[RoleAttribute.MArmor];
             data.PhysicArmor += roleProperty[RoleAttribute.PArmor];
             data.HitPercent += roleProperty[RoleAttribute.HIT];
             data.AviodHurtPercent += roleProperty[RoleAttribute.Dodge];
             data.CriticalPercent += roleProperty[RoleAttribute.Crt];
-            data.HurtType = hurtType;
-            data.AttackRange = attackRange;
-            data.AttackSpeed = attackSpeed;
+     
             currentHeroRole.RolePropertyValue.InitBaseRoleValue(data);
         }
 

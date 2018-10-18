@@ -17,15 +17,15 @@ namespace Assets.Script.Battle
         public float Damage { get; private set; }
         public float MagicAttack { get; private set; }
         public float MagicArmor { get; private set; }
-        public float PhysicArmor { get; private set; }   
+        public float PhysicArmor { get; private set; }
         public float CriticalPercent { get; private set; }  //暴击
         public float AviodHurtPercent { get; private set; } //闪避
         public float HitPercent { get; private set; }       //命中 
 
         public float MoveSpeed { get; private set; }
         public float AttackSpeed { get; private set; }
-        public float AttackRange { get; private set; }
-        
+        public int AttackRange { get; private set; }
+
         public RoleBase AttackRole { get; private set; }
 
         private RoleBase currenRole;
@@ -35,8 +35,8 @@ namespace Assets.Script.Battle
         public void SetCurrentRole(RoleBase mRole)
         {
             currenRole = mRole;
-          //  HUDRoot = bl_UHTUtils.GetHUDText;
-            HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform,"");
+            //  HUDRoot = bl_UHTUtils.GetHUDText;
+            HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform, "");
             HUDTextInfoinfo.Color = Color.white;
             HUDTextInfoinfo.Size = 150;
             HUDTextInfoinfo.Speed = 10;
@@ -62,6 +62,24 @@ namespace Assets.Script.Battle
             AttackRange = rolePropertyData.AttackRange;
         }
 
+        public PropertyData GetPropertyData()
+        {
+            PropertyData data = default(PropertyData);
+            data.RoleHp = RoleHp;
+            data.Damage = Damage;
+            data.MagicAttack = MagicAttack;
+            data.MagicArmor = MagicArmor;
+            data.PhysicArmor = PhysicArmor;
+            data.CriticalPercent = CriticalPercent;
+            data.AviodHurtPercent = AviodHurtPercent;
+            data.HitPercent = HitPercent;
+            data.AttackSpeed = AttackSpeed;
+            data.HurtType = HurtType;
+            data.AttackRange = AttackRange;
+            return data;
+        }
+
+
         public void SetMoveSeed(float moveSpeed)
         {
             MoveSpeed = moveSpeed;
@@ -82,7 +100,7 @@ namespace Assets.Script.Battle
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
             //HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             //HUDRoot.NewText(HUDTextInfoinfo);
-           // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
+            // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
 

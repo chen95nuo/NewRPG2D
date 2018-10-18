@@ -11,6 +11,9 @@ public class EquipmentRealProperty
     public EquipTypeEnum EquipType;
     public QualityTypeEnum QualityType;
     public HurtTypeEnum HurtType;
+    public WeaponTypeEnum WeaponType;
+    public WeaponProfessionEnum WeaponProfession;
+    public ProfessionNeedEnum ProfessionNeed;
     public string SpriteName;
     public string EquipName;
     public int Level;
@@ -56,6 +59,9 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         GetSpecialProperty(specialProperty, data);
         realProperty.SpecialProperty = specialProperty;
         realProperty.HurtType = data.HurtType;
+        realProperty.WeaponType = data.WeaponType;
+        realProperty.WeaponProfession = data.WeaponProfession;
+        realProperty.ProfessionNeed = data.ProfessionNeed;
         realProperty.EquipName = data.EquipName;
         realProperty.SpriteName = data.SpriteName;
         AllEquipmentData[equipId] = realProperty;
