@@ -22,7 +22,6 @@ public class HallRole : MonoBehaviour
     public ChangeRoleEquip RoleSkinEquip;
     private EquipmentRealProperty equipment;
     #endregion
-
     public HallRoleData RoleData
     {
         get
@@ -34,6 +33,7 @@ public class HallRole : MonoBehaviour
             return currentData;
         }
     }
+
     public void UpdateInfo(HallRoleData data)
     {
         currentData = data;

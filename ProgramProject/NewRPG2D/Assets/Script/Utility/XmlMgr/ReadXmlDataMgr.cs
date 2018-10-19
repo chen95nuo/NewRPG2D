@@ -21,6 +21,7 @@ namespace Assets.Script.Utility
         TrainData,
         MagicData,
         ChildData,
+        PropData,
         Hall,
 
         //战斗内的

@@ -20,6 +20,7 @@ public enum HallEventDefineEnum
     ChickRoomMerge,//检查房间合并
     ChickRoleTrain,//角色训练时状态
     ChickRoleLove,//角色恋爱时间
+    ChickChildTime,//小孩时间检测
     EventMax
 }
 

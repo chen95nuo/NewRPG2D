@@ -27,6 +27,8 @@ namespace Assets.Script.Utility
                     return new MagicData();
                 case XmlName.ChildData:
                     return new ChildData();
+                case XmlName.PropData:
+                    return new PropData();
                 default: return new XmlData();
             }
         }

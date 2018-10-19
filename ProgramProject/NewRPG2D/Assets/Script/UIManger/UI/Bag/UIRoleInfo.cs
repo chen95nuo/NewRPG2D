@@ -6,11 +6,11 @@ using Assets.Script.UIManger;
 
 public class UIRoleInfo : TTUIPage
 {
-    public Button btn_back;
 
     public GameObject Train;
     public GameObject LoveTip;
 
+    #region GetText
     public Text txt_TrainTime;
     public Text txt_HateLoveTime;
 
@@ -36,6 +36,20 @@ public class UIRoleInfo : TTUIPage
     public Text txt_INT;
     public Text txt_INTTip;
     public Text txt_Hp;
+    #endregion
+
+    #region GetButton
+    public Button btn_back;
+    public Button btn_AllItem;
+    public Button btn_Weapon;
+    public Button btn_Armor;
+    public Button btn_Jewelry;
+    public Button btn_Box;
+    public Button btn_Prop;
+    public Button btn_Star;
+    #endregion
+
+
 
     private void Awake()
     {

@@ -246,6 +246,7 @@ public class CameraControl : MonoBehaviour
         {
             Debug.Log("关闭了");
             UIPanelManager.instance.ClosePage<UIDraggingRole>();
+            UIMain.instance.CloseSomeUI(true);
             return;
         }
         if (isUI == true)
@@ -332,6 +333,7 @@ public class CameraControl : MonoBehaviour
                 HallRole role = hit.collider.GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
                 isHoldRole = true;
+                UIMain.instance.CloseSomeUI(false);
                 return;
             }
         }

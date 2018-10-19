@@ -14,6 +14,7 @@ public class UIMain : TTUIPage
     public Button btn_UIChat;
     public Button btn_UIRank;
     public Button btn_UIFightInfor;
+    public Button btn_UIBag;
 
     public UIMarket market;
 
@@ -48,6 +49,8 @@ public class UIMain : TTUIPage
         instance = this;
 
         btn_UIMarket.onClick.AddListener(ShowMarket);
+        btn_UIBag.onClick.AddListener(ChickBag);
+
         market.gameObject.SetActive(false);
 
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
@@ -177,6 +180,11 @@ public class UIMain : TTUIPage
         }
         data.num = data.maxNum;
         data.txt.text = data.num.ToString();
+    }
+
+    public void ChickBag()
+    {
+        UIPanelManager.instance.ShowPage<UIBag>();
     }
 }
 public class SpaceNumJump

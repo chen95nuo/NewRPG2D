@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildLivingRoom : RoomMgr
 {
-    public override void AddRole(HallRole role)
+    public override bool AddRole(HallRole role)
     {
         if (currentBuildData.roleData == null)
         {
@@ -27,7 +27,7 @@ public class BuildLivingRoom : RoomMgr
                     }
                     role.RoleData.currentRoom = this;
                     HallRoleMgr.instance.LoveStart(currentBuildData.roleData[i], role.RoleData);
-                    return;
+                    return true;
                 }
                 else if (i % 2 != 0 && currentBuildData.roleData[i - 1] == null)
                 {
@@ -41,7 +41,7 @@ public class BuildLivingRoom : RoomMgr
                     }
                     role.RoleData.currentRoom = this;
                     HallRoleMgr.instance.LoveStart(currentBuildData.roleData[i], role.RoleData);
-                    return;
+                    return true;
                 }
             }
         }
@@ -59,7 +59,7 @@ public class BuildLivingRoom : RoomMgr
                 }
                 role.RoleData.currentRoom = this;
                 role.RoleData.LoveType = RoleLoveType.WaitFor;
-                return;
+                return true;
             }
         }
 
@@ -80,6 +80,7 @@ public class BuildLivingRoom : RoomMgr
             roleTemp.ChangeType(BuildRoomName.Nothing);
             currentBuildData.roleData[index] = role.RoleData;
         }
+        return true;
     }
 
     public void ThisRoomFunc(HallRoleData data_1, HallRoleData data_2)

@@ -68,23 +68,19 @@ public class UIRoleChildGrid : MonoBehaviour
 
     private void ChickEnter()
     {
-        Debug.Log(role.RoleData.babyData);
         List<RoomMgr> allRoom = MainCastle.instance.allroom;
         for (int i = 0; i < allRoom.Count; i++)
         {
             if (allRoom[i].RoomName == BuildRoomName.BabyRoom)
             {
-                for (int j = 0; j < allRoom[i].currentBuildData.roleData.Length; j++)
+                HallRole newRole = HallRoleMgr.instance.BuildNewRole(role.RoleData.babyData);
+                bool isTrue = allRoom[i].AddRole(newRole);
+                if (isTrue)
                 {
-                    if (allRoom[i].currentBuildData.roleData[j] == null)
-                    {
-                        HallRole newRole = HallRoleMgr.instance.BuildNewRole(role.RoleData.babyData);
-                        RoomMgr room = allRoom[i].GetComponent<BuildBabyRoom>();
-                        room.AddRole(newRole);
-                        RemoveInfo();
-                        role.RoleData.babyData = null;
-                        return;
-                    }
+                    RemoveInfo();
+                    role.RoleData.babyData = null;
+                    HallRoleMgr.instance.ChildrenStart(newRole.currentBaby);
+                    return;
                 }
             }
         }

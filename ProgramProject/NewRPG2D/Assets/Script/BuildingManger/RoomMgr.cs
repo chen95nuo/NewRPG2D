@@ -912,7 +912,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// <summary>
     /// 添加角色
     /// </summary>
-    public virtual void AddRole(HallRole role)
+    public virtual bool AddRole(HallRole role)
     {
         if (currentBuildData.roleData == null)
         {
@@ -935,7 +935,7 @@ public abstract class RoomMgr : MonoBehaviour
                     role.RoleData.currentRoom.RemoveRole(role);
                 }
                 role.RoleData.currentRoom = this;
-                return;
+                return true;
             }
         }
 
@@ -956,6 +956,7 @@ public abstract class RoomMgr : MonoBehaviour
             roleTemp.ChangeType(BuildRoomName.Nothing);
             currentBuildData.roleData[index] = role.RoleData;
         }
+        return true;
     }
 
     /// <summary>

@@ -79,7 +79,7 @@ namespace Assets.Script.UIManger
 
             CanvasScaler cs = go.AddComponent<CanvasScaler>();
             cs.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            cs.referenceResolution = new Vector2(1080f, 1920f);
+            cs.referenceResolution = new Vector2(1920f, 1080f);
             cs.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
             ////add auto scale camera fix size.

@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class BuildBabyRoom : RoomMgr
 {
-    public void AddRole(HallRole role)
+    public override bool AddRole(HallRole role)
     {
-        int index = 0;
+        if (currentBuildData.roleData == null)
+        {
+            Debug.LogError("房间角色空间出错");
+        }
         for (int i = 0; i < currentBuildData.roleData.Length; i++)
         {
             if (currentBuildData.roleData[i] == null)
             {
-                index++;
-                break;
+                currentBuildData.roleData[i] = role.RoleData;
+                Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
+                role.transform.position = point;
+                role.ChangeType(RoomName);
+                if (role.RoleData.currentRoom != null)
+                {
+                    role.RoleData.currentRoom.RemoveRole(role);
+                }
+                role.RoleData.currentRoom = this;
+                return true;
             }
         }
-        //AddRole(data.child);
+        return false;
     }
-    //public override void AddRole(HallRole role)
-    //{
-    //    base.AddRole(role);
-    //}
 }
