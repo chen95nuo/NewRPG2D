@@ -59,9 +59,9 @@ public enum EquipTypeEnum
 
 public enum BodyTypeEnum
 {
-    Head,
-    Hair,
-    Face,
+    Hair,//头发
+    Beard,//胡须
+    Body//身体
 }
 
 public enum QualityTypeEnum

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildBabyRoom : RoomMgr
 {
-    public override void AddRole(HallRole role)
+    public void AddRole(HallRole role)
     {
         int index = 0;
         for (int i = 0; i < currentBuildData.roleData.Length; i++)
@@ -15,6 +15,10 @@ public class BuildBabyRoom : RoomMgr
                 break;
             }
         }
-        base.AddRole(role);
+        //AddRole(data.child);
     }
+    //public override void AddRole(HallRole role)
+    //{
+    //    base.AddRole(role);
+    //}
 }

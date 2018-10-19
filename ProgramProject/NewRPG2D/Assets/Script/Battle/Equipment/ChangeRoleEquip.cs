@@ -25,9 +25,9 @@ namespace Assets.Script.Battle
         };
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
         {
-            {BodyTypeEnum.Face, "face"},
+            {BodyTypeEnum.Beard, "face"},
             {BodyTypeEnum.Hair, "hair1"},
-            {BodyTypeEnum.Head, "head"},
+            {BodyTypeEnum.Body, "body1"},
         };
 
         private void Start()
@@ -41,14 +41,14 @@ namespace Assets.Script.Battle
         {
             for (int i = 0; i < equipSlot[equipType].Count; i++)
             {
-              ChangeEquip(equipSlot[equipType][i],
-                    ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", equipName, i)));
+                ChangeEquip(equipSlot[equipType][i],
+                      ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", equipName, i)));
             }
         }
 
         public void ChangeBody(BodyTypeEnum bodyType, string bodyName)
         {
-           ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
+            ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
         }
 
         private void ChangeEquip(string targetSlotName, Texture2D newTexture)

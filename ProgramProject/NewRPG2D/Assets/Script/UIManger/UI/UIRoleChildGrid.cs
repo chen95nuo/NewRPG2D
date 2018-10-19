@@ -79,7 +79,8 @@ public class UIRoleChildGrid : MonoBehaviour
                     if (allRoom[i].currentBuildData.roleData[j] == null)
                     {
                         HallRole newRole = HallRoleMgr.instance.BuildNewRole(role.RoleData.babyData);
-                        allRoom[i].AddRole(newRole);
+                        RoomMgr room = allRoom[i].GetComponent<BuildBabyRoom>();
+                        room.AddRole(newRole);
                         RemoveInfo();
                         role.RoleData.babyData = null;
                         return;
