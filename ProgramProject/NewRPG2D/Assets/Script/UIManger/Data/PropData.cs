@@ -8,7 +8,7 @@ using System.Xml;
 public class PropData : ItemBaseData
 {
     public string des;
-    public string spriteId;
+    public string SpriteName;
     public QualityTypeEnum quality;
     public GetAccess getAccess;//获取方式
     public PropType propType;//道具类型
@@ -23,7 +23,7 @@ public class PropData : ItemBaseData
     public override bool GetXmlDataAttribute(XmlNode node)
     {
         des = ReadXmlDataMgr.StrParse(node, "Description");
-        spriteId = ReadXmlDataMgr.StrParse(node, "SpriteId");
+        SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteId");
         quality = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
         getAccess = (GetAccess)ReadXmlDataMgr.IntParse(node, "GetAccess");
         propType = (PropType)ReadXmlDataMgr.IntParse(node, "PropType");

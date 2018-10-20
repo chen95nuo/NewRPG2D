@@ -45,6 +45,7 @@ public class UIItemGrid : MonoBehaviour
                 HallEventManager.instance.SendEvent<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, equipData);
                 break;
             case ItemType.Box:
+
                 break;
             case ItemType.Prop:
                 HallEventManager.instance.SendEvent<PropData>(HallEventDefineEnum.ShowPropInfo, propData);
