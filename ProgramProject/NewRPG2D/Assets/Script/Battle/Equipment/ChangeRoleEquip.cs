@@ -26,8 +26,8 @@ namespace Assets.Script.Battle
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
         {
             {BodyTypeEnum.Beard, "Beard"},
-            {BodyTypeEnum.Hair, "hair1"},
-            {BodyTypeEnum.Hair, "hair2"},
+            {BodyTypeEnum.Hair_1, "hair1"},
+            {BodyTypeEnum.Hair_2, "hair2"},
         };
 
         private void Start()

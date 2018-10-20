@@ -138,5 +138,4 @@ public enum PropType
     Diamonds,//钻石
     GoldCoin,//金币
     Food,//食物
-    
 }
