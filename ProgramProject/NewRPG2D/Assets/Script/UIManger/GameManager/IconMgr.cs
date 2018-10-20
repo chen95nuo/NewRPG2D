@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IconMgr : TSingleton<IconMgr>
+public class IconMgr : MonoBehaviour
 {
 
     public void GetIcon(string IconName)

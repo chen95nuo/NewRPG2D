@@ -7,10 +7,11 @@ using System.Xml;
 
 public class PropData : ItemBaseData
 {
+    public string des;
     public string spriteId;
-    public int quality;
-    public string purpose;//用途
-    public int getAccess;//获取方式
+    public QualityTypeEnum quality;
+    public GetAccess getAccess;//获取方式
+    public PropType propType;//道具类型
     public int propId;
     public int num;
 
@@ -21,10 +22,11 @@ public class PropData : ItemBaseData
 
     public override bool GetXmlDataAttribute(XmlNode node)
     {
+        des = ReadXmlDataMgr.StrParse(node, "Description");
         spriteId = ReadXmlDataMgr.StrParse(node, "SpriteId");
-        quality = ReadXmlDataMgr.IntParse(node, "Quality");
-        purpose = ReadXmlDataMgr.StrParse(node, "Purpose");
-        getAccess = ReadXmlDataMgr.IntParse(node, "GetAccess");
+        quality = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
+        getAccess = (GetAccess)ReadXmlDataMgr.IntParse(node, "GetAccess");
+        propType = (PropType)ReadXmlDataMgr.IntParse(node, "PropType");
         return base.GetXmlDataAttribute(node);
     }
 }

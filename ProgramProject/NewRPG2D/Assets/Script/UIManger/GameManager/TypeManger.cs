@@ -21,6 +21,9 @@ public enum HallEventDefineEnum
     ChickRoleTrain,//角色训练时状态
     ChickRoleLove,//角色恋爱时间
     ChickChildTime,//小孩时间检测
+    ShowEquipInfo,//显示装备信息
+    ShowBoxInfo,//显示宝箱信息
+    ShowPropInfo,//显示道具信息
     EventMax
 }
 
@@ -113,4 +116,27 @@ public enum MagicType
     Restore,
     Call,
     Attack,
+}
+
+public enum GetAccess
+{
+    Decomposing,//分解装备
+}
+
+public enum ItemType
+{
+    Equip,//武器
+    Box,//宝箱
+    Prop,//道具
+}
+
+public enum PropType
+{
+    Other,//其他
+    Fragment,//碎片
+    Equipment,//装备
+    Diamonds,//钻石
+    GoldCoin,//金币
+    Food,//食物
+    
 }
