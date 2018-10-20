@@ -173,6 +173,7 @@ namespace Assets.Script.Battle
 
     public enum HurtTypeEnum
     {
+        None,
         Physic,
         Magic,
         Real,

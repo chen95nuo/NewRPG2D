@@ -91,10 +91,7 @@ public enum WeaponProfessionEnum
 
 public enum ProfessionNeedEnum
 {
-    Fighter,             //战士
-    Shooter,             //射手
-    Magic,               //法师
-
+    Battle,              //战斗
     Accounting,          //会计
 }
 
