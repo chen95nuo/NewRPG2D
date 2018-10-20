@@ -104,9 +104,6 @@ namespace Assets.Script.Battle
     {
         public BornPositionTypeEnum PositionType;
         public int EnemyPointRoleId;
-        public int EnemyCount;
-        public float FirstEnemyDelayTime;
-        public float IntervalTime;
     }
 
     public struct AIObjectInfo

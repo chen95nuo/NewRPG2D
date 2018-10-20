@@ -21,12 +21,17 @@ namespace Assets.Script.Battle.LevelManager
             public CreateEnemyInfo enemyInfo;
         }
 
-        [SerializeField] private LayerMask inputLayerMask;
-        [SerializeField] private BornPoint[] heroPoint;
-        [SerializeField]  private Transform[] heroBornPoint;
+        [SerializeField]
+        private LayerMask inputLayerMask;
+        [SerializeField]
+        private BornPoint[] heroPoint;
+        [SerializeField]
+        private Transform[] heroBornPoint;
 
-        [SerializeField] private BornPoint[] monsterPoint;
-        [SerializeField] private Transform[] monsterBornPoint;
+        [SerializeField]
+        private BornPoint[] monsterPoint;
+        [SerializeField]
+        private Transform[] monsterBornPoint;
 
         [SerializeField]
         private string sceneName;
@@ -34,9 +39,9 @@ namespace Assets.Script.Battle.LevelManager
         public static ushort currentInstanceId = 100;
 
         private int sceneId = 100002;
-        private Queue<CreateEnemyData> enemyDatas;
+        //  private Queue<CreateEnemyData> enemyDatas;
         private CreateEnemyData currentEnemyData;
-        private List<BornEnemyInfo> currentEnemyInfoList;
+        private List<CreateEnemyInfo> currentEnemyInfoList;
 
         private bool isCreateEnemy;
         private float addTime;
@@ -47,9 +52,9 @@ namespace Assets.Script.Battle.LevelManager
         {
             InputContorlMgr.CreateInstance();
             ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
-            ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
-            enemyDatas = new Queue<CreateEnemyData>();
-            currentEnemyInfoList = new List<BornEnemyInfo>();
+            //  ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
+            //  enemyDatas = new Queue<CreateEnemyData>();
+            //currentEnemyInfoList = new List<BornEnemyInfo>();
             roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;
 
             LoadLevelParam temp = new LoadLevelParam();
@@ -127,32 +132,17 @@ namespace Assets.Script.Battle.LevelManager
                         break;
                     }
                 }
-
             }
         }
 
         private void InitEnemyData()
         {
-            MapSceneLevelData sceneLevelData = MapSceneLevelMgr.instance.GetXmlDataByItemId<MapSceneLevelData>(sceneId);
-            GetEnemyData(sceneLevelData.CreateEnemy01);
-            GetEnemyData(sceneLevelData.CreateEnemy02);
-            GetEnemyData(sceneLevelData.CreateEnemy03);
+            currentEnemyData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(sceneId);
+            GetEnemyData(sceneId);
         }
 
         private void SetEnemyInfo()
         {
-            DebugHelper.Log(" SetEnemyInfo " + enemyDatas.Count);
-            if (enemyDatas.Count <= 0)
-            {
-                isGameOver = true;
-                DebugHelper.LogError("  -----------------Win----- ");
-                EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
-                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-                //GoFightMgr.instance.MissionComplete();
-                return;
-            }
-            currentEnemyInfoList.Clear();
-            currentEnemyData = enemyDatas.Dequeue();
             InitEnemyInfoDic(BornPositionTypeEnum.Point01);
             InitEnemyInfoDic(BornPositionTypeEnum.Point02);
             InitEnemyInfoDic(BornPositionTypeEnum.Point03);
@@ -195,13 +185,13 @@ namespace Assets.Script.Battle.LevelManager
             CreateEnemyData enemyData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(enemyDataId);
             if (enemyData != null)
             {
-                enemyDatas.Enqueue(enemyData);
-                for (int i = 0; i < enemyData.CreateEnemyInfoList.Count; i++)
+                //enemyDatas.Enqueue(enemyData);
+                for (int i = 0; i < enemyData.CreateEnemyIds.Length; i++)
                 {
-                    if (enemyData.CreateEnemyInfoList[i].EnemyPointRoleId > 0)
+                    if (enemyData.CreateEnemyIds[i] > 0)
                     {
                         //Debug.LogError(" RemianEnemyCount  " + enemyData.CreateEnemyInfoList[i].EnemyPointRoleId);
-                        GameRoleMgr.instance.RemianEnemyCount.Value += enemyData.CreateEnemyInfoList[i].EnemyCount;
+                        GameRoleMgr.instance.RemianEnemyCount.Value += enemyData.CreateEnemyIds[i];
                     }
                 }
             }
@@ -210,17 +200,21 @@ namespace Assets.Script.Battle.LevelManager
         private void InitEnemyInfoDic(BornPositionTypeEnum bornPositionType)
         {
             CreateEnemyInfo enemyInfo = default(CreateEnemyInfo);
+
             GetEnemyInfo(bornPositionType, ref enemyInfo);
-            BornEnemyInfo info = new BornEnemyInfo();
-            info.enemyInfo = enemyInfo;
-            currentEnemyInfoList.Add(info);
+            currentEnemyInfoList.Add(enemyInfo);
         }
 
         private void CheckEnemyCount()
         {
             if (isCreateEnemy && GameRoleMgr.instance.RolesEnemyList.Count <= 0)
             {
-                SetEnemyInfo();
+                isGameOver = true;
+                DebugHelper.LogError("  -----------------Win----- ");
+                EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
+                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
+                //GoFightMgr.instance.MissionComplete();
+                return;
             }
 
             if (isCreateEnemy && GameRoleMgr.instance.RolesHeroList.Count <= 0)
@@ -237,29 +231,10 @@ namespace Assets.Script.Battle.LevelManager
         {
             for (int i = 0; i < currentEnemyInfoList.Count; i++)
             {
-                BornEnemyInfo info = currentEnemyInfoList[i];
-                if (info.IsBornFirst == false)
-                {
-                    if (addTime > info.enemyInfo.FirstEnemyDelayTime)
-                    {
-                        DebugHelper.Log(" IsBornFirst ");
-                        isCreateEnemy = true;
-                        info.IsBornFirst = true;
-                        info.BornCount++;
-                        info.CurrentTime = addTime;
-                        BornEnemy(info.enemyInfo.PositionType, info.enemyInfo.EnemyPointRoleId);
-                    }
-                }
-                else
-                {
-                    if (addTime - info.CurrentTime > info.CurrentTime && info.BornCount < info.enemyInfo.EnemyCount)
-                    {
-                        DebugHelper.Log(" EnemyCount " + info.enemyInfo.EnemyCount + " BornCount == " + info.BornCount);
-                        info.BornCount++;
-                        info.CurrentTime = addTime;
-                        BornEnemy(info.enemyInfo.PositionType, info.enemyInfo.EnemyPointRoleId);
-                    }
-                }
+                CreateEnemyInfo info = currentEnemyInfoList[i];
+                DebugHelper.Log(" IsBornFirst ");
+                isCreateEnemy = true;
+                BornEnemy(info.PositionType, info.EnemyPointRoleId);
             }
         }
 
@@ -271,11 +246,12 @@ namespace Assets.Script.Battle.LevelManager
 
         private void GetEnemyInfo(BornPositionTypeEnum bornPositionType, ref CreateEnemyInfo enemyInfo)
         {
-            for (int i = 0; i < currentEnemyData.CreateEnemyInfoList.Count; i++)
+            for (int i = 0; i < currentEnemyData.CreateEnemyIds.Length; i++)
             {
-                if (currentEnemyData.CreateEnemyInfoList[i].PositionType == bornPositionType)
+                if ((BornPositionTypeEnum)i == bornPositionType)
                 {
-                    enemyInfo = currentEnemyData.CreateEnemyInfoList[i];
+                    enemyInfo.EnemyPointRoleId = currentEnemyData.CreateEnemyIds[i];
+                    enemyInfo.PositionType = bornPositionType;
                     break;
                 }
             }
