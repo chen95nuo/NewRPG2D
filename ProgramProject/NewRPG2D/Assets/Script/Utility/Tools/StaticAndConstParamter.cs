@@ -59,9 +59,10 @@ public enum EquipTypeEnum
 
 public enum BodyTypeEnum
 {
-    Hair_1,//头发
-    Hair_2,//胡须
-    Beard//身体
+    Hair_1,//头发前
+    Hair_2,//头发后
+    Face, //表情
+    Beard//胡须
 }
 
 public enum QualityTypeEnum
@@ -84,6 +85,7 @@ public enum WeaponTypeEnum
 
 public enum WeaponProfessionEnum
 {
+    None,
     Fighter,             //战士
     Shooter,             //射手
     Magic,               //法师

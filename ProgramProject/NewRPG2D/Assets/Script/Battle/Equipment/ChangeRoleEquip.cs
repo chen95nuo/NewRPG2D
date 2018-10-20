@@ -21,13 +21,17 @@ namespace Assets.Script.Battle
 
         private Dictionary<EquipTypeEnum, List<string>> equipSlot = new Dictionary<EquipTypeEnum, List<string>>
         {
-            {EquipTypeEnum.Armor, new List<string> { "body", "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
+            {EquipTypeEnum.Armor, new List<string> { "body", "center", "Hats1", "left_hand", "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2",
+                "right_hand", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
+               {EquipTypeEnum.Sword, new List<string> { "weapon" } },
         };
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
         {
             {BodyTypeEnum.Beard, "Beard"},
             {BodyTypeEnum.Hair_1, "hair1"},
             {BodyTypeEnum.Hair_2, "hair2"},
+            {BodyTypeEnum.Face, "face"},
+            {BodyTypeEnum.Beard, "Beard"},
         };
 
         private void Start()
@@ -41,8 +45,13 @@ namespace Assets.Script.Battle
         {
             for (int i = 0; i < equipSlot[equipType].Count; i++)
             {
-                ChangeEquip(equipSlot[equipType][i],
-                      ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{0}{1}", equipName, i)));
+                Texture2D texture2D =
+                    ResourcesLoadMgr.instance.LoadResource<Texture2D>(string.Format("Equipment/{0}/{1}", equipName,
+                        equipSlot[equipType]));
+                if (texture2D != null)
+                {
+                    ChangeEquip(equipSlot[equipType][i], texture2D);
+                }
             }
         }
 
