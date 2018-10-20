@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Assets.Script.Tools;
 using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
@@ -11,7 +12,7 @@ namespace Assets.Script.Battle.BattleData
     public struct TreasureBoxItemData
     {
         public int ItemId;
-        public int ItemCount;
+        public int ItemMinCount, ItemMaxCount;
     }
 
     public struct RandomTreasureBoxItemData
@@ -24,8 +25,8 @@ namespace Assets.Script.Battle.BattleData
     {
         public bool DependLevel;
         public string Icon;
-        public TreasureBoxItemData[] TreasureBoxItems = new TreasureBoxItemData[5];
-        public RandomTreasureBoxItemData[] RandomTreasureBoxItems = new RandomTreasureBoxItemData[3];
+        public TreasureBoxItemData[] TreasureBoxItems = new TreasureBoxItemData[10];
+        public RandomTreasureBoxItemData[] RandomTreasureBoxItems = new RandomTreasureBoxItemData[5];
 
 
         public override XmlName ItemXmlName
@@ -48,7 +49,7 @@ namespace Assets.Script.Battle.BattleData
             {
                 int index = i + 1;
                 RandomTreasureBoxItems[i].ItemData.ItemId = ReadXmlDataMgr.IntParse(node, "RandomItemId0" + index);
-                RandomTreasureBoxItems[i].ItemData.ItemCount = ReadXmlDataMgr.IntParse(node, "RandomItemCount0" + index);
+                StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "RandomItemCount0" + index), out RandomTreasureBoxItems[i].ItemData.ItemMinCount, out RandomTreasureBoxItems[i].ItemData.ItemMaxCount);
                 RandomTreasureBoxItems[i].CreateChange = ReadXmlDataMgr.FloatParse(node, "RandomItemChange0" + index);
             }
 
@@ -58,7 +59,7 @@ namespace Assets.Script.Battle.BattleData
         private void GetItemData(XmlNode node, int index, out TreasureBoxItemData data)
         {
             data.ItemId = ReadXmlDataMgr.IntParse(node, "ItemId0" + index);
-            data.ItemCount = ReadXmlDataMgr.IntParse(node, "ItemCount0" + index);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "ItemCount0" + index), out data.ItemMinCount, out data.ItemMaxCount);
         }
     }
 }

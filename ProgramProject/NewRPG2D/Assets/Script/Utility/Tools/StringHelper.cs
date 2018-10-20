@@ -67,5 +67,19 @@ namespace Assets.Script.Tools
             }
         }
 
+        public void GetRange(string range, out int min, out int max)
+        {
+            string[] rangeArray = range.Split(',');
+            min = int.Parse(rangeArray[0]);
+            if (rangeArray.Length > 1)
+            {
+                max = int.Parse(rangeArray[1]);
+            }
+            else
+            {
+                max = min;
+            }
+        }
+
     }
 }
