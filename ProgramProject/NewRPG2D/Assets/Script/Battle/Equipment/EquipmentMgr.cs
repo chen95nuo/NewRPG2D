@@ -35,7 +35,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         AllEquipmentData.Clear();
     }
 
-    public EquipmentRealProperty CreateNewEquipment(int itemId)
+    public EquipmentRealProperty CreateNewEquipment(int itemId, bool dependLevel = false)
     {
         EquipmentData data = EquipmentDataMgr.instance.GetXmlDataByItemId<EquipmentData>(itemId);
 

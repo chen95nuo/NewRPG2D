@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Assets.Script.Tools;
 using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
@@ -83,16 +84,16 @@ namespace Assets.Script.Battle.BattleData
             AttackRange = attackRangeDictionary[WeaponProfession];
             AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             string levelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
-            GetRange(levelRange, out LevelRange.Min, out LevelRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "DamageMinRange"), out DamageMinRange.Min, out DamageMinRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "DamageMaxRange"), out DamageMaxRange.Min, out DamageMaxRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "HPRange"), out HPRange.Min, out HPRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "MagicArmorRange"), out MagicArmorRange.Min, out MagicArmorRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "PhysicArmorRange"), out PhysicArmorRange.Min, out PhysicArmorRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "DropEquipRange"), out CritialRange.Min, out CritialRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "AvoidHurtRange"), out AvoidHurtRange.Min, out AvoidHurtRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "HitEnemyRange"), out HitEnemyRange.Min, out HitEnemyRange.Max);
-            GetRange(ReadXmlDataMgr.StrParse(node, "MagicDamageRange"), out MagicDamageRange.Min, out MagicDamageRange.Max);
+            StringHelper.instance.GetRange(levelRange, out LevelRange.Min, out LevelRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "DamageMinRange"), out DamageMinRange.Min, out DamageMinRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "DamageMaxRange"), out DamageMaxRange.Min, out DamageMaxRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "HPRange"), out HPRange.Min, out HPRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "MagicArmorRange"), out MagicArmorRange.Min, out MagicArmorRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "PhysicArmorRange"), out PhysicArmorRange.Min, out PhysicArmorRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "DropEquipRange"), out CritialRange.Min, out CritialRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "AvoidHurtRange"), out AvoidHurtRange.Min, out AvoidHurtRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "HitEnemyRange"), out HitEnemyRange.Min, out HitEnemyRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "MagicDamageRange"), out MagicDamageRange.Min, out MagicDamageRange.Max);
             for (int i = 0; i < RandomPropertyDatas.Length; i++)
             {
                 RandomPropertyDatas[i] = GetRandomPropertyData(node, i + 1);
@@ -108,25 +109,13 @@ namespace Assets.Script.Battle.BattleData
             return base.GetXmlDataAttribute(node);
         }
 
-        private void GetRange(string range, out float min, out float max)
-        {
-            string[] rangeArray = range.Split(',');
-            min = float.Parse(rangeArray[0]);
-            if (rangeArray.Length > 1)
-            {
-                max = float.Parse(rangeArray[1]);
-            }
-            else
-            {
-                max = min;
-            }
-        }
+     
 
         private RandomPropertyData GetRandomPropertyData(XmlNode node, int index)
         {
             RandomPropertyData data = new RandomPropertyData();
             data.AttributeType = (RoleAttribute)ReadXmlDataMgr.IntParse(node, string.Format("RandomProperty{0}Type", index));
-            GetRange(ReadXmlDataMgr.StrParse(node, string.Format("RandomProperty{0}Range", index)), out data.ValueRange.Min, out data.ValueRange.Max);
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, string.Format("RandomProperty{0}Range", index)), out data.ValueRange.Min, out data.ValueRange.Max);
             return data;
         }
 

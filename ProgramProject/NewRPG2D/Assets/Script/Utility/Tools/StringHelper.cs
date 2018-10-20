@@ -53,6 +53,19 @@ namespace Assets.Script.Tools
             return str + "_" + IntToString(instanceId);
         }
 
+        public void GetRange(string range, out float min, out float max)
+        {
+            string[] rangeArray = range.Split(',');
+            min = float.Parse(rangeArray[0]);
+            if (rangeArray.Length > 1)
+            {
+                max = float.Parse(rangeArray[1]);
+            }
+            else
+            {
+                max = min;
+            }
+        }
 
     }
 }

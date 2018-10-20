@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Assets.Script.Tools;
 using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
@@ -10,8 +11,21 @@ namespace Assets.Script.Battle.BattleData
     public class RolePropertyData : ItemBaseData
     {
         public string Name;
-        public PropertyData RoleOtherData;
-      //  public PropertyBaseData RoleBaseData;
+        public int EquipmentId;
+        public float AttackSpeed;
+        public string SpriteName;
+        public float Level;
+        public float DamageMin;
+        public float DamageMax;
+        public float HP;
+        public float MagicArmor;
+        public float PhysicArmor;
+        public float Critial;
+        public float AvoidHurt;
+        public float HitEnemy;
+        public float MagicDamage;
+        public SpecialPropertyData[] SpecialPropertyDatas = new SpecialPropertyData[2];
+
         public override XmlName ItemXmlName
         {
             get { return XmlName.RolePropertyData; }
@@ -19,44 +33,39 @@ namespace Assets.Script.Battle.BattleData
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
-          //  RoleBaseData = new PropertyBaseData();
-            RoleOtherData = new PropertyData();
-           // Name = ReadXmlDataMgr.StrParse(node, "Name");
+         
             ReadXmlDataMgr.StrParse(node, "Description");
-            //RoleBaseData.RoleProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "RoleProperty");
-            //RoleOtherData.AttackProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "AttackProperty");
-            //RoleOtherData.DefenseProperty = (RolePropertyEnum)ReadXmlDataMgr.IntParse(node, "DefenseProperty");
+            ItemName = ReadXmlDataMgr.StrParse(node, "Name");
+            Description = ReadXmlDataMgr.StrParse(node, "Description");
+            EquipmentId = ReadXmlDataMgr.IntParse(node, "EquipmentId");
+            SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
+            AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
+            Level = ReadXmlDataMgr.FloatParse(node, "Level");
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "DamageRange"), out DamageMin, out DamageMax);
+            HP = ReadXmlDataMgr.FloatParse(node, "HP");
+            MagicArmor = ReadXmlDataMgr.FloatParse(node, "MagicArmor");
+            Critial = ReadXmlDataMgr.FloatParse(node, "Critial");
+            PhysicArmor = ReadXmlDataMgr.FloatParse(node, "PhysicArmor");
+            AvoidHurt = ReadXmlDataMgr.FloatParse(node, "AvoidHurt");
+            HitEnemy = ReadXmlDataMgr.FloatParse(node, "HitEnemy");
+            MagicDamage = ReadXmlDataMgr.FloatParse(node, "MagicDamage");
 
-            //float baseValue = ReadXmlDataMgr.IntParse(node, "BaseHP");
-            //float growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowHPMin");
-            //float growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowHPMax");
-            //RoleBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-            //baseValue = ReadXmlDataMgr.IntParse(node, "BaseAttack");
-            //growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowAttackMin");
-            //growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowAttackMax");
-            //RoleBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-            //baseValue = ReadXmlDataMgr.IntParse(node, "BaseDefense");
-            //growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMin");
-            //growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowDefenseMax");
-            //RoleBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-            //baseValue = ReadXmlDataMgr.FloatParse(node, "BasePrompt");
-            //growValueMin = ReadXmlDataMgr.FloatParse(node, "GrowPromptMin");
-            //growValueMax = ReadXmlDataMgr.FloatParse(node, "GrowPromptMax");
-            //RoleBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-            RoleOtherData.AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
-            RoleOtherData.MoveSpeed = ReadXmlDataMgr.FloatParse(node, "BaseMoveSpeed");
-            //RoleOtherData.DizzyChance = ReadXmlDataMgr.FloatParse(node, "Dizzy");
-            //RoleOtherData.HitEnemyHeal = ReadXmlDataMgr.FloatParse(node, "DrainHP");
-            //RoleOtherData.ReduceCD = ReadXmlDataMgr.FloatParse(node, "ReduceCDTime");
-            //RoleOtherData.HealTeam = ReadXmlDataMgr.FloatParse(node, "Heal");
-            //RoleOtherData.HealPerSecond = ReadXmlDataMgr.FloatParse(node, "HealPerSecond");
-            //RoleOtherData.FireHurt = ReadXmlDataMgr.FloatParse(node, "BurnHurt");
-            //RoleOtherData.ReflectHurt = ReadXmlDataMgr.FloatParse(node, "ReflectHurt");
+            for (int i = 0; i < SpecialPropertyDatas.Length; i++)
+            {
+                SpecialPropertyDatas[i] = GetSpecialPropertyData(node, i + 1);
+            }
             return base.GetXmlDataAttribute(node);
+        }
+
+        private SpecialPropertyData GetSpecialPropertyData(XmlNode node, int index)
+        {
+            SpecialPropertyData data = new SpecialPropertyData();
+            data.SpecialPropertyType = (SpecialPropertyEnum)ReadXmlDataMgr.IntParse(node, string.Format("SpecialPropertyType{0}", index));
+            data.param1 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param1", index));
+            data.param2 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param2", index));
+            data.param3 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param3", index));
+
+            return data;
         }
     }
 }

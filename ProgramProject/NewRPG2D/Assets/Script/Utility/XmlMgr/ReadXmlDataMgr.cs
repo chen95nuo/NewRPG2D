@@ -31,8 +31,8 @@ namespace Assets.Script.Utility
         Battle,
 
         //公共的
+        TreasureBox,
         Equipment,
-        EquipProperty,
         EquipBaseProperty,
 
         Max,

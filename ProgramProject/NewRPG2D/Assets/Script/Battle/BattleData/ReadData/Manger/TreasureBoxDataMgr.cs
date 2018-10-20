@@ -4,11 +4,11 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class EquipPropertyDataMgr : ItemDataBaseMgr<EquipPropertyDataMgr>
+    public class TreasureBoxDataMgr : ItemDataBaseMgr<TreasureBoxDataMgr>
     {
         protected override XmlName CurrentXmlName
         {
-            get { return XmlName.EquipProperty; }
+            get { return XmlName.TreasureBox; }
         }
     }
 }
