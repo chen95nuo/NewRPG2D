@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
+using Assets.Script.Battle.BattleData;
 
 public class UIItemGrid : MonoBehaviour
 {
@@ -10,30 +12,59 @@ public class UIItemGrid : MonoBehaviour
     public Text txt_Num;
     private ItemType itemType;
     private EquipmentRealProperty equipData;
-    //private ; //宝箱Data
+    private TreasureBox boxData;
     private PropData propData;
 
     private void Awake()
     {
+        btn_Click = GetComponent<Button>();
         btn_Click.onClick.AddListener(ChickClick);
     }
 
-    public void UpdateInfo(EquipmentRealProperty EquipData)
+    public void UpdateInfo(ItemHelper data)
     {
+        propData = null;
+        equipData = null;
+        itemType = data.itemType;
+        txt_Num.text = "";
+        switch (data.itemType)
+        {
+            case ItemType.Equip:
+                UpdateEquip(data);
+                break;
+            case ItemType.Box:
+                UpdateBox(data);
+                break;
+            case ItemType.Prop:
+                UpdateProp(data);
+                break;
+            default:
+                break;
+        }
         itemType = ItemType.Equip;
-        txt_Num.text = "";
     }
 
-    public void UpdateInfo()
+    public void UpdateEquip(ItemHelper data)
     {
-        itemType = ItemType.Box;
-        txt_Num.text = "";
+        equipData = EquipmentMgr.instance.GetEquipmentByEquipId(data.instanceId);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(equipData.SpriteName);
+        image_Item.sprite = sp;
     }
 
-    public void UpdateInfo(PropData data)
+    public void UpdateBox(ItemHelper data)
     {
-        itemType = ItemType.Prop;
-        txt_Num.text = data.num.ToString();
+        boxData = ChickItemInfo.instance.GetBoxData(data.instanceId);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
+        image_Item.sprite = sp;
+        BoxDataHelper boxHData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
+        txt_Num.text = boxHData.num.ToString();
+    }
+    public void UpdateProp(ItemHelper data)
+    {
+        propData = ChickItemInfo.instance.GetPropData(data.instanceId);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
+        image_Item.sprite = sp;
+        txt_Num.text = propData.num.ToString();
     }
 
     public void ChickClick()
@@ -45,7 +76,7 @@ public class UIItemGrid : MonoBehaviour
                 HallEventManager.instance.SendEvent<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, equipData);
                 break;
             case ItemType.Box:
-
+                //UIPanelManager.instance.ShowPage<>();
                 break;
             case ItemType.Prop:
                 HallEventManager.instance.SendEvent<PropData>(HallEventDefineEnum.ShowPropInfo, propData);

@@ -8,13 +8,13 @@ public class ScrollControl : MonoBehaviour
 
     public InfinityGridLayoutGroup infinity;
 
-    int amount = 6;
-
+    //int amount = 6;
+    public List<ItemHelper> allItem = new List<ItemHelper>();
     // Use this for initialization
-    public void UpdateInfo(int amount)
+    public void UpdateInfo(List<ItemHelper> items)
     {
+        int amount = items.Count;
         ////初始化数据列表;
-        //infinity = transform.Find("Panel_Scroll/Panel_Grid").GetComponent<InfinityGridLayoutGroup>();
         infinity.SetAmount(amount);
         infinity.updateChildrenCallback = UpdateChildrenCallback;
     }
@@ -23,7 +23,11 @@ public class ScrollControl : MonoBehaviour
     {
         Debug.Log(index);
 
-        //Text text = trans.Find("Text").GetComponent<Text>();
-        //text.text = index.ToString();
+        UIItemGrid grid = trans.GetComponent<UIItemGrid>();
+        if (grid == null)
+        {
+            return;
+        }
+        grid.UpdateInfo(allItem[index]);
     }
 }

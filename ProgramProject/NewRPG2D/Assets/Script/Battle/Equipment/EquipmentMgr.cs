@@ -26,6 +26,7 @@ public class EquipmentRealProperty
 public class EquipmentMgr : TSingleton<EquipmentMgr>
 {
     private Dictionary<int, EquipmentRealProperty> AllEquipmentData = new Dictionary<int, EquipmentRealProperty>();
+    private List<EquipmentRealProperty> AllEquipmentDataList = new List<EquipmentRealProperty>();
     private static int equipInstanceId = 1000;
     private float attackSpeed = StaticAndConstParamter.AttackSpeed;
 
@@ -65,6 +66,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         realProperty.EquipName = data.EquipName;
         realProperty.SpriteName = data.SpriteName;
         AllEquipmentData[equipId] = realProperty;
+        AllEquipmentDataList.Add(realProperty);
         return realProperty;
     }
 
@@ -78,9 +80,14 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         return AllEquipmentData[equipId].RoleProperty[type];
     }
 
+    public List<EquipmentRealProperty> GetAllEquipmentData()
+    {
+        return AllEquipmentDataList;
+    }
+
     private void GetRoleProperty(Dictionary<RoleAttribute, float> roleProperty, EquipmentData data, int currentLevel)
     {
-        float times = (1 + 0.05f*(currentLevel - data.LevelRange.Min));
+        float times = (1 + 0.05f * (currentLevel - data.LevelRange.Min));
 
         CalculateRoleProperty(roleProperty, RoleAttribute.Dodge, data.AvoidHurtRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.HP, data.HPRange, times);
@@ -96,8 +103,8 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         }
 
         roleProperty[RoleAttribute.DPS] +=
-            ((Random.Range(data.DamageMinRange.Min*times, data.DamageMinRange.Max*times) +
-             Random.Range(data.DamageMaxRange.Min*times, data.DamageMaxRange.Max*times))/ attackSpeed);
+            ((Random.Range(data.DamageMinRange.Min * times, data.DamageMinRange.Max * times) +
+             Random.Range(data.DamageMaxRange.Min * times, data.DamageMaxRange.Max * times)) / attackSpeed);
 
         RandomPropertyData[] tempDatas = new RandomPropertyData[3];
         for (int i = 0; i < tempDatas.Length; i++)
@@ -111,7 +118,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
             int selectId = Random.Range(0, tempDatas.Length);
             if (tempDatas[selectId].AttributeType >= 0)
             {
-                loopCount --;
+                loopCount--;
                 CalculateRoleProperty(roleProperty, tempDatas[selectId].AttributeType, tempDatas[selectId].ValueRange, times);
                 tempDatas[selectId].AttributeType = RoleAttribute.Nothing;
             }
@@ -136,6 +143,6 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
             roleProperty[rolePropertyType] = 0;
         }
 
-        roleProperty[rolePropertyType] += Random.Range(value.Min* times, value.Max * times);
+        roleProperty[rolePropertyType] += Random.Range(value.Min * times, value.Max * times);
     }
 }

@@ -126,9 +126,10 @@ public enum GetAccess
 
 public enum ItemType
 {
-    Equip,//武器
+    All,//全部
     Box,//宝箱
     Prop,//道具
+    Equip,//武器
 }
 
 public enum PropType
@@ -136,7 +137,5 @@ public enum PropType
     Other,//其他
     Fragment,//碎片
     Equipment,//装备
-    Diamonds,//钻石
-    GoldCoin,//金币
-    Food,//食物
+    Resources,//资源类
 }

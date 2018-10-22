@@ -9,17 +9,16 @@ public class GetSpriteAtlas : MonoBehaviour
 
     public static GetSpriteAtlas insatnce = null;
 
-    private SpriteAtlas currencyImage;
+    public SpriteAtlas Icons;
 
     private void Awake()
     {
         insatnce = this;
-        currencyImage = Resources.Load<SpriteAtlas>("UISpriteAtlas/CurrencyImage");
     }
 
     public Sprite GetIcon(string name)
     {
-        Sprite sp = currencyImage.GetSprite(name);
+        Sprite sp = Icons.GetSprite(name);
         if (sp != null)
         {
             return sp;
@@ -29,12 +28,12 @@ public class GetSpriteAtlas : MonoBehaviour
 
     public void SetImage(Image[] images)
     {
-        StartCoroutine(SetSprite(images, currencyImage));
+        StartCoroutine(SetSprite(images, Icons));
     }
 
     public void SetImage(Image[] images, SpriteAtlas sprites)
     {
-        StartCoroutine(SetSprite(images, sprites, currencyImage));
+        StartCoroutine(SetSprite(images, sprites, Icons));
     }
 
     IEnumerator SetSprite(Image[] images, SpriteAtlas currencyImage)

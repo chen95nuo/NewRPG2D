@@ -52,9 +52,9 @@ public enum CameraStateEnum
 
 public enum EquipTypeEnum
 {
-    Sword,
-    Armor,
-
+    Sword,//武器
+    Armor,//防具
+    Jewelry,//首饰
 }
 
 public enum BodyTypeEnum
