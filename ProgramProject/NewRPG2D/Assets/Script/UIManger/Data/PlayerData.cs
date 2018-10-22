@@ -244,6 +244,10 @@ public class PlayerData
         set
         {
             mainHall = value;
+            if (UIMain.instance != null)
+            {
+                UIMain.instance.Init();
+            }
             int x = (int)mainHall.buildingData.Param1;
             int y = (int)mainHall.buildingData.Param2;
             if (EditCastle.instance != null)

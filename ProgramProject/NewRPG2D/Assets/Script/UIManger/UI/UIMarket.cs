@@ -100,7 +100,7 @@ public class UIMarket : MonoBehaviour
         {
             if (grids.Count <= i)//如果格子数量不足 新建
             {
-                GameObject go = Instantiate(grids[grids.Count - 1].gameObject, gridTrans) as GameObject;
+                GameObject go = Instantiate(grid, gridTrans) as GameObject;
                 grids.Add(go.GetComponent<UIMarketGrid>());
             }
             grids[i].market = this;

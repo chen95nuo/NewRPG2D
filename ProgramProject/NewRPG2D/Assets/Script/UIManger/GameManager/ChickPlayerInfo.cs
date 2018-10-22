@@ -433,7 +433,6 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <returns></returns>
     public int GetAllStock(BuildRoomName name)
     {
-        Debug.Log("获取某类资源总值");
         int index = 0;
         PlayerData player = GetPlayerData.Instance.GetData();
         switch (name)
@@ -972,9 +971,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         return 0;
     }
 
-
     /// <summary>
-    /// 返回该类资源的总库存
+    /// 返回该类资源剩余仓库空间
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>

@@ -11,10 +11,10 @@ public class UIProduceAnimator : TTUIPage
 
     public GameObject produceIcon;
 
-    public List<UIProduceAnimHelper> Icons = new List<UIProduceAnimHelper>();
+    private List<UIProduceAnimHelper> Icons = new List<UIProduceAnimHelper>();
 
     private RoomMgr room;
-    private Sprite[] sp;
+    public Sprite[] sp;
 
     public override void Show(object mData)
     {
@@ -36,7 +36,31 @@ public class UIProduceAnimator : TTUIPage
             UIProduceAnimHelper IconData = new UIProduceAnimHelper(im);
             Icons.Add(IconData);
         }
-        StartCoroutine(IconMove(startPoint, point));
+        int iconNum = 0;
+        switch (data.RoomName)
+        {
+            case BuildRoomName.Gold:
+                iconNum = 0;
+                break;
+            case BuildRoomName.Food:
+                iconNum = 1;
+                break;
+            case BuildRoomName.Mana:
+                iconNum = 2;
+                break;
+            case BuildRoomName.Wood:
+                iconNum = 3;
+                break;
+            case BuildRoomName.Iron:
+                iconNum = 4;
+                break;
+            case BuildRoomName.MaxRoom:
+                iconNum = 5;
+                break;
+            default:
+                break;
+        }
+        StartCoroutine(IconMove(startPoint, point, iconNum));
     }
     private Vector3 GetStartPoint(RoomMgr data)
     {
@@ -52,15 +76,15 @@ public class UIProduceAnimator : TTUIPage
         switch (data.RoomName)
         {
             case BuildRoomName.Gold:
-                return UIMain.instance.text_gold.transform.position;
+                return UIMain.instance.Icons[0].transform.position;
             case BuildRoomName.Food:
-                return UIMain.instance.text_food.rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[1].rectTransform.anchoredPosition;
             case BuildRoomName.Mana:
-                return UIMain.instance.text_mana.rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[2].rectTransform.anchoredPosition;
             case BuildRoomName.Wood:
-                return UIMain.instance.text_wood.rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[3].rectTransform.anchoredPosition;
             case BuildRoomName.Iron:
-                return UIMain.instance.text_iron.rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[4].rectTransform.anchoredPosition;
             default:
                 break;
         }
@@ -78,7 +102,7 @@ public class UIProduceAnimator : TTUIPage
         HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, room.RoomName);
     }
 
-    private IEnumerator IconMove(Vector3 startPoint, Vector3 point)
+    private IEnumerator IconMove(Vector3 startPoint, Vector3 point, int iconNum)
     {
         for (int i = 0; i < Icons.Count; i++)
         {
@@ -86,8 +110,9 @@ public class UIProduceAnimator : TTUIPage
             {
                 Number--;
                 Icons[i].IsUse = true;
-                int x = Random.Range(-300, 300);
-                int y = Random.Range(-300, 300);
+                Icons[i].icon.sprite = sp[iconNum];
+                int x = Random.Range(-30, 30);
+                int y = Random.Range(-30, 30);
                 Vector3 s_point = new Vector3(startPoint.x + x, startPoint.y + y, startPoint.z);
                 Icons[i].icon.rectTransform.anchoredPosition3D = s_point;
                 IconMove(Icons[i], point);

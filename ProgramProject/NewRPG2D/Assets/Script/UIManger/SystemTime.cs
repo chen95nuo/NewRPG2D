@@ -45,11 +45,11 @@ public class SystemTime : TSingleton<SystemTime>
 
     public string TimeNormalized(int HowManySecond)
     {
-        HowManySecond *= 60;
         if (HowManySecond == 0)
         {
             return "0";
         }
+        HowManySecond *= 60;
         string ShowStr = "";
         if (HowManySecond >= (24 * 3600))
         {
@@ -63,11 +63,11 @@ public class SystemTime : TSingleton<SystemTime>
         }
         if (HowManySecond >= 60)
         {
-            ShowStr += (HowManySecond /= 60) + " 分钟 ";
+            ShowStr += (HowManySecond / 60) + " 分钟 ";
         }
         if (HowManySecond > 0 && HowManySecond < 60)
         {
-            ShowStr += HowManySecond + "秒";
+            ShowStr += (HowManySecond % 60) + "秒";
         }
         return ShowStr;
     }
@@ -92,11 +92,11 @@ public class SystemTime : TSingleton<SystemTime>
         }
         if (HowManySecond >= 60)
         {
-            ShowStr += (HowManySecond /= 60) + " 分钟 ";
+            ShowStr += (HowManySecond / 60) + " 分钟 ";
         }
         if (HowManySecond > 0 && HowManySecond < 60)
         {
-            ShowStr += (HowManySecond) + "秒";
+            ShowStr += (HowManySecond % 60) + "秒";
         }
         return ShowStr;
     }

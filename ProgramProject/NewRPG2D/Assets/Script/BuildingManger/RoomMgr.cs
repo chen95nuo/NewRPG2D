@@ -26,6 +26,7 @@ public abstract class RoomMgr : MonoBehaviour
     public bool linkType = false;//连接状态
     private bool isHarvest = false;//可否收获
     private bool constructionType = false;//是否在施工中
+    private bool stockFull = false;//该类资源是否满值
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
 
@@ -91,11 +92,11 @@ public abstract class RoomMgr : MonoBehaviour
     }
     public bool StockFull
     {
-        get { return StockFull; }
+        get { return stockFull; }
         set
         {
-            StockFull = value;
-            if (StockFull == false)
+            stockFull = value;
+            if (stockFull == false)
             {
                 Debug.Log("未满");
             }

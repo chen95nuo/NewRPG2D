@@ -33,6 +33,14 @@ public class UIMain : TTUIPage
     public Text text_iron;
     public Text text_diamonds;
 
+    public Image goldSlider;
+    public Image foodSlider;
+    public Image manaSlider;
+    public Image woodSlider;
+    public Image ironSlider;
+
+    public Image[] Icons;
+
     private PlayerData playerData;
 
     private ServerBuildData[] spaceStock = new ServerBuildData[5];
@@ -47,6 +55,7 @@ public class UIMain : TTUIPage
     private void Awake()
     {
         instance = this;
+
 
         btn_UIMarket.onClick.AddListener(ShowMarket);
         btn_UIBag.onClick.AddListener(ChickBag);
@@ -71,30 +80,37 @@ public class UIMain : TTUIPage
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
         HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
     }
-    private void Init()
+    public void Init()
     {
+        RefreshText();
         playerData = GetPlayerData.Instance.GetData();
-        if (playerData.MainHallLevel > 0)
+        int level = playerData.MainHallLevel;
+        if (level > 0)
         {
             btn_gold.gameObject.SetActive(true);
             text_gold.text = playerData.Gold.ToString();
+            ChickAllStock(BuildRoomName.Gold, goldSlider);
             btn_food.gameObject.SetActive(true);
             text_food.text = playerData.Food.ToString();
+            ChickAllStock(BuildRoomName.Food, foodSlider);
         }
-        if (playerData.MainHallLevel >= 4)
+        if (level >= 4)
         {
             btn_mana.gameObject.SetActive(true);
             text_mana.text = playerData.Mana.ToString();
+            ChickAllStock(BuildRoomName.Mana, manaSlider);
         }
-        if (playerData.MainHallLevel >= 6)
+        if (level >= 6)
         {
             btn_wood.gameObject.SetActive(true);
             text_wood.text = playerData.Wood.ToString();
+            ChickAllStock(BuildRoomName.Wood, woodSlider);
         }
-        if (playerData.MainHallLevel >= 9)
+        if (level >= 9)
         {
             btn_iron.gameObject.SetActive(true);
             text_iron.text = playerData.Iron.ToString();
+            ChickAllStock(BuildRoomName.Iron, ironSlider);
         }
         text_diamonds.text = playerData.Diamonds.ToString();
     }
@@ -185,6 +201,20 @@ public class UIMain : TTUIPage
     public void ChickBag()
     {
         UIPanelManager.instance.ShowPage<UIBag>();
+    }
+
+    public void ChickAllStock(BuildRoomName name, Image slider)
+    {
+        float all = ChickPlayerInfo.instance.GetAllStock(name);
+        float allStock = ChickPlayerInfo.instance.GetAllStockSpace(name);
+        slider.fillAmount = (all / allStock);
+    }
+
+    public void RefreshText()
+    {
+        btn_mana.gameObject.SetActive(false);
+        btn_wood.gameObject.SetActive(false);
+        btn_iron.gameObject.SetActive(false);
     }
 }
 public class SpaceNumJump
