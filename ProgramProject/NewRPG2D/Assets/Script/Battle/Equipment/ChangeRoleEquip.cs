@@ -30,8 +30,8 @@ namespace Assets.Script.Battle
             {BodyTypeEnum.Beard, "Beard"},
             {BodyTypeEnum.Hair_1, "hair1"},
             {BodyTypeEnum.Hair_2, "hair2"},
-            {BodyTypeEnum.Face, "face"},
-            {BodyTypeEnum.Beard, "Beard"},
+            //{BodyTypeEnum.Face, "face"},
+            //{BodyTypeEnum.Beard, "Beard"},
         };
 
         private void Start()

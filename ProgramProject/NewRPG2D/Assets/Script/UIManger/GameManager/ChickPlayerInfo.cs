@@ -376,11 +376,64 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
+    /// 获取某类建筑的总空间
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public int GetAllStockSpace(BuildRoomName name)
+    {
+        int index = 0;
+        PlayerData player = GetPlayerData.Instance.GetData();
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                if (dic[BuildRoomName.GoldSpace][0] != null)
+                {
+                    index += (int)dic[BuildRoomName.GoldSpace][0].buildingData.Param2;
+                }
+                index += player.GoldSpace;
+                break;
+            case BuildRoomName.Food:
+                if (dic[BuildRoomName.FoodSpace][0] != null)
+                {
+                    index += (int)dic[BuildRoomName.FoodSpace][0].buildingData.Param2;
+                }
+                index += player.FoodSpace;
+                break;
+            case BuildRoomName.Wood:
+                if (dic[BuildRoomName.WoodSpace][0] != null)
+                {
+                    index += (int)dic[BuildRoomName.WoodSpace][0].buildingData.Param2;
+                }
+                index += player.WoodSpace;
+                break;
+            case BuildRoomName.Mana:
+                if (dic[BuildRoomName.ManaSpace][0] == null)
+                {
+                    index += (int)dic[BuildRoomName.ManaSpace][0].buildingData.Param2;
+                }
+                index += player.ManaSpace;
+                break;
+            case BuildRoomName.Iron:
+                if (dic[BuildRoomName.IronSpace][0] == null)
+                {
+                    index += (int)dic[BuildRoomName.IronSpace][0].buildingData.Param2;
+                }
+                index += player.IronSpace;
+                break;
+            default:
+                break;
+        }
+        return index;
+    }
+
+    /// <summary>
     /// 获取某类资源的总值
     /// </summary>
     /// <returns></returns>
     public int GetAllStock(BuildRoomName name)
     {
+        Debug.Log("获取某类资源总值");
         int index = 0;
         PlayerData player = GetPlayerData.Instance.GetData();
         switch (name)
@@ -426,6 +479,17 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 break;
             default:
                 break;
+        }
+        //如果总值等于总空间 那么 建筑提示框改变
+        if (index >= GetAllStockSpace(name))
+        {
+            RoomStockFullHelper data = new RoomStockFullHelper(name, true);
+            HallEventManager.instance.SendEvent<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, data);
+        }
+        else
+        {
+            RoomStockFullHelper data = new RoomStockFullHelper(name, false);
+            HallEventManager.instance.SendEvent<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, data);
         }
         return index;
     }
@@ -1130,5 +1194,16 @@ public class EditSaveHelper
         ChangeData = new List<LocalBuildingData>();
         int number = data.buildingData.RoomSize / 3;
         ChangeData.Add(data);
+    }
+}
+
+public class RoomStockFullHelper
+{
+    public BuildRoomName name;
+    public bool isFull;
+    public RoomStockFullHelper(BuildRoomName name, bool isFull)
+    {
+        this.name = name;
+        this.isFull = isFull;
     }
 }

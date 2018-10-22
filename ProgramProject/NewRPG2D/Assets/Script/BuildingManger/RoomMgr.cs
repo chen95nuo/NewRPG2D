@@ -36,9 +36,6 @@ public abstract class RoomMgr : MonoBehaviour
     [System.NonSerialized]
     public GameObject roomProp;//资源获取框
 
-    protected float yield = 0;
-    protected float stock = 0;
-
     private int needTime = 0;
     private int listNumber = 0;
     private UILevelUpTip levelUpTip;
@@ -92,6 +89,23 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }
+    public bool StockFull
+    {
+        get { return StockFull; }
+        set
+        {
+            StockFull = value;
+            if (StockFull == false)
+            {
+                Debug.Log("未满");
+            }
+            else
+            {
+                Debug.Log("已满");
+            }
+        }
+    }
+
     public void Clear()
     {
         castleMgr = null;
@@ -324,6 +338,19 @@ public abstract class RoomMgr : MonoBehaviour
     private void Awake()
     {
         GetCompoment();
+        HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
+    }
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
+    }
+    private void ChickStockFull(RoomStockFullHelper data)
+    {
+        if (data.name != RoomName)
+        {
+            return;
+        }
+        StockFull = data.isFull;
     }
     /// <summary>
     /// 创建或重新激活建筑

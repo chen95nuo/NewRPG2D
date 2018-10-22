@@ -40,6 +40,5 @@ public class GameMain : MonoBehaviour
     private void test_2()
     {
         LocalServer.instance.StartInit();
-
     }
 }

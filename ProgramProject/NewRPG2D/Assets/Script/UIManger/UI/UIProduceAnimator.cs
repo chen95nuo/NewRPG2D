@@ -37,25 +37,6 @@ public class UIProduceAnimator : TTUIPage
             Icons.Add(IconData);
         }
         StartCoroutine(IconMove(startPoint, point));
-        //for (int i = 0; i < Icons.Count; i++)
-        //{
-        //    if (Icons[i].IsUse == false)
-        //    {
-        //        Number--;
-        //        Icons[i].IsUse = true;
-        //        Icons[i].Icon.rectTransform.anchoredPosition3D = startPoint;
-        //        //Icons[i].Icon.transform.DOMove(point, 1).OnComplete(() => Debug.Log(i));
-        //        IconMove(Icons[i], point);
-        //    }
-        //    if (i == Icons.Count - 1 && Number >= 1)
-        //    {
-        //        GameObject go = Instantiate(produceIcon, this.transform) as GameObject;
-        //        Image image = go.GetComponent<Image>();
-        //        UIProduceAnimHelper IconData = new UIProduceAnimHelper(image);
-        //        Icons.Add(IconData);
-        //    }
-        //}
-
     }
     private Vector3 GetStartPoint(RoomMgr data)
     {
@@ -95,7 +76,6 @@ public class UIProduceAnimator : TTUIPage
     {
         icons.IsUse = false;
         HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, room.RoomName);
-
     }
 
     private IEnumerator IconMove(Vector3 startPoint, Vector3 point)
@@ -150,7 +130,6 @@ public class UIProduceAnimHelper
                 isUse = value;
                 if (IsUse == false)
                 {
-                    Debug.Log("运行了");
                     icon.transform.position = Vector3.back * 1000;
                 }
             }
