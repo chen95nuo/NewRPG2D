@@ -32,6 +32,7 @@ namespace Assets.Script.Battle.RoleState
             info.AttackRole = mRoleBase;
             info.TargeRole = TargetRole;
             info.HurtType = mRoleBase.RolePropertyValue.HurtType;
+            mRoleBase.RoleWeapon.TriggerBuff(TirggerTypeEnum.Attack, ref info);
             if (mRoleBase.AttackType == AttackTypeEnum.ShortRange)
             {
                 mRoleBase.RoleDamageMoment.HurtDamage(ref info);

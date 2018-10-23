@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Script.Battle.BattleData;
+using UnityEngine.Analytics;
 
 namespace Assets.Script.Battle
 {
@@ -43,7 +44,7 @@ namespace Assets.Script.Battle
             data.HitPercent += roleProperty[RoleAttribute.HIT];
             data.AviodHurtPercent += roleProperty[RoleAttribute.Dodge];
             data.CriticalPercent += roleProperty[RoleAttribute.Crt];
-     
+
             currentHeroRole.RolePropertyValue.InitBaseRoleValue(data);
         }
 
@@ -63,14 +64,30 @@ namespace Assets.Script.Battle
             }
         }
 
+        public void TriggerBuff(TirggerTypeEnum tirggerType, ref HurtInfo info)
+        {
+            foreach (var buff in specialBuffs)
+            {
+                buff.Trigger(tirggerType, ref info);
+            }
+        }
 
         private RoleEquipSpecialBuff GetRealBuff(SpecialPropertyData buffData)
         {
             RoleEquipSpecialBuff buff = null;
             switch (buffData.SpecialPropertyType)
             {
-                    case SpecialPropertyEnum.RebornFriend:
-                    buff = new RoleEquipSpecialBuff();
+                case SpecialPropertyEnum.RebornFriend:
+                    buff = new RebornFriendBuff();
+                    break;
+                case SpecialPropertyEnum.ExtraDamage:
+                    buff = new ExtraDamageBuff();
+                    break;
+                case SpecialPropertyEnum.IncreaseAttackWhenReborn:
+                    buff = new IncreaseAttackWhenReborn();
+                    break;
+                case SpecialPropertyEnum.HurtAllEnemy:
+                    buff = new HurtAllEnemy();
                     break;
 
                 default:

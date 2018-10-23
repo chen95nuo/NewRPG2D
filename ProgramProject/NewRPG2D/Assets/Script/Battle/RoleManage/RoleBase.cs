@@ -208,6 +208,15 @@ namespace Assets.Script.Battle
         public virtual void Death()
         { 
             IsDead = true;
+            HurtInfo info = default(HurtInfo);
+            RoleWeapon.TriggerBuff(TirggerTypeEnum.Death, ref info);
+        }
+
+        public virtual void Reborn()
+        {
+            IsDead = false;
+            HurtInfo info = default(HurtInfo);
+            RoleWeapon.TriggerBuff(TirggerTypeEnum.Reborn, ref info);
         }
 
         public void ChangeRoleColor(Color c)

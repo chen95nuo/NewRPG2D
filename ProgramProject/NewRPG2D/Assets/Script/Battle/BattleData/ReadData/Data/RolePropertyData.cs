@@ -10,7 +10,10 @@ namespace Assets.Script.Battle.BattleData
 {
     public class RolePropertyData : ItemBaseData
     {
-        public string Name;
+        //public string Name;
+        public string PrefabName;
+        public HurtTypeEnum HurtType;
+        public WeaponProfessionEnum Profession;
         public int EquipmentId;
         public float AttackSpeed;
         public string SpriteName;
@@ -35,8 +38,11 @@ namespace Assets.Script.Battle.BattleData
         {
          
             ReadXmlDataMgr.StrParse(node, "Description");
-            ItemName = ReadXmlDataMgr.StrParse(node, "Name");
+            //ItemName = ReadXmlDataMgr.StrParse(node, "Name");
             Description = ReadXmlDataMgr.StrParse(node, "Description");
+            PrefabName = ReadXmlDataMgr.StrParse(node, "PrefabName");
+             Profession = (WeaponProfessionEnum)ReadXmlDataMgr.IntParse(node, "Profession");
+            HurtType = (HurtTypeEnum)ReadXmlDataMgr.IntParse(node, "HurtType");
             EquipmentId = ReadXmlDataMgr.IntParse(node, "EquipmentId");
             SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
             AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");

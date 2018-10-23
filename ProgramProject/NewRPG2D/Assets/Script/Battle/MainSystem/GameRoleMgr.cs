@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.Battle.BattleData.ReadData;
 using Assets.Script.EventMgr;
 using Assets.Script.Tools;
 using Assets.Script.Utility;
@@ -49,9 +50,9 @@ namespace Assets.Script.Battle
             roleData.InitData();
             roleData.Id = 100001;
             role.InitRoleBaseProperty(default(PropertyData), roleData);
-            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
-            roleData.BattleIconSpriteName = currentRoleData.IconName;
-            if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
+            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
+            roleData.BattleIconSpriteName = currentRoleData.SpriteName;
+            if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
                 role.InitSkill(100100100, 100100100, 100100100);
             }
@@ -82,10 +83,14 @@ namespace Assets.Script.Battle
             info.RoleId = roleData.Id;
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
-            role.InitRoleBaseProperty(default(PropertyData), roleData);
-            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleData.Id);
-            roleData.BattleIconSpriteName = currentRoleData.IconName;
-            if (currentRoleData.AttackType == AttackTypeEnum.ShortRange)
+            PropertyData data = default(PropertyData);
+            int level = 1;
+            data.RoleHp = 200 + level * 40;
+            data.Damage = 10 + level * 1.1f;
+            role.InitRoleBaseProperty(data, roleData);
+            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
+            roleData.BattleIconSpriteName = currentRoleData.SpriteName;
+            if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
                 role.InitSkill(100100100, 100100100, 100100100);
             }
@@ -113,12 +118,12 @@ namespace Assets.Script.Battle
 
         private RoleRender SetRoleTransform(int roleId, string indexName, int instanceId, Transform transform, Vector3 mPosition, float angle)
         {
-            RoleData currentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(roleId);
+            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
             if (currentRoleData == null)
             {
                 return null;
             }
-            string itemModelName = currentRoleData.PrefabPathName;
+            string itemModelName = currentRoleData.PrefabName;
             return SetRoleTransform<RoleRender>(itemModelName, indexName, instanceId, transform, mPosition, angle);
         }
 

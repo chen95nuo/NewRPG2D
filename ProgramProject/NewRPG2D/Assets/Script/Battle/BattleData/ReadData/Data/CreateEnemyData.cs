@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Assets.Script.Tools;
 
 namespace Assets.Script.Battle.BattleData
 {
@@ -12,7 +13,7 @@ namespace Assets.Script.Battle.BattleData
     public struct AwardItemData
     {
         public int ItemId;
-        public int ItemCount;
+        public int ItemMinCount, ItemMaxCount;
     }
 
     public class CreateEnemyData : ItemBaseData
@@ -40,8 +41,8 @@ namespace Assets.Script.Battle.BattleData
 
             for (int i = 0; i < AwardItem.Length; i++)
             {
-                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId", i+1));
-                AwardItem[i].ItemCount = ReadXmlDataMgr.IntParse(node, string.Format("ItemCount", i + 1));
+                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId", (i+1)));
+                StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "ItemCount" + (i + 1)), out AwardItem[i].ItemMinCount, out AwardItem[i].ItemMaxCount);
             }
 
             for (int i = 0; i < TreasureBoxIds.Length; i++)
