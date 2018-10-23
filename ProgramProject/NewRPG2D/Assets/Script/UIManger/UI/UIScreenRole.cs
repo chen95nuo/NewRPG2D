@@ -14,6 +14,7 @@ public class UIScreenRole : TTUIPage
     private List<HallRoleData> screenRole = new List<HallRoleData>();
     private List<UIScreenRoleGrid> RoleGrid = new List<UIScreenRoleGrid>();
 
+    private int currentBtnIndex = 0;
     private void Awake()
     {
         instance = this;
@@ -55,36 +56,43 @@ public class UIScreenRole : TTUIPage
     {
         screenRole = HallRoleMgr.instance.ScreenRole();
         ShowAllRole(screenRole, RoleAttribute.Max);
+        currentBtnIndex = 0;
     }
     private void ChickAtk()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Fight);
         ShowAllRole(screenRole, RoleAttribute.Fight);
+        currentBtnIndex = 1;
     }
     private void ChickGold()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Gold);
         ShowAllRole(screenRole, RoleAttribute.Gold);
+        currentBtnIndex = 2;
     }
     private void ChickFood()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Food);
         ShowAllRole(screenRole, RoleAttribute.Food);
+        currentBtnIndex = 3;
     }
     private void ChickMana()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Mana);
         ShowAllRole(screenRole, RoleAttribute.Mana);
+        currentBtnIndex = 4;
     }
     private void ChickWood()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Wood);
         ShowAllRole(screenRole, RoleAttribute.Wood);
+        currentBtnIndex = 5;
     }
     private void ChickIron()
     {
         screenRole = HallRoleMgr.instance.ScreenRole(RoleAttribute.Iron);
         ShowAllRole(screenRole, RoleAttribute.Iron);
+        currentBtnIndex = 6;
     }
 
     private void ShowAllRole(List<HallRoleData> AllRole, RoleAttribute needAtr)

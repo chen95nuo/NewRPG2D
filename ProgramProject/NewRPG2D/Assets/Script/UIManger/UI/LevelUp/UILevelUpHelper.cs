@@ -58,28 +58,28 @@ public class UILevelUpHelper : MonoBehaviour
         float allNeed = 0;
         if (b_Data_2.NeedGold > 0)
         {
-            txt_Gold.gameObject.SetActive(true);
+            txt_Gold.transform.parent.gameObject.SetActive(true);
             txt_Gold.text = b_Data_2.NeedGold.ToString();
             needGold = b_Data_2.NeedGold - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold));
             allNeed += needGold;
         }
         if (b_Data_2.NeedMana > 0)
         {
-            txt_Mana.gameObject.SetActive(true);
+            txt_Mana.transform.parent.gameObject.SetActive(true);
             txt_Mana.text = b_Data_2.NeedMana.ToString();
             needMana = b_Data_2.NeedMana - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana));
             allNeed += needMana;
         }
         if (b_Data_2.NeedWood > 0)
         {
-            txt_Wood.gameObject.SetActive(true);
+            txt_Wood.transform.parent.gameObject.SetActive(true);
             txt_Wood.text = b_Data_2.NeedWood.ToString();
             needWood = b_Data_2.NeedWood - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood));
             allNeed += needWood;
         }
         if (b_Data_2.NeedIron > 0)
         {
-            txt_Iron.gameObject.SetActive(true);
+            txt_Iron.transform.parent.gameObject.SetActive(true);
             txt_Iron.text = b_Data_2.NeedIron.ToString();
             needIron = b_Data_2.NeedIron - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron));
             allNeed += needIron;
@@ -145,10 +145,10 @@ public class UILevelUpHelper : MonoBehaviour
 
     private void CloseTxt(bool isTrue)
     {
-        txt_Gold.gameObject.SetActive(isTrue);
-        txt_Mana.gameObject.SetActive(isTrue);
-        txt_Wood.gameObject.SetActive(isTrue);
-        txt_Iron.gameObject.SetActive(isTrue);
+        txt_Gold.transform.parent.gameObject.SetActive(isTrue);
+        txt_Mana.transform.parent.gameObject.SetActive(isTrue);
+        txt_Wood.transform.parent.gameObject.SetActive(isTrue);
+        txt_Iron.transform.parent.gameObject.SetActive(isTrue);
     }
 }
 

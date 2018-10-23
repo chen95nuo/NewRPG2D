@@ -240,6 +240,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             CompleteTrain(index);
         }
     }
+    public RoleTrainHelper GetTrainRole(int index)
+    {
+        RoleTrainHelper role = timeAction[index];
+        return role;
+    }
     /// <summary>
     /// 角色训练中止
     /// </summary>
@@ -467,12 +472,14 @@ public class RoleTrainHelper
     public TrainType atr;
     public float time;
     public HallChildren children;
+    public float maxTime;
 
     public RoleTrainHelper(HallRoleData data, TrainType atr, float time)
     {
         this.role = data;
         this.atr = atr;
         this.time = time;
+        this.maxTime = time;
     }
 }
 

@@ -19,8 +19,12 @@ public class UITrainRoleGrid : MonoBehaviour
     public Button btn_SpeedUp;
 
     public GameObject info;
+    public Image[] Icons;
+    public Image slider;
 
     private HallRoleData roleData;
+
+    private int maxTime = 0;
 
     private void Awake()
     {
@@ -31,7 +35,7 @@ public class UITrainRoleGrid : MonoBehaviour
         txt_Tip_2.text = "加速";
 
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.ChickRoleTrain, UpdateTime);
-        HallEventManager.instance.AddListener<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, CHickInfo);
+        HallEventManager.instance.AddListener<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, ChickInfo);
     }
 
     private void OnDisable()
@@ -41,10 +45,10 @@ public class UITrainRoleGrid : MonoBehaviour
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleTrain, UpdateTime);
-        HallEventManager.instance.RemoveListener<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, CHickInfo);
+        HallEventManager.instance.RemoveListener<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, ChickInfo);
     }
 
-    public void CHickInfo(HallRoleData data)
+    public void ChickInfo(HallRoleData data)
     {
         if (data == roleData)
         {
@@ -55,6 +59,14 @@ public class UITrainRoleGrid : MonoBehaviour
     public void UpdateInfo()
     {
         info.SetActive(false);
+    }
+    public void UpdateInfo(HallRoleData data, Sprite sp)
+    {
+        for (int i = 0; i < Icons.Length; i++)
+        {
+            Icons[i].sprite = sp;
+        }
+        UpdateInfo(data);
     }
     public void UpdateInfo(HallRoleData data)
     {
@@ -88,6 +100,7 @@ public class UITrainRoleGrid : MonoBehaviour
         RoleTrainHelper role = HallRoleMgr.instance.FindTrainRole(index);
         if (role.role == roleData)
         {
+            slider.fillAmount = (role.maxTime - role.time) / role.maxTime;
             string time = SystemTime.instance.TimeNormalized(role.time);
             txt_Time.text = time;
         }

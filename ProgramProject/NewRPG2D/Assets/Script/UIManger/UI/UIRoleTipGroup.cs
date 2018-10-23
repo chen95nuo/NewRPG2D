@@ -20,6 +20,7 @@ public class UIRoleTipGroup : TTUIPage
     {
         instance = this;
         canvas = TTUIRoot.Instance.GetComponent<Canvas>();
+        transform.SetSiblingIndex(0);
     }
 
     public void ShowIcon(HallRole role)

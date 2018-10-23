@@ -13,24 +13,36 @@ SpriteAtlas:
       compressionQuality: 50
       maxTextureSize: 2048
       textureCompression: 0
-      filterMode: 1
+      filterMode: 0
       generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
     packingParameters:
       serializedVersion: 2
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: d1f67f802e630bc41a9c0519f4b7bb0f, type: 3}
     - {fileID: 102900000, guid: feec4ab0371dc054facd9ac9c5f2d85a, type: 3}
     - {fileID: 102900000, guid: 5322cefe316484341ba542f7a385abd2, type: 3}
+    - {fileID: 102900000, guid: ab017aedafcf9dc4b9f14201594628f5, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -59,6 +71,18 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 045fd45751b121844b003f2871e589fd, type: 3}
   - {fileID: 21300000, guid: cb37dcec2164885498bcd67af969a1ea, type: 3}
   - {fileID: 21300000, guid: 861ca98dfd7cbfc4085e4bd47d739129, type: 3}
+  - {fileID: 21300000, guid: b912f020659409b409d1c470611ff2ab, type: 3}
+  - {fileID: 21300000, guid: 5909fb6d9c2d34a46a7ddad0e3d30982, type: 3}
+  - {fileID: 21300000, guid: a29aed48efd30a341a54e4be737a7602, type: 3}
+  - {fileID: 21300000, guid: 664e9f1f53eae544dabecbc47adda08f, type: 3}
+  - {fileID: 21300000, guid: e3192594b5889ad42be6dfc929123332, type: 3}
+  - {fileID: 21300000, guid: 20ba77ef3db7be64baed00f47a4c13db, type: 3}
+  - {fileID: 21300000, guid: 7ea8963ac6be70f49ac9ca291416a33e, type: 3}
+  - {fileID: 21300000, guid: 4232894057ee4c54da87d923b3360d12, type: 3}
+  - {fileID: 21300000, guid: 0b61e6dc582106949a976cd025694cd8, type: 3}
+  - {fileID: 21300000, guid: 0018a719153e06948b328223e0dd5b50, type: 3}
+  - {fileID: 21300000, guid: 623cff63691f0d84eba2451f03bd5f6a, type: 3}
+  - {fileID: 21300000, guid: 57cbf0ab6044f924f96b0ae3adfa1545, type: 3}
   - {fileID: 21300000, guid: 87fe60f0ad75eb745be0307c33f981d7, type: 3}
   - {fileID: 21300000, guid: 4f6aa7463eaafe848a444ec3dc3bf7a1, type: 3}
   - {fileID: 21300000, guid: 431f729f6afb1e94791eb77797067113, type: 3}
@@ -91,6 +115,18 @@ SpriteAtlas:
   - Prop_1011
   - Equip_1010
   - Stairs
+  - Food
+  - Iron
+  - Diamonds
+  - Glod
+  - Wood
+  - Mana
+  - Kitchen
+  - Fight
+  - Mint
+  - Foundry
+  - Laboratory
+  - Crafting
   - Prop_1012
   - Prop_1005
   - Prop_1002

@@ -1177,6 +1177,60 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 修改技能等级
     /// </summary>
     public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
+
+    /// <summary>
+    /// 获取房间内角色对应ICon
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public string ChickRoomIcon(BuildRoomName name)
+    {
+        string st = "";
+        switch (name)
+        {
+            case BuildRoomName.Nothing:
+                break;
+            case BuildRoomName.Gold:
+                st = "Gold";
+                break;
+            case BuildRoomName.Food:
+                st = "Food";
+                break;
+            case BuildRoomName.Mana:
+                st = "Mana";
+                break;
+            case BuildRoomName.Wood:
+                st = "Wood";
+                break;
+            case BuildRoomName.Iron:
+                st = "Iron";
+                break;
+            case BuildRoomName.FighterRoom:
+                st = "Fight";
+                break;
+            case BuildRoomName.Mint:
+                st = "Gold";
+                break;
+            case BuildRoomName.Kitchen:
+                st = "Food";
+                break;
+            case BuildRoomName.Laboratory:
+                st = "Mana";
+                break;
+            case BuildRoomName.Crafting:
+                st = "Wood";
+                break;
+            case BuildRoomName.Foundry:
+                st = "Iron";
+                break;
+            case BuildRoomName.Barracks:
+                st = "Fight";
+                break;
+            default:
+                break;
+        }
+        return st;
+    }
 }
 
 public class EditSaveHelper

@@ -7,6 +7,7 @@ using Assets.Script.UIManger;
 public class UILockRoomTip : TTUIPage
 {
     public Text txt_Name;
+    public Text txt_Level;
     public Button btn_Message;
     public Button btn_LevelUp;
     public Button btn_Cancel;
@@ -63,7 +64,8 @@ public class UILockRoomTip : TTUIPage
     private void LockRoomData(RoomMgr data)
     {
         roomData = data;
-        txt_Name.text = roomData.RoomName + "(" + roomData.BuildingData.Level + "级" + ")";
+        txt_Name.text = roomData.RoomName.ToString();
+        txt_Level.text = roomData.BuildingData.Level.ToString();
         switch (data.BuildingData.RoomType)
         {
             case RoomType.Nothing:
@@ -168,8 +170,7 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.Stairs:
                 break;
             case BuildRoomName.ThroneRoom:
-                btn_Message.gameObject.SetActive(isOpen);
-                btn_LevelUp.gameObject.SetActive(isOpen);
+                mainHouse();
                 break;
             case BuildRoomName.Barracks:
                 btn_Message.gameObject.SetActive(isOpen);
@@ -293,12 +294,15 @@ public class UILockRoomTip : TTUIPage
 
     private void ChickCastleEddit()
     {
-        Debug.Log("检查城堡编辑器");
+        //Debug.Log("检查城堡编辑器");
+        MapControl.instance.ShowEditMap();
     }
 
     private void ChickCastleMod()
     {
         Debug.Log("检查城堡背景修改");
+        object st = "该功能暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
     private void ChickTrain()

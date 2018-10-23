@@ -15,6 +15,8 @@ public class UIProductionInfo : TTUIPage
     public Text txt_Yield;
     public Text txt_Stock;
 
+    public Image slider;
+
     public Button btn_back;
     public Transform roleTrans;
     public GameObject roleGrid;
@@ -45,6 +47,7 @@ public class UIProductionInfo : TTUIPage
 
     private void RefreshStock()
     {
+        slider.fillAmount = roomData.currentBuildData.Stock / roomData.BuildingData.Param2;
         txt_Stock.text = roomData.currentBuildData.Stock.ToString("#0") + "/" + roomData.BuildingData.Param2.ToString("#0");
     }
 
