@@ -19,9 +19,11 @@ public class UITrainInfo : UIRoomInfo
 
     protected override void UpdateInfo(RoomMgr roomMgr)
     {
+        string space_1 = "       ";
+        string space_2 = "     ";
         txt_Tip_1.text = "最高等级";
         txt_Tip_2.text = "广告";
-        txt_Tip_3.text = "将城堡内的居民移动至该房间，提升居民的       等级。\n     能够影响战斗表现。";
+        txt_Tip_3.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
         txt_Tip_4.text = "缩短<color=#8BFF7F>40</color>分钟";
         txt_MaxLevel.text = roomMgr.BuildingData.Param2.ToString();
         slider_maxLevel.value = roomMgr.BuildingData.Param2;

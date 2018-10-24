@@ -177,6 +177,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                     MainCastle.instance.InstanceRoom(dic[data.RoomName][j], s_BuildData[i]);
                     if (ChickStorage(dic[data.RoomName][j]))
                     {
+                        Debug.Log(dic[data.RoomName][j]);
                         dic[data.RoomName][j].Stock = s_BuildData[i].Stock;
                         ThisStorage(dic[data.RoomName][j]);
                         HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, data.RoomName);

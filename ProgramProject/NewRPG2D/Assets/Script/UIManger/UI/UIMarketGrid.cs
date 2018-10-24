@@ -48,7 +48,7 @@ public class UIMarketGrid : MonoBehaviour
         buildName.text = data.RoomName.ToString();
         thisGrid.interactable = isTrue;
 
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
+        Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.RoomName.ToString());
         switch (data.RoomSize)
         {
             case 1:

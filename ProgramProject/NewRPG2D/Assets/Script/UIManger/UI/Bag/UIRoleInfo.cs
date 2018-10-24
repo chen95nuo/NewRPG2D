@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Assets.Script.UIManger;
 
 public class UIRoleInfo : TTUIPage
@@ -21,10 +22,10 @@ public class UIRoleInfo : TTUIPage
     public Text txt_wood;
     public Text txt_iron;
 
-    public Text txt_hurtType;
-    public Text txt_hurtTip;
     public Text txt_Dps;
     public Text txt_DpsTip;
+    public Text txt_CrtType;
+    public Text txt_CrtTip;
     public Text txt_PArmor;
     public Text txt_PArmorTip;
     public Text txt_MArmor;
@@ -38,22 +39,21 @@ public class UIRoleInfo : TTUIPage
     public Text txt_Hp;
     #endregion
 
-    #region GetButton
     public Button btn_back;
-    public Button btn_AllItem;
-    public Button btn_Weapon;
-    public Button btn_Armor;
-    public Button btn_Jewelry;
-    public Button btn_Box;
-    public Button btn_Prop;
-    public Button btn_Star;
+    #region Bag
+    public Button[] btn_AllType;
+    public ScrollControl sc;
     #endregion
 
-
+    private int currentbtnNumb = 0;
 
     private void Awake()
     {
         btn_back.onClick.AddListener(ClosePage);
+        for (int i = 0; i < btn_AllType.Length; i++)
+        {
+            btn_AllType[i].onClick.AddListener(ChickBagType);
+        }
     }
 
     public override void Show(object mData)
@@ -74,8 +74,8 @@ public class UIRoleInfo : TTUIPage
         txt_iron.text = data.IronLevel.ToString();
         ChickLevelUI(true);
 
-        txt_hurtTip.text = ((RoleHurtType)data.HurtType).ToString();
-        txt_hurtType.text = data.Attack.ToString();
+        txt_Dps.text = ((RoleHurtType)data.HurtType).ToString();
+        txt_DpsTip.text = string.Format("{0}伤害/秒", data.HurtType);
         ChickAtr(data);//检查属性
 
         if (data.LoveType == RoleLoveType.boredom)
@@ -171,5 +171,22 @@ public class UIRoleInfo : TTUIPage
         {
             txt_INT.transform.parent.gameObject.SetActive(false);
         }
+    }
+
+    private void ChickBagType()
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_AllType.Length; i++)
+        {
+            if (btn_AllType[i].gameObject == go)
+            {
+                btn_AllType[currentbtnNumb].interactable = true;
+                btn_AllType[i].interactable = false;
+                sc.UpdateInfo((BagType)i);
+                currentbtnNumb = i;
+                return;
+            }
+        }
+        Debug.LogError("没有找到对应按钮");
     }
 }

@@ -16,7 +16,7 @@ public class UIThroneLevelUpGrid : MonoBehaviour
     public void UpdateInfo(BuildingData data, ThroneInfoType type)
     {
         txt_Name.text = data.RoomName.ToString();
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
+        Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.RoomName.ToString());
         switch (data.RoomSize)
         {
             case 1:

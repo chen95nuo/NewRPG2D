@@ -15,9 +15,13 @@ public class UIProductionInfo : TTUIPage
     public Text txt_Yield;
     public Text txt_Stock;
 
+    public Image rightIcon;
+    public Image[] icons;
     public Image slider;
+    public Sprite[] iconSp;
 
     public Button btn_back;
+    public Button btn_back_1;
     public Transform roleTrans;
     public GameObject roleGrid;
     public List<UIRoleGrid> roleGrids;
@@ -32,6 +36,7 @@ public class UIProductionInfo : TTUIPage
     private void Awake()
     {
         btn_back.onClick.AddListener(ChickBack);
+        btn_back_1.onClick.AddListener(ChickBack);
         HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, RefreshStock);
     }
     private void OnDestroy()
@@ -40,9 +45,10 @@ public class UIProductionInfo : TTUIPage
     }
     private void Start()
     {
+        string space = "                ";
         txt_Tip_1.text = "每小时产量";
         txt_Tip_2.text = "容量";
-        txt_Tip_3.text = "该建筑生产资源";
+        txt_Tip_3.text = string.Format("该建筑生产{0}资源", space);
     }
 
     private void RefreshStock()
@@ -60,6 +66,33 @@ public class UIProductionInfo : TTUIPage
         txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
         ChickRoleNumber();
         ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
+
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
+        for (int i = 0; i < icons.Length; i++)
+        {
+            icons[i].sprite = sp;
+        }
+
+        switch (data.RoomName)
+        {
+            case BuildRoomName.Gold:
+                rightIcon.sprite = iconSp[0];
+                break;
+            case BuildRoomName.Food:
+                rightIcon.sprite = iconSp[1];
+                break;
+            case BuildRoomName.Mana:
+                rightIcon.sprite = iconSp[2];
+                break;
+            case BuildRoomName.Wood:
+                rightIcon.sprite = iconSp[3];
+                break;
+            case BuildRoomName.Iron:
+                rightIcon.sprite = iconSp[4];
+                break;
+            default:
+                break;
+        }
     }
     private void ChickRoleNumber()
     {

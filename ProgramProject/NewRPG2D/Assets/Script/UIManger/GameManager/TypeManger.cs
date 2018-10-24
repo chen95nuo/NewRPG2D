@@ -139,3 +139,14 @@ public enum PropType
     Equipment,//装备
     Resources,//资源类
 }
+
+public enum BagType
+{
+    AllItem,
+    Weapons,
+    Armor,
+    Jewelry,
+    Box,
+    Prop,
+    Max
+}

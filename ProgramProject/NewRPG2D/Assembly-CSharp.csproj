@@ -232,6 +232,9 @@
     <Compile Include="Assets\Script\Battle\RoleManage\BufferMoment.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\DamageMoment.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\EnemyHeroRole.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\EquipBuff\ExtraDamageBuff.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\EquipBuff\HurtAllEnemy.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\EquipBuff\IncreaseAttackWhenReborn.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\EquipBuff\RebornFriendBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\EquipBuff\RoleEquipSpecialBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\MainHeroRole.cs" />
@@ -307,12 +310,12 @@
     <Compile Include="Assets\Script\UIManger\SystemTime.cs" />
     <Compile Include="Assets\Script\UIManger\Test\ScrollControl.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIBag.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\Bag\UIBagGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIBoxInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIBoxWordBar.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIChickItem.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIEquipInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIEquipInfoGrid.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\Bag\UIItemGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIRoleInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIBarracksInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIProductionInfo.cs" />
@@ -559,12 +562,16 @@
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\ShaderShared.cginc" />
     <None Include="Assets\StreamingAssets\Config\Common\TreasureBox.xml" />
     <None Include="Assets\Spine\spine-unity\Modules\CustomMaterials\SkeletonRendererCustomMaterials.txt" />
+    <None Include="Assets\Res\RoleAnimation\Skeleton_Shooter01\demon_arrowAnm.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Dragon\license.txt" />
     <None Include="Assets\Res\RoleAnimation\HallRoleTest\anmRole.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Straight Alpha\Spine-Straight-Skeleton-Tint.shader" />
     <None Include="Assets\Spine Examples\Spine\Hero\license.txt" />
     <None Include="Assets\Spine Examples\Spine\Goblins\goblins.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Strechyman\stretchyman-diffuse-pma.atlas.txt" />
+    <None Include="Assets\Res\RoleAnimation\Skeleton_Fighter02\demon_axeAnm.atlas.txt" />
+    <None Include="Assets\Res\RoleAnimation\Skeleton_General\demon_general.atlas.txt" />
+    <None Include="Assets\Res\RoleAnimation\Role\Woman\womanRoleAnm.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Raptor\raptor.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteLighting.cginc" />
     <None Include="Assets\StreamingAssets\Config\Battle\MapSceneLevel1.xml" />
@@ -580,6 +587,7 @@
     <None Include="Assets\Spine Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Tint.shader" />
     <None Include="Assets\StreamingAssets\Config\Battle\RolePropertyData.xml" />
+    <None Include="Assets\Res\RoleAnimation\Skeleton_King\demon_king.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesUnlit.shader" />
     <None Include="Assets\UHUDText\Documentation\ReadMe.txt" />
     <None Include="Assets\Spine\spine-unity\Shaders\Utility\Hidden-Spine-Bones.shader" />
@@ -596,6 +604,7 @@
     <None Include="Assets\Res\RoleAnimation\Monster1\001.atlas.txt" />
     <None Include="Assets\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\Spine Examples\Spine\Dragon\dragon.atlas.txt" />
+    <None Include="Assets\Res\RoleAnimation\Skeleton_Fighter01\demon_swordAnm.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CameraDepthNormalsTexture.shader" />
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton-TintBlack.shader" />

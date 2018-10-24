@@ -10,12 +10,23 @@ public class GetSpriteAtlas : MonoBehaviour
     public static GetSpriteAtlas insatnce = null;
 
     public SpriteAtlas Icons;
+    public SpriteAtlas RoomIcons;
 
     private void Awake()
     {
         insatnce = this;
     }
 
+    public Sprite GetRoomSp(string name)
+    {
+        Sprite sp = RoomIcons.GetSprite(name);
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片:" + name);
+        return null;
+    }
     public Sprite GetIcon(string name)
     {
         Sprite sp = Icons.GetSprite(name);
@@ -23,6 +34,7 @@ public class GetSpriteAtlas : MonoBehaviour
         {
             return sp;
         }
+        Debug.LogError("没有找到图片:" + name);
         return null;
     }
 

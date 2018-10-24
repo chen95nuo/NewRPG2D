@@ -90,6 +90,14 @@ public class LocalBuildingData
         }
         return index;
     }
+    public float AllRomeProduction()
+    {
+        float temp = 0;
+        temp += AllRoleProduction();
+        temp += buildingData.Param1;
+
+        return temp;
+    }
     //public RoleAttribute BuildingRoleHelper()
     //{
     //    switch (buildingData.RoomName)

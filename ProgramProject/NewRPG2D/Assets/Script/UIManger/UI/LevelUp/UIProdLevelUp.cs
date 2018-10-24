@@ -18,9 +18,18 @@ public class UIProdLevelUp : UILevelUp
     public Text txt_Stock_2;
     public Text txt_StockUp;
     public Text txt_StockUp_2;
+
+    public Image yieldSlider;
+    public Image stockSlider;
+    public Image stock_2Slider;
+
     public RectTransform Type_1;
     public RectTransform Type_2;
     public RectTransform Type_3;
+
+    public Image[] Icons;
+    public Image[] stockIcons;
+    public Image[] trainIcons;
 
     protected override void Init(RoomMgr data)
     {
@@ -31,43 +40,55 @@ public class UIProdLevelUp : UILevelUp
         {
             case BuildRoomName.Gold:
                 UpdateInfo_1(data);
+                UpdateIcon("Gold", "GoldStock", "");
                 return;
             case BuildRoomName.GoldSpace:
                 UpdateInfo_2(data);
+                UpdateIcon("Gold", "GoldStock", "");
                 return;
             case BuildRoomName.Food:
                 UpdateInfo_1(data);
+                UpdateIcon("Food", "FoodStock", "");
                 return;
             case BuildRoomName.FoodSpace:
                 UpdateInfo_2(data);
+                UpdateIcon("Food", "FoodStock", "");
                 return;
             case BuildRoomName.Wood:
                 UpdateInfo_1(data);
+                UpdateIcon("Wood", "WoodStock", "");
                 return;
             case BuildRoomName.WoodSpace:
                 UpdateInfo_2(data);
+                UpdateIcon("Wood", "WoodStock", "");
                 return;
             case BuildRoomName.Mana:
                 UpdateInfo_1(data);
+                UpdateIcon("Mana", "ManaStock", "");
                 return;
             case BuildRoomName.ManaSpace:
                 UpdateInfo_2(data);
+                UpdateIcon("Mana", "ManaStock", "");
                 return;
             case BuildRoomName.Iron:
                 UpdateInfo_1(data);
+                UpdateIcon("Iron", "IronStock", "");
                 return;
             case BuildRoomName.IronSpace:
                 UpdateInfo_2(data);
+                UpdateIcon("Iron", "IronStock", "");
                 return;
             case BuildRoomName.LivingRoom:
                 UpdateInfo_2(data);
                 txt_Tip_4.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
                 txt_Tip_5.text = "居民数量";
+                UpdateIcon("HumanStock", "HumanStock", "");
                 return;
             case BuildRoomName.Barracks:
                 UpdateInfo_2(data);
                 txt_Tip_4.text = "升级可提升参与战斗的人数";
                 txt_Tip_5.text = "可携带人数";
+                UpdateIcon("HumanStock", "HumanStock", "");
                 return;
             default:
                 break;
@@ -101,7 +122,7 @@ public class UIProdLevelUp : UILevelUp
         txt_Tip_1.text = "升级增加";
         txt_Tip_2.text = "每小时产量";
         txt_Tip_3.text = "房间容量";
-        txt_Tip_4.text = "升级增加产量和容量";
+        txt_Tip_5.text = "升级该建筑来增加";
 
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
@@ -129,7 +150,7 @@ public class UIProdLevelUp : UILevelUp
     {
         Type_2.anchoredPosition = Vector3.zero;
 
-        txt_Tip_5.text = "容量";
+        txt_Tip_4.text = "容量";
 
         if (data.BuildingData.RoomType == RoomType.Training)
         {
@@ -155,11 +176,13 @@ public class UIProdLevelUp : UILevelUp
         switch (data.RoomType)
         {
             case RoomType.Production:
-                txt_Tip_4.text = "升级可增加";
+                txt_Tip_5.text = "升级该建筑来增加";
                 return;
             case RoomType.Training:
                 Type_3.anchoredPosition = Vector3.zero;
-                txt_Tip_4.text = "将城堡内的居民移动至该房间，提升居民的     等级。\n\n     能够影响战斗表现。";
+                string space_1 = "       ";
+                string space_2 = "     ";
+                txt_Tip_5.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
                 return;
             default:
                 break;
@@ -236,6 +259,33 @@ public class UIProdLevelUp : UILevelUp
         Type_1.anchoredPosition = Vector3.up * 2000;
         Type_2.anchoredPosition = Vector3.up * 2000;
         Type_3.anchoredPosition = Vector3.up * 2000;
+    }
 
+    private void UpdateIcon(string icon, string stock, string train)
+    {
+        if (icon != "")
+        {
+            Sprite IconSp = GetSpriteAtlas.insatnce.GetIcon(icon);
+            for (int i = 0; i < Icons.Length; i++)
+            {
+                Icons[i].sprite = IconSp;
+            }
+        }
+        if (stock != "")
+        {
+            Sprite StockSp = GetSpriteAtlas.insatnce.GetIcon(stock);
+            for (int i = 0; i < stockIcons.Length; i++)
+            {
+                stockIcons[i].sprite = StockSp;
+            }
+        }
+        if (train != "")
+        {
+            Sprite trainSp = GetSpriteAtlas.insatnce.GetIcon(train);
+            for (int i = 0; i < trainIcons.Length; i++)
+            {
+                trainIcons[i].sprite = trainSp;
+            }
+        }
     }
 }

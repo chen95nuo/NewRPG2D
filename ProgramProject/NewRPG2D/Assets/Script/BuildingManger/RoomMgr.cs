@@ -36,6 +36,10 @@ public abstract class RoomMgr : MonoBehaviour
     public GameObject roomLock;//房间选定框
     [System.NonSerialized]
     public GameObject roomProp;//资源获取框
+    [System.NonSerialized]
+    public SpriteRenderer roomPropIcon;//资源Icon
+    [System.NonSerialized]
+    public SpriteRenderer roomPropIconBG;//资源Icon背景
 
     private int needTime = 0;
     private int listNumber = 0;
@@ -95,14 +99,20 @@ public abstract class RoomMgr : MonoBehaviour
         get { return stockFull; }
         set
         {
-            stockFull = value;
-            if (stockFull == false)
+            bool temp = value;
+            if (temp != StockFull)
             {
-                Debug.Log("未满");
-            }
-            else
-            {
-                Debug.Log("已满");
+                stockFull = value;
+                if (stockFull == false)
+                {
+                    Debug.Log("未满");
+                    RoomPropIconBG.sprite = GetSpriteAtlas.insatnce.GetIcon("RoomNoFull");
+                }
+                else
+                {
+                    Debug.Log("已满");
+                    RoomPropIconBG.sprite = GetSpriteAtlas.insatnce.GetIcon("RoomFull");
+                }
             }
         }
     }
@@ -201,7 +211,26 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 isHarvest = value;
                 roomProp.SetActive(value);
+                if (roomPropIcon == null)
+                {
+                    roomPropIcon = this.transform.Find("RoomTypes/RoomProp/PropBG/Gold").GetComponent<SpriteRenderer>();
+                    Sprite sp = GetSpriteAtlas.insatnce.GetIcon(RoomName.ToString());
+                    roomPropIcon.sprite = sp;
+                }
             }
+        }
+    }
+
+    public SpriteRenderer RoomPropIconBG
+    {
+        get
+        {
+            if (roomPropIconBG == null)
+            {
+                Debug.Log(RoomName);
+                roomPropIconBG = this.transform.Find("RoomTypes/RoomProp/PropBG").GetComponent<SpriteRenderer>();
+            }
+            return roomPropIconBG;
         }
     }
 
@@ -336,7 +365,7 @@ public abstract class RoomMgr : MonoBehaviour
         UpdateEmptyPoint();
     }
 
-    private void Awake()
+    public virtual void Awake()
     {
         GetCompoment();
         HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
@@ -1126,6 +1155,11 @@ public abstract class RoomMgr : MonoBehaviour
         }
 
         role.TrainType = RoleTrainType.Nothing;
+    }
+
+    public void UpdateProduceIcon(Sprite IconBG)
+    {
+
     }
 
     protected void GetCompoment()

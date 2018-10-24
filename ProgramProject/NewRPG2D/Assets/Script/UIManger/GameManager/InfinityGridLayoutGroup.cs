@@ -1,13 +1,4 @@
-﻿/**************************
- * 文件名:InfinityGridLayoutGroup.cs;
- * 文件描述:无限滚动GridLayoutGroup,动态创建滚动Item;
- * 实现无限滚动，需要的最少的child数量。屏幕上能看到的+一行看不到的，比如我在屏幕上能看到 2 行，每一行 2 个。则这个值为 2行*2个 + 1 行* 2个 = 6个。
- * 创建日期:2016/05/31;
- * Author:ThisisGame;
- * Page:https://github.com/ThisisGame/InfinityGridLayoutGroup
- ***************************/
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -32,6 +23,7 @@ public class InfinityGridLayoutGroup : MonoBehaviour
     Vector2 startPosition;
 
     int amount = 0;
+    public GameObject Obj;
 
     public delegate void UpdateChildrenCallbackDelegate(int index, Transform trans);
     public UpdateChildrenCallbackDelegate updateChildrenCallback = null;
@@ -400,6 +392,13 @@ public class InfinityGridLayoutGroup : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        for (int i = 0; i < minAmount; i++)
+        {
+            Instantiate(Obj, transform);
+        }
+    }
 
     /// <summary>
     /// 设置总的个数;

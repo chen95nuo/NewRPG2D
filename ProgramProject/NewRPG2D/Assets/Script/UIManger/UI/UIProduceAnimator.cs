@@ -13,7 +13,6 @@ public class UIProduceAnimator : TTUIPage
 
     private List<UIProduceAnimHelper> Icons = new List<UIProduceAnimHelper>();
 
-    private RoomMgr room;
     public Sprite[] sp;
 
     public override void Show(object mData)
@@ -21,7 +20,7 @@ public class UIProduceAnimator : TTUIPage
         Number = 5;
         transform.SetSiblingIndex(-1);
         base.Show(mData);
-        room = mData as RoomMgr;
+        RoomMgr room = mData as RoomMgr;
         UpdateInfo(room);
     }
 
@@ -60,7 +59,7 @@ public class UIProduceAnimator : TTUIPage
             default:
                 break;
         }
-        StartCoroutine(IconMove(startPoint, point, iconNum));
+        StartCoroutine(IconMove(startPoint, point, iconNum, data.RoomName));
     }
     private Vector3 GetStartPoint(RoomMgr data)
     {
@@ -78,13 +77,13 @@ public class UIProduceAnimator : TTUIPage
             case BuildRoomName.Gold:
                 return UIMain.instance.Icons[0].transform.position;
             case BuildRoomName.Food:
-                return UIMain.instance.Icons[1].rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[1].transform.position;
             case BuildRoomName.Mana:
-                return UIMain.instance.Icons[2].rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[2].transform.position;
             case BuildRoomName.Wood:
-                return UIMain.instance.Icons[3].rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[3].transform.position;
             case BuildRoomName.Iron:
-                return UIMain.instance.Icons[4].rectTransform.anchoredPosition;
+                return UIMain.instance.Icons[4].transform.position;
             default:
                 break;
         }
@@ -99,16 +98,17 @@ public class UIProduceAnimator : TTUIPage
     private void IconMoveFinsh(UIProduceAnimHelper icons)
     {
         icons.IsUse = false;
-        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, room.RoomName);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, icons.name);
     }
 
-    private IEnumerator IconMove(Vector3 startPoint, Vector3 point, int iconNum)
+    private IEnumerator IconMove(Vector3 startPoint, Vector3 point, int iconNum, BuildRoomName name)
     {
         for (int i = 0; i < Icons.Count; i++)
         {
             if (Icons[i].IsUse == false)
             {
                 Number--;
+                Icons[i].name = name;
                 Icons[i].IsUse = true;
                 Icons[i].icon.sprite = sp[iconNum];
                 int x = Random.Range(-30, 30);
@@ -123,6 +123,7 @@ public class UIProduceAnimator : TTUIPage
                 GameObject go = Instantiate(produceIcon, this.transform) as GameObject;
                 Image image = go.GetComponent<Image>();
                 UIProduceAnimHelper IconData = new UIProduceAnimHelper(image);
+                IconData.name = name;
                 Icons.Add(IconData);
             }
         }
@@ -133,6 +134,7 @@ public class UIProduceAnimator : TTUIPage
 public class UIProduceAnimHelper
 {
     public Image icon;
+    public BuildRoomName name;
     private bool isUse;
     public UIProduceAnimHelper(Image icon)
     {
