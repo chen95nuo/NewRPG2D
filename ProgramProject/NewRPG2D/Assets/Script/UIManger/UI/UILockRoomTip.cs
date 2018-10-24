@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using DG.Tweening;
 
 public class UILockRoomTip : TTUIPage
 {
@@ -27,15 +28,18 @@ public class UILockRoomTip : TTUIPage
 
     private RoomMgr roomData;
     private bool isOpen = false;
+    private RectTransform rt;
     private void Awake()
     {
         Init();
+        rt = GetComponent<RectTransform>();
     }
 
     public override void Show(object mData)
     {
         base.Show(mData);
         RoomMgr data = mData as RoomMgr;
+        rt.DOAnchorPos(Vector3.down * 540, 0.5f).From();
         LockRoomData(data);
         LockRoomData(data);
     }
