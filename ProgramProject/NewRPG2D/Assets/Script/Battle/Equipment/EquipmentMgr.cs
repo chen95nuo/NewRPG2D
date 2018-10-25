@@ -79,11 +79,26 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
     {
         return AllEquipmentData[equipId].RoleProperty[type];
     }
+    #region HallEquipType
 
     public List<EquipmentRealProperty> GetAllEquipmentData()
     {
         return AllEquipmentDataList;
     }
+    public void RemoveEquipmentData(EquipmentRealProperty equipData)
+    {
+        bool isTrue = AllEquipmentDataList.Remove(equipData);
+        if (isTrue == false)
+        {
+            Debug.LogError("没有找到要使用的装备");
+        }
+    }
+    public void AddEquipmentData(EquipmentRealProperty equipData)
+    {
+        AllEquipmentDataList.Add(equipData);
+    }
+
+    #endregion
 
     private void GetRoleProperty(Dictionary<RoleAttribute, float> roleProperty, EquipmentData data, int currentLevel)
     {

@@ -74,8 +74,8 @@ public class UIRoleInfo : TTUIPage
 
     private void Awake()
     {
-        HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, ChickShowEquip);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);//这个是用来找训练参数的 后期需要优化
+        HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
 
         btn_back.onClick.AddListener(ClosePage);
         for (int i = 0; i < btn_AllType.Length; i++)
@@ -86,8 +86,8 @@ public class UIRoleInfo : TTUIPage
 
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, ChickShowEquip);
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);
+        HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
     }
 
     public override void Show(object mData)
@@ -228,6 +228,7 @@ public class UIRoleInfo : TTUIPage
 
     private void ChickTrainTime(int index)
     {
+
         RoleTrainHelper trainRole = HallRoleMgr.instance.FindTrainRole(index);
         if (trainRole.role == currentRole)
         {
@@ -236,18 +237,19 @@ public class UIRoleInfo : TTUIPage
         }
     }
 
-    private void ChickShowEquip(EquipmentRealProperty bagEquipData)
+    private void BagChickRoleEquip(EquipmentRealProperty equipData)
     {
-        EquipmentRealProperty roleEquipData = roleEquips[(int)bagEquipData.EquipType];
-        if (roleEquipData != null)
+        for (int i = 0; i < roleEquips.Length; i++)
         {
-            UIEquipInfoHelper data = new UIEquipInfoHelper(roleEquipData, bagEquipData);
-            UIPanelManager.instance.ShowPage<UIEquipInfo>(data);
+            if (roleEquips[i].EquipType == equipData.EquipType)
+            {
+                UIEquipInfoHelper_1 data = new UIEquipInfoHelper_1(roleEquips[i], equipData, currentRole);
+                UIPanelManager.instance.ShowPage<UIEquipView>(data);
+                return;
+            }
         }
-        else
-        {
-            UIPanelManager.instance.ShowPage<UIEquipInfo>(bagEquipData);
-        }
+        UIEquipInfoHelper data_1 = new UIEquipInfoHelper(equipData, currentRole);
+        UIPanelManager.instance.ShowPage<UIEquipView>(data_1);
     }
 
     /// <summary>
@@ -262,7 +264,7 @@ public class UIRoleInfo : TTUIPage
             if (role.Equip[i] != 0)
             {
                 roleEquips[i] = EquipmentMgr.instance.GetEquipmentByEquipId(role.Equip[i]);
-                btn_Equip[i].image.sprite = GetSpriteAtlas.insatnce.GetIcon(roleEquips[i].QualityType.ToString());
+                btn_Equip[i].image.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + roleEquips[i].QualityType.ToString());
                 equipIcon[i].sprite = GetSpriteAtlas.insatnce.GetIcon(roleEquips[i].SpriteName);
                 //这里顺便更换角色皮肤
             }

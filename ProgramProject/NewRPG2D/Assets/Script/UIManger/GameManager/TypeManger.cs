@@ -115,6 +115,7 @@ public enum MagicType
 public enum GetAccess
 {
     Decomposing,//分解装备
+    DailyTasks,
 }
 
 public enum ItemType

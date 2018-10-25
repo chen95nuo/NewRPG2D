@@ -834,6 +834,60 @@ public class HallRoleData
         }
         roleLevel[6] = roleLevel[index];
     }
+
+    public void AddEquip(EquipmentRealProperty equipData)
+    {
+        switch (equipData.EquipType)
+        {
+            case EquipTypeEnum.Sword:
+                if (equip[0] == 0)
+                {
+                    UseEquip(equipData, 0);
+                }
+
+                break;
+            case EquipTypeEnum.Armor:
+                if (equip[1] == 0)
+                {
+                    UseEquip(equipData, 1);
+                }
+                break;
+            case EquipTypeEnum.Jewelry:
+                if (equip[2] == 0 || equip[3] == 0 || equip[4] == 0)
+                {
+                    UseEquip(equipData, 2);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    private void UseEquip(EquipmentRealProperty equipData, int index)
+    {
+        EquipmentMgr.instance.RemoveEquipmentData(equipData);
+        equip[index] = equipData.EquipId;
+        foreach (var item in equipData.RoleProperty)
+        {
+            if (attribute.ContainsKey(item.Key))
+            {
+                attribute[item.Key] += item.Value;
+            }
+            else
+            {
+                attribute.Add(item.Key, item.Value);
+            }
+        }
+    }
+    private void ChangeEquip(EquipmentRealProperty equipData, int index)
+    {
+        EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(equip[index]);
+        EquipmentMgr.instance.AddEquipmentData(data);
+        UseEquip(equipData, index);
+        foreach (var item in equipData.RoleProperty)
+        {
+            attribute[item.Key] -= item.Value;
+        }
+    }
 }
 
 public class HallRoleLevel

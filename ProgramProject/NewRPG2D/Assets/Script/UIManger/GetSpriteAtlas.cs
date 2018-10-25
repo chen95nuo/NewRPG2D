@@ -9,8 +9,10 @@ public class GetSpriteAtlas : MonoBehaviour
 
     public static GetSpriteAtlas insatnce = null;
 
-    public SpriteAtlas Icons;
-    public SpriteAtlas RoomIcons;
+    [SerializeField]
+    private SpriteAtlas Icons;
+    [SerializeField]
+    private SpriteAtlas RoomIcons;
 
     private void Awake()
     {

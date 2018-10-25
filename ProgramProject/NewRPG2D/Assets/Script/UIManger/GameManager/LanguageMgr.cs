@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LanguageMgr : MonoBehaviour {
+public class LanguageMgr : TSingleton<LanguageMgr>
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public string GetSrting(string message)
+    {
+        string st = "";
+
+        return st;
+    }
 }

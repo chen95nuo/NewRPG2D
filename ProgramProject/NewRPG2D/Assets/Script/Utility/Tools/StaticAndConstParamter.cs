@@ -97,6 +97,7 @@ public enum ProfessionNeedEnum
     Mint,               //会计
     Kitchen,            //厨师
     Laboratory,         //魔法
+    SpeedUp,            //加速
     Crafting,           //木材
     Foundry,            //矿工
 }

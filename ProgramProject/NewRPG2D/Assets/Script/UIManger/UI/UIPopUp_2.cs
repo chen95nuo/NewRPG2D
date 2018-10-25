@@ -15,6 +15,7 @@ public class UIPopUp_2 : TTUIPage
     {
         base.Show(mData);
         string st = mData as string;
+        transform.SetSiblingIndex(transform.parent.childCount - 1);
         Debug.Log("St =" + st);
         UpdateInfo(st);
     }

@@ -83,7 +83,7 @@ public class UIBagGrid : MonoBehaviour
                 UIPanelManager.instance.ShowPage<UIBoxInfo>(boxData);
                 break;
             case ItemType.Prop:
-                UIPanelManager.instance.ShowPage<UIEquipInfo>(propData);
+                //UIPanelManager.instance.ShowPage<UIEquipInfo>(propData);
                 break;
             default:
                 break;
