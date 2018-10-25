@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Assets.Script.UIManger;
+using Assets.Script.Battle;
 
 public class UIRoleInfo : TTUIPage
 {
@@ -39,6 +40,12 @@ public class UIRoleInfo : TTUIPage
     public Text txt_Hp;
     #endregion
 
+    #region Slider
+    public Image slider_HP;
+    public Image slider_Train;
+    public Image slider_Love;
+    #endregion
+
     public Button btn_back;
     #region Bag
     public Button[] btn_AllType;
@@ -47,8 +54,29 @@ public class UIRoleInfo : TTUIPage
 
     private int currentbtnNumb = 0;
 
+    [System.NonSerialized]
+    public HallRoleData currentRole;
+
+    #region 角色装备
+    public Button[] btn_Equip;
+    [SerializeField]
+    private Image[] equipIcon;
+    [SerializeField]
+    private Sprite[] equipBGSp;
+    private EquipmentRealProperty[] roleEquips;
+    #endregion
+
+    #region 角色皮肤
+    //public //这里是两个角色实例
+    //这个是用的角色实例的引用
+    #endregion
+
+
     private void Awake()
     {
+        HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, ChickShowEquip);
+        HallEventManager.instance.AddListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);//这个是用来找训练参数的 后期需要优化
+
         btn_back.onClick.AddListener(ClosePage);
         for (int i = 0; i < btn_AllType.Length; i++)
         {
@@ -56,11 +84,17 @@ public class UIRoleInfo : TTUIPage
         }
     }
 
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, ChickShowEquip);
+        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);
+    }
+
     public override void Show(object mData)
     {
         base.Show(mData);
-        HallRoleData data = mData as HallRoleData;
-        UpdateInfo(data);
+        currentRole = mData as HallRoleData;
+        UpdateInfo(currentRole);
         ChickLevelUI(false);
     }
 
@@ -74,9 +108,11 @@ public class UIRoleInfo : TTUIPage
         txt_iron.text = data.IronLevel.ToString();
         ChickLevelUI(true);
 
-        txt_Dps.text = ((RoleHurtType)data.HurtType).ToString();
-        txt_DpsTip.text = string.Format("{0}伤害/秒", data.HurtType);
+        txt_Dps.text = (data.Attack).ToString();
+        txt_DpsTip.text = string.Format("{0}伤害/秒", (HurtTypeEnum)data.HurtType);
         ChickAtr(data);//检查属性
+        txt_Hp.text = data.NowHp + "/" + data.Health;
+
 
         if (data.LoveType == RoleLoveType.boredom)
         {
@@ -96,7 +132,7 @@ public class UIRoleInfo : TTUIPage
             Train.SetActive(false);
         }
 
-        txt_Hp.text = data.NowHp + "/" + data.Health;
+        GetRoleEquip(data);
     }
 
     /// <summary>
@@ -123,13 +159,13 @@ public class UIRoleInfo : TTUIPage
 
     public void ChickAtr(HallRoleData data)
     {
-        if (data.DPS > 0)
+        if (data.Crt > 0)
         {
-            txt_Dps.text = data.DPS.ToString();
+            txt_CrtTip.text = data.DPS.ToString();
         }
         else
         {
-            txt_Dps.transform.parent.gameObject.SetActive(false);
+            txt_CrtTip.transform.parent.gameObject.SetActive(false);
         }
         if (data.PArmor > 0)
         {
@@ -188,5 +224,52 @@ public class UIRoleInfo : TTUIPage
             }
         }
         Debug.LogError("没有找到对应按钮");
+    }
+
+    private void ChickTrainTime(int index)
+    {
+        RoleTrainHelper trainRole = HallRoleMgr.instance.FindTrainRole(index);
+        if (trainRole.role == currentRole)
+        {
+            slider_Train.fillAmount = (trainRole.maxTime - trainRole.time) / trainRole.maxTime;
+            txt_TrainTime.text = SystemTime.instance.TimeNormalized(trainRole.time);
+        }
+    }
+
+    private void ChickShowEquip(EquipmentRealProperty bagEquipData)
+    {
+        EquipmentRealProperty roleEquipData = roleEquips[(int)bagEquipData.EquipType];
+        if (roleEquipData != null)
+        {
+            UIEquipInfoHelper data = new UIEquipInfoHelper(roleEquipData, bagEquipData);
+            UIPanelManager.instance.ShowPage<UIEquipInfo>(data);
+        }
+        else
+        {
+            UIPanelManager.instance.ShowPage<UIEquipInfo>(bagEquipData);
+        }
+    }
+
+    /// <summary>
+    /// 获取角色装备
+    /// </summary>
+    /// <param name="role"></param>
+    private void GetRoleEquip(HallRoleData role)
+    {
+        roleEquips = new EquipmentRealProperty[5];
+        for (int i = 0; i < role.Equip.Length; i++)
+        {
+            if (role.Equip[i] != 0)
+            {
+                roleEquips[i] = EquipmentMgr.instance.GetEquipmentByEquipId(role.Equip[i]);
+                btn_Equip[i].image.sprite = GetSpriteAtlas.insatnce.GetIcon(roleEquips[i].QualityType.ToString());
+                equipIcon[i].sprite = GetSpriteAtlas.insatnce.GetIcon(roleEquips[i].SpriteName);
+                //这里顺便更换角色皮肤
+            }
+            else
+            {
+                equipIcon[i].sprite = equipBGSp[i];
+            }
+        }
     }
 }

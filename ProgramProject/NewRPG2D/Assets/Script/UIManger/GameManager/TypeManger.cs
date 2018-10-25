@@ -28,13 +28,6 @@ public enum HallEventDefineEnum
     EventMax
 }
 
-public enum RoleHurtType
-{
-    Nothing,
-    AttackDamage,
-    AbilityDamage,
-}
-
 public enum RoleAttribute
 {
     Nothing,

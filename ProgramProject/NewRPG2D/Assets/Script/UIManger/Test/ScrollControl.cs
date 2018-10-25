@@ -12,7 +12,7 @@ public class ScrollControl : MonoBehaviour
     public List<ItemHelper> items = new List<ItemHelper>();
     // Use this for initialization
 
-    private void Awake()
+    private void Start()
     {
         ChickAllItem();
     }
@@ -63,7 +63,10 @@ public class ScrollControl : MonoBehaviour
         {
             return;
         }
-        grid.UpdateInfo(items[index]);
+        if (index < items.Count)
+        {
+            grid.UpdateInfo(items[index]);
+        }
     }
 
     private void ChickAllItem()

@@ -55,6 +55,10 @@ public class HallRoleData
     {
         get
         {
+            if (equip == null)
+            {
+                equip = new int[5];
+            }
             return equip;
         }
     }

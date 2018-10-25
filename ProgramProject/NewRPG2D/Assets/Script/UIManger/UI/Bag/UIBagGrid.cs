@@ -80,10 +80,10 @@ public class UIBagGrid : MonoBehaviour
                 HallEventManager.instance.SendEvent<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, equipData);
                 break;
             case ItemType.Box:
-                //UIPanelManager.instance.ShowPage<>();
+                UIPanelManager.instance.ShowPage<UIBoxInfo>(boxData);
                 break;
             case ItemType.Prop:
-                HallEventManager.instance.SendEvent<PropData>(HallEventDefineEnum.ShowPropInfo, propData);
+                UIPanelManager.instance.ShowPage<UIEquipInfo>(propData);
                 break;
             default:
                 break;

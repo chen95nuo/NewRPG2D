@@ -392,14 +392,6 @@ public class InfinityGridLayoutGroup : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        for (int i = 0; i < minAmount; i++)
-        {
-            Instantiate(Obj, transform);
-        }
-    }
-
     /// <summary>
     /// 设置总的个数;
     /// </summary>

@@ -93,8 +93,12 @@ public enum WeaponProfessionEnum
 
 public enum ProfessionNeedEnum
 {
-    Battle,              //战斗
-    Accounting,          //会计
+    Fight,              //战斗
+    Mint,               //会计
+    Kitchen,            //厨师
+    Laboratory,         //魔法
+    Crafting,           //木材
+    Foundry,            //矿工
 }
 
 public enum TirggerTypeEnum
