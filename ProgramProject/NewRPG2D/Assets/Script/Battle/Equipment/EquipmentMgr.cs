@@ -111,6 +111,8 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         CalculateRoleProperty(roleProperty, RoleAttribute.HIT, data.HitEnemyRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.INT, data.MagicDamageRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.Crt, data.CritialRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.MinDamage, data.DamageMinRange, times);
+        CalculateRoleProperty(roleProperty, RoleAttribute.MaxDamage, data.DamageMaxRange, times);
 
         if (roleProperty.ContainsKey(RoleAttribute.DPS) == false)
         {

@@ -37,6 +37,7 @@ namespace Assets.Script.Battle.BattleData
         public WeaponTypeEnum WeaponType;
         public WeaponProfessionEnum WeaponProfession;
         public ProfessionNeedEnum ProfessionNeed;
+        public string Comment;
         public int AttackRange;
         public float AttackSpeed;
         public string SpriteName;
@@ -73,6 +74,7 @@ namespace Assets.Script.Battle.BattleData
         {
             ItemName = ReadXmlDataMgr.StrParse(node, "Name");
             Description = ReadXmlDataMgr.StrParse(node, "Description");
+            Comment = ReadXmlDataMgr.StrParse(node, "Comment");
             SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
             EquipName = ReadXmlDataMgr.StrParse(node, "EquipName");
             WeaponType = (WeaponTypeEnum)ReadXmlDataMgr.IntParse(node, "WeaponType");

@@ -79,14 +79,14 @@ namespace Assets.Script.Battle
         private void FinallyPhysicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
            
-            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.PhysicArmor / (100 + targeProperty.PhysicArmor)));
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.PhysicArmor / (6500 + targeProperty.PhysicArmor)));
 
         }
 
         private void FinallyMagicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
 
-            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor / (100 + targeProperty.MagicArmor)));
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor / (6500 + targeProperty.MagicArmor)));
         }
     }
 }

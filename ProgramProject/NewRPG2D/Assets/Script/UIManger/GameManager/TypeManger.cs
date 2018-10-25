@@ -48,6 +48,8 @@ public enum RoleAttribute
     HIT,//命中
     INT,//法强
     HP,//血量
+    MinDamage, //最小伤害
+    MaxDamage, //最大伤害
     Max
 }
 

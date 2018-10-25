@@ -46,7 +46,7 @@ namespace Assets.Script.Battle
             for (int i = 0; i < equipSlot[equipType].Count; i++)
             {
                 string path = equipType == EquipTypeEnum.Armor ? string.Format("Equipment/{0}/{1}/{2}", sexType, equipName, equipSlot[equipType])
-                                                               : string.Format("Equipment/{0}/{1}", equipName, equipSlot[equipType]);
+                                                               : string.Format("Equipment/Weapon/{0}/{1}", equipName, equipSlot[equipType]);
                 Texture2D texture2D =  ResourcesLoadMgr.instance.LoadResource<Texture2D>(path);
                 if (texture2D != null)
                 {
