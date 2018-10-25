@@ -1,10 +1,11 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using Assets.Script.Tools;
 using Assets.Script.Utility;
+using UnityEngine;
 
 namespace Assets.Script.Battle.BattleData
 {
@@ -83,7 +84,10 @@ namespace Assets.Script.Battle.BattleData
             EquipType = (EquipTypeEnum)ReadXmlDataMgr.IntParse(node, "EquipType");
             QualityType = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
             HurtType = (HurtTypeEnum)ReadXmlDataMgr.IntParse(node, "HurtType");
-            AttackRange = attackRangeDictionary[WeaponProfession];
+            if (attackRangeDictionary.TryGetValue(WeaponProfession, out AttackRange) == false)
+            {
+                AttackRange = 1;
+            }
             AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
             string levelRange = ReadXmlDataMgr.StrParse(node, "LevelRange");
             StringHelper.instance.GetRange(levelRange, out LevelRange.Min, out LevelRange.Max);
@@ -125,9 +129,16 @@ namespace Assets.Script.Battle.BattleData
         {
             SpecialPropertyData data = new SpecialPropertyData();
             data.SpecialPropertyType = (SpecialPropertyEnum)ReadXmlDataMgr.IntParse(node, string.Format("SpecialPropertyType{0}", index));
-            data.param1 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param1", index));
-            data.param2 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param2", index));
-            data.param3 = ReadXmlDataMgr.IntParse(node, string.Format("SpecialProperty{0}Param3", index));
+            float min, max;
+
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, string.Format("SpecialProperty{0}Param1", index)), out min, out max);
+            data.param1 = Random.Range(min, max);
+
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, string.Format("SpecialProperty{0}Param2", index)), out min, out max);
+            data.param2 = Random.Range(min, max);
+
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, string.Format("SpecialProperty{0}Param3", index)), out min, out max);
+            data.param3 = Random.Range(min, max);
 
             return data;
         }
