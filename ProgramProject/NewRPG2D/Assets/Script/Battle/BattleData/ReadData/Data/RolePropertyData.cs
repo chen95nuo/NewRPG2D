@@ -46,9 +46,9 @@ namespace Assets.Script.Battle.BattleData
             EquipmentId = ReadXmlDataMgr.IntParse(node, "EquipmentId");
             SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
             AttackSpeed = ReadXmlDataMgr.FloatParse(node, "AttackSpeed");
-            Level = ReadXmlDataMgr.FloatParse(node, "Level");
-            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "DamageRange"), out DamageMin, out DamageMax);
-            HP = ReadXmlDataMgr.FloatParse(node, "HP");
+           // Level = ReadXmlDataMgr.FloatParse(node, "Level");
+            StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "Damage"), out DamageMin, out DamageMax);
+            HP = ReadXmlDataMgr.FloatParse(node, "Hp");
             MagicArmor = ReadXmlDataMgr.FloatParse(node, "MagicArmor");
             Critial = ReadXmlDataMgr.FloatParse(node, "Critial");
             PhysicArmor = ReadXmlDataMgr.FloatParse(node, "PhysicArmor");

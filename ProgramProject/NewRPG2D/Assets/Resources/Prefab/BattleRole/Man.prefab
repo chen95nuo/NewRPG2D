@@ -11,24 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1902231790377322}
   m_IsPrefabParent: 1
---- !u!1 &1678949439403020
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4908849912983028}
-  - component: {fileID: 33775854554682846}
-  - component: {fileID: 23182560692198452}
-  - component: {fileID: 114757717662655848}
-  m_Layer: 0
-  m_Name: Spine GameObject (test)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1902231790377322
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +28,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1984589713399270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4510615088441730}
+  - component: {fileID: 33645318233898866}
+  - component: {fileID: 23913157357407982}
+  - component: {fileID: 114826595732034548}
+  m_Layer: 0
+  m_Name: Spine GameObject (ManRoleAnm)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4331317852562524
 Transform:
   m_ObjectHideFlags: 1
@@ -56,16 +56,16 @@ Transform:
   m_LocalPosition: {x: -2.9016812, y: -7.593624, z: -0.22873819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4908849912983028}
+  - {fileID: 4510615088441730}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4908849912983028
+--- !u!4 &4510615088441730
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678949439403020}
+  m_GameObject: {fileID: 1984589713399270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -73,12 +73,12 @@ Transform:
   m_Father: {fileID: 4331317852562524}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23182560692198452
+--- !u!23 &23913157357407982
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678949439403020}
+  m_GameObject: {fileID: 1984589713399270}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -88,7 +88,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: e3568cd386ca6c14cbd80b9c0be94788, type: 2}
+  - {fileID: 2100000, guid: d2c4243522b779646a7d906518b3247f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,12 +108,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33775854554682846
+--- !u!33 &33645318233898866
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678949439403020}
+  m_GameObject: {fileID: 1984589713399270}
   m_Mesh: {fileID: 0}
 --- !u!114 &114368443814791464
 MonoBehaviour:
@@ -138,14 +138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea5b422c5f21674098d8b1b177977ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonAnimation: {fileID: 114757717662655848}
+  skeletonAnimation: {fileID: 114826595732034548}
   sourceMaterial: {fileID: 2100000, guid: 257f17ed02295dd4cb2e465abfe293b1, type: 2}
---- !u!114 &114757717662655848
+--- !u!114 &114826595732034548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678949439403020}
+  m_GameObject: {fileID: 1984589713399270}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
@@ -167,6 +167,6 @@ MonoBehaviour:
   calculateTangents: 0
   logErrors: 0
   disableRenderingOnOverride: 1
-  _animationName: attack
-  loop: 1
+  _animationName: 
+  loop: 0
   timeScale: 1

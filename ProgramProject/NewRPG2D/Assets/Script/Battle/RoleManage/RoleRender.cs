@@ -29,7 +29,7 @@ public class RoleRender : MonoBehaviour
     private bool bCanContorl;
     private Material currentMaterial;
     private MaterialPropertyBlock mpb;
-
+    
     // Use this for initialization
     private void Awake()
     {

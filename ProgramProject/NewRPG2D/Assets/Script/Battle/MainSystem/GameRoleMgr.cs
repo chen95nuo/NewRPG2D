@@ -48,9 +48,8 @@ namespace Assets.Script.Battle
             role.SetRoleInfo(info, roleMono);
             RoleDetailData roleData = new RoleDetailData();
             roleData.InitData();
-            roleData.Id = 100001;
             role.InitRoleBaseProperty(default(PropertyData), roleData);
-            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
+            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
             roleData.BattleIconSpriteName = currentRoleData.SpriteName;
             if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
@@ -69,7 +68,7 @@ namespace Assets.Script.Battle
 
         public bool AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
         {
-            RoleRender roleMono = SetRoleTransform(roleData.Id, indexName, instanceId, transform, mPosition, angle);
+            RoleRender roleMono = SetRoleTransform<RoleRender>("ManNormal", indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
             {
                 return false;
@@ -88,16 +87,16 @@ namespace Assets.Script.Battle
             data.RoleHp = 200 + level * 40;
             data.Damage = 10 + level * 1.1f;
             role.InitRoleBaseProperty(data, roleData);
-            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
-            roleData.BattleIconSpriteName = currentRoleData.SpriteName;
-            if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
-            {
-                role.InitSkill(100100100, 100100100, 100100100);
-            }
-            else
-            {
-                role.InitSkill(100200100, 100100100, 100100100);
-            }
+            //RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
+            //roleData.BattleIconSpriteName = currentRoleData.SpriteName;
+            //if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
+            //{
+            //    role.InitSkill(100100100, 100100100, 100100100);
+            //}
+            //else
+            //{
+            //    role.InitSkill(100200100, 100100100, 100100100);
+            //}
             RolesList.Add(role);
             RolesHeroList.Add(role);
             RoleDic[instanceId] = role;

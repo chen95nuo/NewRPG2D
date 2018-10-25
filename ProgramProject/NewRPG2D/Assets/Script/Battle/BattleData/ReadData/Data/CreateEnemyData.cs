@@ -20,7 +20,7 @@ namespace Assets.Script.Battle.BattleData
     {
 
         public string Name;
-        public int[] CreateEnemyIds = new int[10];
+        public int[] CreateEnemyIds = new int[9];
         public AwardItemData[] AwardItem =new AwardItemData[3];
         public int[] TreasureBoxIds = new int[2];
 
@@ -41,13 +41,13 @@ namespace Assets.Script.Battle.BattleData
 
             for (int i = 0; i < AwardItem.Length; i++)
             {
-                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId", (i+1)));
+                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId{0}", (i+1)));
                 StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "ItemCount" + (i + 1)), out AwardItem[i].ItemMinCount, out AwardItem[i].ItemMaxCount);
             }
 
             for (int i = 0; i < TreasureBoxIds.Length; i++)
             {
-                TreasureBoxIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("TreasureBoxId", i + 1));
+                TreasureBoxIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("TreasureBoxId{0}", i + 1));
             }
             return base.GetXmlDataAttribute(node);
         }

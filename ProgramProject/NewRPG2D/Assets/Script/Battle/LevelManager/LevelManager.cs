@@ -38,7 +38,7 @@ namespace Assets.Script.Battle.LevelManager
 
         public static ushort currentInstanceId = 100;
 
-        private int sceneId = 100002;
+        private int sceneId = 10001;
         //  private Queue<CreateEnemyData> enemyDatas;
         private CreateEnemyData currentEnemyData;
         private List<CreateEnemyInfo> currentEnemyInfoList;
@@ -54,7 +54,7 @@ namespace Assets.Script.Battle.LevelManager
             ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
             //  ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
             //  enemyDatas = new Queue<CreateEnemyData>();
-            //currentEnemyInfoList = new List<BornEnemyInfo>();
+            currentEnemyInfoList = new List<CreateEnemyInfo>();
             roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;
 
             LoadLevelParam temp = new LoadLevelParam();
@@ -236,6 +236,7 @@ namespace Assets.Script.Battle.LevelManager
                 isCreateEnemy = true;
                 BornEnemy(info.PositionType, info.EnemyPointRoleId);
             }
+            currentEnemyInfoList.Clear();
         }
 
         private void BornEnemy(BornPositionTypeEnum bornPositionType, int enemyRoleId)
@@ -248,6 +249,11 @@ namespace Assets.Script.Battle.LevelManager
         {
             for (int i = 0; i < currentEnemyData.CreateEnemyIds.Length; i++)
             {
+                if (currentEnemyData.CreateEnemyIds[i] == 0)
+                {
+                    continue;
+                }
+
                 if ((BornPositionTypeEnum)i == bornPositionType)
                 {
                     enemyInfo.EnemyPointRoleId = currentEnemyData.CreateEnemyIds[i];

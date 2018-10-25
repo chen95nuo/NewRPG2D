@@ -51,7 +51,7 @@ namespace Assets.Script.Battle
         public FsmStateMachine<RoleBase> RoleActionMachine;
         public Dictionary<int, FsmState<RoleBase>> RoleActionStateDic; //存放动作状态
 
-        protected RoleData CurrentRoleData;
+      //  protected RoleData CurrentRoleData;
         private int[] AttackSkillIdArray;
 
         public void SetRoleInfo(RoleInfo info, RoleRender roleRender)
@@ -71,8 +71,8 @@ namespace Assets.Script.Battle
             TeamId = info.TeamId;
             RoleType = info.RoleType;
             RoleId = info.RoleId;
-            CurrentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(RoleId);
-            AttackType = CurrentRoleData.AttackType;
+           // CurrentRoleData = RoleDataMgr.instance.GetXmlDataByItemId<RoleData>(RoleId);
+           // AttackType = RoleWeapon.;
         }
 
         public virtual void InitComponent()
