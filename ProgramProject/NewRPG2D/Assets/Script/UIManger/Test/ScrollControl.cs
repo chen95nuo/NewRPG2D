@@ -56,8 +56,6 @@ public class ScrollControl : MonoBehaviour
 
     void UpdateChildrenCallback(int index, Transform trans)
     {
-        Debug.Log(index);
-
         UIBagGrid grid = trans.GetComponent<UIBagGrid>();
         if (grid == null)
         {

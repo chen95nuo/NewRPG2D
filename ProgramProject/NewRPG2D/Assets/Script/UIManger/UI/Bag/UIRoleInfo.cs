@@ -82,6 +82,10 @@ public class UIRoleInfo : TTUIPage
         {
             btn_AllType[i].onClick.AddListener(ChickBagType);
         }
+        for (int i = 0; i < btn_Equip.Length; i++)
+        {
+            btn_Equip[i].onClick.AddListener(ChickEquipClick);
+        }
     }
 
     private void OnDestroy()
@@ -100,6 +104,7 @@ public class UIRoleInfo : TTUIPage
 
     public void UpdateInfo(HallRoleData data)
     {
+
         txt_fight.text = data.FightLevel.ToString();
         txt_food.text = data.FoodLevel.ToString();
         txt_gold.text = data.GoldLevel.ToString();
@@ -271,6 +276,18 @@ public class UIRoleInfo : TTUIPage
             else
             {
                 equipIcon[i].sprite = equipBGSp[i];
+            }
+        }
+    }
+
+    private void ChickEquipClick()
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_Equip.Length; i++)
+        {
+            if (go == btn_Equip[i].gameObject)
+            {
+                Debug.Log(string.Format("获取{0}装备", i));
             }
         }
     }
