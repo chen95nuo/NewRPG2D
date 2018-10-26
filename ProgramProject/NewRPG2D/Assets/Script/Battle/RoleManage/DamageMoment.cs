@@ -24,7 +24,7 @@ namespace Assets.Script.Battle
             ValueProperty targeProperty = hurtInfo.TargeRole.RolePropertyValue;
             float hurtValue = hurtInfo.HurtValue;
             RolePropertyDamage(attackProperty, targeProperty, ref hurtValue);
-          //  CriticalDamage(attackProperty, targeProperty, ref hurtValue);
+            //  CriticalDamage(attackProperty, targeProperty, ref hurtValue);
             switch (hurtInfo.HurtType)
             {
                 case HurtTypeEnum.Physic:
@@ -78,15 +78,15 @@ namespace Assets.Script.Battle
 
         private void FinallyPhysicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-           
-            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.PhysicArmor / (6500 + targeProperty.PhysicArmor)));
+
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.PhysicArmor * 0.0001f));
 
         }
 
         private void FinallyMagicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
 
-            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor / (6500 + targeProperty.MagicArmor)));
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor * 0.0001f));
         }
     }
 }
