@@ -83,11 +83,11 @@ public enum WeaponTypeEnum
     Wand,                //魔杖
     Knife,               //匕首
     Sword,               //剑
-    f,//斧头
-    b,//布甲
-    p,//皮夹
-    ba,//板甲
-    s,//首饰
+    Axe,                 //斧头
+    Clothes,             //布甲
+    Leather,             //皮夹
+    Plate,               //板甲
+    Amulet,              //首饰
 }
 
 public enum WeaponProfessionEnum

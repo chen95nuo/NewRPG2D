@@ -17,9 +17,14 @@ public class SwitchEquipment : MonoBehaviour
     {
 	    if (Input.GetKeyDown(KeyCode.A))
 	    {
-            equipment = EquipmentMgr.instance.CreateNewEquipment(1001);
+            equipment = EquipmentMgr.instance.CreateNewEquipment(10001);
             RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
 
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            equipment = EquipmentMgr.instance.CreateNewEquipment(10002);
+            RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
         }
     }
 }

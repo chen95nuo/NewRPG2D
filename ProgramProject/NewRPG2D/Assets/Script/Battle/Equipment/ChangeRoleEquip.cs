@@ -18,12 +18,13 @@ namespace Assets.Script.Battle
 
         private Skin customSkin;
         private Skeleton skeleton;
+        private Dictionary<string, Attachment> originalAttachments = new Dictionary<string, Attachment>();
 
         private Dictionary<EquipTypeEnum, List<string>> equipSlot = new Dictionary<EquipTypeEnum, List<string>>
         {
             {EquipTypeEnum.Armor, new List<string> { "body", "center", "Hats1", "left_hand", "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2",
                 "right_hand", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
-               {EquipTypeEnum.Sword, new List<string> { "weapon", "arrow_line1", "arrow_line2" } },
+            {EquipTypeEnum.Sword, new List<string> { "weapon", "arrow_line1", "arrow_line2" } },
         };
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
         {
@@ -45,19 +46,30 @@ namespace Assets.Script.Battle
         {
             for (int i = 0; i < equipSlot[equipType].Count; i++)
             {
-                string path = equipType == EquipTypeEnum.Armor ? string.Format("Equipment/{0}/{1}/{2}", sexType, equipName, equipSlot[equipType])
-                                                               : string.Format("Equipment/Weapon/{0}/{1}", equipName, equipSlot[equipType]);
+                string path = equipType == EquipTypeEnum.Armor ? string.Format("Equipment/{0}/{1}/{2}", sexType, equipName, equipSlot[equipType][i])
+                                                               : string.Format("Equipment/Weapon/{0}/{1}", equipName, equipSlot[equipType][i]);
                 Texture2D texture2D = ResourcesLoadMgr.instance.LoadResource<Texture2D>(path);
-                if (texture2D != null)
-                {
-                    ChangeEquip(equipSlot[equipType][i], texture2D);
-                }
+                ChangeEquip(equipSlot[equipType][i], texture2D);
             }
         }
 
         public void ChangeBody(BodyTypeEnum bodyType, string bodyName)
         {
-            ChangeEquip(BodySlot[bodyType], ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName));
+            Texture2D texture2D = ResourcesLoadMgr.instance.LoadResource<Texture2D>("Body/" + bodyName);
+            ChangeEquip(BodySlot[bodyType], texture2D);
+        }
+
+        public void ChangeOriginalEquip(EquipTypeEnum equipType)
+        {
+            for (int i = 0; i < equipSlot[equipType].Count; i++)
+            {
+                ChangeEquip(equipSlot[equipType][i], null);
+            }
+        }
+
+        public void ChangeOriginalBody(BodyTypeEnum bodyType)
+        {
+            ChangeEquip(BodySlot[bodyType], null);
         }
 
         private void ChangeEquip(string targetSlotName, Texture2D newTexture)
@@ -75,10 +87,13 @@ namespace Assets.Script.Battle
                 int visorSlotIndex = targetSlot.Data.Index;
 
                 Attachment templateAttachment = targetSlot.Attachment;
+                if (originalAttachments.ContainsKey(targetSlotName) == false)
+                {
+                    originalAttachments[targetSlotName] = templateAttachment;
+                }
+                Sprite newSpr = newTexture == null ? null : SpriteHelper.CreateSprite(newTexture);
 
-                Sprite newSpr = SpriteHelper.CreateSprite(newTexture);
-
-                Attachment newAttachment = templateAttachment.GetRemappedClone(newSpr, sourceMaterial);
+                Attachment newAttachment = newSpr == null ? originalAttachments[targetSlotName] : templateAttachment.GetRemappedClone(newSpr, sourceMaterial);
 
                 customSkin.SetAttachment(visorSlotIndex, templateAttachment.Name, newAttachment);
 

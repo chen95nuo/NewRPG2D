@@ -16,6 +16,7 @@ public class EquipmentRealProperty
     public ProfessionNeedEnum ProfessionNeed;
     public string SpriteName;
     public string EquipName;
+    public string Name;
     public int Level;
     public int AttackRange;
     public float AttackSpeed;
@@ -53,6 +54,10 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         realProperty.EquipType = data.EquipType;
         realProperty.Level = (int)Random.Range(data.LevelRange.Min, data.LevelRange.Max);
         attackSpeed = data.AttackSpeed;
+        if (attackSpeed < 0.0001f)
+        {
+            attackSpeed = 1;
+        }
         GetRoleProperty(roleProperty, data, realProperty.Level);
         realProperty.RoleProperty = roleProperty;
         realProperty.AttackRange = data.AttackRange;
@@ -65,6 +70,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         realProperty.ProfessionNeed = data.ProfessionNeed;
         realProperty.EquipName = data.EquipName;
         realProperty.SpriteName = data.SpriteName;
+        realProperty.Name = data.ItemName;
         AllEquipmentData[equipId] = realProperty;
         AllEquipmentDataList.Add(realProperty);
         return realProperty;
