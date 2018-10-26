@@ -17,7 +17,7 @@ public class UIProduceAnimator : TTUIPage
 
     public override void Show(object mData)
     {
-        Number = 5;
+        Number = Random.Range(4, 8);
         transform.SetSiblingIndex(-1);
         base.Show(mData);
         RoomMgr room = mData as RoomMgr;
@@ -116,7 +116,8 @@ public class UIProduceAnimator : TTUIPage
                 Vector3 s_point = new Vector3(startPoint.x + x, startPoint.y + y, startPoint.z);
                 Icons[i].icon.rectTransform.anchoredPosition3D = s_point;
                 IconMove(Icons[i], point);
-                yield return new WaitForSeconds(0.1f);
+                float roll = Random.Range(0, 0.1f);
+                yield return new WaitForSeconds(roll);
             }
             if (i == Icons.Count - 1 && Number >= 1)
             {

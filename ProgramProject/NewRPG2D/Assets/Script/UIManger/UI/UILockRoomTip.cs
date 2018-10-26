@@ -39,7 +39,8 @@ public class UILockRoomTip : TTUIPage
     {
         base.Show(mData);
         RoomMgr data = mData as RoomMgr;
-        rt.DOAnchorPos(Vector3.down * 540, 0.5f).From();
+        rt.anchoredPosition = Vector3.down * 540;
+        rt.DOAnchorPos(Vector3.zero, 0.15f);
         LockRoomData(data);
         LockRoomData(data);
     }

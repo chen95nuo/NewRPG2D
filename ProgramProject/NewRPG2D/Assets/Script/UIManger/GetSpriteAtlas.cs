@@ -50,12 +50,43 @@ public class GetSpriteAtlas : MonoBehaviour
         StartCoroutine(SetSprite(images, sprites, Icons));
     }
 
+    public Sprite GetLevelIconToAtr(RoleAttribute atr)
+    {
+        string st = "";
+        switch (atr)
+        {
+            case RoleAttribute.Fight:
+                st = "Fight";
+                break;
+            case RoleAttribute.Gold:
+                st = "Mint";
+                break;
+            case RoleAttribute.Food:
+                st = "Kitchen";
+                break;
+            case RoleAttribute.Mana:
+                st = "Laboratory";
+                break;
+            case RoleAttribute.ManaSpeed:
+                st = "Crafting";
+                break;
+            case RoleAttribute.Wood:
+                st = "Crafting";
+                break;
+            case RoleAttribute.Iron:
+                st = "Foundry";
+                break;
+            default:
+                break;
+        }
+        return GetIcon(st);
+    }
     /// <summary>
     /// 获取房间内角色对应ICon
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public Sprite ChickRoomIcon(BuildRoomName name)
+    public Sprite GetLevelIconToRoom(BuildRoomName name)
     {
         string st = "";
         switch (name)

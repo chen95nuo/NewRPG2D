@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Script.Battle;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,8 +60,7 @@ public class HallRoleData
         get
         {
             float temp = ((roleLevel[0].Level - 1) * 40) + 200;
-            temp += HP;
-            return (int)temp;
+            return (int)(temp + HP);
         }
     }
     public int Attack
@@ -213,30 +213,30 @@ public class HallRoleData
             }
         }
     }
-    public float HurtType
+    public HurtTypeEnum HurtType
     {
         get
         {
             if (attribute.ContainsKey(RoleAttribute.HurtType))
             {
                 float temp = attribute[RoleAttribute.HurtType];
-                return temp;
+                return (HurtTypeEnum)temp;
             }
-            return 1;
+            return HurtTypeEnum.Physic;
         }
         set
         {
             if (attribute.ContainsKey(RoleAttribute.HurtType))
             {
-                attribute[RoleAttribute.HurtType] = value;
+                attribute[RoleAttribute.HurtType] = (int)value;
             }
             else
             {
-                attribute.Add(RoleAttribute.HurtType, value);
+                attribute.Add(RoleAttribute.HurtType, (int)value);
             }
         }
     }
-    public float DPS
+    private float DPS
     {
         get
         {
@@ -582,7 +582,7 @@ public class HallRoleData
             case RoleAttribute.Iron:
                 return IronProduce;
             case RoleAttribute.HurtType:
-                return HurtType;
+                return (int)HurtType;
             case RoleAttribute.DPS:
                 return DPS;
             case RoleAttribute.Crt:
@@ -839,40 +839,73 @@ public class HallRoleData
         Equip[(int)equipData.EquipType] = equipData.EquipId;
         foreach (var item in equipData.RoleProperty)
         {
-            if (item.Value > 0 && attribute.ContainsKey(item.Key))
+            if (item.Value > 0 && item.Key <= RoleAttribute.DPS)
             {
-                attribute[item.Key] += item.Value;
-            }
-            else
-            {
-                attribute.Add(item.Key, item.Value);
+                if (attribute.ContainsKey(item.Key))
+                {
+                    attribute[item.Key] += item.Value;
+                }
+                else
+                {
+                    attribute.Add(item.Key, item.Value);
+                }
             }
         }
+
+        if (equipData.EquipType == EquipTypeEnum.Sword)
+        {
+            HurtType = equipData.HurtType;
+        }
+
+        //换皮肤
         HallRole role = HallRoleMgr.instance.GetRole(this);
-        role.ChangeSkil(equipData);
+        if ((int)equipData.EquipType <= 1)
+        {
+            role.ChangeSkil(equipData);
+        }
     }
     private void ChangeEquip(EquipmentRealProperty equipData)
     {
         EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(Equip[(int)equipData.EquipType]);
         EquipmentMgr.instance.AddEquipmentData(data);
         UseEquip(equipData);
+
         foreach (var item in equipData.RoleProperty)
         {
-            attribute[item.Key] -= item.Value;
+            if (item.Value > 0 && item.Key <= RoleAttribute.DPS)
+            {
+                attribute[item.Key] -= item.Value;
+            }
         }
+
     }
     public void UnloadEquip(EquipmentRealProperty equipData)
     {
         if (Equip[(int)equipData.EquipType] == 0)
         {
-            Debug.LogError("脱装备出错 改装备不存在");
+            Debug.LogError("脱装备出错 该装备不存在");
         }
         Equip[(int)equipData.EquipType] = 0;
         EquipmentMgr.instance.AddEquipmentData(equipData);
         foreach (var item in equipData.RoleProperty)
         {
-            attribute[item.Key] -= item.Value;
+            if (item.Value > 0 && item.Key <= RoleAttribute.DPS)
+            {
+                attribute[item.Key] -= item.Value;
+            }
         }
+
+        if (equipData.EquipType == EquipTypeEnum.Sword)
+        {
+            HurtType = HurtTypeEnum.Physic;
+        }
+
+        //皮肤换回来
+        HallRole role = HallRoleMgr.instance.GetRole(this);
+        //if ((int)equipData.EquipType <= 1)
+        //{
+        //    role.ChangeSkil(equipData);
+        //}
     }
 
     public HallRoleData() { }

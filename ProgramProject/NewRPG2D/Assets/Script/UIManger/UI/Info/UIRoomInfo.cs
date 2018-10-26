@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public abstract class UIRoomInfo : TTUIPage
 {
@@ -13,6 +15,12 @@ public abstract class UIRoomInfo : TTUIPage
 
     public Button btn_Close;
     public Button btn_Close_1;
+
+    public RectTransform pageDownTip;
+
+    private List<Button> allRoleBtn;
+    private int currentBtn = 0;
+
     protected RoomMgr roomData;
 
     protected virtual void Awake()
@@ -57,6 +65,35 @@ public abstract class UIRoomInfo : TTUIPage
                 GameObject go = Instantiate(roleGrid, roleTrans) as GameObject;
                 T grid = go.GetComponent<T>();
                 roleGrids.Add(grid);
+            }
+        }
+    }
+
+    protected virtual void DownPageAnimStart()
+    {
+        pageDownTip.DOAnchorPos(Vector3.up * 500, 0.5f);
+    }
+    protected virtual void DownPageAnimGoBack()
+    {
+        pageDownTip.DOAnchorPos(Vector3.zero, 0.5f);
+    }
+
+    protected virtual void btnAddLister(Button btn)
+    {
+        allRoleBtn.Add(btn);
+        btn.onClick.AddListener(ChickBtn);
+    }
+    protected virtual void ChickBtn()
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < allRoleBtn.Count; i++)
+        {
+            if (allRoleBtn[i] == go)
+            {
+                allRoleBtn[i].interactable = false;
+                allRoleBtn[currentBtn].interactable = true;
+                currentBtn = i;
+                return;
             }
         }
     }

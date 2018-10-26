@@ -24,6 +24,7 @@ public class UIBarracksInfo : UIRoomInfo
             if (roomMgr.currentBuildData.roleData[i] != null)
             {
                 roleGrids[i].UpdateInfo(roomMgr.currentBuildData.roleData[i], BuildRoomName.Barracks);
+                btnAddLister(roleGrids[i].btn_ShowAllRole);
             }
             else
             {

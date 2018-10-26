@@ -74,6 +74,7 @@ public class UIRoleInfo : TTUIPage
 
     private void Awake()
     {
+        HallEventManager.instance.AddListener(HallEventDefineEnum.RefreshBagUI, RefreshUI);//背包有变动 刷新UI
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);//这个是用来找训练参数的 后期需要优化
         HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
 
@@ -91,6 +92,7 @@ public class UIRoleInfo : TTUIPage
 
     private void OnDestroy()
     {
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.RefreshBagUI, RefreshUI);//背包有变动 刷新UI
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);
         HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
     }
@@ -166,7 +168,7 @@ public class UIRoleInfo : TTUIPage
     {
         if (data.Crt > 0)
         {
-            txt_CrtTip.text = data.DPS.ToString();
+            txt_CrtTip.text = data.Attack.ToString();
         }
         else
         {
@@ -289,5 +291,11 @@ public class UIRoleInfo : TTUIPage
                 UIPanelManager.instance.ShowPage<UIEquipView>(data);
             }
         }
+    }
+
+    private void RefreshUI()
+    {
+        UpdateInfo(currentRole);
+        sc.UpdateInfo((BagType)currentBtnNumb);
     }
 }

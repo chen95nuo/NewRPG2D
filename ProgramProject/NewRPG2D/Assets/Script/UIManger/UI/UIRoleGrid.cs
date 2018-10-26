@@ -33,7 +33,7 @@ public class UIRoleGrid : MonoBehaviour
     public void UpdateInfo(HallRoleData data, BuildRoomName name)
     {
         potoBg.sprite = sp[0];
-        Sprite icon = GetSpriteAtlas.insatnce.ChickRoomIcon(name);
+        Sprite icon = GetSpriteAtlas.insatnce.GetLevelIconToRoom(name);
         Image_Icon.sprite = icon;
         txt_Type.text = "";
         txt_Name.text = data.Name;

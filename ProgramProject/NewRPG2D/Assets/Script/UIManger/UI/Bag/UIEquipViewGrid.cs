@@ -254,7 +254,8 @@ public class UIEquipViewGrid : MonoBehaviour
 
     private void ChickDestroy()
     {
-        UIPanelManager.instance.ShowPage<UIPopUp_2>("城堡低于4级无法拆分");
+        object st = "城堡低于4级无法拆分";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
     private void ChickBtnLoad()
     {
@@ -262,20 +263,25 @@ public class UIEquipViewGrid : MonoBehaviour
         {
             Debug.Log("给角色穿装备");
             currentRoleData.AddEquip(currentequipData);
+            RefreshBagUI();
         }
         else
         {
-            UIPanelManager.instance.ShowPage<UIPopUp_2>("该角色等级不够无法装备");
+            Debug.Log("角色等级不够无法装备");
+            object st = "该功能暂未开放";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
         }
     }
     private void ChickBtnUnLoad()
     {
         currentRoleData.UnloadEquip(currentequipData);
+        RefreshBagUI();
     }
 
     private void RefreshBagUI()
     {
-
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.RefreshBagUI);
+        UIEquipView.instance.ClosePage();
     }
 
     private void ShowText(bool isShow)

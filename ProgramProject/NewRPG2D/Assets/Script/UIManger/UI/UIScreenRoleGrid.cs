@@ -25,10 +25,18 @@ public class UIScreenRoleGrid : MonoBehaviour
         TrainType.SetActive(false);
         txt_Name.text = data.Name;
         txt_Level.text = data.GetAtrProduce(needAtr).ToString();
+
+        if (needAtr == RoleAttribute.Max)
+        {
+            image_TypeIcon.sprite = GetSpriteAtlas.insatnce.GetLevelIconToAtr(data.RoleLevel[6].atr);
+        }
+        else
+        {
+            image_TypeIcon.sprite = GetSpriteAtlas.insatnce.GetLevelIconToAtr(needAtr);
+        }
         if (data.currentRoom != null)
         {
             txt_Point.text = data.currentRoom.RoomName.ToString();
-            image_TypeIcon.sprite = GetSpriteAtlas.insatnce.ChickRoomIcon(data.currentRoom.RoomName);
             if (data.currentRoom.BuildingData.RoomType == RoomType.Training)
             {
                 //如果是训练类的房间

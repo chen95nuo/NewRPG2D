@@ -30,6 +30,8 @@ public class UIEquipInfoHelper_1
 
 public class UIEquipView : TTUIPage
 {
+    public static UIEquipView instance;
+
     [SerializeField]
     private GameObject viewGrid;
     [SerializeField]
@@ -44,6 +46,8 @@ public class UIEquipView : TTUIPage
 
     private void Awake()
     {
+        instance = this;
+
         btn_Close.onClick.AddListener(ClosePage);
 
         GameObject go = Instantiate(viewGrid, viewGridPoint_1) as GameObject;

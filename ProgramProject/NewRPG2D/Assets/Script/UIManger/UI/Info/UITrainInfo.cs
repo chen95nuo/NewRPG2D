@@ -28,7 +28,7 @@ public class UITrainInfo : UIRoomInfo
         txt_MaxLevel.text = roomMgr.BuildingData.Param2.ToString();
         slider_maxLevel.value = roomMgr.BuildingData.Param2;
         ChickRoleNumber(roleGrids);
-        Sprite sp = GetSpriteAtlas.insatnce.ChickRoomIcon(roomMgr.RoomName);
+        Sprite sp = GetSpriteAtlas.insatnce.GetLevelIconToRoom(roomMgr.RoomName);
         for (int i = 0; i < roleGrids.Count; i++)
         {
             if (roomData.currentBuildData.roleData[i] != null)

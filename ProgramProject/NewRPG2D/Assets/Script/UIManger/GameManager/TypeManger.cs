@@ -25,6 +25,7 @@ public enum HallEventDefineEnum
     ShowEquipInfo,//显示装备信息
     ShowBoxInfo,//显示宝箱信息
     ShowPropInfo,//显示道具信息
+    RefreshBagUI,//背包变化 刷新背包UI
     EventMax
 }
 
@@ -50,10 +51,10 @@ public enum RoleAttribute
     Max,
 
     //以下是独立读取的
+    DPS,//秒伤
     MinDamage, //最小伤害
     MaxDamage, //最大伤害
     HurtType,//伤害类型
-    DPS,//秒伤
 }
 
 public enum TrainType

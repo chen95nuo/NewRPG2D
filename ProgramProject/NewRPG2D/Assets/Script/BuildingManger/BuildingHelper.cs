@@ -181,7 +181,7 @@ public class LocalBuildingData
             case RoleAttribute.Iron:
                 return data.IronProduce;
             case RoleAttribute.DPS:
-                return data.DPS;
+                return data.Attack;
             case RoleAttribute.HP:
                 return data.HP;
             case RoleAttribute.Max:
