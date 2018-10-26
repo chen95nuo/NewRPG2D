@@ -28,11 +28,18 @@ public class UIBag : TTUIPage
 
     private void Awake()
     {
+        HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
+
         btn_back.onClick.AddListener(ClosePage);
         for (int i = 0; i < btn_AllType.Length; i++)
         {
             btn_AllType[i].onClick.AddListener(ChickBagType);
         }
+    }
+
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
     }
 
     private void ChickBagType()
@@ -50,5 +57,11 @@ public class UIBag : TTUIPage
             }
         }
         Debug.LogError("没有找到对应按钮");
+    }
+
+    private void BagChickRoleEquip(EquipmentRealProperty equipData)
+    {
+        UIEquipInfoHelper data_1 = new UIEquipInfoHelper(equipData, null);
+        UIPanelManager.instance.ShowPage<UIEquipView>(data_1);
     }
 }

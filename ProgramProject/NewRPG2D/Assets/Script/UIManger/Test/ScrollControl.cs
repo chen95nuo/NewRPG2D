@@ -88,7 +88,8 @@ public class ScrollControl : MonoBehaviour
     private void ChickJewelry()
     {
         Debug.Log("刷新全部首饰");
-        items = ChickItemInfo.instance.GetEquip(EquipTypeEnum.Jewelry);
+        items = ChickItemInfo.instance.GetEquip((EquipTypeEnum)2, (EquipTypeEnum)3, (EquipTypeEnum)4);
+
         UpdateInfo(items);
     }
     private void ChickBox()

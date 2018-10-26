@@ -837,35 +837,20 @@ public class HallRoleData
 
     public void AddEquip(EquipmentRealProperty equipData)
     {
-        switch (equipData.EquipType)
-        {
-            case EquipTypeEnum.Sword:
-                if (equip[0] == 0)
-                {
-                    UseEquip(equipData, 0);
-                }
 
-                break;
-            case EquipTypeEnum.Armor:
-                if (equip[1] == 0)
-                {
-                    UseEquip(equipData, 1);
-                }
-                break;
-            case EquipTypeEnum.Jewelry:
-                if (equip[2] == 0 || equip[3] == 0 || equip[4] == 0)
-                {
-                    UseEquip(equipData, 2);
-                }
-                break;
-            default:
-                break;
+        if (equip[(int)equipData.EquipType] == 0)
+        {
+            UseEquip(equipData);
+        }
+        else
+        {
+            ChangeEquip(equipData);
         }
     }
-    private void UseEquip(EquipmentRealProperty equipData, int index)
+    private void UseEquip(EquipmentRealProperty equipData)
     {
         EquipmentMgr.instance.RemoveEquipmentData(equipData);
-        equip[index] = equipData.EquipId;
+        equip[(int)equipData.EquipType] = equipData.EquipId;
         foreach (var item in equipData.RoleProperty)
         {
             if (attribute.ContainsKey(item.Key))
@@ -878,11 +863,11 @@ public class HallRoleData
             }
         }
     }
-    private void ChangeEquip(EquipmentRealProperty equipData, int index)
+    private void ChangeEquip(EquipmentRealProperty equipData)
     {
-        EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(equip[index]);
+        EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(equip[(int)equipData.EquipType]);
         EquipmentMgr.instance.AddEquipmentData(data);
-        UseEquip(equipData, index);
+        UseEquip(equipData);
         foreach (var item in equipData.RoleProperty)
         {
             attribute[item.Key] -= item.Value;

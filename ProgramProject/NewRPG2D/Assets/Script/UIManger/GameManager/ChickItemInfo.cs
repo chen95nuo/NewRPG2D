@@ -114,6 +114,25 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         return Items;
     }
 
+    public List<ItemHelper> GetEquip(EquipTypeEnum type_1, EquipTypeEnum type_2, EquipTypeEnum type_3)
+    {
+        List<ItemHelper> Items = new List<ItemHelper>();
+        List<EquipmentRealProperty> allData = EquipmentMgr.instance.GetAllEquipmentData();
+        for (int i = 0; i < allData.Count; i++)
+        {
+            while (allData[i].EquipType != type_1 && allData[i].EquipType != type_2 && allData[i].EquipType != type_3)
+            {
+                allData.RemoveAt(i);
+            }
+        }
+        allData.Sort(CompareByEquip);
+        for (int i = 0; i < allData.Count; i++)
+        {
+            Items.Add(new ItemHelper(allData[i].EquipId, ItemType.Equip));
+        }
+        return Items;
+    }
+
     public List<ItemHelper> GetAllBox()
     {
         List<ItemHelper> allbox = new List<ItemHelper>();

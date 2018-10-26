@@ -54,7 +54,9 @@ public enum EquipTypeEnum
 {
     Sword,//武器
     Armor,//防具
-    Jewelry,//首饰
+    Jewelry,//护符
+    Ring,//戒指
+    Totems//图腾
 }
 
 public enum BodyTypeEnum
