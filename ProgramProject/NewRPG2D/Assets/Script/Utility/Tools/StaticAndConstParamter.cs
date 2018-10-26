@@ -83,6 +83,11 @@ public enum WeaponTypeEnum
     Wand,                //魔杖
     Knife,               //匕首
     Sword,               //剑
+    f,//斧头
+    b,//布甲
+    p,//皮夹
+    ba,//板甲
+    s,//首饰
 }
 
 public enum WeaponProfessionEnum
@@ -95,7 +100,7 @@ public enum WeaponProfessionEnum
 
 public enum ProfessionNeedEnum
 {
-    Fight,              //战斗
+    Fight = 1,              //战斗
     Mint,               //会计
     Kitchen,            //厨师
     Laboratory,         //魔法

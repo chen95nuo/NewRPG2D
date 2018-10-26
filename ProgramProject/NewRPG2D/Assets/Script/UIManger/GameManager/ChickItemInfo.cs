@@ -99,17 +99,18 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
     {
         List<ItemHelper> Items = new List<ItemHelper>();
         List<EquipmentRealProperty> allData = EquipmentMgr.instance.GetAllEquipmentData();
+        List<EquipmentRealProperty> needData = new List<EquipmentRealProperty>();
         for (int i = 0; i < allData.Count; i++)
         {
-            while (allData[i].EquipType != type)
+            if (allData[i].EquipType == type)
             {
-                allData.RemoveAt(i);
+                needData.Add(allData[i]);
             }
         }
-        allData.Sort(CompareByEquip);
-        for (int i = 0; i < allData.Count; i++)
+        needData.Sort(CompareByEquip);
+        for (int i = 0; i < needData.Count; i++)
         {
-            Items.Add(new ItemHelper(allData[i].EquipId, ItemType.Equip));
+            Items.Add(new ItemHelper(needData[i].EquipId, ItemType.Equip));
         }
         return Items;
     }
@@ -118,17 +119,18 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
     {
         List<ItemHelper> Items = new List<ItemHelper>();
         List<EquipmentRealProperty> allData = EquipmentMgr.instance.GetAllEquipmentData();
+        List<EquipmentRealProperty> needData = new List<EquipmentRealProperty>();
         for (int i = 0; i < allData.Count; i++)
         {
-            while (allData[i].EquipType != type_1 && allData[i].EquipType != type_2 && allData[i].EquipType != type_3)
+            if (allData[i].EquipType == type_1 || allData[i].EquipType == type_2 || allData[i].EquipType == type_3)
             {
-                allData.RemoveAt(i);
+                needData.Add(allData[i]);
             }
         }
-        allData.Sort(CompareByEquip);
-        for (int i = 0; i < allData.Count; i++)
+        needData.Sort(CompareByEquip);
+        for (int i = 0; i < needData.Count; i++)
         {
-            Items.Add(new ItemHelper(allData[i].EquipId, ItemType.Equip));
+            Items.Add(new ItemHelper(needData[i].EquipId, ItemType.Equip));
         }
         return Items;
     }

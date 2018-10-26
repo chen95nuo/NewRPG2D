@@ -40,6 +40,10 @@ public class GameMain : MonoBehaviour
     private void test_2()
     {
         LocalServer.instance.StartInit();
-        EquipmentMgr.instance.CreateNewEquipment(10001);
+        for (int i = 1; i < 23; i++)
+        {
+            int index = 10000 + i;
+            EquipmentMgr.instance.CreateNewEquipment(index);
+        }
     }
 }

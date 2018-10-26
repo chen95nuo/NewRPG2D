@@ -52,7 +52,7 @@ public class UIRoleInfo : TTUIPage
     public ScrollControl sc;
     #endregion
 
-    private int currentbtnNumb = 0;
+    private int currentBtnNumb = 0;
 
     [System.NonSerialized]
     public HallRoleData currentRole;
@@ -86,6 +86,7 @@ public class UIRoleInfo : TTUIPage
         {
             btn_Equip[i].onClick.AddListener(ChickEquipClick);
         }
+        btn_AllType[currentBtnNumb].interactable = false;
     }
 
     private void OnDestroy()
@@ -104,13 +105,12 @@ public class UIRoleInfo : TTUIPage
 
     public void UpdateInfo(HallRoleData data)
     {
-
-        txt_fight.text = data.FightLevel.ToString();
-        txt_food.text = data.FoodLevel.ToString();
-        txt_gold.text = data.GoldLevel.ToString();
-        txt_mana.text = data.ManaLevel.ToString();
-        txt_wood.text = data.WoodLevel.ToString();
-        txt_iron.text = data.IronLevel.ToString();
+        txt_fight.text = data.RoleLevel[0].Level.ToString();
+        txt_food.text = data.RoleLevel[1].Level.ToString();
+        txt_gold.text = data.RoleLevel[2].Level.ToString();
+        txt_mana.text = data.RoleLevel[3].Level.ToString();
+        txt_wood.text = data.RoleLevel[4].Level.ToString();
+        txt_iron.text = data.RoleLevel[5].Level.ToString();
         ChickLevelUI(true);
 
         txt_Dps.text = (data.Attack).ToString();
@@ -221,10 +221,10 @@ public class UIRoleInfo : TTUIPage
         {
             if (btn_AllType[i].gameObject == go)
             {
-                btn_AllType[currentbtnNumb].interactable = true;
+                btn_AllType[currentBtnNumb].interactable = true;
                 btn_AllType[i].interactable = false;
                 sc.UpdateInfo((BagType)i);
-                currentbtnNumb = i;
+                currentBtnNumb = i;
                 return;
             }
         }
@@ -244,14 +244,11 @@ public class UIRoleInfo : TTUIPage
 
     private void BagChickRoleEquip(EquipmentRealProperty equipData)
     {
-        for (int i = 0; i < roleEquips.Length; i++)
+        if (roleEquips[(int)equipData.EquipType] != null)
         {
-            if (roleEquips[i].EquipType == equipData.EquipType)
-            {
-                UIEquipInfoHelper_1 data = new UIEquipInfoHelper_1(roleEquips[i], equipData, currentRole);
-                UIPanelManager.instance.ShowPage<UIEquipView>(data);
-                return;
-            }
+            UIEquipInfoHelper_1 data = new UIEquipInfoHelper_1(roleEquips[(int)equipData.EquipType], equipData, currentRole);
+            UIPanelManager.instance.ShowPage<UIEquipView>(data);
+            return;
         }
         UIEquipInfoHelper data_1 = new UIEquipInfoHelper(equipData, currentRole);
         UIPanelManager.instance.ShowPage<UIEquipView>(data_1);
@@ -285,9 +282,11 @@ public class UIRoleInfo : TTUIPage
         GameObject go = EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < btn_Equip.Length; i++)
         {
-            if (go == btn_Equip[i].gameObject)
+            if (go == btn_Equip[i].gameObject && roleEquips[i] != null)
             {
                 Debug.Log(string.Format("获取{0}装备", i));
+                UIEquipInfoHelper_1 data = new UIEquipInfoHelper_1(roleEquips[i], null, currentRole);
+                UIPanelManager.instance.ShowPage<UIEquipView>(data);
             }
         }
     }

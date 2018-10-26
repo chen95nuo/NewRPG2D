@@ -30,17 +30,26 @@ public class UIEquipInfoHelper_1
 
 public class UIEquipView : TTUIPage
 {
+    [SerializeField]
+    private GameObject viewGrid;
+    [SerializeField]
+    private Transform viewGridPoint_1;
+    [SerializeField]
+    private Transform viewGridPoint_2;
 
-    public GameObject atrGrid;
-
-    public UIEquipViewGrid equipGrid_1;
-    public UIEquipViewGrid equipGrid_2;
+    private UIEquipViewGrid equipGrid_1;
+    private UIEquipViewGrid equipGrid_2;
 
     public Button btn_Close;
 
     private void Awake()
     {
         btn_Close.onClick.AddListener(ClosePage);
+
+        GameObject go = Instantiate(viewGrid, viewGridPoint_1) as GameObject;
+        equipGrid_1 = go.GetComponent<UIEquipViewGrid>();
+        go = Instantiate(viewGrid, viewGridPoint_2);
+        equipGrid_2 = go.GetComponent<UIEquipViewGrid>();
     }
 
     public override void Show(object mData)
@@ -60,7 +69,7 @@ public class UIEquipView : TTUIPage
 
     private void UpdateInfo(UIEquipInfoHelper equipData)
     {
-        equipGrid_2.transform.parent.gameObject.SetActive(false);
+        viewGridPoint_2.gameObject.SetActive(false);
 
         if (equipData.roleData == null)
         {
@@ -68,21 +77,29 @@ public class UIEquipView : TTUIPage
         }
         else
         {
-            equipGrid_1.UpdateInfo(equipData.equipData, 2, equipData.roleData);
+            equipGrid_1.UpdateInfo(equipData.equipData, 3, equipData.roleData);
         }
 
     }
 
     private void UpdateInfo(UIEquipInfoHelper_1 equipInfoData)
     {
-        equipGrid_2.transform.parent.gameObject.SetActive(true);
-        equipGrid_1.UpdateInfo(equipInfoData.roleEquipData, 2, equipInfoData.roleData);
-        equipGrid_2.UpdateInfo(equipInfoData.bagEquipData, 0, null);
+        viewGridPoint_2.gameObject.SetActive(true);
+        if (equipInfoData.bagEquipData == null)
+        {
+            viewGridPoint_2.gameObject.SetActive(false);
+            equipGrid_1.UpdateInfo(equipInfoData.roleEquipData, 2, equipInfoData.roleData);
+        }
+        else
+        {
+            equipGrid_2.UpdateInfo(equipInfoData.roleEquipData, 0, null);
+            equipGrid_1.UpdateInfo(equipInfoData.bagEquipData, 3, equipInfoData.roleData);
+        }
     }
 
     public override void ClosePage()
     {
-        equipGrid_2.transform.parent.gameObject.SetActive(false);
+        viewGridPoint_2.gameObject.SetActive(false);
         base.ClosePage();
     }
 }

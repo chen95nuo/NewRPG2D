@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1809417847968632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.187102, y: -3.6754286, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 4696347459928654}
@@ -118,7 +118,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 45f4039a91b2c564f970282222e61640, type: 2}
+  - {fileID: 2100000, guid: d2c4243522b779646a7d906518b3247f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 114360881771396814}
-  sourceMaterial: {fileID: 2100000, guid: 45f4039a91b2c564f970282222e61640, type: 2}
+  sourceMaterial: {fileID: 2100000, guid: d2c4243522b779646a7d906518b3247f, type: 2}
 --- !u!114 &114360881771396814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 97c9701b6c78c1d4ea0fb392b5afff62, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 5e08fe1fcdb58be4d8c99f6251868133, type: 2}
   initialSkinName: default
   initialFlipX: 0
   initialFlipY: 0
@@ -211,6 +211,6 @@ MonoBehaviour:
   calculateTangents: 0
   logErrors: 0
   disableRenderingOnOverride: 1
-  _animationName: walk1
+  _animationName: 
   loop: 1
   timeScale: 1

@@ -21,8 +21,10 @@ public class HallRoleData
     public int trainIndex;//训练编号
     public RoleLoveType LoveType;//爱情状态
     private float nowHp;//当前血量
+    public bool isBaby;//是不是小孩
     public RoleBabyData babyData;//宝宝数据
     public RoomMgr currentRoom;
+    public HallRole currentInstance;
 
     public string Name
     {
@@ -49,17 +51,6 @@ public class HallRoleData
                 star = value;
                 Debug.LogError("角色的星级被改变了");
             }
-        }
-    }
-    public int[] Equip
-    {
-        get
-        {
-            if (equip == null)
-            {
-                equip = new int[5];
-            }
-            return equip;
         }
     }
 
@@ -558,6 +549,18 @@ public class HallRoleData
             nowHp = value;
         }
     }
+
+    public int[] Equip
+    {
+        get
+        {
+            if (equip == null)
+            {
+                equip = new int[5];
+            }
+            return equip;
+        }
+    }
     #endregion
 
     public float Attribute(RoleAttribute attribute)
@@ -600,23 +603,6 @@ public class HallRoleData
                 break;
         }
         return 0;
-    }
-
-
-    public HallRoleData() { }
-    public HallRoleData(int sex, int star, int[] level)
-    {
-        this.sexType = (RoleSexType)sex;
-        this.star = star;
-        this.name = "Json";
-        roleLevel[0] = new HallRoleLevel(RoleAttribute.Fight, level[0]);
-        roleLevel[1] = new HallRoleLevel(RoleAttribute.Gold, level[1]);
-        roleLevel[2] = new HallRoleLevel(RoleAttribute.Food, level[2]);
-        roleLevel[3] = new HallRoleLevel(RoleAttribute.Mana, level[3]);
-        roleLevel[4] = new HallRoleLevel(RoleAttribute.Wood, level[4]);
-        roleLevel[5] = new HallRoleLevel(RoleAttribute.Iron, level[5]);
-        nowHp = -1;
-        ChickMaxLevel();
     }
 
     public int GetAtrLevel(RoleAttribute atr)
@@ -838,7 +824,7 @@ public class HallRoleData
     public void AddEquip(EquipmentRealProperty equipData)
     {
 
-        if (equip[(int)equipData.EquipType] == 0)
+        if (Equip[(int)equipData.EquipType] == 0)
         {
             UseEquip(equipData);
         }
@@ -850,10 +836,10 @@ public class HallRoleData
     private void UseEquip(EquipmentRealProperty equipData)
     {
         EquipmentMgr.instance.RemoveEquipmentData(equipData);
-        equip[(int)equipData.EquipType] = equipData.EquipId;
+        Equip[(int)equipData.EquipType] = equipData.EquipId;
         foreach (var item in equipData.RoleProperty)
         {
-            if (attribute.ContainsKey(item.Key))
+            if (item.Value > 0 && attribute.ContainsKey(item.Key))
             {
                 attribute[item.Key] += item.Value;
             }
@@ -862,16 +848,47 @@ public class HallRoleData
                 attribute.Add(item.Key, item.Value);
             }
         }
+        HallRole role = HallRoleMgr.instance.GetRole(this);
+        role.ChangeSkil(equipData);
     }
     private void ChangeEquip(EquipmentRealProperty equipData)
     {
-        EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(equip[(int)equipData.EquipType]);
+        EquipmentRealProperty data = EquipmentMgr.instance.GetEquipmentByEquipId(Equip[(int)equipData.EquipType]);
         EquipmentMgr.instance.AddEquipmentData(data);
         UseEquip(equipData);
         foreach (var item in equipData.RoleProperty)
         {
             attribute[item.Key] -= item.Value;
         }
+    }
+    public void UnloadEquip(EquipmentRealProperty equipData)
+    {
+        if (Equip[(int)equipData.EquipType] == 0)
+        {
+            Debug.LogError("脱装备出错 改装备不存在");
+        }
+        Equip[(int)equipData.EquipType] = 0;
+        EquipmentMgr.instance.AddEquipmentData(equipData);
+        foreach (var item in equipData.RoleProperty)
+        {
+            attribute[item.Key] -= item.Value;
+        }
+    }
+
+    public HallRoleData() { }
+    public HallRoleData(int sex, int star, int[] level)
+    {
+        this.sexType = (RoleSexType)sex;
+        this.star = star;
+        this.name = "Json";
+        roleLevel[0] = new HallRoleLevel(RoleAttribute.Fight, level[0]);
+        roleLevel[1] = new HallRoleLevel(RoleAttribute.Gold, level[1]);
+        roleLevel[2] = new HallRoleLevel(RoleAttribute.Food, level[2]);
+        roleLevel[3] = new HallRoleLevel(RoleAttribute.Mana, level[3]);
+        roleLevel[4] = new HallRoleLevel(RoleAttribute.Wood, level[4]);
+        roleLevel[5] = new HallRoleLevel(RoleAttribute.Iron, level[5]);
+        nowHp = -1;
+        ChickMaxLevel();
     }
 }
 

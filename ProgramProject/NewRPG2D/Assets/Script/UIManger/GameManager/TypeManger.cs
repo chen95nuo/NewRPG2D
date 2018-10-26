@@ -31,6 +31,7 @@ public enum HallEventDefineEnum
 public enum RoleAttribute
 {
     Nothing,
+    HP,//血量
     Fight,//战斗属性
     Gold,//财务属性
     Food,//烹饪属性
@@ -39,18 +40,20 @@ public enum RoleAttribute
     Wood,//木工属性
     Iron,//矿工属性
 
-    HurtType,//伤害类型
-    DPS,//秒伤
-    Crt,//暴击率
+    HallShowAtr,//下方至Max为外部需要显示的属性
     PArmor,//物理护甲
     MArmor,//魔法护甲
-    Dodge,//闪避
-    HIT,//命中
+    Crt,//暴击率
     INT,//法强
-    HP,//血量
+    HIT,//命中
+    Dodge,//闪避
+    Max,
+
+    //以下是独立读取的
     MinDamage, //最小伤害
     MaxDamage, //最大伤害
-    Max
+    HurtType,//伤害类型
+    DPS,//秒伤
 }
 
 public enum TrainType

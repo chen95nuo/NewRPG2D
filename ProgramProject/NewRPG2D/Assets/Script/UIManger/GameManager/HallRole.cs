@@ -16,11 +16,11 @@ public class HallRole : MonoBehaviour
     public RoleBabyData currentBaby;
     private HallRoleData currentData;
     public Transform TipPoint;
+    public RoleSexType sex;
     public bool isChildren = false;
 
     #region 换装
     public ChangeRoleEquip RoleSkinEquip;
-    private EquipmentRealProperty equipment;
     #endregion
     public HallRoleData RoleData
     {
@@ -37,8 +37,10 @@ public class HallRole : MonoBehaviour
     public void UpdateInfo(HallRoleData data)
     {
         currentData = data;
+        sex = data.sexType;
         HallRoleMgr.instance.AddRole(data, this);
         isChildren = false;
+        ChickEquip(data);
     }
     private void Update()
     {
@@ -47,13 +49,30 @@ public class HallRole : MonoBehaviour
     public void UpdateInfo(RoleBabyData baby)
     {
         currentBaby = baby;
+        sex = baby.child.sexType;
         HallRoleMgr.instance.AddRole(baby.child, this);
         isChildren = true;
     }
 
-    private void ChangeSkil(int id)
+    private void ChickEquip(HallRoleData data)
     {
-        equipment = EquipmentMgr.instance.CreateNewEquipment(id);
+        for (int i = 0; i < data.Equip.Length; i++)
+        {
+            if (data.Equip[i] != 0)
+            {
+                ChangeSkil(data.Equip[i]);
+            }
+        }
+    }
+
+    public void ChangeSkil(int id)
+    {
+        EquipmentRealProperty equipment = EquipmentMgr.instance.CreateNewEquipment(id);
+        RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+    }
+    public void ChangeSkil(EquipmentRealProperty equipment)
+    {
+        Debug.Log("换皮肤 类型：" + equipment.EquipType + "  Name: " + equipment.EquipName);
         RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
     }
 
@@ -63,10 +82,7 @@ public class HallRole : MonoBehaviour
     }
     public void InstanceNewBody()
     {
-        //HallRoleMgr.instance.
-        //RoleSkinEquip.ChangeBody(BodyTypeEnum.Beard,);
-        //RoleSkinEquip.ChangeBody(BodyTypeEnum.Beard,);
-        //RoleSkinEquip.ChangeBody(BodyTypeEnum.Beard,);
+
     }
 
 

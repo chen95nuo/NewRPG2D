@@ -9,21 +9,60 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     Dictionary<int, RoleTrainHelper> timeAction = new Dictionary<int, RoleTrainHelper>();
     Dictionary<int, RoleBabyData> childrenTime = new Dictionary<int, RoleBabyData>();
     Dictionary<int, RoleLoveHelper> loveData = new Dictionary<int, RoleLoveHelper>();
-
+    private List<HallRole> AllHallRole = new List<HallRole>();
     private int childNeedTime = 360;//小孩所需时间
     private int LoveTime = 10;//恋爱所需时间
 
-    private GameObject role;
+    private GameObject roleBoy;//男孩
+    private GameObject roleGirl;//女孩
+    private GameObject roleMale;//男人
+    private GameObject roleFemale;//女人
 
-    public GameObject Role
+    private GameObject RoleBoy
     {
         get
         {
-            if (role == null)
+            if (roleBoy == null)
             {
-                role = Resources.Load("UIPrefab/Role/Role") as GameObject;
+                roleBoy = Resources.Load("UIPrefab/Role/RoleBoy") as GameObject;
             }
-            return role;
+            return roleBoy;
+        }
+    }
+
+    private GameObject RoleGirl
+    {
+        get
+        {
+            if (roleGirl == null)
+            {
+                roleGirl = Resources.Load("UIPrefab/Role/RoleGirl") as GameObject;
+            }
+            return roleGirl;
+        }
+    }
+
+    private GameObject RoleMale
+    {
+        get
+        {
+            if (roleMale == null)
+            {
+                roleMale = Resources.Load("UIPrefab/Role/RoleMale") as GameObject;
+            }
+            return roleMale;
+        }
+    }
+
+    private GameObject RoleFemale
+    {
+        get
+        {
+            if (roleFemale == null)
+            {
+                roleFemale = Resources.Load("UIPrefab/Role/RoleFemale") as GameObject;
+            }
+            return roleFemale;
         }
     }
 
@@ -39,10 +78,9 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
     public void BuildServerRole(HallRoleData data, RoomMgr room)
     {
-        GameObject go = GameObject.Instantiate(Role, MainCastle.instance.NewRolePoint);
         int count = MainCastle.instance.NewRolePoint.childCount;
-        go.transform.localPosition = Vector3.right * (count + 2 * 2);
-        HallRole role = go.GetComponent<HallRole>();
+        HallRole role = InstantiateRole(data.sexType, false);
+        role.transform.localPosition = Vector3.right * (count + 2 * 2);
         role.UpdateInfo(data);
     }
 
@@ -59,10 +97,9 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             level[i] = Random.Range(1, 4);
         }
         HallRoleData data = new HallRoleData(sex, star, level);
-        GameObject go = GameObject.Instantiate(Role, MainCastle.instance.NewRolePoint);
         int count = MainCastle.instance.NewRolePoint.childCount - 1;
-        go.transform.localPosition = Vector3.left * count;
-        HallRole role = go.GetComponent<HallRole>();
+        HallRole role = InstantiateRole((RoleSexType)sex, false);
+        role.transform.localPosition = Vector3.left * count;
         role.UpdateInfo(data);
         return role;
     }
@@ -73,12 +110,44 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <param name="data"></param>
     public HallRole BuildNewRole(RoleBabyData data)
     {
-        //GameObject go = Resources.Load("UIPrefab/Role/Role") as GameObject;
-        GameObject go = GameObject.Instantiate(Role, MainCastle.instance.NewRolePoint);
+        HallRole role = InstantiateRole(data.child.sexType, true);
         int count = MainCastle.instance.NewRolePoint.childCount - 1;
-        HallRole role = go.GetComponent<HallRole>();
         role.UpdateInfo(data);
         return role;
+    }
+
+    private HallRole InstantiateRole(RoleSexType sexType, bool isBaby)
+    {
+        for (int i = 0; i < AllHallRole.Count; i++)
+        {
+            if (AllHallRole[i].isChildren == true && AllHallRole[i].sex == sexType)
+            {
+                Debug.Log("对象池中找到相应实例");
+                return AllHallRole[i];
+            }
+        }
+        GameObject go = null;
+        if (sexType == RoleSexType.Male && isBaby == false)
+        {
+            go = GameObject.Instantiate(RoleMale, MainCastle.instance.NewRolePoint) as GameObject;
+        }
+        else if (sexType == RoleSexType.Female && isBaby == false)
+        {
+            go = GameObject.Instantiate(RoleFemale, MainCastle.instance.NewRolePoint) as GameObject;
+        }
+        else if (sexType == RoleSexType.Male && isBaby == true)
+        {
+            go = GameObject.Instantiate(RoleBoy, MainCastle.instance.NewRolePoint) as GameObject;
+        }
+        else if (sexType == RoleSexType.Female && isBaby == true)
+        {
+            go = GameObject.Instantiate(RoleGirl, MainCastle.instance.NewRolePoint) as GameObject;
+        }
+        else
+        {
+            Debug.LogError("没有找到要生成的角色");
+        }
+        return go.GetComponent<HallRole>();
     }
 
     /// <summary>

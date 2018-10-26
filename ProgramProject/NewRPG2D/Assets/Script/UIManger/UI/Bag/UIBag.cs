@@ -35,6 +35,7 @@ public class UIBag : TTUIPage
         {
             btn_AllType[i].onClick.AddListener(ChickBagType);
         }
+        btn_AllType[currentBtnNumb].interactable = false;
     }
 
     private void OnDestroy()

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114422529106900064}
   - component: {fileID: 114963374844490212}
   m_Layer: 5
-  m_Name: Text
+  m_Name: txt_Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 224705482805938966}
   - component: {fileID: 114098741941094426}
   - component: {fileID: 114224713224225318}
+  - component: {fileID: 114292941118822632}
   m_Layer: 5
   m_Name: UIAtrGrid
   m_TagString: Untagged
@@ -98,6 +99,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &114292941118822632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758978554408042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab28d091f74d344885766a9994dc086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 114987637848741624}
+  txt_Tip: {fileID: 114422529106900064}
 --- !u!114 &114422529106900064
 MonoBehaviour:
   m_ObjectHideFlags: 1
