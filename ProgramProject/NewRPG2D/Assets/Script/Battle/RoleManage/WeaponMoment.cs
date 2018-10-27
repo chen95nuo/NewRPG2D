@@ -19,9 +19,10 @@ namespace Assets.Script.Battle
             currentHeroRole = mRole;
         }
 
-        public void SetEquipSlot(EquipTypeEnum equipType, int equipId)
+        public void SetEquipSlot(int equipId, SexTypeEnum sexType)
         {
             EquipmentRealProperty equipment = EquipmentMgr.instance.GetEquipmentByEquipId(equipId);
+            currentHeroRole.MonoRoleRender.CurrentRoleEquip.ChangeEquip(equipment.EquipType, equipment.EquipName, sexType);
             for (int i = 0; i < equipment.SpecialProperty.Count; i++)
             {
                 specialBuffs.Add(GetRealBuff(equipment.SpecialProperty[i]));

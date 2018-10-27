@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Script.UIManger;
 using System.Collections;
+using DG.Tweening;
 
 namespace Assets.Script.UIManger
 {
@@ -69,6 +70,10 @@ namespace Assets.Script.UIManger
             {
                 callback();
             }
+
+            Sequence mSequence = DOTween.Sequence();
+            mSequence.Append(transform.DOScale(0.1f, 0.5f));
+            mSequence.Append(transform.DOScale(1.5f, 0.5f));
         }
 
         /// <summary>
@@ -83,8 +88,11 @@ namespace Assets.Script.UIManger
             }
             else
             {
-
-                this.gameObject.SetActive(false);
+                Sequence mSequence = DOTween.Sequence();
+                mSequence.Append(transform.DOScale(0.1f, 0.5f));
+                mSequence.Append(transform.DOScale(1.5f, 0.5f));
+                mSequence.OnComplete(()=> gameObject.SetActive(false));
+               
             }
             isActived = false;
             //set this page's data null when hide.

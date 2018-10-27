@@ -2,17 +2,33 @@
 
 namespace Assets.Script.Battle.RoleState
 {
-    public class RoleNormalAttackState  : RoleBaseSkillState
+    public class RoleNormalAttackState : RoleBaseSkillState
     {
         public override string AnimationName
         {
-            get { return RoleAnimationName.NormalAttack; }
+            get
+            {
+                switch (CurrentRole.CurrentProfession)
+                {
+                    case WeaponProfessionEnum.None:
+                        return RoleAnimationName.AttackHand;
+                    case WeaponProfessionEnum.Shooter:
+                        return RoleAnimationName.AttackArrow;
+                    case WeaponProfessionEnum.Fighter:
+                    case WeaponProfessionEnum.Magic:
+                        return RoleAnimationName.AttackCut;
+                    default:
+                        return RoleAnimationName.AttackCut;
+                }
+            }
         }
 
         public override void Enter(RoleBase mRoleBase)
         {
             CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
             base.Enter(mRoleBase);
+            skillCDTime = 1 / mRoleBase.RolePropertyValue.AttackSpeed;
+            addTime = 0;
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)
@@ -33,7 +49,7 @@ namespace Assets.Script.Battle.RoleState
             info.TargeRole = TargetRole;
             info.HurtType = mRoleBase.RolePropertyValue.HurtType;
             mRoleBase.RoleWeapon.TriggerBuff(TirggerTypeEnum.Attack, ref info);
-            if (mRoleBase.AttackType == AttackTypeEnum.ShortRange)
+            if (mRoleBase.CurrentProfession != WeaponProfessionEnum.Shooter)
             {
                 mRoleBase.RoleDamageMoment.HurtDamage(ref info);
                 FxManger.instance.PlayFx("SwordSlashBlue", mRoleBase.RoleTransform);

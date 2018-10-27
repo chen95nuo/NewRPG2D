@@ -41,6 +41,10 @@ namespace Assets.Script.Battle
         public const string Skill2 = "attack1";
         public const string Hit = "hit";
         public const string Death = "death";
+        public const string AttackArrow = "Attach_arrow";
+        public const string AttackCut = "attack_cut";
+        public const string AttackHand = "attack_hand";
+        public const string Win = "joy";
     }
 
     public struct PropertyData

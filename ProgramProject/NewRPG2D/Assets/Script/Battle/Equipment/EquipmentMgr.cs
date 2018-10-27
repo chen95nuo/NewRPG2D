@@ -58,10 +58,12 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         {
             attackSpeed = 1;
         }
+
         GetRoleProperty(roleProperty, data, realProperty.Level);
         realProperty.RoleProperty = roleProperty;
         realProperty.AttackRange = data.AttackRange;
         realProperty.AttackSpeed = data.AttackSpeed;
+        realProperty.QualityType = data.QualityType;
         GetSpecialProperty(specialProperty, data);
         realProperty.SpecialProperty = specialProperty;
         realProperty.HurtType = data.HurtType;

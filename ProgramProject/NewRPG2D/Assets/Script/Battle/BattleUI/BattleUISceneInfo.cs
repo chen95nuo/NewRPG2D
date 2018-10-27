@@ -8,9 +8,10 @@ namespace Assets.Script.Battle.BattleUI
     public class BattleUISceneInfo : MonoBehaviour
     {
         public Text RemainTimeText;
-        public Text RemainEnemyCountText;
-        public Image MpImage;
-        public Text MpTxt;
+        public Slider PlayerSlider;
+        public string playerValue;
+        public Slider EnemySlider;
+        public string enemyValue;
 
         private int totleTime = 300;
         private int remainEnenyCount = 0;
@@ -20,14 +21,10 @@ namespace Assets.Script.Battle.BattleUI
 
         public void Awake()
         {
-            GameRoleMgr.instance.RemianEnemyCount.AddListener(OnRemianEnemyCount);
-            GameRoleMgr.instance.CurrentPlayerMp.AddListener(OnCurrentPlayerMp);
         }
 
         public void OnDestroy()
         {
-            GameRoleMgr.instance.RemianEnemyCount.RemoveListener(OnRemianEnemyCount);
-            GameRoleMgr.instance.CurrentPlayerMp.RemoveListener(OnCurrentPlayerMp);
             CTimerManager.instance.RemoveLister(timeId);
         }
 
@@ -37,24 +34,6 @@ namespace Assets.Script.Battle.BattleUI
             startGame = true;
             timeId = CTimerManager.instance.AddListener(1, -1, BattleTimeChange);
         }
-
-        private void OnRemianEnemyCount(int currentCount, int lastCount)
-        {
-            RemainEnemyCountText.text = StringHelper.instance.IntToString(currentCount);
-        }
-
-        private void OnCurrentPlayerMp(int currentCount, int lastCount)
-        {
-            currentMp = currentCount;
-            if (maxMp == 0)
-            {
-                maxMp = currentCount;
-                currentMp = maxMp;
-            }
-            MpTxt.text = currentMp.ToString();
-            MpImage.fillAmount = (currentMp*1.0f)/maxMp;
-        }
-
 
         private void BattleTimeChange(int timeId)
         {

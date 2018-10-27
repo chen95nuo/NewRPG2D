@@ -9,8 +9,9 @@ public class RoleDetailData
     public string Name;
     public int Level;
     public string IconName;
-    public ProfessionNeedEnum Profession;
-    public List<int> EquipIdList;
+    public WeaponProfessionEnum Profession;
+    public SexTypeEnum sexType;
+    public int[] EquipIdList;
     public List<int> BodyIdList;
     public BornPositionTypeEnum BornPositionType;
 

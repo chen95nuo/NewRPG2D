@@ -44,12 +44,18 @@ namespace Assets.Script.Battle
 
         public void ChangeEquip(EquipTypeEnum equipType, string equipName, SexTypeEnum sexType = SexTypeEnum.Man)
         {
-            for (int i = 0; i < equipSlot[equipType].Count; i++)
+            List<string> equipment = null;
+            if (equipSlot.TryGetValue(equipType, out equipment) == false)
             {
-                string path = equipType == EquipTypeEnum.Armor ? string.Format("Equipment/{0}/{1}/{2}", sexType, equipName, equipSlot[equipType][i])
-                                                               : string.Format("Equipment/Weapon/{0}/{1}", equipName, equipSlot[equipType][i]);
+                return;
+            }
+
+            for (int i = 0; i < equipment.Count; i++)
+            {
+                string path = equipType == EquipTypeEnum.Armor ? string.Format("Equipment/{0}/{1}/{2}", sexType, equipName, equipment[i])
+                                                               : string.Format("Equipment/Weapon/{0}/{1}", equipName, equipment[i]);
                 Texture2D texture2D = ResourcesLoadMgr.instance.LoadResource<Texture2D>(path);
-                ChangeEquip(equipSlot[equipType][i], texture2D);
+                ChangeEquip(equipment[i], texture2D);
             }
         }
 

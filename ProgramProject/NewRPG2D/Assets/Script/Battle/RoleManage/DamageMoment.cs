@@ -45,7 +45,7 @@ namespace Assets.Script.Battle
             else
             {
                 hurtInfo.TargeRole.RoleWeapon.TriggerBuff(TirggerTypeEnum.Hurt, ref hurtInfo);
-                hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Hit);
+               // hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Hit);
             }
         }
 

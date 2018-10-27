@@ -34,6 +34,7 @@ namespace Assets.Script.Battle
         public bool IsDead { get; private set; }
         public AttackTypeEnum AttackType { get; private set; }
         public RoleDetailData RoleDetailInfo { get; private set; }
+        public WeaponProfessionEnum CurrentProfession { get; private set; }
 
         public bool FinishMoveToPoint;
         public bool IsCanControl;
@@ -140,6 +141,11 @@ namespace Assets.Script.Battle
         {
             RolePropertyValue.InitBaseRoleValue(data);
             RoleDetailInfo = detailInfo;
+            for (int i = 0; i < detailInfo.EquipIdList.Length; i++)
+            {
+                RoleWeapon.SetEquipSlot(detailInfo.EquipIdList[i], detailInfo.sexType);
+            }
+            CurrentProfession = detailInfo.Profession;
         }
 
         public bool SetRoleActionState(ActorStateEnum state)

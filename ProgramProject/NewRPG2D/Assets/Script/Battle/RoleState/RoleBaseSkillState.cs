@@ -55,7 +55,7 @@ namespace Assets.Script.Battle.RoleState
             {
                 if (CurrentRole.TeamId == TeamTypeEnum.Hero)
                 {
-                    if (GameRoleMgr.instance.CurrentPlayerMp.Value > MP)
+                    //if (GameRoleMgr.instance.CurrentPlayerMp.Value > MP)
                     {
                         GameRoleMgr.instance.CurrentPlayerMp.Value -= MP;
                         OnceAttack(CurrentRole);

@@ -68,7 +68,8 @@ namespace Assets.Script.Battle
 
         public bool AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
         {
-            RoleRender roleMono = SetRoleTransform<RoleRender>("ManNormal", indexName, instanceId, transform, mPosition, angle);
+            string prefabName = roleData.sexType == SexTypeEnum.Man ? "ManNormal" : "WomanNormal";
+            RoleRender roleMono = SetRoleTransform<RoleRender>(prefabName, indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
             {
                 return false;
