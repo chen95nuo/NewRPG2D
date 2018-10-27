@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Script.Battle.BattleData;
 using UnityEngine.Analytics;
+using UnityScript.Macros;
 
 namespace Assets.Script.Battle
 {
@@ -88,6 +89,21 @@ namespace Assets.Script.Battle
                     break;
                 case SpecialPropertyEnum.HurtAllEnemy:
                     buff = new HurtAllEnemy();
+                    break;
+                case SpecialPropertyEnum.Dizzy:
+                    buff = new DizzyBuff();
+                    break;
+                case SpecialPropertyEnum.ContinueDamage:
+                    buff = new ContinueDamage();
+                    break;
+                case SpecialPropertyEnum.IncreaseCritial:
+                    buff = new IncreaseCritial();
+                    break;
+                case SpecialPropertyEnum.IncreaseDamageWhenTargetDead:
+                    buff = new IncreaseDamageWhenTargetDead();
+                    break;
+                case SpecialPropertyEnum.IncreanseDamageWhenAttack:
+                    buff = new IncreanseDamageWhenAttack();
                     break;
 
                 default:

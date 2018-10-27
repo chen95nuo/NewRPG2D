@@ -126,7 +126,7 @@ namespace Assets.Script.Battle.LevelManager
                     {
                         continue;
                     }
-                    if ((int)heroPoint[i].BornPositionType == roleInfoArray[j].TeamPos)
+                    if (heroPoint[i].BornPositionType == roleInfoArray[j].BornPositionType)
                     {
                         BornHero(heroPoint[i], currentInstanceId++, roleInfoArray[j], 0);
                         break;

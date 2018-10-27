@@ -36,8 +36,8 @@ public class BattleStartTest : MonoBehaviour
         role2.InitData();
         role2.Id = Int32.Parse(Role2Field.text);
 
-        role1.TeamPos = 0;
-        role2.TeamPos = 1;
+        role1.BornPositionType = BornPositionTypeEnum.Point01;
+        role2.BornPositionType = BornPositionTypeEnum.Point02;
         BattleDetailDataMgr.instance.RoleDatas = new[]
         {
             role1, role2

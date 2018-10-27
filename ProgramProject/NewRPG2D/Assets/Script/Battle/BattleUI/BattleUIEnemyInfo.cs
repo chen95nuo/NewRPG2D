@@ -59,8 +59,8 @@ namespace Assets.Script.Battle.BattleUI
         private void SetRoleInfo(RoleDetailData info, int instanceId)
         {
             currentInstanceId = instanceId;
-            roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.BattleIconSpriteName);
-            currentHp = maxHp = info.Health;
+            roleIcon.sprite = SpriteHelper.instance.GetIcon(SpriteAtlasTypeEnum.Icon, info.IconName);
+           // currentHp = maxHp = info.Health;
             HpImage.fillAmount = 1;
             maxHpValue.text = " /" + StringHelper.instance.IntToString((int)maxHp);
             HpValue.text = StringHelper.instance.IntToString((int)currentHp);

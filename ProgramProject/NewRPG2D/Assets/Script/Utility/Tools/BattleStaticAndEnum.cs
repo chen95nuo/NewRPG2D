@@ -75,6 +75,7 @@ namespace Assets.Script.Battle
         IncreaseCritial,                ///攻击时，有x%概率提高自身y%的暴击。持续z秒。
         IncreaseDamageWhenTargetDead,   ///当前攻击目标被击杀时，x秒内造成的伤害提高y%。
         IncreanseDamageWhenAttack,      ///每次攻击都提升x%点伤害，当前目标死亡时，损失所有伤害提升。
+
         ReduceTargetArmor,              ///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒
         IncreasePhysicDamage,           ///攻击时，有x%概率使物理伤害提高y%，持续z秒
         IncreaseMagicDamage,            ///攻击时，有x%概率使魔法伤害提高y%，持续z秒
@@ -82,6 +83,7 @@ namespace Assets.Script.Battle
         HealFriendHp,                   ///恢复一名受伤程度最重的友方x点生命值。Y秒冷却
         ReduceEnemyDamage,              ///攻击时，有x%的概率降低敌人伤害的y%。持续z秒
         IncreaseArmor,                  ///受到伤害时，有x%概率使自身护甲增加y点，持续z秒
+
         BornSmallMonster,               ///每隔x秒，召唤两个y生命值，z伤害的骷髅帮助作战。
         GodWhenHurt,                    ///受到伤害时，有X%概率对自己使用干涉，回复Y点生命值。在干涉期间将不会受到攻击，也无法移动或攻击。持续Z秒
         HurtAllEnemyWhenDead,           ///死亡时，对敌人造成x点范围伤害。

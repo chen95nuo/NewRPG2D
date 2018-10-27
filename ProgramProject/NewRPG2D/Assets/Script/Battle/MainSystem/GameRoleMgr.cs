@@ -50,7 +50,7 @@ namespace Assets.Script.Battle
             roleData.InitData();
             role.InitRoleBaseProperty(default(PropertyData), roleData);
             RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
-            roleData.BattleIconSpriteName = currentRoleData.SpriteName;
+            roleData.IconName = currentRoleData.SpriteName;
             if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
                 role.InitSkill(100100100, 100100100, 100100100);

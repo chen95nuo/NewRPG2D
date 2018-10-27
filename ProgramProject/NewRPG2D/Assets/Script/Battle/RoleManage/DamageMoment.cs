@@ -39,6 +39,7 @@ namespace Assets.Script.Battle
             if (isLive == false)
             {
                 hurtInfo.TargeRole.IsCanInterrput = true;
+                hurtInfo.AttackRole.RoleWeapon.TriggerBuff(TirggerTypeEnum.TargetDeath, ref hurtInfo);
                 hurtInfo.TargeRole.SetRoleActionState(ActorStateEnum.Death);
             }
             else

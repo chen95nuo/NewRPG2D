@@ -100,6 +100,7 @@ public enum WeaponProfessionEnum
 
 public enum ProfessionNeedEnum
 {
+    None,
     Fight = 1,              //战斗
     Mint,               //会计
     Kitchen,            //厨师
@@ -116,6 +117,7 @@ public enum TirggerTypeEnum
     Attack,
     Hurt,
     Reborn,
+    TargetDeath,
 }
 
 public enum PropertyTypeEnum
