@@ -28,7 +28,7 @@ public class UIWorldMap : TTUIPage
     public void UpdateInfo()
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
-        CreateEnemyData lessonData = playerData.CurrentLessonData;
+        MapLevelData lessonData = playerData.CurrentLessonData;
         WorldMapData data = null;
         foreach (var item in WorldMapDataMgr.instance.AllLessonData)
         {

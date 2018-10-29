@@ -21,7 +21,7 @@ public class PlayerData
     private LocalBuildingData mainHall;
     private LocalBuildingData barracksLevel;
     private int currentLessonID;
-    private CreateEnemyData currentLessonData;
+    private MapLevelData currentLessonData;
 
     public string Name
     {
@@ -265,13 +265,13 @@ public class PlayerData
         }
     }
 
-    public CreateEnemyData CurrentLessonData
+    public MapLevelData CurrentLessonData
     {
         get
         {
             if (currentLessonData == null)
             {
-                currentLessonData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(currentLessonID);
+                currentLessonData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(currentLessonID);
             }
             return currentLessonData;
         }
@@ -293,7 +293,7 @@ public class PlayerData
             if (currentLessonID != value)
             {
                 currentLessonID = value;
-                currentLessonData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(value);
+                currentLessonData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(value);
             }
         }
     }

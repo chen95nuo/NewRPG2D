@@ -29,7 +29,7 @@ public class GameMain : MonoBehaviour
     private void test()
     {
         ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
-        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.CreateEnemyData, XmlName.RolePropertyData, XmlTypeEnum.Battle);
+       // ReadXmlNewMgr.instance.ReadXmlByType(XmlName., XmlName.RolePropertyData, XmlTypeEnum.Battle);
         Invoke("test_1", 0.5f);
         Invoke("test_2", 1.0f);
     }

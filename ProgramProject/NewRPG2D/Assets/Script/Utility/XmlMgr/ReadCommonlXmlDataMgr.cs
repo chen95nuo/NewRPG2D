@@ -27,6 +27,8 @@ namespace Assets.Script.Utility
                     return new EquipBasePropertyData();
                 case XmlName.LanguageData:
                     return new LanguageData();
+                case XmlName.CreateEnemyData:
+                    return new MapLevelData();
                 default: return new XmlData();
             }
         }

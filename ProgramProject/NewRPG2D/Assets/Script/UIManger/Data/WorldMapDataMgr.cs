@@ -11,8 +11,8 @@ public class WorldMapDataMgr : ItemDataBaseMgr<WorldMapDataMgr>
         get { return XmlName.WorldMapData; }
     }
 
-    private Dictionary<WorldMapData, List<CreateEnemyData>> allLessonData;
-    public Dictionary<WorldMapData, List<CreateEnemyData>> AllLessonData
+    private Dictionary<WorldMapData, List<MapLevelData>> allLessonData;
+    public Dictionary<WorldMapData, List<MapLevelData>> AllLessonData
     {
         get
         {
@@ -35,15 +35,15 @@ public class WorldMapDataMgr : ItemDataBaseMgr<WorldMapDataMgr>
         return dic;
     }
 
-    public Dictionary<WorldMapData, List<CreateEnemyData>> GetAllLessonData()
+    public Dictionary<WorldMapData, List<MapLevelData>> GetAllLessonData()
     {
-        Dictionary<WorldMapData, List<CreateEnemyData>> dic = new Dictionary<WorldMapData, List<CreateEnemyData>>();
-        CreateEnemyData[] allLesson = CreateEnemyMgr.instance.GetAllLisson();
+        Dictionary<WorldMapData, List<MapLevelData>> dic = new Dictionary<WorldMapData, List<MapLevelData>>();
+        MapLevelData[] allLesson = MapLevelDataMgr.instance.GetAllLisson();
 
         for (int i = 0; i < CurrentItemData.Length; i++)
         {
             WorldMapData data = CurrentItemData[i] as WorldMapData;
-            dic.Add(data, new List<CreateEnemyData>());
+            dic.Add(data, new List<MapLevelData>());
             for (int j = 0; j < allLesson.Length; j++)
             {
                 if (data.ChapterID == allLesson[j].ChapterID)

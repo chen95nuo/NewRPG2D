@@ -28,8 +28,7 @@ namespace Assets.Script.Utility
                     return new RolePropertyData();
                 case XmlName.MapSceneLevel:
                     return new MapSceneLevelData();
-                case XmlName.CreateEnemyData:
-                    return new CreateEnemyData();
+               
                 default: return new XmlData();
             }
         }

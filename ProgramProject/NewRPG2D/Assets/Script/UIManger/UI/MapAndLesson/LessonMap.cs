@@ -73,7 +73,7 @@ public class LessonMap : MonoBehaviour
                     {
                         if (WorldMapDataMgr.instance.AllLessonData[currentMap][j].Lesson == i)
                         {
-                            CreateEnemyData lessonData = WorldMapDataMgr.instance.AllLessonData[currentMap][j];
+                            MapLevelData lessonData = WorldMapDataMgr.instance.AllLessonData[currentMap][j];
                             UIPanelManager.instance.ShowPage<UILessonInfo>(lessonData);
                             return;
                         }

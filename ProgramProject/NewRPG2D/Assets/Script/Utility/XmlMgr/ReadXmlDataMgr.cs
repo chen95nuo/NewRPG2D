@@ -28,7 +28,6 @@ namespace Assets.Script.Utility
         //战斗内的
         RoleData,
         SkillData,
-        CreateEnemyData,
         RolePropertyData,
         Battle,
 
@@ -37,6 +36,8 @@ namespace Assets.Script.Utility
         Equipment,
         EquipBaseProperty,
         LanguageData,
+        CreateEnemyData,
+
 
         Max,
 

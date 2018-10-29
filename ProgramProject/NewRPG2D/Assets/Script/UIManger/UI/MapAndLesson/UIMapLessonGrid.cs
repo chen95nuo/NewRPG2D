@@ -23,11 +23,11 @@ public class UIMapLessonGrid : MonoBehaviour
         btn_MapGrid.onClick.AddListener(ChickLesson);
     }
 
-    public void UpdateInfo(WorldMapData mapData, bool isComplete, CreateEnemyData lessonData = null)
+    public void UpdateInfo(WorldMapData mapData, bool isComplete, MapLevelData lessonData = null)
     {
         currentMap = mapData;
         txt_Name.text = mapData.Name;
-        List<CreateEnemyData> data = WorldMapDataMgr.instance.AllLessonData[mapData];
+        List<MapLevelData> data = WorldMapDataMgr.instance.AllLessonData[mapData];
         int max = data.Count;
         int now = 0;
         if (isComplete)

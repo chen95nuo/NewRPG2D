@@ -10,11 +10,11 @@ namespace Assets.Script.Battle.BattleUI
 {
     public class BattleUIManager : MonoBehaviour
     {
-        public BattleUIEnemyInfo EnemyInfo;
-        public BattleUIMyRoleInfo RoleInfo;
+        
         public BattleUISceneInfo SceneInfo;
         public BattleUIRoleHpInfo HpInfo;
         public Image StartImage;
+        public Text AddSpeedTxt;
         private Color tempColor;
 
         private bool startGame;
@@ -37,16 +37,19 @@ namespace Assets.Script.Battle.BattleUI
         private void Update()
         {
             addTime += Time.deltaTime;
-            if (startGame && addTime > 1)
+            if (startGame)
             {
-                if (tempColor.a > 0)
+                if (addTime > 1.5f)
                 {
-                    tempColor.a -= Time.deltaTime;
-                    StartImage.color = tempColor;
-                }
-                else
-                {
-                    StartImage.gameObject.CustomSetActive(false);
+                    if (tempColor.a > 0)
+                    {
+                        tempColor.a -= Time.deltaTime;
+                        StartImage.color = tempColor;
+                    }
+                    else
+                    {
+                        StartImage.gameObject.CustomSetActive(false);
+                    }
                 }
             }
           
@@ -62,7 +65,23 @@ namespace Assets.Script.Battle.BattleUI
 
         public void IsGameOver(bool win)
         {
+            Time.timeScale = 1;
             gameObject.CustomSetActive(false);
+
         }
+
+
+        int currentSpeed = 1;
+        public void  AddSpeedClick()
+        {
+            if(currentSpeed >= 4)
+            {
+                currentSpeed = 1;
+            }
+            currentSpeed += 1;
+            AddSpeedTxt.text = currentSpeed + "X";
+            Time.timeScale = currentSpeed;
+        }
+
     }
 }

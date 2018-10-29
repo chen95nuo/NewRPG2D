@@ -91,13 +91,16 @@ namespace Assets.Script.Battle
             return SetHp(HpChange);
         }
 
+        private HpChangeParam HpParam= new HpChangeParam();
         public bool SetHp(float HpChange)
         {
             if (BattleStaticAndEnum.isGod == false)
             {
                 RoleHp -= HpChange;
             }
-            EventManager.instance.SendEvent(EventDefineEnum.HpChange, currenRole);
+            HpParam.role = currenRole;
+            HpParam.changeValue = HpChange;
+            EventManager.instance.SendEvent(EventDefineEnum.HpChange, HpParam);
             //HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             //HUDRoot.NewText(HUDTextInfoinfo);
             // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);

@@ -11,7 +11,7 @@ public class UILessonInfo : TTUIPage
     public Text txt_Name;
     public Text txt_needNumb;
     public Text txt_Tip_1;
-    public CreateEnemyData currentLesson;
+    public MapLevelData currentLesson;
 
     public GameObject EnemyOBJ;
     public Transform enemyGridPoint;
@@ -57,11 +57,11 @@ public class UILessonInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        CreateEnemyData data = mData as CreateEnemyData;
+        MapLevelData data = mData as MapLevelData;
         UpdateInfo(data);
     }
 
-    private void UpdateInfo(CreateEnemyData data)
+    private void UpdateInfo(MapLevelData data)
     {
         currentLesson = data;
         PlayerData playerData = GetPlayerData.Instance.GetData();
@@ -96,7 +96,7 @@ public class UILessonInfo : TTUIPage
         }
     }
 
-    private void ChickEnemysGrids(CreateEnemyData data)
+    private void ChickEnemysGrids(MapLevelData data)
     {
         int index = 0;
         for (int i = 0; i < data.CreateEnemyIds.Length; i++)
@@ -116,7 +116,7 @@ public class UILessonInfo : TTUIPage
         }
     }
 
-    private void ChickItemGrids(CreateEnemyData data)
+    private void ChickItemGrids(MapLevelData data)
     {
         for (int i = 0; i < data.AwardItem.Length; i++)
         {

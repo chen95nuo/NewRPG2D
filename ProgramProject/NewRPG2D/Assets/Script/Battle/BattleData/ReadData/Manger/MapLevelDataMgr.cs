@@ -4,7 +4,7 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class CreateEnemyMgr : ItemDataBaseMgr<CreateEnemyMgr>
+    public class MapLevelDataMgr : ItemDataBaseMgr<MapLevelDataMgr>
     {
         protected override XmlName CurrentXmlName
         {
@@ -15,12 +15,12 @@ namespace Assets.Script.Battle.BattleData
         /// 获取全部关卡信息
         /// </summary>
         /// <returns></returns>
-        public CreateEnemyData[] GetAllLisson()
+        public MapLevelData[] GetAllLisson()
         {
-            CreateEnemyData[] data = new CreateEnemyData[CurrentItemData.Length];
+            MapLevelData[] data = new MapLevelData[CurrentItemData.Length];
             for (int i = 0; i < CurrentItemData.Length; i++)
             {
-                data[i] = CurrentItemData[i] as CreateEnemyData;
+                data[i] = CurrentItemData[i] as MapLevelData;
             }
             return data;
         }

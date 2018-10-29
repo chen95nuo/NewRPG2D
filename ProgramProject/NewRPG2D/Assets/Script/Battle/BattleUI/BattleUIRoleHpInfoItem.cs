@@ -14,7 +14,7 @@ namespace Assets.Script.Battle.BattleUI
 
         private void Awake()
         {
-            EventManager.instance.AddListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
+            EventManager.instance.AddListener<HpChangeParam>(EventDefineEnum.HpChange, OnHpChange);
             useImage = redImg;
         }
 
@@ -26,7 +26,7 @@ namespace Assets.Script.Battle.BattleUI
 
         private void OnDestroy()
         {
-            EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
+            EventManager.instance.RemoveListener<HpChangeParam>(EventDefineEnum.HpChange, OnHpChange);
         }
 
         public void SetHpItemInfo(bool isHero, float Hp, int instanceId, Transform target)
@@ -36,27 +36,32 @@ namespace Assets.Script.Battle.BattleUI
             maxHp = currentHp = Hp;
             if (isHero)
             {
-                greenImg.gameObject.SetActive(true);
+                greenImg.gameObject.SetActive(false);
                 redImg.gameObject.SetActive(false);
                 useImage = greenImg;
             }
             else
             {
                 greenImg.gameObject.SetActive(false);
-                redImg.gameObject.SetActive(true);
+                redImg.gameObject.SetActive(false);
                 useImage = redImg;
             }
         }
 
-        private void OnHpChange(RoleBase role)
+        private void OnHpChange(HpChangeParam param)
         {
-            if (role.InstanceId == instanceId)
+            if (param.role.InstanceId == instanceId)
             {
-                currentHp = role.RolePropertyValue.RoleHp;
+                currentHp = param.role.RolePropertyValue.RoleHp;
                 useImage.fillAmount = currentHp / maxHp;
                 if (currentHp <= 0)
                 {
                     useImage.gameObject.SetActive(false);
+                }
+                else
+                {
+                    useImage.gameObject.CustomSetActive(true);
+
                 }
             }
         }

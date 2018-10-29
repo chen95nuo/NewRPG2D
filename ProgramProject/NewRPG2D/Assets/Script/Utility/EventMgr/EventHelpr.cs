@@ -42,6 +42,12 @@ public class LoadLevelParam
 
 }
 
+public class HpChangeParam
+{
+    public RoleBase role;
+    public float changeValue;
+}
+
 public class SelectTargetParam
 {
     public Transform OriginalTransform;

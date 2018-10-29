@@ -39,8 +39,8 @@ namespace Assets.Script.Battle.LevelManager
         public static ushort currentInstanceId = 100;
 
         private int sceneId = 10001;
-        //  private Queue<CreateEnemyData> enemyDatas;
-        private CreateEnemyData currentEnemyData;
+        //  private Queue<MapLevelData> enemyDatas;
+        private MapLevelData currentEnemyData;
         private List<CreateEnemyInfo> currentEnemyInfoList;
 
         private bool isCreateEnemy;
@@ -53,12 +53,11 @@ namespace Assets.Script.Battle.LevelManager
             InputContorlMgr.CreateInstance();
             ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
             //  ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
-            //  enemyDatas = new Queue<CreateEnemyData>();
+            //  enemyDatas = new Queue<MapLevelData>();
             currentEnemyInfoList = new List<CreateEnemyInfo>();
             roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;
 
-            LoadLevelParam temp = new LoadLevelParam();
-            EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
+           
             GameRoleMgr.instance.CurrentPlayerMp.Value = 1 * 500;
             currentInstanceId = 100;
             isCreateEnemy = false;
@@ -69,7 +68,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void Start()
         {
-            CTimerManager.instance.AddListener(1.5f, 1, AddRole);
+            CTimerManager.instance.AddListener(1f, 1, AddRole);
         }
 
         private void Update()
@@ -133,11 +132,13 @@ namespace Assets.Script.Battle.LevelManager
                     }
                 }
             }
+            LoadLevelParam temp = new LoadLevelParam();
+            EventManager.instance.SendEvent(EventDefineEnum.LoadLevel, temp);
         }
 
         private void InitEnemyData()
         {
-            currentEnemyData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(sceneId);
+            currentEnemyData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(sceneId);
             GetEnemyData(sceneId);
         }
 
@@ -169,6 +170,8 @@ namespace Assets.Script.Battle.LevelManager
             RoleBase role = GameRoleMgr.instance.GetRole(instanceId);
             role.SetRoleActionState(ActorStateEnum.Run);
             role.RoleMoveMoment.SetTargetPosition(position);
+            yield return new WaitForSeconds(2);
+            role.CanStartMove = true;
         }
 
         private void BornEnemy(BornPoint mPoint, ushort instanceId, int roleId, float angle)
@@ -182,7 +185,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void GetEnemyData(int enemyDataId)
         {
-            CreateEnemyData enemyData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(enemyDataId);
+            MapLevelData enemyData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(enemyDataId);
             if (enemyData != null)
             {
                 //enemyDatas.Enqueue(enemyData);

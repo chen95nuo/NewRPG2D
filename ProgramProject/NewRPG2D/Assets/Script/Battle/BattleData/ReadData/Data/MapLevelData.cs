@@ -16,7 +16,7 @@ namespace Assets.Script.Battle.BattleData
         public int ItemMinCount, ItemMaxCount;
     }
 
-    public class CreateEnemyData : ItemBaseData
+    public class MapLevelData : ItemBaseData
     {
 
         public string Name;
