@@ -22,6 +22,7 @@ namespace Assets.Script.Utility
         MagicData,
         ChildData,
         PropData,
+        WorldMapData,
         Hall,
 
         //战斗内的
@@ -35,6 +36,7 @@ namespace Assets.Script.Utility
         TreasureBox,
         Equipment,
         EquipBaseProperty,
+        LanguageData,
 
         Max,
 

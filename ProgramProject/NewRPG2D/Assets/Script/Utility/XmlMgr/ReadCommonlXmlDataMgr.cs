@@ -25,6 +25,8 @@ namespace Assets.Script.Utility
                     return new TreasureBox();
                 case XmlName.EquipBaseProperty:
                     return new EquipBasePropertyData();
+                case XmlName.LanguageData:
+                    return new LanguageData();
                 default: return new XmlData();
             }
         }

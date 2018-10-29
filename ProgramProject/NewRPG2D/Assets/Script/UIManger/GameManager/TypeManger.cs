@@ -26,6 +26,7 @@ public enum HallEventDefineEnum
     ShowBoxInfo,//显示宝箱信息
     ShowPropInfo,//显示道具信息
     RefreshBagUI,//背包变化 刷新背包UI
+    UiMainHight,//顶层高亮显示
     EventMax
 }
 

@@ -15,6 +15,7 @@ public class UIMain : TTUIPage
     public Button btn_UIRank;
     public Button btn_UIFightInfor;
     public Button btn_UIBag;
+    public Button btn_UIMap;
 
     public UIMarket market;
 
@@ -52,6 +53,8 @@ public class UIMain : TTUIPage
     public SpaceNumJump iron;
     public SpaceNumJump diamonds;
 
+    public Canvas[] hightIcons;
+
     private void Awake()
     {
         instance = this;
@@ -59,11 +62,12 @@ public class UIMain : TTUIPage
 
         btn_UIMarket.onClick.AddListener(ShowMarket);
         btn_UIBag.onClick.AddListener(ChickBag);
-
+        btn_UIMap.onClick.AddListener(ChickMap);
         market.gameObject.SetActive(false);
 
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
+        HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
 
         Init();
 
@@ -79,6 +83,8 @@ public class UIMain : TTUIPage
     {
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
         HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
+        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
+
     }
     public void Init()
     {
@@ -202,6 +208,10 @@ public class UIMain : TTUIPage
     {
         UIPanelManager.instance.ShowPage<UIBag>();
     }
+    public void ChickMap()
+    {
+        UIPanelManager.instance.ShowPage<UIWorldMap>();
+    }
 
     public void ChickAllStock(BuildRoomName name, Image slider)
     {
@@ -215,6 +225,14 @@ public class UIMain : TTUIPage
         btn_mana.gameObject.SetActive(false);
         btn_wood.gameObject.SetActive(false);
         btn_iron.gameObject.SetActive(false);
+    }
+
+    public void UIMainHight(int index)
+    {
+        for (int i = 0; i < hightIcons.Length; i++)
+        {
+            hightIcons[i].sortingOrder = index;
+        }
     }
 }
 public class SpaceNumJump

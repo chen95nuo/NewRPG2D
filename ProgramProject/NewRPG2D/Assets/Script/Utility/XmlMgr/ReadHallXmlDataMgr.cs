@@ -29,6 +29,8 @@ namespace Assets.Script.Utility
                     return new ChildData();
                 case XmlName.PropData:
                     return new PropData();
+                case XmlName.WorldMapData:
+                    return new WorldMapData();
                 default: return new XmlData();
             }
         }

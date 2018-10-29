@@ -33,7 +33,7 @@ namespace Assets.Script.Utility
         public Dictionary<int, XmlData[]> AllXmlDataDic;
         public override void Init()
         {
-            base.Init();   
+            base.Init();
             AllXmlDataDic = new Dictionary<int, XmlData[]>(10);
             ReadXmlByType(XmlName.Battle + 1, XmlName.Max, XmlTypeEnum.Common);
         }
@@ -96,15 +96,15 @@ namespace Assets.Script.Utility
             AllXmlDataDic = null;
         }
 
- /*       private MemoryStream LoadFile(string name)
-        {
-            string mPath = ReadXmlDataMgr.GetXmlPath(name);
-            StreamReader reader = new StreamReader(mPath);
-            UTF8Encoding encode = new System.Text.UTF8Encoding();
-            byte[] binary = encode.GetBytes(reader.ReadToEnd());
-            reader.Close();
-            return new MemoryStream(binary);
-        }*/
+        /*       private MemoryStream LoadFile(string name)
+               {
+                   string mPath = ReadXmlDataMgr.GetXmlPath(name);
+                   StreamReader reader = new StreamReader(mPath);
+                   UTF8Encoding encode = new System.Text.UTF8Encoding();
+                   byte[] binary = encode.GetBytes(reader.ReadToEnd());
+                   reader.Close();
+                   return new MemoryStream(binary);
+               }*/
 
         private IEnumerator ReadTxt(string name, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
         {

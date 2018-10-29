@@ -289,6 +289,8 @@
     <Compile Include="Assets\Script\UIManger\Data\ChildDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\GetPlayerData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\HallRoleData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\LanguageData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\LanguageDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\MagicData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\MagicDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\PlayerData.cs" />
@@ -296,6 +298,8 @@
     <Compile Include="Assets\Script\UIManger\Data\PropDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainDataMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\WorldMapData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\WorldMapDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BuildingType.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\CameraControl.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\Castle.cs" />
@@ -343,6 +347,12 @@
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIThroneLevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIThroneLevelUpGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UITrainLevelUp.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\LessonMap.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\UILessonInfo.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\UILessonMapMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\UIMapLessonGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\UIMapLockGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\MapAndLesson\UIWorldMap.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Text\UITextMgr.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIChickHold.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIDraggingRole.cs" />
@@ -579,6 +589,7 @@
     <None Include="Assets\Spine Examples\Spine\Hero\license.txt" />
     <None Include="Assets\Spine Examples\Spine\Goblins\goblins.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Strechyman\stretchyman-diffuse-pma.atlas.txt" />
+    <None Include="Assets\StreamingAssets\Config\Common\LanguageData.xml" />
     <None Include="Assets\Res\RoleAnimation\Skeleton_Fighter02\demon_axeAnm.atlas.txt" />
     <None Include="Assets\Res\RoleAnimation\Skeleton_General\demon_general.atlas.txt" />
     <None Include="Assets\Res\RoleAnimation\Role\WomanChild\girl_1Anm.atlas.txt" />
@@ -617,6 +628,7 @@
     <None Include="Assets\Spine Examples\Spine\Dragon\dragon.atlas.txt" />
     <None Include="Assets\Res\RoleAnimation\Skeleton_Fighter01\demon_swordAnm.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CameraDepthNormalsTexture.shader" />
+    <None Include="Assets\Res\SprineAnimation\宝箱开启\boxopen.atlas.txt" />
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-Skeleton-TintBlack.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\ShaderShared.cginc" />
@@ -630,6 +642,7 @@
     <None Include="Assets\Spine Examples\Spine\spineboy-pro\spineboy-pro.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Spineunitygirl\Doi.atlas.txt" />
     <None Include="Assets\StreamingAssets\Config\Battle\SkillData.xml" />
+    <None Include="Assets\StreamingAssets\Config\Hall\WorldMapData.xml" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CameraDepthTexture.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\SlotBlendModes\Spine-Skeleton-PMA-Multiply.shader" />
     <None Include="Assets\Spine Examples\Spine\Hero\hero-pro.atlas.txt" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.UIManger;
 using Assets.Script.Utility;
+using Assets.Script.Battle.BattleData;
 
 public class GameMain : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class GameMain : MonoBehaviour
     private void test()
     {
         ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
+        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.CreateEnemyData, XmlName.RolePropertyData, XmlTypeEnum.Battle);
         Invoke("test_1", 0.5f);
         Invoke("test_2", 1.0f);
     }
@@ -40,7 +42,7 @@ public class GameMain : MonoBehaviour
     private void test_2()
     {
         LocalServer.instance.StartInit();
-        for (int i = 1; i < 23; i++)
+        for (int i = 1; i < 26; i++)
         {
             int index = 10000 + i;
             EquipmentMgr.instance.CreateNewEquipment(index);

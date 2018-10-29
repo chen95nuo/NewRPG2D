@@ -21,8 +21,12 @@ namespace Assets.Script.Battle.BattleData
 
         public string Name;
         public int[] CreateEnemyIds = new int[9];
-        public AwardItemData[] AwardItem =new AwardItemData[3];
+        public AwardItemData[] AwardItem = new AwardItemData[3];
         public int[] TreasureBoxIds = new int[2];
+        public int ChapterID;
+        public int Lesson;
+        public int NextLessonID;
+        public int NeedNum;
 
         public override XmlName ItemXmlName
         {
@@ -31,17 +35,16 @@ namespace Assets.Script.Battle.BattleData
 
         public override bool GetXmlDataAttribute(XmlNode node)
         {
-          
             Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
             for (int i = 0; i < CreateEnemyIds.Length; i++)
             {
-                CreateEnemyIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("EnemyPoint{0}RoleId", i+1));
+                CreateEnemyIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("EnemyPoint{0}RoleId", i + 1));
             }
 
             for (int i = 0; i < AwardItem.Length; i++)
             {
-                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId{0}", (i+1)));
+                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId{0}", (i + 1)));
                 StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "ItemCount" + (i + 1)), out AwardItem[i].ItemMinCount, out AwardItem[i].ItemMaxCount);
             }
 
@@ -49,6 +52,10 @@ namespace Assets.Script.Battle.BattleData
             {
                 TreasureBoxIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("TreasureBoxId{0}", i + 1));
             }
+            ChapterID = ReadXmlDataMgr.IntParse(node, "Chapter");
+            Lesson = ReadXmlDataMgr.IntParse(node, "Lesson");
+            NextLessonID = ReadXmlDataMgr.IntParse(node, "NextLessonID");
+            NeedNum = ReadXmlDataMgr.IntParse(node, "NeedNum");
             return base.GetXmlDataAttribute(node);
         }
     }

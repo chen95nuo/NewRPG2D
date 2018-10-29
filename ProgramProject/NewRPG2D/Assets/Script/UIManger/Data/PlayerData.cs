@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.Battle.BattleData;
 
 public class PlayerData
 {
@@ -18,6 +19,8 @@ public class PlayerData
     private int woodSpace;//木材空间
     private int ironSpace;//铁矿空间
     private LocalBuildingData mainHall;
+    private int currentLessonID;
+    private CreateEnemyData currentLessonData;
 
     public string Name
     {
@@ -261,6 +264,39 @@ public class PlayerData
         }
     }
 
+    public CreateEnemyData CurrentLessonData
+    {
+        get
+        {
+            if (currentLessonData == null)
+            {
+                currentLessonData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(currentLessonID);
+            }
+            return currentLessonData;
+        }
+        set
+        {
+            var temp = value;
+            if (temp != currentLessonData)
+            {
+                currentLessonData = value;
+                currentLessonID = value.ItemId;
+            }
+        }
+    }
+    public int CurrentLessonID
+    {
+        set
+        {
+            int temp = value;
+            if (currentLessonID != value)
+            {
+                currentLessonID = value;
+                currentLessonData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(value);
+            }
+        }
+    }
+
     public PlayerData()
     {
         Name = "Baymax";
@@ -276,5 +312,6 @@ public class PlayerData
         ManaSpace = 5000;
         WoodSpace = 5000;
         IronSpace = 5000;
+        currentLessonID = 10001;
     }
 }
