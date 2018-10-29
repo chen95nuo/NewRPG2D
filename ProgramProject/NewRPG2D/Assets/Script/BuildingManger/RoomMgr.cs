@@ -404,11 +404,18 @@ public abstract class RoomMgr : MonoBehaviour
     public void UpdateBuilding(LocalBuildingData data, Castle castle)
     {
         currentBuildData = data;
-        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom
-            && MapControl.instance.type == CastleType.main)
+        if (MapControl.instance.type == CastleType.main)
         {
-            PlayerData playerdata = GetPlayerData.Instance.GetData();
-            playerdata.MainHall = currentBuildData;
+            if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
+            {
+                PlayerData playerdata = GetPlayerData.Instance.GetData();
+                playerdata.MainHall = currentBuildData;
+            }
+            else if (currentBuildData.buildingData.RoomName == BuildRoomName.Barracks)
+            {
+                PlayerData playerdata = GetPlayerData.Instance.GetData();
+                playerdata.BarracksData = currentBuildData;
+            }
         }
         castleMgr = castle;
         BuildingMove(data, castle);
@@ -453,6 +460,11 @@ public abstract class RoomMgr : MonoBehaviour
         {
             PlayerData playerdata = GetPlayerData.Instance.GetData();
             playerdata.MainHall = currentBuildData;
+        }
+        else if (currentBuildData.buildingData.RoomName == BuildRoomName.Barracks)
+        {
+            PlayerData playerdata = GetPlayerData.Instance.GetData();
+            playerdata.BarracksData = currentBuildData;
         }
         castleMgr = castle;
         BuildingMove(data, castle);

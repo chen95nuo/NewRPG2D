@@ -19,6 +19,7 @@ public class PlayerData
     private int woodSpace;//木材空间
     private int ironSpace;//铁矿空间
     private LocalBuildingData mainHall;
+    private LocalBuildingData barracksLevel;
     private int currentLessonID;
     private CreateEnemyData currentLessonData;
 
@@ -294,6 +295,18 @@ public class PlayerData
                 currentLessonID = value;
                 currentLessonData = CreateEnemyMgr.instance.GetXmlDataByItemId<CreateEnemyData>(value);
             }
+        }
+    }
+
+    public LocalBuildingData BarracksData
+    {
+        get
+        {
+            return barracksLevel;
+        }
+        set
+        {
+            barracksLevel = value;
         }
     }
 

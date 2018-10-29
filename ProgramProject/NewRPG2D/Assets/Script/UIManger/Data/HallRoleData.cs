@@ -856,6 +856,8 @@ public class HallRoleData
             HurtType = equipData.HurtType;
         }
 
+        nowHp = HP;
+
         //换皮肤
         HallRole role = HallRoleMgr.instance.GetRole(this);
         if ((int)equipData.EquipType <= 1)
@@ -898,6 +900,8 @@ public class HallRoleData
         {
             HurtType = HurtTypeEnum.Physic;
         }
+
+        nowHp = HP;
 
         //皮肤换回来
         HallRole role = HallRoleMgr.instance.GetRole(this);
