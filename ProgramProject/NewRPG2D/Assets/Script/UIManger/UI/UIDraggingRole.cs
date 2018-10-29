@@ -20,6 +20,7 @@ public class UIDraggingRole : TTUIPage
     public Image hand;
     public Sprite[] roleSp;
     public Text txt_Tip;
+    public Image Icon;
 
     private HallRole role;
     private RoomMgr currentRoom;
@@ -31,6 +32,12 @@ public class UIDraggingRole : TTUIPage
 
     private void OnDisable()
     {
+        if (currentRoom != null)
+        {
+            currentRoom.RoomLockRend.color = Color.green;
+            currentRoom.roomLock.SetActive(false);
+        }
+
         hand.rectTransform.anchoredPosition = Vector2.zero;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -45,7 +52,15 @@ public class UIDraggingRole : TTUIPage
                 RoomMgr room = hit.collider.GetComponent<RoomMgr>();
                 if (role.RoleData.currentRoom == null || room.Id != role.RoleData.currentRoom.Id)
                 {
-                    room.AddRole(role);
+                    if (room.RoomName == BuildRoomName.Stairs)
+                    {
+                        object st = "该处为楼梯无法进入";
+                        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+                    }
+                    else
+                    {
+                        room.AddRole(role);
+                    }
                 }
             }
         }
@@ -59,6 +74,7 @@ public class UIDraggingRole : TTUIPage
         MouseMove();
         hand.rectTransform.DOAnchorPos(new Vector2(0, -50), 0.5f).From();
         txt_Tip.text = "";
+        Icon.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -96,13 +112,16 @@ public class UIDraggingRole : TTUIPage
                     RoleAttribute roleAtr = room.NeedAttribute;
                     int index = room.currentBuildData.ScreenAllYeild(roleAtr, false);
                     float p_1 = role.RoleData.GetArtProduce(room.RoomName);
+                    string st = ChicttxtColorOrIcon(room.RoomName);
+                    Icon.gameObject.SetActive(true);
                     if (index >= 0)
                     {
+
                         float p_2 = room.currentBuildData.roleData[index].GetArtProduce(room.RoomName);
                         float p_3 = p_1 - p_2;
                         if (p_3 >= 0)
                         {
-                            txt_Tip.text = "+" + (p_3).ToString();
+                            txt_Tip.text = st + "+" + (p_3).ToString() + "</color>";
                         }
                         else
                         {
@@ -111,20 +130,63 @@ public class UIDraggingRole : TTUIPage
                     }
                     else
                     {
-                        txt_Tip.text = "+" + p_1.ToString();
+                        txt_Tip.text = st + "+" + p_1.ToString() + "</color>";
                     }
                 }
                 else
                 {
+                    Icon.gameObject.SetActive(false);
                     txt_Tip.text = "";
                 }
+                if (currentRoom != null)
+                {
+                    currentRoom.RoomLockRend.color = Color.green;
+                    currentRoom.roomLock.SetActive(false);
+                }
                 currentRoom = room;
+                room.roomLock.SetActive(true);
+                if (role.RoleData.currentRoom == room)
+                {
+                    room.RoomLockRend.color = Color.yellow;
+                }
+                else
+                {
+                    room.RoomLockRend.color = Color.green;
+                }
             }
         }
         else
         {
+            Icon.gameObject.SetActive(false);
             txt_Tip.text = "";
         }
+
+    }
+
+    private string ChicttxtColorOrIcon(BuildRoomName name)
+    {
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+                return "";
+            case BuildRoomName.Food:
+                Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+                return "";
+            case BuildRoomName.Mana:
+                Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+                return "";
+            case BuildRoomName.Wood:
+                Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+                return "";
+            case BuildRoomName.Iron:
+                Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+                return "";
+            default:
+                break;
+        }
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+        return "";
 
     }
 }

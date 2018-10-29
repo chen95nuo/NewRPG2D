@@ -34,6 +34,7 @@ public abstract class RoomMgr : MonoBehaviour
     public GameObject disTip;//断开连接的标签
     [System.NonSerialized]
     public GameObject roomLock;//房间选定框
+    private SpriteRenderer roomLockRend;
     [System.NonSerialized]
     public GameObject roomProp;//资源获取框
     [System.NonSerialized]
@@ -234,6 +235,18 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
+    public SpriteRenderer RoomLockRend
+    {
+        get
+        {
+            if (roomLockRend == null)
+            {
+                roomLockRend = roomLock.GetComponent<SpriteRenderer>();
+            }
+            return roomLockRend;
+        }
+    }
+
     /// <summary>
     /// 左右
     /// </summary>
@@ -369,6 +382,8 @@ public abstract class RoomMgr : MonoBehaviour
     {
         GetCompoment();
         HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
+
+
     }
     private void OnDestroy()
     {
@@ -1015,7 +1030,39 @@ public abstract class RoomMgr : MonoBehaviour
         }
         return true;
     }
+    public virtual bool AddRole(HallRole role, int index)
+    {
+        if (currentBuildData.roleData[index] == null)
+        {
+            currentBuildData.roleData[index] = role.RoleData;
+            Vector3 point = new Vector3(transform.position.x + (1.2f * (index + 1)), transform.position.y + 0.3f, role.transform.position.z);
+            role.transform.position = point;
+            role.ChangeType(RoomName);
+            if (role.RoleData.currentRoom != null)
+            {
+                role.RoleData.currentRoom.RemoveRole(role);
+            }
+            role.RoleData.currentRoom = this;
+            return true;
+        }
+        HallRole oldRole = HallRoleMgr.instance.GetRole(currentBuildData.roleData[index]);
+        if (role.RoleData.currentRoom != null)
+        {
+            Debug.Log("切换房间 调换角色");
+            HallRoleMgr.instance.RoleChangeRoom(role, oldRole);
+        }
+        else
+        {
+            Debug.Log("当前角色原房间为空 进入漫游状态");
+            role.RoleData.currentRoom.RemoveRole(role);
+            HallRoleData data = currentBuildData.roleData[index];
+            HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
+            roleTemp.ChangeType(BuildRoomName.Nothing);
+            currentBuildData.roleData[index] = role.RoleData;
+        }
+        return true;
 
+    }
     /// <summary>
     /// 删除房间内的角色
     /// </summary>

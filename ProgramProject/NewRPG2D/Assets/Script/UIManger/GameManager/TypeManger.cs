@@ -69,14 +69,6 @@ public enum TrainType
     Max
 }
 
-public enum RoleSexType
-{
-    Nothing,
-    Male,//男
-    Female,//女
-    Max
-}
-
 public enum RoleTrainType
 {
     Nothing,

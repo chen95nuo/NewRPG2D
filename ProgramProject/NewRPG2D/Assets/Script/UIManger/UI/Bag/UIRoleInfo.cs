@@ -13,6 +13,7 @@ public class UIRoleInfo : TTUIPage
     public GameObject LoveTip;
 
     #region GetText
+    public Text txt_Name;
     public Text txt_TrainTime;
     public Text txt_HateLoveTime;
 
@@ -66,6 +67,9 @@ public class UIRoleInfo : TTUIPage
     private EquipmentRealProperty[] roleEquips;
     #endregion
 
+    public Image[] sp_Star;
+    public Sprite[] starSp;
+
     #region 角色皮肤
     //public //这里是两个角色实例
     //这个是用的角色实例的引用
@@ -107,6 +111,7 @@ public class UIRoleInfo : TTUIPage
 
     public void UpdateInfo(HallRoleData data)
     {
+        txt_Name.text = data.Name;
         txt_fight.text = data.RoleLevel[0].Level.ToString();
         txt_food.text = data.RoleLevel[1].Level.ToString();
         txt_gold.text = data.RoleLevel[2].Level.ToString();
@@ -137,6 +142,18 @@ public class UIRoleInfo : TTUIPage
         else
         {
             Train.SetActive(false);
+        }
+
+        for (int i = 0; i < sp_Star.Length; i++)
+        {
+            if (i <= data.Star)
+            {
+                sp_Star[i].sprite = starSp[0];
+            }
+            else
+            {
+                sp_Star[i].sprite = starSp[1];
+            }
         }
 
         GetRoleEquip(data);

@@ -98,7 +98,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
         HallRoleData data = new HallRoleData(sex, star, level);
         int count = MainCastle.instance.NewRolePoint.childCount - 1;
-        HallRole role = InstantiateRole((RoleSexType)sex, false);
+        HallRole role = InstantiateRole((SexTypeEnum)sex, false);
         role.transform.localPosition = Vector3.left * count;
         role.UpdateInfo(data);
         return role;
@@ -116,7 +116,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         return role;
     }
 
-    private HallRole InstantiateRole(RoleSexType sexType, bool isBaby)
+    private HallRole InstantiateRole(SexTypeEnum sexType, bool isBaby)
     {
         for (int i = 0; i < AllHallRole.Count; i++)
         {
@@ -127,25 +127,25 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             }
         }
         GameObject go = null;
-        if (sexType == RoleSexType.Male && isBaby == false)
+        if (sexType == SexTypeEnum.Man && isBaby == false)
         {
             go = GameObject.Instantiate(RoleMale, MainCastle.instance.NewRolePoint) as GameObject;
         }
-        else if (sexType == RoleSexType.Female && isBaby == false)
+        else if (sexType == SexTypeEnum.Woman && isBaby == false)
         {
             go = GameObject.Instantiate(RoleFemale, MainCastle.instance.NewRolePoint) as GameObject;
         }
-        else if (sexType == RoleSexType.Male && isBaby == true)
+        else if (sexType == SexTypeEnum.Man && isBaby == true)
         {
             go = GameObject.Instantiate(RoleBoy, MainCastle.instance.NewRolePoint) as GameObject;
         }
-        else if (sexType == RoleSexType.Female && isBaby == true)
+        else if (sexType == SexTypeEnum.Woman && isBaby == true)
         {
             go = GameObject.Instantiate(RoleGirl, MainCastle.instance.NewRolePoint) as GameObject;
         }
         else
         {
-            Debug.LogError("没有找到要生成的角色");
+            Debug.LogError("没有找到要生成的角色:" + sexType);
         }
         return go.GetComponent<HallRole>();
     }
@@ -440,7 +440,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         RoleBabyData babyData = BuildNewBaby(loveData[index].role[0], loveData[index].role[1]);
         HallRole role;
-        if (loveData[index].role[0].sexType == RoleSexType.Female)
+        if (loveData[index].role[0].sexType == SexTypeEnum.Woman)
         {
             loveData[index].role[0].LoveType = RoleLoveType.ChildBirth;
             loveData[index].role[1].LoveType = RoleLoveType.Nothing;

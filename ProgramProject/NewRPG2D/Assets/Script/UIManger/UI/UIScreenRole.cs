@@ -15,20 +15,21 @@ public class UIScreenRole : TTUIPage
     private List<HallRoleData> screenRole = new List<HallRoleData>();
     private List<UIScreenRoleGrid> RoleGrid = new List<UIScreenRoleGrid>();
 
-    private RectTransform rt;
+    public RectTransform rt;
+    public ScrollRect sr;
 
     private int currentBtnIndex = 0;
     private void Awake()
     {
         instance = this;
-
-        rt = this.GetComponent<RectTransform>();
         for (int i = 0; i < btnGroup.Length; i++)
         {
             btnGroup[i].onClick.AddListener(ChickBtnClick);
         }
         btn_back.onClick.AddListener(ClosePage);
         btnGroup[currentBtnIndex].interactable = false;
+
+        ChickAll();
     }
 
     private void UpdateInfo()
@@ -87,7 +88,18 @@ public class UIScreenRole : TTUIPage
     /// </summary>
     public void ShowPage()
     {
-        ChickAll();
+        switch (currentBtnIndex)
+        {
+            case 0: ChickAll(); break;
+            case 1: ChickAtk(); break;
+            case 2: ChickGold(); break;
+            case 3: ChickFood(); break;
+            case 4: ChickMana(); break;
+            case 5: ChickWood(); break;
+            case 6: ChickIron(); break;
+            default:
+                break;
+        }
     }
 
     private void ChickAll()

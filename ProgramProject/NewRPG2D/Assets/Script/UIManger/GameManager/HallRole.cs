@@ -16,7 +16,7 @@ public class HallRole : MonoBehaviour
     public RoleBabyData currentBaby;
     private HallRoleData currentData;
     public Transform TipPoint;
-    public RoleSexType sex;
+    public SexTypeEnum sex;
     public bool isChildren = false;
 
     #region 换装
@@ -73,7 +73,7 @@ public class HallRole : MonoBehaviour
     public void ChangeSkil(EquipmentRealProperty equipment)
     {
         Debug.Log("换皮肤 类型：" + equipment.EquipType + "  Name: " + equipment.EquipName);
-        RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+        RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName,sex);
     }
 
     public void ChangeType(BuildRoomName name)

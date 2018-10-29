@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
 
 public class UIScreenRoleGrid : MonoBehaviour
 {
-    public Button btn_Photo;
+    public UIChickHold btn_Photo;
     public Image image_TypeIcon;
     public Text txt_Point;
     public Text txt_Name;
@@ -16,12 +17,24 @@ public class UIScreenRoleGrid : MonoBehaviour
     public GameObject TrainType;
     public HallRoleData currentRole;
 
+    private void Awake()
+    {
+        btn_Photo.click += ChickPhoto;
+    }
+
+    public void ChickPhoto()
+    {
+        UIPanelManager.instance.ShowPage<UIDraggingRolePhoto>(currentRole);
+        UIScreenRole.instance.sr.horizontal = false;
+    }
+
     public void UpdateInfo(HallRoleData data, RoleAttribute needAtr)
     {
         if (data != currentRole)
         {
             HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleTrain, ChickTrainTime);
         }
+        currentRole = data;
         TrainType.SetActive(false);
         txt_Name.text = data.Name;
         txt_Level.text = data.GetAtrProduce(needAtr).ToString();

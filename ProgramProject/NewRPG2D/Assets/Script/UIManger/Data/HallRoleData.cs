@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HallRoleData
 {
-    public readonly RoleSexType sexType;
+    public readonly SexTypeEnum sexType;
     private string name;//名字
     private int star;//星级
     private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
@@ -25,7 +25,6 @@ public class HallRoleData
     public bool isBaby;//是不是小孩
     public RoleBabyData babyData;//宝宝数据
     public RoomMgr currentRoom;
-    public HallRole currentInstance;
 
     public string Name
     {
@@ -911,7 +910,7 @@ public class HallRoleData
     public HallRoleData() { }
     public HallRoleData(int sex, int star, int[] level)
     {
-        this.sexType = (RoleSexType)sex;
+        this.sexType = (SexTypeEnum)sex;
         this.star = star;
         this.name = "Json";
         roleLevel[0] = new HallRoleLevel(RoleAttribute.Fight, level[0]);

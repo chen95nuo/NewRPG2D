@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
 
-public class UIProductionInfo : TTUIPage
+public class UIProductionInfo : UIRoomInfo
 {
     public Text txt_Tip_1;
     public Text txt_Tip_2;
     public Text txt_Tip_3;
 
-    public Text txt_Name;
-    public Text txt_Level;
     public Text txt_Yield;
     public Text txt_Stock;
 
@@ -20,23 +18,11 @@ public class UIProductionInfo : TTUIPage
     public Image slider;
     public Sprite[] iconSp;
 
-    public Button btn_back;
-    public Button btn_back_1;
-    public Transform roleTrans;
-    public GameObject roleGrid;
     public List<UIRoleGrid> roleGrids;
-    private RoomMgr roomData;
 
-    public override void Show(object mData)
+    protected override void Awake()
     {
-        base.Show(mData);
-        roomData = mData as RoomMgr;
-        UpdateInfo(roomData);
-    }
-    private void Awake()
-    {
-        btn_back.onClick.AddListener(ChickBack);
-        btn_back_1.onClick.AddListener(ChickBack);
+        base.Awake();
         HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, RefreshStock);
     }
     private void OnDestroy()
@@ -57,14 +43,23 @@ public class UIProductionInfo : TTUIPage
         txt_Stock.text = roomData.currentBuildData.Stock.ToString("#0") + "/" + roomData.BuildingData.Param2.ToString("#0");
     }
 
-    private void UpdateInfo(RoomMgr data)
+    protected override void UpdateInfo(RoomMgr data)
     {
-        roomData = data;
-        txt_Name.text = data.RoomName.ToString();
-        txt_Level.text = data.BuildingData.Level.ToString();
         txt_Yield.text = (data.currentBuildData.buildingData.Param1 + data.currentBuildData.AllRoleProduction()).ToString();
         txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
-        ChickRoleNumber();
+        ChickRoleNumber(roleGrids);
+        for (int i = 0; i < roleGrids.Count; i++)
+        {
+            if (data.currentBuildData.roleData[i] != null)
+            {
+                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName, this, i);
+            }
+            else
+            {
+                roleGrids[i].UpdateInfo(this, i);
+            }
+        }
+
         ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
 
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
@@ -94,34 +89,12 @@ public class UIProductionInfo : TTUIPage
                 break;
         }
     }
-    private void ChickRoleNumber()
-    {
-        int index = roomData.BuildingData.RoomRole - roleGrids.Count;
-        if (index > 0) //证明已有角色卡数量不足
-        {
-            for (int i = 0; i < index; i++)
-            {
-                GameObject go = Instantiate(roleGrid, roleTrans) as GameObject;
-                UIRoleGrid grid = go.GetComponent<UIRoleGrid>();
-                roleGrids.Add(grid);
-            }
-        }
-        for (int i = 0; i < roomData.currentBuildData.roleData.Length; i++)
-        {
-            if (roomData.currentBuildData.roleData[i] != null)
-            {
-                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName);
-            }
-            else
-            {
-                roleGrids[i].UpdateInfo();
-            }
-        }
-    }
 
     private void ChickBack()
     {
         UIPanelManager.instance.ClosePage<UIProductionInfo>();
         ChickPlayerInfo.instance.RemoveRoomEvent();
     }
+
+
 }

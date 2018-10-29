@@ -65,7 +65,7 @@ public class UIEquipViewGrid : MonoBehaviour
         currentRoleData = roleData;
         currentequipData = equipData;
 
-        txt_Name.text = equipData.EquipName;
+        txt_Name.text = equipData.Name;
         txt_Quality.text = equipData.QualityType.ToString();
 
         if (equipData.ProfessionNeed == ProfessionNeedEnum.Fight)

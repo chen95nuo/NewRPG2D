@@ -12,13 +12,11 @@ public abstract class UIRoomInfo : TTUIPage
     public Text txt_Level;
     public GameObject roleGrid;
     public Transform roleTrans;
-
     public Button btn_Close;
     public Button btn_Close_1;
 
     public RectTransform pageDownTip;
 
-    private List<Button> allRoleBtn;
     private int currentBtn = 0;
 
     protected RoomMgr roomData;
@@ -69,6 +67,14 @@ public abstract class UIRoomInfo : TTUIPage
         }
     }
 
+    public virtual void RoomAddRole(HallRole role, int index)
+    {
+        roomData.AddRole(role, index);
+        UpdateInfo(roomData);
+    }
+
+
+
     protected virtual void DownPageAnimStart()
     {
         pageDownTip.DOAnchorPos(Vector3.up * 500, 0.5f);
@@ -76,26 +82,6 @@ public abstract class UIRoomInfo : TTUIPage
     protected virtual void DownPageAnimGoBack()
     {
         pageDownTip.DOAnchorPos(Vector3.zero, 0.5f);
-    }
-
-    protected virtual void btnAddLister(Button btn)
-    {
-        allRoleBtn.Add(btn);
-        btn.onClick.AddListener(ChickBtn);
-    }
-    protected virtual void ChickBtn()
-    {
-        GameObject go = EventSystem.current.currentSelectedGameObject;
-        for (int i = 0; i < allRoleBtn.Count; i++)
-        {
-            if (allRoleBtn[i] == go)
-            {
-                allRoleBtn[i].interactable = false;
-                allRoleBtn[currentBtn].interactable = true;
-                currentBtn = i;
-                return;
-            }
-        }
     }
 
     protected abstract void UpdateInfo(RoomMgr roomMgr);

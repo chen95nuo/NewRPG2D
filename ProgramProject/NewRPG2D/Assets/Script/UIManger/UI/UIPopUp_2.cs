@@ -34,8 +34,8 @@ public class UIPopUp_2 : TTUIPage
             {
                 PopUps[i].IsUse = true;
                 PopUps[i].txt.text = st;
-                PopUps[i].txt.rectTransform.DOAnchorPos(Vector2.up * 700, 3).OnComplete(() => PopUps[i].IsUse = false);
-                return;
+                anim(PopUps[i], st);
+                break;
             }
             if (i == PopUps.Count - 1)
             {
@@ -44,6 +44,15 @@ public class UIPopUp_2 : TTUIPage
                 PopUps.Add(new PopUp_2Helper(txt));
             }
         }
+    }
+
+    private void anim(PopUp_2Helper popUp, string st)
+    {
+        Sequence mSequence = DOTween.Sequence();
+        popUp.txt.rectTransform.DOAnchorPos(Vector2.up * 700, 5).OnComplete(() => popUp.IsUse = false);
+        popUp.txt.transform.localScale = Vector3.zero;
+        mSequence.Append(popUp.txt.transform.DOScale(1.2f, 0.25f));
+        mSequence.Append(popUp.txt.transform.DOScale(1f, 0.25f));
     }
 }
 

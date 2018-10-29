@@ -284,7 +284,6 @@ public class CameraControl : MonoBehaviour
             {
                 MainCastle.instance.ChickRaycast(hit);
             }
-
         }
         else //编辑模式点击效果
         {
@@ -330,6 +329,7 @@ public class CameraControl : MonoBehaviour
             if (currentTime > 0.5f)
             {
                 currentTime = 0;
+                Handheld.Vibrate();
                 HallRole role = hit.collider.GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
                 isHoldRole = true;
