@@ -9,6 +9,7 @@ using Assets.Script.Tools;
 using Assets.Script.Timer;
 using UnityEngine;
 using Assets.Script.Battle;
+using Assets.Script.UIManger;
 
 namespace Assets.Script
 {
@@ -113,6 +114,8 @@ namespace Assets.Script
             {
                 return;
             }
+            UIPanelManager.instance.allPages.Clear();
+            UIPanelManager.instance.currentPageNodes.Clear();
             RemoveListener();
             StringHelper.DestroyInstance();
             EventManager.DestroyInstance();
