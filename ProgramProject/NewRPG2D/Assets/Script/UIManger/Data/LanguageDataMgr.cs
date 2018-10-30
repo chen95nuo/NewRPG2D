@@ -6,6 +6,8 @@ using Assets.Script.Battle.BattleData;
 
 public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
 {
+    Dictionary<string, LanguageData> dic = new Dictionary<string, LanguageData>();
+
     protected override XmlName CurrentXmlName
     {
         get { return XmlName.LanguageData; }

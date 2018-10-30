@@ -97,14 +97,18 @@ public class UITrainRoleGrid : MonoBehaviour
 
     public void UpdateTime(int index)
     {
-        RoleTrainHelper role = HallRoleMgr.instance.FindTrainRole(index);
-        if (role.role == roleData)
+        if (roleData == null)
         {
-            slider.fillAmount = (role.maxTime - role.time) / role.maxTime;
-            string time = SystemTime.instance.TimeNormalized(role.time);
+            return;
+        }
+        RoleTrainHelper roleTrainData = HallRoleMgr.instance.FindTrainRole(index);
+        if (roleTrainData.roleID == this.roleData.id)
+        {
+            slider.fillAmount = (roleTrainData.maxTime - roleTrainData.time) / roleTrainData.maxTime;
+            string time = SystemTime.instance.TimeNormalized(roleTrainData.time);
             txt_Time.text = time;
         }
-        txt_Damionds.text = (role.time * 0.01f).ToString("#0");
+        txt_Damionds.text = (roleTrainData.time * 0.01f).ToString("#0");
     }
 
     private void TypeLevelUp(HallRoleData data)

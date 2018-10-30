@@ -82,7 +82,7 @@ public class UIEquipViewGrid : MonoBehaviour
                 txt_OtherNum_2.text = "攻速:";
                 txt_OtherTip_2.text = equipData.AttackSpeed.ToString();
                 txt_MainNum.text = equipData.RoleProperty[RoleAttribute.DPS].ToString("#0");
-                txt_WorkTip.text = "职业类型: " + equipData.WeaponProfession.ToString();
+                txt_WorkTip.text = "职业类型: " + "<color=#cccccc>" + equipData.WeaponProfession.ToString() + "</color>";
             }
             else if (equipData.EquipType == EquipTypeEnum.Armor)
             {
@@ -230,7 +230,9 @@ public class UIEquipViewGrid : MonoBehaviour
         for (int i = 0; i < PropertyData.Count; i++)
         {
             atrGrids[index].gameObject.SetActive(true);
-            atrGrids[index].UpdateInfo(RoleAttribute.Max, PropertyData[i].SpecialPropertyType.ToString());
+            string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString()).Chinese;
+            st = string.Format("<color=#cccccc>特殊效果:</color>/n" + st, "<color=#cccccc>" + PropertyData[i].param1.ToString() + "</color>/n", "<color=#cccccc>" + PropertyData[i].param2.ToString() + "</color>/n", "<color=#cccccc>" + PropertyData[i].param3.ToString() + "</color>/n");
+            atrGrids[index].UpdateInfo(RoleAttribute.Max, st);
             index++;
         }
         if (index >= atrGrids.Count)

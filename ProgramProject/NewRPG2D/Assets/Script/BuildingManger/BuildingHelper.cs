@@ -16,6 +16,13 @@ public class ServerBuildData
     public int[] roleID;
 
     public ServerBuildData() { }
+    public ServerBuildData(LocalBuildingData data)
+    {
+        this.id = data.id;
+        this.RoomId = data.buildingData.ItemId;
+        this.buildingPoint = data.buildingPoint;
+        this.Stock = data.Stock;
+    }
     public ServerBuildData(int id, int RoomId, Vector2 point, float Stock, int levelUPTime, int levelUpId)
     {
         this.id = id;
@@ -98,6 +105,7 @@ public class LocalBuildingData
 
         return temp;
     }
+    public RoomMgr currentRoom;
     //public RoleAttribute BuildingRoleHelper()
     //{
     //    switch (buildingData.RoomName)

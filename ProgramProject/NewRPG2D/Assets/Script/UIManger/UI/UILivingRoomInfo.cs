@@ -130,7 +130,7 @@ public class UILivingRoomInfo : UIRoomInfo
         HallRoleData[] roleData = roomData.currentBuildData.roleData;
         for (int i = 0; i < roleData.Length; i++)
         {
-            if (roleData[i] == loveData.role[0] && roleData[i + 1] == loveData.role[1])
+            if (roleData[i].id == loveData.roleID[0] && roleData[i + 1].id == loveData.roleID[1])
             {
                 Debug.Log("找到房间对应角色");
                 string st = SystemTime.instance.TimeNormalized(loveData.time);

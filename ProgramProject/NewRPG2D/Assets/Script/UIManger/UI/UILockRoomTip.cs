@@ -294,7 +294,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickSpeedUp()
     {
         Debug.Log("升级中进行加速");
-        LocalServer.instance.ChickTime(roomData);
+        LocalServer.instance.ChickTime(roomData.currentBuildData);
     }
 
     private void ChickCastleEddit()

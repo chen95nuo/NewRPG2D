@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Timer;
+using System;
 
 public class HallRoleMgr : TSingleton<HallRoleMgr>
 {
@@ -13,7 +14,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     private List<HallRoleData> AllRole = new List<HallRoleData>();
     private int childNeedTime = 360;//小孩所需时间
     private int LoveTime = 10;//恋爱所需时间
-    private int RoleId;
+    private int roleIdIndex = 0;
 
     private GameObject roleBoy;//男孩
     private GameObject roleGirl;//女孩
@@ -68,6 +69,14 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
     }
 
+    public int RoleIdIndex
+    {
+        get
+        {
+            return roleIdIndex++;
+        }
+    }
+
     public void DicClear()
     {
         dic.Clear();
@@ -77,14 +86,33 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         dic.Add(data, role);
     }
 
-    public void GetServerRole()
+    internal void ChickRoleDic(List<ServerHallRoleData> saveRoleData)
     {
-
+        DicClear();
+        for (int i = 0; i < saveRoleData.Count; i++)
+        {
+            if (saveRoleData[i].role.id > roleIdIndex)
+            {
+                roleIdIndex = saveRoleData[i].role.id;
+            }
+            HallRole role = AddNewRoleInstance(saveRoleData[i].role);
+            ChickPlayerInfo.instance.ChickRoleDic(saveRoleData[i].RoomId, role);
+        }
     }
 
     public List<HallRoleData> GetAllRole()
     {
         return AllRole;
+    }
+
+    internal void ChickBabyDic(List<RoleBabyData> saveBabydata)
+    {
+        childrenTime.Clear();
+        for (int i = 0; i < saveBabydata.Count; i++)
+        {
+            HallRole role = AddNewBabyInstance(saveBabydata[i]);
+            ChickPlayerInfo.instance.ChickBabyDic(role);
+        }
     }
 
     public void BuildServerRole(HallRoleData data, RoomMgr room)
@@ -102,20 +130,27 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         AllRole.Add(data);
         return role;
     }
+    public HallRole AddNewBabyInstance(RoleBabyData data)
+    {
+        HallRole role = InstantiateRole(data.child.sexType, false);
+        role.UpdateInfo(data);
+        ChildrenStart(data, data.time);
+        return role;
+    }
 
     public HallRoleData BuildNewRole(int sex)
     {
         if (sex == 0)
         {
-            sex = Random.Range(1, 3);
+            sex = UnityEngine.Random.Range(1, 3);
         }
-        int star = Random.Range(1, 4);
+        int star = UnityEngine.Random.Range(1, 4);
         int[] level = new int[6];
         for (int i = 0; i < level.Length; i++)
         {
-            level[i] = Random.Range(1, 4);
+            level[i] = UnityEngine.Random.Range(1, 4);
         }
-        HallRoleData data = new HallRoleData(sex, star, level);
+        HallRoleData data = new HallRoleData(RoleIdIndex, sex, star, level);
         return data;
     }
 
@@ -170,9 +205,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// </summary>
     /// <param name="father"></param>
     /// <param name="mather"></param>
-    public RoleBabyData BuildNewBaby(HallRoleData father, HallRoleData mather)
+    public RoleBabyData BuildNewBaby(int fatherID, int matherID)
     {
-        int sex = Random.Range(1, 3);
+        HallRoleData father = GetRoleData(fatherID);
+        HallRoleData mather = GetRoleData(matherID);
+        int sex = UnityEngine.Random.Range(1, 3);
         int allStar = father.Star + mather.Star;
         int star = 0;
         ChildData childData = ChildDataMgr.instance.GetData(allStar);
@@ -180,24 +217,24 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         for (int i = 0; i < level.Length; i++)
         {
             int allLevel = father.RoleLevel[i].Level + mather.RoleLevel[i].Level;
-            float roll = Random.Range(2, 7) * 0.1f;
+            float roll = UnityEngine.Random.Range(2, 7) * 0.1f;
             level[i] = (int)((allLevel / 2) * roll) == 0 ? 1 : (int)((allLevel / 2) * roll);
         }
         for (int i = 0; i < childData.StarLevel.Length; i++)
         {
-            int roll = Random.Range(0, 101);
+            int roll = UnityEngine.Random.Range(0, 101);
             if (childData.StarLevel[i] > roll)
             {
                 star = i + 1;
-                HallRoleData role = new HallRoleData(sex, star, level);
-                RoleBabyData roleHelper = new RoleBabyData(role, father, mather);
+                HallRoleData role = new HallRoleData(RoleIdIndex, sex, star, level);
+                RoleBabyData roleHelper = new RoleBabyData(role, father.id, mather.id, childNeedTime);
                 //BuildNewChild(roleHelper);
                 return roleHelper;
             }
         }
         star = childData.StandLevel;
-        HallRoleData role_1 = new HallRoleData(sex, star, level);
-        RoleBabyData roleHelper_1 = new RoleBabyData(role_1, father, mather);
+        HallRoleData role_1 = new HallRoleData(RoleIdIndex, sex, star, level);
+        RoleBabyData roleHelper_1 = new RoleBabyData(role_1, father.id, mather.id, childNeedTime);
         //BuildNewChild(roleHelper_1);
         return roleHelper_1;
     }
@@ -216,6 +253,19 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     public HallRole GetRole(HallRoleData data)
     {
         return dic[data];
+    }
+
+    public HallRoleData GetRoleData(int roleId)
+    {
+        for (int i = 0; i < AllRole.Count; i++)
+        {
+            if (AllRole[i].id == roleId)
+            {
+                return AllRole[i];
+            }
+        }
+        Debug.LogError("没有找到角色");
+        return null;
     }
 
     /// <summary>
@@ -298,9 +348,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     private void ChickTrainTime(int index)
     {
         //如果该角色所在房间正在施工那么 训练终止
-        if (timeAction[index].role.currentRoom.ConstructionType)
+        HallRoleData role = GetRoleData(timeAction[index].roleID);
+        if (role.currentRoom.ConstructionType)
         {
-            StopTrain(timeAction[index].role);
+            StopTrain(role);
             StopTrain(index);
             return;
         }
@@ -326,7 +377,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         foreach (var item in timeAction)
         {
-            if (item.Value.role == data)
+            if (item.Value.roleID == data.id)
             {
                 CTimerManager.instance.RemoveLister(item.Key);
                 timeAction.Remove(item.Key);
@@ -362,7 +413,8 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     public void CompleteTrain(int index)
     {
         //删除这个角色 并且在角色头顶显示图标
-        HallRole role = GetRole(timeAction[index].role);
+        HallRoleData roleData = GetRoleData(timeAction[index].roleID);
+        HallRole role = GetRole(roleData);
         role.TrainComplete(timeAction[index].atr);
         role.RoleData.TrainType = RoleTrainType.Complete;
     }
@@ -375,7 +427,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         foreach (var item in timeAction)
         {
-            if (item.Value.role == data)
+            if (item.Value.roleID == data.id)
             {
                 string s_Atr = item.Value.atr.ToString();
                 RoleAttribute atr = (RoleAttribute)System.Enum.Parse(typeof(RoleAttribute), s_Atr);
@@ -385,7 +437,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
                 TrainType type = item.Value.atr;
                 if (isTrue)
                 {
-                    UIRoleTipGroup.instance.CloseIcon(item.Value.role);
+                    UIRoleTipGroup.instance.CloseIcon(item.Value.roleID);
                     timeAction.Remove(item.Key);
                 }
                 else
@@ -433,8 +485,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     public void LoveStop(int index)
     {
         CTimerManager.instance.RemoveLister(index);
-        loveData[index].role[0].LoveType = RoleLoveType.Nothing;
-        loveData[index].role[1].LoveType = RoleLoveType.Nothing;
+        HallRoleData role_1 = GetRoleData(loveData[index].roleID[0]);
+        HallRoleData role_2 = GetRoleData(loveData[index].roleID[1]);
+        role_1.LoveType = RoleLoveType.Nothing;
+        role_2.LoveType = RoleLoveType.Nothing;
         loveData.Remove(index);
     }
 
@@ -443,21 +497,23 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// </summary>
     public void LoveComplete(int index)
     {
-        RoleBabyData babyData = BuildNewBaby(loveData[index].role[0], loveData[index].role[1]);
+        RoleBabyData babyData = BuildNewBaby(loveData[index].roleID[0], loveData[index].roleID[1]);
+        HallRoleData role_1 = GetRoleData(loveData[index].roleID[0]);
+        HallRoleData role_2 = GetRoleData(loveData[index].roleID[1]);
         HallRole role;
-        if (loveData[index].role[0].sexType == SexTypeEnum.Woman)
+        if (role_1.sexType == SexTypeEnum.Woman)
         {
-            loveData[index].role[0].LoveType = RoleLoveType.ChildBirth;
-            loveData[index].role[1].LoveType = RoleLoveType.Nothing;
-            loveData[index].role[0].babyData = babyData;
-            role = GetRole(loveData[index].role[0]);
+            role_1.LoveType = RoleLoveType.ChildBirth;
+            role_2.LoveType = RoleLoveType.Nothing;
+            role_1.babyData = babyData;
+            role = GetRole(role_1);
         }
         else
         {
-            loveData[index].role[0].LoveType = RoleLoveType.Nothing;
-            loveData[index].role[1].LoveType = RoleLoveType.ChildBirth;
-            loveData[index].role[1].babyData = babyData;
-            role = GetRole(loveData[index].role[1]);
+            role_1.LoveType = RoleLoveType.Nothing;
+            role_2.LoveType = RoleLoveType.ChildBirth;
+            role_2.babyData = babyData;
+            role = GetRole(role_2);
         }
         role.LoveComplete();//显示气泡
         loveData.Remove(index);
@@ -467,9 +523,9 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// 宝宝成长开始
     /// </summary>
     /// <param name="data"></param>
-    public void ChildrenStart(RoleBabyData data)
+    public void ChildrenStart(RoleBabyData data, int NeedTime = 360)
     {
-        data.time = childNeedTime;
+        data.time = NeedTime;
         int index = CTimerManager.instance.AddListener(1, childNeedTime, ChildrenCallback);
         childrenTime.Add(index, data);
         HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickChildTime, index);
@@ -498,10 +554,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
         childrenTime.Remove(index);
     }
-    /// <summary>
-    /// 完成新角色养成 已点击头顶Icon
-    /// </summary>
-    public void ChildrenEnd() { }
 
     /// <summary>
     /// 检查下一级升级
@@ -525,7 +577,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
         foreach (var item in timeAction)
         {
-            if (item.Value.role == data)
+            if (item.Value.roleID == data.id)
             {
                 temp = item.Value;
                 return temp;
@@ -542,7 +594,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
 public class RoleTrainHelper
 {
-    public HallRoleData role;
+    public int roleID;
     public TrainType atr;
     public float time;
     public HallChildren children;
@@ -550,7 +602,7 @@ public class RoleTrainHelper
 
     public RoleTrainHelper(HallRoleData data, TrainType atr, float time)
     {
-        this.role = data;
+        this.roleID = data.id;
         this.atr = atr;
         this.time = time;
         this.maxTime = time;
@@ -560,41 +612,30 @@ public class RoleTrainHelper
 public class RoleLoveHelper
 {
     public int time;
-    public HallRoleData[] role;
+    public int[] roleID;
     public int allTime;
     public RoleLoveHelper(HallRoleData role_1, HallRoleData role_2, int time)
     {
         this.time = time;
         allTime = time;
-        this.role = new HallRoleData[2];
-        role[0] = role_1;
-        role[1] = role_2;
+        this.roleID = new int[2];
+        roleID[0] = role_1.id;
+        roleID[1] = role_2.id;
     }
 }
 
 public class RoleBabyData
 {
     public HallRoleData child;
-    public HallRoleData father;
-    public HallRoleData mather;
+    public int fatherID;
+    public int matherID;
     public int time;
 
-    public RoleBabyData(HallRoleData child, HallRoleData father, HallRoleData mather)
+    public RoleBabyData(HallRoleData child, int father, int mather, int time)
     {
         this.child = child;
-        this.father = father;
-        this.mather = mather;
-    }
-}
-
-public class RoleChildData
-{
-    public HallRoleData child;
-    public int time;
-
-    public RoleChildData(HallRoleData child, int time)
-    {
-        this.child = child;
+        this.fatherID = father;
+        this.matherID = mather;
         this.time = time;
     }
 }

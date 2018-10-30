@@ -12,7 +12,7 @@ using Assets.Script.Timer;
 public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
 {
     public Dictionary<BuildRoomName, LocalBuildingData[]> dic = new Dictionary<BuildRoomName, LocalBuildingData[]>();
-    private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();//房间序号 用于储存施工中的房间
+    private Dictionary<int, LevelUPHelper> buildNumber = new Dictionary<int, LevelUPHelper>();//房间序号 用于储存施工中的房间
     private List<LocalBuildingData> AllBuilding = new List<LocalBuildingData>();//储存全部已经建造的房间
     private Dictionary<int, LocalBuildingData> production = new Dictionary<int, LocalBuildingData>();//产出房间
     private Dictionary<MagicName, int> MagicLevel = new Dictionary<MagicName, int>();
@@ -186,20 +186,41 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             }
         }
     }
-    public void ChickRoleDic(List<ServerHallRoleData> data)
+    public void ChickRoleDic(int roomID, HallRole role)
     {
         List<RoomMgr> allRoom = MainCastle.instance.allroom;
         for (int i = 0; i < allRoom.Count; i++)
         {
-            for (int j = 0; j < data.Count; j++)
+            if (allRoom[i].Id == roomID)
             {
-                if (allRoom[i].currentBuildData.id == data[j].RoomId)
-                {
-                    HallRole role = HallRoleMgr.instance.AddNewRoleInstance(data[j].role);
-                    allRoom[i].AddRole(role);
-                }
+                allRoom[i].AddRole(role);
             }
         }
+    }
+    public void ChickBabyDic(HallRole role)
+    {
+        List<RoomMgr> allRoom = MainCastle.instance.allroom;
+        for (int i = 0; i < allRoom.Count; i++)
+        {
+            if (allRoom[i].RoomName == BuildRoomName.BabyRoom)
+            {
+                allRoom[i].AddRole(role);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 上传本地所有房间信息
+    /// </summary>
+    public void UpLoadAllRoom()
+    {
+        LocalServer.instance.saveRoomData.Clear();
+        for (int i = 0; i < AllBuilding.Count; i++)
+        {
+            ServerBuildData s_Data = new ServerBuildData(AllBuilding[i]);
+            LocalServer.instance.saveRoomData.Add(s_Data);
+        }
+        AllBuilding.Clear();
     }
 
     /// <summary>
@@ -749,10 +770,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// </summary>
     /// <param name="data"></param>
     /// <param name="time"></param>
-    public int Timer(RoomMgr data, int time)
+    public int Timer(LocalBuildingData data, int time, int TipID)
     {
         int index = CTimerManager.instance.AddListener(1f, time, ChickTime);
-        buildNumber.Add(index, data);
+        LevelUPHelper helper = new LevelUPHelper(data.id, TipID, time);
+        buildNumber.Add(index, helper);
         LocalServer.instance.Timer(data, time);
         return index;
     }
@@ -763,7 +785,29 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <param name="key"></param>
     public void ChickTime(int key)
     {
-        buildNumber[key].TimerCallBack();
+        LocalBuildingData data = GetBuilding(buildNumber[key].roomID);
+        if (data != null && data.currentRoom != null)
+        {
+            bool isTrue = data.currentRoom.TimerCallBack(buildNumber[key]);
+            if (isTrue == false)
+            {
+                buildNumber[key].tipID = UILevelUpTip.instance.AddLister();
+                UILevelUpTip.instance.UpdateTime(buildNumber[key].needTime, buildNumber[key].tipID);
+            }
+        }
+    }
+
+    public LocalBuildingData GetBuilding(int RoomID)
+    {
+        for (int i = 0; i < AllBuilding.Count; i++)
+        {
+            if (AllBuilding[i].id == RoomID)
+            {
+                return AllBuilding[i];
+            }
+        }
+        Debug.LogError("没有找到建筑");
+        return null;
     }
 
     /// <summary>
@@ -1258,5 +1302,21 @@ public class RoomStockFullHelper
     {
         this.name = name;
         this.isFull = isFull;
+    }
+}
+
+public class LevelUPHelper
+{
+    public int roomID;
+    public int tipID;
+    public int allTime;
+    public int needTime;
+
+    public LevelUPHelper(int roomID, int tipID, int needTime)
+    {
+        this.roomID = roomID;
+        this.tipID = tipID;
+        this.allTime = needTime;
+        this.needTime = needTime;
     }
 }

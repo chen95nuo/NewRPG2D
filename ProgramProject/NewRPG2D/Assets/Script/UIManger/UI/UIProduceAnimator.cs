@@ -66,7 +66,7 @@ public class UIProduceAnimator : TTUIPage
         Canvas canvas = transform.parent.parent.GetComponent<Canvas>();
         Vector2 pos;
         RectTransform rt = canvas.transform as RectTransform;
-        Vector3 v3 = Camera.main.WorldToScreenPoint(data.roomProp.transform.position);
+        Vector3 v3 = Camera.main.WorldToScreenPoint(data.RoomProp.transform.position);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, v3, canvas.worldCamera, out pos);
         return pos;
     }

@@ -71,7 +71,7 @@ public class UIScreenRoleGrid : MonoBehaviour
     public void ChickTrainTime(int RoleIndex)
     {
         RoleTrainHelper role = HallRoleMgr.instance.GetTrainRole(RoleIndex);
-        if (role.role != currentRole)
+        if (role.roleID != currentRole.id)
         {
             return;
         }

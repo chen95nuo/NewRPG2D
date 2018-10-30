@@ -57,11 +57,19 @@ public class UIRoleTipGroup : TTUIPage
         data.GetInfo(ts, canvas, role);
     }
 
-    public void CloseIcon(HallRoleData role)
+    public void ShowBabyIcon(HallRole role)
+    {
+        Transform ts = role.TipPoint.transform;
+        for (int i = 0; i < ChildGrid.Count; i++)
+        {
+        }
+    }
+
+    public void CloseIcon(int roleID)
     {
         for (int i = 0; i < trainGrid.Count; i++)
         {
-            if (trainGrid[i].role.RoleData == role)
+            if (trainGrid[i].role.RoleData.id == roleID)
             {
                 Debug.Log("找到了对应的升级图标 删除");
                 trainGrid[i].RemoveInfo();

@@ -6,12 +6,19 @@ using Assets.Script.UIManger;
 
 public class UILevelUpTip : TTUIPage
 {
+    public static UILevelUpTip instance;
+
     public Transform tipGridPoint;
     public GameObject tip;
     private RoomMgr roomData;
     private Dictionary<int, UILevelUpTipGrid> timeTextGrids = new Dictionary<int, UILevelUpTipGrid>();
     private List<UILevelUpTipGrid> outGrids = new List<UILevelUpTipGrid>();
     private int dicIndex = 0;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     public override void Show(object mData)
     {
         base.Show(mData);
@@ -48,8 +55,13 @@ public class UILevelUpTip : TTUIPage
         timeTextGrids.Remove(index);
     }
 
-    public void UpdateTime(int time, int index)
+    public bool UpdateTime(int time, int index)
     {
-        timeTextGrids[index].UpdateTime(time);
+        if (timeTextGrids.ContainsKey(index))
+        {
+            timeTextGrids[index].UpdateTime(time);
+            return true;
+        }
+        return false;
     }
 }

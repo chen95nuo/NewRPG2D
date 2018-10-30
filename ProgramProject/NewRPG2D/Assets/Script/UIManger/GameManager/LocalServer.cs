@@ -5,7 +5,7 @@ using Assets.Script.Timer;
 
 public class LocalServer : TSingleton<LocalServer>
 {
-    private Dictionary<int, RoomMgr> buildNumber = new Dictionary<int, RoomMgr>();//房间序号 用于储存施工中的房间
+    private Dictionary<int, LocalBuildingData> buildNumber = new Dictionary<int, LocalBuildingData>();//房间序号 用于储存施工中的房间
 
     private Dictionary<BuildRoomName, LocalBuildingData> production;
 
@@ -21,15 +21,16 @@ public class LocalServer : TSingleton<LocalServer>
         }
     }
 
-    private List<ServerBuildData> saveRoomData;
+    public List<ServerBuildData> saveRoomData;
     private List<ServerHallRoleData> saveRoleData;
+    private List<RoleBabyData> saveBabydata;
 
     /// <summary>
     /// 房间施工用 计时器
     /// </summary>
     /// <param name="data"></param>
     /// <param name="time"></param>
-    public void Timer(RoomMgr data, int time)
+    public void Timer(LocalBuildingData data, int time)
     {
         int index = CTimerManager.instance.AddListener(time, 1, ChickTime);
         buildNumber.Add(index, data);
@@ -41,18 +42,30 @@ public class LocalServer : TSingleton<LocalServer>
     /// <param name="key"></param>
     public void ChickTime(int key)
     {
-        buildNumber[key].ConstructionComplete();
+        ChickLeveUp(buildNumber[key]);
     }
 
+    public void ChickLeveUp(LocalBuildingData LocalData)
+    {
+        if (LocalData.currentRoom != null)
+        {
+            LocalData.currentRoom.ConstructionComplete();
+        }
+        else
+        {
+            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
+            ChickPlayerInfo.instance.ChickBuildDicChange(LocalData, data);
+        }
+    }
 
-    public void ChickTime(RoomMgr roomMgr)
+    public void ChickTime(LocalBuildingData roomData)
     {
         foreach (var item in buildNumber)
         {
-            if (item.Value == roomMgr)
+            if (item.Value == roomData)
             {
                 CTimerManager.instance.RemoveLister(item.Key);
-                roomMgr.ConstructionComplete();
+                ChickLeveUp(roomData);
                 return;
             }
         }
@@ -66,7 +79,6 @@ public class LocalServer : TSingleton<LocalServer>
             TestRoom();
         }
         ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
-        HallRoleMgr.instance.DicClear();
         if (saveRoleData == null)
         {
             HallRoleData data_1 = HallRoleMgr.instance.BuildNewRole(1);
@@ -75,7 +87,8 @@ public class LocalServer : TSingleton<LocalServer>
             saveRoleData.Add(new ServerHallRoleData(9, data_1));
             saveRoleData.Add(new ServerHallRoleData(9, data_2));
         }
-        ChickPlayerInfo.instance.ChickRoleDic(saveRoleData);
+        HallRoleMgr.instance.ChickRoleDic(saveRoleData);
+        HallRoleMgr.instance.ChickBabyDic(saveBabydata);
         MagicLevel();
     }
 

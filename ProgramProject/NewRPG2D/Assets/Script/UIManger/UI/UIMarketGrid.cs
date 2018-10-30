@@ -32,6 +32,8 @@ public class UIMarketGrid : MonoBehaviour
 
     public GameObject lockObj;
     public Image[] lockImages;
+    public Material black;
+
     //public Material black;
 
     private void Awake()
@@ -76,10 +78,10 @@ public class UIMarketGrid : MonoBehaviour
             if (data.NeedLevel == 0) txt_Tip_3.text = "建筑数量已达上限";
             else txt_Tip_3.text = string.Format("需要{0}级国王大厅", data.NeedLevel);
             lockObj.SetActive(true);
-            //for (int i = 0; i < lockImages.Length; i++)
-            //{
-            //    lockImages[i].material = black;
-            //}
+            for (int i = 0; i < lockImages.Length; i++)
+            {
+                lockImages[i].material = black;
+            }
             return;
         }
 
@@ -139,9 +141,9 @@ public class UIMarketGrid : MonoBehaviour
 
         lockObj.SetActive(false);
 
-        //for (int i = 0; i < lockImages.Length; i++)
-        //{
-        //    lockImages[i].material = null;
-        //}
+        for (int i = 0; i < lockImages.Length; i++)
+        {
+            lockImages[i].material = null;
+        }
     }
 }

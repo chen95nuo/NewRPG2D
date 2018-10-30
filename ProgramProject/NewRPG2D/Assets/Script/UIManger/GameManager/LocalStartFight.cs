@@ -14,6 +14,8 @@ public class LocalStartFight : TSingleton<LocalStartFight>
     {
         FightRoleData = roleData;
         this.MapData = mapData;
+        UIPanelManager.instance.allPages.Clear();
+        UIPanelManager.instance.currentPageNodes.Clear();
         SceneManager.LoadScene("Scene_Test");
     }
 }

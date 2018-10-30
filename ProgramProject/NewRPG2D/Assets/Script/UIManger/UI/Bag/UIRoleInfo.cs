@@ -254,7 +254,7 @@ public class UIRoleInfo : TTUIPage
     {
 
         RoleTrainHelper trainRole = HallRoleMgr.instance.FindTrainRole(index);
-        if (trainRole.role == currentRole)
+        if (trainRole.roleID == currentRole.id)
         {
             slider_Train.fillAmount = (trainRole.maxTime - trainRole.time) / trainRole.maxTime;
             txt_TrainTime.text = SystemTime.instance.TimeNormalized(trainRole.time);

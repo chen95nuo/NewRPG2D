@@ -83,7 +83,7 @@ public class CameraControl : MonoBehaviour
             isMove = true;
             if (moveRoomType == true)
             {
-                Vector3 point = new Vector3(room.roomLock.transform.position.x, room.roomLock.transform.position.y, zMin);
+                Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMin);
 
                 CameraMove(point);
                 if (m_Camera.orthographicSize == zMin)
@@ -93,7 +93,7 @@ public class CameraControl : MonoBehaviour
             }
             else
             {
-                Vector3 point = new Vector3(room.roomLock.transform.position.x, room.roomLock.transform.position.y, zMax);
+                Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMax);
                 if (m_Camera.orthographicSize == zMax)
                 {
                     moving = false;
@@ -219,7 +219,7 @@ public class CameraControl : MonoBehaviour
     {
         if (room != null)
         {
-            room.roomLock.SetActive(false);
+            room.ShowRoomLockUI(false);
             UIPanelManager.instance.ClosePage<UILockRoomTip>();
         }
         room = null;
@@ -263,7 +263,7 @@ public class CameraControl : MonoBehaviour
             {
                 if (room != null)
                 {
-                    room.roomLock.SetActive(false);
+                    room.ShowRoomLockUI(false);
                     room = null;
                     UIPanelManager.instance.ClosePage<UILockRoomTip>();//关闭底侧UI
                 }
@@ -291,7 +291,7 @@ public class CameraControl : MonoBehaviour
             {
                 if (room != null)
                 {
-                    room.roomLock.SetActive(false);
+                    room.ShowRoomLockUI(false);
                     room = null;
                     //关闭提示框
                     UIEditMode.instance.ShowMenu(null);
@@ -383,7 +383,7 @@ public class CameraControl : MonoBehaviour
             else
             {
                 data.IsHarvest = false;
-                data.roomProp.SetActive(false);
+                data.RoomProp.SetActive(false);
                 UIPanelManager.instance.ShowPage<UIProduceAnimator>(data);
             }
         }
@@ -391,7 +391,7 @@ public class CameraControl : MonoBehaviour
         {
             room = data;
             //子物体启动
-            room.roomLock.SetActive(true);
+            room.ShowRoomLockUI(true);
             UIPanelManager.instance.ShowPage<UILockRoomTip>(room);//显示底侧UI
         }
         else if (room != data)
@@ -422,8 +422,8 @@ public class CameraControl : MonoBehaviour
             RoomMgr data = hit.collider.GetComponent<RoomMgr>();
             if (room != null && room != data)//更换选中房间
             {
-                room.roomLock.SetActive(false);
-                data.roomLock.SetActive(true);
+                room.ShowRoomLockUI(false);
+                data.ShowRoomLockUI(true);
                 room = data;
                 //切换提示框
                 UIEditMode.instance.ShowMenu(data);
@@ -432,7 +432,7 @@ public class CameraControl : MonoBehaviour
             {
                 room = data;
                 //子物体启动
-                room.roomLock.SetActive(true);
+                room.ShowRoomLockUI(true);
                 //出现提示框
                 UIEditMode.instance.ShowMenu(data);
             }
@@ -450,8 +450,8 @@ public class CameraControl : MonoBehaviour
     {
         UIPanelManager.instance.ShowPage<UILockRoomTip>(data);
 
-        room.roomLock.SetActive(false);
-        data.roomLock.SetActive(true);
+        room.ShowRoomLockUI(false);
+        data.ShowRoomLockUI(true);
         room = data;
     }
 

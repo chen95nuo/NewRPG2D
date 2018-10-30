@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HallRoleData
 {
+    public int id;
     public readonly SexTypeEnum sexType;
     private string name;//名字
     private string iconName;
@@ -944,8 +945,9 @@ public class HallRoleData
     }
 
     public HallRoleData() { }
-    public HallRoleData(int sex, int star, int[] level)
+    public HallRoleData(int id, int sex, int star, int[] level)
     {
+        this.id = id;
         this.sexType = (SexTypeEnum)sex;
         this.star = star;
         this.name = "Json";

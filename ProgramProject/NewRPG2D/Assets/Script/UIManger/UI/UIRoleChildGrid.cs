@@ -81,6 +81,7 @@ public class UIRoleChildGrid : MonoBehaviour
 
                     RemoveInfo();
                     HallRoleMgr.instance.ChildrenStart(newRole.currentBaby);
+
                     return;
                 }
             }

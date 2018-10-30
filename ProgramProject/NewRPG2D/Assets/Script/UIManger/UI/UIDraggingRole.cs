@@ -34,8 +34,7 @@ public class UIDraggingRole : TTUIPage
     {
         if (currentRoom != null)
         {
-            currentRoom.RoomLockRend.color = Color.green;
-            currentRoom.roomLock.SetActive(false);
+            currentRoom.ShowRoomLockUI(false);
         }
 
         hand.rectTransform.anchoredPosition = Vector2.zero;
@@ -145,18 +144,16 @@ public class UIDraggingRole : TTUIPage
                 }
                 if (currentRoom != null)
                 {
-                    currentRoom.RoomLockRend.color = Color.green;
-                    currentRoom.roomLock.SetActive(false);
+                    currentRoom.ShowRoomLockUI(false);
                 }
                 currentRoom = room;
-                room.roomLock.SetActive(true);
                 if (role.RoleData.currentRoom == room)
                 {
-                    room.RoomLockRend.color = Color.yellow;
+                    room.ShowRoomLockUI(true, true);
                 }
                 else
                 {
-                    room.RoomLockRend.color = Color.green;
+                    room.ShowRoomLockUI(true);
                 }
             }
         }

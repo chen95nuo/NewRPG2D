@@ -32,11 +32,10 @@ public abstract class RoomMgr : MonoBehaviour
 
     [System.NonSerialized]
     public GameObject disTip;//断开连接的标签
-    [System.NonSerialized]
-    public GameObject roomLock;//房间选定框
+    private GameObject roomLock;//房间选定框
     private SpriteRenderer roomLockRend;
     [System.NonSerialized]
-    public GameObject roomProp;//资源获取框
+    private GameObject roomProp;//资源获取框
     [System.NonSerialized]
     public SpriteRenderer roomPropIcon;//资源Icon
     [System.NonSerialized]
@@ -211,7 +210,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (temp != isHarvest)
             {
                 isHarvest = value;
-                roomProp.SetActive(value);
+                RoomProp.SetActive(value);
                 if (roomPropIcon == null)
                 {
                     roomPropIcon = this.transform.Find("RoomTypes/RoomProp/PropBG/Gold").GetComponent<SpriteRenderer>();
@@ -244,6 +243,41 @@ public abstract class RoomMgr : MonoBehaviour
                 roomLockRend = roomLock.GetComponent<SpriteRenderer>();
             }
             return roomLockRend;
+        }
+    }
+
+    public void ShowRoomLockUI(bool isTrue, bool isRole = false)
+    {
+        if (isTrue == false)
+        {
+            roomLock.SetActive(isTrue);
+            return;
+        }
+        roomLock.SetActive(isTrue);
+        if (isRole == true)
+        {
+            RoomLockRend.color = new Color(255 / 255f, 238 / 255f, 89 / 255f);
+        }
+        else
+        {
+            RoomLockRend.color = new Color(90 / 255f, 255 / 255f, 167 / 255f);
+        }
+    }
+
+    public GameObject RoomProp
+    {
+        get
+        {
+            if (roomProp == null)
+            {
+                GetCompoment();
+            }
+            return roomProp;
+        }
+
+        set
+        {
+            roomProp = value;
         }
     }
 
@@ -404,6 +438,7 @@ public abstract class RoomMgr : MonoBehaviour
     public void UpdateBuilding(LocalBuildingData data, Castle castle)
     {
         currentBuildData = data;
+        data.currentRoom = this;
         if (MapControl.instance.type == CastleType.main)
         {
             if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
@@ -456,6 +491,8 @@ public abstract class RoomMgr : MonoBehaviour
     public void UpdateBuilding(LocalBuildingData data, Castle castle, ServerBuildData s_data)
     {
         currentBuildData = data;
+        data.currentRoom = this;
+
         if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
         {
             PlayerData playerdata = GetPlayerData.Instance.GetData();
@@ -634,6 +671,7 @@ public abstract class RoomMgr : MonoBehaviour
     {
         castleMgr = castle;
         currentBuildData = data;
+        data.currentRoom = this;
         nearbyRoom = new RoomMgr[4];
         emptyPoints = new EmptyPoint[4];
         if (castle.castleType == CastleType.main)
@@ -932,21 +970,16 @@ public abstract class RoomMgr : MonoBehaviour
         {
             needTime = time;
         }
-        timeIndex = ChickPlayerInfo.instance.Timer(this, needTime);
         levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
+        timeIndex = ChickPlayerInfo.instance.Timer(currentBuildData, needTime, timeIndex);
         listNumber = levelUpTip.AddLister();
         levelUpTip.UpdateTime(needTime, listNumber);
         CameraControl.instance.CloseRoomLock();
     }
 
-    public void TimerCallBack()
+    public bool TimerCallBack(LevelUPHelper levelUpHelper)
     {
-        needTime--;
-        levelUpTip.UpdateTime(needTime, listNumber);
-        if (needTime <= 0)
-        {
-            needTime = 0;
-        }
+        return levelUpTip.UpdateTime(levelUpHelper.needTime, levelUpHelper.tipID);
     }
 
     public void ConstructionCancel()
@@ -1212,7 +1245,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else if (role.TrainType == RoleTrainType.Complete)
         {
-            UIRoleTipGroup.instance.CloseIcon(role);
+            UIRoleTipGroup.instance.CloseIcon(role.id);
         }
 
         role.TrainType = RoleTrainType.Nothing;
@@ -1227,7 +1260,7 @@ public abstract class RoomMgr : MonoBehaviour
     {
         disTip = this.transform.Find("RoomFrame/SelectSign").gameObject;
         roomLock = this.transform.Find("RoomTypes/RoomLock").gameObject;
-        roomProp = this.transform.Find("RoomTypes/RoomProp").gameObject;
+        RoomProp = this.transform.Find("RoomTypes/RoomProp").gameObject;
     }
 
     #region ProductionType

@@ -45,7 +45,11 @@ public class UILessonInfo : TTUIPage
 
     private void ChickStart()
     {
-        LocalStartFight.instance.UpdateInfo(FightRoleData, currentLesson);
+        if (FightRoleData.Count > 0)
+        {
+            ChickPlayerInfo.instance.UpLoadAllRoom();
+            LocalStartFight.instance.UpdateInfo(FightRoleData, currentLesson);
+        }
     }
 
     private void ChickType()
