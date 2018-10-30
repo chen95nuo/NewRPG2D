@@ -523,7 +523,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// 宝宝成长开始
     /// </summary>
     /// <param name="data"></param>
-    public void ChildrenStart(RoleBabyData data, int NeedTime = 360)
+    public void ChildrenStart(RoleBabyData data, int NeedTime = 10)
     {
         data.time = NeedTime;
         int index = CTimerManager.instance.AddListener(1, childNeedTime, ChildrenCallback);

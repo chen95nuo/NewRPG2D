@@ -106,4 +106,14 @@ public class UIEquipView : TTUIPage
         viewGridPoint_2.gameObject.SetActive(false);
         base.ClosePage();
     }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
+    }
 }

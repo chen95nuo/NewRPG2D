@@ -106,5 +106,6 @@ public class HallRole : MonoBehaviour
     public void BabyComplete()
     {
         UIPanelManager.instance.ShowPage<UIRoleTipGroup>();
+        UIRoleTipGroup.instance.ShowBabyIcon(this);
     }
 }
