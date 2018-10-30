@@ -23,7 +23,7 @@ public class LocalServer : TSingleton<LocalServer>
 
     public List<ServerBuildData> saveRoomData;
     private List<ServerHallRoleData> saveRoleData;
-    private List<RoleBabyData> saveBabydata;
+    private List<RoleBabyData> saveBabydata = new List<RoleBabyData>();
 
     /// <summary>
     /// 房间施工用 计时器

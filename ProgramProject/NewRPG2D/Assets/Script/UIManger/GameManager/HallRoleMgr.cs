@@ -144,7 +144,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         {
             sex = UnityEngine.Random.Range(1, 3);
         }
-        int star = UnityEngine.Random.Range(1, 4);
+        int star = UnityEngine.Random.Range(0, 3);
         int[] level = new int[6];
         for (int i = 0; i < level.Length; i++)
         {

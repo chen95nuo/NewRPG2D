@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Assets.Script.UIManger;
 using Assets.Script.Battle;
+using System;
+using DG.Tweening;
 
 public class UIRoleInfo : TTUIPage
 {
@@ -75,6 +77,39 @@ public class UIRoleInfo : TTUIPage
     //这个是用的角色实例的引用
     #endregion
 
+    public RectTransform bag;
+    public Button btn_Arrow;
+    private bool showBag = true;
+
+    public ChangeRoleEquip[] roleAnim;
+    private ChangeRoleEquip currentRoleSkil;
+
+    public bool ShowBag
+    {
+        get
+        {
+            return showBag;
+        }
+
+        set
+        {
+            bool temp = value;
+            if (temp != showBag)
+            {
+                showBag = value;
+                if (showBag)
+                {
+                    Debug.Log("运行了");
+                    bag.DOAnchorPos(new Vector2(-15, 0), 1.0f);
+                }
+                else
+                {
+                    Debug.Log("运行了");
+                    bag.DOAnchorPos(new Vector2(-815, 0), 1.0f);
+                }
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -83,6 +118,7 @@ public class UIRoleInfo : TTUIPage
         HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
 
         btn_back.onClick.AddListener(ClosePage);
+        btn_Arrow.onClick.AddListener(ChickArrow);
         for (int i = 0; i < btn_AllType.Length; i++)
         {
             btn_AllType[i].onClick.AddListener(ChickBagType);
@@ -92,6 +128,11 @@ public class UIRoleInfo : TTUIPage
             btn_Equip[i].onClick.AddListener(ChickEquipClick);
         }
         btn_AllType[currentBtnNumb].interactable = false;
+    }
+
+    private void ChickArrow()
+    {
+        ShowBag = !ShowBag;
     }
 
     private void OnDestroy()
@@ -143,7 +184,7 @@ public class UIRoleInfo : TTUIPage
         {
             Train.SetActive(false);
         }
-
+        Debug.Log("星级: " + data.Star);
         for (int i = 0; i < sp_Star.Length; i++)
         {
             if (i <= data.Star)
@@ -154,6 +195,22 @@ public class UIRoleInfo : TTUIPage
             {
                 sp_Star[i].sprite = starSp[1];
             }
+        }
+
+        switch (data.sexType)
+        {
+            case SexTypeEnum.Man:
+                currentRoleSkil = roleAnim[0];
+                roleAnim[0].gameObject.SetActive(true);
+                roleAnim[1].gameObject.SetActive(false);
+                break;
+            case SexTypeEnum.Woman:
+                currentRoleSkil = roleAnim[1];
+                roleAnim[0].gameObject.SetActive(false);
+                roleAnim[1].gameObject.SetActive(true);
+                break;
+            default:
+                break;
         }
 
         GetRoleEquip(data);
@@ -288,6 +345,7 @@ public class UIRoleInfo : TTUIPage
                 btn_Equip[i].image.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + roleEquips[i].QualityType.ToString());
                 equipIcon[i].sprite = GetSpriteAtlas.insatnce.GetIcon(roleEquips[i].SpriteName);
                 //这里顺便更换角色皮肤
+                currentRoleSkil.ChangeEquip(roleEquips[i].EquipType, roleEquips[i].EquipName, role.sexType);
             }
             else
             {

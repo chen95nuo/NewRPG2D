@@ -45,13 +45,12 @@ public class GameMain : MonoBehaviour
     {
         LocalServer.instance.StartInit();
 
-        if (EquipmentMgr.instance.GetAllEquipmentData().Count <= 0)
+
+        for (int i = 1; i < 26; i++)
         {
-            for (int i = 1; i < 26; i++)
-            {
-                int index = 10000 + i;
-                EquipmentMgr.instance.CreateNewEquipment(index);
-            }
+            int index = 10000 + i;
+            EquipmentMgr.instance.CreateNewEquipment(index);
         }
     }
+
 }

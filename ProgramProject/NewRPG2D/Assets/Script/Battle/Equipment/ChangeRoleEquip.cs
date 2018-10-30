@@ -14,6 +14,8 @@ namespace Assets.Script.Battle
         [SerializeField]
         private SkeletonAnimation skeletonAnimation;
         [SerializeField]
+        private SkeletonGraphic UIskeletonAnimation;
+        [SerializeField]
         private Material sourceMaterial;
 
         private Skin customSkin;
@@ -37,7 +39,10 @@ namespace Assets.Script.Battle
 
         private void Awake()
         {
-            skeleton = skeletonAnimation.Skeleton;
+            if (UIskeletonAnimation != null)
+                skeleton = UIskeletonAnimation.Skeleton;
+            else
+                skeleton = skeletonAnimation.Skeleton;
             customSkin = customSkin ?? new Skin("custom skin");
             skeleton.SetSkin(customSkin);
         }
