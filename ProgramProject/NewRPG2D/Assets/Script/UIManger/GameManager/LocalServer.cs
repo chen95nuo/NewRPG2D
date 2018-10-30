@@ -22,7 +22,7 @@ public class LocalServer : TSingleton<LocalServer>
     }
 
     private List<ServerBuildData> saveRoomData;
-    private List<HallRoleData> saveRoleData;
+    private List<ServerHallRoleData> saveRoleData;
 
     /// <summary>
     /// 房间施工用 计时器
@@ -66,20 +66,28 @@ public class LocalServer : TSingleton<LocalServer>
             TestRoom();
         }
         ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
+        HallRoleMgr.instance.DicClear();
         if (saveRoleData == null)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                HallRoleMgr.instance.BuildNewRole(0);
-            }
-            HallRole data_1 = HallRoleMgr.instance.BuildNewRole(1);
-            HallRole data_2 = HallRoleMgr.instance.BuildNewRole(2);
-            List<ServerHallRoleData> s_Data = new List<ServerHallRoleData>();
-            s_Data.Add(new ServerHallRoleData(9, data_1));
-            s_Data.Add(new ServerHallRoleData(9, data_2));
-            ChickPlayerInfo.instance.ChickRoleDic(s_Data);
+            HallRoleData data_1 = HallRoleMgr.instance.BuildNewRole(1);
+            HallRoleData data_2 = HallRoleMgr.instance.BuildNewRole(2);
+            saveRoleData = new List<ServerHallRoleData>();
+            saveRoleData.Add(new ServerHallRoleData(9, data_1));
+            saveRoleData.Add(new ServerHallRoleData(9, data_2));
         }
+        ChickPlayerInfo.instance.ChickRoleDic(saveRoleData);
         MagicLevel();
+    }
+
+    public void RoleChangeRoom(HallRoleData role, int roomID)
+    {
+        for (int i = 0; i < saveRoleData.Count; i++)
+        {
+            if (saveRoleData[i].role == role)
+            {
+                saveRoleData[i].RoomId = roomID;
+            }
+        }
     }
 
     /// <summary>

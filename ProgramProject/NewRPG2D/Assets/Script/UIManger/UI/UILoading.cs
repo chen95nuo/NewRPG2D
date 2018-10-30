@@ -46,6 +46,6 @@ public class UILoading : TTUIPage
 
     public override void Active(bool needAnim = true)
     {
-        base.Active(needAnim);
+        base.Active(needAnim = false);
     }
 }

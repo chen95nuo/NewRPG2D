@@ -13,6 +13,7 @@ using UnityEngine;
 
 public class HallRole : MonoBehaviour
 {
+    public int roleId;
     public RoleBabyData currentBaby;
     private HallRoleData currentData;
     public Transform TipPoint;
@@ -73,7 +74,7 @@ public class HallRole : MonoBehaviour
     public void ChangeSkil(EquipmentRealProperty equipment)
     {
         Debug.Log("换皮肤 类型：" + equipment.EquipType + "  Name: " + equipment.EquipName);
-        RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName,sex);
+        RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName, sex);
     }
 
     public void ChangeType(BuildRoomName name)

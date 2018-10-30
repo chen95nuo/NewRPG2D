@@ -34,8 +34,8 @@ public class ServerBuildData
 public class ServerHallRoleData
 {
     public int RoomId;
-    public HallRole role;
-    public ServerHallRoleData(int id, HallRole data)
+    public HallRoleData role;
+    public ServerHallRoleData(int id, HallRoleData data)
     {
         this.RoomId = id;
         this.role = data;

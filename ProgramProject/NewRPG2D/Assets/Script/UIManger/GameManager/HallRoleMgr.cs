@@ -10,8 +10,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     Dictionary<int, RoleBabyData> childrenTime = new Dictionary<int, RoleBabyData>();
     Dictionary<int, RoleLoveHelper> loveData = new Dictionary<int, RoleLoveHelper>();
     private List<HallRole> AllHallRole = new List<HallRole>();
+    private List<HallRoleData> AllRole = new List<HallRoleData>();
     private int childNeedTime = 360;//小孩所需时间
     private int LoveTime = 10;//恋爱所需时间
+    private int RoleId;
 
     private GameObject roleBoy;//男孩
     private GameObject roleGirl;//女孩
@@ -66,6 +68,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
     }
 
+    public void DicClear()
+    {
+        dic.Clear();
+    }
     public void AddRole(HallRoleData data, HallRole role)
     {
         dic.Add(data, role);
@@ -76,6 +82,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
     }
 
+    public List<HallRoleData> GetAllRole()
+    {
+        return AllRole;
+    }
+
     public void BuildServerRole(HallRoleData data, RoomMgr room)
     {
         int count = MainCastle.instance.NewRolePoint.childCount;
@@ -84,7 +95,15 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         role.UpdateInfo(data);
     }
 
-    public HallRole BuildNewRole(int sex)
+    public HallRole AddNewRoleInstance(HallRoleData data)
+    {
+        HallRole role = InstantiateRole(data.sexType, false);
+        role.UpdateInfo(data);
+        AllRole.Add(data);
+        return role;
+    }
+
+    public HallRoleData BuildNewRole(int sex)
     {
         if (sex == 0)
         {
@@ -97,11 +116,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             level[i] = Random.Range(1, 4);
         }
         HallRoleData data = new HallRoleData(sex, star, level);
-        int count = MainCastle.instance.NewRolePoint.childCount - 1;
-        HallRole role = InstantiateRole((SexTypeEnum)sex, false);
-        role.transform.localPosition = Vector3.left * count;
-        role.UpdateInfo(data);
-        return role;
+        return data;
     }
 
     /// <summary>

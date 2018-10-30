@@ -195,7 +195,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             {
                 if (allRoom[i].currentBuildData.id == data[j].RoomId)
                 {
-                    allRoom[i].AddRole(data[j].role);
+                    HallRole role = HallRoleMgr.instance.AddNewRoleInstance(data[j].role);
+                    allRoom[i].AddRole(role);
                 }
             }
         }
