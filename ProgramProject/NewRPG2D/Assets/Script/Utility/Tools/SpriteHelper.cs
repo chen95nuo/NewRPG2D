@@ -50,16 +50,13 @@ namespace Assets.Script.Utility.Tools
             {
                 tempSpriteAtlas = SetIconImageDic(spriteAtlasType);
             }
-            var sprite = tempSpriteAtlas.GetSprite(name);
 
-            if (sprite != null)
-            {
-                return sprite;
-            }
-            else
+            if (tempSpriteAtlas == null)
             {
                 return null;
             }
+
+            return tempSpriteAtlas.GetSprite(name);
         }
 
         private SpriteAtlas SetIconImageDic(SpriteAtlasTypeEnum spriteAtlasType)
@@ -67,6 +64,10 @@ namespace Assets.Script.Utility.Tools
             SpriteAtlas tempSpriteAtlas = null;
             string defaultPath = spritePathDic[spriteAtlasType];
             tempSpriteAtlas = Resources.Load<SpriteAtlas>(defaultPath);
+            if (tempSpriteAtlas == null)
+            {
+                return null;
+            }
             iconImageDic[spriteAtlasType] = tempSpriteAtlas;
             Sprite[] sprites = new Sprite[tempSpriteAtlas.spriteCount];
             tempSpriteAtlas.GetSprites(sprites);

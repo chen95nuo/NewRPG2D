@@ -150,6 +150,9 @@ namespace Assets.Script.Battle
             }
             else
             {
+                RoleDetailInfo = new RoleDetailData();
+                RoleDetailInfo.IconName = currentRoleData.SpriteName;
+                RoleDetailInfo.Name = currentRoleData.ItemName;
                 for (int i = 0; i < currentRoleData.SpecialPropertyDatas.Length; i++)
                 {
                     RoleWeapon.AddSpecialBuffs(currentRoleData.SpecialPropertyDatas[i]);

@@ -14,7 +14,7 @@ namespace Assets.Script.Battle
         public HurtTypeEnum HurtType { get; private set; } // 伤害类型
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
-
+        public float MaxHp { get; private set; }
         public float Damage
         {
             get { return UnityEngine.Random.Range(MinDamage, MaxDamage); }
@@ -75,6 +75,7 @@ namespace Assets.Script.Battle
             {
                 AttackRange = 11;
             }
+            MaxHp = RoleHp;
         }
 
         public PropertyData GetPropertyData()

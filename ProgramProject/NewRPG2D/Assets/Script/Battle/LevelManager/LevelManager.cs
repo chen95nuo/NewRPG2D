@@ -231,14 +231,6 @@ namespace Assets.Script.Battle.LevelManager
                 DebugHelper.LogError("  -----------------Lose----- ");
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 //GoFightMgr.instance.MissionComplete();
-                for (int i = 0; i < GameRoleMgr.instance.RolesEnemyList.Count; i++)
-                {
-                    RoleBase role = GameRoleMgr.instance.RolesEnemyList[i];
-                    if (role.IsDead == false)
-                    {
-                        role.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Win, true);
-                    }
-                }
                 isGameOver = true;
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, false);
             }
