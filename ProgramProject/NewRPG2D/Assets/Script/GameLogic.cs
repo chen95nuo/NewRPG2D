@@ -34,8 +34,8 @@ namespace Assets.Script
             {
                 Destroy(this);
             }
-        
-          //  Debug.Log("-----------GameHallScene-----------" + ((1 << 6) | 3).ToString());
+
+            //  Debug.Log("-----------GameHallScene-----------" + ((1 << 6) | 3).ToString());
         }
 
         /// <summary>
@@ -86,25 +86,25 @@ namespace Assets.Script
         public void Update()
         {
 
-                if (CTimerManager.HasInstance())
-                {
-                    CTimerManager.instance.Update(Time.smoothDeltaTime);
-                }
-                if (ResourcesLoadMgr.HasInstance())
-                {
-                    ResourcesLoadMgr.instance.Update(Time.smoothDeltaTime);
-                }
-                if (InputContorlMgr.HasInstance())
-                {
-                    InputContorlMgr.instance.Update(Time.deltaTime);
-                }
+            if (CTimerManager.HasInstance())
+            {
+                CTimerManager.instance.Update(Time.smoothDeltaTime);
+            }
+            if (ResourcesLoadMgr.HasInstance())
+            {
+                ResourcesLoadMgr.instance.Update(Time.smoothDeltaTime);
+            }
+            if (InputContorlMgr.HasInstance())
+            {
+                InputContorlMgr.instance.Update(Time.deltaTime);
+            }
         }
 
         public void FixedUpdate()
         {
         }
 
-       
+
 
         public void OnDestroy()
         {

@@ -77,8 +77,9 @@ public class UIRoleChildGrid : MonoBehaviour
                 bool isTrue = allRoom[i].AddRole(newRole);
                 if (isTrue)
                 {
-                    RemoveInfo();
                     role.RoleData.babyData = null;
+
+                    RemoveInfo();
                     HallRoleMgr.instance.ChildrenStart(newRole.currentBaby);
                     return;
                 }

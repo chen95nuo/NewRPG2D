@@ -11,7 +11,7 @@ public class UILessonEnemy : MonoBehaviour
 
     public void UpdateInfo(int enemyID)
     {
-        RolePropertyData roleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(enemyID);
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(roleData.SpriteName);
+        //RolePropertyData roleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(enemyID);
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetEnemyIcon(roleData.SpriteName);
     }
 }

@@ -186,19 +186,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         //BuildNewChild(roleHelper_1);
         return roleHelper_1;
     }
-    ///// <summary>
-    ///// 生成新宝宝
-    ///// </summary>
-    ///// <param name="data"></param>
-    //private void BuildNewChild(RoleChildrenData data)
-    //{
-    //    GameObject go = Resources.Load("UIPrefab/Role/Children") as GameObject;
-    //    go = GameObject.Instantiate(go, MainCastle.instance.NewRolePoint);
-    //    int count = MainCastle.instance.NewRolePoint.childCount - 1;
-    //    go.transform.position = GetRole(data.father).transform.position;
-    //    HallRole role = go.GetComponent<HallRole>();
-    //    role.UpdateInfo(data.child);
-    //}
 
     /// <summary>
     /// 驱逐角色
@@ -288,6 +275,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
         timeAction.Add(index, trainHelper);
     }
+
     /// <summary>
     /// 训练中监听
     /// </summary>
@@ -309,11 +297,13 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             CompleteTrain(index);
         }
     }
+
     public RoleTrainHelper GetTrainRole(int index)
     {
         RoleTrainHelper role = timeAction[index];
         return role;
     }
+
     /// <summary>
     /// 角色训练中止
     /// </summary>
@@ -556,9 +546,11 @@ public class RoleLoveHelper
 {
     public int time;
     public HallRoleData[] role;
+    public int allTime;
     public RoleLoveHelper(HallRoleData role_1, HallRoleData role_2, int time)
     {
         this.time = time;
+        allTime = time;
         this.role = new HallRoleData[2];
         role[0] = role_1;
         role[1] = role_2;

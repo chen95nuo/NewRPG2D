@@ -63,6 +63,11 @@ public class UIDraggingRole : TTUIPage
                     }
                 }
             }
+            else
+            {
+                object st = "请将角色放置正确位置";
+                UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            }
         }
         CameraControl.instance.isHoldRole = false;
     }
@@ -188,5 +193,15 @@ public class UIDraggingRole : TTUIPage
         Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
         return "";
 
+    }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
     }
 }

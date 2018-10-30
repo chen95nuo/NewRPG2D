@@ -84,4 +84,14 @@ public class UIRoleTipGroup : TTUIPage
         }
         Debug.LogError("没有找到对应的怀孕图标");
     }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
+    }
 }

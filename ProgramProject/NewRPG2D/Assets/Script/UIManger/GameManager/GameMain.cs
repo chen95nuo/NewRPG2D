@@ -16,20 +16,22 @@ public class GameMain : MonoBehaviour
         {
             Instance = this;
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         Init();
     }
 
-    private void Init()
+    public void Init()
     {
-        UIPanelManager.instance.ShowPage<UILogin>();
-
+        UIPanelManager.instance.ShowPage<UILoading>();
         Invoke("test", 0.5f);
     }
 
     private void test()
     {
         ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
-       // ReadXmlNewMgr.instance.ReadXmlByType(XmlName., XmlName.RolePropertyData, XmlTypeEnum.Battle);
         Invoke("test_1", 0.5f);
         Invoke("test_2", 1.0f);
     }

@@ -17,6 +17,7 @@ public class UIRoleGrid : MonoBehaviour
     public GameObject lockOBJ;
 
     public Sprite[] sp;
+    public Sprite addRole;
 
     private bool isShow = false;
 
@@ -71,20 +72,32 @@ public class UIRoleGrid : MonoBehaviour
     /// 卧室
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateInfo(HallRoleData data, UIRoomInfo roomInfo, int index)
+    public void UpdateLivineRoom(HallRoleData data, UIRoomInfo roomInfo, int index)
     {
-
-        headIcon.gameObject.SetActive(true);
-
-        txt_Level.text = data.Name;
-        txt_Level.gameObject.SetActive(true);
-        txt_Name.gameObject.SetActive(false);
         potoBg.sprite = sp[0];
+        txt_Name.text = data.Name;
+
+        Image_Icon.enabled = true;
+
+        if (data == null)
+        {
+            headIcon.sprite = addRole;
+        }
+        else
+        {
+            headIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.IconName);
+        }
         if (data.LoveType == RoleLoveType.WaitFor)
         {
             txt_Type.text = "等待伴侣中";
         }
         else txt_Type.text = "";
+    }
+    public void UpdateLivineRoom(UIRoomInfo roomInfo, int index)
+    {
+        Image_Icon.enabled = false;
+        txt_Name.text = "";
+        txt_Type.text = "";
     }
 
     public void ShowAllRole()

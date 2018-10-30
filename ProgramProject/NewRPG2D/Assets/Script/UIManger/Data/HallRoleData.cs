@@ -7,6 +7,7 @@ public class HallRoleData
 {
     public readonly SexTypeEnum sexType;
     private string name;//名字
+    private string iconName;
     private int star;//星级
     private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
     //private int fightLevel;//战斗等级
@@ -25,6 +26,7 @@ public class HallRoleData
     public bool isBaby;//是不是小孩
     public RoleBabyData babyData;//宝宝数据
     public RoomMgr currentRoom;
+    private WeaponProfessionEnum professionType;
 
     public string Name
     {
@@ -558,6 +560,36 @@ public class HallRoleData
                 equip = new int[5];
             }
             return equip;
+        }
+    }
+
+    public WeaponProfessionEnum ProfessionType
+    {
+        get
+        {
+            if (equip[0] == 0)
+            {
+                professionType = WeaponProfessionEnum.Fighter;
+            }
+            else
+            {
+                EquipmentRealProperty equipData = EquipmentMgr.instance.GetEquipmentByEquipId(equip[0]);
+                professionType = equipData.WeaponProfession;
+            }
+            return professionType;
+        }
+    }
+
+    public string IconName
+    {
+        get
+        {
+            return iconName;
+        }
+
+        set
+        {
+            iconName = value;
         }
     }
     #endregion

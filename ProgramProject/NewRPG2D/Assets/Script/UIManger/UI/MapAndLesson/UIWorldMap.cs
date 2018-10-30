@@ -50,5 +50,13 @@ public class UIWorldMap : TTUIPage
         }
     }
 
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
 
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
+    }
 }

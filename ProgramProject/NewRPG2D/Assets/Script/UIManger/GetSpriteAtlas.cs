@@ -13,6 +13,8 @@ public class GetSpriteAtlas : MonoBehaviour
     private SpriteAtlas Icons;
     [SerializeField]
     private SpriteAtlas RoomIcons;
+    [SerializeField]
+    private SpriteAtlas EnemyIcons;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class GetSpriteAtlas : MonoBehaviour
         {
             return sp;
         }
-        Debug.LogError("没有找到图片:" + name);
+        Debug.LogError("没有找到图片: " + name);
         return null;
     }
     public Sprite GetIcon(string name)
@@ -36,7 +38,24 @@ public class GetSpriteAtlas : MonoBehaviour
         {
             return sp;
         }
-        Debug.LogError("没有找到图片:" + name);
+        Debug.LogError("没有找到图片: " + name);
+        return null;
+    }
+    public Sprite GetRoleIcon(string name)
+    {
+        Sprite sp = null;
+
+        return sp;
+    }
+
+    public Sprite GetEnemyIcon(string name)
+    {
+        Sprite sp = EnemyIcons.GetSprite(name);
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片: " + name);
         return null;
     }
 

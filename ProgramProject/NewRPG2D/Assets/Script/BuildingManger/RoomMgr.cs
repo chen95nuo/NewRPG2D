@@ -1034,11 +1034,11 @@ public abstract class RoomMgr : MonoBehaviour
         else
         {
             Debug.Log("当前角色原房间为空 进入漫游状态");
-            role.RoleData.currentRoom.RemoveRole(role);
+            RoomMgr room = MainCastle.instance.FindRoom(BuildRoomName.ThroneRoom);
             HallRoleData data = currentBuildData.roleData[index];
             HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
-            roleTemp.ChangeType(BuildRoomName.Nothing);
-            currentBuildData.roleData[index] = role.RoleData;
+            room.AddRole(roleTemp);
+            AddRole(role);
         }
         return true;
     }

@@ -78,11 +78,7 @@ public class UIScreenRole : TTUIPage
                 break;
         }
     }
-    private void OnEnable()
-    {
-        rt.anchoredPosition = Vector3.down * 500;
-        rt.DOAnchorPos(Vector3.zero, 0.5f);
-    }
+
     /// <summary>
     /// 开启面板同时显示的界面 默认显示排列
     /// </summary>
@@ -165,5 +161,15 @@ public class UIScreenRole : TTUIPage
             }
         }
     }
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
 
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
+        rt.anchoredPosition = Vector3.down * 500;
+        rt.DOAnchorPos(Vector3.zero, 0.5f);
+    }
 }

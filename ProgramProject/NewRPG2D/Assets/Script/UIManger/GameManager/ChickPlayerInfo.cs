@@ -46,7 +46,6 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             }
             dic.Add(item.Key, new LocalBuildingData[item.Value.Length]);
         }
-        Debug.Log(dic);
     }
 
     /// <summary>

@@ -101,7 +101,7 @@ public enum WeaponProfessionEnum
 public enum ProfessionNeedEnum
 {
     None,
-    Fight = 1,              //战斗
+    Fight = 1,          //战斗
     Mint,               //会计
     Kitchen,            //厨师
     Laboratory,         //魔法

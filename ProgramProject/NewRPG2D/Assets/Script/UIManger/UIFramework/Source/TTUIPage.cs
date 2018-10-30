@@ -79,20 +79,27 @@ namespace Assets.Script.UIManger
         /// <summary>
         /// Only Deactive UI wont clear Data.
         /// </summary>
-        public virtual void Hide()
+        public virtual void Hide(bool needAnim = true)
         {
-            if (UIAnimation != null)
+            if (needAnim)
             {
-                float delayTime = UIAnimation[HideAnimationName].time;
-                StartCoroutine(DelayHidePage(delayTime));
+                if (UIAnimation != null)
+                {
+                    float delayTime = UIAnimation[HideAnimationName].time;
+                    StartCoroutine(DelayHidePage(delayTime));
+                }
+                else
+                {
+                    Sequence mSequence = DOTween.Sequence();
+                    mSequence.Append(transform.DOScale(1.08f, 0.1f));
+                    mSequence.Append(transform.DOScale(0.98f, 0.1f));
+                    mSequence.Append(transform.DOScale(1.0f, 0f));
+                    mSequence.OnComplete(() => gameObject.SetActive(false));
+                }
             }
             else
             {
-                Sequence mSequence = DOTween.Sequence();
-                mSequence.Append(transform.DOScale(0.1f, 0.5f));
-                mSequence.Append(transform.DOScale(1.5f, 0.5f));
-                mSequence.OnComplete(()=> gameObject.SetActive(false));
-               
+                gameObject.SetActive(false);
             }
             isActived = false;
             //set this page's data null when hide.
@@ -100,12 +107,23 @@ namespace Assets.Script.UIManger
         }
 
         ///Active this UI
-        private void Active()
+        public virtual void Active(bool needAnim = true)
         {
-            if (UIAnimation != null)
+            if (needAnim)
             {
-                float delayTime = UIAnimation[ShowAnimationName].time;
-                StartCoroutine(DelayShowPage(delayTime));
+                if (UIAnimation != null)
+                {
+                    float delayTime = UIAnimation[ShowAnimationName].time;
+                    StartCoroutine(DelayShowPage(delayTime));
+                }
+                else
+                {
+                    this.gameObject.SetActive(true);
+                    Sequence mSequence = DOTween.Sequence();
+                    mSequence.Append(transform.DOScale(0.98f, 0.1f));
+                    mSequence.Append(transform.DOScale(1.08f, 0.1f));
+                    mSequence.OnComplete(() => transform.localScale = Vector3.one);
+                }
             }
             else
             {

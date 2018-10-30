@@ -308,6 +308,18 @@ public class Castle : MonoBehaviour
             }
         }
     }
+    public RoomMgr FindRoom(BuildRoomName name)
+    {
+        for (int i = 0; i < allroom.Count; i++)
+        {
+            if (allroom[i].RoomName == name)
+            {
+                return allroom[i];
+            }
+        }
+        Debug.LogError("没有找到房间");
+        return null;
+    }
 
     /// <summary>
     /// 生成房间

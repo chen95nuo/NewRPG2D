@@ -9,12 +9,8 @@ public class UILivingRoomInfo : UIRoomInfo
     public Text txt_Tip_1;
     public Text txt_Tip_2;
     public Text txt_roleNumber;
-    public Image[] gridBG;
 
-    public Text txt_Time_1;
-    public Text txt_Time_2;
-    public Text txt_Time_3;
-
+    public UILivingRoomHelper[] Grids = new UILivingRoomHelper[3];
     private List<UIRoleGrid> roleGrids = new List<UIRoleGrid>();
 
     protected override void Awake()
@@ -39,15 +35,12 @@ public class UILivingRoomInfo : UIRoomInfo
         {
             case 3:
                 ChickGridBG(1);
-                txt_Time_1.text = "";
                 break;
             case 6:
                 ChickGridBG(2);
-                txt_Time_2.text = "";
                 break;
             case 9:
                 ChickGridBG(3);
-                txt_Time_3.text = "";
                 break;
             default:
                 break;
@@ -60,11 +53,11 @@ public class UILivingRoomInfo : UIRoomInfo
         {
             if (roomMgr.currentBuildData.roleData[i] != null)
             {
-                roleGrids[i].UpdateInfo(roomMgr.currentBuildData.roleData[i], this, i);
+                roleGrids[i].UpdateLivineRoom(roomMgr.currentBuildData.roleData[i], this, i);
             }
             else
             {
-                roleGrids[i].UpdateInfo(this, i);
+                roleGrids[i].UpdateLivineRoom(this, i);
             }
         }
     }
@@ -84,22 +77,25 @@ public class UILivingRoomInfo : UIRoomInfo
             {
                 data[i].LoveType = RoleLoveType.Nothing;
                 data[i + 1].LoveType = RoleLoveType.Nothing;
+                int num = 0;
                 if (i == 0 || i == 1)
                 {
-                    txt_Time_1.text = "什么也不会发生";
+                    num = 0;
                 }
                 else if (i == 2 || i == 3)
                 {
-                    txt_Time_2.text = "什么也不会发生";
+                    num = 1;
                 }
                 else if (i == 4 || i == 5)
                 {
-                    txt_Time_3.text = "什么也不会发生";
+                    num = 2;
                 }
                 else
                 {
                     Debug.LogError("角色位置错误");
+                    return;
                 }
+                Grids[num].UpdateDontNothing();
             }
         }
     }
@@ -110,15 +106,16 @@ public class UILivingRoomInfo : UIRoomInfo
     /// <param name="index"></param>
     private void ChickGridBG(int index)
     {
-        for (int i = 0; i < gridBG.Length; i++)
+        for (int i = 0; i < Grids.Length; i++)
         {
+            Grids[i].UpdateInfo();
             if (i < index)
             {
-                gridBG[i].gameObject.SetActive(true);
+                Grids[i].gameObject.SetActive(true);
             }
             else
             {
-                gridBG[i].gameObject.SetActive(false);
+                Grids[i].gameObject.SetActive(false);
             }
         }
     }
@@ -136,22 +133,27 @@ public class UILivingRoomInfo : UIRoomInfo
             if (roleData[i] == loveData.role[0] && roleData[i + 1] == loveData.role[1])
             {
                 Debug.Log("找到房间对应角色");
+                string st = SystemTime.instance.TimeNormalized(loveData.time);
+                float temp = (float)(loveData.allTime - loveData.time) / (float)loveData.allTime;
+                int num = 0;
                 if (i == 0 || i == 1)
                 {
-                    txt_Time_1.text = loveData.time.ToString();
+                    num = 0;
                 }
                 else if (i == 2 || i == 3)
                 {
-                    txt_Time_2.text = loveData.time.ToString();
+                    num = 1;
                 }
                 else if (i == 4 || i == 5)
                 {
-                    txt_Time_3.text = loveData.time.ToString();
+                    num = 2;
                 }
                 else
                 {
                     Debug.LogError("角色位置错误");
+                    return;
                 }
+                Grids[num].UpdateInfo(temp, st);
                 return;
             }
         }
