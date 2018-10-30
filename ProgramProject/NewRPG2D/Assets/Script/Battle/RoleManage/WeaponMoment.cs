@@ -22,31 +22,40 @@ namespace Assets.Script.Battle
         public void SetEquipSlot(int equipId, SexTypeEnum sexType)
         {
             EquipmentRealProperty equipment = EquipmentMgr.instance.GetEquipmentByEquipId(equipId);
+            if (equipment == null)
+            {
+                return;
+            }
             currentHeroRole.MonoRoleRender.CurrentRoleEquip.ChangeEquip(equipment.EquipType, equipment.EquipName, sexType);
             for (int i = 0; i < equipment.SpecialProperty.Count; i++)
             {
-                specialBuffs.Add(GetRealBuff(equipment.SpecialProperty[i]));
+                AddSpecialBuffs(equipment.SpecialProperty[i]);
             }
             PropertyData data = currentHeroRole.RolePropertyValue.GetPropertyData();
             data.HurtType = equipment.HurtType;
             data.AttackRange = equipment.AttackRange;
             data.AttackSpeed = equipment.AttackSpeed;
             data.WeaponType = equipment.WeaponType;
-            data.ProfessionNeed = equipment.ProfessionNeed;
+            data.ProfessionNeed = equipment.WeaponProfession;
             SetPropertyValue(equipment.RoleProperty, ref data);
+        }
+
+        public void AddSpecialBuffs(SpecialPropertyData data)
+        {
+            specialBuffs.Add(GetRealBuff(data));
         }
 
         private void SetPropertyValue(Dictionary<RoleAttribute, float> roleProperty, ref PropertyData data)
         {
             data.RoleHp += roleProperty[RoleAttribute.HP];
-            data.Damage += (roleProperty[RoleAttribute.DPS] / data.AttackRange);
+            data.MinDamage += (roleProperty[RoleAttribute.MinDamage]);
+            data.MaxDamage += (roleProperty[RoleAttribute.MaxDamage]);
             data.MagicAttack += roleProperty[RoleAttribute.INT];
             data.MagicArmor += roleProperty[RoleAttribute.MArmor];
             data.PhysicArmor += roleProperty[RoleAttribute.PArmor];
             data.HitPercent += roleProperty[RoleAttribute.HIT];
             data.AviodHurtPercent += roleProperty[RoleAttribute.Dodge];
             data.CriticalPercent += roleProperty[RoleAttribute.Crt];
-
             currentHeroRole.RolePropertyValue.InitBaseRoleValue(data);
         }
 

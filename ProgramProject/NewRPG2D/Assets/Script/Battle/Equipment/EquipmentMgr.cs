@@ -80,7 +80,16 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
 
     public EquipmentRealProperty GetEquipmentByEquipId(int equipId)
     {
-        return AllEquipmentData[equipId];
+        EquipmentRealProperty data = null;
+        if (AllEquipmentData.TryGetValue(equipId, out data))
+        {
+            return data;
+        }
+        else
+        {
+
+            return null;
+        }
     }
 
     public float GetEquipmentValueByEquipIdAndType(int equipId, RoleAttribute type)

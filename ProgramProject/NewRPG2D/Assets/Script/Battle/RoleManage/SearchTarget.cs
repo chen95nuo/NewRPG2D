@@ -28,7 +28,7 @@ namespace Assets.Script.Battle
         public void InitData()
         {
             cacheSkillSlot = SkillSlotTypeEnum.NormalAttack;
-            attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
+            attackDistance = mCurrentRole.RolePropertyValue.AttackRange;
             // Debug.LogError("attack range == " + attackDistance);
             //  attackDistance = attackDistance * attackDistance;
             limitAngle = mCurrentRole.AttackType == AttackTypeEnum.ShortRange ? 40 : 90;
@@ -51,7 +51,7 @@ namespace Assets.Script.Battle
                 if (mCurrentRole.CurrentSlot != cacheSkillSlot)
                 {
                     cacheSkillSlot = mCurrentRole.CurrentSlot;
-                    attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(cacheSkillSlot).AttackRange;
+                    attackDistance = mCurrentRole.RolePropertyValue.AttackRange;
                     //  attackDistance = attackDistance * attackDistance;
                 }
                 Vector3 dis = targetRole.RoleTransform.position - roleTransform.position;
@@ -79,6 +79,7 @@ namespace Assets.Script.Battle
                     if (bStartAttack == false)
                     {
                         bStartAttack = true;
+                        SearchEnemyByDistance();
                         mCurrentRole.SetRoleActionState(ActorStateEnum.NormalAttack);
                     }
                 }
@@ -102,7 +103,7 @@ namespace Assets.Script.Battle
             float minDistance = float.MaxValue;
             for (int i = 0; i < allRole.Count; i++)
             {
-                if (mCurrentRole.TeamId == allRole[i].TeamId)
+                if (mCurrentRole.TeamId == allRole[i].TeamId || allRole[i].IsDead)
                 {
                     continue;
                 }
@@ -117,10 +118,10 @@ namespace Assets.Script.Battle
         }
 
 
-        private Vector3 GetMovePosition(Transform currentRoleTransform, Transform targetRoleTransform, float attackDistance)
+        private Vector3 GetMovePosition(Transform currentRoleTransform, Transform targetRoleTransform, float _attackDistance)
         {
             Vector3 movePosition;
-            movePosition = targetRoleTransform.position + (targetRoleTransform.position - currentRoleTransform.position).normalized * attackDistance;
+            movePosition = targetRoleTransform.position + (targetRoleTransform.position - currentRoleTransform.position).normalized * _attackDistance;
             return movePosition;
         }
     }

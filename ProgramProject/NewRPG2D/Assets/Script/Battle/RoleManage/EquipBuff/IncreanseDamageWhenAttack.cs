@@ -23,7 +23,7 @@ namespace Assets.Script.Battle
         public override void Init(RoleBase role, float param1, float param2, float param3)
         {
             base.Init(role, param1, param2, param3);
-            extraDamagePercent = param1;
+            extraDamagePercent = param1*0.01f;
         }
 
         public override void UpdateLogic(float deltaTime)

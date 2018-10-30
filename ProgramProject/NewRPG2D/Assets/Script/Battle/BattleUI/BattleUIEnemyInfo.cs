@@ -29,6 +29,7 @@ namespace Assets.Script.Battle.BattleUI
         private void OnDestroy()
         {
             EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.ClickEnemyRole, OnClickEnemyRole);
+            EventManager.instance.RemoveListener<RoleBase>(EventDefineEnum.HpChange, OnHpChange);
         }
 
         private void OnClickEnemyRole(RoleBase roleInfo)

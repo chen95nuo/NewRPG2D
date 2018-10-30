@@ -25,7 +25,7 @@ namespace Assets.Script.Battle.RoleState
 
         public override void Enter(RoleBase mRoleBase)
         {
-            CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
+          //  CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
             base.Enter(mRoleBase);
             skillCDTime = 1 / mRoleBase.RolePropertyValue.AttackSpeed;
             addTime = 0;
@@ -59,8 +59,8 @@ namespace Assets.Script.Battle.RoleState
             {
                 string aiObjectName = mRoleBase.RoleTransform.name + "_aiObjcet";
                 AIObjectRenderer aiObject = GameRoleMgr.instance.SetRoleTransform<AIObjectRenderer>("BattleAIObject/AIObjectCommon", aiObjectName, 1,
-                    mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position + mRoleBase.RoleTransform.up, 0);
-                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 10 });
+                    mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position + mRoleBase.RoleTransform.up * 2, 0);
+                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 20 });
             }
             base.HitTarget(mRoleBase);
         }

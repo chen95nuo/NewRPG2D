@@ -28,7 +28,7 @@ namespace Assets.Script.Battle
         {
             base.Init(role, param1, param2, param3);
             duration = param1;
-            extraDamagePercent = param2;
+            extraDamagePercent = param2*0.01f;
         }
 
         private float intervalTime = 0;

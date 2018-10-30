@@ -75,7 +75,7 @@ namespace Assets.Script.Battle
                 addTime = 0;
                 extraHurtInfo = info;
                 firstTargetId = info.TargeRole.InstanceId;
-                extraHurtInfo.HurtValue = extraHurtInfo.HurtValue * extraDamagePercent / (int)duration;
+                extraHurtInfo.HurtValue = extraHurtInfo.HurtValue * extraDamagePercent*0.01f / (int)duration;
                 return true;
             }
             return false;

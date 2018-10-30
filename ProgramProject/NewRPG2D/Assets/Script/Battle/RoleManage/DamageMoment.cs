@@ -87,7 +87,7 @@ namespace Assets.Script.Battle
         private void FinallyMagicDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
 
-            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor * 0.0001f));
+            hurtValue = Mathf.Max(0, hurtValue * (1 - targeProperty.MagicArmor * 0.00012f));
         }
     }
 }

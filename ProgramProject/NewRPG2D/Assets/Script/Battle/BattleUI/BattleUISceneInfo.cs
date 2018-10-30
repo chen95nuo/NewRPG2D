@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Script.Timer;
 using Assets.Script.Tools;
 using UnityEngine;
@@ -22,17 +23,18 @@ namespace Assets.Script.Battle.BattleUI
 
         public void Awake()
         {
-            
+
         }
 
         public void OnDestroy()
         {
             CTimerManager.instance.RemoveLister(timeId);
-            EventManager.instance.AddListener<HpChangeParam>(EventDefineEnum.HpChange, HpChange);
+            EventManager.instance.RemoveListener<HpChangeParam>(EventDefineEnum.HpChange, HpChange);
         }
 
-        public void StartGame()
+        public IEnumerator StartGame()
         {
+            yield return new WaitForSeconds(0.5f);
             Debug.LogError("start game");
             startGame = true;
             timeId = CTimerManager.instance.AddListener(1, -1, BattleTimeChange);
@@ -43,14 +45,14 @@ namespace Assets.Script.Battle.BattleUI
                 maxPlayerHp += heroList[i].RolePropertyValue.RoleHp;
             }
             currentPlayerHp = maxPlayerHp;
-            SetHpSilderInfo(PlayerSlider, PlayerValue, maxPlayerHp, currentPlayerHp);
+            SetHpSilderInfo(PlayerSlider, PlayerValue, (int)maxPlayerHp, (int)currentPlayerHp);
 
             for (int i = 0; i < enemyList.Count; i++)
             {
                 maxEnemyHp += enemyList[i].RolePropertyValue.RoleHp;
             }
             currentEnemyHp = maxEnemyHp;
-            SetHpSilderInfo(EnemySlider, EnemyValue, maxEnemyHp, currentEnemyHp);
+            SetHpSilderInfo(EnemySlider, EnemyValue, (int)maxEnemyHp, (int)currentEnemyHp);
             EventManager.instance.AddListener<HpChangeParam>(EventDefineEnum.HpChange, HpChange);
         }
 
@@ -62,30 +64,31 @@ namespace Assets.Script.Battle.BattleUI
 
         private string GetCurrentRemainTime(int time)
         {
-            string mintue = (time/60).ToString("D2");
+            string mintue = (time / 60).ToString("D2");
             string second = (time % 60).ToString("D2");
             return (mintue + " : " + second);
         }
 
         private void HpChange(HpChangeParam param)
         {
-            if(param.role.TeamId == TeamTypeEnum.Hero)
+            if (param.role.TeamId == TeamTypeEnum.Hero)
             {
                 currentPlayerHp -= param.changeValue;
-                SetHpSilderInfo(PlayerSlider, PlayerValue, maxPlayerHp, currentPlayerHp);
+                SetHpSilderInfo(PlayerSlider, PlayerValue, (int)maxPlayerHp, (int)currentPlayerHp);
             }
-            else if(param.role.TeamId == TeamTypeEnum.Monster)
+            else if (param.role.TeamId == TeamTypeEnum.Monster)
             {
                 currentEnemyHp -= param.changeValue;
-                SetHpSilderInfo(EnemySlider, EnemyValue, maxEnemyHp, currentEnemyHp);
+                SetHpSilderInfo(EnemySlider, EnemyValue, (int)maxEnemyHp, (int)currentEnemyHp);
             }
-            
+
         }
 
-        private void SetHpSilderInfo(Slider slider, Text text, float maxValue, float currentValue)
+        private void SetHpSilderInfo(Slider slider, Text text, int maxValue, int currentValue)
         {
+            currentValue = Mathf.Max(0, currentValue);
             text.text = currentValue + "/" + maxValue;
-            slider.value = currentValue/maxValue;
+            slider.value = currentValue / (maxValue * 1.0f);
         }
     }
 }

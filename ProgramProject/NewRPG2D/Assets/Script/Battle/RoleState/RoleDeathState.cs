@@ -10,7 +10,8 @@ namespace Assets.Script.Battle.RoleState
         {
             base.Enter(mRoleBase);
             mRoleBase.Death();
-            ResourcesLoadMgr.instance.PushObjIntoPool(mRoleBase.RoleTransform.name, mRoleBase.RoleTransform.gameObject);
+            mRoleBase.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Death, false);
+            //ResourcesLoadMgr.instance.PushObjIntoPool(mRoleBase.RoleTransform.name, mRoleBase.RoleTransform.gameObject);
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)

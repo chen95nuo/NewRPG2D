@@ -65,7 +65,7 @@ namespace Assets.Script.Battle
 
         public void InitData()
         {
-            attackDistance = mCurrentRole.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack).AttackRange;
+            attackDistance = mCurrentRole.RolePropertyValue.AttackRange;
         }
 
         public void Update(float deltaTime)
@@ -175,6 +175,7 @@ namespace Assets.Script.Battle
             mCurrentRole.FinishMoveToPoint = true;
             //if(targetTransform == null)
             //mCurrentRole.RoleSearchTarget.SetTarget(null);
+            mCurrentRole.SetRoleActionState(ActorStateEnum.Idle);
         }
 
         public void SetTargetPosition(Vector3 targetPosition)

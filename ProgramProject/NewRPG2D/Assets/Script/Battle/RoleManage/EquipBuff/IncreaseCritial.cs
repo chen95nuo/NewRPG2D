@@ -27,9 +27,9 @@ namespace Assets.Script.Battle
         public override void Init(RoleBase role, float param1, float param2, float param3)
         {
             base.Init(role, param1, param2, param3);
-            triggerChange = param1;
+            triggerChange = param1*0.01f;
             duration = param2;
-            extraCritialPercent = param3;
+            extraCritialPercent = param3*0.01f;
         }
 
         private float intervalTime = 0;

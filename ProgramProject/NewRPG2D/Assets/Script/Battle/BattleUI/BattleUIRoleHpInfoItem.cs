@@ -5,7 +5,7 @@ namespace Assets.Script.Battle.BattleUI
 {
     public class BattleUIRoleHpInfoItem : MonoBehaviour
     {
-        public Image greenImg, redImg;
+        public Image greenImg, redImg, BgImage;
 
         private Image useImage;
         private float maxHp, currentHp;
@@ -31,19 +31,22 @@ namespace Assets.Script.Battle.BattleUI
 
         public void SetHpItemInfo(bool isHero, float Hp, int instanceId, Transform target)
         {
+           
             HpTarget = target;
             this.instanceId = instanceId;
             maxHp = currentHp = Hp;
             if (isHero)
             {
-                greenImg.gameObject.SetActive(false);
-                redImg.gameObject.SetActive(false);
+                greenImg.gameObject.CustomSetActive(false);
+                redImg.gameObject.CustomSetActive(false);
+                BgImage.gameObject.CustomSetActive(false);
                 useImage = greenImg;
             }
             else
             {
-                greenImg.gameObject.SetActive(false);
-                redImg.gameObject.SetActive(false);
+                greenImg.gameObject.CustomSetActive(false);
+                redImg.gameObject.CustomSetActive(false);
+                BgImage.gameObject.CustomSetActive(false);
                 useImage = redImg;
             }
         }
@@ -56,19 +59,20 @@ namespace Assets.Script.Battle.BattleUI
                 useImage.fillAmount = currentHp / maxHp;
                 if (currentHp <= 0)
                 {
-                    useImage.gameObject.SetActive(false);
+                    useImage.gameObject.CustomSetActive(false);
+                    BgImage.gameObject.CustomSetActive(false);
                 }
                 else
                 {
                     useImage.gameObject.CustomSetActive(true);
-
+                    BgImage.gameObject.CustomSetActive(true);
                 }
             }
         }
 
         private Vector3 WorldToScreenPoint(Vector2 pos)
         {
-            pos.y += 3;
+            pos.y += 5;
             Vector3 mousePos = Camera.main.WorldToScreenPoint(pos);
             return mousePos;
         }

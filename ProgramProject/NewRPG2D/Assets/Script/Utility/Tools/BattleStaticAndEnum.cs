@@ -40,8 +40,8 @@ namespace Assets.Script.Battle
         public const string Skill1 = "attack1";
         public const string Skill2 = "attack1";
         public const string Hit = "hit";
-        public const string Death = "death";
-        public const string AttackArrow = "Attach_arrow";
+        public const string Death = "dead";
+        public const string AttackArrow = "attack_arrow";
         public const string AttackCut = "attack_cut";
         public const string AttackHand = "attack_hand";
         public const string Win = "joy";
@@ -51,10 +51,11 @@ namespace Assets.Script.Battle
     {
         public HurtTypeEnum HurtType;
         public WeaponTypeEnum WeaponType;
-        public ProfessionNeedEnum ProfessionNeed;
+        public WeaponProfessionEnum ProfessionNeed;
         public float RoleHp;
         public float RoleMp;
-        public float Damage;
+        public float MaxDamage;
+        public float MinDamage;
         public float MagicAttack;
         public float MagicArmor;
         public float PhysicArmor;

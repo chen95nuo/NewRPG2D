@@ -14,7 +14,12 @@ namespace Assets.Script.Battle
         public HurtTypeEnum HurtType { get; private set; } // 伤害类型
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
-        public float Damage { get; private set; }
+
+        public float Damage
+        {
+            get { return UnityEngine.Random.Range(MinDamage, MaxDamage); }
+        }
+
         public float MagicAttack { get; private set; }
         public float MagicArmor { get; private set; }
         public float PhysicArmor { get; private set; }
@@ -24,18 +29,24 @@ namespace Assets.Script.Battle
 
         public float MoveSpeed { get; private set; }
         public float AttackSpeed { get; private set; }
-        public int AttackRange { get; private set; }
+        public int AttackRange;
 
         public RoleBase AttackRole { get; private set; }
-
+        private float MaxDamage, MinDamage;
         private RoleBase currenRole;
         private bl_HUDText HUDRoot;
         private HUDTextInfo HUDTextInfoinfo;
+        private Dictionary<WeaponProfessionEnum, int> attackRangeDictionary = new Dictionary<WeaponProfessionEnum, int>()
+        {
+            {WeaponProfessionEnum.Fighter, 11},
+            {WeaponProfessionEnum.Shooter, 20},
+            {WeaponProfessionEnum.Magic, 18},
+        };
 
         public void SetCurrentRole(RoleBase mRole)
         {
             currenRole = mRole;
-            //  HUDRoot = bl_UHTUtils.GetHUDText;
+            HUDRoot = bl_UHTUtils.GetHUDText;
             HUDTextInfoinfo = new HUDTextInfo(currenRole.RoleTransform, "");
             HUDTextInfoinfo.Color = Color.white;
             HUDTextInfoinfo.Size = 150;
@@ -49,7 +60,8 @@ namespace Assets.Script.Battle
         public void InitBaseRoleValue(PropertyData rolePropertyData)
         {
             RoleHp = rolePropertyData.RoleHp;
-            Damage = rolePropertyData.Damage;
+            MinDamage = rolePropertyData.MinDamage;
+            MaxDamage = rolePropertyData.MaxDamage;
             MagicAttack = rolePropertyData.MagicAttack;
             MagicArmor = rolePropertyData.MagicArmor;
             PhysicArmor = rolePropertyData.PhysicArmor;
@@ -59,14 +71,18 @@ namespace Assets.Script.Battle
             MoveSpeed = 1;
             AttackSpeed = rolePropertyData.AttackSpeed;
             HurtType = rolePropertyData.HurtType;
-            AttackRange = rolePropertyData.AttackRange;
+            if (attackRangeDictionary.TryGetValue(rolePropertyData.ProfessionNeed, out AttackRange) == false)
+            {
+                AttackRange = 11;
+            }
         }
 
         public PropertyData GetPropertyData()
         {
             PropertyData data = default(PropertyData);
             data.RoleHp = RoleHp;
-            data.Damage = Damage;
+            data.MinDamage = MinDamage;
+            data.MaxDamage = MaxDamage;
             data.MagicAttack = MagicAttack;
             data.MagicArmor = MagicArmor;
             data.PhysicArmor = PhysicArmor;
@@ -101,8 +117,8 @@ namespace Assets.Script.Battle
             HpParam.role = currenRole;
             HpParam.changeValue = HpChange;
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, HpParam);
-            //HUDTextInfoinfo.Text = ((int)HpChange).ToString();
-            //HUDRoot.NewText(HUDTextInfoinfo);
+            HUDTextInfoinfo.Text = ((int)HpChange).ToString();
+            HUDRoot.NewText(HUDTextInfoinfo);
             // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
@@ -115,7 +131,8 @@ namespace Assets.Script.Battle
 
         public void SetDamage(float attackChange)
         {
-            Damage += attackChange;
+            MinDamage += attackChange;
+            MaxDamage += attackChange;
         }
 
         public void SetMagicAttack(float attackChange)

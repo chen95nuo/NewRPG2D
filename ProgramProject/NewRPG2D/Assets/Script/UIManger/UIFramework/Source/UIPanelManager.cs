@@ -35,12 +35,12 @@ namespace Assets.Script.UIManger
     {
 
         //all pages with the union type
-        private Dictionary<string, TTUIPage> m_allPages;
+        private Dictionary<string, TTUIPage> m_allPages = new Dictionary<string, TTUIPage>();
         public Dictionary<string, TTUIPage> allPages
         { get { return m_allPages; } }
 
         //control 1>2>3>4>5 each page close will back show the previus page.
-        private List<TTUIPage> m_currentPageNodes;
+        private List<TTUIPage> m_currentPageNodes = new List<TTUIPage>();
         public List<TTUIPage> currentPageNodes
         { get { return m_currentPageNodes; } }
 

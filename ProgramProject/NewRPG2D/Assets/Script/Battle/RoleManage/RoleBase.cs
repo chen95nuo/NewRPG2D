@@ -118,8 +118,7 @@ namespace Assets.Script.Battle
             RoleSkill.InitSkill(SkillSlotTypeEnum.Skill1, skillDataId01);
             RoleSkill.InitSkill(SkillSlotTypeEnum.Skill2, skillDataId02);
             CurrentSlot = SkillSlotTypeEnum.NormalAttack;
-            RoleSearchTarget.InitData();
-            RoleMoveMoment.InitData();
+         
         }
 
         private void InitRoleComponentData()
@@ -137,15 +136,28 @@ namespace Assets.Script.Battle
           //  RolePropertyValue.InitRoleOtherValue(data.RoleOtherData);
         }
 
-        public void InitRoleBaseProperty(PropertyData data, RoleDetailData detailInfo)
+        public void InitRoleBaseProperty(RolePropertyData currentRoleData, RoleDetailData detailInfo)
         {
-            RolePropertyValue.InitBaseRoleValue(data);
+            RolePropertyValue.InitBaseRoleValue(GetPropertyBaseData(currentRoleData));
             RoleDetailInfo = detailInfo;
-            for (int i = 0; i < detailInfo.EquipIdList.Length; i++)
+            if (detailInfo != null)
             {
-                RoleWeapon.SetEquipSlot(detailInfo.EquipIdList[i], detailInfo.sexType);
+                for (int i = 0; i < detailInfo.EquipIdList.Length; i++)
+                {
+                    RoleWeapon.SetEquipSlot(detailInfo.EquipIdList[i], detailInfo.sexType);
+                }
+                CurrentProfession = detailInfo.Profession;
             }
-            CurrentProfession = detailInfo.Profession;
+            else
+            {
+                for (int i = 0; i < currentRoleData.SpecialPropertyDatas.Length; i++)
+                {
+                    RoleWeapon.AddSpecialBuffs(currentRoleData.SpecialPropertyDatas[i]);
+                }
+                CurrentProfession = currentRoleData.Profession;
+            }
+            RoleSearchTarget.InitData();
+            RoleMoveMoment.InitData();
         }
 
         public bool SetRoleActionState(ActorStateEnum state)
@@ -237,6 +249,29 @@ namespace Assets.Script.Battle
         public override string ToString()
         {
             return RoleTransform.name;
+        }
+
+        private PropertyData GetPropertyBaseData(RolePropertyData data)
+        {
+            if (data == null)
+            {
+                DebugHelper.LogError("dont find role info");
+                return default(PropertyData);
+            }
+            PropertyData propertyBaseData = new PropertyData();
+            propertyBaseData.HurtType = data.HurtType;
+            propertyBaseData.AttackSpeed = data.AttackSpeed;
+            propertyBaseData.AviodHurtPercent = data.AvoidHurt;
+            propertyBaseData.CriticalPercent = data.Critial;
+            propertyBaseData.MaxDamage = data.DamageMax;
+            propertyBaseData.MinDamage = data.DamageMin;
+            propertyBaseData.HitPercent = data.HitEnemy;
+            propertyBaseData.MagicArmor = data.MagicArmor;
+            propertyBaseData.MagicAttack = data.MagicDamage;
+            propertyBaseData.PhysicArmor = data.PhysicArmor;
+            propertyBaseData.ProfessionNeed = data.Profession;
+            propertyBaseData.RoleHp = data.HP;
+            return propertyBaseData;
         }
     }
 }

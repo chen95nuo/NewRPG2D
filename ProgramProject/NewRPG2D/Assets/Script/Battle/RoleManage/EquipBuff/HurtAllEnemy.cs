@@ -29,7 +29,7 @@ namespace Assets.Script.Battle
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
         {
-            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 1f) < triggerChange)
+            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 100f) < triggerChange)
             {
                 for (int i = 0; i < GameRoleMgr.instance.RolesList.Count; i++)
                 {
@@ -40,7 +40,7 @@ namespace Assets.Script.Battle
                         hurtInfo.TargeRole = role;
                         hurtInfo.AttackRole = currentRole;
                         hurtInfo.HurtType = currentRole.RolePropertyValue.HurtType;
-                        hurtInfo.HurtValue = currentRole.RolePropertyValue.Damage * damagePercent;
+                        hurtInfo.HurtValue = currentRole.RolePropertyValue.Damage * damagePercent * 0.01f;
 
                         currentRole.RoleDamageMoment.HurtDamage(ref hurtInfo);
                     }

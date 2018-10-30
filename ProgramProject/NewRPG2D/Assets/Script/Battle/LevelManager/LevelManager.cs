@@ -46,7 +46,7 @@ namespace Assets.Script.Battle.LevelManager
         private bool isCreateEnemy;
         private float addTime;
         private bool isGameOver;
-        private RoleDetailData[] roleInfoArray;
+        private List<RoleDetailData> roleInfoArray;
 
         private void Awake()
         {
@@ -55,9 +55,7 @@ namespace Assets.Script.Battle.LevelManager
             //  ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
             //  enemyDatas = new Queue<MapLevelData>();
             currentEnemyInfoList = new List<CreateEnemyInfo>();
-            roleInfoArray = BattleDetailDataMgr.instance.RoleDatas;
-
-           
+            roleInfoArray = LocalStartFight.instance.FightRoleData;
             GameRoleMgr.instance.CurrentPlayerMp.Value = 1 * 500;
             currentInstanceId = 100;
             isCreateEnemy = false;
@@ -119,7 +117,7 @@ namespace Assets.Script.Battle.LevelManager
             float heroPointLength = heroPoint.Length;
             for (int i = 0; i < heroPointLength; i++)
             {
-                for (int j = 0; j < roleInfoArray.Length; j++)
+                for (int j = 0; j < roleInfoArray.Count; j++)
                 {
                     if (roleInfoArray[j] == null)
                     {
@@ -138,7 +136,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void InitEnemyData()
         {
-            currentEnemyData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(sceneId);
+            currentEnemyData = LocalStartFight.instance.MapData;
             GetEnemyData(sceneId);
         }
 
@@ -170,7 +168,7 @@ namespace Assets.Script.Battle.LevelManager
             RoleBase role = GameRoleMgr.instance.GetRole(instanceId);
             role.SetRoleActionState(ActorStateEnum.Run);
             role.RoleMoveMoment.SetTargetPosition(position);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(5);
             role.CanStartMove = true;
         }
 
@@ -215,6 +213,14 @@ namespace Assets.Script.Battle.LevelManager
                 isGameOver = true;
                 DebugHelper.LogError("  -----------------Win----- ");
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
+                for (int i = 0; i < GameRoleMgr.instance.RolesHeroList.Count; i++)
+                {
+                    RoleBase role = GameRoleMgr.instance.RolesHeroList[i];
+                    if (role.IsDead == false)
+                    {
+                        role.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Win, true);
+                    }
+                }
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 //GoFightMgr.instance.MissionComplete();
                 return;
@@ -225,6 +231,14 @@ namespace Assets.Script.Battle.LevelManager
                 DebugHelper.LogError("  -----------------Lose----- ");
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
                 //GoFightMgr.instance.MissionComplete();
+                for (int i = 0; i < GameRoleMgr.instance.RolesEnemyList.Count; i++)
+                {
+                    RoleBase role = GameRoleMgr.instance.RolesEnemyList[i];
+                    if (role.IsDead == false)
+                    {
+                        role.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Win, true);
+                    }
+                }
                 isGameOver = true;
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, false);
             }

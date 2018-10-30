@@ -43,11 +43,11 @@ namespace Assets.Script.Battle
             Vector3 moveDir = (targeTransform.position - originalRole.RoleTransform.position).normalized;
             transform.right = moveDir;
             transform.position += moveDir * moveSpeed * Time.deltaTime;
-            if (Vector3.Distance(transform.position, targeTransform.position + targeTransform.up) < 0.5f)
+            if (Mathf.Abs(transform.position.x - targeTransform.position.x) < 0.5f)
             {
                 HitTarget();
             }
-            else if (Vector3.Distance(transform.position, targeTransform.position) > 10)
+            else if (Mathf.Abs(transform.position.x - targeTransform.position.x) > 100)
             {
                 canMove = false;
                 ResourcesLoadMgr.instance.PushObjIntoPool(transform.name, gameObject);

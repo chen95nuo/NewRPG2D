@@ -15,6 +15,12 @@ public class RoleDetailData
     public List<int> BodyIdList;
     public BornPositionTypeEnum BornPositionType;
 
+    public RoleDetailData()
+    {
+        EquipIdList = new int[5];
+        BodyIdList = new List<int>();
+    }
+
     public void InitData()
     {
     }

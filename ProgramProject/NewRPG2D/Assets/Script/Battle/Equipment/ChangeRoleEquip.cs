@@ -35,7 +35,7 @@ namespace Assets.Script.Battle
             //{BodyTypeEnum.Beard, "Beard"},
         };
 
-        private void Start()
+        private void Awake()
         {
             skeleton = skeletonAnimation.Skeleton;
             customSkin = customSkin ?? new Skin("custom skin");

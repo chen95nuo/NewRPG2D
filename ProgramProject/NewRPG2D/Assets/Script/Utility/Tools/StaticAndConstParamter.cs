@@ -20,7 +20,7 @@ public class StaticAndConstParamter
     public const float SEND_TIME_TIMES = 1000f;
     public const float SEND_JOYSTICK_TIMES = 10000f;
     public const string GROUND_BAND_NAME = "Ground";
-    public const string ITEM_PATH_NAME = "Prefab/BattleRole/";
+    public const string ITEM_PATH_NAME = "Prefab/";
     public const int MIN_DISTANCE_GROUND = 10;
     public const float MAX_MOVE_X = 23f;
     public const float MAX_MOVE_Y = 10f;

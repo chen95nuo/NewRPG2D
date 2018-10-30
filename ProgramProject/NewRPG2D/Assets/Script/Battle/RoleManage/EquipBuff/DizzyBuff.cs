@@ -62,7 +62,7 @@ namespace Assets.Script.Battle
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
         {
-            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 1f) < triggerChange)
+            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 100f) < triggerChange)
             {
                 canTrigger = true;
                 addTime = 0;

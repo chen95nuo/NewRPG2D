@@ -54,7 +54,7 @@ namespace Assets.Script.Battle.BattleData
             PhysicArmor = ReadXmlDataMgr.FloatParse(node, "PhysicArmor");
             AvoidHurt = ReadXmlDataMgr.FloatParse(node, "AvoidHurt");
             HitEnemy = ReadXmlDataMgr.FloatParse(node, "HitEnemy");
-            MagicDamage = ReadXmlDataMgr.FloatParse(node, "MagicDamage");
+          //  MagicDamage = ReadXmlDataMgr.FloatParse(node, "MagicDamage");
 
             for (int i = 0; i < SpecialPropertyDatas.Length; i++)
             {

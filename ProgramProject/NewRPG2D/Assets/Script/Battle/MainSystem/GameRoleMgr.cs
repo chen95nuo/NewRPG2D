@@ -46,11 +46,8 @@ namespace Assets.Script.Battle
             info.RoleId = roleId;
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
-            RoleDetailData roleData = new RoleDetailData();
-            roleData.InitData();
-            role.InitRoleBaseProperty(default(PropertyData), roleData);
             RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
-            roleData.IconName = currentRoleData.SpriteName;
+            role.InitRoleBaseProperty(currentRoleData, null);
             if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
                 role.InitSkill(100100100, 100100100, 100100100);
@@ -68,7 +65,7 @@ namespace Assets.Script.Battle
 
         public bool AddHeroRole(string indexName, Transform transform, Vector3 mPosition, ushort instanceId, RoleDetailData roleData, float angle)
         {
-            string prefabName = roleData.sexType == SexTypeEnum.Man ? "ManNormal" : "WomanNormal";
+            string prefabName = roleData.sexType == SexTypeEnum.Man ? "BattleRole/ManNormal" : "BattleRole/WomanNormal";
             RoleRender roleMono = SetRoleTransform<RoleRender>(prefabName, indexName, instanceId, transform, mPosition, angle);
             if (roleMono == null)
             {
@@ -83,10 +80,10 @@ namespace Assets.Script.Battle
             info.RoleId = roleData.Id;
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
-            PropertyData data = default(PropertyData);
+            RolePropertyData data = new RolePropertyData();
             int level = 1;
-            data.RoleHp = 200 + level * 40;
-            data.Damage = 10 + level * 1.1f;
+            data.HP = 200 + level * 40;
+            data.DamageMin = 10 + level * 1.1f;
             role.InitRoleBaseProperty(data, roleData);
             //RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleData.Id);
             //roleData.BattleIconSpriteName = currentRoleData.SpriteName;
@@ -123,7 +120,7 @@ namespace Assets.Script.Battle
             {
                 return null;
             }
-            string itemModelName = currentRoleData.PrefabName;
+            string itemModelName = "BattleRole/"+currentRoleData.PrefabName;
             return SetRoleTransform<RoleRender>(itemModelName, indexName, instanceId, transform, mPosition, angle);
         }
 
@@ -140,29 +137,6 @@ namespace Assets.Script.Battle
             return perfab.GetComponent<T>();
         }
 
-        //private PropertyBaseData GetPropertyBaseData(RoleDetailData data)
-        //{
-        //    if (data == null)
-        //    {
-        //        DebugHelper.LogError("dont find role info");
-        //        return default(PropertyBaseData);
-        //    }
-        //    PropertyBaseData propertyBaseData = new PropertyBaseData();
-        //    // propertyBaseData.RoleProperty = data.AgileGrow
-        //    float growValueMin = 0;
-        //    float growValueMax = 0;
-        //    float baseValue = data.Health;
-        //    propertyBaseData.Hp = new PropertyAddtion(baseValue, growValueMin, growValueMax);
 
-        //     baseValue = data.Defense;
-        //    propertyBaseData.Defense = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-        //     baseValue = data.Agile;
-        //    propertyBaseData.Prompt = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-
-        //     baseValue = data.Attack;
-        //    propertyBaseData.Attack = new PropertyAddtion(baseValue, growValueMin, growValueMax);
-        //    return propertyBaseData;
-        //}
     }
 }

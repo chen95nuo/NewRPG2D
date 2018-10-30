@@ -32,15 +32,15 @@ namespace Assets.Script.Battle.RoleState
             base.Enter(mRoleBase);
             mRoleBase.RoleMoveMoment.CancelCurrentPathRequest();
             // OnceAttack(mRoleBase);
-            skillCDTime = CurrentSkillData.SkillCDTime;
-            MP = CurrentSkillData.MP;
-            SkillType = CurrentSkillData.SkillType;
-            TargetCount = CurrentSkillData.TargetCount;
-            EffectId1 = CurrentSkillData.EffectId1;
-            EffectId2 = CurrentSkillData.EffectId2;
-            EffectId3 = CurrentSkillData.EffectId3;
-            EffectId4 = CurrentSkillData.EffectId4;
-            addTime = CurrentSkillData.CurrentCD;
+//             skillCDTime = CurrentSkillData.SkillCDTime;
+//             MP = CurrentSkillData.MP;
+//             SkillType = CurrentSkillData.SkillType;
+//             TargetCount = CurrentSkillData.TargetCount;
+//             EffectId1 = CurrentSkillData.EffectId1;
+//             EffectId2 = CurrentSkillData.EffectId2;
+//             EffectId3 = CurrentSkillData.EffectId3;
+//             EffectId4 = CurrentSkillData.EffectId4;
+//             addTime = CurrentSkillData.CurrentCD;
             CurrentRole = mRoleBase;
             CurrentRole.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Idle, true);
             CurrentRole.RoleAnimation.AddCompleteListener(OnCompleteAnimation);
@@ -93,7 +93,7 @@ namespace Assets.Script.Battle.RoleState
             }
             // mRoleBase.RolePropertyValue.SetMp(MP);
             AnimationEntry = CurrentRole.RoleAnimation.SetCurrentAniamtionByName(AnimationName);
-            CurrentSkillData.UseSkill();
+            //CurrentSkillData.UseSkill();
         }
 
         protected virtual void HitTarget(RoleBase mRoleBase)

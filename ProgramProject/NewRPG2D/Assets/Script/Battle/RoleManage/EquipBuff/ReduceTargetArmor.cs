@@ -29,8 +29,8 @@ namespace Assets.Script.Battle
         public override void Init(RoleBase role, float param1, float param2, float param3)
         {
             base.Init(role, param1, param2, param3);
-            triggerChange = param1;
-            reduceArmorPercent = param2;
+            triggerChange = param1*0.01f;
+            reduceArmorPercent = param2*0.01f;
             duration = param3;
             targetArmor.Clear();
             armorTime.Clear();

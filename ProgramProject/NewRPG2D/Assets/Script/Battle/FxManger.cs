@@ -41,13 +41,14 @@ namespace Assets.Script.Battle
         private void DelayHide(int timeId)
         {
             CTimerManager.instance.RemoveLister(timeId);
-            FxList.Remove(timeId);
             if (FxList[timeId].gameObject == null)
             {
+                FxList.Remove(timeId);
                 return;
             }
             ResourcesLoadMgr.instance.PushObjIntoPool(FxList[timeId].name, FxList[timeId].gameObject);
-         
+            FxList.Remove(timeId);
+
         }
     }
 }
