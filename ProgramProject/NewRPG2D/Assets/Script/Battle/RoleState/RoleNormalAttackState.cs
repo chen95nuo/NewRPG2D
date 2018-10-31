@@ -60,7 +60,7 @@ namespace Assets.Script.Battle.RoleState
                 string aiObjectName = mRoleBase.RoleTransform.name + "_aiObjcet";
                 AIObjectRenderer aiObject = GameRoleMgr.instance.SetRoleTransform<AIObjectRenderer>("BattleAIObject/AIObjectCommon", aiObjectName, 1,
                     mRoleBase.RoleTransform.parent, mRoleBase.RoleTransform.position + mRoleBase.RoleTransform.up * 2, 0);
-                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 20 });
+                aiObject.SetAIObjectInfo(ref info, new AIObjectInfo { MoveSpeed = 38 });
             }
             base.HitTarget(mRoleBase);
         }
