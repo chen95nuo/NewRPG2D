@@ -168,7 +168,7 @@ namespace Assets.Script.Battle.LevelManager
             RoleBase role = GameRoleMgr.instance.GetRole(instanceId);
             role.SetRoleActionState(ActorStateEnum.Run);
             role.RoleMoveMoment.SetTargetPosition(position);
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(2);
             role.CanStartMove = true;
         }
 
