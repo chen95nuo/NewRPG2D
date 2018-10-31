@@ -25,10 +25,10 @@ namespace Assets.Script.Battle.RoleState
 
         public override void Enter(RoleBase mRoleBase)
         {
-          //  CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
+            //  CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
             base.Enter(mRoleBase);
             skillCDTime = 1 / mRoleBase.RolePropertyValue.AttackSpeed;
-            addTime = 0;
+            addTime = skillCDTime - 0.1f;
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)

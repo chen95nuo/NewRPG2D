@@ -27,7 +27,7 @@ namespace Assets.Script.Battle.Equipment
             int realLifeLevel = Random.Range(currentLifeLevel - 10, currentLifeLevel);
             for (int i = 0; i < boxItem.TreasureBoxItems.Length; i++)
             {
-                int randomCount = Random.Range(boxItem.TreasureBoxItems[i].ItemMinCount,boxItem.TreasureBoxItems[i].ItemMaxCount);
+                int randomCount = Random.Range(boxItem.TreasureBoxItems[i].ItemMinCount, boxItem.TreasureBoxItems[i].ItemMaxCount);
                 GetItemDetail(data, boxItem.TreasureBoxItems[i].ItemId, realBattleLevel, realLifeLevel, boxItem.DependLevel, randomCount);
 
             }
@@ -87,16 +87,21 @@ namespace Assets.Script.Battle.Equipment
                 PropData propData = propDataList[Random.Range(0, propDataList.Count)];
                 for (int i = 0; i < count; i++)
                 {
-                    data.PropDataList.Add(propData);
+                    if (data.PropDataList.Contains(propData))
+                    {
+                        int index = data.PropDataList.IndexOf(propData);
+                        data.PropDataList[index].num++;
+                    }
+                    else
+                    {
+                        data.PropDataList.Add(propData);
+                    }
                 }
-
             }
             else
             {
-                for (int i = 0; i < count; i++)
-                {
-                    data.PropDataList.Add(mData);
-                }
+                mData.num = count;
+                data.PropDataList.Add(mData);
             }
 
         }
