@@ -63,12 +63,12 @@ namespace Assets.Script.Battle.BattleData
 
         public List<int> GetBattleEquipmentByLevelAndQuality(int currentLevel, QualityTypeEnum qualityType)
         {
-           return  GetEquipmentByLevelAndQuality(battleEquipmentDataList, currentLevel, qualityType);
+           return  GetEquipmentByLevelAndQuality(BattleEquipment, currentLevel, qualityType);
         }
 
         public List<int> GetLifeEquipmentByLevelAndQuality(int currentLevel, QualityTypeEnum qualityType)
         {
-            return GetEquipmentByLevelAndQuality(lifeEquipmentDataList, currentLevel, qualityType);
+            return GetEquipmentByLevelAndQuality(LifeEquipment, currentLevel, qualityType);
         }
 
         public List<int> GetEquipmentByLevelAndQuality(List<EquipmentData> currentItemData, int currentLevel, QualityTypeEnum qualityType)
