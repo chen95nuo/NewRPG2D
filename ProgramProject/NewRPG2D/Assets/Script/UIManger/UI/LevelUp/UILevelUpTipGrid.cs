@@ -7,8 +7,11 @@ using Assets.Script.UIManger;
 public class UILevelUpTipGrid : MonoBehaviour
 {
     public Text txt_time;
+    [System.NonSerialized]
     public Transform ts;
     private Canvas canvas;
+    public Image slider;
+    private Vector3 point;
 
     private void Awake()
     {
@@ -23,6 +26,7 @@ public class UILevelUpTipGrid : MonoBehaviour
     public void GetInfo(Transform transform, Canvas canvas)
     {
         ts = transform;
+        point = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
         this.canvas = canvas;
         UpdatePos();
     }
@@ -35,13 +39,13 @@ public class UILevelUpTipGrid : MonoBehaviour
         }
         Vector2 pos;
         RectTransform rt = canvas.transform as RectTransform;
-        Vector3 v3 = Camera.main.WorldToScreenPoint(ts.position);
+        Vector3 v3 = Camera.main.WorldToScreenPoint(point);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, v3, canvas.worldCamera, out pos);
         RectTransform rect = transform.transform as RectTransform;
         rect.anchoredPosition = pos;
     }
 
-    public void UpdateTime(int time)
+    public void UpdateTime(LevelUPHelper data)
     {
         if (MapControl.instance.type == CastleType.edit)
         {
@@ -52,6 +56,7 @@ public class UILevelUpTipGrid : MonoBehaviour
         {
             this.gameObject.SetActive(true);
         }
-        SystemTime.instance.TimeNormalized(time, txt_time);
+        slider.fillAmount = (float)(data.allTime - data.needTime) / (float)data.allTime;
+        txt_time.text = SystemTime.instance.TimeNormalized((float)data.needTime);
     }
 }

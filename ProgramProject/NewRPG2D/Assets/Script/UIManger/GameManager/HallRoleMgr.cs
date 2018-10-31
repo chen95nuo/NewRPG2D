@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Timer;
 using System;
+using Assets.Script.UIManger;
 
 public class HallRoleMgr : TSingleton<HallRoleMgr>
 {
@@ -119,13 +120,14 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         return num;
     }
 
-    internal void ChickBabyDic(List<RoleBabyData> saveBabydata)
+    public void ChickBabyDic(List<RoleBabyData> saveBabydata)
     {
         childrenTime.Clear();
         for (int i = 0; i < saveBabydata.Count; i++)
         {
             HallRole role = AddNewBabyInstance(saveBabydata[i]);
             ChickPlayerInfo.instance.ChickBabyDic(role);
+            return;
         }
     }
 
@@ -140,7 +142,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         HallRole role = InstantiateRole(data.child.sexType, false);
         role.UpdateInfo(data);
-        AllRole.Add(data.child);
         ChildrenStart(data, data.time);
         return role;
     }
@@ -367,7 +368,9 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             return;
         }
         timeAction[index].time--;
+
         HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickRoleTrain, index);
+        UIPanelManager.instance.ShowPage<UIRoleTrainTip>(timeAction[index]);
         if (timeAction[index].time <= 0)
         {
             CTimerManager.instance.RemoveLister(index);
@@ -534,7 +537,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// 宝宝成长开始
     /// </summary>
     /// <param name="data"></param>
-    public void ChildrenStart(RoleBabyData data, int NeedTime = 10)
+    public void ChildrenStart(RoleBabyData data, int NeedTime = 600)
     {
         data.time = NeedTime;
         int index = CTimerManager.instance.AddListener(1, childNeedTime, ChildrenCallback);
@@ -547,6 +550,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <param name="index"></param>
     public void ChildrenCallback(int index)
     {
+        if (childrenTime.ContainsKey(index))
+        {
+            //childrenTime.Remove(index);
+        }
         childrenTime[index].time--;
         HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickChildTime, index);
         if (childrenTime[index].time <= 0)

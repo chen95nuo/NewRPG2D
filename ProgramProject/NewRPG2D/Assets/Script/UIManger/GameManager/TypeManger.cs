@@ -11,7 +11,7 @@ public enum HallEventDefineEnum
     ChickBuild,//检查建筑
     ChickStock,//检查空间
     ChickStockFull,//检查空间满值
-    ChickLevelUpRoom,//检查升级的房间
+    ChickLevelUpTime,//检查升级的房间
     CameraMove,//相机移动了
     EditMode,//建造模式
     EditMgr,//建造模式辅助

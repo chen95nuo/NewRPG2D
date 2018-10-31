@@ -116,7 +116,30 @@ public class UIDraggingRole : TTUIPage
                     RoleAttribute roleAtr = room.NeedAttribute;
                     int index = room.currentBuildData.ScreenAllYeild(roleAtr, false);
                     float p_1 = role.RoleData.GetArtProduce(room.RoomName);
+
                     string st = ChicttxtColorOrIcon(room.RoomName);
+                    string stColor = "";
+                    switch (room.RoomName)
+                    {
+                        case BuildRoomName.Gold:
+                            stColor = "<color=#f5d835>";
+                            break;
+                        case BuildRoomName.Food:
+                            stColor = "<color=#eda160>";
+                            break;
+                        case BuildRoomName.Mana:
+                            stColor = "<color=#c415d0>";
+                            break;
+                        case BuildRoomName.Wood:
+                            stColor = "<color=#be7f27>";
+                            break;
+                        case BuildRoomName.Iron:
+                            stColor = "<color=#9fbdd7>";
+                            break;
+                        default:
+                            break;
+                    }
+
                     Icon.gameObject.SetActive(true);
                     if (index >= 0)
                     {
@@ -125,7 +148,7 @@ public class UIDraggingRole : TTUIPage
                         float p_3 = p_1 - p_2;
                         if (p_3 >= 0)
                         {
-                            txt_Tip.text = st + "+" + (p_3).ToString() + "</color>";
+                            txt_Tip.text = st + stColor + "+" + (p_3).ToString() + "</color>";
                         }
                         else
                         {
@@ -134,7 +157,7 @@ public class UIDraggingRole : TTUIPage
                     }
                     else
                     {
-                        txt_Tip.text = st + "+" + p_1.ToString() + "</color>";
+                        txt_Tip.text = st + stColor + "+" + p_1.ToString() + "</color>";
                     }
                 }
                 else

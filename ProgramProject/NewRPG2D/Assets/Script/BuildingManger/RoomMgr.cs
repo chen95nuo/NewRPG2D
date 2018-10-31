@@ -36,16 +36,14 @@ public abstract class RoomMgr : MonoBehaviour
     private SpriteRenderer roomLockRend;
     [System.NonSerialized]
     private GameObject roomProp;//资源获取框
+    private GameObject roomConstruction;
     [System.NonSerialized]
     public SpriteRenderer roomPropIcon;//资源Icon
     [System.NonSerialized]
     public SpriteRenderer roomPropIconBG;//资源Icon背景
 
-    private int needTime = 0;
-    private int listNumber = 0;
     private UILevelUpTip levelUpTip;
     public LocalBuildingData currentBuildData;
-    private BuildingData changeData;
 
     public Vector2 StartPoint
     {
@@ -76,6 +74,7 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 constructionType = value;
                 currentBuildData.ConstructionType = value;
+                RoomConstruction.SetActive(value);
                 if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
                 {
                     if (value == false)
@@ -124,7 +123,6 @@ public abstract class RoomMgr : MonoBehaviour
         wall = null;
         emptyPoints = new EmptyPoint[4];
         nearbyRoom = new RoomMgr[4];
-        changeData = null;
     }
     public int Id
     {
@@ -281,6 +279,18 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
+    public GameObject RoomConstruction
+    {
+        get
+        {
+            if (roomConstruction == null)
+            {
+                roomConstruction = this.transform.Find("RoomTypes/RoomLeveUp").gameObject;
+            }
+            return roomConstruction;
+        }
+    }
+
     /// <summary>
     /// 左右
     /// </summary>
@@ -416,12 +426,14 @@ public abstract class RoomMgr : MonoBehaviour
     {
         GetCompoment();
         HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
+        HallEventManager.instance.AddListener<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, TimerCallBack);
 
 
     }
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
+        HallEventManager.instance.RemoveListener<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, TimerCallBack);
     }
     private void ChickStockFull(RoomStockFullHelper data)
     {
@@ -961,7 +973,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         ConstructionType = true;
         BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(nextId);
-        changeData = data;//记录需要升级的DATA信息
+        int needTime = 0;
         if (time == 0)
         {
             needTime = data.NeedTime * 60;
@@ -971,15 +983,16 @@ public abstract class RoomMgr : MonoBehaviour
             needTime = time;
         }
         levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
-        timeIndex = ChickPlayerInfo.instance.Timer(currentBuildData, needTime, timeIndex);
-        listNumber = levelUpTip.AddLister();
-        levelUpTip.UpdateTime(needTime, listNumber);
+        timeIndex = ChickPlayerInfo.instance.Timer(Id, needTime, timeIndex, nextId);
         CameraControl.instance.CloseRoomLock();
     }
 
-    public bool TimerCallBack(LevelUPHelper levelUpHelper)
+    public void TimerCallBack(LevelUPHelper levelUpHelper)
     {
-        return levelUpTip.UpdateTime(levelUpHelper.needTime, levelUpHelper.tipID);
+        if (levelUpHelper.roomID == Id)
+        {
+            levelUpTip.UpdateTime(levelUpHelper);
+        }
     }
 
     public void ConstructionCancel()
@@ -990,11 +1003,11 @@ public abstract class RoomMgr : MonoBehaviour
     /// <summary>
     /// 施工完成
     /// </summary>
-    public void ConstructionComplete()
+    public void ConstructionComplete(LevelUPHelper data)
     {
         ChickPlayerInfo.instance.RemoveThisTime(timeIndex);
+        BuildingData changeData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nextID);
         ChickPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
-        levelUpTip.RemoveLister(listNumber);
         levelUpTip = null;
         ConstructionType = false;
         ChickConstructionCompleteRole();

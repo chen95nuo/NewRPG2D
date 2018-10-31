@@ -128,5 +128,6 @@ public class UIBoxInfo : TTUIPage
         UIPanelManager.instance.ShowPage<UIBoxOpen>();
 
         UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
+        ClosePage();
     }
 }

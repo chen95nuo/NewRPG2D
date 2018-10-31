@@ -73,6 +73,7 @@ public class UIRoleChildGrid : MonoBehaviour
         {
             if (allRoom[i].RoomName == BuildRoomName.BabyRoom)
             {
+                role.RoleData.LoveType = RoleLoveType.boredom;
                 HallRole newRole = HallRoleMgr.instance.BuildNewRole(role.RoleData.babyData);
                 bool isTrue = allRoom[i].AddRole(newRole);
                 if (isTrue)

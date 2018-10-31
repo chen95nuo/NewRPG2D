@@ -67,7 +67,7 @@ public class UIMain : TTUIPage
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
-        UIMainHight(0);
+        UIMainHight(-1);
 
         Init();
 

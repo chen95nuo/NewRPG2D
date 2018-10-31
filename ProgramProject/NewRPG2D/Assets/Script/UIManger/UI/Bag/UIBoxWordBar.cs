@@ -18,7 +18,6 @@ public class UIBoxWordBar : MonoBehaviour
 
     public void UpdateInfo(TreasureBoxItemData data)
     {
-        Debug.Log(data.ItemId);
         PropData propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(data.ItemId);
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
         image_Icon.sprite = sp;

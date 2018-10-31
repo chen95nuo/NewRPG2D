@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222114665742670048}
   - component: {fileID: 114967877840619062}
   - component: {fileID: 114119026117430516}
+  - component: {fileID: 114228327431232232}
   m_Layer: 5
   m_Name: ItemGrid
   m_TagString: Untagged
@@ -155,6 +156,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114228327431232232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1250575806468454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d609a2ad8e36f9140899a7bd54aa61f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 114521098178038252}
+  BG: {fileID: 114902732124002386}
+  txt_Num: {fileID: 114017866665218898}
 --- !u!114 &114488950726581454
 MonoBehaviour:
   m_ObjectHideFlags: 1

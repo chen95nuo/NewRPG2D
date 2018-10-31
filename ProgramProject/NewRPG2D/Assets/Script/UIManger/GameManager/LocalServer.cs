@@ -5,8 +5,6 @@ using Assets.Script.Timer;
 
 public class LocalServer : TSingleton<LocalServer>
 {
-    private Dictionary<int, LocalBuildingData> buildNumber = new Dictionary<int, LocalBuildingData>();//房间序号 用于储存施工中的房间
-
     private Dictionary<BuildRoomName, LocalBuildingData> production;
 
     public Dictionary<BuildRoomName, LocalBuildingData> Production
@@ -24,53 +22,6 @@ public class LocalServer : TSingleton<LocalServer>
     public List<ServerBuildData> saveRoomData;
     public List<ServerHallRoleData> saveRoleData;
     public List<RoleBabyData> saveBabydata = new List<RoleBabyData>();
-
-    /// <summary>
-    /// 房间施工用 计时器
-    /// </summary>
-    /// <param name="data"></param>
-    /// <param name="time"></param>
-    public void Timer(LocalBuildingData data, int time)
-    {
-        int index = CTimerManager.instance.AddListener(time, 1, ChickTime);
-        buildNumber.Add(index, data);
-    }
-
-    /// <summary>
-    /// 服务器这边返回信息 直接完成
-    /// </summary>
-    /// <param name="key"></param>
-    public void ChickTime(int key)
-    {
-        ChickLeveUp(buildNumber[key]);
-    }
-
-    public void ChickLeveUp(LocalBuildingData LocalData)
-    {
-        if (LocalData.currentRoom != null)
-        {
-            LocalData.currentRoom.ConstructionComplete();
-        }
-        else
-        {
-            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
-            ChickPlayerInfo.instance.ChickBuildDicChange(LocalData, data);
-        }
-    }
-
-    public void ChickTime(LocalBuildingData roomData)
-    {
-        foreach (var item in buildNumber)
-        {
-            if (item.Value == roomData)
-            {
-                CTimerManager.instance.RemoveLister(item.Key);
-                ChickLeveUp(roomData);
-                return;
-            }
-        }
-        Debug.Log("钻石加速没有找到计时器");
-    }
 
     public void StartInit()
     {

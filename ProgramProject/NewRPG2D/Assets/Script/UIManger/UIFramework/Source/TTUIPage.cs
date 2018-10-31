@@ -70,10 +70,6 @@ namespace Assets.Script.UIManger
             {
                 callback();
             }
-
-            Sequence mSequence = DOTween.Sequence();
-            mSequence.Append(transform.DOScale(0.1f, 0.5f));
-            mSequence.Append(transform.DOScale(1.5f, 0.5f));
         }
 
         /// <summary>
@@ -91,8 +87,8 @@ namespace Assets.Script.UIManger
                 else
                 {
                     Sequence mSequence = DOTween.Sequence();
-                    mSequence.Append(transform.DOScale(1.08f, 0.1f));
-                    mSequence.Append(transform.DOScale(0.98f, 0.1f));
+                    mSequence.Append(transform.DOScale(1.05f, 0.1f));
+                    mSequence.Append(transform.DOScale(0.95f, 0.1f));
                     mSequence.Append(transform.DOScale(1.0f, 0f));
                     mSequence.OnComplete(() => gameObject.SetActive(false));
                 }
@@ -120,8 +116,9 @@ namespace Assets.Script.UIManger
                 {
                     this.gameObject.SetActive(true);
                     Sequence mSequence = DOTween.Sequence();
-                    mSequence.Append(transform.DOScale(0.98f, 0.1f));
-                    mSequence.Append(transform.DOScale(1.08f, 0.1f));
+                    mSequence.Append(transform.DOScale(.95f, 0f));
+                    mSequence.Append(transform.DOScale(1.05f, 0.1f));
+                    mSequence.Append(transform.DOScale(1f, 0.1f));
                     mSequence.OnComplete(() => transform.localScale = Vector3.one);
                 }
             }

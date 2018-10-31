@@ -781,12 +781,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// </summary>
     /// <param name="data"></param>
     /// <param name="time"></param>
-    public int Timer(LocalBuildingData data, int time, int TipID)
+    public int Timer(int id, int time, int TipID, int nextID)
     {
         int index = CTimerManager.instance.AddListener(1f, time, ChickTime);
-        LevelUPHelper helper = new LevelUPHelper(data.id, TipID, time);
+        LevelUPHelper helper = new LevelUPHelper(id, TipID, time, nextID);
         buildNumber.Add(index, helper);
-        LocalServer.instance.Timer(data, time);
         return index;
     }
 
@@ -796,15 +795,47 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <param name="key"></param>
     public void ChickTime(int key)
     {
-        LocalBuildingData data = GetBuilding(buildNumber[key].roomID);
-        if (data != null && data.currentRoom != null)
+        buildNumber[key].needTime--;
+        HallEventManager.instance.SendEvent<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, buildNumber[key]);
+        UILevelUpTip.instance.UpdateTime(buildNumber[key]);
+    }
+    public void ChangeBuildNumber(LevelUPHelper data, int newTip)
+    {
+        foreach (var item in buildNumber)
         {
-            bool isTrue = data.currentRoom.TimerCallBack(buildNumber[key]);
-            if (isTrue == false)
+            if (item.Value.roomID == data.roomID)
             {
-                buildNumber[key].tipID = UILevelUpTip.instance.AddLister();
-                UILevelUpTip.instance.UpdateTime(buildNumber[key].needTime, buildNumber[key].tipID);
+                item.Value.tipID = newTip;
+                return;
             }
+        }
+        Debug.LogError("没有找到要更改的数据");
+    }
+
+    public void ChickNowComplete(int id)
+    {
+        foreach (var item in buildNumber)
+        {
+            if (item.Value.roomID == id)
+            {
+                CTimerManager.instance.RemoveLister(item.Key);
+                ChickLeveUp(item.Value);
+            }
+        }
+    }
+
+    public void ChickLeveUp(LevelUPHelper data)
+    {
+        LocalBuildingData LocalData = GetBuilding(data.roomID);
+
+        if (LocalData.currentRoom != null)
+        {
+            LocalData.currentRoom.ConstructionComplete(data);
+        }
+        else
+        {
+            BuildingData data_1 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
+            ChickPlayerInfo.instance.ChickBuildDicChange(LocalData, data_1);
         }
     }
 
@@ -1322,12 +1353,14 @@ public class LevelUPHelper
     public int tipID;
     public int allTime;
     public int needTime;
+    public int nextID;
 
-    public LevelUPHelper(int roomID, int tipID, int needTime)
+    public LevelUPHelper(int roomID, int tipID, int needTime, int nextID)
     {
         this.roomID = roomID;
         this.tipID = tipID;
         this.allTime = needTime;
         this.needTime = needTime;
+        this.nextID = nextID;
     }
 }

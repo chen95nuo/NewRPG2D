@@ -65,7 +65,7 @@ public class SystemTime : TSingleton<SystemTime>
         {
             ShowStr += (HowManySecond / 60) + " 分钟 ";
         }
-        if (HowManySecond > 0 && HowManySecond < 60)
+        if (HowManySecond > 0)
         {
             ShowStr += (HowManySecond % 60) + "秒";
         }
@@ -94,7 +94,7 @@ public class SystemTime : TSingleton<SystemTime>
         {
             ShowStr += (HowManySecond / 60) + " 分钟 ";
         }
-        if (HowManySecond > 0 && HowManySecond < 60)
+        if (HowManySecond > 0)
         {
             ShowStr += (HowManySecond % 60) + "秒";
         }

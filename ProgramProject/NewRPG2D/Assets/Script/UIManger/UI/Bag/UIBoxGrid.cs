@@ -13,6 +13,7 @@ public class UIBoxGrid : MonoBehaviour
 
     public void UpdateInfo(PropData data, int num = 0)
     {
+        Debug.Log(data.SpriteName);
         icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.SpriteName);
         if (num == 0)
         {

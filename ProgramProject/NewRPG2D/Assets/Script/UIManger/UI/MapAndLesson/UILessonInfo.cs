@@ -52,8 +52,12 @@ public class UILessonInfo : TTUIPage
         if (FightRoleData.Count > 0)
         {
             ChickPlayerInfo.instance.UpLoadAllRoom();
+            HallRoleMgr.instance.SaveBabyData();
             LocalStartFight.instance.UpdateInfo(FightRoleData, currentLesson);
+            return;
         }
+        object st = "参与战斗的角色数量不足";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
     private void ChickType()
@@ -94,6 +98,7 @@ public class UILessonInfo : TTUIPage
         ChickRolesGrids();
         ChickEnemysGrids(data);
         ChickRolePoint();
+        ChickItemGrids(data);
     }
 
     private void ChickRolesGrids()

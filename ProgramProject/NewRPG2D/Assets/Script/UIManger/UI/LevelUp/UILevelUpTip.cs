@@ -55,13 +55,14 @@ public class UILevelUpTip : TTUIPage
         timeTextGrids.Remove(index);
     }
 
-    public bool UpdateTime(int time, int index)
+    public void UpdateTime(LevelUPHelper data)
     {
-        if (timeTextGrids.ContainsKey(index))
+        if (timeTextGrids.ContainsKey(data.tipID))
         {
-            timeTextGrids[index].UpdateTime(time);
-            return true;
+            timeTextGrids[data.tipID].UpdateTime(data);
+            return;
         }
-        return false;
+        int newTip = AddLister();
+        ChickPlayerInfo.instance.ChangeBuildNumber(data, newTip);
     }
 }
