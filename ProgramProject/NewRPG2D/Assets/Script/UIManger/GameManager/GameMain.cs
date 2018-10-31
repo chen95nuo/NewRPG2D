@@ -23,6 +23,14 @@ public class GameMain : MonoBehaviour
         Init();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            UIPanelManager.instance.ShowPage<UIBoxOpen>();
+        }
+    }
+
     public void Init()
     {
         UIPanelManager.instance.ShowPage<UILoading>();

@@ -187,7 +187,7 @@ public class UIRoleInfo : TTUIPage
         Debug.Log("星级: " + data.Star);
         for (int i = 0; i < sp_Star.Length; i++)
         {
-            if (i <= data.Star)
+            if (i <= data.Star - 1)
             {
                 sp_Star[i].sprite = starSp[0];
             }

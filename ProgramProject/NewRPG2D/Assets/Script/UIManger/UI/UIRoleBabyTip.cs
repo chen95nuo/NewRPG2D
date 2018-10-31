@@ -67,7 +67,7 @@ public class UIRoleBabyTip : MonoBehaviour
 
     private void ChickEnter()
     {
-        HallRoleMgr.instance.LevelComplete(babyData.child, true);
+        HallRoleMgr.instance.ChildrenEnd(babyData);
         RemoveInfo();
     }
 }

@@ -105,6 +105,20 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         return AllRole;
     }
 
+    public int GetAtrMaxRole(RoleAttribute atr)
+    {
+        int num = 0;
+        for (int i = 0; i < AllRole.Count; i++)
+        {
+            int atrNum = AllRole[i].GetAtrLevel(atr);
+            if (atrNum > num)
+            {
+                num = AllRole[i].GetAtrLevel(atr);
+            }
+        }
+        return num;
+    }
+
     internal void ChickBabyDic(List<RoleBabyData> saveBabydata)
     {
         childrenTime.Clear();
@@ -113,14 +127,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             HallRole role = AddNewBabyInstance(saveBabydata[i]);
             ChickPlayerInfo.instance.ChickBabyDic(role);
         }
-    }
-
-    public void BuildServerRole(HallRoleData data, RoomMgr room)
-    {
-        int count = MainCastle.instance.NewRolePoint.childCount;
-        HallRole role = InstantiateRole(data.sexType, false);
-        role.transform.localPosition = Vector3.right * (count + 2 * 2);
-        role.UpdateInfo(data);
     }
 
     public HallRole AddNewRoleInstance(HallRoleData data)
@@ -134,6 +140,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         HallRole role = InstantiateRole(data.child.sexType, false);
         role.UpdateInfo(data);
+        AllRole.Add(data.child);
         ChildrenStart(data, data.time);
         return role;
     }
@@ -144,7 +151,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         {
             sex = UnityEngine.Random.Range(1, 3);
         }
-        int star = UnityEngine.Random.Range(0, 3);
+        int star = UnityEngine.Random.Range(1, 4);
         int[] level = new int[6];
         for (int i = 0; i < level.Length; i++)
         {
@@ -162,6 +169,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         HallRole role = InstantiateRole(data.child.sexType, true);
         int count = MainCastle.instance.NewRolePoint.childCount - 1;
+        AllRole.Add(data.child);
         role.UpdateInfo(data);
         return role;
     }
@@ -170,9 +178,10 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         for (int i = 0; i < AllHallRole.Count; i++)
         {
-            if (AllHallRole[i].isChildren == true && AllHallRole[i].sex == sexType)
+            if (AllHallRole[i].isChildren == isBaby && AllHallRole[i].sex == sexType)
             {
                 Debug.Log("对象池中找到相应实例");
+                AllHallRole[i].gameObject.SetActive(true);
                 return AllHallRole[i];
             }
         }
@@ -242,9 +251,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <summary>
     /// 驱逐角色
     /// </summary>
-    public void RemoveRole()
+    public void RemoveRole(HallRole role)
     {
-
+        role.Clear();
+        role.gameObject.SetActive(false);
+        AllHallRole.Add(role);
     }
 
     /// <summary>
@@ -551,8 +562,37 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         CTimerManager.instance.RemoveLister(index);
 
         //宝宝头顶显示Icon;
+        HallRoleData data = GetRoleData(childrenTime[index].child.id);
+        HallRole role = GetRole(data);
+        role.BabyComplete();
+    }
 
-        childrenTime.Remove(index);
+    public void SaveBabyData()
+    {
+        foreach (var item in childrenTime)
+        {
+            LocalServer.instance.saveBabydata.Add(item.Value);
+        }
+    }
+    public void ChildrenEnd(RoleBabyData data)
+    {
+        foreach (var item in childrenTime)
+        {
+            if (item.Value.child.id == data.child.id)
+            {
+                HallRoleData roleData = GetRoleData(data.child.id);
+                HallRole role = GetRole(roleData);
+                ChickPlayerInfo.instance.RemoveBaby(role);
+                RemoveRole(role);
+                childrenTime.Remove(item.Key);
+                dic.Remove(data.child);
+                AllRole.Remove(data.child);
+                data.child.isBaby = false;
+                HallRole roleInstance = AddNewRoleInstance(data.child);
+                ChickPlayerInfo.instance.ChickBabyDic(roleInstance);
+                return;
+            }
+        }
     }
 
     /// <summary>

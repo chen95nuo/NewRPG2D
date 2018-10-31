@@ -5,6 +5,7 @@
  * 动画切换
 */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.Battle;
@@ -50,6 +51,7 @@ public class HallRole : MonoBehaviour
     public void UpdateInfo(RoleBabyData baby)
     {
         currentBaby = baby;
+        currentData = baby.child;
         sex = baby.child.sexType;
         HallRoleMgr.instance.AddRole(baby.child, this);
         isChildren = true;
@@ -107,5 +109,12 @@ public class HallRole : MonoBehaviour
     {
         UIPanelManager.instance.ShowPage<UIRoleTipGroup>();
         UIRoleTipGroup.instance.ShowBabyIcon(this);
+    }
+
+    public void Clear()
+    {
+        roleId = 0;
+        currentBaby = null;
+        currentData = null;
     }
 }

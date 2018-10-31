@@ -71,9 +71,9 @@ public class UIRoleTipGroup : TTUIPage
             }
         }
         GameObject go = Instantiate(BabyTip, babyTipPoint) as GameObject;
-        UIRoleChildGrid data = go.GetComponent<UIRoleChildGrid>();
-        ChildGrid.Add(data);
-        data.GetInfo(ts, canvas, role);
+        UIRoleBabyTip data = go.GetComponent<UIRoleBabyTip>();
+        babyGrid.Add(data);
+        data.GetInfo(ts, canvas, role.currentBaby);
     }
 
     public void CloseIcon(int roleID)

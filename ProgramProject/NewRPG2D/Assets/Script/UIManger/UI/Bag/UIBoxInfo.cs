@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.Battle.Equipment;
 
 public class UIBoxInfo : TTUIPage
 {
@@ -25,6 +26,8 @@ public class UIBoxInfo : TTUIPage
     public Transform GridPoint;
     public Transform poolPoint;
 
+    public int boxID;
+
 
     private void Awake()
     {
@@ -42,6 +45,7 @@ public class UIBoxInfo : TTUIPage
 
     public void UpdateInfo(TreasureBox boxData)
     {
+        boxID = boxData.ItemId;
         txt_Name.text = boxData.ItemName;
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
         Image_Icon.sprite = sp;
@@ -59,18 +63,8 @@ public class UIBoxInfo : TTUIPage
                 {
                     InstanceGrid();
                 }
-                PropData data = PropDataMgr.instance.GetXmlDataByItemId<PropData>(boxData.TreasureBoxItems[i].ItemId);
-                string tip = "";
-                if (boxData.TreasureBoxItems[i].ItemMinCount == boxData.TreasureBoxItems[i].ItemMaxCount)
-                {
-                    tip = data.quality.ToString() + " +" + boxData.TreasureBoxItems[i].ItemMinCount;
-                }
-                else
-                {
-                    tip = boxData.TreasureBoxItems[i].ItemMinCount.ToString() + "-" + boxData.TreasureBoxItems[i].ItemMaxCount.ToString();
-                }
                 barGrid[index].transform.SetParent(GridPoint, false);
-                barGrid[index].UpdateInfo(data.SpriteName, tip);
+                barGrid[index].UpdateInfo(boxData.TreasureBoxItems[i]);
                 index++;
             }
         }
@@ -97,18 +91,8 @@ public class UIBoxInfo : TTUIPage
                 {
                     InstanceGrid();
                 }
-                PropData data = PropDataMgr.instance.GetXmlDataByItemId<PropData>(boxData.TreasureBoxItems[i].ItemId);
-                string tip = "";
-                if (boxData.TreasureBoxItems[i].ItemMinCount == boxData.TreasureBoxItems[i].ItemMaxCount)
-                {
-                    tip = data.quality.ToString() + " +" + boxData.TreasureBoxItems[i].ItemMinCount;
-                }
-                else
-                {
-                    tip = boxData.TreasureBoxItems[i].ItemMinCount.ToString() + "-" + boxData.TreasureBoxItems[i].ItemMaxCount.ToString();
-                }
                 barGrid[index].transform.SetParent(GridPoint, false);
-                barGrid[index].UpdateInfo(data.SpriteName, tip);
+                barGrid[index].UpdateInfo(boxData.TreasureBoxItems[i]);
                 index++;
             }
         }
@@ -137,7 +121,12 @@ public class UIBoxInfo : TTUIPage
 
     public void OpenBox()
     {
-        //TreasureBox
-    }
+        Debug.Log("开宝箱");
+        int fight = HallRoleMgr.instance.GetAtrMaxRole(RoleAttribute.Fight);
+        int life = HallRoleMgr.instance.GetAtrMaxRole(RoleAttribute.Max);
+        ItemDataInTreasure data = TreasureBoxMgr.instance.OpenTreasureBox(boxID, fight, life);
+        UIPanelManager.instance.ShowPage<UIBoxOpen>();
 
+        UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
+    }
 }

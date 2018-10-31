@@ -79,19 +79,22 @@ public class CameraControl : MonoBehaviour
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         PCMove();
-#elif UNITY_ANDROID||UNITY_IPHONE
+#elif UNITY_ANDROID || UNITY_IPHONE
         AndroidMove();
 #endif
 
+        if (room == null)
+        {
+            moving = false;
+        }
         if (moving)
         {
             isMove = true;
             if (moveRoomType == true)
             {
                 Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMin);
-
                 CameraMove(point);
-                if (m_Camera.orthographicSize == zMin)
+                if (m_Camera.orthographicSize - zMin <= 0.01f)
                 {
                     moving = false;
                 }
@@ -99,7 +102,7 @@ public class CameraControl : MonoBehaviour
             else
             {
                 Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMax);
-                if (m_Camera.orthographicSize == zMax)
+                if (zMax - m_Camera.orthographicSize <= 0.01f)
                 {
                     moving = false;
                 }
@@ -183,7 +186,7 @@ public class CameraControl : MonoBehaviour
 
                     isMove = true;
                 }
-                //MoveSpeed = (a * m_Camera.orthographicSize) + b;
+                MoveSpeed = (a * m_Camera.orthographicSize) + b;
             }
         }
     }
@@ -226,6 +229,7 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     public void CloseRoomLock()
     {
+        isMove = false;
         if (room != null)
         {
             room.ShowRoomLockUI(false);
@@ -240,6 +244,7 @@ public class CameraControl : MonoBehaviour
     /// <param name="roomMgr"></param>
     public void RefreshRoomLock(RoomMgr roomMgr)
     {
+        isMove = false;
         if (room != null && room == roomMgr)
         {
             UIPanelManager.instance.ShowPage<UILockRoomTip>(roomMgr);
@@ -292,6 +297,11 @@ public class CameraControl : MonoBehaviour
             else if (hit.collider.tag == "BuildTip")
             {
                 MainCastle.instance.ChickRaycast(hit);
+            }
+            else if (hit.collider.tag == "Baby")
+            {
+                HallRole data = hit.collider.GetComponent<HallRole>();
+                UIPanelManager.instance.ShowPage<UIBabyInfo>(data.currentBaby);
             }
         }
         else //编辑模式点击效果
@@ -366,11 +376,11 @@ public class CameraControl : MonoBehaviour
     private void CameraMove(Vector3 point)
     {
         Vector3 v3 = new Vector3(transform.position.x, transform.position.y, m_Camera.orthographicSize);
-        v3 = Vector3.Lerp(v3, point, .5f / (Vector3.Distance(v3, point)));
-        //v3 = Vector3.Lerp(v3, point, 2.0f);
+        //v3 = Vector3.Lerp(v3, point, .3f / (Vector3.Distance(v3, point)));
+        v3 = Vector3.Lerp(v3, point, .3f / (Vector3.Distance(v3, point)));
         transform.position = new Vector3(v3.x, v3.y, transform.position.z);
         m_Camera.orthographicSize = v3.z;
-        //MoveSpeed = (a * m_Camera.orthographicSize) + b;
+        MoveSpeed = (a * m_Camera.orthographicSize) + b;
     }
 
     /// <summary>

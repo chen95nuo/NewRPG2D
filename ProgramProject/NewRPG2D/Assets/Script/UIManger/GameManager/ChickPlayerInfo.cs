@@ -197,6 +197,17 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             }
         }
     }
+    public void RemoveBaby(HallRole role)
+    {
+        List<RoomMgr> allRoom = MainCastle.instance.allroom;
+        for (int i = 0; i < allRoom.Count; i++)
+        {
+            if (allRoom[i].RoomName == BuildRoomName.BabyRoom)
+            {
+                allRoom[i].RemoveRole(role);
+            }
+        }
+    }
     public void ChickBabyDic(HallRole role)
     {
         List<RoomMgr> allRoom = MainCastle.instance.allroom;

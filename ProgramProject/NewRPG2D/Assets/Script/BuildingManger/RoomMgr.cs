@@ -1122,7 +1122,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         for (int i = 0; i < currentBuildData.roleData.Length; i++)
         {
-            if (currentBuildData.roleData[i] == role.RoleData)
+            if (currentBuildData.roleData[i] != null && currentBuildData.roleData[i].id == role.RoleData.id)
             {
                 currentBuildData.roleData[i] = null;
                 return;
