@@ -68,7 +68,7 @@ namespace Assets.Script.Battle
             CriticalPercent = rolePropertyData.CriticalPercent;
             AviodHurtPercent = rolePropertyData.AviodHurtPercent;
             HitPercent = rolePropertyData.HitPercent;
-            MoveSpeed = 3;
+            MoveSpeed = 5;
             AttackSpeed = rolePropertyData.AttackSpeed;
             HurtType = rolePropertyData.HurtType;
             if (attackRangeDictionary.TryGetValue(rolePropertyData.ProfessionNeed, out AttackRange) == false)
