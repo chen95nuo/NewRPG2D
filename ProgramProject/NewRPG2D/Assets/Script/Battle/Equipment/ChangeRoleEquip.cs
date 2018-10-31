@@ -23,7 +23,7 @@ namespace Assets.Script.Battle
         private Dictionary<EquipTypeEnum, List<string>> equipSlot = new Dictionary<EquipTypeEnum, List<string>>
         {
             {EquipTypeEnum.Armor, new List<string> { "body", "center", "Hats1", "left_hand", "left_foot", "left_leg1", "left_leg2", "left_shoulder1", "left_shoulder2",
-                "right_hand", "right_foot", "right_leg1", "right_leg2", "right_shoulder1", "right_shoulder2" } },
+                "right_hand", "right_foot", "right_leg1", "right_leg2", "right_shoulder_1", "right_shoulder_2" } },
             {EquipTypeEnum.Sword, new List<string> { "weapon", "arrow_line1", "arrow_line2" } },
         };
         private Dictionary<BodyTypeEnum, string> BodySlot = new Dictionary<BodyTypeEnum, string>
