@@ -38,7 +38,7 @@ namespace Assets.Script.Battle
         private HUDTextInfo HUDTextInfoinfo;
         private Dictionary<WeaponProfessionEnum, int> attackRangeDictionary = new Dictionary<WeaponProfessionEnum, int>()
         {
-            {WeaponProfessionEnum.Fighter, 11},
+            {WeaponProfessionEnum.Fighter, 2},
             {WeaponProfessionEnum.Shooter, 20},
             {WeaponProfessionEnum.Magic, 18},
         };
@@ -68,7 +68,7 @@ namespace Assets.Script.Battle
             CriticalPercent = rolePropertyData.CriticalPercent;
             AviodHurtPercent = rolePropertyData.AviodHurtPercent;
             HitPercent = rolePropertyData.HitPercent;
-            MoveSpeed = 1;
+            MoveSpeed = 3;
             AttackSpeed = rolePropertyData.AttackSpeed;
             HurtType = rolePropertyData.HurtType;
             if (attackRangeDictionary.TryGetValue(rolePropertyData.ProfessionNeed, out AttackRange) == false)

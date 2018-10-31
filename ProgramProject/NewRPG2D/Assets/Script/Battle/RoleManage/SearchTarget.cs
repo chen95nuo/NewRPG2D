@@ -39,6 +39,7 @@ namespace Assets.Script.Battle
             this.targetRole = targetRole;
         }
 
+        private float addTime = 0;
         public void Update()
         {
             if (mCurrentRole.FinishMoveToPoint == false)
@@ -60,20 +61,13 @@ namespace Assets.Script.Battle
                     mCurrentRole.RoleMoveMoment.SetTargetTranform(targetRole.RoleTransform);
                     mCurrentRole.RoleMoveMoment.SetTargetMinDistance(attackDistance);
                     bStartAttack = false;
+                    addTime += Time.deltaTime;
+                    if (addTime > 0.933f)
+                    {
+                        addTime = 0;
+                        SearchEnemyByDistance();
+                    }
                 }
-                //else if (Vector3.Angle(dis.normalized, roleTransform.right) > limitAngle)
-                //{
-                //    if (mCurrentRole.IsCanInterrput)
-                //    {
-                //        int moveDir = dis.y > 0 ? 1 : -1;
-                //        mCurrentRole.RoleMoveMoment.SetOffesetVector3(dis);
-                //        mCurrentRole.RoleTransform.position += roleTransform.up *
-                //                                               (moveDir * Time.deltaTime *
-                //                                                mCurrentRole.RolePropertyValue.MoveSpeed * 0.5f);
-                //        mCurrentRole.SetRoleActionState(ActorStateEnum.Run);
-                //        bStartAttack = false;
-                //    }
-                //}
                 else
                 {
                     if (bStartAttack == false)

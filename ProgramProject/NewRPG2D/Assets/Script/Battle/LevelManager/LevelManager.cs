@@ -213,12 +213,13 @@ namespace Assets.Script.Battle.LevelManager
                 isGameOver = true;
                 DebugHelper.LogError("  -----------------Win----- ");
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, true);
-                for (int i = 0; i < GameRoleMgr.instance.RolesHeroList.Count; i++)
+                List<RoleBase> heroList = GameRoleMgr.instance.RolesHeroList;
+                for (int i = 0; i < heroList.Count; i++)
                 {
-                    RoleBase role = GameRoleMgr.instance.RolesHeroList[i];
+                    RoleBase role = heroList[i];
                     if (role.IsDead == false)
                     {
-                        role.RoleAnimation.SetCurrentAniamtionByName(RoleAnimationName.Win, true);
+                        role.SetRoleActionState(ActorStateEnum.Win);
                     }
                 }
                 //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);

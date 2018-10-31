@@ -110,6 +110,7 @@ namespace Assets.Script.Battle
             RoleActionStateDic = new Dictionary<int, FsmState<RoleBase>>(10);
             RoleActionMachine = new FsmStateMachine<RoleBase>(this);
             RoleActionStateDic.Add((int)ActorStateEnum.Death, new RoleDeathState());
+            RoleActionStateDic.Add((int)ActorStateEnum.Win, new RoleWinState());
         }
 
         public void InitSkill(int normalAttackId, int skillDataId01, int skillDataId02)

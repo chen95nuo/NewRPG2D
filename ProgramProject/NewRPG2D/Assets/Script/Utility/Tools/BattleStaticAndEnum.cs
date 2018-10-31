@@ -156,6 +156,7 @@ namespace Assets.Script.Battle
         NormalAttack,
         Skill1,
         Skill2,
+        Win,
     }
 
     public enum RoleTypeEnum

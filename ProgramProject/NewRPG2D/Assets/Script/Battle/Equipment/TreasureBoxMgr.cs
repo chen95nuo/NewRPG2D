@@ -63,13 +63,17 @@ namespace Assets.Script.Battle.Equipment
                     equipmentId = EquipmentDataMgr.instance.GetLifeEquipmentByLevelAndQuality(currentLifeLevel,
                         (QualityTypeEnum)mData.quality);
                 }
-                int randomIndex = Random.Range(0, equipmentId.Count);
-                EquipmentRealProperty equipmentRealData =
-                    EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex], dependLevel);
 
-                for (int i = 0; i < count; i++)
+                if (equipmentId.Count > 0)
                 {
-                    data.EquipmentList.Add(equipmentRealData);
+                    int randomIndex = Random.Range(0, equipmentId.Count);
+                    EquipmentRealProperty equipmentRealData =
+                        EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex], dependLevel);
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        data.EquipmentList.Add(equipmentRealData);
+                    }
                 }
             }
             else if (mData.propType == PropType.Fragment)
