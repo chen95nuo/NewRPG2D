@@ -43,7 +43,7 @@ public class UIBagGrid : MonoBehaviour
             default:
                 break;
         }
-        itemType = ItemType.Equip;
+        itemType = data.itemType;
     }
 
     public void UpdateEquip(ItemHelper data)

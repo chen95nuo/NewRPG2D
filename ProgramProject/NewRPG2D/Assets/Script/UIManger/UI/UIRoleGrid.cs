@@ -43,7 +43,7 @@ public class UIRoleGrid : MonoBehaviour
     {
         LockType(false);
         potoBg.sprite = sp[0];
-        Sprite icon = GetSpriteAtlas.insatnce.GetIcon(name.ToString());
+        Sprite icon = GetSpriteAtlas.insatnce.GetLevelIconToRoom(name);
         Image_Icon.sprite = icon;
         txt_Type.text = "";
         txt_Name.text = data.Name;

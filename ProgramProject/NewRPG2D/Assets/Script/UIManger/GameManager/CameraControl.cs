@@ -14,7 +14,6 @@ public class CameraControl : MonoBehaviour
     private Vector3 m_CameraPosition;
 
     public float MoveSpeed = 1f;
-    public float dragSpeed = 1f;
     public float scaleSpeed = 1f;
 
     private Vector3 oldMousePosition;
@@ -26,6 +25,11 @@ public class CameraControl : MonoBehaviour
     public float zMax = 28f;
     public float zMinOF;
     public float zMaxOF;
+
+    public float xMin = 0;
+    public float xMax = 0;
+    public float yMin = 0;
+    public float yMax = 0;
 
     private float a = 0;
     private float b = 0;
@@ -55,22 +59,23 @@ public class CameraControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-#if IPHONE || ANDROID
-			if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-#else
-                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+#elif UNITY_ANDROID||UNITY_IPHONE
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
 #endif
-                {
-                    Debug.Log("当前触摸在UI上");
-                    isUI = true;
-                }
-                else
-                {
-                    Debug.Log("当前没有触摸在UI上");
-                    isUI = false;
-                }
+            {
+                Debug.Log("当前触摸在UI上");
+                isUI = true;
+            }
+            else
+            {
+                Debug.Log("当前没有触摸在UI上");
+                isUI = false;
+            }
         }
+
+
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         PCMove();
@@ -120,7 +125,7 @@ public class CameraControl : MonoBehaviour
                 {
                     oldTouch0 = Input.GetTouch(0);
                 }
-                if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole)
                 {
                     isMove = true;//镜头移动了
                     moving = false;//如果主动移动镜头关闭自动移动
@@ -138,6 +143,7 @@ public class CameraControl : MonoBehaviour
                 //点击结束时
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
+                    Debug.Log("IsMove: " + isMove);
                     if (isMove == false)
                     {
                         ChickClick();
@@ -153,7 +159,7 @@ public class CameraControl : MonoBehaviour
                     return;
                 }
                 //记录坐标
-                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(1).phase == TouchPhase.Moved)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(1).phase == TouchPhase.Moved && !isHoldRole)
                 {
                     //isMove = true;
 
@@ -177,23 +183,26 @@ public class CameraControl : MonoBehaviour
 
                     isMove = true;
                 }
-                MoveSpeed = (a * m_Camera.orthographicSize) + b;
+                //MoveSpeed = (a * m_Camera.orthographicSize) + b;
             }
         }
     }
 
     private void PCMove()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        float z = Input.GetAxis("Mouse ScrollWheel");
-
-        if (x != 0 || y != 0 || z != 0)
+        if (!isHoldRole)
         {
-            isMove = true;
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            float z = Input.GetAxis("Mouse ScrollWheel");
+
+            if (x != 0 || y != 0 || z != 0)
+            {
+                isMove = true;
+            }
+            m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize += -(z * 4.0f), zMin, zMax);
+            transform.localPosition += (new Vector3(x * 0.2f, y * 0.2f, 0));
         }
-        m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize += -(z * 4.0f), zMin, zMax);
-        transform.localPosition += (new Vector3(x * 0.2f, y * 0.2f, 0));
         if (Input.GetMouseButton(0) && oldMousePosition == Input.mousePosition)
         {
             if (isMove == false)
@@ -358,9 +367,10 @@ public class CameraControl : MonoBehaviour
     {
         Vector3 v3 = new Vector3(transform.position.x, transform.position.y, m_Camera.orthographicSize);
         v3 = Vector3.Lerp(v3, point, .5f / (Vector3.Distance(v3, point)));
+        //v3 = Vector3.Lerp(v3, point, 2.0f);
         transform.position = new Vector3(v3.x, v3.y, transform.position.z);
         m_Camera.orthographicSize = v3.z;
-        MoveSpeed = (a * m_Camera.orthographicSize) + b;
+        //MoveSpeed = (a * m_Camera.orthographicSize) + b;
     }
 
     /// <summary>
@@ -460,8 +470,8 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void GetSpeed()
     {
-        float x = 30 - 5.4f;
-        float y = 2 - 0.6f;
+        float x = 8 - 0.9f;
+        float y = 1.35f - 1.0f;
         a = y / x;
         b = y - (x * a);
     }

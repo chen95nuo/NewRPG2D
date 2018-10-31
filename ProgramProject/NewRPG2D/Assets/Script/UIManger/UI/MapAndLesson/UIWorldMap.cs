@@ -29,7 +29,7 @@ public class UIWorldMap : TTUIPage
     {
         PlayerData playerData = GetPlayerData.Instance.GetData();
         MapLevelData lessonData = playerData.CurrentLessonData;
-        WorldMapData data = null;
+        WorldMapData data =WorldMapDataMgr.instance.GetXmlDataByItemId<WorldMapData>(10001);
         foreach (var item in WorldMapDataMgr.instance.AllLessonData)
         {
             data = item.Key;

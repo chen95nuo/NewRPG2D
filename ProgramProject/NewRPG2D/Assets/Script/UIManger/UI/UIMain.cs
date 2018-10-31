@@ -59,7 +59,6 @@ public class UIMain : TTUIPage
     {
         instance = this;
 
-
         btn_UIMarket.onClick.AddListener(ShowMarket);
         btn_UIBag.onClick.AddListener(ChickBag);
         btn_UIMap.onClick.AddListener(ChickMap);
@@ -68,6 +67,7 @@ public class UIMain : TTUIPage
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
+        UIMainHight(0);
 
         Init();
 

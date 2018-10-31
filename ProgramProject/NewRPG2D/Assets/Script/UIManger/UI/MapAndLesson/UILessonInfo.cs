@@ -17,7 +17,7 @@ public class UILessonInfo : TTUIPage
     public Transform enemyGridPoint;
 
     public UILessonRole[] roles;
-    public List<UILessonEnemy> enemyGrids = new List<UILessonEnemy>();
+    private List<UILessonEnemy> enemyGrids = new List<UILessonEnemy>();
 
     public GameObject itemGrid;
     public Transform itemPoint;
@@ -28,6 +28,8 @@ public class UILessonInfo : TTUIPage
     public Button btn_Magic;
     public Button btn_Type;
     public Button btn_Start;
+    public Button btn_Close;
+    public Button btn_Back;
 
     public LessonRolePoint[] rolePoint = new LessonRolePoint[9];
     private HallRoleData[] rolePointData = new HallRoleData[9];
@@ -40,7 +42,9 @@ public class UILessonInfo : TTUIPage
         btn_Type.onClick.AddListener(ChickType);
         btn_Start.onClick.AddListener(ChickStart);
         txt_Tip_1.text = "攻击";
-        btn_Type.interactable = false;
+        btn_Role.interactable = false;
+        btn_Close.onClick.AddListener(ClosePage);
+        btn_Back.onClick.AddListener(ClosePage);
     }
 
     private void ChickStart()
@@ -73,6 +77,7 @@ public class UILessonInfo : TTUIPage
     {
         base.Show(mData);
         MapLevelData data = mData as MapLevelData;
+        currentLesson = data;
         UpdateInfo(data);
     }
 

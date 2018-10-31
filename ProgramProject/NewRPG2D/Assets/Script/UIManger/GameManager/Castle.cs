@@ -200,6 +200,8 @@ public class Castle : MonoBehaviour
         room_1.RemoveBuilding();
         room_2.RemoveBuilding();
         ChickPlayerInfo.instance.AddBuilding(mergeData);
+        ChickPlayerInfo.instance.RemoveBuilding(room_1.currentBuildData);
+        ChickPlayerInfo.instance.RemoveBuilding(room_2.currentBuildData);
     }
 
     /// <summary>

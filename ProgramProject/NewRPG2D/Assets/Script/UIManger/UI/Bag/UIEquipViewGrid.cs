@@ -82,7 +82,7 @@ public class UIEquipViewGrid : MonoBehaviour
                 txt_OtherNum_2.text = "攻速:";
                 txt_OtherTip_2.text = equipData.AttackSpeed.ToString();
                 txt_MainNum.text = equipData.RoleProperty[RoleAttribute.DPS].ToString("#0");
-                txt_WorkTip.text = "职业类型: " + "<color=#cccccc>" + equipData.WeaponProfession.ToString() + "</color>";
+                txt_WorkTip.text = "职业类型: " + "<color=#b8a17f>" + equipData.WeaponProfession.ToString() + "</color>";
             }
             else if (equipData.EquipType == EquipTypeEnum.Armor)
             {
@@ -163,10 +163,10 @@ public class UIEquipViewGrid : MonoBehaviour
         if (roleData != null)
         {
             txt_Tip_1.text = "需求";
-            int roleLevel = roleData.RoleLevel[(int)equipData.ProfessionNeed].Level;
+            int roleLevel = roleData.RoleLevel[(int)equipData.ProfessionNeed - 1].Level;
             string text = "";
             string whiteText = "<color=#cccccc>{0}</color> ";
-            string redText = "<color=#e6402f>{0}</color> ";
+            string redText = "<color=#ee5151>{0}</color> ";
             if (roleLevel >= equipData.Level)
             {
                 btn_Load.image.sprite = sp[0];
@@ -231,7 +231,7 @@ public class UIEquipViewGrid : MonoBehaviour
         {
             atrGrids[index].gameObject.SetActive(true);
             string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString()).Chinese;
-            st = string.Format("<color=#cccccc>特殊效果:</color>/n" + st, "<color=#cccccc>" + PropertyData[i].param1.ToString() + "</color>/n", "<color=#cccccc>" + PropertyData[i].param2.ToString() + "</color>/n", "<color=#cccccc>" + PropertyData[i].param3.ToString() + "</color>/n");
+            st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString() + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString() + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString() + "</color>");
             atrGrids[index].UpdateInfo(RoleAttribute.Max, st);
             index++;
         }

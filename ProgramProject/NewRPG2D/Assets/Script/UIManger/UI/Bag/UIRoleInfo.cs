@@ -350,6 +350,7 @@ public class UIRoleInfo : TTUIPage
             else
             {
                 equipIcon[i].sprite = equipBGSp[i];
+                btn_Equip[i].image.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + QualityTypeEnum.White);
             }
         }
     }

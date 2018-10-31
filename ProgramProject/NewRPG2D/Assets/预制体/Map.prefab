@@ -10261,7 +10261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1269182371622404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -5, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4084989217414268}
@@ -10846,7 +10846,7 @@ Camera:
   far clip plane: 100
   field of view: 126
   orthographic: 1
-  orthographic size: 28
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -10880,6 +10880,10 @@ MonoBehaviour:
   zMax: 8
   zMinOF: 0
   zMaxOF: 0
+  xMin: 0
+  xMax: 0
+  yMin: 0
+  yMax: 0
   isShowEdit: 0
   isHoldRole: 0
   isUI: 0
@@ -15058,7 +15062,7 @@ SpriteRenderer:
   m_Size: {x: 4.26, y: 8.97}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!212 &212257291550323958
 SpriteRenderer:
@@ -23653,7 +23657,7 @@ SpriteRenderer:
   m_Size: {x: 4.26, y: 8.97}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212903594961331360
 SpriteRenderer:

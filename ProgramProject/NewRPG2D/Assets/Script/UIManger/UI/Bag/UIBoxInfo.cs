@@ -36,15 +36,15 @@ public class UIBoxInfo : TTUIPage
     {
         base.Show(mData);
         //TreasureBox boxdata = mData as TreasureBox;
-        TreasureBox boxdata = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(1);
+        TreasureBox boxdata = mData as TreasureBox;
         UpdateInfo(boxdata);
     }
 
     public void UpdateInfo(TreasureBox boxData)
     {
         txt_Name.text = boxData.ItemName;
-        //Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
-        //Image_Icon.sprite = sp;
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
+        Image_Icon.sprite = sp;
 
         int index = 0;
         for (int i = 0; i < boxData.TreasureBoxItems.Length; i++)

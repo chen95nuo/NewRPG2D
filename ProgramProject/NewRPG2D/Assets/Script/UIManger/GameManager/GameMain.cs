@@ -45,11 +45,14 @@ public class GameMain : MonoBehaviour
     {
         LocalServer.instance.StartInit();
 
-
-        for (int i = 1; i < 26; i++)
+        if (EquipmentMgr.instance.GetAllEquipmentData().Count <= 0)
         {
-            int index = 10000 + i;
-            EquipmentMgr.instance.CreateNewEquipment(index);
+            for (int i = 1; i < 26; i++)
+            {
+                int index = 10000 + i;
+                EquipmentMgr.instance.CreateNewEquipment(index);
+            }
+            ChickItemInfo.instance.CreateNewBox(1001);
         }
     }
 
