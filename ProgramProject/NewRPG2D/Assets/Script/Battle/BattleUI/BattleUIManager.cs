@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,11 +45,17 @@ namespace Assets.Script.Battle.BattleUI
         public void IsGameOver(bool win)
         {
             Time.timeScale = 1;
+            StartCoroutine(DelayWin(win));
+        }
+
+        private IEnumerator DelayWin(bool win)
+        {
+            yield return new WaitForSeconds(0.5f);
+
             BattleUI.CustomSetActive(false);
             EndAward.gameObject.CustomSetActive(true);
             EndAward.ShowPanel(win);
         }
-
 
         int currentSpeed = 1;
         public void AddSpeedClick()

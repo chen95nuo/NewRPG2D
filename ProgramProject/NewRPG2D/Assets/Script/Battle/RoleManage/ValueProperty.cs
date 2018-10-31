@@ -73,7 +73,7 @@ namespace Assets.Script.Battle
             HurtType = rolePropertyData.HurtType;
             if (attackRangeDictionary.TryGetValue(rolePropertyData.ProfessionNeed, out AttackRange) == false)
             {
-                AttackRange = 11;
+                AttackRange = 2;
             }
             MaxHp = RoleHp;
         }

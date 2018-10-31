@@ -48,6 +48,10 @@ namespace Assets.Script.Battle.Equipment
 
         private void GetItemDetail(ItemDataInTreasure data, int itemId, int currentBattleLevel, int currentLifeLevel, bool dependLevel, int count)
         {
+            if (itemId == 0)
+            {
+                return;
+            }
             PropData mData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(itemId);
             if (mData.propType == PropType.Equipment)
             {

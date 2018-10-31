@@ -43,6 +43,7 @@ namespace Assets.Script.Battle.BattleUI
 
         public void BackHall()
         {
+            GameRoleMgr.instance.ClearAllRole();
             SceneManager.LoadScene("EasonMainScene");
         }
 
