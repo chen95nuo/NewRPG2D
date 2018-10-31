@@ -51,7 +51,7 @@ namespace Assets.Script.Battle.LevelManager
         private void Awake()
         {
             InputContorlMgr.CreateInstance();
-            ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
+          //  ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
             //  ReadXmlNewMgr.instance.LoadSpecialXML(XmlName.MapSceneLevel, sceneName, XmlTypeEnum.Battle);
             //  enemyDatas = new Queue<MapLevelData>();
             currentEnemyInfoList = new List<CreateEnemyInfo>();
@@ -66,7 +66,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void Start()
         {
-            CTimerManager.instance.AddListener(1f, 1, AddRole);
+            CTimerManager.instance.AddListener(0.1f, 1, AddRole);
         }
 
         private void Update()

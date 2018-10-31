@@ -14,6 +14,7 @@ namespace Assets.Script.Battle.BattleUI
         public GameObject failedObj, victoryObj;
         public BattleEndPlayerInfo playerInfo;
         public BattleEndPlayerInfo enemyInfo;
+        public BattleEndAwardList endAwardList;
 
         public void ShowPanel(bool isWin)
         {
@@ -39,6 +40,7 @@ namespace Assets.Script.Battle.BattleUI
             }
             playerInfo.SetPlayerInfo(rolesHeroList);
             enemyInfo.SetPlayerInfo(rolesEnemyList);
+            endAwardList.SetAwardInfo(LocalStartFight.instance.MapData.AwardItem, LocalStartFight.instance.MapData.TreasureBoxIds);
         }
 
         public void BackHall()

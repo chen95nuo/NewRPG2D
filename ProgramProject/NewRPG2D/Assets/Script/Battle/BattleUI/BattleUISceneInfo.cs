@@ -34,7 +34,7 @@ namespace Assets.Script.Battle.BattleUI
 
         public IEnumerator StartGame()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             Debug.LogError("start game");
             startGame = true;
             timeId = CTimerManager.instance.AddListener(1, -1, BattleTimeChange);

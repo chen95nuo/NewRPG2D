@@ -36,6 +36,8 @@ namespace Assets.Script.Utility
             base.Init();
             AllXmlDataDic = new Dictionary<int, XmlData[]>(10);
             ReadXmlByType(XmlName.Battle + 1, XmlName.Max, XmlTypeEnum.Common);
+            ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
+            ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
         }
 
         public void ReadXmlByType(XmlName startXmlName, XmlName maXmlName, XmlTypeEnum xmlType = XmlTypeEnum.Hall)

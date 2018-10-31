@@ -28,7 +28,7 @@ namespace Assets.Script.Battle
         public void PlayFx(string FxName, Transform parent)
         {
             Transform hitObject = GameRoleMgr.instance.SetRoleTransform<Transform>("BattleFX/" + FxName, parent.name + FxName, 1,
-            parent, parent.position + parent.up, 0);
+            parent, parent.position + parent.up * 2, 0);
             SortingGroup fxSortingGroup = hitObject.GetComponent<SortingGroup>();
             SortingGroup parentGroup = parent.GetComponent<SortingGroup>();
             fxSortingGroup.sortingOrder = parentGroup.sortingOrder;

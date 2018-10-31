@@ -11,7 +11,6 @@ namespace Assets.Script.Battle.BattleUI
 {
     public class BattleUIManager : MonoBehaviour
     {
-
         public BattleUISceneInfo SceneInfo;
         public BattleUIRoleHpInfo HpInfo;
         public GameObject BattleUI;
@@ -50,7 +49,7 @@ namespace Assets.Script.Battle.BattleUI
 
         private IEnumerator DelayWin(bool win)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
 
             BattleUI.CustomSetActive(false);
             EndAward.gameObject.CustomSetActive(true);
