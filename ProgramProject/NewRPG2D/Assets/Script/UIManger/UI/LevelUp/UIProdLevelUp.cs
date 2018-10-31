@@ -122,7 +122,7 @@ public class UIProdLevelUp : UILevelUp
         txt_Tip_1.text = "升级增加";
         txt_Tip_2.text = "每小时产量";
         txt_Tip_3.text = "房间容量";
-        txt_Tip_5.text = "升级该建筑来增加";
+        txt_Tip_4.text = "升级该建筑来增加";
 
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息

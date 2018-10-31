@@ -43,7 +43,7 @@ public class SystemTime : TSingleton<SystemTime>
         text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
 
-    public string TimeNormalized(int HowManySecond)
+    public string TimeNormalizedOfMin(int HowManySecond)
     {
         if (HowManySecond == 0)
         {
@@ -72,7 +72,7 @@ public class SystemTime : TSingleton<SystemTime>
         return ShowStr;
     }
 
-    public string TimeNormalized(float Second)
+    public string TimeNormalizedOfSecond(float Second)
     {
         int HowManySecond = (int)Second;
         if (HowManySecond == 0)

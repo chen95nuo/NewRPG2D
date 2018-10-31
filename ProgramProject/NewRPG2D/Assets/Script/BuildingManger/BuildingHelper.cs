@@ -65,6 +65,7 @@ public class LocalBuildingData
     public float Stock = 0;
     public bool ConstructionType = false;
     public HallRoleData[] roleData;
+    public RoomMgr currentRoom;
 
     public float AllRoleProduction()
     {
@@ -105,7 +106,6 @@ public class LocalBuildingData
 
         return temp;
     }
-    public RoomMgr currentRoom;
     //public RoleAttribute BuildingRoleHelper()
     //{
     //    switch (buildingData.RoomName)

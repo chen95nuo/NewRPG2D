@@ -8,10 +8,11 @@ public class UIRoleTrainTip : TTUIPage
 {
     public static UIRoleTrainTip instance;
 
-    Dictionary<int, int> tipDic = new Dictionary<int, int>();
+    Dictionary<int, UIRoleTrainTipGrid> tipDic = new Dictionary<int, UIRoleTrainTipGrid>();
+
+    List<UIRoleTrainTipGrid> tipPool = new List<UIRoleTrainTipGrid>();
 
     public GameObject roleTrainTipGrid;
-    private List<UIRoleTrainTipGrid> trainGrids = new List<UIRoleTrainTipGrid>();
 
     private Canvas canvas;
 
@@ -28,31 +29,53 @@ public class UIRoleTrainTip : TTUIPage
         UpdateInfo(index);
     }
 
-    public void UpdateInfo(RoleTrainHelper index)
+    public void AddLister(int roleID)
     {
-        if (tipDic.ContainsKey(index.roleID))
+        if (tipPool.Count <= 0)
         {
-            trainGrids[tipDic[index.roleID]].UpdateInfo(index, canvas);
+            GameObject go = Instantiate(roleTrainTipGrid, transform) as GameObject;
+            UIRoleTrainTipGrid grid = go.GetComponent<UIRoleTrainTipGrid>();
+            tipDic.Add(roleID, grid);
         }
         else
         {
-            for (int i = 0; i < trainGrids.Count; i++)
-            {
-                if (trainGrids[i].isUse == false)
-                {
-                    trainGrids[i].UpdateInfo(index, canvas);
-                    tipDic.Add(index.roleID, i);
-                }
-            }
+            tipDic.Add(roleID, tipPool[0]);
+            tipPool[0].gameObject.SetActive(true);
+            tipPool.RemoveAt(0);
         }
+    }
+
+    public void UpdateInfo(RoleTrainHelper trainData)
+    {
+        if (tipDic.ContainsKey(trainData.roleID))
+        {
+            tipDic[trainData.roleID].UpdateInfo(trainData, canvas);
+        }
+        else
+        {
+            AddLister(trainData.roleID);
+            tipDic[trainData.roleID].UpdateInfo(trainData, canvas);
+        }
+
     }
 
     public void RemoveDic(int roleID)
     {
-        trainGrids[tipDic[roleID]].isUse = false;
         if (tipDic.ContainsKey(roleID))
         {
+            tipDic[roleID].gameObject.SetActive(false);
+            tipPool.Add(tipDic[roleID]);
             tipDic.Remove(roleID);
         }
+    }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
     }
 }

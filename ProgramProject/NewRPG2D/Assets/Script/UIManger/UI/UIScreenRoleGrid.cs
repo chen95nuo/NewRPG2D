@@ -75,7 +75,7 @@ public class UIScreenRoleGrid : MonoBehaviour
         {
             return;
         }
-        string time = SystemTime.instance.TimeNormalized(role.time);
+        string time = SystemTime.instance.TimeNormalizedOfSecond(role.time);
         txt_Time.text = time;
     }
 }

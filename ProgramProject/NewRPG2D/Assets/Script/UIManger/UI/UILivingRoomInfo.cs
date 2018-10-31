@@ -133,7 +133,7 @@ public class UILivingRoomInfo : UIRoomInfo
             if (roleData[i].id == loveData.roleID[0] && roleData[i + 1].id == loveData.roleID[1])
             {
                 Debug.Log("找到房间对应角色");
-                string st = SystemTime.instance.TimeNormalized(loveData.time);
+                string st = SystemTime.instance.TimeNormalizedOfMin(loveData.time);
                 float temp = (float)(loveData.allTime - loveData.time) / (float)loveData.allTime;
                 int num = 0;
                 if (i == 0 || i == 1)

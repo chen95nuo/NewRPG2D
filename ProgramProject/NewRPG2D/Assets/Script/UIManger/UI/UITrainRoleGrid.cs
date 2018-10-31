@@ -105,7 +105,7 @@ public class UITrainRoleGrid : MonoBehaviour
         if (roleTrainData.roleID == this.roleData.id)
         {
             slider.fillAmount = (roleTrainData.maxTime - roleTrainData.time) / roleTrainData.maxTime;
-            string time = SystemTime.instance.TimeNormalized(roleTrainData.time);
+            string time = SystemTime.instance.TimeNormalizedOfSecond(roleTrainData.time);
             txt_Time.text = time;
         }
         txt_Damionds.text = (roleTrainData.time * 0.01f).ToString("#0");

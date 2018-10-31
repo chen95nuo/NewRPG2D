@@ -85,7 +85,7 @@ public class UILevelUpHelper : MonoBehaviour
             allNeed += needIron;
         }
 
-        txt_Tip_3.text = SystemTime.instance.TimeNormalized(b_Data_2.NeedTime);
+        txt_Tip_3.text = SystemTime.instance.TimeNormalizedOfMin(b_Data_2.NeedTime);
         txt_Diamonds.text = allNeed.ToString("#0");
     }
     private void ChickNowUp()

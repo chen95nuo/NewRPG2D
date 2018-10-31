@@ -429,6 +429,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         //删除这个角色 并且在角色头顶显示图标
         HallRoleData roleData = GetRoleData(timeAction[index].roleID);
         HallRole role = GetRole(roleData);
+        UIRoleTrainTip.instance.RemoveDic(roleData.id);
         role.TrainComplete(timeAction[index].atr);
         role.RoleData.TrainType = RoleTrainType.Complete;
     }
@@ -644,7 +645,6 @@ public class RoleTrainHelper
     public int roleID;
     public TrainType atr;
     public float time;
-    public HallChildren children;
     public float maxTime;
 
     public RoleTrainHelper(HallRoleData data, TrainType atr, float time)

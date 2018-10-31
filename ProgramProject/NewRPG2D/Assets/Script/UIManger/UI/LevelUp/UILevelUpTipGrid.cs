@@ -57,6 +57,6 @@ public class UILevelUpTipGrid : MonoBehaviour
             this.gameObject.SetActive(true);
         }
         slider.fillAmount = (float)(data.allTime - data.needTime) / (float)data.allTime;
-        txt_time.text = SystemTime.instance.TimeNormalized((float)data.needTime);
+        txt_time.text = SystemTime.instance.TimeNormalizedOfSecond((float)data.needTime);
     }
 }

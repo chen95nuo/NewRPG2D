@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Timer;
+using Assets.Script.UIManger;
 
 public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
 {
@@ -781,7 +782,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// </summary>
     /// <param name="data"></param>
     /// <param name="time"></param>
-    public int Timer(int id, int time, int TipID, int nextID)
+    public int Timer(int id, int time, int nextID, int TipID = -1)
     {
         int index = CTimerManager.instance.AddListener(1f, time, ChickTime);
         LevelUPHelper helper = new LevelUPHelper(id, TipID, time, nextID);
@@ -796,9 +797,27 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     public void ChickTime(int key)
     {
         buildNumber[key].needTime--;
-        HallEventManager.instance.SendEvent<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, buildNumber[key]);
+        if (UILevelUpTip.instance == null)
+        {
+            UIPanelManager.instance.ShowPage<UILevelUpTip>();
+        }
         UILevelUpTip.instance.UpdateTime(buildNumber[key]);
+        if (buildNumber[key].needTime <= 0)
+        {
+            UILevelUpTip.instance.RemoveLister(buildNumber[key].tipID);
+            ChickLeveUp(buildNumber[key]);
+            RemoveThisTime(key);
+        }
     }
+    /// <summary>
+    /// 删除这个计时事件
+    /// </summary>
+    /// <param name="sequenceTime"></param>
+    public void RemoveThisTime(int sequenceTime)
+    {
+        CTimerManager.instance.RemoveLister(sequenceTime);
+    }
+
     public void ChangeBuildNumber(LevelUPHelper data, int newTip)
     {
         foreach (var item in buildNumber)
@@ -819,6 +838,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             if (item.Value.roomID == id)
             {
                 CTimerManager.instance.RemoveLister(item.Key);
+                UILevelUpTip.instance.RemoveLister(item.Value.tipID);
                 ChickLeveUp(item.Value);
             }
         }
@@ -852,14 +872,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         return null;
     }
 
-    /// <summary>
-    /// 删除这个计时事件
-    /// </summary>
-    /// <param name="sequenceTime"></param>
-    public void RemoveThisTime(int sequenceTime)
-    {
-        CTimerManager.instance.RemoveLister(sequenceTime);
-    }
+
 
     /// <summary>
     /// 新建生产房间 添加生产事件

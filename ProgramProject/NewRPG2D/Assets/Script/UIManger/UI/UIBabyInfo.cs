@@ -28,7 +28,7 @@ public class UIBabyInfo : TTUIPage
 
     public void Update()
     {
-        txt_time.text = SystemTime.instance.TimeNormalized((float)currentData.time);
+        txt_time.text = SystemTime.instance.TimeNormalizedOfSecond((float)currentData.time);
     }
 
     public override void Show(object mData)

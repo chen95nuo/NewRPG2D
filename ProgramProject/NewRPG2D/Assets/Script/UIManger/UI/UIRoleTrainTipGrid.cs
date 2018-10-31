@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class UIRoleTrainTipGrid : MonoBehaviour
 {
-    public bool isUse;
-
     public Text txt_Time;
     public Image slider;
 
@@ -26,14 +24,16 @@ public class UIRoleTrainTipGrid : MonoBehaviour
 
     public void UpdateInfo(RoleTrainHelper trainData, Canvas canvas)
     {
-        isUse = true;
         this.canvas = canvas;
-        if (role.roleId != trainData.roleID)
+        if (role == null || role.roleId != trainData.roleID)
         {
             HallRoleData data = HallRoleMgr.instance.GetRoleData(trainData.roleID);
             HallRole role = HallRoleMgr.instance.GetRole(data);
             this.role = role;
         }
+        txt_Time.text = SystemTime.instance.TimeNormalizedOfSecond(trainData.time);
+        slider.fillAmount = (float)(trainData.maxTime - trainData.time) / (float)trainData.maxTime;
+        ChickCameraMove();
     }
 
     public void ChickCameraMove()

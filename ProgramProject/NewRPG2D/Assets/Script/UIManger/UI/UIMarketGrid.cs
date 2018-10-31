@@ -90,7 +90,7 @@ public class UIMarketGrid : MonoBehaviour
 
         buildingData = data;
         txt_Number.text = number[0] + "/" + number[1];
-        txt_NeedTime.text = SystemTime.instance.TimeNormalized(data.NeedTime);
+        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOfMin(data.NeedTime);
 
         if (data.NeedGold > 0)
         {

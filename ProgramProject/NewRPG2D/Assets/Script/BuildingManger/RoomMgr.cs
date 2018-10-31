@@ -132,8 +132,6 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
-    private int timeIndex;
-
     public RoleAttribute NeedAttribute
     {
         get
@@ -426,14 +424,12 @@ public abstract class RoomMgr : MonoBehaviour
     {
         GetCompoment();
         HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
-        HallEventManager.instance.AddListener<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, TimerCallBack);
 
 
     }
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
-        HallEventManager.instance.RemoveListener<LevelUPHelper>(HallEventDefineEnum.ChickLevelUpTime, TimerCallBack);
     }
     private void ChickStockFull(RoomStockFullHelper data)
     {
@@ -982,22 +978,13 @@ public abstract class RoomMgr : MonoBehaviour
         {
             needTime = time;
         }
-        levelUpTip = UIPanelManager.instance.ShowPage<UILevelUpTip>(this);
-        timeIndex = ChickPlayerInfo.instance.Timer(Id, needTime, timeIndex, nextId);
+        ChickPlayerInfo.instance.Timer(Id, needTime, nextId);
         CameraControl.instance.CloseRoomLock();
-    }
-
-    public void TimerCallBack(LevelUPHelper levelUpHelper)
-    {
-        if (levelUpHelper.roomID == Id)
-        {
-            levelUpTip.UpdateTime(levelUpHelper);
-        }
     }
 
     public void ConstructionCancel()
     {
-
+        ConstructionType = false;
     }
 
     /// <summary>
@@ -1005,7 +992,6 @@ public abstract class RoomMgr : MonoBehaviour
     /// </summary>
     public void ConstructionComplete(LevelUPHelper data)
     {
-        ChickPlayerInfo.instance.RemoveThisTime(timeIndex);
         BuildingData changeData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nextID);
         ChickPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
         levelUpTip = null;
