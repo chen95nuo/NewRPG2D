@@ -62,7 +62,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         GetRoleProperty(roleProperty, data, realProperty.Level);
         realProperty.RoleProperty = roleProperty;
         realProperty.AttackRange = data.AttackRange;
-        realProperty.AttackSpeed = data.AttackSpeed;
+        realProperty.AttackSpeed = attackSpeed;
         realProperty.QualityType = data.QualityType;
         GetSpecialProperty(specialProperty, data);
         realProperty.SpecialProperty = specialProperty;

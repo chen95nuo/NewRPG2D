@@ -38,6 +38,7 @@ namespace Assets.Script.Battle
         private HUDTextInfo HUDTextInfoinfo;
         private Dictionary<WeaponProfessionEnum, int> attackRangeDictionary = new Dictionary<WeaponProfessionEnum, int>()
         {
+            {WeaponProfessionEnum.None, 2},
             {WeaponProfessionEnum.Fighter, 2},
             {WeaponProfessionEnum.Shooter, 20},
             {WeaponProfessionEnum.Magic, 18},
