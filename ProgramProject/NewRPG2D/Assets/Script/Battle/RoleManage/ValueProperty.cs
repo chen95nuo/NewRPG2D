@@ -53,8 +53,8 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.Speed = 10;
             HUDTextInfoinfo.VerticalAceleration = -2;
             HUDTextInfoinfo.VerticalFactorScale = 0.1f;
-            HUDTextInfoinfo.VerticalPositionOffset = 0;
-            HUDTextInfoinfo.Side = mRole.TeamId == TeamTypeEnum.Hero ? bl_Guidance.RightDown : bl_Guidance.LeftDown;
+            HUDTextInfoinfo.VerticalPositionOffset = 2.5f;
+            HUDTextInfoinfo.Side = bl_Guidance.Down;
         }
 
         public void InitBaseRoleValue(PropertyData rolePropertyData)

@@ -50,7 +50,7 @@ public class BattleStartTest : MonoBehaviour
             role1.EquipIdList[i] = temp.EquipId;
         }
         role1.sexType = SexTypeEnum.Woman;
-        role1.Profession = WeaponProfessionEnum.None;
+        role1.Profession = WeaponProfessionEnum.Shooter;
 
         for (int i = 0; i < 2; i++)
         {
