@@ -198,12 +198,11 @@ public class UILessonInfo : TTUIPage
         RoleDetailData data = new RoleDetailData();
         for (int i = 0; i < rolePoint.Length; i++)
         {
-            if (index > rolePoint[i].Types[(int)roleData.ProfessionType] && rolePointData[i] == null)
+            if (index > rolePoint[i].GetType(roleData.ProfessionType) && rolePointData[i] == null)
             {
                 if (nowPoint != -1)
                     rolePointData[nowPoint] = null;
-
-                index = rolePoint[i].Types[(int)roleData.ProfessionType];
+                index = rolePoint[i].GetType(roleData.ProfessionType);
                 nowPoint = i;
                 rolePointData[i] = roleData;
             }
@@ -217,5 +216,14 @@ public class UILessonInfo : TTUIPage
         data.BornPositionType = (BornPositionTypeEnum)nowPoint;
         Debug.Log("位置 :" + nowPoint);
         FightRoleData.Add(data);
+    }
+
+    public override void ClosePage()
+    {
+        for (int i = 0; i < rolePointData.Length; i++)
+        {
+            rolePointData[i] = null;
+        }
+        base.ClosePage();
     }
 }
