@@ -14,7 +14,7 @@ namespace Assets.Script.Battle.BattleUI
     {
         public BattleEndAwardItem[] items;
 
-        public void SetAwardInfo(AwardItemData[] itemDatas, int[] treasureBoxIds)
+        public void SetAwardInfo(AwardItemData[] itemDatas, int[] treasureBoxIds, bool isWin)
         {
             int itemCount = itemDatas.Length;
             int realCount = 0;
@@ -22,6 +22,7 @@ namespace Assets.Script.Battle.BattleUI
             {
                 items[i].gameObject.CustomSetActive(false);
             }
+            if (isWin == false) return;
             for (int i = 0; i < itemCount; i++)
             {
                 int count = UnityEngine.Random.Range(itemDatas[i].ItemMinCount, itemDatas[i].ItemMaxCount);
@@ -39,11 +40,11 @@ namespace Assets.Script.Battle.BattleUI
                 {
                     realCount++;
                     ChickItemInfo.instance.CreateNewBox(box.ItemId);
-                   items[i].gameObject.CustomSetActive(true);
+                    items[i].gameObject.CustomSetActive(true);
                     items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(box.Icon), 1);
                 }
             }
-           
+
         }
     }
 }
