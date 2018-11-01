@@ -69,6 +69,7 @@ public enum BodyTypeEnum
 
 public enum QualityTypeEnum
 {
+    None,
     White,
     Green,
     Blue,

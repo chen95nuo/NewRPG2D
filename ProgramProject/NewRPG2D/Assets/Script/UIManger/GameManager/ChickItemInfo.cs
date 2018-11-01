@@ -109,7 +109,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
 
     public bool UseBox(int id)
     {
-        if (AllBox[id].num <= 0)
+        if (AllBox.ContainsKey(id)==false || AllBox[id].num <= 0)
         {
             Debug.LogError("道具数量出错");
             return false;

@@ -18,28 +18,30 @@ namespace Assets.Script.Battle.BattleUI
         {
             int itemCount = itemDatas.Length;
             int realCount = 0;
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i].gameObject.CustomSetActive(false);
+            }
             for (int i = 0; i < itemCount; i++)
             {
                 RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(itemDatas[i].ItemId);
                 if (mRealPropData != null && mRealPropData.propData != null)
                 {
-                    realCount++;
+                    items[i].gameObject.CustomSetActive(true);
                     items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(mRealPropData.propData.SpriteName), UnityEngine.Random.Range(itemDatas[i].ItemMinCount, itemDatas[i].ItemMaxCount));
                 }
             }
-            for (int i = itemCount; i < treasureBoxIds.Length; i++)
+            for (int i = itemCount; i < treasureBoxIds.Length + itemCount; i++)
             {
-                TreasureBox box = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(treasureBoxIds[i]);
+                TreasureBox box = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(treasureBoxIds[i - itemCount]);
                 if (box != null)
                 {
                     realCount++;
+                    items[i].gameObject.CustomSetActive(true);
                     items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(box.Icon), 1);
                 }
             }
-            for (int i = realCount; i < items.Length; i++)
-            {
-                items[i].gameObject.CustomSetActive(false);
-            }
+           
         }
     }
 }

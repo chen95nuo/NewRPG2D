@@ -76,7 +76,7 @@ namespace Assets.Script.Battle.BattleData
             List<int> equipItemIdList= new List<int>();
             for (int i = 0; i < currentItemData.Count; i++)
             {
-                if (currentItemData[i].LevelRange.Min < currentLevel && currentItemData[i].LevelRange.Max > currentLevel)
+                if (currentLevel >= currentItemData[i].LevelRange.Min && currentLevel <= currentItemData[i].LevelRange.Max)
                 {
                     if (currentItemData[i].QualityType == qualityType)
                     {
