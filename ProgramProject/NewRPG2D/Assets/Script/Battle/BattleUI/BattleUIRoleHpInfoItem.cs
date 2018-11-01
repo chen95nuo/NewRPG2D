@@ -56,7 +56,6 @@ namespace Assets.Script.Battle.BattleUI
             if (param.role.InstanceId == instanceId)
             {
                 currentHp = param.role.RolePropertyValue.RoleHp;
-                useImage.fillAmount = currentHp / maxHp;
                 if (currentHp <= 0)
                 {
                     useImage.gameObject.CustomSetActive(false);
@@ -67,6 +66,7 @@ namespace Assets.Script.Battle.BattleUI
                     useImage.gameObject.CustomSetActive(true);
                     BgImage.gameObject.CustomSetActive(true);
                 }
+                useImage.fillAmount = currentHp / maxHp;
             }
         }
 

@@ -27,7 +27,7 @@ namespace Assets.Script.Battle.BattleUI
             {
                 HpInfoItemList.Add(param.role);
                 BattleUIRoleHpInfoItem item = Instantiate(HpItem, transform);
-                item.SetHpItemInfo(param.role.TeamId == TeamTypeEnum.Hero, param.role.RolePropertyValue.RoleHp,
+                item.SetHpItemInfo(param.role.TeamId == TeamTypeEnum.Hero, param.role.RolePropertyValue.MaxHp,
                     param.role.InstanceId, param.role.RoleTransform);
             }
         }
