@@ -37,7 +37,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         AllEquipmentData.Clear();
     }
 
-    public EquipmentRealProperty CreateNewEquipment(int itemId, bool dependLevel = false)
+    public EquipmentRealProperty CreateNewEquipment(int itemId, int dependLevel = -1)
     {
         EquipmentData data = EquipmentDataMgr.instance.GetXmlDataByItemId<EquipmentData>(itemId);
 
@@ -52,7 +52,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         EquipmentRealProperty realProperty = new EquipmentRealProperty();
         realProperty.EquipId = equipId;
         realProperty.EquipType = data.EquipType;
-        realProperty.Level = (int)Random.Range(data.LevelRange.Min, data.LevelRange.Max);
+        realProperty.Level = dependLevel < 0 ? (int)Random.Range(data.LevelRange.Min, data.LevelRange.Max) : dependLevel;
         attackSpeed = data.AttackSpeed;
         if (attackSpeed < 0.0001f)
         {
