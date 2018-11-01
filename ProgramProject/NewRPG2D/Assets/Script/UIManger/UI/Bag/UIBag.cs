@@ -29,6 +29,7 @@ public class UIBag : TTUIPage
     private void Awake()
     {
         HallEventManager.instance.AddListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.RefreshBagUI, ChickBagType);
 
         btn_back.onClick.AddListener(ClosePage);
         for (int i = 0; i < btn_AllType.Length; i++)
@@ -41,6 +42,7 @@ public class UIBag : TTUIPage
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<EquipmentRealProperty>(HallEventDefineEnum.ShowEquipInfo, BagChickRoleEquip);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.RefreshBagUI, ChickBagType);
     }
 
     private void ChickBagType()

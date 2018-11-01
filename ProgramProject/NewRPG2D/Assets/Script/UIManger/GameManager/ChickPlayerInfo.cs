@@ -680,23 +680,44 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             case BuildRoomName.Gold:
                 play.Gold += index;
+                play.Gold = Mathf.Clamp(play.Gold, 0, 5000);
                 break;
             case BuildRoomName.Food:
                 play.Food += index;
+                play.Food = Mathf.Clamp(play.Food, 0, 5000);
                 break;
             case BuildRoomName.Mana:
                 play.Mana += index;
+                play.Mana = Mathf.Clamp(play.Mana, 0, 5000);
                 break;
             case BuildRoomName.Wood:
                 play.Wood += index;
+                play.Wood = Mathf.Clamp(play.Wood, 0, 5000);
                 break;
             case BuildRoomName.Iron:
                 play.Iron += index;
+                play.Iron = Mathf.Clamp(play.Iron, 0, 5000);
                 break;
             default:
                 break;
         }
         HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+    }
+    public void AddStock(int Id, int index)
+    {
+        Debug.Log("此处ID需优化");
+        BuildRoomName name = BuildRoomName.Nothing;
+        switch (Id)
+        {
+            case 1011: name = BuildRoomName.Gold; break;
+            case 1012: name = BuildRoomName.Food; break;
+            case 1013: name = BuildRoomName.Mana; break;
+            case 1014: name = BuildRoomName.Wood; break;
+            case 1015: name = BuildRoomName.Iron; break;
+            default:
+                break;
+        }
+        AddStock(name, index);
     }
 
     /// <summary>

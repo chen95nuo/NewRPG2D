@@ -109,7 +109,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
 
     public bool UseBox(int id)
     {
-        if (AllBox.ContainsKey(id)==false || AllBox[id].num <= 0)
+        if (AllBox.ContainsKey(id) == false || AllBox[id].num <= 0)
         {
             Debug.LogError("道具数量出错");
             return false;
@@ -118,7 +118,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         if (AllBox[id].num <= 0)
         {
             AllBoxList.Remove(AllBox[id]);
-            AllProp.Remove(id);
+            AllBox.Remove(id);
         }
         return true;
     }

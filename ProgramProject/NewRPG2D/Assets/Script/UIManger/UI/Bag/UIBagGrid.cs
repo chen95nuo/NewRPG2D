@@ -14,7 +14,7 @@ public class UIBagGrid : MonoBehaviour
     public Text txt_Num;
     private ItemType itemType;
     private EquipmentRealProperty equipData;
-    private TreasureBox boxData;
+    private BoxDataHelper boxData;
     private RealPropData propData;
 
     private void Awake()
@@ -58,12 +58,12 @@ public class UIBagGrid : MonoBehaviour
 
     public void UpdateBox(ItemHelper data)
     {
-        boxData = ChickItemInfo.instance.GetBoxData(data.instanceId);
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
+        TreasureBox terboxData = ChickItemInfo.instance.GetBoxData(data.instanceId);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(terboxData.Icon);
         image_Item.sprite = sp;
-        BoxDataHelper boxHData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
+        boxData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
         NumBG.SetActive(true);
-        txt_Num.text = boxHData.num.ToString();
+        txt_Num.text = boxData.num.ToString();
         image_Quality.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_White");
     }
     public void UpdateProp(ItemHelper data)

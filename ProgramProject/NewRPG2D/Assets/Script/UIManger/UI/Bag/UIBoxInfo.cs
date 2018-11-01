@@ -26,8 +26,7 @@ public class UIBoxInfo : TTUIPage
     public Transform GridPoint;
     public Transform poolPoint;
 
-    public int boxID;
-
+    public BoxDataHelper realBoxData;
 
     private void Awake()
     {
@@ -38,14 +37,14 @@ public class UIBoxInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        //TreasureBox boxdata = mData as TreasureBox;
-        TreasureBox boxdata = mData as TreasureBox;
+        BoxDataHelper boxdata = mData as BoxDataHelper;
         UpdateInfo(boxdata);
     }
 
-    public void UpdateInfo(TreasureBox boxData)
+    public void UpdateInfo(BoxDataHelper helperData)
     {
-        boxID = boxData.ItemId;
+        realBoxData = helperData;
+        TreasureBox boxData = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(helperData.boxId);
         txt_Name.text = boxData.ItemName;
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
         Image_Icon.sprite = sp;
@@ -124,10 +123,10 @@ public class UIBoxInfo : TTUIPage
         Debug.Log("开宝箱");
         int fight = HallRoleMgr.instance.GetAtrMaxRole(RoleAttribute.Fight);
         int life = HallRoleMgr.instance.GetAtrMaxRole(RoleAttribute.Max);
-        ItemDataInTreasure data = TreasureBoxMgr.instance.OpenTreasureBox(boxID, fight, life);
+        ItemDataInTreasure data = TreasureBoxMgr.instance.OpenTreasureBox(realBoxData.boxId, fight, life);
         UIPanelManager.instance.ShowPage<UIBoxOpen>();
-        //UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
-        ChickItemInfo.instance.UseBox(boxID);
+        UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
+        ChickItemInfo.instance.UseBox(realBoxData.instanceId);
         ClosePage();
     }
 }

@@ -45,6 +45,8 @@ public class UIBoxOpen : TTUIPage
             }
             boxGrids[index].UpdateInfo(propData[i].propData, propData[i].number);
             index++;
+            ChickPlayerInfo.instance.AddStock(propData[i].propData.ItemId, propData[i].number);
+
         }
 
         for (int i = 0; i < equipData.Count; i++)
@@ -58,7 +60,7 @@ public class UIBoxOpen : TTUIPage
             boxGrids[index].UpdateInfo(equipData[i]);
             index++;
         }
-
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.RefreshBagUI);
     }
 
     private void ChickClose()
