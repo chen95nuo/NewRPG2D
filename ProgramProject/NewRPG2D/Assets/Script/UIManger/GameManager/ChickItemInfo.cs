@@ -39,10 +39,13 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
     {
         foreach (var item in AllProp)
         {
-            if (item.Value.propData.ItemId == id && item.Value.number < 100)
+            if (item.Value.propData != null)
             {
-                item.Value.number++;
-                return item.Value;
+                if (item.Value.propData.ItemId == id && item.Value.number < 100)
+                {
+                    item.Value.number++;
+                    return item.Value;
+                }
             }
         }
         PropData pData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);

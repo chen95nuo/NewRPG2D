@@ -20,10 +20,10 @@ namespace Assets.Script.Battle.BattleUI
         {
             failedObj.CustomSetActive(!isWin);
             victoryObj.CustomSetActive(isWin);
-            SetRoleInfo();
+            SetRoleInfo(isWin);
         }
         
-        private void SetRoleInfo()
+        private void SetRoleInfo(bool isWin)
         {
             List<RoleBase> rolesHeroList = new List<RoleBase>(9);
             List<RoleBase> rolesEnemyList = new List<RoleBase>(9);
@@ -40,7 +40,11 @@ namespace Assets.Script.Battle.BattleUI
             }
             playerInfo.SetPlayerInfo(rolesHeroList);
             enemyInfo.SetPlayerInfo(rolesEnemyList);
-            endAwardList.SetAwardInfo(LocalStartFight.instance.MapData.AwardItem, LocalStartFight.instance.MapData.TreasureBoxIds);
+            if (isWin)
+            {
+                endAwardList.SetAwardInfo(LocalStartFight.instance.MapData.AwardItem,
+                    LocalStartFight.instance.MapData.TreasureBoxIds);
+            }
         }
 
         public void BackHall()

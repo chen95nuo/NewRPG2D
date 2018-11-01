@@ -8,12 +8,12 @@ namespace Assets.Script.Battle.Equipment
     public class ItemDataInTreasure
     {
         public List<EquipmentRealProperty> EquipmentList;
-        public List<PropData> PropDataList;
+        public List<RealPropData> PropDataList;
 
         public ItemDataInTreasure()
         {
             EquipmentList = new List<EquipmentRealProperty>(5);
-            PropDataList = new List<PropData>(5);
+            PropDataList = new List<RealPropData>(5);
         }
     }
 
@@ -85,23 +85,25 @@ namespace Assets.Script.Battle.Equipment
                 List<PropData> propDataList = PropDataMgr.instance.GetPropDataByType(mData.propType, mData.quality);
                 propDataList.Remove(mData);
                 PropData propData = propDataList[Random.Range(0, propDataList.Count)];
+                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(propData.ItemId);
                 for (int i = 0; i < count; i++)
                 {
-                    if (data.PropDataList.Contains(propData))
+                    if (data.PropDataList.Contains(mRealPropData))
                     {
-                        int index = data.PropDataList.IndexOf(propData);
-                        data.PropDataList[index].num++;
+                        int index = data.PropDataList.IndexOf(mRealPropData);
+                        data.PropDataList[index].number++;
                     }
                     else
                     {
-                        data.PropDataList.Add(propData);
+                        data.PropDataList.Add(mRealPropData);
                     }
                 }
             }
             else
             {
-                mData.num = count;
-                data.PropDataList.Add(mData);
+                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(itemId);
+                mRealPropData.number = count;
+                data.PropDataList.Add(mRealPropData);
             }
 
         }

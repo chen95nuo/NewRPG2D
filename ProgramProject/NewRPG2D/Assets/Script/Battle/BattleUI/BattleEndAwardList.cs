@@ -20,11 +20,11 @@ namespace Assets.Script.Battle.BattleUI
             int realCount = 0;
             for (int i = 0; i < itemCount; i++)
             {
-                PropData mData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(itemDatas[i].ItemId);
-                if (mData != null)
+                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(itemDatas[i].ItemId);
+                if (mRealPropData != null && mRealPropData.propData != null)
                 {
                     realCount++;
-                    items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(mData.SpriteName), UnityEngine.Random.Range(itemDatas[i].ItemMinCount, itemDatas[i].ItemMaxCount));
+                    items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(mRealPropData.propData.SpriteName), UnityEngine.Random.Range(itemDatas[i].ItemMinCount, itemDatas[i].ItemMaxCount));
                 }
             }
             for (int i = itemCount; i < treasureBoxIds.Length; i++)

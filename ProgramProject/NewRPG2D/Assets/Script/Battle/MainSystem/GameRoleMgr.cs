@@ -81,7 +81,7 @@ namespace Assets.Script.Battle
             info.RoleType = RoleTypeEnum.Hero;
             role.SetRoleInfo(info, roleMono);
             RolePropertyData data = new RolePropertyData();
-            int level = 1;
+            int level = roleData.Level;
             data.HP = 200 + level * 40;
             data.DamageMin = 10 + level * 1.1f;
             role.InitRoleBaseProperty(data, roleData);
