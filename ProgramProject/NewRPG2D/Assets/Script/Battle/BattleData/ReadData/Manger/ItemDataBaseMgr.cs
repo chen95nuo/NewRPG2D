@@ -26,7 +26,7 @@ namespace Assets.Script.Battle.BattleData
                     return CurrentItemData[i] as T;
                 }
             }
-            DebugHelper.LogError(typeof(T) + " don't have the item is the ItemId = " + itemId);
+            DebugHelper.Log(typeof(T) + " don't have the item is the ItemId = " + itemId);
             return null;
         }
 

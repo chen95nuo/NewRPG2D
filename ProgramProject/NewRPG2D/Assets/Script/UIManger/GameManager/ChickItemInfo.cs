@@ -49,6 +49,10 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
             }
         }
         PropData pData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);
+        if (pData == null)
+        {
+            return null;
+        }
         if (pData.propType == PropType.Resources)
         {
             ChickPlayerInfo.instance.AddStock(pData.ItemId, num);
