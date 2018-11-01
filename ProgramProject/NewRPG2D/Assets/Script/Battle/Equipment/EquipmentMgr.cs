@@ -155,7 +155,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         {
             roleProperty[RoleAttribute.DPS] = 0;
         }
-        roleProperty[RoleAttribute.DPS] += ((int)roleProperty[RoleAttribute.MinDamage] + (int)roleProperty[RoleAttribute.MaxDamage]) / (2 * attackSpeed);
+        roleProperty[RoleAttribute.DPS] += ((int)roleProperty[RoleAttribute.MinDamage] + (int)roleProperty[RoleAttribute.MaxDamage]) / 2f * attackSpeed;
     }
 
     private void GetSpecialProperty(List<SpecialPropertyData> roleProperty, EquipmentData data)
