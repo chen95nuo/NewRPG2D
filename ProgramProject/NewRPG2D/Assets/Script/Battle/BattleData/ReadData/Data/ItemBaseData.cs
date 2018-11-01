@@ -7,7 +7,7 @@ namespace Assets.Script.Battle.BattleData
     public class ItemBaseData : XmlData
     {
         public int ItemId;
-        public string ItemName;
+        public string ItemName = "Item";
         public string Description;
 
         public override bool GetXmlDataAttribute(XmlNode node)
@@ -18,7 +18,7 @@ namespace Assets.Script.Battle.BattleData
 
         public override string ToString()
         {
-            return "Item_" + ItemName;
+            return ItemName;
         }
     }
 }

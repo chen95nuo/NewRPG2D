@@ -112,6 +112,7 @@ namespace Assets.Script.Battle.LevelManager
         private void AddRole(int timeId)
         {
             CTimerManager.instance.RemoveLister(timeId);
+            InputContorlMgr.instance.IsFinishBattle = false;
             InitEnemyData();
             SetEnemyInfo();
             float heroPointLength = heroPoint.Length;
@@ -222,18 +223,19 @@ namespace Assets.Script.Battle.LevelManager
                         role.SetRoleActionState(ActorStateEnum.Win);
                     }
                 }
-                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-                //GoFightMgr.instance.MissionComplete();
                 return;
             }
 
             if (isCreateEnemy && GameRoleMgr.instance.RolesHeroList.Count <= 0)
             {
                 DebugHelper.LogError("  -----------------Lose----- ");
-                //UIEventManager.instance.SendEvent(UIEventDefineEnum.MissionComplete);
-                //GoFightMgr.instance.MissionComplete();
                 isGameOver = true;
                 EventManager.instance.SendEvent(EventDefineEnum.GameOver, false);
+            }
+
+            if (isGameOver)
+            {
+                InputContorlMgr.instance.IsFinishBattle = true;
             }
         }
 

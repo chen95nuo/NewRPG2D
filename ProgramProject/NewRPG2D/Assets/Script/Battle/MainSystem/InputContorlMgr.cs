@@ -15,6 +15,8 @@ namespace Assets.Script.Battle
         private LayerMask touchMask;
         private RoleRender cacheRole;
 
+        public bool IsFinishBattle;
+
         public override void Init()
         {
             base.Init();
@@ -30,10 +32,11 @@ namespace Assets.Script.Battle
             touchMask = mask;
         }
 
-        private SelectTargetParam selectTargetData =new SelectTargetParam();
+        private SelectTargetParam selectTargetData = new SelectTargetParam();
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            if (IsFinishBattle) return;
             if (Input.GetMouseButtonDown(0))
             {
                 cacheRole = GetTouchRoleRender();
