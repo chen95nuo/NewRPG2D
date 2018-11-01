@@ -240,6 +240,10 @@ public class UIEquipViewGrid : MonoBehaviour
 
     private void ChickList(List<SpecialPropertyData> PropertyData)
     {
+        if (index >= atrGrids.Count)
+        {
+            InstanceGrid();
+        }
         for (int i = 0; i < PropertyData.Count; i++)
         {
             atrGrids[index].gameObject.SetActive(true);
@@ -247,10 +251,6 @@ public class UIEquipViewGrid : MonoBehaviour
             st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString("#0.0") + "</color>");
             atrGrids[index].UpdateInfo(RoleAttribute.Max, st);
             index++;
-        }
-        if (index >= atrGrids.Count)
-        {
-            InstanceGrid();
         }
     }
 

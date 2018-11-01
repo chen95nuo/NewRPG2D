@@ -25,21 +25,21 @@ public class UIRoleTipGroup : TTUIPage
         transform.SetSiblingIndex(0);
     }
 
-    public void ShowIcon(HallRole role)
+    public void ShowIcon(HallRole role, TrainType type)
     {
         Transform ts = role.TipPoint.transform;
         for (int i = 0; i < trainGrid.Count; i++)
         {
             if (trainGrid[i].IsUse == false)
             {
-                trainGrid[i].GetInfo(ts, canvas, role);
+                trainGrid[i].GetInfo(ts, canvas, role,type);
                 return;
             }
         }
         GameObject go = Instantiate(Trintip, tipGridPoint) as GameObject;
         UIRoleTrainGrid data = go.GetComponent<UIRoleTrainGrid>();
         trainGrid.Add(data);
-        data.GetInfo(ts, canvas, role);
+        data.GetInfo(ts, canvas, role,type);
     }
 
     public void ShowChildIcon(HallRole role)

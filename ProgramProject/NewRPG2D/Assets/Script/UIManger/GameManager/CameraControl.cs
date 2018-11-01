@@ -34,13 +34,13 @@ public class CameraControl : MonoBehaviour
     private float a = 0;
     private float b = 0;
 
-    private bool isMove = false; //移动了
     private float currentTime = 0;
     private float testTime = 0;
 
     private RoomMgr room;
-    private bool moveRoomType = false; //判断放大缩小
-    private bool moving = false; //移动中
+    public bool isMove = false; //移动了
+    public bool moveRoomType = false; //判断放大缩小
+    public bool moving = false; //移动中
     public bool isShowEdit = false;//是否显示建造提示
     public bool isHoldRole = false;//是否抓住角色
     public bool isUI = false;//点击的是UI

@@ -787,6 +787,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         int index = CTimerManager.instance.AddListener(1f, time, ChickTime);
         LevelUPHelper helper = new LevelUPHelper(id, TipID, time, nextID);
         buildNumber.Add(index, helper);
+        if (UILevelUpTip.instance == null)
+        {
+            UIPanelManager.instance.ShowPage<UILevelUpTip>();
+        }
+        UILevelUpTip.instance.UpdateTime(helper);
         return index;
     }
 
@@ -840,6 +845,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 CTimerManager.instance.RemoveLister(item.Key);
                 UILevelUpTip.instance.RemoveLister(item.Value.tipID);
                 ChickLeveUp(item.Value);
+                buildNumber.Remove(item.Key);
             }
         }
     }

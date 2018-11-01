@@ -15,6 +15,14 @@ public class UILevelUpTip : TTUIPage
     private int dicIndex = 0;
     private Canvas canvas;
 
+    public int DicIndex
+    {
+        get
+        {
+            return dicIndex++;
+        }
+    }
+
     private void Awake()
     {
         instance = this;
@@ -32,23 +40,25 @@ public class UILevelUpTip : TTUIPage
         {
             return -1;
         }
+        int index = 0;
+        index = DicIndex;
         if (outGrids.Count <= 0)
         {
             GameObject go = Instantiate(tip, tipGridPoint) as GameObject;
             UILevelUpTipGrid data = go.GetComponent<UILevelUpTipGrid>();
             Transform ts = roomData.currentRoom.disTip.transform;
             data.GetInfo(ts, canvas);
-            timeTextGrids.Add(dicIndex, data);
+            timeTextGrids.Add(index, data);
         }
         else
         {
             Transform ts = roomData.currentRoom.disTip.transform;
             outGrids[0].GetInfo(ts, canvas);
-            timeTextGrids.Add(dicIndex, outGrids[0]);
+            outGrids[0].gameObject.SetActive(true);
+            timeTextGrids.Add(index, outGrids[0]);
             outGrids.RemoveAt(0);
         }
-        dicIndex++;
-        return dicIndex - 1;
+        return index;
     }
 
     public void RemoveLister(int index)
@@ -56,7 +66,7 @@ public class UILevelUpTip : TTUIPage
         if (timeTextGrids.ContainsKey(index))
         {
             outGrids.Add(timeTextGrids[index]);
-            timeTextGrids[index].transform.position = Vector3.back * 1000;
+            timeTextGrids[index].gameObject.SetActive(false);
             timeTextGrids.Remove(index);
         }
     }

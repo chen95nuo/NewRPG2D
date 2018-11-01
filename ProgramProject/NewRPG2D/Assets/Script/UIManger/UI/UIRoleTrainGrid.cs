@@ -31,12 +31,13 @@ public class UIRoleTrainGrid : MonoBehaviour
     /// <param name="transform"></param>
     /// <param name="canvas"></param>
     /// <param name="role"></param>
-    public void GetInfo(Transform transform, Canvas canvas, HallRole role)
+    public void GetInfo(Transform transform, Canvas canvas, HallRole role, TrainType type)
     {
         this.role = role;
         IsUse = true;
         ts = transform;
         this.canvas = canvas;
+        image_Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(type.ToString());
         UpdatePos();
     }
 
