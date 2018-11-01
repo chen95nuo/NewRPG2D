@@ -22,7 +22,7 @@ public class UIRoleGrid : MonoBehaviour
     private bool isShow = false;
 
     private UIRoomInfo room;
-    private int index = 0;
+    private int index = -1;
 
     private void Awake()
     {
@@ -30,8 +30,10 @@ public class UIRoleGrid : MonoBehaviour
 
     }
 
-    public void UpdateInfo(UIRoomInfo roomInfo, int index)
+    public void UpdateInfo(UIRoomInfo roomInfo)
     {
+        index = -1;
+        room = roomInfo;
         LockType(false);
         txt_Type.text = "";
         txt_Name.gameObject.SetActive(false);
@@ -39,8 +41,10 @@ public class UIRoleGrid : MonoBehaviour
         potoBg.sprite = sp[0];
         headIcon.gameObject.SetActive(false);
     }
-    public void UpdateInfo(HallRoleData data, BuildRoomName name, UIRoomInfo roomInfo, int index)
+    public void UpdateInfo(HallRoleData data, BuildRoomName name, UIRoomInfo roomInfo)
     {
+        index = data.id;
+        room = roomInfo;
         LockType(false);
         potoBg.sprite = sp[0];
         Sprite icon = GetSpriteAtlas.insatnce.GetLevelIconToRoom(name);
@@ -52,9 +56,10 @@ public class UIRoleGrid : MonoBehaviour
         txt_Level.text = "+" + data.GetArtProduce(name).ToString();
         headIcon.gameObject.SetActive(true);
     }
-    public void UpdateLockInfo(UIRoomInfo roomInfo, int index)
+    public void UpdateLockInfo(UIRoomInfo roomInfo)
     {
-
+        index = -1;
+        room = roomInfo;
         LockType(true, index + 1);
         potoBg.sprite = sp[1];
         headIcon.gameObject.SetActive(false);
@@ -63,17 +68,24 @@ public class UIRoleGrid : MonoBehaviour
 
     public void UIAddRole(HallRole role)
     {
+        if (role.RoleData.id == index)
+        {
+            object st = "请将角色移动到其他位置";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            return;
+        }
         room.RoomAddRole(role, index);
         UIScreenRole.instance.ShowPage();
-
     }
 
     /// <summary>
     /// 卧室
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateLivineRoom(HallRoleData data, UIRoomInfo roomInfo, int index)
+    public void UpdateLivineRoom(HallRoleData data, UIRoomInfo roomInfo)
     {
+        index = data.id;
+        room = roomInfo;
         potoBg.sprite = sp[0];
         txt_Name.text = data.Name;
 
@@ -93,8 +105,10 @@ public class UIRoleGrid : MonoBehaviour
         }
         else txt_Type.text = "";
     }
-    public void UpdateLivineRoom(UIRoomInfo roomInfo, int index)
+    public void UpdateLivineRoom(UIRoomInfo roomInfo)
     {
+        index = -1;
+        room = roomInfo;
         Image_Icon.enabled = false;
         txt_Name.text = "";
         txt_Type.text = "";

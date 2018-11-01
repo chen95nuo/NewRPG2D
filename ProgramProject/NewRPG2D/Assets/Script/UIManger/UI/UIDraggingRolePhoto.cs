@@ -48,11 +48,11 @@ public class UIDraggingRolePhoto : TTUIPage
     private void ChickBtnUp()
     {
         UIScreenRole.instance.sr.horizontal = true;
-        Ray2D ray = new Ray2D(handTs.transform.position, handTs.transform.position);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+        Vector2 v2 = TTUIRoot.Instance.uiCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        RaycastHit2D hit = Physics2D.Raycast(v2, Vector2.zero);
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             UIRoleGrid roleGrid = hit.collider.GetComponent<UIRoleGrid>();
             if (roleGrid != null)
             {

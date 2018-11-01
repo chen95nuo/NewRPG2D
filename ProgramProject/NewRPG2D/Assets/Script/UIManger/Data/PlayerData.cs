@@ -40,16 +40,15 @@ public class PlayerData
     {
         get
         {
-            return castle;
-        }
-
-        set
-        {
-            Vector2 temp = value;
-            if (temp != castle)
+            if (mainHall == null)
             {
-                castle = temp;
+                castle = new Vector2(17, 5);
             }
+            else
+            {
+                castle = new Vector2(mainHall.buildingData.Param1, mainHall.buildingData.Param2);
+            }
+            return castle;
         }
     }
 
@@ -313,7 +312,6 @@ public class PlayerData
     public PlayerData()
     {
         Name = "Baymax";
-        Castle = new Vector2(17, 5);
         Gold = 2000;
         Diamonds = 100;
         Food = 0;

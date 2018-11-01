@@ -163,6 +163,7 @@ public class UIScreenRole : TTUIPage
     }
     public override void Hide(bool needAnim = true)
     {
+        rt.DOAnchorPos(Vector3.down * 500, 0.5f).OnComplete(() => gameObject.SetActive(false));
         base.Hide(needAnim = false);
     }
 

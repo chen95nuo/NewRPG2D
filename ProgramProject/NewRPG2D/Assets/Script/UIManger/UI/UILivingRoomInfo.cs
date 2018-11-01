@@ -53,11 +53,11 @@ public class UILivingRoomInfo : UIRoomInfo
         {
             if (roomMgr.currentBuildData.roleData[i] != null)
             {
-                roleGrids[i].UpdateLivineRoom(roomMgr.currentBuildData.roleData[i], this, i);
+                roleGrids[i].UpdateLivineRoom(roomMgr.currentBuildData.roleData[i], this );
             }
             else
             {
-                roleGrids[i].UpdateLivineRoom(this, i);
+                roleGrids[i].UpdateLivineRoom(this);
             }
         }
     }

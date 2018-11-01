@@ -197,6 +197,23 @@ public class Castle : MonoBehaviour
 
     public virtual void MergeRoom(RoomMgr room_1, RoomMgr room_2, LocalBuildingData mergeData)
     {
+        int index = 0;
+        for (int i = 0; i < room_1.currentBuildData.roleData.Length; i++)
+        {
+            if (room_1.currentBuildData.roleData[i] != null)
+            {
+                mergeData.roleData[index] = room_1.currentBuildData.roleData[i];
+                index++;
+            }
+        }
+        for (int i = 0; i < room_2.currentBuildData.roleData.Length; i++)
+        {
+            if (room_2.currentBuildData.roleData[i] != null)
+            {
+                mergeData.roleData[index] = room_2.currentBuildData.roleData[i];
+                index++;
+            }
+        }
         room_1.RemoveBuilding();
         room_2.RemoveBuilding();
         ChickPlayerInfo.instance.AddBuilding(mergeData);

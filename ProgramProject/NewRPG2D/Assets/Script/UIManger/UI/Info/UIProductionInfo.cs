@@ -52,11 +52,11 @@ public class UIProductionInfo : UIRoomInfo
         {
             if (data.currentBuildData.roleData[i] != null)
             {
-                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName, this, i);
+                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName, this);
             }
             else
             {
-                roleGrids[i].UpdateInfo(this, i);
+                roleGrids[i].UpdateInfo(this);
             }
         }
 

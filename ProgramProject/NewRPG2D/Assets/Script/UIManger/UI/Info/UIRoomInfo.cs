@@ -67,9 +67,9 @@ public abstract class UIRoomInfo : TTUIPage
         }
     }
 
-    public virtual void RoomAddRole(HallRole role, int index)
+    public virtual void RoomAddRole(HallRole role, int oldRoleId)
     {
-        roomData.AddRole(role, index);
+        roomData.AddRole(role, oldRoleId);
         UpdateInfo(roomData);
     }
 

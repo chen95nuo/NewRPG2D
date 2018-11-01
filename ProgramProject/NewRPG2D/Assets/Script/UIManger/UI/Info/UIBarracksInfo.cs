@@ -23,17 +23,17 @@ public class UIBarracksInfo : UIRoomInfo
         {
             if (roomMgr.currentBuildData.roleData[i] != null)
             {
-                roleGrids[i].UpdateInfo(roomMgr.currentBuildData.roleData[i], BuildRoomName.Barracks, this, i);
+                roleGrids[i].UpdateInfo(roomMgr.currentBuildData.roleData[i], BuildRoomName.Barracks, this);
             }
             else
             {
-                roleGrids[i].UpdateInfo(this, i);
+                roleGrids[i].UpdateInfo(this);
             }
         }
         int number = (int)roomMgr.currentBuildData.buildingData.Param2;
         for (int i = number; i < roleGrids.Count; i++)
         {
-            roleGrids[i].UpdateLockInfo(this, i);
+            roleGrids[i].UpdateLockInfo(this);
         }
     }
 }

@@ -1075,38 +1075,33 @@ public abstract class RoomMgr : MonoBehaviour
         }
         return true;
     }
-    public virtual bool AddRole(HallRole role, int index)
+    public virtual void AddRole(HallRole role, int oldRoleID)
     {
-        if (currentBuildData.roleData[index] == null)
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
         {
-            currentBuildData.roleData[index] = role.RoleData;
-            Vector3 point = new Vector3(transform.position.x + (1.2f * (index + 1)), transform.position.y + 0.3f, role.transform.position.z);
-            LocalServer.instance.RoleChangeRoom(role.RoleData, currentBuildData.id);
-            role.transform.position = point;
-            role.ChangeType(RoomName);
-            if (role.RoleData.currentRoom != null)
+            if (currentBuildData.roleData[i] != null && currentBuildData.roleData[i].id == oldRoleID)
             {
-                role.RoleData.currentRoom.RemoveRole(role);
+                HallRoleData roleData = HallRoleMgr.instance.GetRoleData(oldRoleID);
+                HallRole roleInstance = HallRoleMgr.instance.GetRole(roleData);
+                if (role.RoleData.currentRoom != null)
+                {
+                    Debug.Log("切换房间 调换角色");
+                    HallRoleMgr.instance.RoleChangeRoom(role, roleInstance);
+                    return;
+                }
+                else
+                {
+                    role.RoleData.currentRoom.RemoveRole(role);
+                    HallRoleData data = currentBuildData.roleData[i];
+                    HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
+                    roleTemp.ChangeType(BuildRoomName.Nothing);
+                    currentBuildData.roleData[i] = role.RoleData;
+                    return;
+                }
             }
-            role.RoleData.currentRoom = this;
-            return true;
         }
-        HallRole oldRole = HallRoleMgr.instance.GetRole(currentBuildData.roleData[index]);
-        if (role.RoleData.currentRoom != null)
-        {
-            Debug.Log("切换房间 调换角色");
-            HallRoleMgr.instance.RoleChangeRoom(role, oldRole);
-        }
-        else
-        {
-            Debug.Log("当前角色原房间为空 进入漫游状态");
-            role.RoleData.currentRoom.RemoveRole(role);
-            HallRoleData data = currentBuildData.roleData[index];
-            HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
-            roleTemp.ChangeType(BuildRoomName.Nothing);
-            currentBuildData.roleData[index] = role.RoleData;
-        }
-        return true;
+        AddRole(role);
+        return;
 
     }
     /// <summary>
