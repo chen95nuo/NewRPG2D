@@ -18,7 +18,7 @@ namespace Assets.Script.Battle.BattleData
 
         public override string ToString()
         {
-            return ItemName;
+            return "Item_" + ItemName;
         }
     }
 }
