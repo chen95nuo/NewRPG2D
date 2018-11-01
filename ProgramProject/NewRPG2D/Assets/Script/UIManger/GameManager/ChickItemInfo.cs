@@ -35,7 +35,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         AllProp.Clear();
     }
 
-    public RealPropData CreateNewProp(int id)
+    public RealPropData CreateNewProp(int id, int num = 1)
     {
         foreach (var item in AllProp)
         {
@@ -49,8 +49,14 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
             }
         }
         PropData pData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);
+        if (pData.propType == PropType.Resources)
+        {
+            ChickPlayerInfo.instance.AddStock(pData.ItemId, num);
+            RealPropData data_1 = new RealPropData(pData, -1, num);
+            return data_1;
+        }
         int index = PropInstanceId;
-        RealPropData data = new RealPropData(pData, index, 1);
+        RealPropData data = new RealPropData(pData, index, num);
         data.instanceID = index;
         AllProp.Add(index, data);
         AllPropList.Add(data);
@@ -245,6 +251,7 @@ public class RealPropData
     public RealPropData(PropData propData, int id, int number = 0)
     {
         this.propData = propData;
+        this.instanceID = id;
         this.number = number;
     }
 }
