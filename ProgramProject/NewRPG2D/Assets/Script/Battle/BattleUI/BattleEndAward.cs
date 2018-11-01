@@ -53,9 +53,7 @@ namespace Assets.Script.Battle.BattleUI
             {
                 GetPlayerData.Instance.GetData().CurrentLessonID = nextSceneId;
             }
-
             SceneManager.LoadScene("EasonMainScene");
         }
-
     }
 }
