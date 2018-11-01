@@ -460,7 +460,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
                     data.TrainType = RoleTrainType.Complete;
                     StopTrain(item.Key);
                 }
-                ChickNextLevelUp(data, type);//检查是否可以继续升级
+                bool isNext = ChickNextLevelUp(data, type);//检查是否可以继续升级
+                if (!isNext)
+                {
+                    UIRoleTrainTip.instance.RemoveDic(data.id);
+                }
                 return;
             }
         }
@@ -595,7 +599,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
                 childrenTime.Remove(item.Key);
                 dic.Remove(data.child);
                 AllRole.Remove(data.child);
-                data.child.isBaby = false;
                 HallRole roleInstance = AddNewRoleInstance(data.child);
                 ChickPlayerInfo.instance.ChickBabyDic(roleInstance);
                 return;
@@ -606,16 +609,18 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <summary>
     /// 检查下一级升级
     /// </summary>
-    public void ChickNextLevelUp(HallRoleData data, TrainType type)
+    public bool ChickNextLevelUp(HallRoleData data, TrainType type)
     {
         if (data.currentRoom.BuildingData.Param2 > data.GetAtrLevel(data.currentRoom.BuildingData.RoomName))
         {
             StartTrain(data, type);
             data.TrainType = RoleTrainType.LevelUp;
+            return true;
         }
         else
         {
             data.TrainType = RoleTrainType.MaxLevel;
+            return false;
         }
     }
 

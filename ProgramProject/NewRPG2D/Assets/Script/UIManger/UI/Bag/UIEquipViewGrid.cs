@@ -48,9 +48,12 @@ public class UIEquipViewGrid : MonoBehaviour
 
     private HallRoleData currentRoleData;
     private EquipmentRealProperty currentequipData;
+    private RectTransform ts;
 
     private void Awake()
     {
+        ts = GetComponent<RectTransform>();
+
         txt_Tip_1.text = "需求:";
 
         btn_Destroy.onClick.AddListener(ChickDestroy);
@@ -62,6 +65,8 @@ public class UIEquipViewGrid : MonoBehaviour
 
     public void UpdateInfo(EquipmentRealProperty equipData, int btnType, HallRoleData roleData)
     {
+        Debug.Log("运行了");
+
         currentRoleData = roleData;
         currentequipData = equipData;
 
@@ -76,13 +81,14 @@ public class UIEquipViewGrid : MonoBehaviour
             {
                 ShowText(true);
 
-                txt_MainTip.text = equipData.HurtType + "伤害/秒";
+                txt_MainTip.text = LanguageDataMgr.instance.GetString(equipData.HurtType.ToString());
                 txt_OtherNum_1.text = equipData.RoleProperty[RoleAttribute.MinDamage].ToString("#0") + "-" + equipData.RoleProperty[RoleAttribute.MaxDamage].ToString("#0");
                 txt_OtherTip_1.text = "点伤害";
                 txt_OtherNum_2.text = "攻速:";
                 txt_OtherTip_2.text = equipData.AttackSpeed.ToString();
                 txt_MainNum.text = equipData.RoleProperty[RoleAttribute.DPS].ToString("#0");
-                txt_WorkTip.text = "职业类型: " + "<color=#b8a17f>" + equipData.WeaponProfession.ToString() + "</color>";
+                string Profession = LanguageDataMgr.instance.GetString(equipData.WeaponProfession + "Profession");
+                txt_WorkTip.text = "职业类型: " + "<color=#b8a17f>" + Profession + "</color>";
             }
             else if (equipData.EquipType == EquipTypeEnum.Armor)
             {
@@ -90,7 +96,8 @@ public class UIEquipViewGrid : MonoBehaviour
 
                 txt_MainNum.text = equipData.RoleProperty[RoleAttribute.HP].ToString("#0");
                 txt_MainTip.text = "生命值";
-                txt_WorkTip.text = equipData.WeaponType.ToString();
+                string Profession = LanguageDataMgr.instance.GetString(equipData.WeaponType.ToString());
+                txt_WorkTip.text = Profession;
             }
             else
             {
@@ -99,20 +106,9 @@ public class UIEquipViewGrid : MonoBehaviour
             }
 
             index = 0;
+            AtrGridPoint.gameObject.SetActive(false);
             ChickDic(equipData);
             ChickList(equipData.SpecialProperty);
-            if (index == 0)
-            {
-                AtrGridPoint.gameObject.SetActive(false);
-            }
-            else
-            {
-                AtrGridPoint.gameObject.SetActive(true);
-            }
-            for (int i = index; i < atrGrids.Count; i++)
-            {
-                atrGrids[i].gameObject.SetActive(false);
-            }
         }
         else
         {
@@ -123,8 +119,19 @@ public class UIEquipViewGrid : MonoBehaviour
             string iconName = ((RoleAttribute)equipData.ProfessionNeed + 1).ToString();
             icon_T2.sprite = GetSpriteAtlas.insatnce.GetIcon(iconName);
             txt_WorkTip.text = "";
+            index = 0;
+        }
 
-            //atrGrids[0].UpdateInfo(equipData.)
+        if (index == 0)
+        {
+        }
+        else
+        {
+            AtrGridPoint.gameObject.SetActive(true);
+        }
+        for (int i = index; i < atrGrids.Count; i++)
+        {
+            atrGrids[i].gameObject.SetActive(false);
         }
 
 
@@ -167,7 +174,7 @@ public class UIEquipViewGrid : MonoBehaviour
             string text = "";
             string whiteText = "<color=#cccccc>{0}</color> ";
             string redText = "<color=#ee5151>{0}</color> ";
-            if (roleLevel >= equipData.Level)
+            if (roleLevel >= equipData.Level && roleData != null)
             {
                 btn_Load.image.sprite = sp[0];
                 txt_Tip_1.text = string.Format(whiteText, txt_Tip_1.text);
@@ -182,6 +189,12 @@ public class UIEquipViewGrid : MonoBehaviour
                 isLoad = false;
             }
         }
+        Invoke("ShowPage", 0.1f);
+    }
+
+    private void ShowPage()
+    {
+        ts.anchoredPosition = Vector3.zero;
     }
 
     private void ChickDic(EquipmentRealProperty equipData)
@@ -189,7 +202,7 @@ public class UIEquipViewGrid : MonoBehaviour
         Dictionary<RoleAttribute, float> dic = equipData.RoleProperty;
 
         //如果是皮甲读DPS
-        if (dic[RoleAttribute.MinDamage] > 0 && equipData.EquipType != EquipTypeEnum.Sword)
+        if (dic[RoleAttribute.MinDamage] > 0 && equipData.EquipType != EquipTypeEnum.Sword && equipData.ProfessionNeed == ProfessionNeedEnum.Fight)
         {
             atrGrids[index].gameObject.SetActive(true);
             string tip = "伤害:" + dic[RoleAttribute.MinDamage].ToString("#0") + "-" + dic[RoleAttribute.MaxDamage].ToString("#0");
@@ -215,9 +228,9 @@ public class UIEquipViewGrid : MonoBehaviour
             }
             if (dic.ContainsKey((RoleAttribute)i) && dic[(RoleAttribute)i] != 0)
             {
-                Debug.Log("Show :" + (RoleAttribute)i);
                 atrGrids[index].gameObject.SetActive(true);
-                string tip = (RoleAttribute)i + " +" + dic[(RoleAttribute)i].ToString("#0");
+                string language = LanguageDataMgr.instance.GetString(((RoleAttribute)i).ToString());
+                string tip = language + " <color=#b8a17f>+" + dic[(RoleAttribute)i].ToString("#0") + "</color>";
                 atrGrids[index].UpdateInfo((RoleAttribute)i, tip);
                 index++;
             }
@@ -230,8 +243,8 @@ public class UIEquipViewGrid : MonoBehaviour
         for (int i = 0; i < PropertyData.Count; i++)
         {
             atrGrids[index].gameObject.SetActive(true);
-            string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString()).Chinese;
-            st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString() + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString() + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString() + "</color>");
+            string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString());
+            st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString("#0.0") + "</color>");
             atrGrids[index].UpdateInfo(RoleAttribute.Max, st);
             index++;
         }
@@ -290,5 +303,10 @@ public class UIEquipViewGrid : MonoBehaviour
     {
         txt_OtherNum_1.transform.parent.gameObject.SetActive(isShow);
         txt_OtherNum_2.transform.parent.gameObject.SetActive(isShow);
+    }
+
+    public void Close()
+    {
+        ts.anchoredPosition = Vector2.zero * 2000;
     }
 }

@@ -11,20 +11,12 @@ public class HallRoleData
     private string iconName;
     private int star;//星级
     private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
-    //private int fightLevel;//战斗等级
-    //public int goldLevel;//财务等级
-    //public int foodLevel;//烹饪等级
-    //public int manaLevel;//炼金等级
-    //public int woodLevel;//木工等级
-    //public int ironLevel;//矿工等级
-    //public int MaxLevel;//最大等级
     public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
     private int[] equip;//装备 1武器2防具3戒指4项链 5神器
     private RoleTrainType trainType;//训练类型
     public int trainIndex;//训练编号
     public RoleLoveType LoveType;//爱情状态
     private float nowHp;//当前血量
-    public bool isBaby;//是不是小孩
     public RoleBabyData babyData;//宝宝数据
     public RoomMgr currentRoom;
     private WeaponProfessionEnum professionType;
@@ -665,8 +657,6 @@ public class HallRoleData
         int index = 0;
         switch (type)
         {
-            case global::TrainType.Nothing:
-                break;
             case global::TrainType.Fight:
                 index = roleLevel[0].Level;
                 break;
@@ -938,10 +928,7 @@ public class HallRoleData
 
         //皮肤换回来
         HallRole role = HallRoleMgr.instance.GetRole(this);
-        //if ((int)equipData.EquipType <= 1)
-        //{
-        //    role.ChangeSkil(equipData);
-        //}
+        role.ChangeOrigin(equipData.EquipType);
     }
 
     public HallRoleData() { }

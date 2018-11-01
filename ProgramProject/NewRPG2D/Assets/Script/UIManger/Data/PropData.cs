@@ -12,7 +12,6 @@ public class PropData : ItemBaseData
     public QualityTypeEnum quality;
     public GetAccess getAccess;//获取方式
     public PropType propType;//道具类型
-    public int instanceID;
     public int num;
 
     public override XmlName ItemXmlName

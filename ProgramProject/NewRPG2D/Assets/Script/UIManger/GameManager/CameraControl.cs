@@ -405,6 +405,8 @@ public class CameraControl : MonoBehaviour
                 data.IsHarvest = false;
                 data.RoomProp.SetActive(false);
                 UIPanelManager.instance.ShowPage<UIProduceAnimator>(data);
+                UIPopUp_3Helper popdata = new UIPopUp_3Helper(data.RoomName, (int)temp, data.RoomProp.transform.position);
+                UIPanelManager.instance.ShowPage<UIPopUP_3>(popdata);
             }
         }
         else if (room == null)

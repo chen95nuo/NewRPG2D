@@ -19,12 +19,8 @@ public class UIRoleInfo : TTUIPage
     public Text txt_TrainTime;
     public Text txt_HateLoveTime;
 
-    public Text txt_fight;
-    public Text txt_food;
-    public Text txt_gold;
-    public Text txt_mana;
-    public Text txt_wood;
-    public Text txt_iron;
+    public Text[] txt_Level;
+    public Button[] btn_Level;
 
     public Text txt_Dps;
     public Text txt_DpsTip;
@@ -127,7 +123,25 @@ public class UIRoleInfo : TTUIPage
         {
             btn_Equip[i].onClick.AddListener(ChickEquipClick);
         }
+        for (int i = 0; i < btn_Level.Length; i++)
+        {
+            btn_Level[i].onClick.AddListener(ChickLevelTip);
+        }
         btn_AllType[currentBtnNumb].interactable = false;
+    }
+
+    private void ChickLevelTip()
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_Level.Length; i++)
+        {
+            if (btn_Level[i].gameObject == go)
+            {
+                string st = LanguageDataMgr.instance.GetString(((TrainType)i) + "Tip");
+                RoleInfoTipHelper data = new RoleInfoTipHelper(btn_Level[i].transform, st, true, currentRole.RoleLevel[i].atr);
+                UIPanelManager.instance.ShowPage<UIPopUpTips_1>(data);
+            }
+        }
     }
 
     private void ChickArrow()
@@ -153,12 +167,10 @@ public class UIRoleInfo : TTUIPage
     public void UpdateInfo(HallRoleData data)
     {
         txt_Name.text = data.Name;
-        txt_fight.text = data.RoleLevel[0].Level.ToString();
-        txt_food.text = data.RoleLevel[1].Level.ToString();
-        txt_gold.text = data.RoleLevel[2].Level.ToString();
-        txt_mana.text = data.RoleLevel[3].Level.ToString();
-        txt_wood.text = data.RoleLevel[4].Level.ToString();
-        txt_iron.text = data.RoleLevel[5].Level.ToString();
+        for (int i = 0; i < txt_Level.Length; i++)
+        {
+            txt_Level[i].text = data.RoleLevel[i].Level.ToString();
+        }
         ChickLevelUI(true);
 
         txt_Dps.text = (data.Attack).ToString();
@@ -225,15 +237,15 @@ public class UIRoleInfo : TTUIPage
         PlayerData playerData = GetPlayerData.Instance.GetData();
         if (playerData.MainHallLevel > 4 || isTrue == false)
         {
-            txt_mana.transform.parent.gameObject.SetActive(isTrue);
+            txt_Level[(int)TrainType.Mana].transform.parent.gameObject.SetActive(isTrue);
         }
         if (playerData.MainHallLevel >= 6 || isTrue == false)
         {
-            txt_wood.transform.parent.gameObject.SetActive(isTrue);
+            txt_Level[(int)TrainType.Wood].transform.parent.gameObject.SetActive(isTrue);
         }
         if (playerData.MainHallLevel >= 9 || isTrue == false)
         {
-            txt_iron.transform.parent.gameObject.SetActive(isTrue);
+            txt_Level[(int)TrainType.Iron].transform.parent.gameObject.SetActive(isTrue);
         }
     }
 
@@ -242,7 +254,8 @@ public class UIRoleInfo : TTUIPage
     {
         if (data.Crt > 0)
         {
-            txt_CrtTip.text = data.Attack.ToString();
+            txt_CrtTip.transform.parent.gameObject.SetActive(true);
+            txt_CrtTip.text = data.Attack.ToString("#0.0");
         }
         else
         {
@@ -250,7 +263,8 @@ public class UIRoleInfo : TTUIPage
         }
         if (data.PArmor > 0)
         {
-            txt_PArmor.text = data.PArmor.ToString();
+            txt_PArmor.transform.parent.gameObject.SetActive(true);
+            txt_PArmor.text = data.PArmor.ToString("#0.0");
         }
         else
         {
@@ -258,7 +272,8 @@ public class UIRoleInfo : TTUIPage
         }
         if (data.MArmor > 0)
         {
-            txt_MArmor.text = data.MArmor.ToString();
+            txt_MArmor.transform.parent.gameObject.SetActive(true);
+            txt_MArmor.text = data.MArmor.ToString("#0.0");
         }
         else
         {
@@ -266,7 +281,8 @@ public class UIRoleInfo : TTUIPage
         }
         if (data.Dodge > 0)
         {
-            txt_Dodge.text = data.Dodge.ToString();
+            txt_Dodge.transform.parent.gameObject.SetActive(true);
+            txt_Dodge.text = data.Dodge.ToString("#0.0");
         }
         else
         {
@@ -274,7 +290,8 @@ public class UIRoleInfo : TTUIPage
         }
         if (data.HIT > 0)
         {
-            txt_Hit.text = data.Dodge.ToString();
+            txt_Hit.transform.parent.gameObject.SetActive(true);
+            txt_Hit.text = data.Dodge.ToString("#0.0");
         }
         else
         {
@@ -282,7 +299,8 @@ public class UIRoleInfo : TTUIPage
         }
         if (data.INT > 0)
         {
-            txt_INT.text = data.INT.ToString();
+            txt_INT.transform.parent.gameObject.SetActive(true);
+            txt_INT.text = data.INT.ToString("#0.0");
         }
         else
         {
@@ -337,6 +355,8 @@ public class UIRoleInfo : TTUIPage
     private void GetRoleEquip(HallRoleData role)
     {
         roleEquips = new EquipmentRealProperty[5];
+        currentRoleSkil.ChangeOriginalEquip(EquipTypeEnum.Sword);
+        currentRoleSkil.ChangeOriginalEquip(EquipTypeEnum.Armor);
         for (int i = 0; i < role.Equip.Length; i++)
         {
             if (role.Equip[i] != 0)
@@ -373,5 +393,20 @@ public class UIRoleInfo : TTUIPage
     {
         UpdateInfo(currentRole);
         sc.UpdateInfo((BagType)currentBtnNumb);
+    }
+}
+
+public class RoleInfoTipHelper
+{
+    public Transform ts;
+    public string st;
+    public bool needIcon;
+    public RoleAttribute atr;
+    public RoleInfoTipHelper(Transform ts, string st, bool needIcon = false, RoleAttribute atr = RoleAttribute.Max)
+    {
+        this.ts = ts;
+        this.st = st;
+        this.needIcon = needIcon;
+        this.atr = atr;
     }
 }

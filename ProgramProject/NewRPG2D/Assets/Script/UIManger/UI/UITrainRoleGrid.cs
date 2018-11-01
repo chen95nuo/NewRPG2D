@@ -152,7 +152,12 @@ public class UITrainRoleGrid : MonoBehaviour
     }
     public void ChickSpeedUp()
     {
-        HallRoleMgr.instance.LevelComplete(roleData, false);
+        PlayerData data = GetPlayerData.Instance.GetData();
+        Debug.Log("扣钻石");
+        if (true)
+        {
 
+        }
+        HallRoleMgr.instance.LevelComplete(roleData, false);
     }
 }

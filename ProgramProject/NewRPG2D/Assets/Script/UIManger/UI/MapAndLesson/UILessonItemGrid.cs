@@ -15,7 +15,7 @@ public class UILessonItemGrid : MonoBehaviour
     {
         PropData propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(data.ItemId);
         Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
-        if (data.ItemMinCount == data.ItemMaxCount && data.ItemMaxCount > 0)
+        if (data.ItemMinCount != data.ItemMaxCount && data.ItemMaxCount > 0)
         {
             BG.gameObject.SetActive(true);
             txt_Num.text = data.ItemMinCount.ToString("#0") + "~" + data.ItemMaxCount.ToString("#0");

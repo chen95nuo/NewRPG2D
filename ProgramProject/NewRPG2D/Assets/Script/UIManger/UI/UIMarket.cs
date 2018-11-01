@@ -114,6 +114,10 @@ public class UIMarket : MonoBehaviour
             }
             grids[i].UpdateBuilding(dic[type][i], index, isTrue);//当前格子更新信息
         }
+        for (int i = 0; i < fullGrids.Count; i++)
+        {
+            fullGrids[i].transform.SetSiblingIndex(fullGrids[i].transform.parent.transform.childCount - 1);
+        }
         ClearGrids(dic[type].Count);//将多余的格子关闭
     }
 

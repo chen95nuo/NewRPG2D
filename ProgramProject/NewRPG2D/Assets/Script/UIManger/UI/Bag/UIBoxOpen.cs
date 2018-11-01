@@ -32,7 +32,7 @@ public class UIBoxOpen : TTUIPage
         boxAnim.AnimationState.SetAnimation(0, "open", false);
     }
 
-    public void ShowAnim(List<PropData> propData, List<EquipmentRealProperty> equipData)
+    public void ShowAnim(List<RealPropData> propData, List<EquipmentRealProperty> equipData)
     {
         int index = 0;
         for (int i = 0; i < propData.Count; i++)
@@ -43,7 +43,7 @@ public class UIBoxOpen : TTUIPage
                 UIBoxGrid grid = go.GetComponent<UIBoxGrid>();
                 boxGrids.Add(grid);
             }
-            boxGrids[index].UpdateInfo(propData[i], propData[i].num);
+            boxGrids[index].UpdateInfo(propData[i].propData, propData[i].number);
             index++;
         }
 

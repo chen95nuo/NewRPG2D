@@ -6,12 +6,28 @@ using Assets.Script.Battle.BattleData;
 
 public class ChickItemInfo : TSingleton<ChickItemInfo>
 {
-    private Dictionary<int, PropData> AllProp = new Dictionary<int, PropData>();
-    private List<PropData> AllPropList = new List<PropData>();
+    private Dictionary<int, RealPropData> AllProp = new Dictionary<int, RealPropData>();
+    private List<RealPropData> AllPropList = new List<RealPropData>();
     private Dictionary<int, BoxDataHelper> AllBox = new Dictionary<int, BoxDataHelper>();
     private List<BoxDataHelper> AllBoxList = new List<BoxDataHelper>();
     private static int propInstanceId = 1000;
     private static int boxInstanceId = 1000;
+
+    public static int PropInstanceId
+    {
+        get
+        {
+            return propInstanceId++;
+        }
+    }
+
+    public static int BoxInstanceId
+    {
+        get
+        {
+            return boxInstanceId++;
+        }
+    }
 
     public override void Init()
     {
@@ -19,26 +35,41 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         AllProp.Clear();
     }
 
-    public PropData CreateNewProp(int id)
+    public RealPropData CreateNewProp(int id)
     {
         foreach (var item in AllProp)
         {
-            if (item.Value.ItemId == id && item.Value.num < 100)
+            if (item.Value.propData.ItemId == id && item.Value.number < 100)
             {
-                item.Value.num++;
+                item.Value.number++;
                 return item.Value;
             }
         }
-        propInstanceId++;
-        PropData data = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);
-        data.num = 1;
-        data.instanceID = propInstanceId;
-        AllProp.Add(propInstanceId, data);
+        PropData pData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);
+        int index = PropInstanceId;
+        RealPropData data = new RealPropData(pData, index, 1);
+        data.instanceID = index;
+        AllProp.Add(index, data);
         AllPropList.Add(data);
         return data;
     }
+    public bool UseProp(int id)
+    {
+        if (AllProp[id].number <= 0)
+        {
+            Debug.LogError("道具数量出错");
+            return false;
+        }
+        AllProp[id].number--;
+        if (AllProp[id].number <= 0)
+        {
+            AllPropList.Remove(AllProp[id]);
+            AllProp.Remove(id);
+        }
+        return true;
+    }
 
-    public PropData GetPropData(int propId)
+    public RealPropData GetPropData(int propId)
     {
         return AllProp[propId];
     }
@@ -66,11 +97,27 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
                 return item.Value;
             }
         }
-        boxInstanceId++;
-        BoxDataHelper data = new BoxDataHelper(boxInstanceId, boxid, 1);
-        AllBox.Add(boxInstanceId, data);
+        int index = BoxInstanceId;
+        BoxDataHelper data = new BoxDataHelper(index, boxid, 1);
+        AllBox.Add(index, data);
         AllBoxList.Add(data);
         return data;
+    }
+
+    public bool UseBox(int id)
+    {
+        if (AllBox[id].num <= 0)
+        {
+            Debug.LogError("道具数量出错");
+            return false;
+        }
+        AllBox[id].num--;
+        if (AllBox[id].num <= 0)
+        {
+            AllBoxList.Remove(AllBox[id]);
+            AllProp.Remove(id);
+        }
+        return true;
     }
 
     public List<ItemHelper> GetAllItem()
@@ -165,10 +212,10 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         if (x.QualityType > y.QualityType) return -1;
         return 0;
     }
-    public int CompareByProp(PropData x, PropData y)
+    public int CompareByProp(RealPropData x, RealPropData y)
     {
-        if (x.quality < y.quality) return 1;
-        if (x.quality > y.quality) return -1;
+        if (x.propData.quality < y.propData.quality) return 1;
+        if (x.propData.quality > y.propData.quality) return -1;
         return 0;
     }
 }
@@ -183,5 +230,18 @@ public class BoxDataHelper
         this.instanceId = instanceId;
         this.boxId = boxId;
         this.num = num;
+    }
+}
+
+public class RealPropData
+{
+    public int instanceID;
+    public PropData propData;
+    public int number;
+
+    public RealPropData(PropData propData, int id, int number = 0)
+    {
+        this.propData = propData;
+        this.number = number;
     }
 }

@@ -13,16 +13,42 @@ public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
         get { return XmlName.LanguageData; }
     }
 
-    public LanguageData GetString(string message)
+    public string GetString(string message)
     {
         for (int i = 0; i < CurrentItemData.Length; i++)
         {
             LanguageData data = CurrentItemData[i] as LanguageData;
             if (data.GetName == message)
             {
-                return data;
+                return data.Chinese;
             }
         }
-        return null;
+        return "";
+    }
+
+    public string GetRoomTxtColor(BuildRoomName name)
+    {
+        string st = "";
+        switch (name)
+        {
+            case BuildRoomName.Gold:
+                st = "<color=#f5d835>";
+                break;
+            case BuildRoomName.Food:
+                st = "<color=#eda160>";
+                break;
+            case BuildRoomName.Mana:
+                st = "<color=#c415d0>";
+                break;
+            case BuildRoomName.Wood:
+                st = "<color=#be7f27>";
+                break;
+            case BuildRoomName.Iron:
+                st = "<color=#9fbdd7>";
+                break;
+            default:
+                break;
+        }
+        return st;
     }
 }

@@ -7,7 +7,6 @@ using Assets.Script.Battle.BattleData;
 
 public class GameMain : MonoBehaviour
 {
-
     public static GameMain Instance = null;
 
     private void Awake()
@@ -21,14 +20,8 @@ public class GameMain : MonoBehaviour
             Destroy(this.gameObject);
         }
         Init();
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            UIPanelManager.instance.ShowPage<UIBoxOpen>();
-        }
+
     }
 
     public void Init()

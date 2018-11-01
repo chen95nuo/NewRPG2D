@@ -73,6 +73,11 @@ public class HallRole : MonoBehaviour
         EquipmentRealProperty equipment = EquipmentMgr.instance.CreateNewEquipment(id);
         RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
     }
+    public void ChangeOrigin(EquipTypeEnum type)
+    {
+        RoleSkinEquip.ChangeOriginalEquip(type);
+    }
+
     public void ChangeSkil(EquipmentRealProperty equipment)
     {
         Debug.Log("换皮肤 类型：" + equipment.EquipType + "  Name: " + equipment.EquipName);

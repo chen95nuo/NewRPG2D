@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using System;
 
 public class UIMain : TTUIPage
 {
@@ -19,12 +20,7 @@ public class UIMain : TTUIPage
 
     public UIMarket market;
 
-
-    public Button btn_gold;
-    public Button btn_food;
-    public Button btn_mana;
-    public Button btn_wood;
-    public Button btn_iron;
+    public Button[] btn_Produces;
     public Button btn_diamonds;
 
     public Text text_gold;
@@ -62,6 +58,10 @@ public class UIMain : TTUIPage
         btn_UIMarket.onClick.AddListener(ShowMarket);
         btn_UIBag.onClick.AddListener(ChickBag);
         btn_UIMap.onClick.AddListener(ChickMap);
+        for (int i = 0; i < btn_Produces.Length; i++)
+        {
+            btn_Produces[i].onClick.AddListener(ChickProduceTips);
+        }
         market.gameObject.SetActive(false);
 
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
@@ -79,6 +79,34 @@ public class UIMain : TTUIPage
         diamonds = new SpaceNumJump(text_diamonds);
     }
 
+    private void ChickProduceTips()
+    {
+        Debug.Log("按钮按下");
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_Produces.Length; i++)
+        {
+            if (btn_Produces[i].gameObject == go)
+            {
+                BuildRoomName name = BuildRoomName.Nothing;
+                switch (i)
+                {
+                    case 0: name = BuildRoomName.Gold; break;
+                    case 1: name = BuildRoomName.Food; break;
+                    case 2: name = BuildRoomName.Mana; break;
+                    case 3: name = BuildRoomName.Wood; break;
+                    case 4: name = BuildRoomName.Iron; break;
+                    default:
+                        break;
+                }
+                UIPanelManager.instance.ShowPage<UIPopUpTips_2>();
+                UIPopUpTips_2.instance.UpdateInfo(name, btn_Produces[i].transform);
+                return;
+            }
+        }
+
+
+    }
+
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
@@ -93,28 +121,28 @@ public class UIMain : TTUIPage
         int level = playerData.MainHallLevel;
         if (level > 0)
         {
-            btn_gold.gameObject.SetActive(true);
+            btn_Produces[0].gameObject.SetActive(true);
             text_gold.text = playerData.Gold.ToString();
             ChickAllStock(BuildRoomName.Gold, goldSlider);
-            btn_food.gameObject.SetActive(true);
+            btn_Produces[1].gameObject.SetActive(true);
             text_food.text = playerData.Food.ToString();
             ChickAllStock(BuildRoomName.Food, foodSlider);
         }
         if (level >= 4)
         {
-            btn_mana.gameObject.SetActive(true);
+            btn_Produces[2].gameObject.SetActive(true);
             text_mana.text = playerData.Mana.ToString();
             ChickAllStock(BuildRoomName.Mana, manaSlider);
         }
         if (level >= 6)
         {
-            btn_wood.gameObject.SetActive(true);
+            btn_Produces[3].gameObject.SetActive(true);
             text_wood.text = playerData.Wood.ToString();
             ChickAllStock(BuildRoomName.Wood, woodSlider);
         }
         if (level >= 9)
         {
-            btn_iron.gameObject.SetActive(true);
+            btn_Produces[4].gameObject.SetActive(true);
             text_iron.text = playerData.Iron.ToString();
             ChickAllStock(BuildRoomName.Iron, ironSlider);
         }
@@ -222,9 +250,9 @@ public class UIMain : TTUIPage
 
     public void RefreshText()
     {
-        btn_mana.gameObject.SetActive(false);
-        btn_wood.gameObject.SetActive(false);
-        btn_iron.gameObject.SetActive(false);
+        btn_Produces[2].gameObject.SetActive(false);
+        btn_Produces[3].gameObject.SetActive(false);
+        btn_Produces[4].gameObject.SetActive(false);
     }
 
     public void UIMainHight(int index)

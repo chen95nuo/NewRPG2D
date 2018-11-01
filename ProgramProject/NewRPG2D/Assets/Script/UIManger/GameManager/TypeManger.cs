@@ -60,7 +60,6 @@ public enum RoleAttribute
 
 public enum TrainType
 {
-    Nothing,
     Fight,//战斗等级
     Gold,//财务等级
     Food,//烹饪等级

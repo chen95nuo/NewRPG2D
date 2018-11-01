@@ -21,7 +21,7 @@ public class UIPropInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        PropData data = mData as PropData;
+        RealPropData data = mData as RealPropData;
         UpdateInfo(data);
     }
 
@@ -31,14 +31,14 @@ public class UIPropInfo : TTUIPage
         txt_Tip_1.text = "获取方式";
     }
 
-    public void UpdateInfo(PropData data)
+    public void UpdateInfo(RealPropData data)
     {
-        txt_Name.text = data.ItemName;
-        txt_Quality.text = data.quality.ToString();
-        txt_Message.text = data.des;
+        txt_Name.text = data.propData.ItemName;
+        txt_Quality.text = LanguageDataMgr.instance.GetString(data.propData.quality.ToString());
+        txt_Message.text = data.propData.des;
 
-        image_Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.SpriteName);
-        image_IconBG.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + data.quality.ToString());
-        image_GetIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.getAccess.ToString());
+        image_Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.propData.SpriteName);
+        image_IconBG.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + data.propData.quality.ToString());
+        image_GetIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.propData.getAccess.ToString());
     }
 }

@@ -126,8 +126,8 @@ public class UIBoxInfo : TTUIPage
         int life = HallRoleMgr.instance.GetAtrMaxRole(RoleAttribute.Max);
         ItemDataInTreasure data = TreasureBoxMgr.instance.OpenTreasureBox(boxID, fight, life);
         UIPanelManager.instance.ShowPage<UIBoxOpen>();
-
-        UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
+        //UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
+        ChickItemInfo.instance.UseBox(boxID);
         ClosePage();
     }
 }

@@ -9,15 +9,17 @@ public class UIBagGrid : MonoBehaviour
 {
     private Button btn_Click;
     public Image image_Item;
+    public Image image_Quality;
     public GameObject NumBG;
     public Text txt_Num;
     private ItemType itemType;
     private EquipmentRealProperty equipData;
     private TreasureBox boxData;
-    private PropData propData;
+    private RealPropData propData;
 
     private void Awake()
     {
+        image_Quality = GetComponent<Image>();
         btn_Click = GetComponent<Button>();
         btn_Click.onClick.AddListener(ChickClick);
     }
@@ -51,6 +53,7 @@ public class UIBagGrid : MonoBehaviour
         equipData = EquipmentMgr.instance.GetEquipmentByEquipId(data.instanceId);
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(equipData.SpriteName);
         image_Item.sprite = sp;
+        image_Quality.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + equipData.QualityType);
     }
 
     public void UpdateBox(ItemHelper data)
@@ -61,14 +64,16 @@ public class UIBagGrid : MonoBehaviour
         BoxDataHelper boxHData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
         NumBG.SetActive(true);
         txt_Num.text = boxHData.num.ToString();
+        image_Quality.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_White");
     }
     public void UpdateProp(ItemHelper data)
     {
         propData = ChickItemInfo.instance.GetPropData(data.instanceId);
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.propData.SpriteName);
         image_Item.sprite = sp;
         NumBG.SetActive(true);
-        txt_Num.text = propData.num.ToString();
+        txt_Num.text = propData.number.ToString();
+        image_Quality.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_" + propData.propData.quality);
     }
 
     public void ChickClick()
