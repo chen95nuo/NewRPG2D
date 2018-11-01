@@ -131,14 +131,7 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
         CalculateRoleProperty(roleProperty, RoleAttribute.MinDamage, data.DamageMinRange, times);
         CalculateRoleProperty(roleProperty, RoleAttribute.MaxDamage, data.DamageMaxRange, times);
 
-        if (roleProperty.ContainsKey(RoleAttribute.DPS) == false)
-        {
-            roleProperty[RoleAttribute.DPS] = 0;
-        }
 
-        roleProperty[RoleAttribute.DPS] +=
-            ((Random.Range(data.DamageMinRange.Min * times, data.DamageMinRange.Max * times) +
-             Random.Range(data.DamageMaxRange.Min * times, data.DamageMaxRange.Max * times)) / attackSpeed);
 
         RandomPropertyData[] tempDatas = new RandomPropertyData[3];
         for (int i = 0; i < tempDatas.Length; i++)
@@ -157,6 +150,12 @@ public class EquipmentMgr : TSingleton<EquipmentMgr>
                 tempDatas[selectId].AttributeType = RoleAttribute.Nothing;
             }
         }
+
+        if (roleProperty.ContainsKey(RoleAttribute.DPS) == false)
+        {
+            roleProperty[RoleAttribute.DPS] = 0;
+        }
+        roleProperty[RoleAttribute.DPS] += ((int)roleProperty[RoleAttribute.MinDamage] + (int)roleProperty[RoleAttribute.MaxDamage]) / (2 * attackSpeed);
     }
 
     private void GetSpecialProperty(List<SpecialPropertyData> roleProperty, EquipmentData data)

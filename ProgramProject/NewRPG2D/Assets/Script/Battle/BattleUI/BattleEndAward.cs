@@ -48,6 +48,12 @@ namespace Assets.Script.Battle.BattleUI
         public void BackHall()
         {
             GameRoleMgr.instance.ClearAllRole();
+            int nextSceneId = LocalStartFight.instance.MapData.NextLessonID;
+            if (nextSceneId != 0)
+            {
+                GetPlayerData.Instance.GetData().CurrentLessonID = nextSceneId;
+            }
+
             SceneManager.LoadScene("EasonMainScene");
         }
 
