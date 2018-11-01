@@ -351,6 +351,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             Debug.LogError("计时器重复");
         }
         timeAction.Add(index, trainHelper);
+        UIPanelManager.instance.ShowPage<UIRoleTrainTip>(trainHelper);
     }
 
     /// <summary>
@@ -395,6 +396,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             {
                 CTimerManager.instance.RemoveLister(item.Key);
                 timeAction.Remove(item.Key);
+                UIRoleTrainTip.instance.RemoveDic(data.id);
                 return;
             }
         }
@@ -404,22 +406,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         CTimerManager.instance.RemoveLister(index);
         timeAction.Remove(index);
-    }
-    /// <summary>
-    /// 训练暂停
-    /// </summary>
-    /// <param name="index"></param>
-    public void PauseTrain(int index)
-    {
-        CTimerManager.instance.PauseTimer(index, false);
-    }
-    /// <summary>
-    /// 训练继续
-    /// </summary>
-    /// <param name="index"></param>
-    public void ContinueTrain(int index)
-    {
-        CTimerManager.instance.PauseTimer(index, true);
     }
     /// <summary>
     /// 角色训练完成

@@ -1141,7 +1141,7 @@ public abstract class RoomMgr : MonoBehaviour
                 HallRoleData role = currentBuildData.roleData[i];
                 if (role.TrainType == RoleTrainType.LevelUp)
                 {
-                    HallRoleMgr.instance.PauseTrain(role.trainIndex);
+                    HallRoleMgr.instance.StopTrain(role.trainIndex);
                 }
             }
         }
@@ -1162,7 +1162,7 @@ public abstract class RoomMgr : MonoBehaviour
                 }
                 else if (role.TrainType == RoleTrainType.LevelUp)
                 {
-                    HallRoleMgr.instance.ContinueTrain(role.trainIndex);
+                    ChickAddTrainRole(role);
                 }
             }
         }

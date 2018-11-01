@@ -174,7 +174,8 @@ public class UIRoleInfo : TTUIPage
         ChickLevelUI(true);
 
         txt_Dps.text = (data.Attack).ToString();
-        txt_DpsTip.text = string.Format("{0}伤害/秒", (HurtTypeEnum)data.HurtType);
+        string st = LanguageDataMgr.instance.GetString(((HurtTypeEnum)data.HurtType).ToString());
+        txt_DpsTip.text = st;
         ChickAtr(data);//检查属性
         txt_Hp.text = data.NowHp + "/" + data.Health;
 
@@ -255,7 +256,7 @@ public class UIRoleInfo : TTUIPage
         if (data.Crt > 0)
         {
             txt_CrtTip.transform.parent.gameObject.SetActive(true);
-            txt_CrtTip.text = data.Attack.ToString("#0.0");
+            txt_CrtTip.text = data.Attack.ToString("#0");
         }
         else
         {
@@ -264,7 +265,7 @@ public class UIRoleInfo : TTUIPage
         if (data.PArmor > 0)
         {
             txt_PArmor.transform.parent.gameObject.SetActive(true);
-            txt_PArmor.text = data.PArmor.ToString("#0.0");
+            txt_PArmor.text = data.PArmor.ToString("#0");
         }
         else
         {
@@ -273,7 +274,7 @@ public class UIRoleInfo : TTUIPage
         if (data.MArmor > 0)
         {
             txt_MArmor.transform.parent.gameObject.SetActive(true);
-            txt_MArmor.text = data.MArmor.ToString("#0.0");
+            txt_MArmor.text = data.MArmor.ToString("#0");
         }
         else
         {
@@ -282,7 +283,7 @@ public class UIRoleInfo : TTUIPage
         if (data.Dodge > 0)
         {
             txt_Dodge.transform.parent.gameObject.SetActive(true);
-            txt_Dodge.text = data.Dodge.ToString("#0.0");
+            txt_Dodge.text = data.Dodge.ToString("#0");
         }
         else
         {
@@ -291,7 +292,7 @@ public class UIRoleInfo : TTUIPage
         if (data.HIT > 0)
         {
             txt_Hit.transform.parent.gameObject.SetActive(true);
-            txt_Hit.text = data.Dodge.ToString("#0.0");
+            txt_Hit.text = data.Dodge.ToString("#0");
         }
         else
         {
@@ -300,7 +301,7 @@ public class UIRoleInfo : TTUIPage
         if (data.INT > 0)
         {
             txt_INT.transform.parent.gameObject.SetActive(true);
-            txt_INT.text = data.INT.ToString("#0.0");
+            txt_INT.text = data.INT.ToString("#0");
         }
         else
         {
