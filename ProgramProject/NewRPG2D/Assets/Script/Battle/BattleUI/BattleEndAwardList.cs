@@ -37,7 +37,8 @@ namespace Assets.Script.Battle.BattleUI
                 if (box != null)
                 {
                     realCount++;
-                    items[i].gameObject.CustomSetActive(true);
+                    ChickItemInfo.instance.CreateNewBox(box.ItemId);
+                   items[i].gameObject.CustomSetActive(true);
                     items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(box.Icon), 1);
                 }
             }
