@@ -80,5 +80,6 @@ public class UILevelUpTip : TTUIPage
         }
         int newTip = AddLister(data.roomID);
         ChickPlayerInfo.instance.ChangeBuildNumber(data, newTip);
+        timeTextGrids[newTip].UpdateTime(data);
     }
 }
