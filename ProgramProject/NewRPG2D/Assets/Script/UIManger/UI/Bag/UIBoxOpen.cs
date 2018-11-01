@@ -60,7 +60,6 @@ public class UIBoxOpen : TTUIPage
             boxGrids[index].UpdateInfo(equipData[i]);
             index++;
         }
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.RefreshBagUI);
     }
 
     private void ChickClose()

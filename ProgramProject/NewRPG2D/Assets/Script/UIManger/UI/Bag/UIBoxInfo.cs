@@ -127,6 +127,7 @@ public class UIBoxInfo : TTUIPage
         UIPanelManager.instance.ShowPage<UIBoxOpen>();
         UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
         ChickItemInfo.instance.UseBox(realBoxData.instanceId);
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.RefreshBagUI);
         ClosePage();
     }
 }

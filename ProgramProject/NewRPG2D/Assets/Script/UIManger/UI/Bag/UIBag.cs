@@ -45,6 +45,8 @@ public class UIBag : TTUIPage
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.RefreshBagUI, ChickBagType);
     }
 
+
+
     private void ChickBagType()
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
@@ -59,6 +61,7 @@ public class UIBag : TTUIPage
                 return;
             }
         }
+        sc.UpdateInfo((BagType)currentBtnNumb);
         Debug.LogError("没有找到对应按钮");
     }
 
