@@ -709,11 +709,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         BuildRoomName name = BuildRoomName.Nothing;
         switch (Id)
         {
-            case 1011: name = BuildRoomName.Gold; break;
-            case 1012: name = BuildRoomName.Food; break;
-            case 1013: name = BuildRoomName.Mana; break;
-            case 1014: name = BuildRoomName.Wood; break;
-            case 1015: name = BuildRoomName.Iron; break;
+            case 1011: name = BuildRoomName.GoldSpace; break;
+            case 1012: name = BuildRoomName.FoodSpace; break;
+            case 1013: name = BuildRoomName.ManaSpace; break;
+            case 1014: name = BuildRoomName.WoodSpace; break;
+            case 1015: name = BuildRoomName.IronSpace; break;
             default:
                 break;
         }

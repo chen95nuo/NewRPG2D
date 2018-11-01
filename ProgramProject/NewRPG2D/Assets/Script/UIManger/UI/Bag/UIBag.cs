@@ -62,7 +62,6 @@ public class UIBag : TTUIPage
             }
         }
         sc.UpdateInfo((BagType)currentBtnNumb);
-        Debug.LogError("没有找到对应按钮");
     }
 
     private void BagChickRoleEquip(EquipmentRealProperty equipData)
