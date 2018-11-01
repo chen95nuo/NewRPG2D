@@ -80,7 +80,7 @@ namespace Assets.Script.Battle.Equipment
                 {
                     int randomIndex = Random.Range(0, equipmentId.Count);
                     EquipmentRealProperty equipmentRealData =
-                        EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex], dependLevel);
+                        EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex]);
 
                     for (int i = 0; i < count; i++)
                     {
