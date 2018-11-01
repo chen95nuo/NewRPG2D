@@ -50,6 +50,19 @@ public class UIEquipViewGrid : MonoBehaviour
     private EquipmentRealProperty currentequipData;
     private RectTransform ts;
 
+    public int Index
+    {
+        get
+        {
+            if (index >= atrGrids.Count)
+            {
+                Debug.Log(index + " " + atrGrids.Count);
+                InstanceGrid();
+            }
+            return index;
+        }
+    }
+
     private void Awake()
     {
         ts = GetComponent<RectTransform>();
@@ -122,14 +135,14 @@ public class UIEquipViewGrid : MonoBehaviour
             index = 0;
         }
 
-        if (index == 0)
+        if (Index == 0)
         {
         }
         else
         {
             AtrGridPoint.gameObject.SetActive(true);
         }
-        for (int i = index; i < atrGrids.Count; i++)
+        for (int i = Index; i < atrGrids.Count; i++)
         {
             atrGrids[i].gameObject.SetActive(false);
         }
@@ -204,9 +217,9 @@ public class UIEquipViewGrid : MonoBehaviour
         //如果是皮甲读DPS
         if (dic[RoleAttribute.MinDamage] > 0 && equipData.EquipType != EquipTypeEnum.Sword && equipData.ProfessionNeed == ProfessionNeedEnum.Fight)
         {
-            atrGrids[index].gameObject.SetActive(true);
+            atrGrids[Index].gameObject.SetActive(true);
             string tip = "伤害:" + dic[RoleAttribute.MinDamage].ToString("#0") + "-" + dic[RoleAttribute.MaxDamage].ToString("#0");
-            atrGrids[index].UpdateInfo(RoleAttribute.DPS, tip);
+            atrGrids[Index].UpdateInfo(RoleAttribute.DPS, tip);
             index++;
         }
 
@@ -222,16 +235,12 @@ public class UIEquipViewGrid : MonoBehaviour
         }
         for (int i = startPoint; i < (int)RoleAttribute.Max; i++)
         {
-            if (index >= atrGrids.Count)
-            {
-                InstanceGrid();
-            }
             if (dic.ContainsKey((RoleAttribute)i) && dic[(RoleAttribute)i] != 0)
             {
-                atrGrids[index].gameObject.SetActive(true);
+                atrGrids[Index].gameObject.SetActive(true);
                 string language = LanguageDataMgr.instance.GetString(((RoleAttribute)i).ToString());
                 string tip = language + " <color=#b8a17f>+" + dic[(RoleAttribute)i].ToString("#0") + "</color>";
-                atrGrids[index].UpdateInfo((RoleAttribute)i, tip);
+                atrGrids[Index].UpdateInfo((RoleAttribute)i, tip);
                 index++;
             }
         }
@@ -240,16 +249,12 @@ public class UIEquipViewGrid : MonoBehaviour
 
     private void ChickList(List<SpecialPropertyData> PropertyData)
     {
-        if (index >= atrGrids.Count)
-        {
-            InstanceGrid();
-        }
         for (int i = 0; i < PropertyData.Count; i++)
         {
-            atrGrids[index].gameObject.SetActive(true);
+            atrGrids[Index].gameObject.SetActive(true);
             string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString());
             st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString("#0.0") + "</color>");
-            atrGrids[index].UpdateInfo(RoleAttribute.Max, st);
+            atrGrids[Index].UpdateInfo(RoleAttribute.Max, st);
             index++;
         }
     }

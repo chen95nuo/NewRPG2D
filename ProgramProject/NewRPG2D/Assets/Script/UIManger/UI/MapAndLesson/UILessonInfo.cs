@@ -220,6 +220,7 @@ public class UILessonInfo : TTUIPage
         data.EquipIdList = roleData.Equip;
         data.BornPositionType = (BornPositionTypeEnum)nowPoint;
         Debug.Log("位置 :" + nowPoint);
+        Debug.Log("职业 :" + data.Profession);
         FightRoleData.Add(data);
     }
 

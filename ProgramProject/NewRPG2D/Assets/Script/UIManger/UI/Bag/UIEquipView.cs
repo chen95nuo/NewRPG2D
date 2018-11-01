@@ -70,8 +70,6 @@ public class UIEquipView : TTUIPage
     private void UpdateInfo(UIEquipInfoHelper equipData)
     {
         LeftPoint.gameObject.SetActive(false);
-        RightPoint.gameObject.SetActive(true);
-
         if (equipData.roleData == null)
         {
             rightEquipGrid.UpdateInfo(equipData.equipData, 1, equipData.roleData);
@@ -85,8 +83,6 @@ public class UIEquipView : TTUIPage
 
     private void UpdateInfo(UIEquipInfoHelper_1 equipInfoData)
     {
-        LeftPoint.gameObject.SetActive(true);
-        RightPoint.gameObject.SetActive(true);
 
         if (equipInfoData.bagEquipData == null)
         {
@@ -95,6 +91,7 @@ public class UIEquipView : TTUIPage
         }
         else
         {
+            LeftPoint.gameObject.SetActive(true);
             leftEquipGrid.UpdateInfo(equipInfoData.roleEquipData, 0, null);
             rightEquipGrid.UpdateInfo(equipInfoData.bagEquipData, 3, equipInfoData.roleData);
         }
@@ -102,8 +99,6 @@ public class UIEquipView : TTUIPage
 
     public override void ClosePage()
     {
-        LeftPoint.gameObject.SetActive(false);
-        RightPoint.gameObject.SetActive(false);
         rightEquipGrid.Close();
         leftEquipGrid.Close();
         base.ClosePage();

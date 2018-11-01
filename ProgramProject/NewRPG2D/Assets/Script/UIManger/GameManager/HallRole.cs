@@ -70,7 +70,7 @@ public class HallRole : MonoBehaviour
 
     public void ChangeSkil(int id)
     {
-        EquipmentRealProperty equipment = EquipmentMgr.instance.CreateNewEquipment(id);
+        EquipmentRealProperty equipment = EquipmentMgr.instance.GetEquipmentByEquipId(id);
         RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
     }
     public void ChangeOrigin(EquipTypeEnum type)
@@ -101,7 +101,7 @@ public class HallRole : MonoBehaviour
     public void TrainComplete(TrainType type)
     {
         UIPanelManager.instance.ShowPage<UIRoleTipGroup>();
-        UIRoleTipGroup.instance.ShowIcon(this,type);
+        UIRoleTipGroup.instance.ShowIcon(this, type);
     }
 
     public void LoveComplete()
