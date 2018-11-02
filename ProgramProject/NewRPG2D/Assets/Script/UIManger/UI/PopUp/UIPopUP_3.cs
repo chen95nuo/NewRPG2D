@@ -26,7 +26,7 @@ public class UIPopUP_3 : TTUIPage
     {
         for (int i = 0; i < grids.Count; i++)
         {
-            if (grids[i].isTrue == false)
+            if (grids[i].IsTrue == false)
             {
                 grids[i].UpdateInfo(canvas, data);
                 return;

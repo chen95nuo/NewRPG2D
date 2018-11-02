@@ -103,7 +103,7 @@ public class UIProdLevelUp : UILevelUp
                 UpdateInfo_2(data);
                 string space_1 = "       ";
                 string space_2 = "     ";
-                txt_Tip_4.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
+                txt_Tip_5.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
                 break;
             case RoomType.Support:
                 break;
@@ -172,89 +172,6 @@ public class UIProdLevelUp : UILevelUp
         }
         b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
         txt_StockUp_2.text = "+" + (b_Data_2.Param2 - b_Data_1.Param2);
-    }
-
-    private void ChickTip_4(BuildingData data)
-    {
-        switch (data.RoomType)
-        {
-            case RoomType.Production:
-                txt_Tip_5.text = "升级该建筑来增加";
-                return;
-            case RoomType.Training:
-                Type_3.anchoredPosition = Vector3.zero;
-                string space_1 = "       ";
-                string space_2 = "     ";
-                txt_Tip_5.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
-                return;
-            default:
-                break;
-        }
-        switch (data.RoomName)
-        {
-            case BuildRoomName.Nothing:
-                break;
-            case BuildRoomName.Gold:
-                break;
-            case BuildRoomName.GoldSpace:
-                break;
-            case BuildRoomName.Food:
-                break;
-            case BuildRoomName.FoodSpace:
-                break;
-            case BuildRoomName.Mana:
-                break;
-            case BuildRoomName.ManaSpace:
-                break;
-            case BuildRoomName.Wood:
-                break;
-            case BuildRoomName.WoodSpace:
-                break;
-            case BuildRoomName.Iron:
-                break;
-            case BuildRoomName.IronSpace:
-                break;
-            case BuildRoomName.FighterRoom:
-                break;
-            case BuildRoomName.Kitchen:
-                break;
-            case BuildRoomName.Mint:
-                break;
-            case BuildRoomName.Laboratory:
-                break;
-            case BuildRoomName.Crafting:
-                break;
-            case BuildRoomName.Foundry:
-                break;
-            case BuildRoomName.LivingRoom:
-                break;
-            case BuildRoomName.TrophyRoom:
-                break;
-            case BuildRoomName.Hospital:
-                break;
-            case BuildRoomName.ClanHall:
-                break;
-            case BuildRoomName.MagicWorkShop:
-                break;
-            case BuildRoomName.MagicLab:
-                break;
-            case BuildRoomName.WeaponsWorkShop:
-                break;
-            case BuildRoomName.ArmorWorkShop:
-                break;
-            case BuildRoomName.GemWorkSpho:
-                break;
-            case BuildRoomName.Stairs:
-                break;
-            case BuildRoomName.ThroneRoom:
-                break;
-            case BuildRoomName.Barracks:
-                break;
-            case BuildRoomName.MaxRoom:
-                break;
-            default:
-                break;
-        }
     }
 
     private void UIReset()

@@ -8,14 +8,16 @@ public class UIThroneLevelUpGrid : MonoBehaviour
     public Text txt_Name;
     public Text txt_Type;
 
+    public Image tipBg;
     public Image RoomIcon_1;
     public Image RoomIcon_2;
     public Image RoomIcon_3;
     public Image RoomIcon_4;
+    public Sprite[] sprite;
 
     public void UpdateInfo(BuildingData data, ThroneInfoType type)
     {
-        txt_Name.text = data.RoomName.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.RoomName.ToString());
         Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.RoomName.ToString());
         switch (data.RoomSize)
         {
@@ -43,9 +45,11 @@ public class UIThroneLevelUpGrid : MonoBehaviour
         {
             case ThroneInfoType.Upgraded:
                 txt_Type.text = "可升级";
+                tipBg.sprite = sprite[0];
                 break;
             case ThroneInfoType.Build:
                 txt_Type.text = "新";
+                tipBg.sprite = sprite[1];
                 break;
             default:
                 break;
