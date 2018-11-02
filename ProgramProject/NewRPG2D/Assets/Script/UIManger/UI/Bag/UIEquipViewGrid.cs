@@ -84,7 +84,7 @@ public class UIEquipViewGrid : MonoBehaviour
         currentequipData = equipData;
 
         txt_Name.text = equipData.Name;
-        txt_Quality.text = equipData.QualityType.ToString();
+        txt_Quality.text = LanguageDataMgr.instance.GetString(equipData.QualityType.ToString());
 
         if (equipData.ProfessionNeed == ProfessionNeedEnum.Fight)
         {
@@ -218,7 +218,7 @@ public class UIEquipViewGrid : MonoBehaviour
         if (dic[RoleAttribute.MinDamage] > 0 && equipData.EquipType != EquipTypeEnum.Sword && equipData.ProfessionNeed == ProfessionNeedEnum.Fight)
         {
             atrGrids[Index].gameObject.SetActive(true);
-            string tip = "伤害:" + dic[RoleAttribute.MinDamage].ToString("#0") + "-" + dic[RoleAttribute.MaxDamage].ToString("#0");
+            string tip = "伤害 <color=#b8a17f>+" + dic[RoleAttribute.MinDamage].ToString("#0") + "-" + dic[RoleAttribute.MaxDamage].ToString("#0") + "</color>";
             atrGrids[Index].UpdateInfo(RoleAttribute.DPS, tip);
             index++;
         }

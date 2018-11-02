@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RECORDS Ver="41">
+<RECORDS Ver="42">
 <RECORD ID="1" GetName="RebornFriend" Chinese="以{0}+（法术强度*{1})点生命值复活一名盟友，{2}秒冷却" > </RECORD>
 <RECORD ID="2" GetName="ExtraDamage" Chinese="攻击时，有{0}%概率在{1}秒内造成{2}%点分裂伤害" > </RECORD>
 <RECORD ID="3" GetName="IncreaseAttackWhenReborn" Chinese="以任何形式复活后，伤害提升{0}%。持续{1}秒" > </RECORD>
@@ -36,8 +36,8 @@
 <RECORD ID="33" GetName="Dodge" Chinese="闪避" > </RECORD>
 <RECORD ID="34" GetName="FightNumber" Chinese="战斗力,战斗力是评估对居民战斗能立的一个评估值。受{0}战士等级{1}和{0}穿戴装备{1}影响。" > </RECORD>
 <RECORD ID="35" GetName="FightTip" Chinese="战士,该能力影响居民的战斗能力,可以通过{0}战斗训练场{1}提升战士等级。" > </RECORD>
-<RECORD ID="36" GetName="GoldTip" Chinese="会计,该能力影响剧名的金币产量,可以通过{0}贸易训练场{1}提升等级" > </RECORD>
-<RECORD ID="37" GetName="FoodTip" Chinese="厨师,该能力影响剧名的金币产量,可以通过{0}厨师训练场{1}提升等级" > </RECORD>
+<RECORD ID="36" GetName="GoldTip" Chinese="财政,该能力影响居民的金币产量,可以通过{0}账房{1}提升财政等级" > </RECORD>
+<RECORD ID="37" GetName="FoodTip" Chinese="料理,该能力影响居民的食物产量,可以通过{0}厨房{1}提升料理等级" > </RECORD>
 <RECORD ID="38" GetName="ManaTip" Chinese="0" > </RECORD>
 <RECORD ID="39" GetName="WoodTip" Chinese="0" > </RECORD>
 <RECORD ID="40" GetName="IronTip" Chinese="0" > </RECORD>
@@ -48,7 +48,7 @@
 <RECORD ID="45" GetName="CrtTip" Chinese="增加暴击概率" > </RECORD>
 <RECORD ID="46" GetName="INTTip" Chinese="增加法术攻击伤害" > </RECORD>
 <RECORD ID="47" GetName="HITTip" Chinese="增加命中率" > </RECORD>
-<RECORD ID="48" GetName="DodgeTip" Chinese="闪避出发时免疫当前伤害" > </RECORD>
+<RECORD ID="48" GetName="DodgeTip" Chinese="闪避触发时免疫当前伤害" > </RECORD>
 <RECORD ID="49" GetName="FighterProfession" Chinese="战士" > </RECORD>
 <RECORD ID="50" GetName="ShooterProfession" Chinese="射手" > </RECORD>
 <RECORD ID="51" GetName="MagicProfession" Chinese="法师" > </RECORD>
@@ -59,21 +59,21 @@
 <RECORD ID="56" GetName="Sword" Chinese="剑" > </RECORD>
 <RECORD ID="57" GetName="Axe" Chinese="斧头" > </RECORD>
 <RECORD ID="58" GetName="Clothes" Chinese="布甲" > </RECORD>
-<RECORD ID="59" GetName="Leather" Chinese="皮夹" > </RECORD>
+<RECORD ID="59" GetName="Leather" Chinese="皮甲" > </RECORD>
 <RECORD ID="60" GetName="Plate" Chinese="板甲" > </RECORD>
 <RECORD ID="61" GetName="Amulet" Chinese="首饰" > </RECORD>
 <RECORD ID="62" GetName="White" Chinese="普通" > </RECORD>
-<RECORD ID="63" GetName="Green" Chinese="稀少" > </RECORD>
-<RECORD ID="64" GetName="Blue" Chinese="稀有" > </RECORD>
-<RECORD ID="65" GetName="Purple" Chinese="传说" > </RECORD>
-<RECORD ID="66" GetName="Orange" Chinese="史诗" > </RECORD>
-<RECORD ID="67" GetName="Room_Gold" Chinese="贸易厅" > </RECORD>
+<RECORD ID="63" GetName="Green" Chinese="稀有" > </RECORD>
+<RECORD ID="64" GetName="Blue" Chinese="魔法" > </RECORD>
+<RECORD ID="65" GetName="Purple" Chinese="史诗" > </RECORD>
+<RECORD ID="66" GetName="Orange" Chinese="传说" > </RECORD>
+<RECORD ID="67" GetName="Room_Gold" Chinese="财政厅" > </RECORD>
 <RECORD ID="68" GetName="Room_GoldSpace" Chinese="金库" > </RECORD>
 <RECORD ID="69" GetName="Room_Food" Chinese="食堂" > </RECORD>
 <RECORD ID="70" GetName="Room_FoodSpace" Chinese="地窖" > </RECORD>
 <RECORD ID="71" GetName="Room_Barracks" Chinese="军营" > </RECORD>
-<RECORD ID="72" GetName="Room_FighterRoom" Chinese="战斗训练场" > </RECORD>
-<RECORD ID="73" GetName="Room_LivingRoom" Chinese="起居室" > </RECORD>
+<RECORD ID="72" GetName="Room_FighterRoom" Chinese="训练场" > </RECORD>
+<RECORD ID="73" GetName="Room_LivingRoom" Chinese="卧室" > </RECORD>
 <RECORD ID="74" GetName="Room_Stairs" Chinese="楼梯" > </RECORD>
 <RECORD ID="75" GetName="Room_ThroneRoom" Chinese="国王大厅" > </RECORD>
 <RECORD ID="76" GetName="Room_BabyRoom" Chinese="婴儿房" > </RECORD>
@@ -87,4 +87,19 @@
 <RECORD ID="84" GetName="Des_Stairs" Chinese="用于连通房间" > </RECORD>
 <RECORD ID="85" GetName="Des_ThroneRoom" Chinese="用于解锁房间" > </RECORD>
 <RECORD ID="86" GetName="Des_BabyRoom" Chinese="培养小孩" > </RECORD>
+<RECORD ID="87" GetName="Infor_Barracks" Chinese="军营可以招募一支军队，用于发动攻击或保卫城堡" > </RECORD>
+<RECORD ID="88" GetName="Infor_ThroneRoom" Chinese="升级国王大厅用于解锁新的房间" > </RECORD>
+<RECORD ID="89" GetName="Infor_LivingRoom" Chinese="卧室能增加城堡的最大人口数,并能让居民生育下一代" > </RECORD>
+<RECORD ID="90" GetName="Infor_GoldSpace" Chinese="用于储存金币，升级可提升金库容量" > </RECORD>
+<RECORD ID="91" GetName="Infor_Food" Chinese="食堂用于生产食物" > </RECORD>
+<RECORD ID="92" GetName="Infor_Gold" Chinese="用于生产金币" > </RECORD>
+<RECORD ID="93" GetName="Infor_FoodSpace" Chinese="用于储存食物，升级可提升地窖容量" > </RECORD>
+<RECORD ID="94" GetName="" Chinese="需要{0}级国王大厅" > </RECORD>
+<RECORD ID="95" GetName="" Chinese="已达房间数量上限" > </RECORD>
+<RECORD ID="96" GetName="BulidButton_Info" Chinese="信息" > </RECORD>
+<RECORD ID="97" GetName="BulidButton_Updata" Chinese="升级" > </RECORD>
+<RECORD ID="98" GetName="BulidButton_Edit" Chinese="城堡编辑" > </RECORD>
+<RECORD ID="99" GetName="BulidButton_Skin" Chinese="更换皮肤" > </RECORD>
+<RECORD ID="100" GetName="BulidButton_Cancel" Chinese="取消" > </RECORD>
+<RECORD ID="101" GetName="BulidButton_Quick" Chinese="加速" > </RECORD>
 </RECORDS>
