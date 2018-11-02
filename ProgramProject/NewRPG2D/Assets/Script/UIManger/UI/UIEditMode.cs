@@ -111,6 +111,7 @@ public class UIEditMode : TTUIPage
         ListAddData(selectRoom.currentBuildData);
         EditCastle.instance.RemoveRoom(selectRoom);
         ShowMenu(null);
+        CameraControl.instance.CloseRoomLock();
     }
     /// <summary>
     /// 检查删除房间

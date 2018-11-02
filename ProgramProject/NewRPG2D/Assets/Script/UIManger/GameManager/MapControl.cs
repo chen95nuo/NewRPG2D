@@ -40,9 +40,13 @@ public class MapControl : MonoBehaviour
         {
             return;
         }
-        UIPanelManager.instance.ShowPage<UIMain>();
-        UIPanelManager.instance.ClosePage<UIEditMode>();
-        EditCastle.instance.RemoveAllRoom(false);
+        if (!first)
+        {
+            first = false;
+            UIPanelManager.instance.ShowPage<UIMain>();
+            UIPanelManager.instance.ClosePage<UIEditMode>();
+            EditCastle.instance.RemoveAllRoom(false);
+        }
     }
     public void ShowEditMap()
     {
