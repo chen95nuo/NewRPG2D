@@ -51,8 +51,8 @@ namespace Assets.Script.Battle
 
         private void RolePropertyDamage(ValueProperty attackProperty, ValueProperty targeProperty, ref float hurtValue)
         {
-            bool bCri = (Random.Range(0, 1) < attackProperty.CriticalPercent);
-            if ((Random.Range(0, 1) <
+            bool bCri = (Random.Range(0, 100) < attackProperty.CriticalPercent);
+            if ((Random.Range(0, 100) <
                  attackProperty.HitPercent / (attackProperty.HitPercent + targeProperty.AviodHurtPercent)))
             {
                 hurtValue = 0;

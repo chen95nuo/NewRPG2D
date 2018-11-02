@@ -36,7 +36,10 @@ namespace Assets.Script.Battle
             data.AttackRange = equipment.AttackRange;
             data.AttackSpeed = equipment.AttackSpeed;
             data.WeaponType = equipment.WeaponType;
-            data.ProfessionNeed = equipment.WeaponProfession;
+            if (equipment.EquipType == EquipTypeEnum.Armor)
+            {
+                data.ProfessionNeed = equipment.WeaponProfession;
+            }
             SetPropertyValue(equipment.RoleProperty, ref data);
         }
 
