@@ -30,8 +30,8 @@ namespace Assets.Script.Battle
         public float MoveSpeed { get; private set; }
         public float AttackSpeed { get; private set; }
         public int AttackRange;
+
         public RoleBase AttackRole { get; private set; }
-        private WeaponProfessionEnum professionNeed;
         private float MaxDamage, MinDamage;
         private RoleBase currenRole;
         private bl_HUDText HUDRoot;
@@ -72,8 +72,7 @@ namespace Assets.Script.Battle
             MoveSpeed = 5;
             AttackSpeed = rolePropertyData.AttackSpeed;
             HurtType = rolePropertyData.HurtType;
-            professionNeed = rolePropertyData.ProfessionNeed;
-            if (attackRangeDictionary.TryGetValue(professionNeed, out AttackRange) == false)
+            if (attackRangeDictionary.TryGetValue(rolePropertyData.ProfessionNeed, out AttackRange) == false)
             {
                 AttackRange = 2;
             }
@@ -95,7 +94,6 @@ namespace Assets.Script.Battle
             data.AttackSpeed = AttackSpeed;
             data.HurtType = HurtType;
             data.AttackRange = AttackRange;
-            data.ProfessionNeed = professionNeed;
             return data;
         }
 
