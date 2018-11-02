@@ -43,16 +43,18 @@ namespace Assets.Script.Battle.BattleUI
             endAwardList.SetAwardInfo(LocalStartFight.instance.MapData.AwardItem,
                 LocalStartFight.instance.MapData.TreasureBoxIds, isWin);
 
+            int nextSceneId = LocalStartFight.instance.MapData.NextLessonID;
+            if (nextSceneId != 0 && isWin)
+            {
+                GetPlayerData.Instance.GetData().CurrentLessonID = nextSceneId;
+            }
+
         }
 
         public void BackHall()
         {
             GameRoleMgr.instance.ClearAllRole();
-            int nextSceneId = LocalStartFight.instance.MapData.NextLessonID;
-            if (nextSceneId != 0)
-            {
-                GetPlayerData.Instance.GetData().CurrentLessonID = nextSceneId;
-            }
+            Time.timeScale = 1;
             SceneManager.LoadScene("EasonMainScene");
         }
     }
