@@ -37,18 +37,18 @@ public class LessonMap : MonoBehaviour
             int index = playerData.CurrentLessonData.Lesson - 1;
             for (int i = 0; i < btn_Lessons.Length; i++)
             {
-                if (i < index)
-                {
-                    btn_Lessons[i].image.sprite = sp[0];
-                }
-                else if (i == index)
-                {
-                    btn_Lessons[i].image.sprite = sp[1];
-                }
-                else
-                {
-                    btn_Lessons[i].image.sprite = sp[2];
-                }
+                //if (i < index)
+                //{
+                //    btn_Lessons[i].image.sprite = sp[0];
+                //}
+                //else if (i == index)
+                //{
+                btn_Lessons[i].image.sprite = sp[1];
+                //}
+                //else
+                //{
+                //    btn_Lessons[i].image.sprite = sp[2];
+                //}
             }
         }
     }
@@ -60,33 +60,32 @@ public class LessonMap : MonoBehaviour
         int index = playerData.CurrentLessonData.Lesson - 1;
         for (int i = 0; i < btn_Lessons.Length; i++)
         {
-            if (btn_Lessons[i].gameObject == go)
+            //if (btn_Lessons[i].gameObject == go)
+            //{
+            //    if (i < index)
+            //    {
+            //        object st = "已完成该关卡";
+            //        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            //    }
+            //    else if (i == index)
+            //    {
+            for (int j = 0; j < WorldMapDataMgr.instance.AllLessonData[currentMap].Count; j++)
             {
-                if (i < index)
+                if (WorldMapDataMgr.instance.AllLessonData[currentMap][j].Lesson == i + 1)
                 {
-                    object st = "已完成该关卡";
-                    UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+                    MapLevelData lessonData = WorldMapDataMgr.instance.AllLessonData[currentMap][j];
+                    UIPanelManager.instance.ShowPage<UILessonInfo>(lessonData);
+                    return;
                 }
-                else if (i == index)
-                {
-                    for (int j = 0; j < WorldMapDataMgr.instance.AllLessonData[currentMap].Count; j++)
-                    {
-                        if (WorldMapDataMgr.instance.AllLessonData[currentMap][j].Lesson == i + 1)
-                        {
-                            MapLevelData lessonData = WorldMapDataMgr.instance.AllLessonData[currentMap][j];
-                            UIPanelManager.instance.ShowPage<UILessonInfo>(lessonData);
-                            return;
-                        }
-                        Debug.LogError("错误没有找到对应关卡");
-                    }
-                }
-                else
-                {
-                    object st = string.Format("请先通过{0}关卡", playerData.CurrentLessonData.Name);
-                    UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
-                }
-
+                Debug.LogError("错误没有找到对应关卡");
             }
+            //}
+            //else
+            //{
+            //    object st = string.Format("请先通过{0}关卡", playerData.CurrentLessonData.Name);
+            //    UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            //}
+            //}
         }
     }
 }

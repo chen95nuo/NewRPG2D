@@ -28,7 +28,6 @@ public class UIRoleGrid : MonoBehaviour
     private void Awake()
     {
         btn_ShowAllRole.onClick.AddListener(ShowAllRole);
-
     }
 
     public void UpdateInfo(UIRoomInfo roomInfo)
@@ -45,6 +44,7 @@ public class UIRoleGrid : MonoBehaviour
     }
     public void UpdateInfo(HallRoleData data, BuildRoomName name, UIRoomInfo roomInfo)
     {
+        btn_ShowAllRole.interactable = true;
         index = data.id;
         room = roomInfo;
         LockType(false);
@@ -62,6 +62,7 @@ public class UIRoleGrid : MonoBehaviour
     }
     public void UpdateLockInfo(UIRoomInfo roomInfo)
     {
+        btn_ShowAllRole.interactable = false;
         index = -1;
         room = roomInfo;
         LockType(true, index + 1);
