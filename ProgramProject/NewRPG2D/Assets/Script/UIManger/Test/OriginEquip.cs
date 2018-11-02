@@ -20,7 +20,7 @@ public class OriginEquip : MonoBehaviour
                 int index = 10000 + i;
                 EquipmentMgr.instance.CreateNewEquipment(index, 1);
             }
-            //ChickItemInfo.instance.CreateNewBox(1001);
+            ChickItemInfo.instance.CreateNewBox(1001);
         }
     }
 }

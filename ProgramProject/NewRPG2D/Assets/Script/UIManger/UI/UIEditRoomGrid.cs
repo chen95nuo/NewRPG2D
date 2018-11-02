@@ -37,6 +37,8 @@ public class UIEditRoomGrid : MonoBehaviour
 
         Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.buildingData[0].buildingData.RoomName.ToString());
         RoomIcon.sprite = sp;
+
+        txt_Num.text = data.number.ToString();
     }
 
     private void ChickEndter()

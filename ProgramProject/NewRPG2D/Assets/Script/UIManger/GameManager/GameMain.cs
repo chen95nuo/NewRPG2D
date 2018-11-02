@@ -29,7 +29,6 @@ public class GameMain : MonoBehaviour
 
     private void test()
     {
-        ReadXmlNewMgr.instance.ReadXmlByType(XmlName.BuildingData, XmlName.Hall);
         Invoke("test_1", 0.5f);
         Invoke("test_2", 1.0f);
     }

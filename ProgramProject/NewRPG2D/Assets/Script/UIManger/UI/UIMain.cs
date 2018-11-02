@@ -12,13 +12,7 @@ public class UIMain : TTUIPage
     public GameObject rightDown;
     public GameObject leftDown;
     public GameObject leftUp;
-    public Button btn_UIMarket;
-    public Button btn_UIChat;
-    public Button btn_UIRank;
-    public Button btn_UIFightInfor;
-    public Button btn_UIBag;
-    public Button btn_UIMap;
-    public Button btn_Cancel;
+
 
     public UIMarket market;
 
@@ -53,6 +47,24 @@ public class UIMain : TTUIPage
 
     public Canvas[] hightIcons;
 
+    public Button btn_UIMarket;
+    public Button btn_UIChat;
+    public Button btn_UIRank;
+    public Button btn_UISetting;
+    public Button btn_UIBag;
+    public Button btn_UIMap;
+    public Button btn_Cancel;
+    public Button btn_People;
+    public Button btn_Worker;
+    public Button btn_Happiness;
+    public Button btn_Info;
+    public Button btn_Rank;
+    public Button btn_SetUp;
+    public Button btn_MaliBox;
+    public Button btn_Achievement;
+    public Button btn_Task;
+
+
     private void Awake()
     {
         instance = this;
@@ -61,6 +73,19 @@ public class UIMain : TTUIPage
         btn_UIBag.onClick.AddListener(ChickBag);
         btn_UIMap.onClick.AddListener(ChickMap);
         btn_Cancel.onClick.AddListener(ChickCancel);
+
+        btn_People.onClick.AddListener(ChickPeople);
+        btn_Worker.onClick.AddListener(ChickWorkr);
+        btn_Happiness.onClick.AddListener(ChickHappiness);
+        btn_Info.onClick.AddListener(ChickInfo);
+        btn_UIRank.onClick.AddListener(ChickRank);
+        btn_SetUp.onClick.AddListener(ChickSetUp);
+        btn_UIChat.onClick.AddListener(ChickChat);
+        btn_MaliBox.onClick.AddListener(ChickMali);
+        btn_UISetting.onClick.AddListener(ChickSetting);
+        btn_Achievement.onClick.AddListener(ChickAchie);
+        btn_Task.onClick.AddListener(ChickTask);
+
         for (int i = 0; i < btn_Produces.Length; i++)
         {
             btn_Produces[i].onClick.AddListener(ChickProduceTips);
@@ -80,6 +105,72 @@ public class UIMain : TTUIPage
         wood = new SpaceNumJump(text_wood);
         iron = new SpaceNumJump(text_iron);
         diamonds = new SpaceNumJump(text_diamonds);
+    }
+
+    private void ChickTask()
+    {
+        object st = "任务系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickAchie()
+    {
+        object st = "成就系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickSetting()
+    {
+        object st = "设置系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickMali()
+    {
+        object st = "邮箱系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickChat()
+    {
+        object st = "聊天系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickSetUp()
+    {
+        object st = "入侵系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickRank()
+    {
+        object st = "排行系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickInfo()
+    {
+        object st = "玩家数据系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickHappiness()
+    {
+        object st = "好感度加成系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickWorkr()
+    {
+        object st = "任务系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+    }
+
+    private void ChickPeople()
+    {
+        object st = "人口系统暂未开放";
+        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
     private void ChickProduceTips()
@@ -170,7 +261,7 @@ public class UIMain : TTUIPage
         leftDown.SetActive(isTrue);
         btn_UIChat.gameObject.SetActive(isTrue);
         btn_UIRank.gameObject.SetActive(isTrue);
-        btn_UIFightInfor.gameObject.SetActive(isTrue);
+        btn_UISetting.gameObject.SetActive(isTrue);
     }
 
     private void GetSpace(BuildRoomName name)

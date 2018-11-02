@@ -677,11 +677,13 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <summary>
     /// 增加某类资源
     /// </summary>
+    /// <param name="name">输入仓库名字</param>
+    /// <param name="index">输入道具数量</param>
     public void AddStock(BuildRoomName name, int index)
     {
         float temp = 0;
         PlayerData play = GetPlayerData.Instance.GetData();
-        if (dic.ContainsKey(name))
+        if (dic.ContainsKey(name) && dic[name][0] != null)
         {
             temp += dic[name][0].buildingData.Param2 - dic[name][0].Stock;
             if (index - (int)temp > 0)
@@ -700,23 +702,23 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
 
         switch (name)
         {
-            case BuildRoomName.Gold:
+            case BuildRoomName.GoldSpace:
                 play.Gold += index;
                 play.Gold = Mathf.Clamp(play.Gold, 0, 5000);
                 break;
-            case BuildRoomName.Food:
+            case BuildRoomName.FoodSpace:
                 play.Food += index;
                 play.Food = Mathf.Clamp(play.Food, 0, 5000);
                 break;
-            case BuildRoomName.Mana:
+            case BuildRoomName.ManaSpace:
                 play.Mana += index;
                 play.Mana = Mathf.Clamp(play.Mana, 0, 5000);
                 break;
-            case BuildRoomName.Wood:
+            case BuildRoomName.WoodSpace:
                 play.Wood += index;
                 play.Wood = Mathf.Clamp(play.Wood, 0, 5000);
                 break;
-            case BuildRoomName.Iron:
+            case BuildRoomName.IronSpace:
                 play.Iron += index;
                 play.Iron = Mathf.Clamp(play.Iron, 0, 5000);
                 break;
@@ -729,14 +731,20 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     public void AddStock(int Id, int index)
     {
         Debug.Log("此处ID需优化");
+        if (Id == 1012)
+        {
+            PlayerData playerData = GetPlayerData.Instance.GetData();
+            playerData.Diamonds += index;
+            return;
+        }
         BuildRoomName name = BuildRoomName.Nothing;
         switch (Id)
         {
             case 1011: name = BuildRoomName.GoldSpace; break;
-            case 1012: name = BuildRoomName.FoodSpace; break;
-            case 1013: name = BuildRoomName.ManaSpace; break;
-            case 1014: name = BuildRoomName.WoodSpace; break;
-            case 1015: name = BuildRoomName.IronSpace; break;
+            case 1013: name = BuildRoomName.FoodSpace; break;
+            case 1014: name = BuildRoomName.ManaSpace; break;
+            case 1015: name = BuildRoomName.WoodSpace; break;
+            case 1016: name = BuildRoomName.IronSpace; break;
             default:
                 break;
         }
@@ -931,7 +939,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <param name="data"></param>
     public void ThisProduction(LocalBuildingData data)
     {
-        int index = CTimerManager.instance.AddListener(1f, -1, ChickProduction);
+        int index = CTimerManager.instance.AddListener(30f, -1, ChickProduction);
         production.Add(index, data);
     }
 
