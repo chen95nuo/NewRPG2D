@@ -952,7 +952,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <param name="data"></param>
     public void ThisProduction(LocalBuildingData data)
     {
-        int index = CTimerManager.instance.AddListener(1f, -1, ChickProduction);
+        int index = CTimerManager.instance.AddListener(30f, -1, ChickProduction);
         production.Add(index, data);
     }
 
@@ -970,7 +970,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         }
         float number = Yeild / 60 / 60;
         production[key].Stock += number * 30f;
-        if (production[key].Stock > production[key].buildingData.Param2 * 0.005f)
+        if (production[key].Stock > production[key].buildingData.Param2 * 0.05f)
         {
             MainCastle.instance.FindRoom(production[key].id);
         }
