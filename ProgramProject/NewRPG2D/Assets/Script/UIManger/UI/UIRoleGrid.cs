@@ -12,6 +12,7 @@ public class UIRoleGrid : MonoBehaviour
     public Text txt_LevelTip;
     public Image Image_Icon;
     public Image potoBg;
+    public Image roleIcon;
     public Image headIcon;
     public Button btn_ShowAllRole;
     public GameObject lockOBJ;
@@ -39,7 +40,8 @@ public class UIRoleGrid : MonoBehaviour
         txt_Name.gameObject.SetActive(false);
         txt_Level.gameObject.SetActive(false);
         potoBg.sprite = sp[0];
-        headIcon.gameObject.SetActive(false);
+        headIcon.gameObject.SetActive(true);
+        roleIcon.gameObject.SetActive(false);
     }
     public void UpdateInfo(HallRoleData data, BuildRoomName name, UIRoomInfo roomInfo)
     {
@@ -54,7 +56,9 @@ public class UIRoleGrid : MonoBehaviour
         txt_Name.gameObject.SetActive(true);
         txt_Level.gameObject.SetActive(true);
         txt_Level.text = "+" + data.GetArtProduce(name).ToString();
-        headIcon.gameObject.SetActive(true);
+        headIcon.gameObject.SetActive(false);
+        roleIcon.gameObject.SetActive(true);
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
     }
     public void UpdateLockInfo(UIRoomInfo roomInfo)
     {
@@ -62,8 +66,8 @@ public class UIRoleGrid : MonoBehaviour
         room = roomInfo;
         LockType(true, index + 1);
         potoBg.sprite = sp[1];
-        headIcon.gameObject.SetActive(false);
-
+        headIcon.gameObject.SetActive(true);
+        roleIcon.gameObject.SetActive(false);
     }
 
     public void UIAddRole(HallRole role)
@@ -91,14 +95,10 @@ public class UIRoleGrid : MonoBehaviour
 
         Image_Icon.enabled = true;
 
-        if (data == null)
-        {
-            headIcon.sprite = addRole;
-        }
-        else
-        {
-            headIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.IconName);
-        }
+        headIcon.gameObject.SetActive(false);
+        roleIcon.gameObject.SetActive(true);
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
+
         if (data.LoveType == RoleLoveType.WaitFor)
         {
             txt_Type.text = "等待伴侣中";
@@ -107,6 +107,8 @@ public class UIRoleGrid : MonoBehaviour
     }
     public void UpdateLivineRoom(UIRoomInfo roomInfo)
     {
+        headIcon.gameObject.SetActive(true);
+        roleIcon.gameObject.SetActive(false);
         index = -1;
         room = roomInfo;
         Image_Icon.enabled = false;
