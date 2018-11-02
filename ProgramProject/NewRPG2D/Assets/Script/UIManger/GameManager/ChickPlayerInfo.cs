@@ -964,6 +964,10 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     {
         float roleNumber = production[key].AllRoleProduction();
         float Yeild = roleNumber + production[key].buildingData.Param1;
+        if (production[key].ConstructionType == true)
+        {
+            return;
+        }
         float number = Yeild / 60 / 60;
         production[key].Stock += number * 30f;
         if (production[key].Stock > production[key].buildingData.Param2 * 0.005f)

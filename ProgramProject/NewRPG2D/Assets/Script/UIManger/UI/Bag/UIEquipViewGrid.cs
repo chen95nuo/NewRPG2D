@@ -1,4 +1,4 @@
-﻿using Assets.Script.Battle.BattleData;
+﻿    using Assets.Script.Battle.BattleData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -254,7 +254,7 @@ public class UIEquipViewGrid : MonoBehaviour
         {
             atrGrids[Index].gameObject.SetActive(true);
             string st = LanguageDataMgr.instance.GetString(PropertyData[i].SpecialPropertyType.ToString());
-            st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString("#0.0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString("#0.0") + "</color>");
+            st = string.Format("<color=#ee92ff>特殊效果:</color>\n" + st, "<color=#b8a17f>" + PropertyData[i].param1.ToString("#0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param2.ToString("#0") + "</color>", "<color=#b8a17f>" + PropertyData[i].param3.ToString("#0") + "</color>");
             atrGrids[Index].UpdateInfo(RoleAttribute.Max, st);
             index++;
         }
@@ -282,14 +282,12 @@ public class UIEquipViewGrid : MonoBehaviour
     {
         if (isLoad)
         {
-            Debug.Log("给角色穿装备");
             currentRoleData.AddEquip(currentequipData);
             RefreshBagUI();
         }
         else
         {
-            Debug.Log("角色等级不够无法装备");
-            object st = "该功能暂未开放";
+            object st = "角色等级不够无法装备";
             UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
         }
     }

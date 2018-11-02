@@ -62,6 +62,7 @@ public class UITrainRoleGrid : MonoBehaviour
     {
         info.SetActive(false);
         AddRoleIcon.enabled = true;
+        roleIcon.enabled = false;
     }
     public void UpdateInfo(HallRoleData data, Sprite sp)
     {
@@ -76,6 +77,8 @@ public class UITrainRoleGrid : MonoBehaviour
         roleData = data;
         info.SetActive(true);
         AddRoleIcon.enabled = false;
+        roleIcon.enabled = true;
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
         txt_name.text = data.Name;
         switch (data.TrainType)
         {

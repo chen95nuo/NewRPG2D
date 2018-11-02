@@ -112,6 +112,7 @@ public class CameraControl : MonoBehaviour
         m_CameraPosition = m_Camera.transform.position;
 
         GetSpeed();
+        MoveSpeed = (a * m_Camera.orthographicSize) + b;
     }
 
     private void Update()
@@ -193,7 +194,7 @@ public class CameraControl : MonoBehaviour
 
                     oldTouch0 = Input.GetTouch(0);
                 }
-                if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole && !isUI)
                 {
                     isMove = true;//镜头移动了
                     moving = false;//如果主动移动镜头关闭自动移动

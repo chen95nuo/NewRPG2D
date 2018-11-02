@@ -531,10 +531,7 @@ public class HallRoleData
     {
         get
         {
-            if (nowHp == -1)
-            {
-                nowHp = Health;
-            }
+            nowHp = Health;
             return nowHp;
         }
 
@@ -925,10 +922,13 @@ public class HallRoleData
         }
 
         nowHp = HP;
+        if (equipData.EquipType == EquipTypeEnum.Armor || equipData.EquipType == EquipTypeEnum.Sword)
+        {
+            //皮肤换回来
+            HallRole role = HallRoleMgr.instance.GetRole(this);
+            role.ChangeOrigin(equipData.EquipType);
+        }
 
-        //皮肤换回来
-        HallRole role = HallRoleMgr.instance.GetRole(this);
-        role.ChangeOrigin(equipData.EquipType);
     }
 
     public HallRoleData() { }
