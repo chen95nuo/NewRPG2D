@@ -72,11 +72,13 @@ public class UIEquipView : TTUIPage
         LeftPoint.gameObject.SetActive(false);
         if (equipData.roleData == null)
         {
+            Debug.Log("单一面板,没有角色,为仓库");
             rightEquipGrid.UpdateInfo(equipData.equipData, 1, equipData.roleData);
         }
         else
         {
             rightEquipGrid.UpdateInfo(equipData.equipData, 3, equipData.roleData);
+            Debug.Log("单一面板,有角色,为背包没有装备对比");
         }
 
     }
@@ -88,12 +90,14 @@ public class UIEquipView : TTUIPage
         {
             LeftPoint.gameObject.SetActive(false);
             rightEquipGrid.UpdateInfo(equipInfoData.roleEquipData, 2, equipInfoData.roleData);
+            Debug.Log("角色信息背包,只有一件装备,判断为身上装备可卸载");
         }
         else
         {
             LeftPoint.gameObject.SetActive(true);
             leftEquipGrid.UpdateInfo(equipInfoData.roleEquipData, 0, null);
             rightEquipGrid.UpdateInfo(equipInfoData.bagEquipData, 3, equipInfoData.roleData);
+            Debug.Log("角色信息背包,有两件装备");
         }
     }
 
