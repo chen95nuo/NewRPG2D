@@ -88,6 +88,7 @@ public class UIProductionInfo : UIRoomInfo
             default:
                 break;
         }
+        RefreshStock();
     }
 
     private void ChickBack()

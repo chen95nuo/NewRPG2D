@@ -8,6 +8,7 @@ public class UIScreenRoleGrid : MonoBehaviour
 {
     public UIChickHold btn_Photo;
     public Image image_TypeIcon;
+    public Image roleIcon;
     public Text txt_Point;
     public Text txt_Name;
     public Text txt_Level;
@@ -38,7 +39,7 @@ public class UIScreenRoleGrid : MonoBehaviour
         TrainType.SetActive(false);
         txt_Name.text = data.Name;
         txt_Level.text = data.GetAtrProduce(needAtr).ToString();
-
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
         if (needAtr == RoleAttribute.Max)
         {
             image_TypeIcon.sprite = GetSpriteAtlas.insatnce.GetLevelIconToAtr(data.RoleLevel[6].atr);
