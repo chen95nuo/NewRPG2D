@@ -225,7 +225,6 @@ public class Castle : MonoBehaviour
     /// </summary>
     public virtual void ChickRaycast(RaycastHit hit)
     {
-        Debug.Log("射线检测");
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
         BuildTip tip = hit.collider.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);

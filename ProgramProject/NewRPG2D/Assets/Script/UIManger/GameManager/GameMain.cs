@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Assets.Script.UIManger;
+﻿using Assets.Script.UIManger;
 using Assets.Script.Utility;
-using Assets.Script.Battle.BattleData;
+using UnityEngine;
 
 public class GameMain : MonoBehaviour
 {
