@@ -35,8 +35,8 @@ public class BuildCastleBg : MonoBehaviour
         rightUp.localPosition = new Vector3(1.2f * indexX, 2.7f * indexY, 0);
         right.localPosition = new Vector3(1.2f * indexX, 0, 0);
 
-        ChickNumber(floor, floors, x + 6, floorGroup);
-        for (int i = 0; i < x + 6; i++)
+        ChickNumber(floor, floors, indexX + 28, floorGroup);
+        for (int i = 0; i < indexX + 28; i++)
         {
             floors[i].transform.localPosition = new Vector3(1.2f * i, 0, 0);
         }

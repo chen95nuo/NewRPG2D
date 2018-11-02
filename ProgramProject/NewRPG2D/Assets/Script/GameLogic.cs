@@ -33,7 +33,7 @@ namespace Assets.Script
             }
             else
             {
-                Destroy(this);
+                Destroy(this.gameObject);
             }
 
             //  Debug.Log("-----------GameHallScene-----------" + ((1 << 6) | 3).ToString());

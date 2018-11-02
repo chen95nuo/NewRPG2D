@@ -294,6 +294,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickSpeedUp()
     {
         Debug.Log("升级中进行加速");
+
         ChickPlayerInfo.instance.ChickNowComplete(roomData.Id);
     }
 

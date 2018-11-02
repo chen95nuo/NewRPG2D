@@ -252,6 +252,7 @@ public class PlayerData
                 UIMain.instance.Init();
             }
             int x = (int)mainHall.buildingData.Param1;
+            CameraControl.instance.currentAddWidth = (x - 17) * 2.7f;
             int y = (int)mainHall.buildingData.Param2;
             if (EditCastle.instance != null)
             {

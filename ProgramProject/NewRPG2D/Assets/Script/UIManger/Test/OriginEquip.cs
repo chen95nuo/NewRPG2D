@@ -15,7 +15,7 @@ public class OriginEquip : MonoBehaviour
     {
         if (EquipmentMgr.instance.GetAllEquipmentData().Count <= 0)
         {
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < 5; i++)
             {
                 int index = 10000 + i;
                 EquipmentMgr.instance.CreateNewEquipment(index, 1);

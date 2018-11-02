@@ -9,62 +9,57 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1848555026129864}
+  m_RootGameObject: {fileID: 1147886196396604}
   m_IsPrefabParent: 1
---- !u!1 &1848555026129864
+--- !u!1 &1147886196396604
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4505450919454262}
-  - component: {fileID: 114141145256715190}
-  - component: {fileID: 114631837238733312}
+  - component: {fileID: 4457429489927212}
+  - component: {fileID: 114582698248927048}
+  - component: {fileID: 114357192884431758}
   m_Layer: 0
-  m_Name: GameMain
+  m_Name: GameLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4505450919454262
+--- !u!4 &4457429489927212
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1848555026129864}
+  m_GameObject: {fileID: 1147886196396604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 955.6354, y: 541.3443, z: -5.667483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114141145256715190
+--- !u!114 &114357192884431758
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1848555026129864}
+  m_GameObject: {fileID: 1147886196396604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c0561fed759eb48882a0b12700257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 56994e62cf6b96b42980e2c944702bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114631837238733312
+--- !u!114 &114582698248927048
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1848555026129864}
+  m_GameObject: {fileID: 1147886196396604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b837cac38161d6241a3c1f4fb6f3a30d, type: 3}
+  m_Script: {fileID: 11500000, guid: 470a4db45e62f564d9b028b0ee73a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icons: {fileID: 4343727234628468602, guid: cbed2982aab2bbc4ea8a28fcacca7523, type: 2}
-  RoomIcons: {fileID: 4343727234628468602, guid: d8ea02f6046ac1349a9fb0774a669c97,
-    type: 2}
-  EnemyIcons: {fileID: 4343727234628468602, guid: 6132ce75a7726ee4c90de9530df34249,
-    type: 2}

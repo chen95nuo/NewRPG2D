@@ -45,6 +45,65 @@ public class CameraControl : MonoBehaviour
     public bool isHoldRole = false;//是否抓住角色
     public bool isUI = false;//点击的是UI
 
+    private float widthHelper = 0;
+    private float width = 0;
+    public float currentAddWidth = 0;
+
+    public float Width
+    {
+        get
+        {
+            if (widthHelper == 0)
+            {
+                float tempwidth = Screen.width / 120;
+                float temphight = Screen.height / 120;
+                widthHelper = tempwidth / temphight;
+            }
+            width = m_Camera.orthographicSize * widthHelper;
+            return width;
+        }
+    }
+
+    public float hight
+    {
+        get
+        {
+            return m_Camera.orthographicSize;
+        }
+    }
+
+    public float XMin
+    {
+        get
+        {
+            return xMin + Width;
+        }
+    }
+
+    public float XMax
+    {
+        get
+        {
+            return xMax - Width + currentAddWidth;
+        }
+    }
+
+    public float YMin
+    {
+        get
+        {
+            return yMin + hight;
+        }
+    }
+
+    public float YMax
+    {
+        get
+        {
+            return yMax - hight;
+        }
+    }
+
     private void Awake()
     {
         instance = this;
@@ -82,6 +141,10 @@ public class CameraControl : MonoBehaviour
 #elif UNITY_ANDROID || UNITY_IPHONE
         AndroidMove();
 #endif
+        Vector3 newV3 = transform.localPosition;
+        float x = Mathf.Clamp(newV3.x, XMin, XMax);
+        float y = Mathf.Clamp(newV3.y, YMin, YMax);
+        transform.localPosition = new Vector3(x, y, -5);
 
         if (room == null)
         {
@@ -126,6 +189,8 @@ public class CameraControl : MonoBehaviour
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
+                    Debug.Log("Began");
+
                     oldTouch0 = Input.GetTouch(0);
                 }
                 if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole)
@@ -138,10 +203,15 @@ public class CameraControl : MonoBehaviour
 
                     this.transform.position += new Vector3(-v.x, -v.y, 0) * MoveSpeed;
                 }
+
                 //长按
                 if (Input.GetTouch(0).phase == TouchPhase.Stationary)
                 {
                     ChickLongPress();
+                }
+                if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                {
+                    isUI = true;
                 }
                 //点击结束时
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -370,13 +440,11 @@ public class CameraControl : MonoBehaviour
                 return;
             }
         }
-
     }
 
     private void CameraMove(Vector3 point)
     {
         Vector3 v3 = new Vector3(transform.position.x, transform.position.y, m_Camera.orthographicSize);
-        //v3 = Vector3.Lerp(v3, point, .3f / (Vector3.Distance(v3, point)));
         v3 = Vector3.Lerp(v3, point, .3f / (Vector3.Distance(v3, point)));
         transform.position = new Vector3(v3.x, v3.y, transform.position.z);
         m_Camera.orthographicSize = v3.z;
@@ -482,8 +550,8 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void GetSpeed()
     {
-        float x = 8 - 0.9f;
-        float y = 1.35f - 1.0f;
+        float x = 8 - 1.0f;
+        float y = 1.35f - 0.8f;
         a = y / x;
         b = y - (x * a);
     }

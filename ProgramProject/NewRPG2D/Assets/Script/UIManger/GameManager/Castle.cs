@@ -105,7 +105,6 @@ public class Castle : MonoBehaviour
     /// </summary>
     public void ExtensionWall(int x, int y)
     {
-        PlayerData playerData = GetPlayerData.Instance.GetData();
         buildH = y;
         buildW = x;
         castleBg.UpdateInfo(buildW, buildH);

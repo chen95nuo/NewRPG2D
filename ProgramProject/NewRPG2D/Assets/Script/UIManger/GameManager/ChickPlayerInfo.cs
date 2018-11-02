@@ -846,7 +846,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     public void ChickTime(int key)
     {
         buildNumber[key].needTime--;
-        if (UILevelUpTip.instance == null)
+        if (UILevelUpTip.instance == null && GetBuilding(buildNumber[key].roomID).currentRoom != null)
         {
             UIPanelManager.instance.ShowPage<UILevelUpTip>();
         }
