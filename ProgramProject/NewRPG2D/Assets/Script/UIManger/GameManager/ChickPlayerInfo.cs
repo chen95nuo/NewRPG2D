@@ -829,6 +829,19 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
 
     }
 
+
+    public LevelUPHelper GetBuildNumber(int buildId)
+    {
+        foreach (var item in buildNumber)
+        {
+            if (item.Value.roomID == buildId)
+            {
+                return item.Value;
+            }
+        }
+        Debug.Log("没有找到要加速的建筑");
+        return null;
+    }
     /// <summary>
     /// 计时器
     /// </summary>

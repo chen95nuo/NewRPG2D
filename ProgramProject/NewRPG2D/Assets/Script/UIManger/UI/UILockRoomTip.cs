@@ -9,6 +9,7 @@ public class UILockRoomTip : TTUIPage
 {
     public Text txt_Name;
     public Text txt_Level;
+    public Text txt_SpeedNum;
     public Button btn_Message;
     public Button btn_LevelUp;
     public Button btn_Cancel;
@@ -29,6 +30,8 @@ public class UILockRoomTip : TTUIPage
     private RoomMgr roomData;
     private bool isOpen = false;
     private RectTransform rt;
+    private float addSpeedNeed = 0;
+
     private void Awake()
     {
         Init();
@@ -208,6 +211,15 @@ public class UILockRoomTip : TTUIPage
     private void RoomLevelUp(bool isTrue)
     {
         btn_Cancel.gameObject.SetActive(isTrue);
+        if (isTrue == true)
+        {
+            LevelUPHelper data = ChickPlayerInfo.instance.GetBuildNumber(roomData.Id);
+            if (data != null)
+            {
+                addSpeedNeed = data.needTime * 0.01f;
+                txt_SpeedNum.text = addSpeedNeed.ToString("#0");
+            }
+        }
         btn_SpeedUp.gameObject.SetActive(isTrue);
     }
 
@@ -295,8 +307,17 @@ public class UILockRoomTip : TTUIPage
     private void ChickSpeedUp()
     {
         Debug.Log("升级中进行加速");
-
-        ChickPlayerInfo.instance.ChickNowComplete(roomData.Id);
+        PlayerData data = GetPlayerData.Instance.GetData();
+        if (data.Diamonds >= addSpeedNeed)
+        {
+            data.Diamonds -= (int)addSpeedNeed;
+            ChickPlayerInfo.instance.ChickNowComplete(roomData.Id);
+        }
+        else
+        {
+            object st = "钻石不足";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+        }
     }
 
     private void ChickCastleEddit()
