@@ -140,7 +140,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     }
     public HallRole AddNewBabyInstance(RoleBabyData data)
     {
-        HallRole role = InstantiateRole(data.child.sexType, false);
+        HallRole role = InstantiateRole(data.child.sexType, true);
         role.UpdateInfo(data);
         ChildrenStart(data, data.time);
         return role;
@@ -543,14 +543,18 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         if (childrenTime.ContainsKey(index))
         {
-            //childrenTime.Remove(index);
+            childrenTime[index].time--;
+            HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickChildTime, index);
+            if (childrenTime[index].time <= 0)
+            {
+                ChildrenComplete(index);
+            }
         }
-        childrenTime[index].time--;
-        HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickChildTime, index);
-        if (childrenTime[index].time <= 0)
+        else
         {
-            ChildrenComplete(index);
+            CTimerManager.instance.RemoveLister(index);
         }
+
     }
     /// <summary>
     /// 宝宝成长结束 创建头顶Icon

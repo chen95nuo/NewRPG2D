@@ -78,6 +78,7 @@ public class UIEquipViewGrid : MonoBehaviour
 
     public void UpdateInfo(EquipmentRealProperty equipData, int btnType, HallRoleData roleData)
     {
+        ts.anchoredPosition = Vector3.one * -2000;
         Debug.Log("运行了");
 
         currentRoleData = roleData;

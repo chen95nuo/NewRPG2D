@@ -89,7 +89,7 @@ namespace Assets.Script.UIManger
                     Sequence mSequence = DOTween.Sequence();
                     mSequence.Append(transform.DOScale(1.05f, 0.1f));
                     mSequence.Append(transform.DOScale(0.95f, 0.1f));
-                    mSequence.Append(transform.DOScale(1.0f, 0f));
+                    //mSequence
                     mSequence.OnComplete(() => gameObject.SetActive(false));
                 }
             }
