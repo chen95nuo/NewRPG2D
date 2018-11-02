@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 222484867589230164}
   - component: {fileID: 114603511985213742}
   - component: {fileID: 114977125714023732}
-  - component: {fileID: 114543594815194046}
   m_Layer: 5
   m_Name: txt_Name
   m_TagString: Untagged
@@ -420,6 +419,7 @@ GameObject:
   - component: {fileID: 224546815078123858}
   - component: {fileID: 222490072139820388}
   - component: {fileID: 114020837251611342}
+  - component: {fileID: 114170799157399120}
   m_Layer: 5
   m_Name: txt_EnemyFight
   m_TagString: Untagged
@@ -2508,11 +2508,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e56ff9e1dcd05634fa5ba6e92739d61c, type: 3}
-    m_FontSize: 1
+    m_FontSize: 55
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 50
+    m_MaxSize: 55
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3013,7 +3013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.48235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3096,6 +3096,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114170799157399120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167179685616780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -2.07}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114173212353070300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4729,20 +4743,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114543594815194046
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070494869431746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.3647059, g: 0.2784314, b: 0.15686275, a: 1}
-  m_EffectDistance: {x: 1, y: -4.57}
-  m_UseGraphicAlpha: 1
 --- !u!114 &114559069266898590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4789,7 +4789,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4232894057ee4c54da87d923b3360d12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 777210b1f2b27b447b7e13ed07910327, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7698,8 +7698,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 8.03, y: 15.85}
-  m_SizeDelta: {x: 88.75, y: 90.89}
+  m_AnchoredPosition: {x: 8.03, y: 3.72}
+  m_SizeDelta: {x: 83, y: 85}
   m_Pivot: {x: 0.3, y: 0.5}
 --- !u!224 &224095302937052430
 RectTransform:
@@ -8992,8 +8992,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.800003, y: -5.8499985}
-  m_SizeDelta: {x: 194.58, y: 63.53}
+  m_AnchoredPosition: {x: -12.800003, y: -4.2675033}
+  m_SizeDelta: {x: 194.58, y: 54.725}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224552654944532772
 RectTransform:
@@ -9775,8 +9775,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125.9, y: -2.66}
-  m_SizeDelta: {x: 97.13, y: 93.79}
+  m_AnchoredPosition: {x: -125.9, y: 2}
+  m_SizeDelta: {x: 83, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224847284457766764
 RectTransform:
