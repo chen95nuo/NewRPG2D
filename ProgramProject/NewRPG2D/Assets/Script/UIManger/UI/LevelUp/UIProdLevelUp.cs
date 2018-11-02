@@ -101,6 +101,9 @@ public class UIProdLevelUp : UILevelUp
                 break;
             case RoomType.Training:
                 UpdateInfo_2(data);
+                string space_1 = "       ";
+                string space_2 = "     ";
+                txt_Tip_4.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
                 break;
             case RoomType.Support:
                 break;
