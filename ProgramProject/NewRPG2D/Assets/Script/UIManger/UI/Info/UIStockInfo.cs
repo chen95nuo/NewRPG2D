@@ -45,7 +45,7 @@ public class UIStockInfo : TTUIPage
     }
     private void UpdateInfo(RoomMgr data)
     {
-        txt_Name.text = data.BuildingData.RoomName.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.BuildingData.RoomName.ToString());
         txt_Level.text = data.BuildingData.Level.ToString();
         txt_Stock.text = data.currentBuildData.Stock.ToString() + "/" + data.currentBuildData.buildingData.Param2;
         slider.fillAmount = data.currentBuildData.Stock / data.currentBuildData.buildingData.Param2;

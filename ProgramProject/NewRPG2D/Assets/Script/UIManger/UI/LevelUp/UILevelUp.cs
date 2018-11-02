@@ -36,7 +36,7 @@ public abstract class UILevelUp : TTUIPage
 
     private void UpdateInfo(RoomMgr data)
     {
-        txt_Name.text = data.BuildingData.RoomName.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.BuildingData.RoomName.ToString());
         txt_Level.text = data.BuildingData.Level.ToString();
         btnLevel.Init();
         btnLevel.UpdateUIfo(data);

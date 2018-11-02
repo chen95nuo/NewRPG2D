@@ -21,6 +21,8 @@ public class UITrainRoleGrid : MonoBehaviour
     public GameObject info;
     public Image[] Icons;
     public Image slider;
+    public Image AddRoleIcon;
+    public Image roleIcon;
 
     private HallRoleData roleData;
 
@@ -59,6 +61,7 @@ public class UITrainRoleGrid : MonoBehaviour
     public void UpdateInfo()
     {
         info.SetActive(false);
+        AddRoleIcon.enabled = true;
     }
     public void UpdateInfo(HallRoleData data, Sprite sp)
     {
@@ -72,6 +75,7 @@ public class UITrainRoleGrid : MonoBehaviour
     {
         roleData = data;
         info.SetActive(true);
+        AddRoleIcon.enabled = false;
         txt_name.text = data.Name;
         switch (data.TrainType)
         {

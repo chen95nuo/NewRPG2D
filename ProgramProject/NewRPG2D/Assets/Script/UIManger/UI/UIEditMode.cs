@@ -31,15 +31,6 @@ public class UIEditMode : TTUIPage
 
         btn_Remove.gameObject.SetActive(false);
         btn_split.gameObject.SetActive(false);
-        HallEventManager.instance.AddListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
-    }
-    private void OnDestroy()
-    {
-        HallEventManager.instance.RemoveListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
-    }
-
-    void Start()
-    {
         btn_back.onClick.AddListener(ChickBack);
         btn_save.onClick.AddListener(ChickSave);
         btn_repair.onClick.AddListener(ChickRepair);
@@ -47,6 +38,11 @@ public class UIEditMode : TTUIPage
         btn_clearType.onClick.AddListener(ChickClearType);
         btn_Remove.onClick.AddListener(ChickRemove);
         btn_split.onClick.AddListener(ChickSplit);
+        HallEventManager.instance.AddListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
+    }
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
     }
 
     private void OnEnable()

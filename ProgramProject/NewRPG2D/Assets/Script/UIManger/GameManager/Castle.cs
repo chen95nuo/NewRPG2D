@@ -275,6 +275,7 @@ public class Castle : MonoBehaviour
     /// </summary>
     public RoomMgr InstanceRoom(LocalBuildingData data)
     {
+        Debug.Log("建造房间");
         List<RoomMgr> removeRoom = MapControl.instance.removeRoom;
         for (int i = 0; i < removeRoom.Count; i++)
         {

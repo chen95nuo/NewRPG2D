@@ -19,10 +19,6 @@ public class UIEditModeTip : TTUIPage
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, closePage);
     }
 
-    private void OnEnable()
-    {
-        BG.fillAmount = 1;
-    }
     public override void Show(object mData)
     {
         base.Show(mData);
@@ -44,6 +40,7 @@ public class UIEditModeTip : TTUIPage
     {
         CameraControl.instance.isShowEdit = false;
         UIPanelManager.instance.ClosePage(this);
+        BG.fillAmount = 1;
     }
 
 }
