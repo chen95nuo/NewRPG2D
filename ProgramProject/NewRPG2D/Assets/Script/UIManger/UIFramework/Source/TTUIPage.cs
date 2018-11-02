@@ -116,9 +116,9 @@ namespace Assets.Script.UIManger
                 {
                     this.gameObject.SetActive(true);
                     Sequence mSequence = DOTween.Sequence();
-                    mSequence.Append(transform.DOScale(.95f, 0f));
-                    mSequence.Append(transform.DOScale(1.05f, 0.1f));
-                    mSequence.Append(transform.DOScale(1f, 0.1f));
+                    mSequence.Append(transform.DOScale(.95f, 0.2f));
+                    mSequence.Append(transform.DOScale(1.05f, 0.2f));
+                    mSequence.Append(transform.DOScale(1f, 0.2f));
                     mSequence.OnComplete(() => transform.localScale = Vector3.one);
                 }
             }
