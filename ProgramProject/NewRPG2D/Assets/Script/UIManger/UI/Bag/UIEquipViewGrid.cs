@@ -110,7 +110,7 @@ public class UIEquipViewGrid : MonoBehaviour
                 txt_MainNum.text = equipData.RoleProperty[RoleAttribute.HP].ToString("#0");
                 txt_MainTip.text = "生命值";
                 string Profession = LanguageDataMgr.instance.GetString(equipData.WeaponType.ToString());
-                txt_WorkTip.text = Profession;
+                txt_WorkTip.text = "护甲类型: " + "<color=#b8a17f>" + Profession + "</color>";
             }
             else
             {

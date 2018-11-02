@@ -45,16 +45,6 @@ public class GameMain : MonoBehaviour
     private void test_2()
     {
         LocalServer.instance.StartInit();
-
-        if (EquipmentMgr.instance.GetAllEquipmentData().Count <= 0)
-        {
-            for (int i = 1; i < 26; i++)
-            {
-                int index = 10000 + i;
-                EquipmentMgr.instance.CreateNewEquipment(index);
-            }
-            ChickItemInfo.instance.CreateNewBox(1001);
-        }
     }
 
 }
