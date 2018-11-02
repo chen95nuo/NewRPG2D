@@ -34,9 +34,13 @@ public class LocalServer : TSingleton<LocalServer>
         {
             HallRoleData data_1 = HallRoleMgr.instance.BuildNewRole(1);
             HallRoleData data_2 = HallRoleMgr.instance.BuildNewRole(2);
+            HallRoleData data_3 = HallRoleMgr.instance.BuildNewRole(1);
+            HallRoleData data_4 = HallRoleMgr.instance.BuildNewRole(2);
             saveRoleData = new List<ServerHallRoleData>();
             saveRoleData.Add(new ServerHallRoleData(9, data_1));
             saveRoleData.Add(new ServerHallRoleData(9, data_2));
+            saveRoleData.Add(new ServerHallRoleData(4, data_3));
+            saveRoleData.Add(new ServerHallRoleData(4, data_4));
         }
         HallRoleMgr.instance.ChickRoleDic(saveRoleData);
         HallRoleMgr.instance.ChickBabyDic(saveBabydata);
@@ -67,7 +71,7 @@ public class LocalServer : TSingleton<LocalServer>
         saveRoomData.Add(s_2);
         ServerBuildData s_3 = new ServerBuildData(3, 10035, new Vector2(6, 2), 0, 0, 0);
         saveRoomData.Add(s_3);
-        ServerBuildData s_4 = new ServerBuildData(4, 10011, new Vector2(7, 1), 0, 0, 0);
+        ServerBuildData s_4 = new ServerBuildData(4, 10010, new Vector2(7, 1), 0, 0, 0);
         saveRoomData.Add(s_4);
         ServerBuildData s_8 = new ServerBuildData(8, 10036, new Vector2(10, 2), 0, 0, 0);
         saveRoomData.Add(s_8);

@@ -80,8 +80,8 @@ public class UIProdLevelUp : UILevelUp
                 return;
             case BuildRoomName.LivingRoom:
                 UpdateInfo_2(data);
-                txt_Tip_4.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
-                txt_Tip_5.text = "居民数量";
+                txt_Tip_4.text = "居民数量";
+                txt_Tip_5.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
                 UpdateIcon("HumanStock", "HumanStock", "");
                 return;
             case BuildRoomName.Barracks:
@@ -183,14 +183,6 @@ public class UIProdLevelUp : UILevelUp
 
     private void UpdateIcon(string icon, string stock, string train)
     {
-        if (icon != "")
-        {
-            Sprite IconSp = GetSpriteAtlas.insatnce.GetIcon(icon);
-            for (int i = 0; i < Icons.Length; i++)
-            {
-                Icons[i].sprite = IconSp;
-            }
-        }
         if (stock != "")
         {
             Sprite StockSp = GetSpriteAtlas.insatnce.GetIcon(stock);
