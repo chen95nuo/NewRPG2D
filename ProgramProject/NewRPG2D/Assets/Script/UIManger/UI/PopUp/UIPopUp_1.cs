@@ -20,7 +20,7 @@ public class UIPopUp_1 : TTUIPage
     public bool isStockFull = false;//仓库满了
     private Dictionary<MaterialName, int> needStock;
 
-    private bool diaEnough = true;
+    private int needDiaNumber = 0;
 
     private void Awake()
     {
@@ -96,12 +96,11 @@ public class UIPopUp_1 : TTUIPage
         if (player.Diamonds >= temp)
         {
             txt_DiaNum.text = temp.ToString("#0");
-            diaEnough = true;
+            needDiaNumber = (int)temp;
         }
         else
         {
             txt_DiaNum.text = "<color=#ee5151>" + temp.ToString("#0") + "</color>";
-            diaEnough = false;
         }
     }
 
@@ -116,7 +115,7 @@ public class UIPopUp_1 : TTUIPage
     private void ChickEnter()
     {
         PlayerData player = GetPlayerData.Instance.GetData();
-        if (diaEnough)
+        if (needDiaNumber <= 0)
         {
             isStockFull = false;
             object st = "钻石不足";
@@ -132,7 +131,7 @@ public class UIPopUp_1 : TTUIPage
         else
         {
             Debug.Log("添加材料");
-
+            player.Diamonds -= needDiaNumber;
             Dictionary<BuildRoomName, int> dic = new Dictionary<BuildRoomName, int>();
             foreach (var item in needStock)
             {
