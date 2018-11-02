@@ -93,7 +93,7 @@ namespace Assets.Script.Battle
             {
                 allRole = GameRoleMgr.instance.RolesList;
             }
-            mCurrentRole.SetRoleActionState(ActorStateEnum.Idle);
+          //  mCurrentRole.SetRoleActionState(ActorStateEnum.Idle);
             float minDistance = float.MaxValue;
             for (int i = 0; i < allRole.Count; i++)
             {
