@@ -287,6 +287,10 @@ public class PlayerData
     }
     public int CurrentLessonID
     {
+        get
+        {
+            return currentLessonID;
+        }
         set
         {
             int temp = value;
