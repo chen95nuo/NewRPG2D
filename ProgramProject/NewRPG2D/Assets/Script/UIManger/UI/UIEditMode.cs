@@ -145,7 +145,8 @@ public class UIEditMode : TTUIPage
         //若有断开 保存失败
         if (rooms.Count > 0)
         {
-            //有未建造建筑 保存失败
+            object st = "有建筑未建造，保存失败!";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
             return;
         }
         EditCastle.instance.SaveAllBuild();

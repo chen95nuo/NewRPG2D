@@ -70,11 +70,11 @@ public abstract class RoomMgr : MonoBehaviour
         set
         {
             bool index = value;
+            RoomConstruction.SetActive(value);
             if (index != constructionType && MapControl.instance.type == CastleType.main)
             {
                 constructionType = value;
                 currentBuildData.ConstructionType = value;
-                RoomConstruction.SetActive(value);
                 if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
                 {
                     if (value == false)
@@ -486,7 +486,7 @@ public abstract class RoomMgr : MonoBehaviour
         }
         else
         {
-            constructionType = data.ConstructionType;
+            ConstructionType = data.ConstructionType;
             castleMgr.ChickMergeRoom(this);
             AddConnection();
         }
