@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.Battle;
+using Assets.Script.Battle.Equipment;
 using UnityEngine;
 
 public class SwitchEquipment : MonoBehaviour
@@ -25,6 +26,20 @@ public class SwitchEquipment : MonoBehaviour
         {
             equipment = EquipmentMgr.instance.CreateNewEquipment(10002);
             RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ItemDataInTreasure box = TreasureBoxMgr.instance.OpenTreasureBox(1004,5,5);
+
+            for (int i = 0; i < box.EquipmentList.Count; i++)
+            {
+                Debug.Log(box.EquipmentList[i].Name);
+            }
+
+//             for (int i = 0; i < box.PropDataList.Count; i++)
+//             {
+//                 Debug.Log(box.PropDataList[i].Name);
+//             }
         }
     }
 }

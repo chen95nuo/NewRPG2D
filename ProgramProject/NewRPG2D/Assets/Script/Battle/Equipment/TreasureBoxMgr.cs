@@ -63,27 +63,25 @@ namespace Assets.Script.Battle.Equipment
             PropData mData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(itemId);
             if (mData.propType == PropType.Equipment)
             {
-                List<int> equipmentId = new List<int>();
-                if (Random.Range(0, 100) < 80 || (QualityTypeEnum)mData.quality == QualityTypeEnum.Orange ||
-                    (QualityTypeEnum)mData.quality == QualityTypeEnum.Purple)
+                for (int i = 0; i < count; i++)
                 {
-                    equipmentId = EquipmentDataMgr.instance.GetBattleEquipmentByLevelAndQuality(currentBattleLevel,
-                        (QualityTypeEnum)mData.quality);
-                }
-                else
-                {
-                    equipmentId = EquipmentDataMgr.instance.GetLifeEquipmentByLevelAndQuality(currentLifeLevel,
-                        (QualityTypeEnum)mData.quality);
-                }
-
-                if (equipmentId.Count > 0)
-                {
-                    int randomIndex = Random.Range(0, equipmentId.Count);
-                    EquipmentRealProperty equipmentRealData =
-                        EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex]);
-
-                    for (int i = 0; i < count; i++)
+                    List<int> equipmentId = new List<int>();
+                    if (Random.Range(0, 100) < 80 || (QualityTypeEnum)mData.quality == QualityTypeEnum.Orange ||
+                        (QualityTypeEnum)mData.quality == QualityTypeEnum.Purple)
                     {
+                        equipmentId = EquipmentDataMgr.instance.GetBattleEquipmentByLevelAndQuality(currentBattleLevel,
+                            (QualityTypeEnum)mData.quality);
+                    }
+                    else
+                    {
+                        equipmentId = EquipmentDataMgr.instance.GetLifeEquipmentByLevelAndQuality(currentLifeLevel,
+                            (QualityTypeEnum)mData.quality);
+                    }
+
+                    if (equipmentId.Count > 0)
+                    {
+                        int randomIndex = Random.Range(0, equipmentId.Count);
+                        EquipmentRealProperty equipmentRealData = EquipmentMgr.instance.CreateNewEquipment(equipmentId[randomIndex]);
                         data.EquipmentList.Add(equipmentRealData);
                     }
                 }

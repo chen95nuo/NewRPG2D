@@ -112,6 +112,10 @@ namespace Assets.Script.Battle
         private HpChangeParam HpParam= new HpChangeParam();
         public bool SetHp(float HpChange)
         {
+            if (currenRole.IsDead)
+            {
+                return false;
+            }
             if (BattleStaticAndEnum.isGod == false)
             {
                 RoleHp -= HpChange;
@@ -119,9 +123,16 @@ namespace Assets.Script.Battle
             HpParam.role = currenRole;
             HpParam.changeValue = HpChange;
             EventManager.instance.SendEvent(EventDefineEnum.HpChange, HpParam);
+            if (HpChange < 0)
+            {
+                HUDTextInfoinfo.Color = Color.green;
+            }
+            else
+            {
+                HUDTextInfoinfo.Color = Color.red;
+            }
             HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             HUDRoot.NewText(HUDTextInfoinfo);
-            // DebugHelper.Log("name=  " + currenRole.RoleTransform.name + " hp " + RoleHp);
             return RoleHp > 0;
         }
 

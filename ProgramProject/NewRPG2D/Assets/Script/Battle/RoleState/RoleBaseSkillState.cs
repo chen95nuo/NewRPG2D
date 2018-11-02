@@ -72,6 +72,11 @@ namespace Assets.Script.Battle.RoleState
         public override void Exit(RoleBase mRoleBase)
         {
             base.Exit(mRoleBase);
+          
+            if (TargetRole == null || TargetRole.IsDead)
+            {
+                addTime = 0;
+            }
             CurrentRole.RoleAnimation.RemoveCompleteListener(OnCompleteAnimation);
             CurrentRole.RoleAnimation.RemoveEventListener(OnAnimationEvent);
         }

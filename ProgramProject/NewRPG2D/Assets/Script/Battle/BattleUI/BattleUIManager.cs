@@ -56,15 +56,15 @@ namespace Assets.Script.Battle.BattleUI
             EndAward.ShowPanel(win);
         }
 
-        int currentSpeed = 1;
+        float currentSpeed = 1;
         public void AddSpeedClick()
         {
-            if (currentSpeed >= 4)
+            if (currentSpeed >= 2)
             {
                 currentSpeed = 0;
             }
-            currentSpeed += 1;
-            AddSpeedTxt.text = currentSpeed + "X";
+            currentSpeed += 0.5f;
+            AddSpeedTxt.text = (int)currentSpeed + "X";
             Time.timeScale = currentSpeed;
         }
 

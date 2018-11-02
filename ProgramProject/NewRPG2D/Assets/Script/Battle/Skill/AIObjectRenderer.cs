@@ -43,7 +43,7 @@ namespace Assets.Script.Battle
             Vector3 moveDir = (targeTransform.position - originalRole.RoleTransform.position).normalized;
             transform.right = moveDir;
             transform.position += moveDir * moveSpeed * Time.deltaTime;
-            if (Mathf.Abs(transform.position.x - targeTransform.position.x) < 0.5f)
+            if (Mathf.Abs(transform.position.x - targeTransform.position.x) < 1)
             {
                 HitTarget();
             }

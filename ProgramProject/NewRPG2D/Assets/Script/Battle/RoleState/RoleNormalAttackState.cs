@@ -28,7 +28,7 @@ namespace Assets.Script.Battle.RoleState
             //  CurrentSkillData = mRoleBase.RoleSkill.GetSkillUseDataBySkilSlot(SkillSlotTypeEnum.NormalAttack);
             base.Enter(mRoleBase);
             skillCDTime = 1 / mRoleBase.RolePropertyValue.AttackSpeed;
-            addTime = skillCDTime - 0.1f;
+            if (addTime <= 0) addTime = skillCDTime;
         }
 
         public override void Update(RoleBase mRoleBase, float deltaTime)
