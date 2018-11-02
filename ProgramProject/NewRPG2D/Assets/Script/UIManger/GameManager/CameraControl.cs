@@ -173,13 +173,10 @@ public class CameraControl : MonoBehaviour
                 CameraMove(point);
             }
         }
-
         if (isMove == true)
         {
             HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         }
-
-        isMove = false;
     }
 
     private void AndroidMove()
@@ -188,6 +185,9 @@ public class CameraControl : MonoBehaviour
         {
             if (Input.touchCount == 1)
             {
+                Debug.Log("isUI: " + isUI);
+                Debug.Log("IsHoldRole: " + isHoldRole);
+                Debug.Log("isShowEdit: " + isShowEdit);
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
                     Debug.Log("Began");
@@ -204,24 +204,20 @@ public class CameraControl : MonoBehaviour
 
                     this.transform.position += new Vector3(-v.x, -v.y, 0) * MoveSpeed;
                 }
-
                 //长按
-                if (Input.GetTouch(0).phase == TouchPhase.Stationary)
+                if (Input.GetTouch(0).phase == TouchPhase.Stationary && !isMove)
                 {
                     ChickLongPress();
-                }
-                if (Input.GetTouch(0).phase == TouchPhase.Moved)
-                {
-                    isUI = true;
                 }
                 //点击结束时
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    Debug.Log("IsMove: " + isMove);
                     if (isMove == false)
                     {
+                        Debug.Log("不在移动,可以点击");
                         ChickClick();
                     }
+                    isMove = false;
                 }
             }
             if (Input.touchCount > 1)
@@ -273,6 +269,10 @@ public class CameraControl : MonoBehaviour
             if (x != 0 || y != 0 || z != 0)
             {
                 isMove = true;
+            }
+            else
+            {
+                isMove = false;
             }
             m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize += -(z * 4.0f), zMin, zMax);
             transform.localPosition += (new Vector3(x * 0.2f, y * 0.2f, 0));
@@ -329,16 +329,18 @@ public class CameraControl : MonoBehaviour
     {
         if (isHoldRole == true)
         {
-            Debug.Log("关闭了");
+            Debug.Log("关闭了 isHoldRole :" + isHoldRole);
             UIPanelManager.instance.ClosePage<UIDraggingRole>();
             UIMain.instance.CloseSomeUI(true);
             return;
         }
         if (isUI == true)
         {
+            Debug.Log("点到UI了 返回");
             isUI = false;
             return;
         }
+        Debug.Log("没点到UI 继续");
         Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) { }
@@ -363,14 +365,17 @@ public class CameraControl : MonoBehaviour
             }
             else if (hit.collider.tag == "Room")
             {
+                Debug.Log("点到房间");
                 ChickTouchRoom(hit);
             }
             else if (hit.collider.tag == "BuildTip")
             {
+                Debug.Log("点到建造提示框");
                 MainCastle.instance.ChickRaycast(hit);
             }
             else if (hit.collider.tag == "Baby")
             {
+                Debug.Log("点到小孩");
                 HallRole data = hit.collider.GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIBabyInfo>(data.currentBaby);
             }

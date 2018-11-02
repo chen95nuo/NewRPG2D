@@ -33,11 +33,11 @@ public class UITrainInfo : UIRoomInfo
         {
             if (roomData.currentBuildData.roleData[i] != null)
             {
-                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], sp);
+                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], sp, this);
             }
             else
             {
-                roleGrids[i].UpdateInfo();
+                roleGrids[i].UpdateInfo(this);
             }
         }
 

@@ -38,7 +38,7 @@ namespace DPCommon
 		    if( timeleft <= 0.0f )
 		    {
 		        // display two fractional digits (f2 format)
-		        text.text = "" + (accum/frames).ToString("f2");
+		        text.text = "FPS: " + (accum/frames).ToString("f2");
 		        timeleft = updateInterval;
 		        accum = 0.0f;
 		        frames = 0;

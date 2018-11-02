@@ -54,15 +54,6 @@ public class UIPopUp_2 : TTUIPage
         mSequence.Append(popUp.txt.transform.DOScale(1.2f, 0.25f));
         mSequence.Append(popUp.txt.transform.DOScale(1f, 0.25f));
     }
-    public override void Hide(bool needAnim = true)
-    {
-        base.Hide(needAnim = false);
-    }
-
-    public override void Active(bool needAnim = true)
-    {
-        base.Active(needAnim = false);
-    }
 }
 
 public class PopUp_2Helper
@@ -93,5 +84,5 @@ public class PopUp_2Helper
             }
         }
     }
-    
+
 }

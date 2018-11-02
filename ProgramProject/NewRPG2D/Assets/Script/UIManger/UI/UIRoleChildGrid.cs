@@ -75,16 +75,15 @@ public class UIRoleChildGrid : MonoBehaviour
             {
                 role.RoleData.LoveType = RoleLoveType.boredom;
                 HallRole newRole = HallRoleMgr.instance.BuildNewRole(role.RoleData.babyData);
+
                 bool isTrue = allRoom[i].AddRole(newRole);
                 if (isTrue)
                 {
                     role.RoleData.babyData = null;
-
                     RemoveInfo();
                     HallRoleMgr.instance.ChildrenStart(newRole.currentBaby);
-
-                    return;
                 }
+                return;
             }
         }
         Debug.Log("婴儿房满了");

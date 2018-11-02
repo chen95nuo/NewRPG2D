@@ -67,7 +67,7 @@ public class UIRoleGrid : MonoBehaviour
         room = roomInfo;
         LockType(true, index + 1);
         potoBg.sprite = sp[1];
-        headIcon.gameObject.SetActive(true);
+        headIcon.gameObject.SetActive(false);
         roleIcon.gameObject.SetActive(false);
     }
 

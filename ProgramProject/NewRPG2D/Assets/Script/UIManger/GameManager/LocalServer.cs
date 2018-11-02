@@ -45,6 +45,7 @@ public class LocalServer : TSingleton<LocalServer>
 
     public void RoleChangeRoom(HallRoleData role, int roomID)
     {
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         for (int i = 0; i < saveRoleData.Count; i++)
         {
             if (saveRoleData[i].role == role)

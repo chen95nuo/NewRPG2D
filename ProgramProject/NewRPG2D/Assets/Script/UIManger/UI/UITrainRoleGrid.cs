@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
 
 public class UITrainRoleGrid : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class UITrainRoleGrid : MonoBehaviour
     public Text txt_Tip_2;
     public Button btn_LevelUp;
     public Button btn_SpeedUp;
+    public Button btn_Click;
 
     public GameObject info;
     public Image[] Icons;
@@ -27,11 +30,15 @@ public class UITrainRoleGrid : MonoBehaviour
     private HallRoleData roleData;
 
     private int maxTime = 0;
+    private bool isShow = false;
+    private int index = 0;
+    private UIRoomInfo room;
 
     private void Awake()
     {
         btn_LevelUp.onClick.AddListener(ChickLevelUp);
         btn_SpeedUp.onClick.AddListener(ChickSpeedUp);
+        btn_Click.onClick.AddListener(ChickClick);
         txt_Tip.text = "+1";
         txt_Tip_1.text = "已达当前上限";
         txt_Tip_2.text = "加速";
@@ -40,8 +47,19 @@ public class UITrainRoleGrid : MonoBehaviour
         HallEventManager.instance.AddListener<HallRoleData>(HallEventDefineEnum.ChickRoleTrain, ChickInfo);
     }
 
+    private void ChickClick()
+    {
+        UIPanelManager.instance.ShowPage<UIScreenRole>();
+        UIScreenRole.instance.ShowPage();
+        isShow = true;
+    }
+
     private void OnDisable()
     {
+        if (isShow == true)
+        {
+            UIPanelManager.instance.ClosePage<UIScreenRole>();
+        }
         ClearType();
     }
     private void OnDestroy()
@@ -52,28 +70,34 @@ public class UITrainRoleGrid : MonoBehaviour
 
     public void ChickInfo(HallRoleData data)
     {
+        index = data.id;
         if (data == roleData)
         {
-            UpdateInfo(data);
+            UpdateInfo(data, this.room);
         }
     }
 
-    public void UpdateInfo()
+    public void UpdateInfo(UIRoomInfo room)
     {
+        index = -1;
+        this.room = room;
         info.SetActive(false);
         AddRoleIcon.enabled = true;
         roleIcon.enabled = false;
     }
-    public void UpdateInfo(HallRoleData data, Sprite sp)
+    public void UpdateInfo(HallRoleData data, Sprite sp, UIRoomInfo room)
     {
+        index = data.id;
         for (int i = 0; i < Icons.Length; i++)
         {
             Icons[i].sprite = sp;
         }
-        UpdateInfo(data);
+        UpdateInfo(data, room);
     }
-    public void UpdateInfo(HallRoleData data)
+    public void UpdateInfo(HallRoleData data, UIRoomInfo room)
     {
+        index = data.id;
+        this.room = room;
         roleData = data;
         info.SetActive(true);
         AddRoleIcon.enabled = false;
@@ -166,5 +190,17 @@ public class UITrainRoleGrid : MonoBehaviour
 
         }
         HallRoleMgr.instance.LevelComplete(roleData, false);
+    }
+
+    public void UIAddRole(HallRole role)
+    {
+        if (role.RoleData.id == index)
+        {
+            object st = "请将角色移动到其他位置";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            return;
+        }
+        room.RoomAddRole(role, index);
+        UIScreenRole.instance.ShowPage();
     }
 }

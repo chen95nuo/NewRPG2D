@@ -60,6 +60,15 @@ public class UIDraggingRolePhoto : TTUIPage
                 HallRole role = HallRoleMgr.instance.GetRole(roleData);
                 roleGrid.UIAddRole(role);
             }
+            else
+            {
+                UITrainRoleGrid trainRoleGrid = hit.collider.GetComponent<UITrainRoleGrid>();
+                if (trainRoleGrid != null)
+                {
+                    HallRole trainRole = HallRoleMgr.instance.GetRole(roleData);
+                    trainRoleGrid.UIAddRole(trainRole);
+                }
+            }
         }
 
         ClosePage();
