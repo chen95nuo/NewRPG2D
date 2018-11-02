@@ -913,6 +913,10 @@ public class HallRoleData
             if (item.Value > 0 && item.Key <= RoleAttribute.DPS)
             {
                 attribute[item.Key] -= item.Value;
+                if (attribute[item.Key] < 0)
+                {
+                    attribute[item.Key] = 0;
+                }
             }
         }
 

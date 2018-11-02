@@ -952,7 +952,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// <param name="data"></param>
     public void ThisProduction(LocalBuildingData data)
     {
-        int index = CTimerManager.instance.AddListener(30f, -1, ChickProduction);
+        int index = CTimerManager.instance.AddListener(1f, -1, ChickProduction);
         production.Add(index, data);
     }
 

@@ -7,13 +7,12 @@ using DG.Tweening;
 
 public class UIPopUP_3 : TTUIPage
 {
-    public Text txt_Tip;
+    public GameObject txt_Tip;
     private Canvas canvas;
-    private RectTransform rect;
+    private List<UIPopUp_3Grid> grids = new List<UIPopUp_3Grid>();
     private void Awake()
     {
         canvas = TTUIRoot.Instance.GetComponent<Canvas>();
-        rect = txt_Tip.transform.transform as RectTransform;
     }
 
     public override void Show(object mData)
@@ -25,12 +24,18 @@ public class UIPopUP_3 : TTUIPage
 
     private void UpdateInfo(UIPopUp_3Helper data)
     {
-        Vector2 pos = GameHelper.instance.GetPoint(canvas, data.ts);
-        rect.anchoredPosition = pos;
-
-        string st = LanguageDataMgr.instance.GetRoomTxtColor(data.name);
-        txt_Tip.text = st + "+" + data.number + "</color>";
-        Invoke("ClosePage", 1.0f);
+        for (int i = 0; i < grids.Count; i++)
+        {
+            if (grids[i].isTrue == false)
+            {
+                grids[i].UpdateInfo(canvas, data);
+                return;
+            }
+        }
+        GameObject go = Instantiate(txt_Tip, transform) as GameObject;
+        UIPopUp_3Grid grid = go.GetComponent<UIPopUp_3Grid>();
+        grid.UpdateInfo(canvas, data);
+        grids.Add(grid);
     }
 
     public override void Hide(bool needAnim = true)
@@ -40,10 +45,10 @@ public class UIPopUP_3 : TTUIPage
 
     public override void Active(bool needAnim = true)
     {
-        rect.DOAnchorPosY(30, 1.5f);
         base.Active(needAnim = false);
     }
 }
+
 
 public class UIPopUp_3Helper
 {
