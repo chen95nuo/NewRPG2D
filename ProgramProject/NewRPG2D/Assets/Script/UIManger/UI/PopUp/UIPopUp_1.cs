@@ -92,6 +92,7 @@ public class UIPopUp_1 : TTUIPage
         }
 
         temp *= 0.01f;
+        temp = Mathf.Clamp(temp, 1, temp);
         PlayerData player = GetPlayerData.Instance.GetData();
         if (player.Diamonds >= temp)
         {
