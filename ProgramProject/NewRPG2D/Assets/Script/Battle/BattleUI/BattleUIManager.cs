@@ -61,10 +61,10 @@ namespace Assets.Script.Battle.BattleUI
         {
             if (currentSpeed >= 2)
             {
-                currentSpeed = 0;
+                currentSpeed = 0.5f;
             }
             currentSpeed += 0.5f;
-            AddSpeedTxt.text = (int)currentSpeed + "X";
+            AddSpeedTxt.text = currentSpeed.ToString("0.0") + "X";
             Time.timeScale = currentSpeed;
         }
 
