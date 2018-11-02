@@ -69,7 +69,8 @@ public class UILockRoomTip : TTUIPage
     private void LockRoomData(RoomMgr data)
     {
         roomData = data;
-        txt_Name.text = roomData.RoomName.ToString();
+        string st = LanguageDataMgr.instance.GetRoomName(roomData.RoomName.ToString());
+        txt_Name.text = st;
         txt_Level.text = roomData.BuildingData.Level.ToString();
         switch (data.BuildingData.RoomType)
         {
