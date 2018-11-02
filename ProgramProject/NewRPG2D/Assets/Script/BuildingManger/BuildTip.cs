@@ -79,7 +79,7 @@ public class BuildTip : MonoBehaviour
                     }
                     else//如果没有格子了直接删除这个位置信息
                     {
-                        Debug.LogError("空格内已有建筑没有格子了,空位信息" + i + "," + (int)point.startPoint.y);
+                        Debug.Log("空格内已有建筑没有格子了,空位信息" + i + "," + (int)point.startPoint.y);
                         //如果这是楼梯提供的且长度为1那么保留
                         if (point.roomData != null && point.roomData.RoomName == BuildRoomName.Stairs && point.emptyNumber == 1)
                         {

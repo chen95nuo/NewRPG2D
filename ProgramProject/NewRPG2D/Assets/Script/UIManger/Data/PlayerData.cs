@@ -312,7 +312,7 @@ public class PlayerData
     public PlayerData()
     {
         Name = "Baymax";
-        Gold = 2000;
+        Gold = 100;
         Diamonds = 100;
         Food = 0;
         Mana = 0;

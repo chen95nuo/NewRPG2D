@@ -25,6 +25,7 @@ public class UILevelUpHelper : MonoBehaviour
 
     private RoomMgr roomMgr = null;
 
+    private int allNeed = 0;
     private void Awake()
     {
         txt_Tip_1.text = "立即升级";
@@ -55,52 +56,53 @@ public class UILevelUpHelper : MonoBehaviour
         }
         b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
 
-        float allNeed = 0;
+        allNeed = 0;
         if (b_Data_2.NeedGold > 0)
         {
             txt_Gold.transform.parent.gameObject.SetActive(true);
             txt_Gold.text = b_Data_2.NeedGold.ToString();
             needGold = b_Data_2.NeedGold - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold));
-            allNeed += needGold;
+            allNeed += (int)needGold;
         }
         if (b_Data_2.NeedMana > 0)
         {
             txt_Mana.transform.parent.gameObject.SetActive(true);
             txt_Mana.text = b_Data_2.NeedMana.ToString();
             needMana = b_Data_2.NeedMana - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana));
-            allNeed += needMana;
+            allNeed += (int)needMana;
         }
         if (b_Data_2.NeedWood > 0)
         {
             txt_Wood.transform.parent.gameObject.SetActive(true);
             txt_Wood.text = b_Data_2.NeedWood.ToString();
             needWood = b_Data_2.NeedWood - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood));
-            allNeed += needWood;
+            allNeed += (int)needWood;
         }
         if (b_Data_2.NeedIron > 0)
         {
             txt_Iron.transform.parent.gameObject.SetActive(true);
             txt_Iron.text = b_Data_2.NeedIron.ToString();
             needIron = b_Data_2.NeedIron - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron));
-            allNeed += needIron;
+            allNeed += (int)needIron;
         }
 
         txt_Tip_3.text = SystemTime.instance.TimeNormalizedOfMin(b_Data_2.NeedTime);
-        txt_Diamonds.text = allNeed.ToString("#0");
+        txt_Diamonds.text = (allNeed * 0.1f).ToString("#0");
     }
     private void ChickNowUp()
     {
         PlayerData data = GetPlayerData.Instance.GetData();
         //如果钻石够直接扣钻石 如果钻石不够打开购买钻石界面
-        if (data.Diamonds > 100)
+        if (data.Diamonds >= allNeed)
         {
-            data.Diamonds -= 100;
+            data.Diamonds -= allNeed;
             //直接升级跳过时间
         }
         else
         {
-            Debug.Log("钻石不足");
             //跳转到购买钻石界面
+            object st = "钻石不足";
+            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
         }
     }
 
@@ -117,6 +119,8 @@ public class UILevelUpHelper : MonoBehaviour
             //材料足够倒计时升级
             int id = roomMgr.BuildingData.NextLevelID;
             roomMgr.ConstructionStart(id, 0);
+            BuildingData temp = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(roomMgr.BuildingData.NextLevelID);
+            ChickPlayerInfo.instance.RoomUseStock(temp);
             return;
         }
         else
@@ -138,8 +142,7 @@ public class UILevelUpHelper : MonoBehaviour
             {
                 needStock[MaterialName.Iron] = (int)needIron;
             }
-            UIPanelManager.instance.ShowPage<UIPopUp_1>();
-            UIPopUp_1.instance.UpdateInfo(needStock);
+            UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
         }
     }
 

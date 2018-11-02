@@ -7,38 +7,32 @@ using Assets.Script.UIManger;
 public class UIMarket : MonoBehaviour
 {
     public Button btn_back;
-    public Button btn_production;
-    public Button btn_training;
-    public Button btn_support;
-    public Button btn_treasures;
-    public Button btn_miscellaneous;
-    public Button btn_diamonds;
-    public UIMain main;
+    public Button[] btn_AllType;
     public Transform gridTrans;
     public GameObject grid;
     public List<UIMarketGrid> grids;
 
     private Dictionary<RoomType, List<BuildingData>> dic;
+    private int currentType = 1;
+
 
     private void Awake()
     {
-        HallEventManager.instance.AddListener<RoomType>(HallEventDefineEnum.ChickBuild, UpdateType);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickBuild, UpdateType);
 
         Init();
     }
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener<RoomType>(HallEventDefineEnum.ChickBuild, UpdateType);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickBuild, UpdateType);
     }
 
     private void Init()
     {
-        btn_production.onClick.AddListener(ChickProduction);
-        btn_training.onClick.AddListener(ChickTraining);
-        btn_support.onClick.AddListener(ChickSupport);
-        btn_treasures.onClick.AddListener(ChickTreasures);
-        btn_miscellaneous.onClick.AddListener(ChickMiscellaneous);
-        btn_diamonds.onClick.AddListener(ChickDiamonds);
+        for (int i = 0; i < btn_AllType.Length; i++)
+        {
+            btn_AllType[i].onClick.AddListener(ChickBtnType);
+        }
 
         btn_back.onClick.AddListener(ClosePage);
 
@@ -54,47 +48,30 @@ public class UIMarket : MonoBehaviour
     {
         dic = BuildingDataMgr.instance.GetBuildingType();
         Debug.Log("获取字典");
-        ChickProduction();
     }
 
-    /// <summary>
-    /// 筛选生产类
-    /// </summary>
-    public void ChickProduction()
+    public void ChickBtnType()
     {
-        UpdateType(RoomType.Production);
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_AllType.Length; i++)
+        {
+            if (btn_AllType[i].gameObject == go)
+            {
+                currentType = i + 1;
+            }
+        }
+        UpdateType();
     }
-
-    /// <summary>
-    /// 筛选训练类
-    /// </summary>
-    public void ChickTraining()
-    {
-        UpdateType(RoomType.Training);
-    }
-
-    /// <summary>
-    /// 筛选功能类
-    /// </summary>
-    public void ChickSupport()
-    {
-        UpdateType(RoomType.Support);
-    }
-
-    public void ChickTreasures() { }
-
-    public void ChickMiscellaneous() { }
-
-    public void ChickDiamonds() { }
 
     public void ClosePage()
     {
-        main.CloseSomeUI(true);
+        UIMain.instance.CloseSomeUI(true);
         this.gameObject.SetActive(false);
     }
 
-    private void UpdateType(RoomType type)
+    private void UpdateType()
     {
+        RoomType type = (RoomType)currentType;
         List<UIMarketGrid> fullGrids = new List<UIMarketGrid>();
         for (int i = 0; i < dic[type].Count; i++)
         {
@@ -103,7 +80,6 @@ public class UIMarket : MonoBehaviour
                 GameObject go = Instantiate(grid, gridTrans) as GameObject;
                 grids.Add(go.GetComponent<UIMarketGrid>());
             }
-            grids[i].market = this;
             grids[i].gameObject.SetActive(true);
             int[] index = ChickPlayerInfo.instance.GetBuildiDicInfo(dic[type][i]);
             bool isTrue = true;

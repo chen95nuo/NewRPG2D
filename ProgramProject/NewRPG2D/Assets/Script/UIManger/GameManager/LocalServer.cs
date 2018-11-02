@@ -76,7 +76,7 @@ public class LocalServer : TSingleton<LocalServer>
         saveRoomData.Add(s_5);
         ServerBuildData s_6 = new ServerBuildData(6, 10031, new Vector2(7, 2), 0, 0, 0);
         saveRoomData.Add(s_6);
-        ServerBuildData s_7 = new ServerBuildData(7, 10016, new Vector2(3, 0), 3000, 0, 0);
+        ServerBuildData s_7 = new ServerBuildData(7, 10016, new Vector2(3, 0), 0, 0, 0);
         saveRoomData.Add(s_7);
     }
 

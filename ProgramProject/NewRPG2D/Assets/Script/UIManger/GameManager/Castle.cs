@@ -235,6 +235,8 @@ public class Castle : MonoBehaviour
         allEmptyPoint.Remove(tip.emptyPoint);
         //将所有标签移出屏幕
         MapControl.instance.ResetRoomTip();
+        ChickPlayerInfo.instance.RoomUseStock(data.buildingData);
+        UIMain.instance.CloseSomeUI(true);
     }
     /// <summary>
     /// 建筑生成提示框

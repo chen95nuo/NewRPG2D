@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.UIManger;
 
 public class UIMarketGrid : MonoBehaviour
 {
 
     public BuildingData buildingData;
-    [System.NonSerialized]
-    public UIMarket market;
     public Text buildName;
 
     public Text txt_Tip_1;
@@ -35,7 +34,7 @@ public class UIMarketGrid : MonoBehaviour
     public Material black;
 
     //public Material black;
-
+    private Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
     private void Awake()
     {
         thisGrid = GetComponent<Button>();
@@ -46,8 +45,8 @@ public class UIMarketGrid : MonoBehaviour
     {
         ChickProduce(false);
 
-        txt_Tip_4.text = data.Description;
-        buildName.text = data.RoomName.ToString();
+        txt_Tip_4.text = LanguageDataMgr.instance.GetRoomDes(data.RoomName.ToString());
+        buildName.text = LanguageDataMgr.instance.GetRoomName(data.RoomName.ToString());
         thisGrid.interactable = isTrue;
 
         Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.RoomName.ToString());
@@ -91,34 +90,87 @@ public class UIMarketGrid : MonoBehaviour
         buildingData = data;
         txt_Number.text = number[0] + "/" + number[1];
         txt_NeedTime.text = SystemTime.instance.TimeNormalizedOfMin(data.NeedTime);
-
+        string redSt = "<color=#ee5151>{0}</color>";
+        string whiteSt = "<color=#ffffff>{0}</color>";
+        needStock.Clear();
         if (data.NeedGold > 0)
         {
             txt_Gold.gameObject.SetActive(true);
-            txt_Gold.text = data.NeedGold.ToString();
+            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
+            if (stock < data.NeedGold)
+            {
+                txt_Gold.text = string.Format(redSt, data.NeedGold);
+                int need = data.NeedGold - stock;
+                needStock.Add(MaterialName.Gold, need);
+            }
+            else
+            {
+                txt_Gold.text = string.Format(whiteSt, data.NeedGold);
+            }
+
         }
         if (data.NeedMana > 0)
         {
             txt_Mana.gameObject.SetActive(true);
-            txt_Mana.text = data.NeedMana.ToString();
+            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
+            if (stock < data.NeedMana)
+            {
+                txt_Mana.text = string.Format(redSt, data.NeedMana);
+                int need = data.NeedMana - stock;
+                needStock.Add(MaterialName.Mana, need);
+            }
+            else
+            {
+                txt_Mana.text = string.Format(whiteSt, data.NeedMana);
+            }
         }
         if (data.NeedWood > 0)
         {
             txt_Wood.gameObject.SetActive(true);
             txt_Wood.text = data.NeedWood.ToString();
+            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood);
+            if (stock < data.NeedWood)
+            {
+                txt_Wood.text = string.Format(redSt, data.NeedWood);
+                int need = data.NeedWood - stock;
+                needStock.Add(MaterialName.Wood, need);
+            }
+            else
+            {
+                txt_Wood.text = string.Format(whiteSt, data.NeedWood);
+            }
         }
         if (data.NeedIron > 0)
         {
             txt_Iron.gameObject.SetActive(true);
             txt_Iron.text = data.NeedIron.ToString();
+            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron);
+            if (stock < data.NeedGold)
+            {
+                txt_Iron.text = string.Format(redSt, data.NeedIron);
+                int need = data.NeedIron - stock;
+                needStock.Add(MaterialName.Iron, need);
+            }
+            else
+            {
+                txt_Iron.text = string.Format(whiteSt, data.NeedIron);
+            }
         }
+
     }
 
     private void AddBuilding()
     {
         Debug.Log(buildingData.RoomName);
+        //检测资源是否足够
+        if (needStock.Count > 0)
+        {
+            UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
+            return;
+        }
         MainCastle.instance.BuildRoomTip(buildingData);
-        market.ClosePage();
+        UIMain.instance.ShowBack(true);
+        UIMain.instance.market.gameObject.SetActive(false);
     }
 
     private void ChickProduce(bool isTrue)

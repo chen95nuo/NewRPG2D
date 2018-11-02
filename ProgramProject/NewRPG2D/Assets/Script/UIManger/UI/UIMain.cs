@@ -11,12 +11,14 @@ public class UIMain : TTUIPage
 
     public GameObject rightDown;
     public GameObject leftDown;
+    public GameObject leftUp;
     public Button btn_UIMarket;
     public Button btn_UIChat;
     public Button btn_UIRank;
     public Button btn_UIFightInfor;
     public Button btn_UIBag;
     public Button btn_UIMap;
+    public Button btn_Cancel;
 
     public UIMarket market;
 
@@ -58,6 +60,7 @@ public class UIMain : TTUIPage
         btn_UIMarket.onClick.AddListener(ShowMarket);
         btn_UIBag.onClick.AddListener(ChickBag);
         btn_UIMap.onClick.AddListener(ChickMap);
+        btn_Cancel.onClick.AddListener(ChickCancel);
         for (int i = 0; i < btn_Produces.Length; i++)
         {
             btn_Produces[i].onClick.AddListener(ChickProduceTips);
@@ -152,10 +155,17 @@ public class UIMain : TTUIPage
     {
         CloseSomeUI(false);
         market.gameObject.SetActive(true);
+        market.ChickBtnType();
+    }
+
+    public void ShowBack(bool isTrue)
+    {
+        btn_Cancel.gameObject.SetActive(isTrue);
     }
 
     public void CloseSomeUI(bool isTrue)
     {
+        leftUp.SetActive(isTrue);
         rightDown.SetActive(isTrue);
         leftDown.SetActive(isTrue);
         btn_UIChat.gameObject.SetActive(isTrue);
@@ -239,6 +249,12 @@ public class UIMain : TTUIPage
     public void ChickMap()
     {
         UIPanelManager.instance.ShowPage<UIWorldMap>();
+    }
+    public void ChickCancel()
+    {
+        ShowBack(false);
+        MapControl.instance.ResetRoomTip();
+        ShowMarket();
     }
 
     public void ChickAllStock(BuildRoomName name, Image slider)

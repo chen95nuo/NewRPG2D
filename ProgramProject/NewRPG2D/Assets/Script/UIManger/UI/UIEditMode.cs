@@ -152,8 +152,6 @@ public class UIEditMode : TTUIPage
             return;
         }
         EditCastle.instance.SaveAllBuild();
-        HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
-
         ChickBack();
     }
 
@@ -314,6 +312,16 @@ public class UIEditMode : TTUIPage
                 roomGrid.Add(RG);
             }
         }
+    }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim = false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
     }
 }
 

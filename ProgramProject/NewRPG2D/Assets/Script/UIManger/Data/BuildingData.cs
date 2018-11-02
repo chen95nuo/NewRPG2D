@@ -34,7 +34,6 @@ public class BuildingData : ItemBaseData
     public override bool GetXmlDataAttribute(XmlNode node)
     {
         Level = ReadXmlDataMgr.IntParse(node, "Level");
-        Description = ReadXmlDataMgr.StrParse(node, "Description");
         string name = ReadXmlDataMgr.StrParse(node, "RoomName");
         RoomName = (BuildRoomName)System.Enum.Parse(typeof(BuildRoomName), name);
         RoomType = (RoomType)ReadXmlDataMgr.IntParse(node, "RoomType");

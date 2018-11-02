@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
+using System;
 
 public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
 {
@@ -49,6 +50,19 @@ public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
             default:
                 break;
         }
+        return st;
+    }
+
+    public string GetRoomName(string name)
+    {
+        string st = "Room_" + name;
+        st = GetString(st);
+        return st;
+    }
+    public string GetRoomDes(string name)
+    {
+        string st = "Des_" + name;
+        st = GetString(st);
         return st;
     }
 }

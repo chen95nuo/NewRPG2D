@@ -527,6 +527,25 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         return index;
     }
 
+    public void RoomUseStock(BuildingData data)
+    {
+        if (data.NeedGold > 0)
+        {
+            UseAllStock(BuildRoomName.Gold, data.NeedGold);
+        }
+        if (data.NeedMana > 0)
+        {
+            UseAllStock(BuildRoomName.Mana, data.NeedMana);
+        }
+        if (data.NeedWood > 0)
+        {
+            UseAllStock(BuildRoomName.Wood, data.NeedWood);
+        }
+        if (data.NeedIron > 0)
+        {
+            UseAllStock(BuildRoomName.Iron, data.NeedIron);
+        }
+    }
     /// <summary>
     /// 使用某类资源
     /// </summary>
@@ -651,6 +670,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             default:
                 break;
         }
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
     }
 
     /// <summary>
@@ -671,6 +692,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             else
             {
                 dic[name][0].Stock += index;
+                HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
                 HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
                 return;
             }
@@ -701,6 +723,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             default:
                 break;
         }
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
         HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
     }
     public void AddStock(int Id, int index)
