@@ -496,7 +496,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// 直接创建建筑
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateBuilding(LocalBuildingData data, Castle castle, ServerBuildData s_data)
+    public void UpdateBuilding(LocalBuildingData data, Castle castle, ServerBuildData s_data = null)
     {
         currentBuildData = data;
         data.currentRoom = this;

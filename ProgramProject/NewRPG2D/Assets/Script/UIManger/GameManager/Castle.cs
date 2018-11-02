@@ -273,7 +273,7 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 生成房间
     /// </summary>
-    public RoomMgr InstanceRoom(LocalBuildingData data)
+    public RoomMgr InstanceRoom(LocalBuildingData data, bool isNew = true)
     {
         Debug.Log("建造房间");
         List<RoomMgr> removeRoom = MapControl.instance.removeRoom;
@@ -286,7 +286,14 @@ public class Castle : MonoBehaviour
                 RoomMgr room = removeRoom[i];
                 allroom.Add(room);
                 room.transform.parent = buildingPoint;
-                room.UpdateBuilding(data, this);
+                if (isNew)
+                {
+                    room.UpdateBuilding(data, this);
+                }
+                else
+                {
+                    room.UpdateBuilding(data, this, null);
+                }
                 removeRoom.Remove(removeRoom[i]);
                 return room;
             }
@@ -311,7 +318,14 @@ public class Castle : MonoBehaviour
         go.name = data.buildingData.RoomName.ToString();
         RoomMgr room_1 = go.GetComponent<RoomMgr>();
         allroom.Add(room_1);
-        room_1.UpdateBuilding(data, this);
+        if (isNew)
+        {
+            room_1.UpdateBuilding(data, this);
+        }
+        else
+        {
+            room_1.UpdateBuilding(data, this, null);
+        }
         return room_1;
     }
 

@@ -755,14 +755,14 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 新建建筑 添加建筑 注:无ID
     /// </summary>
     /// <param name="data"></param>
-    public void AddBuilding(LocalBuildingData data)
+    public void AddBuilding(LocalBuildingData data, bool isNew = true)
     {
         data.id = BuildingIdIndex;
         AllBuilding.Add(data);
         ChickBuildDicAdd(data);
 
         //若新建的房间内拥有角色 那么将角色加入房间
-        RoomMgr mgr = MainCastle.instance.InstanceRoom(data);
+        RoomMgr mgr = MainCastle.instance.InstanceRoom(data, isNew);
         for (int i = 0; i < data.roleData.Length; i++)
         {
             if (data.roleData[i] != null)
