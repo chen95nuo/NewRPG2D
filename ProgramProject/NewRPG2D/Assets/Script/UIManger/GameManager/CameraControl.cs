@@ -550,8 +550,8 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void GetSpeed()
     {
-        float x = 8 - 1.0f;
-        float y = 1.35f - 0.8f;
+        float x = zMax - 1.0f;
+        float y = zMin - 0.8f;
         a = y / x;
         b = y - (x * a);
     }

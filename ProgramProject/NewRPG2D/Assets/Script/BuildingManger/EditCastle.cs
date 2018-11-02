@@ -25,6 +25,7 @@ public class EditCastle : Castle
     /// </summary>
     public void ResetEditRoom()
     {
+        RemoveAllRoom(false);
         editAllBuilding.Clear();
         allRemoveRoom.Clear();
         List<LocalBuildingData> AllBuilding = ChickPlayerInfo.instance.GetAllBuilding();
@@ -33,7 +34,6 @@ public class EditCastle : Castle
             LocalBuildingData data = new LocalBuildingData(AllBuilding[i].id, AllBuilding[i].buildingPoint, AllBuilding[i].buildingData, AllBuilding[i].ConstructionType);
             editAllBuilding.Add(data);
             InstanceRoom(data);
-            Debug.Log("刷新房间");
         }
     }
 
