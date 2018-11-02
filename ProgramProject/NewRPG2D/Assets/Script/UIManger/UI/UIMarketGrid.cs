@@ -74,7 +74,7 @@ public class UIMarketGrid : MonoBehaviour
 
         if (isTrue == false)
         {
-            if (data.NeedLevel == 0 || number[0] == number[1]) txt_Tip_3.text = "建筑数量已达上限";
+            if (data.NeedLevel == 0 || (number[0] == number[1] && number[1] != 0)) txt_Tip_3.text = "建筑数量已达上限";
             else txt_Tip_3.text = string.Format("需要{0}级国王大厅", data.NeedLevel);
             lockObj.SetActive(true);
             for (int i = 0; i < lockImages.Length; i++)
