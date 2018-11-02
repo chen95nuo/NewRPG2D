@@ -86,8 +86,8 @@ public class UIProdLevelUp : UILevelUp
                 return;
             case BuildRoomName.Barracks:
                 UpdateInfo_2(data);
-                txt_Tip_4.text = "升级可提升参与战斗的人数";
-                txt_Tip_5.text = "可携带人数";
+                txt_Tip_4.text = "可携带人数";
+                txt_Tip_5.text = "升级可提升参与战斗的人数";
                 UpdateIcon("HumanStock", "HumanStock", "");
                 return;
             default:

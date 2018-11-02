@@ -60,12 +60,12 @@ public class UIRoleGrid : MonoBehaviour
         roleIcon.gameObject.SetActive(true);
         roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
     }
-    public void UpdateLockInfo(UIRoomInfo roomInfo)
+    public void UpdateLockInfo(UIRoomInfo roomInfo, int ins)
     {
         btn_ShowAllRole.interactable = false;
         index = -1;
         room = roomInfo;
-        LockType(true, index + 1);
+        LockType(true, ins + 1);
         potoBg.sprite = sp[1];
         headIcon.gameObject.SetActive(false);
         roleIcon.gameObject.SetActive(false);
@@ -108,9 +108,9 @@ public class UIRoleGrid : MonoBehaviour
     }
     public void UpdateLivineRoom(UIRoomInfo roomInfo)
     {
+        index = -1;
         headIcon.gameObject.SetActive(true);
         roleIcon.gameObject.SetActive(false);
-        index = -1;
         room = roomInfo;
         Image_Icon.enabled = false;
         txt_Name.text = "";

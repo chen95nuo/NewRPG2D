@@ -33,7 +33,7 @@ public class UIBarracksInfo : UIRoomInfo
         int number = (int)roomMgr.currentBuildData.buildingData.Param2;
         for (int i = number; i < roleGrids.Count; i++)
         {
-            roleGrids[i].UpdateLockInfo(this);
+            roleGrids[i].UpdateLockInfo(this, i);
         }
     }
 }

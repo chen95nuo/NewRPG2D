@@ -82,6 +82,7 @@ public class UILessonInfo : TTUIPage
         base.Show(mData);
         MapLevelData data = mData as MapLevelData;
         currentLesson = data;
+        Debug.Log(currentLesson.Lesson);
         UpdateInfo(data);
     }
 
@@ -107,7 +108,7 @@ public class UILessonInfo : TTUIPage
         LocalBuildingData barracksData = playerData.BarracksData;
         for (int i = 0; i < roles.Length; i++)
         {
-            if (i <= barracksData.buildingData.Param2)
+            if (i < barracksData.buildingData.Param2)
             {
                 if (barracksData.roleData[i] != null)
                 {
@@ -144,6 +145,10 @@ public class UILessonInfo : TTUIPage
                 enemyGrids[index].UpdateInfo(data.CreateEnemyIds[i]);
                 index++;
             }
+        }
+        for (int i = index; i < enemyGrids.Count; i++)
+        {
+            enemyGrids[i].gameObject.SetActive(false);
         }
     }
 
