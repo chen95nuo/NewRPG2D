@@ -71,6 +71,10 @@ namespace Assets.Script.Battle
             HitPercent = rolePropertyData.HitPercent;
             MoveSpeed = 5;
             AttackSpeed = rolePropertyData.AttackSpeed;
+            if (AttackSpeed < 0.0001f)
+            {
+                AttackSpeed = 1f;
+            }
             HurtType = rolePropertyData.HurtType;
             professionNeed = rolePropertyData.ProfessionNeed;
             if (attackRangeDictionary.TryGetValue(professionNeed, out AttackRange) == false)
