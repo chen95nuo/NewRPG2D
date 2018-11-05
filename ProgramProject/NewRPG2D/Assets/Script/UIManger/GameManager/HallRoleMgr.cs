@@ -19,8 +19,8 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
 
     private GameObject roleBoy;//男孩
     private GameObject roleGirl;//女孩
-    private GameObject roleMale;//男人
-    private GameObject roleFemale;//女人
+    private GameObject roleMan;//男人
+    private GameObject roleWoman;//女人
 
     private GameObject RoleBoy
     {
@@ -46,27 +46,27 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
     }
 
-    private GameObject RoleMale
+    private GameObject RoleMan
     {
         get
         {
-            if (roleMale == null)
+            if (roleMan == null)
             {
-                roleMale = Resources.Load("UIPrefab/Role/RoleMale") as GameObject;
+                roleMan = Resources.Load("UIPrefab/Role/RoleMan") as GameObject;
             }
-            return roleMale;
+            return roleMan;
         }
     }
 
-    private GameObject RoleFemale
+    private GameObject RoleWoman
     {
         get
         {
-            if (roleFemale == null)
+            if (roleWoman == null)
             {
-                roleFemale = Resources.Load("UIPrefab/Role/RoleFemale") as GameObject;
+                roleWoman = Resources.Load("UIPrefab/Role/RoleWoman") as GameObject;
             }
-            return roleFemale;
+            return roleWoman;
         }
     }
 
@@ -190,11 +190,11 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         GameObject go = null;
         if (sexType == SexTypeEnum.Man && isBaby == false)
         {
-            go = GameObject.Instantiate(RoleMale, MainCastle.instance.NewRolePoint) as GameObject;
+            go = GameObject.Instantiate(RoleMan, MainCastle.instance.NewRolePoint) as GameObject;
         }
         else if (sexType == SexTypeEnum.Woman && isBaby == false)
         {
-            go = GameObject.Instantiate(RoleFemale, MainCastle.instance.NewRolePoint) as GameObject;
+            go = GameObject.Instantiate(RoleWoman, MainCastle.instance.NewRolePoint) as GameObject;
         }
         else if (sexType == SexTypeEnum.Man && isBaby == true)
         {

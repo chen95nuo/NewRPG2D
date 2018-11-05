@@ -223,10 +223,10 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 提示框射线检测
     /// </summary>
-    public virtual void ChickRaycast(RaycastHit hit)
+    public virtual void ChickRaycast(Collider2D hit)
     {
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
-        BuildTip tip = hit.collider.GetComponent<BuildTip>();
+        BuildTip tip = hit.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
         LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
         ChickPlayerInfo.instance.AddBuilding(data);

@@ -45,11 +45,11 @@ public class UIThroneLevelUpGrid : MonoBehaviour
         {
             case ThroneInfoType.Upgraded:
                 txt_Type.text = "可升级";
-                tipBg.sprite = sprite[0];
+                tipBg.sprite = sprite[1];
                 break;
             case ThroneInfoType.Build:
                 txt_Type.text = "新";
-                tipBg.sprite = sprite[1];
+                tipBg.sprite = sprite[0];
                 break;
             default:
                 break;

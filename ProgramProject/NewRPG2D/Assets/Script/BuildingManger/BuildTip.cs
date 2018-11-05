@@ -12,7 +12,7 @@ public class BuildTip : MonoBehaviour
     public int roomSize;//房间大小
 
     public SpriteRenderer sr;
-    public BoxCollider bc;
+    public BoxCollider2D bc;
     public Transform parentPoint;
     private float high = 2.7f;
     private float width = 1.2f;

@@ -10,13 +10,12 @@ public class UIEditModeTip : TTUIPage
 
     private void Awake()
     {
-        HallEventManager.instance.AddListener(HallEventDefineEnum.CameraMove, closePage);
-
+        HallEventManager.instance.AddListener(HallEventDefineEnum.CameraMove, ClosePage);
     }
 
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, closePage);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, ClosePage);
     }
 
     public override void Show(object mData)
@@ -32,15 +31,19 @@ public class UIEditModeTip : TTUIPage
         {
             BG.fillAmount = 0;
             MapControl.instance.ShowEditMap();
-            closePage();
+            ClosePage();
         }
     }
 
-    public void closePage()
+    public override void Hide(bool needAnim = true)
     {
-        CameraControl.instance.isShowEdit = false;
-        UIPanelManager.instance.ClosePage(this);
         BG.fillAmount = 1;
+        CameraControl.instance.IsShowEdit = false;
+        base.Hide(needAnim = false);
     }
 
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(needAnim = false);
+    }
 }

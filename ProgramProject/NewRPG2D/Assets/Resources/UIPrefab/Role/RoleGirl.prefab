@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4089438901989726}
   - component: {fileID: 114959744568571848}
   - component: {fileID: 114815012587189984}
-  - component: {fileID: 65206035206552140}
+  - component: {fileID: 61415340461280282}
   m_Layer: 10
   m_Name: RoleGirl
   m_TagString: Baby
@@ -145,18 +145,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1781565816126462}
   m_Mesh: {fileID: 0}
---- !u!65 &65206035206552140
-BoxCollider:
+--- !u!61 &61415340461280282
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574243283635712}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 4.5, z: 1}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 2, y: 4.5}
+  m_EdgeRadius: 0
 --- !u!114 &114063671916072464
 MonoBehaviour:
   m_ObjectHideFlags: 1

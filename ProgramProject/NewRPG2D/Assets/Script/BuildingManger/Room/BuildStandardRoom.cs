@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildStairs : RoomMgr
+public class BuildStandardRoom : RoomMgr
 {
+
+
 }

@@ -13,11 +13,10 @@ public class CameraControl : MonoBehaviour
     private Camera m_Camera;
     private Vector3 m_CameraPosition;
 
-    public float MoveSpeed = 1f;
-    public float scaleSpeed = 1f;
+    private float MoveSpeed = 3f;
+    private float scaleSpeed = 0.5f;
 
     private Vector3 oldMousePosition;
-    private Touch oldTouch0;
     private Touch oldTouch1;
     private Touch oldTouch2;
 
@@ -34,20 +33,23 @@ public class CameraControl : MonoBehaviour
     private float a = 0;
     private float b = 0;
 
+    private float moveTime = 0;
     private float currentTime = 0;
-    private float testTime = 0;
 
-    private RoomMgr room;
-    public bool isMove = false; //移动了
+    private bool isMove = false; //移动了
     public bool moveRoomType = false; //判断放大缩小
     public bool moving = false; //移动中
-    public bool isShowEdit = false;//是否显示建造提示
+    private bool isShowEdit = false;//是否显示建造提示
     public bool isHoldRole = false;//是否抓住角色
     public bool isUI = false;//点击的是UI
 
     private float widthHelper = 0;
     private float width = 0;
     public float currentAddWidth = 0;
+
+    private Collider2D[] col = new Collider2D[10];
+    private RoomMgr room;
+    private HallRole role;
 
     public float Width
     {
@@ -64,6 +66,7 @@ public class CameraControl : MonoBehaviour
         }
     }
 
+    #region 计算镜头边界
     public float hight
     {
         get
@@ -71,7 +74,6 @@ public class CameraControl : MonoBehaviour
             return m_Camera.orthographicSize;
         }
     }
-
     public float XMin
     {
         get
@@ -79,7 +81,6 @@ public class CameraControl : MonoBehaviour
             return xMin + Width;
         }
     }
-
     public float XMax
     {
         get
@@ -87,7 +88,6 @@ public class CameraControl : MonoBehaviour
             return xMax - Width + currentAddWidth;
         }
     }
-
     public float YMin
     {
         get
@@ -95,12 +95,61 @@ public class CameraControl : MonoBehaviour
             return yMin + hight;
         }
     }
-
     public float YMax
     {
         get
         {
             return yMax - hight;
+        }
+    }
+    #endregion
+
+    public bool IsShowEdit
+    {
+        get
+        {
+            return isShowEdit;
+        }
+
+        set
+        {
+            bool temp = value;
+            if (temp != isShowEdit)
+            {
+                isShowEdit = value;
+                if (isShowEdit)
+                {
+                    currentTime = 0;
+                    UIPanelManager.instance.ShowPage<UIEditModeTip>();
+                }
+                else
+                {
+                    UIPanelManager.instance.ClosePage<UIEditModeTip>();
+                }
+            }
+        }
+    }
+
+    public bool IsMove
+    {
+        get
+        {
+            return isMove;
+        }
+
+        set
+        {
+            bool temp = value;
+            if (temp != IsMove)
+            {
+                isMove = value;
+                if (isMove == true)
+                {
+                    IsShowEdit = false;
+                    Debug.Log("移动了");
+                }
+                Debug.Log("不在移动");
+            }
         }
     }
 
@@ -153,15 +202,15 @@ public class CameraControl : MonoBehaviour
         }
         if (moving)
         {
-            isMove = true;
+            IsMove = true;
             if (moveRoomType == true)
             {
                 Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMin);
-                CameraMove(point);
                 if (m_Camera.orthographicSize - zMin <= 0.01f)
                 {
                     moving = false;
                 }
+                CameraMove(point);
             }
             else
             {
@@ -173,7 +222,7 @@ public class CameraControl : MonoBehaviour
                 CameraMove(point);
             }
         }
-        if (isMove == true)
+        if (IsMove == true)
         {
             HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         }
@@ -185,18 +234,14 @@ public class CameraControl : MonoBehaviour
         {
             if (Input.touchCount == 1)
             {
-                Debug.Log("isUI: " + isUI);
-                Debug.Log("IsHoldRole: " + isHoldRole);
-                Debug.Log("isShowEdit: " + isShowEdit);
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    Debug.Log("Began");
-
-                    oldTouch0 = Input.GetTouch(0);
+                    Debug.Log("Began Time:" + Time.time);
                 }
                 if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole && !isUI)
                 {
-                    isMove = true;//镜头移动了
+                    Debug.Log("Moved Time:" + Time.time);
+                    IsMove = true;//镜头移动了
                     moving = false;//如果主动移动镜头关闭自动移动
 
                     v.x = Input.GetTouch(0).deltaPosition.x * Time.deltaTime;
@@ -205,19 +250,17 @@ public class CameraControl : MonoBehaviour
                     this.transform.position += new Vector3(-v.x, -v.y, 0) * MoveSpeed;
                 }
                 //长按
-                if (Input.GetTouch(0).phase == TouchPhase.Stationary && !isMove)
+                if (Input.GetTouch(0).phase == TouchPhase.Stationary && IsMove == false)
                 {
                     ChickLongPress();
                 }
                 //点击结束时
-                if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                if (Input.GetTouch(0).phase == TouchPhase.Ended && IsMove == false)
                 {
-                    if (isMove == false)
-                    {
-                        Debug.Log("不在移动,可以点击");
-                        ChickClick();
-                    }
-                    isMove = false;
+                    Debug.Log("Ended Time:" + Time.time);
+
+                    Debug.Log("不在移动,可以点击");
+                    ChickClick();
                 }
             }
             if (Input.touchCount > 1)
@@ -229,9 +272,9 @@ public class CameraControl : MonoBehaviour
                     return;
                 }
                 //记录坐标
-                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(1).phase == TouchPhase.Moved && !isHoldRole)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(1).phase == TouchPhase.Moved && !isHoldRole && !isUI)
                 {
-                    //isMove = true;
+                    IsMove = true;
 
                     Touch newTouch1 = Input.GetTouch(0);
                     Touch newTouch2 = Input.GetTouch(1);
@@ -251,10 +294,14 @@ public class CameraControl : MonoBehaviour
                     oldTouch1 = newTouch1;
                     oldTouch2 = newTouch2;
 
-                    isMove = true;
                 }
                 MoveSpeed = (a * m_Camera.orthographicSize) + b;
             }
+        }
+        else
+        {
+            IsMove = false;
+            moveTime = 0;
         }
     }
 
@@ -268,29 +315,29 @@ public class CameraControl : MonoBehaviour
 
             if (x != 0 || y != 0 || z != 0)
             {
-                isMove = true;
+                IsMove = true;
             }
             else
             {
-                isMove = false;
+                IsMove = false;
             }
             m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize += -(z * 4.0f), zMin, zMax);
             transform.localPosition += (new Vector3(x * 0.2f, y * 0.2f, 0));
         }
         if (Input.GetMouseButton(0) && oldMousePosition == Input.mousePosition)
         {
-            if (isMove == false)
+            if (IsMove == false)
             {
                 ChickLongPress();
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
-            if (isMove == false)
+            if (IsMove == false)
             {
                 ChickClick();
             }
-            isMove = true;
+            IsMove = true;
         }
         oldMousePosition = Input.mousePosition;
     }
@@ -300,7 +347,6 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     public void CloseRoomLock()
     {
-        isMove = false;
         if (room != null)
         {
             room.ShowRoomLockUI(false);
@@ -315,7 +361,6 @@ public class CameraControl : MonoBehaviour
     /// <param name="roomMgr"></param>
     public void RefreshRoomLock(RoomMgr roomMgr)
     {
-        isMove = false;
         if (room != null && room == roomMgr)
         {
             UIPanelManager.instance.ShowPage<UILockRoomTip>(roomMgr);
@@ -334,6 +379,11 @@ public class CameraControl : MonoBehaviour
             UIMain.instance.CloseSomeUI(true);
             return;
         }
+        if (IsShowEdit == true)
+        {
+            IsShowEdit = false;
+            return;
+        }
         if (isUI == true)
         {
             Debug.Log("点到UI了 返回");
@@ -341,12 +391,10 @@ public class CameraControl : MonoBehaviour
             return;
         }
         Debug.Log("没点到UI 继续");
-        Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) { }
+        int colNum = Physics2D.OverlapPointNonAlloc(m_Camera.ScreenToWorldPoint(Input.mousePosition), col);
         if (MapControl.instance.type == CastleType.main)
         {
-            if (hit.collider == null)
+            if (colNum == 0)
             {
                 if (room != null)
                 {
@@ -356,33 +404,33 @@ public class CameraControl : MonoBehaviour
                 }
                 return;
             }
-            else if (hit.collider.tag == "Role")
+            else if (col[0].tag == "Role")
             {
                 Debug.Log("点击角色");
-                HallRole role = hit.collider.GetComponent<HallRole>();
+                HallRole role = col[0].GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIRoleInfo>(role.RoleData);
                 CloseRoomLock();
             }
-            else if (hit.collider.tag == "Room")
+            else if (col[0].tag == "Room")
             {
                 Debug.Log("点到房间");
-                ChickTouchRoom(hit);
+                ChickTouchRoom(col[0]);
             }
-            else if (hit.collider.tag == "BuildTip")
+            else if (col[0].tag == "BuildTip")
             {
                 Debug.Log("点到建造提示框");
-                MainCastle.instance.ChickRaycast(hit);
+                MainCastle.instance.ChickRaycast(col[0]);
             }
-            else if (hit.collider.tag == "Baby")
+            else if (col[0].tag == "Baby")
             {
                 Debug.Log("点到小孩");
-                HallRole data = hit.collider.GetComponent<HallRole>();
+                HallRole data = col[0].GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIBabyInfo>(data.currentBaby);
             }
         }
         else //编辑模式点击效果
         {
-            if (hit.collider == null)
+            if (colNum == 0)
             {
                 if (room != null)
                 {
@@ -393,13 +441,13 @@ public class CameraControl : MonoBehaviour
                 }
                 return;
             }
-            else if (hit.collider.tag == "Room")
+            else if (col[0].tag == "Room")
             {
-                ChickEditTouch(hit);
+                ChickEditTouch(col[0]);
             }
-            else if (hit.collider.tag == "BuildTip")
+            else if (col[0].tag == "BuildTip")
             {
-                EditCastle.instance.ChickRaycast(hit);
+                EditCastle.instance.ChickRaycast(col[0]);
             }
         }
         currentTime = 0;
@@ -410,40 +458,54 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickLongPress()
     {
-        if (isUI == true)
+        Debug.Log("进入长按");
+        if (MapControl.instance.type != CastleType.main || isUI || isHoldRole || isShowEdit)
         {
+            Debug.Log("长按不符合标准 返回");
             return;
         }
-        Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) { }
-        if (hit.collider == null) return;
-        if (hit.collider.tag == "Role" && isHoldRole == false)
+        int numTemp = Physics2D.OverlapPointNonAlloc(Camera.main.ScreenToWorldPoint(Input.mousePosition), col);
+        Debug.Log("numTemp = " + numTemp);
+        if (numTemp > 0)
         {
-            currentTime += Time.deltaTime;
-            if (currentTime > 0.5f)
+            bool isRole = false;
+            bool isRoom = false;
+            int index = 0;
+            for (int i = 0; i < numTemp; i++)
             {
-                currentTime = 0;
-                Handheld.Vibrate();
-                HallRole role = hit.collider.GetComponent<HallRole>();
-                UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
-                isHoldRole = true;
-                UIMain.instance.CloseSomeUI(false);
-                return;
+                if (col[i].tag == "Role")
+                {
+                    isRole = true;
+                    index = i;
+                    break;
+                }
+                if (col[i].tag == "Room")
+                {
+                    isRoom = true;
+                    index = i;
+                    break;
+                }
             }
-        }
-        else if (MapControl.instance.type == CastleType.main
-            && isShowEdit == false
-            && hit.collider.tag == "Room"
-            && isHoldRole == false)
-        {
-            currentTime += Time.deltaTime;//建造模式计时
-            if (currentTime > 0.5f)
+            if (isRole)
             {
-                isShowEdit = true;
-                currentTime = 0;
-                UIPanelManager.instance.ShowPage<UIEditModeTip>();
-                return;
+                currentTime += Time.deltaTime;
+                if (currentTime > 0.5f)
+                {
+                    currentTime = 0;
+                    Handheld.Vibrate();
+                    HallRole role = col[index].GetComponent<HallRole>();
+                    UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
+                    isHoldRole = true;
+                    UIMain.instance.CloseSomeUI(false);
+                }
+            }
+            else if (isRoom)
+            {
+                currentTime += Time.deltaTime;//建造模式计时
+                if (currentTime > 0.5f)
+                {
+                    IsShowEdit = true;
+                }
             }
         }
     }
@@ -461,9 +523,9 @@ public class CameraControl : MonoBehaviour
     /// 主城模式点击效果
     /// </summary>
     /// <param name="hit"></param>
-    private void ChickTouchRoom(RaycastHit hit)
+    private void ChickTouchRoom(Collider2D hit)
     {
-        RoomMgr data = hit.collider.GetComponent<RoomMgr>();
+        RoomMgr data = hit.GetComponent<RoomMgr>();
         if (data.IsHarvest)//如果有产出那么获取产出
         {
             float temp = data.currentBuildData.Stock;
@@ -495,7 +557,7 @@ public class CameraControl : MonoBehaviour
             ChangeRoomMgr(data);
         }
         //这里是双击状态 room == data 那么根据镜头距离进行移动
-        else if (m_Camera.orthographicSize > 5.4f)
+        else if (m_Camera.orthographicSize > zMin + 0.1f)
         {
             moveRoomType = true;
             moving = true;
@@ -511,11 +573,11 @@ public class CameraControl : MonoBehaviour
     /// 建造模式点击效果
     /// </summary>
     /// <param name="hit"></param>
-    private void ChickEditTouch(RaycastHit hit)
+    private void ChickEditTouch(Collider2D hit)
     {
-        if (hit.collider.tag == "Room")
+        if (hit.tag == "Room")
         {
-            RoomMgr data = hit.collider.GetComponent<RoomMgr>();
+            RoomMgr data = hit.GetComponent<RoomMgr>();
             if (room != null && room != data)//更换选中房间
             {
                 room.ShowRoomLockUI(false);
@@ -533,7 +595,7 @@ public class CameraControl : MonoBehaviour
                 UIEditMode.instance.ShowMenu(data);
             }
         }
-        else if (hit.collider.tag == "BuildTip")
+        else if (hit.tag == "BuildTip")
         {
             EditCastle.instance.ChickRaycast(hit);
         }

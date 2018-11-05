@@ -35,8 +35,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4134399326455052}
-  - component: {fileID: 65418415334434992}
-  - component: {fileID: 114199850190601544}
+  - component: {fileID: 114008771075612944}
+  - component: {fileID: 61416224023694422}
   m_Layer: 8
   m_Name: Build_Food_2
   m_TagString: Room
@@ -609,19 +609,32 @@ Transform:
   m_Father: {fileID: 4933559096561772}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65418415334434992
-BoxCollider:
+--- !u!61 &61416224023694422
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037278766700986}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 5.4, y: 1.35}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.8, y: 2.7, z: 1}
-  m_Center: {x: 5.4, y: 1.35, z: 0}
---- !u!114 &114199850190601544
+  m_Size: {x: 10.8, y: 2.7}
+  m_EdgeRadius: 0
+--- !u!114 &114008771075612944
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -629,7 +642,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037278766700986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8738e99c7d0501f4f95599c24c799dfa, type: 3}
+  m_Script: {fileID: 11500000, guid: c51f96820c75e814a92735cb86815219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buidStartPoint: {x: 0, y: 0}
@@ -647,7 +660,7 @@ MonoBehaviour:
     buildingPoint: {x: 0, y: 0}
     buildingData:
       ItemId: 0
-      ItemName: 
+      ItemName: Item
       Description: 
       Level: 0
       RoomName: 0

@@ -177,8 +177,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4548556927232862}
-  - component: {fileID: 65400116917978118}
   - component: {fileID: 114296006506711994}
+  - component: {fileID: 61802083066324426}
   m_Layer: 8
   m_Name: Build_LivingRoom
   m_TagString: Room
@@ -368,18 +368,31 @@ Transform:
   m_Father: {fileID: 4699656827344696}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65400116917978118
-BoxCollider:
+--- !u!61 &61802083066324426
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1737057624427884}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.8, y: 1.35}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6, y: 2.7, z: 1}
-  m_Center: {x: 1.8, y: 1.35, z: 0}
+  m_Size: {x: 3.6, y: 2.7}
+  m_EdgeRadius: 0
 --- !u!114 &114296006506711994
 MonoBehaviour:
   m_ObjectHideFlags: 1

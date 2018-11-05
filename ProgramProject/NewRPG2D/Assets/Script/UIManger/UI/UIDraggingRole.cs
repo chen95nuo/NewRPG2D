@@ -24,6 +24,8 @@ public class UIDraggingRole : TTUIPage
 
     private HallRole role;
     private RoomMgr currentRoom;
+    private RoomMgr nowRoom;
+    private Collider2D[] col = new Collider2D[10];
 
     private void Awake()
     {
@@ -38,28 +40,19 @@ public class UIDraggingRole : TTUIPage
         }
 
         hand.rectTransform.anchoredPosition = Vector2.zero;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        int layerMask = 1 << 8;
-
-        if (Physics.Raycast(ray, out hit, 100, layerMask))
+        if (nowRoom != null)
         {
-            Debug.Log(hit.collider.name);
-            if (hit.collider.tag == "Room")
+            if (role.RoleData.currentRoom == null || nowRoom.Id != role.RoleData.currentRoom.Id)
             {
-                RoomMgr room = hit.collider.GetComponent<RoomMgr>();
-                if (role.RoleData.currentRoom == null || room.Id != role.RoleData.currentRoom.Id)
+                if (nowRoom.RoomName == BuildRoomName.Stairs)
                 {
-                    if (room.RoomName == BuildRoomName.Stairs)
-                    {
-                        object st = "该处为楼梯无法进入";
-                        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
-                    }
-                    else
-                    {
-                        room.AddRole(role);
-                    }
+                    object st = "该处为楼梯无法进入";
+                    UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+                }
+                else
+                {
+                    nowRoom.AddRole(role);
                 }
             }
             else
@@ -97,24 +90,32 @@ public class UIDraggingRole : TTUIPage
 
     private void ChickRay()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        int layerMask = 1 << 8;
-        if (Physics.Raycast(ray, out hit, 100, layerMask))
+        int colNum = Physics2D.OverlapPointNonAlloc(Camera.main.ScreenToWorldPoint(Input.mousePosition), col);
+        if (colNum > 0)
         {
-            if (hit.collider.tag == "Room")
+            bool isRoom = false;
+            RoomMgr room = null;
+            for (int i = 0; i < colNum; i++)
             {
-                RoomMgr room = hit.collider.GetComponent<RoomMgr>();
+                if (col[i].tag == "Room")
+                {
+                    isRoom = true;
+                    room = col[i].GetComponent<RoomMgr>();
+                    nowRoom = room;
+                    break;
+                }
+            }
+            if (isRoom)
+            {
                 if (currentRoom != null && room.Id == currentRoom.Id)
                 {
                     return;
                 }
-                Debug.Log(hit.collider.name);
                 bool isTrue = ChickPlayerInfo.instance.ChickProduction(room.currentBuildData);
                 if (isTrue)
                 {
                     RoleAttribute roleAtr = room.NeedAttribute;
-                    int index = room.currentBuildData.ScreenAllYeild(roleAtr, false);
+                    int temp = room.currentBuildData.ScreenAllYeild(roleAtr, false);
                     float p_1 = role.RoleData.GetArtProduce(room.RoomName);
 
                     string st = ChicttxtColorOrIcon(room.RoomName);
@@ -141,12 +142,12 @@ public class UIDraggingRole : TTUIPage
                     }
 
                     Icon.gameObject.SetActive(true);
-                    if (index >= 0)
+                    if (temp >= 0)//包括+0
                     {
 
-                        float p_2 = room.currentBuildData.roleData[index].GetArtProduce(room.RoomName);
+                        float p_2 = room.currentBuildData.roleData[temp].GetArtProduce(room.RoomName);
                         float p_3 = p_1 - p_2;
-                        if (p_3 >= 0)
+                        if (p_3 >= 0)//包括+0
                         {
                             txt_Tip.text = st + stColor + "+" + (p_3).ToString() + "</color>";
                         }
@@ -179,9 +180,14 @@ public class UIDraggingRole : TTUIPage
                     room.ShowRoomLockUI(true);
                 }
             }
+            else
+            {
+                nowRoom = null;
+            }
         }
         else
         {
+            nowRoom = null;
             Icon.gameObject.SetActive(false);
             txt_Tip.text = "";
         }

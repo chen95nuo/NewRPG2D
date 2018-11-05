@@ -130,8 +130,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4949854583160360}
-  - component: {fileID: 65391050640627444}
-  - component: {fileID: 114217655919406270}
+  - component: {fileID: 114061557749276514}
+  - component: {fileID: 61388842118510488}
   m_Layer: 8
   m_Name: Build_GoldSpace
   m_TagString: Room
@@ -368,19 +368,32 @@ Transform:
   m_Father: {fileID: 4528205007068898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65391050640627444
-BoxCollider:
+--- !u!61 &61388842118510488
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476437059243202}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.8, y: 1.35}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6, y: 2.7, z: 1}
-  m_Center: {x: 1.8, y: 1.35, z: 0}
---- !u!114 &114217655919406270
+  m_Size: {x: 3.6, y: 2.7}
+  m_EdgeRadius: 0
+--- !u!114 &114061557749276514
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -388,7 +401,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476437059243202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e20dedbbb6821874eabc19dea5b9070b, type: 3}
+  m_Script: {fileID: 11500000, guid: c51f96820c75e814a92735cb86815219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buidStartPoint: {x: 0, y: 0}
@@ -406,7 +419,7 @@ MonoBehaviour:
     buildingPoint: {x: 0, y: 0}
     buildingData:
       ItemId: 0
-      ItemName: 
+      ItemName: Item
       Description: 
       Level: 0
       RoomName: 0

@@ -51,10 +51,10 @@ public class EditCastle : Castle
     /// 建造模式射线检测
     /// </summary>
     /// <param name="hit"></param>
-    public override void ChickRaycast(RaycastHit hit)
+    public override void ChickRaycast(Collider2D hit)
     {
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
-        BuildTip tip = hit.collider.GetComponent<BuildTip>();
+        BuildTip tip = hit.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
         if (currentLocalData.id == 0)
         {
