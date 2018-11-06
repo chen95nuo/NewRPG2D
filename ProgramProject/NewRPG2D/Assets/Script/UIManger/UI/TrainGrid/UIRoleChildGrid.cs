@@ -81,9 +81,10 @@ public class UIRoleChildGrid : MonoBehaviour
                 {
                     role.RoleData.babyData = null;
                     RemoveInfo();
+                    HallRoleMgr.instance.LoveEnd(role.RoleData.id);
                     HallRoleMgr.instance.ChildrenStart(newRole.currentBaby);
+                    return;
                 }
-                return;
             }
         }
         Debug.Log("婴儿房满了");

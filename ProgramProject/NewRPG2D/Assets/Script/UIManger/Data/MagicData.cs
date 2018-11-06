@@ -7,7 +7,6 @@ using System.Xml;
 
 public class MagicData : ItemBaseData
 {
-
     public MagicName magicName;
     public MagicType magicType;
     public int level;

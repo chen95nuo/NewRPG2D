@@ -12,6 +12,19 @@ public class ScrollControl : MonoBehaviour
     public List<ItemHelper> items = new List<ItemHelper>();
     // Use this for initialization
 
+    private void OnEnable()
+    {
+        RectTransform rt = transform.transform as RectTransform;
+        rt.anchoredPosition = Vector2.one * -2000;
+        Invoke("PageGoBack", 0.1f);
+    }
+
+    private void PageGoBack()
+    {
+        RectTransform rt = transform.transform as RectTransform;
+        rt.anchoredPosition = Vector2.zero;
+    }
+
     private void Start()
     {
         ChickAllItem();

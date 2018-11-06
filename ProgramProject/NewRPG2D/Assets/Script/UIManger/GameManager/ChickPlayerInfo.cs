@@ -943,6 +943,17 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         Debug.LogError("没有找到建筑");
         return null;
     }
+    public LocalBuildingData GetBuilding(BuildRoomName name)
+    {
+        for (int i = 0; i < AllBuilding.Count; i++)
+        {
+            if (AllBuilding[i].buildingData.RoomName == name)
+            {
+                return AllBuilding[i];
+            }
+        }
+        return null;
+    }
 
 
 

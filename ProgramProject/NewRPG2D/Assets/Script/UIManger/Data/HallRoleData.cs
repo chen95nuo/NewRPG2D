@@ -18,6 +18,7 @@ public class HallRoleData
     public RoleLoveType LoveType;//爱情状态
     private float nowHp;//当前血量
     public RoleBabyData babyData;//宝宝数据
+    public HallRole currentRole;
     public RoomMgr currentRoom;
     private WeaponProfessionEnum professionType;
 

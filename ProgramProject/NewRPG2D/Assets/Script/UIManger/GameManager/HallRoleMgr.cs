@@ -84,6 +84,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     }
     public void AddRole(HallRoleData data, HallRole role)
     {
+        data.currentRole = role;
         dic.Add(data, role);
     }
 
@@ -337,11 +338,26 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         return data;
     }
 
+    private bool ChickTrain(HallRoleData data, TrainType atr)
+    {
+        foreach (var item in timeAction)
+        {
+            if (item.Value.roleID == data.id)
+            {
+                ChickTrainTime(item.Key);
+            }
+        }
+        return false;
+    }
     /// <summary>
     /// 开始训练
     /// </summary>
     public void StartTrain(HallRoleData data, TrainType atr)
     {
+        if (ChickTrain(data, atr))
+        {
+            return;
+        }
         data.TrainType = RoleTrainType.LevelUp;
         int needTime = TrainDataMgr.instance.GetTrainData(atr, data.RoleLevel[(int)atr + 1].Level + 1);
         int index = CTimerManager.instance.AddListener(1f, needTime, ChickTrainTime);
@@ -522,7 +538,20 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             role = GetRole(role_2);
         }
         role.LoveComplete();//显示气泡
-        loveData.Remove(index);
+    }
+
+    public void LoveEnd(int roleID)
+    {
+        foreach (var item in loveData)
+        {
+            for (int i = 0; i < item.Value.roleID.Length; i++)
+            {
+                if (item.Value.roleID[i] == roleID)
+                {
+                    loveData.Remove(item.Key);
+                }
+            }
+        }
     }
 
     /// <summary>

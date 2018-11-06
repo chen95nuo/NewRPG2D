@@ -41,6 +41,7 @@ namespace Assets.Script.UIManger
         public Transform normalRoot;
         public Transform popupRoot;
         public Camera uiCamera;
+        public Canvas uiCanvas;
 
         static void InitRoot()
         {
@@ -50,6 +51,7 @@ namespace Assets.Script.UIManger
             go.AddComponent<RectTransform>();
 
             Canvas can = go.AddComponent<Canvas>();
+            m_Instance.uiCanvas = can;
             can.renderMode = RenderMode.ScreenSpaceCamera;
             can.pixelPerfect = true;
 

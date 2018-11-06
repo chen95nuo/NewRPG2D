@@ -45,7 +45,10 @@ public class UIBag : TTUIPage
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.RefreshBagUI, ChickBagType);
     }
 
-
+    public override void Show(object mData)
+    {
+        base.Show(mData);
+    }
 
     private void ChickBagType()
     {

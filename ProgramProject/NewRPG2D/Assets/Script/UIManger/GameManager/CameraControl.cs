@@ -241,7 +241,11 @@ public class CameraControl : MonoBehaviour
                 if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole && !isUI)
                 {
                     Debug.Log("Moved Time:" + Time.time);
-                    IsMove = true;//镜头移动了
+                    moveTime += Time.deltaTime;
+                    if (moveTime > 0.05f)
+                    {
+                        IsMove = true;//镜头移动了
+                    }
                     moving = false;//如果主动移动镜头关闭自动移动
 
                     v.x = Input.GetTouch(0).deltaPosition.x * Time.deltaTime;
@@ -287,9 +291,6 @@ public class CameraControl : MonoBehaviour
                     float dis = oldDis - newDis;
                     float zPoint = Mathf.Clamp(m_Camera.orthographicSize + (dis * scaleSpeed), zMin, zMax);
                     m_Camera.orthographicSize = zPoint;
-                    //Vector3 pos = new Vector3(transform.position.x, transform.position.y, zPoint);
-                    //Debug.Log(pos.z);
-                    //transform.position = pos;
 
                     oldTouch1 = newTouch1;
                     oldTouch2 = newTouch2;
