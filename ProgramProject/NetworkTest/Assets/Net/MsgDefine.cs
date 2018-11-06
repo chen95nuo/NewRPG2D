@@ -1,0 +1,35 @@
+﻿public enum NetMsg {
+    RAC_EX_GET_SERIALNUM_REQ = 0XA0803, //请求协议号
+    RAC_EX_GET_SERIALNUM_RES = 0XA0804, //回复协议号
+    RAC_EX_AUTHORIZE_REQ = 0XA0001,     //请求授权
+    RAC_EX_AUTHORIZE_RES = 0XA0002,     //回复授权
+    RAC_EX_LOGIN_REQ = 0XA0003,         //请求登陆
+    RAC_EX_LOGIN_RES = 0XA0004,         //回复登陆
+    RAC_EX_REGISTACC_REQ = 0XA0005,     //请求注册帐号
+    RAC_EX_REGISTACC_RES = 0XA0006,     //回复注册帐号
+    RAC_EX_CREATEROLE_REQ = 0XA0007,    //请求创角
+    RAC_EX_CREATEROLE_RES = 0XA0008,    //回复创角
+    RAC_EX_CREATE_ROOM_REQ = 0XA0830,   //请求开房间
+    RAC_EX_CREATE_ROOM_RES = 0XA0831,   //回复开房间
+    RAC_EX_JOIN_ROOM_REQ = 0XA0834,     //加入房间
+    RAC_EX_JOIN_ROOM_RES = 0XA0835,     //回复加入房间
+    RAC_EX_READY_ROOM_REQ = 0XA083E,    //请求房间状态
+    RAC_EX_READY_ROOM_RES = 0XA083F,    //回复房间状态
+    RAC_EX_ROOM_LIST_REQ = 0XA0832,     //请求房间列表
+    RAC_EX_ROOM_LIST_RES = 0XA0833,     //回复房间状态
+
+    //战斗服
+    RAC_EX_GAME_START_RES = 0XA0906,    //回复进入游戏
+    RAC_EX_GAME_ENTER_REQ = 0XA0900,    //请求进入战斗服
+    RAC_EX_GAME_ENTER_RES = 0XA0901,    //回复进入战斗服
+    RAC_EX_GAME_READYGO_RES = 0XA0903,  //游戏开始
+    RAC_EX_GAME_SKILL_ATTACK_REQ = 0XA0904, //请求使用技能
+    RAC_EX_GAME_SKILL_ATTACK_RES = 0XA0905, //回复使用技能
+    RAC_EX_GAME_SYNC_MOVING_REQ = 0XA0908,  //发送位置
+    RAC_EX_GAME_SYNC_MOVING_RES = 0XA0909,  //接收位置
+    RAC_EX_GAME_SYNC_DAMAGE_RES = 0XA0907,  //同步伤害
+    RAC_EX_GAME_GAMEOVER_RES = 0XA0902,     //游戏结算
+    RAC_EX_GAME_BATTLE_UNIT_BORN_RES = 0XA090D, //战斗单位出生
+    RAC_EX_GAME_SYNC_STATE_REQ = 0XA090E,    //发送状态同步
+    RAC_EX_GAME_SYNC_STATE_RES = 0XA090F,    //接收状态
+}
