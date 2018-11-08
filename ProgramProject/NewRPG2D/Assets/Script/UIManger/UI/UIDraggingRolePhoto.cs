@@ -54,7 +54,7 @@ public class UIDraggingRolePhoto : TTUIPage
         RaycastHit2D hit = Physics2D.Raycast(v2, Vector2.zero);
         if (hit.collider != null)
         {
-            UIRoleGrid roleGrid = hit.collider.GetComponent<UIRoleGrid>();
+            UIRoleGridMgr roleGrid = hit.collider.GetComponent<UIRoleGridMgr>();
             if (roleGrid != null)
             {
                 HallRole role = HallRoleMgr.instance.GetRole(roleData);

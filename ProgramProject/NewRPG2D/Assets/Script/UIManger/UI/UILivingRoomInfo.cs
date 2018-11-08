@@ -7,11 +7,10 @@ using Assets.Script.UIManger;
 public class UILivingRoomInfo : UIRoomInfo
 {
     public Text txt_Tip_1;
-    public Text txt_Tip_2;
     public Text txt_roleNumber;
 
     public UILivingRoomHelper[] Grids = new UILivingRoomHelper[3];
-    private List<UIRoleGrid> roleGrids = new List<UIRoleGrid>();
+    private List<UILiviroomGrid> roleGrids = new List<UILiviroomGrid>();
 
     protected override void Awake()
     {
@@ -27,7 +26,6 @@ public class UILivingRoomInfo : UIRoomInfo
     protected override void UpdateInfo(RoomMgr roomMgr)
     {
         txt_Tip_1.text = "居民数量";
-        txt_Tip_2.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
         txt_roleNumber.text = roomMgr.currentBuildData.buildingData.Param2.ToString();
 
         //刷角色格子背景数量
@@ -46,29 +44,17 @@ public class UILivingRoomInfo : UIRoomInfo
                 break;
         }
         //检查同性
-        ChickTimeText(roomMgr);
+        ChickTimeText(roomMgr.currentBuildData.roleData);
 
         ChickRoleNumber(roleGrids);
-        for (int i = 0; i < roleGrids.Count; i++)
-        {
-            if (roomMgr.currentBuildData.roleData[i] != null)
-            {
-                roleGrids[i].UpdateLivineRoom(roomMgr.currentBuildData.roleData[i], this );
-            }
-            else
-            {
-                roleGrids[i].UpdateLivineRoom(this);
-            }
-        }
     }
 
     /// <summary>
     /// 查找同性
     /// </summary>
     /// <param name="roomMgr"></param>
-    private void ChickTimeText(RoomMgr roomMgr)
+    private void ChickTimeText(HallRoleData[] data)
     {
-        HallRoleData[] data = roomMgr.currentBuildData.roleData;
         for (int i = 0; i < data.Length; i += 2)
         {
             Debug.Log("i :" + i);

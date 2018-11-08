@@ -8,30 +8,37 @@ public class UIBarracksInfo : UIRoomInfo
 {
     public Text txt_AllFight;
     public Text txt_Tip_1;
-    public Text txt_Tip_2;
 
-    private List<UIRoleGrid> roleGrids = new List<UIRoleGrid>();
+    private List<UIBarrcksGrid> roleGrids = new List<UIBarrcksGrid>();
+    private int UnlockIndex = 0;
+
+    protected override void ChickShowScreenRole()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < UnlockIndex; i++)
+        {
+            if (btn_ScreenRole[i].gameObject == go)
+            {
+                btn_ScreenRole[currentBtn].interactable = true;
+                btn_ScreenRole[i].interactable = false;
+                currentBtn = i;
+                if (!IsShow)
+                {
+                    IsShow = true;
+                }
+                return;
+            }
+        }
+    }
 
     protected override void UpdateInfo(RoomMgr roomMgr)
     {
         txt_AllFight.text = "19999";
         txt_Tip_1.text = "战斗力";
-        txt_Tip_2.text = "升级军营来增加参与战斗的人数";
 
         ChickRoleNumber(roleGrids);
-        for (int i = 0; i < roleGrids.Count; i++)
-        {
-            if (roomMgr.currentBuildData.roleData[i] != null)
-            {
-                roleGrids[i].UpdateInfo(roomMgr.currentBuildData.roleData[i], BuildRoomName.Barracks, this);
-            }
-            else
-            {
-                roleGrids[i].UpdateInfo(this);
-            }
-        }
-        int number = (int)roomMgr.currentBuildData.buildingData.Param2;
-        for (int i = number; i < roleGrids.Count; i++)
+        UnlockIndex = (int)roomMgr.currentBuildData.buildingData.Param2;
+        for (int i = UnlockIndex; i < roleGrids.Count; i++)
         {
             roleGrids[i].UpdateLockInfo(this, i);
         }

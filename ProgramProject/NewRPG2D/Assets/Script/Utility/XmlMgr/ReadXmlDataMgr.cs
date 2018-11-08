@@ -23,6 +23,7 @@ namespace Assets.Script.Utility
         ChildData,
         PropData,
         WorldMapData,
+        WorkShopData,
         Hall,
 
         //战斗内的

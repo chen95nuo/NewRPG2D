@@ -22,6 +22,7 @@ public enum HallEventDefineEnum
     ChickRoleTrain,//角色训练时状态
     ChickRoleLove,//角色恋爱时间
     ChickChildTime,//小孩时间检测
+    ChickWorkTime,//工作时间检测
     ShowEquipInfo,//显示装备信息
     ShowBoxInfo,//显示宝箱信息
     ShowPropInfo,//显示道具信息

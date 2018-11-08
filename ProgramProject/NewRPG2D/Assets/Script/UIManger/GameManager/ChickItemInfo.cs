@@ -132,7 +132,18 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         }
         return true;
     }
-
+    public int GetItemNum(int propID)
+    {
+        int num = 0;
+        for (int i = 0; i < AllPropList.Count; i++)
+        {
+            if (AllPropList[i].propData.ItemId == propID)
+            {
+                num++;
+            }
+        }
+        return num;
+    }
     public List<ItemHelper> GetAllItem()
     {
         List<ItemHelper> allItem = new List<ItemHelper>();

@@ -8,13 +8,12 @@ public class UIProductionInfo : UIRoomInfo
 {
     public Text txt_Tip_1;
     public Text txt_Tip_2;
-    public Text txt_Tip_3;
 
     public Text txt_Yield;
     public Text txt_Stock;
 
     public Image rightIcon;
-    public Image[] icons;
+    public Image icons;
     public Image slider;
     public Sprite[] iconSp;
 
@@ -31,10 +30,8 @@ public class UIProductionInfo : UIRoomInfo
     }
     private void Start()
     {
-        string space = "                ";
         txt_Tip_1.text = "每小时产量";
         txt_Tip_2.text = "容量";
-        txt_Tip_3.text = string.Format("该建筑生产{0}资源", space);
     }
 
     private void RefreshStock()
@@ -48,46 +45,12 @@ public class UIProductionInfo : UIRoomInfo
         txt_Yield.text = (data.currentBuildData.buildingData.Param1 + data.currentBuildData.AllRoleProduction()).ToString();
         txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
         ChickRoleNumber(roleGrids);
-        for (int i = 0; i < roleGrids.Count; i++)
-        {
-            if (data.currentBuildData.roleData[i] != null)
-            {
-                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], roomData.RoomName, this);
-            }
-            else
-            {
-                roleGrids[i].UpdateInfo(this);
-            }
-        }
 
         ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
 
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
-        for (int i = 0; i < icons.Length; i++)
-        {
-            icons[i].sprite = sp;
-        }
-
-        switch (data.RoomName)
-        {
-            case BuildRoomName.Gold:
-                rightIcon.sprite = iconSp[0];
-                break;
-            case BuildRoomName.Food:
-                rightIcon.sprite = iconSp[1];
-                break;
-            case BuildRoomName.Mana:
-                rightIcon.sprite = iconSp[2];
-                break;
-            case BuildRoomName.Wood:
-                rightIcon.sprite = iconSp[3];
-                break;
-            case BuildRoomName.Iron:
-                rightIcon.sprite = iconSp[4];
-                break;
-            default:
-                break;
-        }
+        icons.sprite = sp;
+        rightIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.RoomName + "Stock");
         RefreshStock();
     }
 
@@ -97,5 +60,10 @@ public class UIProductionInfo : UIRoomInfo
         ChickPlayerInfo.instance.RemoveRoomEvent();
     }
 
-
+    protected override void UpdateName(RoomMgr data, bool NeedTip = true)
+    {
+        base.UpdateName(data, false);
+        string space = string.Format("<quad name={0} size=36 width=1 />", data.RoomName);
+        txt_DownTip.text = string.Format("该建筑生产{0}资源", space);
+    }
 }

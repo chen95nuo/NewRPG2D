@@ -299,6 +299,8 @@
     <Compile Include="Assets\Script\UIManger\Data\PropDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\TrainDataMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\WorkShopData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\WorkShopDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\WorldMapData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\WorldMapDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BuildingType.cs" />
@@ -320,6 +322,7 @@
     <Compile Include="Assets\Script\UIManger\GameManager\UIEventManager.cs" />
     <Compile Include="Assets\Script\UIManger\GetSpriteAtlas.cs" />
     <Compile Include="Assets\Script\UIManger\SystemTime.cs" />
+    <Compile Include="Assets\Script\UIManger\Test\LinkImageText.cs" />
     <Compile Include="Assets\Script\UIManger\Test\OriginEquip.cs" />
     <Compile Include="Assets\Script\UIManger\Test\SceneTest.cs" />
     <Compile Include="Assets\Script\UIManger\Test\ScreenTest.cs" />
@@ -339,6 +342,7 @@
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIPropInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Bag\UIRoleInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIBarracksInfo.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\Info\UIMagicWorkShopInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIProductionInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIRoomInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UIStockInfo.cs" />
@@ -372,9 +376,19 @@
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_1.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_2.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_3.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UIBarrcksGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UILiviroomGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UIRoleGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UIRoleGridMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UIRoleTrainGrid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoleGrid\UIRoleWorkGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\RoomFunc\MagicRoom\UIMagicTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\RoomFunc\MagicRoom\UIMagicUseGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\RoomFunc\MagicRoom\UIMagicWorkShop.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoomFunc\UIEquipWorkShop.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoomFunc\UIWorkShop.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoomFunc\UIWorkShopInfo.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\RoomFunc\UIWorkShopTypeGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Text\UITextMgr.cs" />
     <Compile Include="Assets\Script\UIManger\UI\TrainGrid\UIRoleBabyTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\TrainGrid\UIRoleChildGrid.cs" />
@@ -399,9 +413,7 @@
     <Compile Include="Assets\Script\UIManger\UI\UIMarket.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIMarketGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIProduceAnimator.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\UIRoleGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleTipGroup.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\UIRoleTrainGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleTrainTip.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIRoleTrainTipGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\UIScreenRole.cs" />
@@ -624,6 +636,7 @@
     <None Include="Assets\Res\RoleAnimation\Skeleton_Fighter02\demon_axeAnm.atlas.txt" />
     <None Include="Assets\Res\RoleAnimation\Skeleton_General\demon_general.atlas.txt" />
     <None Include="Assets\Res\RoleAnimation\Role\WomanChild\girl_1Anm.atlas.txt" />
+    <None Include="Assets\StreamingAssets\Config\Hall\WorkShopData.xml" />
     <None Include="Assets\Res\RoleAnimation\Role\Woman\womanRoleAnm.atlas.txt" />
     <None Include="Assets\Spine Examples\Spine\Raptor\raptor.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteLighting.cginc" />

@@ -7,6 +7,9 @@ using System;
 
 public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
 {
+    public string redSt = "<color=#ee5151>{0}</color>";
+    public string whiteText = "<color=#cccccc>{0}</color>";
+
     Dictionary<string, LanguageData> dic = new Dictionary<string, LanguageData>();
 
     protected override XmlName CurrentXmlName
@@ -62,6 +65,12 @@ public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
     public string GetRoomDes(string name)
     {
         string st = "Des_" + name;
+        st = GetString(st);
+        return st;
+    }
+    public string GetInfoDownTip(string name)
+    {
+        string st = "Info_" + name;
         st = GetString(st);
         return st;
     }

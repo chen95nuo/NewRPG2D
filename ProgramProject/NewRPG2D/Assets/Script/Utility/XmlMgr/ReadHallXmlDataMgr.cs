@@ -31,6 +31,8 @@ namespace Assets.Script.Utility
                     return new PropData();
                 case XmlName.WorldMapData:
                     return new WorldMapData();
+                case XmlName.WorkShopData:
+                    return new WorkShopData();
                 default: return new XmlData();
             }
         }

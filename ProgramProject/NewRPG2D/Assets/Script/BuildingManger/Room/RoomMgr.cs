@@ -171,7 +171,7 @@ public abstract class RoomMgr : MonoBehaviour
                 case BuildRoomName.WeaponsWorkShop:
                 case BuildRoomName.ArmorWorkShop:
                     return RoleAttribute.ManaSpeed;
-                case BuildRoomName.GemWorkSpho:
+                case BuildRoomName.GemWorkShop:
                     return RoleAttribute.ManaSpeed;
                 case BuildRoomName.Barracks:
                     return RoleAttribute.Fight;
@@ -1249,6 +1249,23 @@ public abstract class RoomMgr : MonoBehaviour
     {
 
     }
+
+    public bool RoleNavigation(List<Vector2> point, int index = 0)
+    {//左右上下
+        index++;
+        for (int i = 0; i < nearbyRoom.Length; i++) //递归左右侧房间
+        {
+            if (nearbyRoom[i] != null)
+            {
+                nearbyRoom[i].RoleNavigation(point, index);
+            }
+        }
+
+
+
+        return true;
+    }
+
 
     protected void GetCompoment()
     {

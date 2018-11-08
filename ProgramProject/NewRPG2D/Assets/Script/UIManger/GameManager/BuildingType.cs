@@ -36,7 +36,8 @@ public enum BuildRoomName
     MagicLab,//魔法升级
     WeaponsWorkShop,//武器工坊
     ArmorWorkShop,//护甲工坊
-    GemWorkSpho,//宝石工坊
+    JewelleryWorkShop,//首饰工坊
+    GemWorkShop,//宝石工坊
     Stairs,//楼梯
     ThroneRoom,//国王大厅
     Barracks,//军营

@@ -19,6 +19,7 @@ public class HallRoleData
     private float nowHp;//当前血量
     public RoleBabyData babyData;//宝宝数据
     public HallRole currentRole;
+    public int roomPoint;
     public RoomMgr currentRoom;
     private WeaponProfessionEnum professionType;
 
@@ -585,23 +586,28 @@ public class HallRoleData
     }
     #endregion
 
-    public float Attribute(RoleAttribute attribute)
+    public float Attribute(RoleAttribute attribute, bool isLevel = true)
     {
         switch (attribute)
         {
             case RoleAttribute.Fight:
                 return FightLevel;
             case RoleAttribute.Gold:
+                if (isLevel) return GoldLevel;
                 return GoldProduce;
             case RoleAttribute.Food:
+                if (isLevel) return FoodLevel;
                 return FoodProduce;
             case RoleAttribute.Mana:
+                if (isLevel) return ManaLevel;
                 return ManaProduce;
             case RoleAttribute.ManaSpeed:
                 return ManaSpeedUp;
             case RoleAttribute.Wood:
+                if (isLevel) return WoodLevel;
                 return WoodProduce;
             case RoleAttribute.Iron:
+                if (isLevel) return IronLevel;
                 return IronProduce;
             case RoleAttribute.HurtType:
                 return (int)HurtType;
@@ -768,7 +774,7 @@ public class HallRoleData
             default:
                 break;
         }
-        return ManaSpeedUp;
+        return roleLevel[3].Level++;
     }
     public void LevelUp(RoleAttribute atr)
     {

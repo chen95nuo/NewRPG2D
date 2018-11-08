@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using Assets.Script.Battle;
 using Assets.Script.UIManger;
 using UnityEngine;
+using Spine;
+using Spine.Unity;
+using Spine.Unity.Modules.AttachmentTools;
 
 public class HallRole : MonoBehaviour
 {
@@ -24,6 +27,8 @@ public class HallRole : MonoBehaviour
     #region 换装
     public ChangeRoleEquip RoleSkinEquip;
     #endregion
+    [SerializeField]
+    private SkeletonAnimation roleAnim;
     public HallRoleData RoleData
     {
         get
@@ -43,6 +48,11 @@ public class HallRole : MonoBehaviour
         HallRoleMgr.instance.AddRole(data, this);
         isChildren = false;
         ChickEquip(data);
+    }
+
+    private void Awake()
+    {
+        Invoke("RoleMove", 1.0f);
     }
     private void Update()
     {
@@ -93,6 +103,16 @@ public class HallRole : MonoBehaviour
 
     }
 
+    public void RoleMove()
+    {
+        roleAnim.AnimationState.SetAnimation(1, "run", true);
+        MainCastle.instance.GetNowWallGrid(transform.position);
+    }
+
+    //private IEnumerator RoleNavigation(Vector2 point)
+    //{
+
+    //}
 
     /// <summary>
     /// 角色训练完成

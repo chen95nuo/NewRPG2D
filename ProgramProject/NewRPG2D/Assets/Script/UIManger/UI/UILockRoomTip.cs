@@ -174,7 +174,7 @@ public class UILockRoomTip : TTUIPage
                 break;
             case BuildRoomName.ArmorWorkShop:
                 break;
-            case BuildRoomName.GemWorkSpho:
+            case BuildRoomName.GemWorkShop:
                 break;
             case BuildRoomName.Stairs:
                 break;
@@ -401,7 +401,7 @@ public class UILockRoomTip : TTUIPage
                 break;
             case BuildRoomName.ArmorWorkShop:
                 break;
-            case BuildRoomName.GemWorkSpho:
+            case BuildRoomName.GemWorkShop:
                 break;
             case BuildRoomName.Stairs:
                 break;

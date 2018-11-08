@@ -108,11 +108,11 @@ GameObject:
   m_Component:
   - component: {fileID: 224164672196927200}
   - component: {fileID: 114843225624156080}
-  - component: {fileID: 114095255422611102}
   - component: {fileID: 222769708622238106}
   - component: {fileID: 61606836934142842}
+  - component: {fileID: 114451129781591012}
   m_Layer: 5
-  m_Name: UILiviroomRoleGrid
+  m_Name: UILiviroomGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 180, y: 285}
+  m_Size: {x: 180, y: 245}
   m_EdgeRadius: 0
 --- !u!114 &114095149233033872
 MonoBehaviour:
@@ -170,32 +170,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114095255422611102
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1566655170352010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78230460a48af2c49a798043cdcb6f48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txt_Type: {fileID: 114772537090109594}
-  txt_Name: {fileID: 114198501990514534}
-  txt_Level: {fileID: 0}
-  txt_LevelTip: {fileID: 0}
-  Image_Icon: {fileID: 114843225624156080}
-  potoBg: {fileID: 114095149233033872}
-  roleIcon: {fileID: 114789049153458082}
-  headIcon: {fileID: 114579005101736694}
-  btn_ShowAllRole: {fileID: 114241856592477922}
-  lockOBJ: {fileID: 0}
-  sp:
-  - {fileID: 21300000, guid: 17d0254772502ab4fa06ff2d1b44207e, type: 3}
-  - {fileID: 21300000, guid: 137f2a936b4759c4c8909f20c6b6831f, type: 3}
-  - {fileID: 0}
-  addRole: {fileID: 21300000, guid: c954d18af5d217e4f859c185da959a69, type: 3}
 --- !u!114 &114198501990514534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,10 +229,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 07a1f4b8ea70e0c47b1e9d0ad3800970,
-      type: 3}
+    m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: 07a1f4b8ea70e0c47b1e9d0ad3800970, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -285,6 +258,24 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114451129781591012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1566655170352010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5dbb063405b4c4aa144e7d86b6393f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txt_Name: {fileID: 114198501990514534}
+  txt_Level: {fileID: 0}
+  Icon_Level: {fileID: 0}
+  Icon_AddRole: {fileID: 114579005101736694}
+  Icon_RoleFace: {fileID: 114789049153458082}
+  btn_ScreenRole: {fileID: 114241856592477922}
+  txt_Type: {fileID: 114772537090109594}
 --- !u!114 &114453047594200368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,7 +457,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 247.52}
+  m_SizeDelta: {x: 180, y: 245}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224266988563954496
 RectTransform:

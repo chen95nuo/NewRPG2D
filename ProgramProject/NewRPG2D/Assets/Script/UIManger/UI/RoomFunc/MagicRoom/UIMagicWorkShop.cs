@@ -31,6 +31,7 @@ public class UIMagicWorkShop : TTUIPage
 
     private void UpdateInfo()
     {
+
         MagicWorkShopHelper allMagic = MagicDataMgr.instance.AllMagicData;
         for (int i = 0; i < allMagic.useMagic.Length; i++)
         {
@@ -55,8 +56,12 @@ public class UIMagicWorkShop : TTUIPage
             {
                 InstanceGrid(readGrids);
             }
-
+            readGrids[i].gameObject.SetActive(true);
             readGrids[i].UpdateInfo(allMagic.useMagic[i], type);
+        }
+        for (int i = allMagic.readyMagic.Count; i < readGrids.Count; i++)
+        {
+            readGrids[i].gameObject.SetActive(false);
         }
         for (int i = 0; i < allMagic.workQueue.Length; i++)
         {
@@ -64,6 +69,12 @@ public class UIMagicWorkShop : TTUIPage
             {
                 InstanceGrid(workGrids);
             }
+            workGrids[i].gameObject.SetActive(true);
+            workGrids[i].UpdateInfo(allMagic.workQueue[i], type);
+        }
+        for (int i = allMagic.readyMagic.Count; i < workGrids.Count; i++)
+        {
+            workGrids[i].gameObject.SetActive(false);
         }
     }
 

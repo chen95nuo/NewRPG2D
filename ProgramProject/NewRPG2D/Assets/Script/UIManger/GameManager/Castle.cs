@@ -41,6 +41,24 @@ public class Castle : MonoBehaviour
     {
         buildPoint = new BuildPoint[maxLength, maxWidth];
     }
+    public void GetNowWallGrid(Vector2 point)
+    {
+        int widthY = (int)((point.y - wallStartPoint.position.y) / high);
+        Debug.Log("网格Y位置: " + widthY);
+        int widthX = (int)((point.x - wallStartPoint.position.x) / width);
+        Debug.Log("网格X位置: " + widthX);
+    }
+
+    public void RoleNavigation(Vector2 startPoint, Vector2 endPoint)
+    {
+        List<Vector2> Stairs = new List<Vector2>();
+        buildPoint[(int)startPoint.x, (int)startPoint.y].roomMgr.RoleNavigation(Stairs);
+    }
+
+    public void RoleNavigationCallBack()
+    {
+
+    }
 
     /// <summary>
     /// 生成背景墙

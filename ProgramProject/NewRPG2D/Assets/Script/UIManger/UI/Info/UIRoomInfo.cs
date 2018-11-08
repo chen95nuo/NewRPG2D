@@ -15,11 +15,41 @@ public abstract class UIRoomInfo : TTUIPage
     public Button btn_Close;
     public Button btn_Close_1;
 
+    public Text txt_DownTip;
     public RectTransform pageDownTip;
 
-    private int currentBtn = 0;
+    protected Button[] btn_ScreenRole;
+    [System.NonSerialized]
+    public RoomMgr roomData;
+    protected int currentBtn = 0;
+    private bool isShow = false;
 
-    protected RoomMgr roomData;
+    public bool IsShow
+    {
+        get
+        {
+            return isShow;
+        }
+
+        set
+        {
+            bool temp = value;
+            if (isShow != temp)
+            {
+                isShow = value;
+                if (isShow)
+                {
+                    pageDownTip.DOAnchorPos(Vector2.up * 500, 0.5f);
+                    UIPanelManager.instance.ShowPage<UIScreenRole>(this);
+                }
+                else
+                {
+                    btn_ScreenRole[currentBtn].interactable = true;
+                    pageDownTip.DOAnchorPos(Vector2.zero, 0.5f);
+                }
+            }
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -42,10 +72,15 @@ public abstract class UIRoomInfo : TTUIPage
     /// 刷新房间名称和等级
     /// </summary>
     /// <param name="data"></param>
-    protected virtual void UpdateName(RoomMgr data)
+    protected virtual void UpdateName(RoomMgr data, bool NeedTip = true)
     {
-        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.BuildingData.RoomName.ToString());
+        string name = data.BuildingData.RoomName.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(name);
         txt_Level.text = data.BuildingData.Level.ToString();
+        if (NeedTip)
+        {
+            txt_DownTip.text = LanguageDataMgr.instance.GetInfoDownTip(name);
+        }
     }
 
     /// <summary>
@@ -53,16 +88,50 @@ public abstract class UIRoomInfo : TTUIPage
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="roleGrids"></param>
-    protected virtual void ChickRoleNumber<T>(List<T> roleGrids)
+    protected virtual int ChickRoleNumber<T>(List<T> roleGrids)
     {
-        int index = roomData.BuildingData.RoomRole - roleGrids.Count;
-        if (index > 0) //证明已有角色卡数量不足
+        int index = roomData.BuildingData.RoomRole;
+        btn_ScreenRole = new Button[index];
+        int num = 0;//角色数量
+        for (int i = 0; i < index; i++)
         {
-            for (int i = 0; i < index; i++)
+            if (roleGrids.Count == i)
             {
                 GameObject go = Instantiate(roleGrid, roleTrans) as GameObject;
                 T grid = go.GetComponent<T>();
                 roleGrids.Add(grid);
+            }
+            UIRoleGridMgr mgr = roleGrids[i] as UIRoleGridMgr;
+            if (roomData.currentBuildData.roleData[i] != null)
+            {
+                mgr.UpdateInfo(roomData.currentBuildData.roleData[i], this);
+                num++;
+            }
+            else
+            {
+                mgr.UpdateInfo(this);
+            }
+            btn_ScreenRole[i] = mgr.btn_ScreenRole;
+            btn_ScreenRole[i].onClick.AddListener(ChickShowScreenRole);
+        }
+        return num;
+    }
+
+    protected virtual void ChickShowScreenRole()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_ScreenRole.Length; i++)
+        {
+            if (btn_ScreenRole[i].gameObject == go)
+            {
+                btn_ScreenRole[currentBtn].interactable = true;
+                btn_ScreenRole[i].interactable = false;
+                currentBtn = i;
+                if (!IsShow)
+                {
+                    IsShow = true;
+                }
+                return;
             }
         }
     }
@@ -77,11 +146,11 @@ public abstract class UIRoomInfo : TTUIPage
 
     protected virtual void DownPageAnimStart()
     {
-        pageDownTip.DOAnchorPos(Vector3.up * 500, 0.5f);
+        pageDownTip.DOAnchorPos(Vector2.up * 500, 0.5f);
     }
     protected virtual void DownPageAnimGoBack()
     {
-        pageDownTip.DOAnchorPos(Vector3.zero, 0.5f);
+        pageDownTip.DOAnchorPos(Vector2.zero, 0.5f);
     }
 
     protected abstract void UpdateInfo(RoomMgr roomMgr);
@@ -89,5 +158,12 @@ public abstract class UIRoomInfo : TTUIPage
     {
         System.Type type = GetType();
         UIPanelManager.instance.ClosePage(type);
+        if (isShow == true)
+        {
+            isShow = false;
+            UIPanelManager.instance.ClosePage<UIScreenRole>();
+            btn_ScreenRole[currentBtn].interactable = true;
+            pageDownTip.anchoredPosition = Vector2.zero;
+        }
     }
 }

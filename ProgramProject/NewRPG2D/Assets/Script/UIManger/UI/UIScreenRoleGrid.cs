@@ -29,7 +29,7 @@ public class UIScreenRoleGrid : MonoBehaviour
         UIScreenRole.instance.sr.horizontal = false;
     }
 
-    public void UpdateInfo(HallRoleData data, RoleAttribute needAtr)
+    public void UpdateInfo(HallRoleData data, RoleAttribute needAtr, bool isLevel = true)
     {
         if (data != currentRole)
         {
@@ -38,7 +38,18 @@ public class UIScreenRoleGrid : MonoBehaviour
         currentRole = data;
         TrainType.SetActive(false);
         txt_Name.text = data.Name;
-        txt_Level.text = data.GetAtrProduce(needAtr).ToString();
+        if (isLevel || needAtr == RoleAttribute.Fight)
+        {
+            txt_Level.text = data.GetAtrLevel(needAtr).ToString();
+        }
+        else if (needAtr == RoleAttribute.Max && data.RoleLevel[6].atr == RoleAttribute.Fight)
+        {
+            txt_Level.text = data.GetAtrProduce(needAtr).ToString();
+        }
+        else
+        {
+            txt_Level.text = "+" + data.GetAtrProduce(needAtr).ToString();
+        }
         roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
         if (needAtr == RoleAttribute.Max)
         {
@@ -50,7 +61,7 @@ public class UIScreenRoleGrid : MonoBehaviour
         }
         if (data.currentRoom != null)
         {
-            txt_Point.text = data.currentRoom.RoomName.ToString();
+            txt_Point.text = LanguageDataMgr.instance.GetRoomName(data.currentRoom.RoomName.ToString());
             if (data.currentRoom.BuildingData.RoomType == RoomType.Training)
             {
                 //如果是训练类的房间

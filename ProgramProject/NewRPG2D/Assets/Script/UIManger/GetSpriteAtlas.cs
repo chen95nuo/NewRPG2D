@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 
+[ExecuteInEditMode]
 public class GetSpriteAtlas : MonoBehaviour
 {
-
     public static GetSpriteAtlas insatnce = null;
 
     [SerializeField]
@@ -149,6 +149,7 @@ public class GetSpriteAtlas : MonoBehaviour
                 st = "Fight";
                 break;
             default:
+                st = "Laboratory";
                 break;
         }
         return GetIcon(st);

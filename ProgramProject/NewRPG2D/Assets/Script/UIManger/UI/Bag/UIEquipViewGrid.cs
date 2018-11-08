@@ -186,7 +186,7 @@ public class UIEquipViewGrid : MonoBehaviour
             txt_Tip_1.text = "需求";
             int roleLevel = roleData.RoleLevel[(int)equipData.ProfessionNeed - 1].Level;
             string text = "";
-            string whiteText = "<color=#cccccc>{0}</color> ";
+            string whiteText = "<color=#cccccc>{0}</color>";
             string redText = "<color=#ee5151>{0}</color> ";
             if (roleLevel >= equipData.Level && roleData != null)
             {

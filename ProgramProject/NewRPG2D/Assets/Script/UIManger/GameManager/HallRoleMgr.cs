@@ -313,14 +313,14 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// </summary>
     /// <param name="Atr"></param>
     /// <returns></returns>
-    public List<HallRoleData> ScreenRole(RoleAttribute Atr)
+    public List<HallRoleData> ScreenRole(RoleAttribute Atr, bool isLevel = true)
     {
         List<HallRoleData> data = new List<HallRoleData>();
         foreach (var item in dic)
         {
             data.Add(item.Key);
         }
-        data.Sort((x, y) => (y.Attribute(Atr).CompareTo(x.Attribute(Atr))));
+        data.Sort((x, y) => (y.Attribute(Atr, isLevel).CompareTo(x.Attribute(Atr, isLevel))));
         return data;
     }
     /// <summary>
