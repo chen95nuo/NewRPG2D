@@ -116,6 +116,7 @@ public class UIDraggingRole : TTUIPage
                 {
                     RoleAttribute roleAtr = room.NeedAttribute;
                     int temp = room.currentBuildData.ScreenAllYeild(roleAtr, false);
+                    Debug.Log(temp);
                     float p_1 = role.RoleData.GetArtProduce(room.RoomName);
 
                     string st = ChicttxtColorOrIcon(room.RoomName);
@@ -144,7 +145,6 @@ public class UIDraggingRole : TTUIPage
                     Icon.gameObject.SetActive(true);
                     if (temp >= 0)//包括+0
                     {
-
                         float p_2 = room.currentBuildData.roleData[temp].GetArtProduce(room.RoomName);
                         float p_3 = p_1 - p_2;
                         if (p_3 >= 0)//包括+0

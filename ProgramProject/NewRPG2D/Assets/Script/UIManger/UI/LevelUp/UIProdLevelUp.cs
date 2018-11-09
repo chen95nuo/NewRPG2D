@@ -29,7 +29,6 @@ public class UIProdLevelUp : UILevelUp
 
     public Image[] Icons;
     public Image[] stockIcons;
-    public Image[] trainIcons;
 
     protected override void Init(RoomMgr data)
     {
@@ -40,55 +39,60 @@ public class UIProdLevelUp : UILevelUp
         {
             case BuildRoomName.Gold:
                 UpdateInfo_1(data);
-                UpdateIcon("Gold", "GoldStock", "");
+                UpdateIcon("Gold", "GoldStock");
                 return;
             case BuildRoomName.GoldSpace:
                 UpdateInfo_2(data);
-                UpdateIcon("Gold", "GoldStock", "");
+                UpdateIcon("Gold", "GoldStock");
                 return;
             case BuildRoomName.Food:
                 UpdateInfo_1(data);
-                UpdateIcon("Food", "FoodStock", "");
+                UpdateIcon("Food", "FoodStock");
                 return;
             case BuildRoomName.FoodSpace:
                 UpdateInfo_2(data);
-                UpdateIcon("Food", "FoodStock", "");
+                UpdateIcon("Food", "FoodStock");
                 return;
             case BuildRoomName.Wood:
                 UpdateInfo_1(data);
-                UpdateIcon("Wood", "WoodStock", "");
+                UpdateIcon("Wood", "WoodStock");
                 return;
             case BuildRoomName.WoodSpace:
                 UpdateInfo_2(data);
-                UpdateIcon("Wood", "WoodStock", "");
+                UpdateIcon("Wood", "WoodStock");
                 return;
             case BuildRoomName.Mana:
                 UpdateInfo_1(data);
-                UpdateIcon("Mana", "ManaStock", "");
+                UpdateIcon("Mana", "ManaStock");
                 return;
             case BuildRoomName.ManaSpace:
                 UpdateInfo_2(data);
-                UpdateIcon("Mana", "ManaStock", "");
+                UpdateIcon("Mana", "ManaStock");
                 return;
             case BuildRoomName.Iron:
                 UpdateInfo_1(data);
-                UpdateIcon("Iron", "IronStock", "");
+                UpdateIcon("Iron", "IronStock");
                 return;
             case BuildRoomName.IronSpace:
                 UpdateInfo_2(data);
-                UpdateIcon("Iron", "IronStock", "");
+                UpdateIcon("Iron", "IronStock");
                 return;
             case BuildRoomName.LivingRoom:
                 UpdateInfo_2(data);
                 txt_Tip_4.text = "居民数量";
                 txt_Tip_5.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
-                UpdateIcon("HumanStock", "HumanStock", "");
+                UpdateIcon("HumanStock", "HumanStock");
                 return;
             case BuildRoomName.Barracks:
                 UpdateInfo_2(data);
                 txt_Tip_4.text = "可携带人数";
                 txt_Tip_5.text = "升级可提升参与战斗的人数";
-                UpdateIcon("HumanStock", "HumanStock", "");
+                UpdateIcon("HumanStock", "HumanStock");
+                return;
+            case BuildRoomName.MagicWorkShop:
+                txt_Tip_4.text = "战斗可用数";
+                txt_Tip_5.text = "";
+                UpdateInfo_2(data);
                 return;
             default:
                 break;
@@ -101,9 +105,9 @@ public class UIProdLevelUp : UILevelUp
                 break;
             case RoomType.Training:
                 UpdateInfo_2(data);
-                string space_1 = "       ";
-                string space_2 = "     ";
-                txt_Tip_5.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
+                string space_1 = LanguageDataMgr.instance.GetString("Info_" + data.RoomName);
+                string space_2 = string.Format("<quad name={0} size=36 width=1 />", data.RoomName.ToString());
+                txt_Tip_5.text = string.Format(space_1, space_2);
                 break;
             case RoomType.Support:
                 break;
@@ -155,11 +159,6 @@ public class UIProdLevelUp : UILevelUp
 
         txt_Tip_4.text = "容量";
 
-        if (data.BuildingData.RoomType == RoomType.Training)
-        {
-            Type_3.anchoredPosition = Vector3.zero;
-        }
-
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
         BuildingData b_Data_2;//下一级房间信息
@@ -181,7 +180,7 @@ public class UIProdLevelUp : UILevelUp
         Type_3.anchoredPosition = Vector3.up * 2000;
     }
 
-    private void UpdateIcon(string icon, string stock, string train)
+    private void UpdateIcon(string icon, string stock)
     {
         if (stock != "")
         {
@@ -189,14 +188,6 @@ public class UIProdLevelUp : UILevelUp
             for (int i = 0; i < stockIcons.Length; i++)
             {
                 stockIcons[i].sprite = StockSp;
-            }
-        }
-        if (train != "")
-        {
-            Sprite trainSp = GetSpriteAtlas.insatnce.GetIcon(train);
-            for (int i = 0; i < trainIcons.Length; i++)
-            {
-                trainIcons[i].sprite = trainSp;
             }
         }
     }

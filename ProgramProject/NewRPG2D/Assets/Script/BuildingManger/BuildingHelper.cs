@@ -149,7 +149,7 @@ public class LocalBuildingData
         {
             if (roleData[i] == null)
             {
-                continue;
+                return -1;
             }
             if (isUp)
             {

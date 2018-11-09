@@ -164,6 +164,9 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.ClanHall:
                 break;
             case BuildRoomName.MagicWorkShop:
+                btn_Message.gameObject.SetActive(isOpen);
+                btn_LevelUp.gameObject.SetActive(isOpen);
+                btn_Craft.gameObject.SetActive(isOpen);
                 break;
             case BuildRoomName.MagicLab:
                 btn_Message.gameObject.SetActive(isOpen);
@@ -269,6 +272,9 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.ThroneRoom:
                 UIPanelManager.instance.ShowPage<UIThroneInfo>(roomData);
                 break;
+            case BuildRoomName.MagicWorkShop:
+                UIPanelManager.instance.ShowPage<UIMagicWorkShopInfo>(roomData);
+                break;
             default:
                 break;
         }
@@ -349,11 +355,12 @@ public class UILockRoomTip : TTUIPage
     }
     private void ChickCraft()
     {
-        Debug.Log("检查制造");
+        Debug.Log("检查魔法制造");
+        UIPanelManager.instance.ShowPage<UIMagicWorkShop>(roomData);
     }
     private void ChickCraftItem()
     {
-        Debug.Log("检查物品制造");
+        Debug.Log("检查装备制造");
     }
     private void ChickResearch()
     {
@@ -394,6 +401,7 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.ClanHall:
                 break;
             case BuildRoomName.MagicWorkShop:
+                UIPanelManager.instance.ShowPage<UIMagicWorkShopLevelUp>(roomData);
                 break;
             case BuildRoomName.MagicLab:
                 break;
