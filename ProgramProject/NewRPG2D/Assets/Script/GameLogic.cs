@@ -10,6 +10,7 @@ using Assets.Script.Timer;
 using UnityEngine;
 using Assets.Script.Battle;
 using Assets.Script.UIManger;
+using Assets.Script.Net;
 
 namespace Assets.Script
 {
@@ -60,6 +61,7 @@ namespace Assets.Script
             ReadXmlNewMgr.CreateInstance();
             CTimerManager.CreateInstance();
             ResourcesLoadMgr.GetInstance();
+            WebSocketManger.GetInstance();
         }
 
         /// <summary>
@@ -71,6 +73,9 @@ namespace Assets.Script
 
         public void InitData()
         {
+            WebSocketManger.instance.InitSocket(WebSocketManger.defaultUrl);
+            WebSocketManger.instance.Connect();
+          
             //isGameOver = true;
         }
 
@@ -86,6 +91,10 @@ namespace Assets.Script
         //private float addTime = 0;
         public void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                WebSocketManger.instance.Send(NetSendMsg.RQ_StartGame, 1, "2");
+            }
 
             if (CTimerManager.HasInstance())
             {
