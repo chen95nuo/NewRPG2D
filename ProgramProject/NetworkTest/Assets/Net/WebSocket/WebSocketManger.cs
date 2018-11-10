@@ -23,7 +23,7 @@ public class ProtobufSerilizer
             //创建流对象
             MemoryStream ms = new MemoryStream();
             //使用ProtoBuf自带的序列化工具序列化IExtensible对象
-            Serializer.SerializeWithLengthPrefix(ms, model, PrefixStyle.Base128);
+            Serializer.Serialize(ms, model);
             //创建二级制数组，保存序列化后的流
             byte[] bytes = new byte[ms.Length];
             //将流的位置设为0
@@ -54,7 +54,7 @@ public class ProtobufSerilizer
             //将流的位置归0
             ms.Position = 0;
             //反序列化对象
-            T result = Serializer.DeserializeWithLengthPrefix<T>(ms, PrefixStyle.Base128);
+            T result = Serializer.Deserialize<T>(ms);
             return result;
         }
         catch (Exception e)
@@ -65,10 +65,8 @@ public class ProtobufSerilizer
     }
 }
 
-public class WSMgr : MonoBehaviour
+public class WebSocketManger : MonoBehaviour
 {
-
-    //public string url = "ws://localhost:8080/web1/websocket";
     public string url = "ws://39.104.79.77:9010/websocket";
     public InputField msg;
     public Text console;
@@ -137,7 +135,7 @@ public class WSMgr : MonoBehaviour
 
     public void Send()
     {
-        webSocket.Send(msg.text);
+     //   webSocket.Send(msg.text);
     }
 
     public void Send(string str)
@@ -147,9 +145,9 @@ public class WSMgr : MonoBehaviour
         StartGame.token = "2";
         BaseData data = new BaseData();
         data.code = 101;
-        Extensible.AppendValue(StartGame, 101, data);
+        Extensible.AppendValue(data, 101, StartGame);
       
-        byte[] b = ProtobufSerilizer.Serialize(StartGame);
+        byte[] b = ProtobufSerilizer.Serialize(data);
         webSocket.Send(b);
     }
 
@@ -175,12 +173,22 @@ public class WSMgr : MonoBehaviour
     void OnMessageReceived(WebSocket ws, byte[] bytes)
     {
         // data = Encoding.UTF8.GetString(bytes, 0, receiveNumber);
-        RS_StartGame startGame = ProtobufSerilizer.DeSerialize<RS_StartGame>(bytes);
-        BaseData baseData =  Extensible.GetValue<BaseData>(startGame, 101);
+        BaseData baseData = ProtobufSerilizer.DeSerialize<BaseData>(bytes);
+        if (baseData.code == 2001)
+        {
+            A_ErrorMessage errorMessage = Extensible.GetValue<A_ErrorMessage>(baseData, 2001);
+        }
+        //else
+        //{
 
-        string data = startGame.ret + "\r\n" + startGame.state + "\r\n" + baseData.code;
-        Debug.Log(data);
-        setConsoleMsg(data);
+        //RS_StartGame startGame =  Extensible.GetValue<RS_StartGame>(baseData, 102);
+        //    string data = startGame.ret + " " + startGame.state + " " + baseData.code;
+        //    Debug.Log(data);
+        //}
+
+        //string data = startGame.ret + "\r\n" + startGame.state + "\r\n" + baseData.code;
+        //Debug.Log(data);
+        //setConsoleMsg(data);
     }
 
     /// <summary>
@@ -215,8 +223,8 @@ public class WSMgr : MonoBehaviour
 #endif
         Debug.Log(errorMsg);
         setConsoleMsg(errorMsg);
-        antiInit();
-        init();
+        //antiInit();
+        //init();
     }
 
     #endregion  
