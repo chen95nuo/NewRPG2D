@@ -93,7 +93,8 @@ namespace Assets.Script
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                WebSocketManger.instance.Send(NetSendMsg.RQ_StartGame, 1, "2");
+                // WebSocketManger.instance.Send(NetSendMsg.RQ_StartGame, 1, "2");
+                HTTPManager.instance.Regist("abc", "123456");
             }
 
             if (CTimerManager.HasInstance())

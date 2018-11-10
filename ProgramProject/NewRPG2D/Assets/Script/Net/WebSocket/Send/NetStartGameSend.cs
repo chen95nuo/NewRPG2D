@@ -19,8 +19,8 @@ namespace Assets.Script.Net
 
         public IExtensible Send(params object[] param)
         {
-            mStartGame.serverId = 1;
-            mStartGame.token = "2";
+            mStartGame.serverId = (int)param[0];
+            mStartGame.token = (string)param[1];
             return mStartGame;
         }
     }
