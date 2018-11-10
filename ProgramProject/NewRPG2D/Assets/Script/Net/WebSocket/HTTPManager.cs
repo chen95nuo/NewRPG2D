@@ -32,8 +32,8 @@ namespace Assets.Script.Net
             else if (requestType == RequestTypeEnum.Post)
             {
                 HTTPRequest request = new HTTPRequest(new Uri(defaultUrl + "/posturi"), HTTPMethods.Post, onRequestFinished);
-                request.AddField("", userName);
-                request.AddField("", password);
+                request.AddField("u", userName);
+                request.AddField("p", password);
                 request.Send();
             }
         }
