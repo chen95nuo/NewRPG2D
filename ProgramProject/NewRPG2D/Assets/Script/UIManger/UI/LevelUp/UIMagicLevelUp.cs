@@ -21,7 +21,7 @@ public class UIMagicLevelUp : TTUIPage
         {
             if (room.currentBuildData.buildingData.Param1 > i)
             {
-                int level = ChickPlayerInfo.instance.GetMagicLevel((MagicName)i);
+                int level = MagicDataMgr.instance.GetMagicLevel((MagicName)i);
                 MagicData data = MagicDataMgr.instance.GetMagic((MagicName)i, level + 1);
                 grids[i].UpdateInfo(data, room.BuildingData.Level);
             }

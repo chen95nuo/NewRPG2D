@@ -11,7 +11,7 @@ namespace Assets.Script.Net
             int ret = mStartGame.ret;
             int state = mStartGame.state;
 
-            DebugHelper.Log("NetStartGameRev ==  " + ret +"  "+ state);
+            DebugHelper.Log("NetStartGameRev ==  " + ret + "  " + state);
         }
 
     }

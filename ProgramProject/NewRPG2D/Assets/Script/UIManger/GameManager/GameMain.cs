@@ -17,8 +17,6 @@ public class GameMain : MonoBehaviour
             Destroy(this.gameObject);
         }
         Init();
-
-
     }
 
     public void Init()

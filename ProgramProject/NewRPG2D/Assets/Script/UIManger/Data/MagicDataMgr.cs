@@ -4,11 +4,13 @@ using UnityEngine;
 using Assets.Script.UIManger;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.Timer;
 
 public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
 {
-    private MagicWorkShopHelper allMagicData;
-    private Dictionary<MagicName, int> LevelDic = new Dictionary<MagicName, int>();
+    private MagicWorkShopHelper allMagicData = new MagicWorkShopHelper();
+    private Dictionary<MagicName, int> MagicLevel = new Dictionary<MagicName, int>();//所有技能等级
+    private Dictionary<int, int> workMagic = new Dictionary<int, int>();//技能逻辑ID,时间序列ID
     private MagicData currentLevelUpMagic;//当前正在升级的技能
     private int instanceMagicID = 0;
     public int InstanceMagicID
@@ -59,17 +61,67 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         return null;
     }
 
-    public void CryNewMagic(int magicId, int time = 0)
+    public void MagicLevelUp(int id, int time = 0)
+    {
+
+    }
+
+    public void CryNewMagic(int id, int time = 0)
     {
         int index = InstanceMagicID;
-        MagicData magicData = GetXmlDataByItemId<MagicData>(magicId);
+        MagicData magicData = GetXmlDataByItemId<MagicData>(id);
         RealMagic data = new RealMagic(index, magicData, time);
+        time = time == 0 ? data.magic.produceTime : time;
+        allMagicData.workQueue.Add(index, data);
+        int timeIndex = CTimerManager.instance.AddListener(time, 1, NewMagicCallBack);
+        workMagic.Add(timeIndex, index);
     }
-
-    public void MagicLevelUp(int magicId, int time = 0)
+    public void NewMagicCallBack(int index)
     {
-
+        int magicID = workMagic[index];
+        allMagicData.workQueue[magicID].time--;
+        HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.CryNewMagic, index);
+        if (allMagicData.workQueue[magicID].time <= 0)
+        {
+            allMagicData.workQueue[magicID].time = 0;
+            MagicWorkComplate(index);
+        }
     }
+    public void CancelNewMagic(int magicID)
+    {
+        int needProduce = allMagicData.workQueue[magicID].magic.produceNeed;
+        allMagicData.workQueue.Remove(magicID);
+        ChickPlayerInfo.instance.AddStock(BuildRoomName.ManaSpace, needProduce);
+        foreach (var item in workMagic)
+        {
+            if (item.Value == magicID)
+            {
+                CTimerManager.instance.RemoveLister(item.Key);
+                workMagic.Remove(item.Key);
+                break;
+            }
+        }
+    }
+    public void SpeedUpNewMagic(int magicID)
+    {
+        RealMagic magic = allMagicData.workQueue[magicID];
+        allMagicData.workQueue.Remove(magicID);
+        allMagicData.readyMagic.Add(magic);
+    }
+    public void MagicWorkComplate(int magicID)
+    {
+        foreach (var item in workMagic)
+        {
+            if (item.Value == magicID)
+            {
+                CTimerManager.instance.RemoveLister(item.Key);
+                allMagicData.readyMagic.Add(allMagicData.workQueue[magicID]);
+                allMagicData.workQueue.Remove(magicID);
+                return;
+            }
+        }
+    }
+
 
     public void UnloadMagic(int magicID)
     {
@@ -89,6 +141,26 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
             }
         }
     }
+
+    /// <summary>
+    /// 获取技能等级
+    /// </summary>
+    public void SetMagicLevel(Dictionary<MagicName, int> MagicData)
+    {
+        this.MagicLevel = MagicData;
+    }
+    /// <summary>
+    /// 获取技能等级
+    /// </summary>
+    /// <returns></returns>
+    public int GetMagicLevel(MagicName name)
+    {
+        return MagicLevel[name];
+    }
+    /// <summary>
+    /// 修改技能等级
+    /// </summary>
+    public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
 }
 
 public class RealMagic
@@ -107,11 +179,19 @@ public class MagicWorkShopHelper
 {
     public RealMagic[] useMagic;
     public List<RealMagic> readyMagic;
-    public RealMagic[] workQueue;
+    public Dictionary<int, RealMagic> workQueue;
 
     public MagicWorkShopHelper()
     {
-
+        useMagic = new RealMagic[6];
+        readyMagic = new List<RealMagic>();
+        workQueue = new Dictionary<int, RealMagic>();
+    }
+    public MagicWorkShopHelper(RealMagic[] useMagic, List<RealMagic> readyMagic, Dictionary<int, RealMagic> workQueue)
+    {
+        this.useMagic = useMagic;
+        this.readyMagic = readyMagic;
+        this.workQueue = workQueue;
     }
 }
 

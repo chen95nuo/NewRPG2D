@@ -28,6 +28,7 @@ public enum HallEventDefineEnum
     ShowPropInfo,//显示道具信息
     RefreshBagUI,//背包变化 刷新背包UI
     UiMainHight,//顶层高亮显示
+    CryNewMagic,//检查新技能时间
     EventMax
 }
 

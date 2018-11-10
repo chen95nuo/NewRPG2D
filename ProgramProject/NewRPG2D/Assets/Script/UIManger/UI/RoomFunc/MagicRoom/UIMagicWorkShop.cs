@@ -9,34 +9,22 @@ public class UIMagicWorkShop : TTUIPage
     public static UIMagicWorkShop instance;
 
     public Text txt_tip_1;
-    public Text txt_tip_2;
-    public Text txt_tip_3;
-    public Text txt_tip_4;
-    public Text txt_tip_5;
-    public Text txt_tip_6;
-    public Text txt_tip_7;
     public Text txt_tip_8;
     public Text txt_FightTip;
     public Text txt_ReadTip;
     public Text txt_WhitTip;
-    public Text txt_diaNum_1;
-    public Text txt_diaNum_2;
-    public Text txt_ReadNum;
-
-    public Button btn_Message;
-    public Button btn_Add;
-    public Button btn_Remove;
-    public Button btn_Change;
-    public Button btn_Cancel;
-    public Button btn_SpeedUp;
+    public Text txt_Diamonds;
+    public Text txt_MagicNum;
 
     public GameObject grid;
     public UIMagicGrid[] useGrids;
+    public UIMagicGrid[] cryGrids;
     public Transform readGridPoint;
     public List<UIMagicGrid> readGrids = new List<UIMagicGrid>();
     public List<UIMagicGrid> workGrids = new List<UIMagicGrid>();
 
-    public UIMagicTip tip;
+    public UIMagicInfoTip tip;
+    public GameObject page_2;
     private int empty = 0;
 
     private MagicWorkShopHelper allMagic { get { return MagicDataMgr.instance.AllMagicData; } }
@@ -44,13 +32,7 @@ public class UIMagicWorkShop : TTUIPage
 
     private void Awake()
     {
-        txt_tip_1.text = "讯息";
-        txt_tip_2.text = "添加";
-        txt_tip_3.text = "移除";
-        txt_tip_4.text = "替换";
-        txt_tip_5.text = "取消";
-        txt_tip_6.text = "加速";
-        txt_tip_7.text = "制作";
+        txt_tip_1.text = "制作";
         txt_tip_8.text = "全部加速";
         txt_FightTip.text = "战斗法术";
         txt_ReadTip.text = "就绪的法术";
@@ -59,7 +41,7 @@ public class UIMagicWorkShop : TTUIPage
 
     public override void Show(object mData)
     {
-        tip.RemovePage();
+        tip.CloseAllUI();
         base.Show(mData);
         RoomMgr data = mData as RoomMgr;
         currentRoom = data.currentBuildData;
@@ -68,49 +50,8 @@ public class UIMagicWorkShop : TTUIPage
 
     private void UpdateInfo()
     {
-        //for (int i = 0; i < allMagic.useMagic.Length; i++)
-        //{
-        //    if (allMagic.useMagic[i] != null)
-        //    {
-        //        useGrid[i].UpdateInfo(allMagic.useMagic[i]);
-        //    }
-        //    else
-        //    {
-        //        empty++;
-        //        useGrid[i].UpdateInfo();
-        //    }
-        //}
-        //int type = 0;
-        //if (empty == 0)
-        //{
-        //    type = 2;
-        //}
-        //for (int i = 0; i < allMagic.readyMagic.Count; i++)
-        //{
-        //    if (readGrids.Count == i)
-        //    {
-        //        InstanceGrid(readGrids);
-        //    }
-        //    readGrids[i].gameObject.SetActive(true);
-        //    //readGrids[i].UpdateInfo(allMagic.useMagic[i], type);
-        //}
-        //for (int i = allMagic.readyMagic.Count; i < readGrids.Count; i++)
-        //{
-        //    readGrids[i].gameObject.SetActive(false);
-        //}
-        //for (int i = 0; i < allMagic.workQueue.Length; i++)
-        //{
-        //    if (workGrids.Count == i)
-        //    {
-        //        InstanceGrid(workGrids);
-        //    }
-        //    workGrids[i].gameObject.SetActive(true);
-        //    //workGrids[i].UpdateInfo(allMagic.workQueue[i], type);
-        //}
-        //for (int i = allMagic.readyMagic.Count; i < workGrids.Count; i++)
-        //{
-        //    workGrids[i].gameObject.SetActive(false);
-        //}
+        int num = MagicDataMgr.instance.AllMagicData.readyMagic.Count + MagicDataMgr.instance.AllMagicData.workQueue.Count;
+        txt_MagicNum.text = num + "/18";
     }
 
     public void UpdateUseMagic()
@@ -134,12 +75,48 @@ public class UIMagicWorkShop : TTUIPage
             }
         }
     }
-    public void UpdateReadMagic() { }
-    public void UpdateWorkMagic() { }
+    public void UpdateReadMagic()
+    {
+        for (int i = 0; i < allMagic.readyMagic.Count; i++)
+        {
+            if (readGrids.Count == i)
+            {
+                InstanceGrid(readGrids);
+            }
+            readGrids[i].gameObject.SetActive(true);
+            //readGrids[i].UpdateInfo(allMagic.useMagic[i], type);
+        }
+        for (int i = allMagic.readyMagic.Count; i < readGrids.Count; i++)
+        {
+            readGrids[i].gameObject.SetActive(false);
+        }
+    }
+    public void UpdateWorkMagic()
+    {
+        //for (int i = 0; i < allMagic.workQueue.Length; i++)
+        //{
+        //    if (workGrids.Count == i)
+        //    {
+        //        InstanceGrid(workGrids);
+        //    }
+        //    workGrids[i].gameObject.SetActive(true);
+        //    //workGrids[i].UpdateInfo(allMagic.workQueue[i], type);
+        //}
+        //for (int i = allMagic.readyMagic.Count; i < workGrids.Count; i++)
+        //{
+        //    workGrids[i].gameObject.SetActive(false);
+        //}
+    }
 
     public void ChickUseBtn(RealMagic grid)
     {
-        tip.ShowPage(1, grid);
+        //tip.ShowPage(1, grid);
+    }
+
+    public void ShowMagicTip(RealMagic magic)
+    {
+        int type = readGrids.Count < 18 ? 0 : 2;
+        tip.UpdateInfo(magic, type);
     }
 
     public void ShowInfo()

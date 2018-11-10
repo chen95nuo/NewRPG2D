@@ -16,6 +16,7 @@ public class UIMagicGrid : MonoBehaviour
     public Button btn_Click;
 
     private MagicGridType ClickType = MagicGridType.Empty;
+    public MagicData currentMagic;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class UIMagicGrid : MonoBehaviour
                 ClickType_0();
                 break;
             case MagicGridType.Use:
+                ClickType_1();
                 break;
             case MagicGridType.Read:
                 break;
@@ -58,8 +60,8 @@ public class UIMagicGrid : MonoBehaviour
     }
     public void ClickType_1()
     {
-        //直接弹出信息框 只有提示没有其他
-        UIMagicWorkShop.instance.
+        //返回类型和Type
+        //UIMagicWorkShop.instance.ShowMagicTip(currentMagic);
     }
     public void ClickType_2()
     {

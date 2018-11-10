@@ -95,7 +95,7 @@ public class LocalServer : TSingleton<LocalServer>
         {
             dic.Add((MagicName)i, 1);
         }
-        ChickPlayerInfo.instance.SetMagicLevel(dic);
+        MagicDataMgr.instance.SetMagicLevel(dic);
     }
 
 }

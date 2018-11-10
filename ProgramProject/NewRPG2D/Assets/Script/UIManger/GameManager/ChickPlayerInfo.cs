@@ -1346,26 +1346,6 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
-    /// 获取技能等级
-    /// </summary>
-    public void SetMagicLevel(Dictionary<MagicName, int> MagicData)
-    {
-        this.MagicLevel = MagicData;
-    }
-    /// <summary>
-    /// 获取技能等级
-    /// </summary>
-    /// <returns></returns>
-    public int GetMagicLevel(MagicName name)
-    {
-        return MagicLevel[name];
-    }
-    /// <summary>
-    /// 修改技能等级
-    /// </summary>
-    public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
-
-    /// <summary>
     /// 获取房间内角色对应ICon
     /// </summary>
     /// <param name="name"></param>
