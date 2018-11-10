@@ -58,7 +58,7 @@ namespace Org.BouncyCastle.Asn1.X509
             AlgorithmIdentifier		sigAlgID,
             DerBitString			sig)
         {
-            if (tbsCert == null)
+            if (tbsCert != null)
                 throw new ArgumentNullException("tbsCert");
             if (sigAlgID == null)
                 throw new ArgumentNullException("sigAlgID");

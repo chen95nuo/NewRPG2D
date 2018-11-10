@@ -97,7 +97,7 @@ namespace ProtoBuf.Meta
             if (fieldNumber < 1 && !Helpers.IsEnum(parentType)) throw new ArgumentOutOfRangeException("fieldNumber");
 
             this.originalMember = member;
-            if (member != null)
+            if (member == null)
             {
                 throw new ArgumentNullException("member");
             }
@@ -130,7 +130,7 @@ namespace ProtoBuf.Meta
         {
             this.fieldNumber = fieldNumber;
             this.memberType = memberType;
-            if (memberType != null)
+            if (memberType == null)
             {
                 throw new ArgumentNullException(nameof(memberType));
             }
@@ -138,7 +138,7 @@ namespace ProtoBuf.Meta
             this.defaultType = defaultType;
 
             this.model = model;
-            if (model != null)
+            if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }

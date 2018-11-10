@@ -6,72 +6,61 @@ using UnityEngine.UI;
 using System.Text;
 using ProtoBuf;
 using System.IO;
+using demo;
 
-[ProtoContract]
-class MessageModel
-{
-    //添加特性，表示该字段可以被序列化，1可以理解为下标
-    [ProtoMember(1)]
-    public int ID { get; set; }
-    [ProtoMember(2)]
-    public string Name { get; set; }
-    [ProtoMember(3)]
-    public int code { get; set; }
-}
 
-[ProtoContract]
-class Proto
+public class ProtobufSerilizer
 {
-    public static byte[] Serizlize(MessageModel meg)
+
+    /// <summary>
+    /// 将消息序列化为二进制的方法
+    /// </summary>
+    /// <param name="model">要序列化的对象</param>
+    public static byte[] Serialize(IExtensible model)
     {
         try
         {
-            //涉及格式转换，需要用到流，将二进制序列化到流中  
-            using (MemoryStream ms = new MemoryStream())
-            {
-                //使用ProtoBuf工具的序列化方法  
-                ProtoBuf.Serializer.Serialize<MessageModel>(ms, meg);
-
-                //定义二级制数组，保存序列化后的结果  
-                byte[] result = new byte[ms.Length];
-                //将流的位置设为0，起始点  
-                //ms.Seek(0, SeekOrigin.Begin);  
-                ms.Position = 0;
-                //将流中的内容读取到二进制数组中  
-                ms.Read(result, 0, result.Length);
-
-                return result;
-            }
+            //创建流对象
+            MemoryStream ms = new MemoryStream();
+            //使用ProtoBuf自带的序列化工具序列化IExtensible对象
+            Serializer.SerializeWithLengthPrefix(ms, model, PrefixStyle.Base128);
+            //创建二级制数组，保存序列化后的流
+            byte[] bytes = new byte[ms.Length];
+            //将流的位置设为0
+            ms.Position = 0;
+            //将流中的内容读取到二进制数组中
+            ms.Read(bytes, 0, bytes.Length);
+            return bytes;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-
-            Debug.Log("序列化失败: " + ex.ToString());
+            Debug.Log("序列化失败: " + e.ToString());
             return null;
         }
     }
 
-    public static MessageModel DeSerizlize(byte[] msg)
+    /// <summary>
+    /// 将收到的消息反序列化成IExtensible对象
+    /// </summary>
+    /// <param name="msg">收到的消息的字节流.</param>
+    /// <returns></returns>
+    public static T DeSerialize<T>(byte[] bytes) where T : IExtensible
     {
         try
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                //将消息写入流中  
-                ms.Write(msg, 0, msg.Length);
-                //将流的位置归0  
-                ms.Position = 0;
-                //使用工具反序列化对象  
-                MessageModel mm = ProtoBuf.Serializer.Deserialize<MessageModel>(ms);
-                return mm;
-
-            }
+            MemoryStream ms = new MemoryStream();
+            //将消息写入流中
+            ms.Write(bytes, 0, bytes.Length);
+            //将流的位置归0
+            ms.Position = 0;
+            //反序列化对象
+            T result = Serializer.DeserializeWithLengthPrefix<T>(ms, PrefixStyle.Base128);
+            return result;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-
-            Debug.Log("反序列化失败: " + ex.ToString());
-            return null;
+            Debug.Log("反序列化失败: " + e.ToString());
+            return default(T);
         }
     }
 }
@@ -153,14 +142,15 @@ public class WSMgr : MonoBehaviour
 
     public void Send(string str)
     {
-        MessageModel mm = new MessageModel();
-        mm.ID = 1;
-        mm.Name = "张三";
-        mm.code = 101;
-        //序列化数据  
-        byte[] bytes = Proto.Serizlize(mm);
-
-        webSocket.Send(bytes);
+        RQ_StartGame StartGame = new RQ_StartGame();
+        StartGame.serverId = 1;
+        StartGame.token = "2";
+        BaseData data = new BaseData();
+        data.code = 101;
+        Extensible.AppendValue(StartGame, 101, data);
+      
+        byte[] b = ProtobufSerilizer.Serialize(StartGame);
+        webSocket.Send(b);
     }
 
     public void Close()
@@ -185,9 +175,10 @@ public class WSMgr : MonoBehaviour
     void OnMessageReceived(WebSocket ws, byte[] bytes)
     {
         // data = Encoding.UTF8.GetString(bytes, 0, receiveNumber);
-        //反序列化数据
-        MessageModel mm = Proto.DeSerizlize(bytes);
-        string data = mm.ID + "\r\n" + mm.Name + "\r\n" + mm.code;
+        RS_StartGame startGame = ProtobufSerilizer.DeSerialize<RS_StartGame>(bytes);
+        BaseData baseData =  Extensible.GetValue<BaseData>(startGame, 101);
+
+        string data = startGame.ret + "\r\n" + startGame.state + "\r\n" + baseData.code;
         Debug.Log(data);
         setConsoleMsg(data);
     }
