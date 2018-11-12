@@ -21,12 +21,14 @@ public class UIMagicMessage : TTUIPage
     public Text txt_NeedTime;
 
     public Button btn_LevelUp;
+    public Button btn_Close;
 
     public Image Icon;
     public Image IconBG;
     public Image Lock;
     public Material gray;
     public GameObject levelUp;
+    public ContentSizeFitter mainFitter;
 
     public bool isCryNewMagic = false;
 
@@ -34,7 +36,9 @@ public class UIMagicMessage : TTUIPage
 
     private void Awake()
     {
+        instance = this;
         btn_LevelUp.onClick.AddListener(ChickLevelUp);
+        btn_Close.onClick.AddListener(ClosePage);
     }
 
     public override void Show(object mData)
@@ -44,6 +48,7 @@ public class UIMagicMessage : TTUIPage
 
     private void ChickLevelUp()
     {
+        Debug.Log("升级");
         if (isCryNewMagic)
         {
             MagicDataMgr.instance.CryNewMagic(currentMagic);
@@ -54,15 +59,16 @@ public class UIMagicMessage : TTUIPage
             MagicDataMgr.instance.MagicLevelUp(currentMagic);
             UIPanelManager.instance.ShowPage<UIMagicLevelUp>();
         }
+        ClosePage();
     }
 
     /// <summary>
     /// 信息收取
     /// </summary>
     /// <param name="data">当前技能信息</param>
-    /// <param name="isLevelUp">是否显示升级窗口</param>
+    /// <param name="isCryPage">是否显示升级窗口</param>
     /// <param name="st">下方信息提示框</param>
-    public void UpdateInfo(MagicData data, string st = "", bool isLevelUp = false, bool isLock = false, bool isCryNewMagic = false)
+    public void UpdateInfo(MagicData data, string st = "", bool isCryPage = false, bool isLock = false, bool isCryNewMagic = false)
     {
         currentMagic = data.ItemId;
         this.isCryNewMagic = isCryNewMagic;
@@ -71,11 +77,13 @@ public class UIMagicMessage : TTUIPage
         txt_Message.text = message;
         string level = string.Format(LanguageDataMgr.instance.GetString("Tip_Level"));
         txt_LevelTip.text = level + data.level;
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
 
         ShowDownTip(st);
-        ShowLevelUp(data, isLevelUp);
+        ShowLevelUp(data, isCryPage);
         ShowLock(isLock);
+        mainFitter.SetLayoutVertical();
     }
 
     public void ShowLock(bool isLock)
@@ -97,7 +105,10 @@ public class UIMagicMessage : TTUIPage
         if (isLevelUp)
         {
             txt_NeedMana.text = data.produceNeed.ToString();
-            txt_NeedTime.text = data.levelUpTime.ToString();
+            int time = isCryNewMagic ? data.produceTime : data.levelUpTime;
+            string stime = SystemTime.instance.TimeNormalizedOfMin(time);
+            txt_NeedTime.text = stime;
         }
+        txt_Tip_1.text = isCryNewMagic ? "制作" : "升级";
     }
 }

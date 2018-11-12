@@ -9,9 +9,10 @@ using Assets.Script.Timer;
 public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
 {
     private MagicWorkShopHelper allMagicData = new MagicWorkShopHelper();
-    private Dictionary<MagicName, int> MagicLevel = new Dictionary<MagicName, int>();//所有技能等级
-    private Dictionary<int, int> workMagic = new Dictionary<int, int>();//技能逻辑ID,时间序列ID
+    private Dictionary<MagicName, MagicData> MagicLevel = new Dictionary<MagicName, MagicData>();//所有技能等级
+    private List<int> workMagic = new List<int>();//技能逻辑ID,时间序列ID
     private MagicData currentLevelUpMagic;//当前正在升级的技能
+    private int timeIndex = 0;
     private int instanceMagicID = 0;
     public int InstanceMagicID
     {
@@ -72,13 +73,16 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         MagicData magicData = GetXmlDataByItemId<MagicData>(id);
         RealMagic data = new RealMagic(index, magicData, time);
         time = time == 0 ? data.magic.produceTime : time;
+        if (allMagicData.workQueue.Count <= 0)
+        {
+            timeIndex = CTimerManager.instance.AddListener(1, -1, NewMagicCallBack);
+        }
         allMagicData.workQueue.Add(index, data);
-        int timeIndex = CTimerManager.instance.AddListener(time, 1, NewMagicCallBack);
-        workMagic.Add(timeIndex, index);
+        workMagic.Add(index);
     }
     public void NewMagicCallBack(int index)
     {
-        int magicID = workMagic[index];
+        int magicID = workMagic[0];
         allMagicData.workQueue[magicID].time--;
         HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.CryNewMagic, index);
         if (allMagicData.workQueue[magicID].time <= 0)
@@ -94,10 +98,10 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         ChickPlayerInfo.instance.AddStock(BuildRoomName.ManaSpace, needProduce);
         foreach (var item in workMagic)
         {
-            if (item.Value == magicID)
+            if (item == magicID)
             {
-                CTimerManager.instance.RemoveLister(item.Key);
-                workMagic.Remove(item.Key);
+                CTimerManager.instance.RemoveLister(item);
+                workMagic.Remove(item);
                 break;
             }
         }
@@ -112,9 +116,9 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
     {
         foreach (var item in workMagic)
         {
-            if (item.Value == magicID)
+            if (item == magicID)
             {
-                CTimerManager.instance.RemoveLister(item.Key);
+                CTimerManager.instance.RemoveLister(item);
                 allMagicData.readyMagic.Add(allMagicData.workQueue[magicID]);
                 allMagicData.workQueue.Remove(magicID);
                 return;
@@ -122,22 +126,35 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         }
     }
 
-
+    public void LoadMagic(int magicID)
+    {
+        for (int i = 0; i < allMagicData.readyMagic.Count; i++)
+        {
+            if (allMagicData.readyMagic[i].magicID == magicID)
+            {
+                RealMagic data = allMagicData.readyMagic[i];
+                for (int j = 0; j < allMagicData.useMagic.Length; j++)
+                {
+                    if (allMagicData.useMagic[j] == null)
+                    {
+                        allMagicData.useMagic[j] = allMagicData.readyMagic[i];
+                        break;
+                    }
+                }
+                allMagicData.readyMagic.RemoveAt(i);
+            }
+        }
+    }
     public void UnloadMagic(int magicID)
     {
         //需要上传
-        if (allMagicData.readyMagic.Count >= 18)
-        {
-            object st = "法术已满";
-            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
-            return;
-        }
         for (int i = 0; i < allMagicData.useMagic.Length; i++)
         {
             if (allMagicData.useMagic[i].magicID == magicID)
             {
-                allMagicData.useMagic[i] = null;
                 allMagicData.readyMagic.Add(allMagicData.useMagic[i]);
+                allMagicData.useMagic[i] = null;
+                break;
             }
         }
     }
@@ -145,7 +162,7 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
     /// <summary>
     /// 获取技能等级
     /// </summary>
-    public void SetMagicLevel(Dictionary<MagicName, int> MagicData)
+    public void SetMagicLevel(Dictionary<MagicName, MagicData> MagicData)
     {
         this.MagicLevel = MagicData;
     }
@@ -153,7 +170,7 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
     /// 获取技能等级
     /// </summary>
     /// <returns></returns>
-    public int GetMagicLevel(MagicName name)
+    public MagicData GetMagicLevel(MagicName name)
     {
         return MagicLevel[name];
     }
@@ -175,6 +192,12 @@ public class RealMagic
         this.time = time;
     }
 }
+
+public class MagicWorkHelper
+{
+
+}
+
 public class MagicWorkShopHelper
 {
     public RealMagic[] useMagic;
@@ -202,6 +225,7 @@ public enum MagicGridType
     Read,//制造出来的
     Work,//制造中的
     Lock,//锁住的
+    Cry,//需要制造的
     CanLevelUp,//可以升级的
     NeedLevelUp,//需要升级解锁的
     NeedLevel,//需要房间等级的

@@ -29,6 +29,7 @@ public class GameMain : MonoBehaviour
     {
         Invoke("test_1", 0.5f);
         Invoke("test_2", 1.0f);
+        Invoke("test_3", 1.5f);
     }
 
     private void test_1()
@@ -39,6 +40,13 @@ public class GameMain : MonoBehaviour
     private void test_2()
     {
         LocalServer.instance.StartInit();
+
     }
 
+    public void test_3()
+    {
+        BuildingData bulidData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10036);
+        LocalBuildingData data = new LocalBuildingData(Vector2.zero, bulidData);
+        UIPanelManager.instance.ShowPage<UIMagicWorkShop>(data);
+    }
 }

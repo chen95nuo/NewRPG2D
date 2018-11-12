@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using Assets.Script.UIManger;
 
 public class UIMagicGrid : MonoBehaviour
 {
@@ -13,10 +15,13 @@ public class UIMagicGrid : MonoBehaviour
     public GameObject LevelObj;
     public Image slider;
     public Image Icon;
+    public Image lockIcon;
     public Button btn_Click;
+    public Material gray;
 
     private MagicGridType ClickType = MagicGridType.Empty;
-    public MagicData currentMagic;
+    private MagicData currentMagic;
+    private RealMagic currentRealMagic;
 
     private void Awake()
     {
@@ -24,6 +29,7 @@ public class UIMagicGrid : MonoBehaviour
         SliderObj.SetActive(false);
         LevelObj.SetActive(false);
         txt_Tip_1.gameObject.SetActive(false);
+        lockIcon.gameObject.SetActive(false);
         btn_Click.onClick.AddListener(ChickClick);
     }
 
@@ -35,13 +41,19 @@ public class UIMagicGrid : MonoBehaviour
                 ClickType_0();
                 break;
             case MagicGridType.Use:
-                ClickType_1();
+                ClickUse();
                 break;
             case MagicGridType.Read:
+                ChickRead();
                 break;
             case MagicGridType.Work:
+                ChickWork();
                 break;
             case MagicGridType.Lock:
+                ClickLockType();
+                break;
+            case MagicGridType.Cry:
+                ClickCryType();
                 break;
             case MagicGridType.CanLevelUp:
                 break;
@@ -53,42 +65,56 @@ public class UIMagicGrid : MonoBehaviour
                 break;
         }
     }
+
+    private void ChickWork()
+    {
+        UIMagicWorkShop.instance.ChickGridEvent(transform.position, ClickType, currentRealMagic);
+    }
+
+    private void ChickRead()
+    {
+        UIMagicWorkShop.instance.ChickGridEvent(transform.position, ClickType, currentRealMagic);
+    }
+
+    private void ClickUse()
+    {
+        UIMagicWorkShop.instance.ChickGridEvent(transform.position, ClickType, currentRealMagic);
+    }
     public void ClickType_0()
     {
         //所有已存在的技能颤抖
-        UIMagicWorkShop.instance.GridAnim(true, true);
+        UIMagicWorkShop.instance.GridAnim(true);
     }
-    public void ClickType_1()
+    private void ClickLockType()
     {
-        //返回类型和Type
-        //UIMagicWorkShop.instance.ShowMagicTip(currentMagic);
+        UIPanelManager.instance.ShowPage<UIMagicMessage>();
+        string st = string.Format("需要{0}级房间", currentRealMagic.magic.needWorkLevel);
+        UIMagicMessage.instance.UpdateInfo(currentMagic, st, false, true, false);
     }
-    public void ClickType_2()
+    public void ClickCryType()
     {
-        //返回技能数据 类型数据
+        UIPanelManager.instance.ShowPage<UIMagicMessage>();
+        UIMagicMessage.instance.UpdateInfo(currentMagic, "", true, false, true);
     }
-    public void ClickType_3()
-    {
-        //返回技能数据 类型数据
-    }
+
+    //使用中的空技能
     public void UpdateInfo(MagicGridType ClickType = MagicGridType.Empty)
     {
         Icon.enabled = false;
         this.ClickType = ClickType;
     }
+
+    //使用中的技能
     public void UpdateInfo(RealMagic data, MagicGridType ClickType = MagicGridType.Use)
     {
+        currentRealMagic = data;
         Icon.enabled = true;
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magic.magicName.ToString());
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magic.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
         this.ClickType = ClickType;
     }
 
-    public void UpdateInfo(MagicData data)
-    {
-        txt_Tip_1.gameObject.SetActive(true);
-        txt_Tip_1.text = data.magicName.ToString();
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
-    }
+
 
     public void UpdateInfo(MagicData data, int roomLevel)
     {
@@ -119,8 +145,47 @@ public class UIMagicGrid : MonoBehaviour
         txt_Tip_1.gameObject.SetActive(false);
     }
 
-    public void GridShake(bool isRun)
+    /// <summary>
+    /// 选择一个替换的法术
+    /// </summary>
+    /// <param name="currentMagic"></param>
+    /// <param name="v"></param>
+    public void UpdateInfo(RealMagic currentMagic, bool isDrag)
     {
 
+    }
+
+    public void GridAnim(bool isRun)
+    {
+
+    }
+
+    /// <summary>
+    /// 刷新标准格子
+    /// </summary>
+    /// <param name="data"></param>
+    public void UpdateInfo(MagicData data, MagicGridType type = MagicGridType.Read)
+    {
+        currentMagic = data;
+        ClickType = type;
+        lockIcon.gameObject.SetActive(false);
+        txt_Tip_1.gameObject.SetActive(true);
+        txt_Tip_1.text = data.magicName.ToString();
+        Icon.enabled = true;
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.material = null;
+        btn_Click.image.material = null;
+    }
+    public void UpdateLock(MagicData data)
+    {
+        currentMagic = data;
+        ClickType = MagicGridType.Lock;
+        lockIcon.gameObject.SetActive(true);
+        Icon.enabled = true;
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.material = gray;
+        btn_Click.image.material = gray;
     }
 }

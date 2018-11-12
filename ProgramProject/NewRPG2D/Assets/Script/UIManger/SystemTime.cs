@@ -45,6 +45,7 @@ public class SystemTime : TSingleton<SystemTime>
 
     public string TimeNormalizedOfMin(int HowManySecond)
     {
+        int index = 0;
         if (HowManySecond == 0)
         {
             return "0";
@@ -55,19 +56,22 @@ public class SystemTime : TSingleton<SystemTime>
         {
             ShowStr += (HowManySecond / (24 * 3600)) + " 天 ";
             HowManySecond %= (24 * 3600);
+            index++;
         }
         if (HowManySecond >= 3600)
         {
             ShowStr += (HowManySecond / 3600) + " 小时 ";
             HowManySecond %= 3600;
+            index++;
         }
-        if (HowManySecond >= 60)
+        if (HowManySecond >= 60 && index < 2)
         {
             ShowStr += (HowManySecond / 60) + " 分钟 ";
+            index++;
         }
-        if (HowManySecond > 0)
+        if (HowManySecond > 0 && index < 2)
         {
-            ShowStr += (HowManySecond % 60) + "秒";
+            ShowStr = (HowManySecond % 60) == 0 ? ShowStr : ShowStr += (HowManySecond % 60) + "秒";
         }
         return ShowStr;
     }

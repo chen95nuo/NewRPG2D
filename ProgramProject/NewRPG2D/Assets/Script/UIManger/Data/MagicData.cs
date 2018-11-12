@@ -16,6 +16,7 @@ public class MagicData : ItemBaseData
     public int levelUpNeed;
     public float param;
     public int needLevel;
+    public int needWorkLevel;
 
     public override XmlName ItemXmlName
     {
@@ -34,6 +35,7 @@ public class MagicData : ItemBaseData
         levelUpNeed = ReadXmlDataMgr.IntParse(node, "LevelUpNeed");
         param = ReadXmlDataMgr.FloatParse(node, "Attribute");
         needLevel = ReadXmlDataMgr.IntParse(node, "NeedLevel");
+        needWorkLevel = ReadXmlDataMgr.IntParse(node, "NeedWorkLevel");
         return base.GetXmlDataAttribute(node);
     }
 }

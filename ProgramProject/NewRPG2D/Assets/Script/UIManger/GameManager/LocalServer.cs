@@ -90,12 +90,16 @@ public class LocalServer : TSingleton<LocalServer>
     /// </summary>
     public void MagicLevel()
     {
-        Dictionary<MagicName, int> dic = new Dictionary<MagicName, int>();
+        Dictionary<MagicName, MagicData> dic = new Dictionary<MagicName, MagicData>();
         for (int i = 0; i < (int)MagicName.Max; i++)
         {
-            dic.Add((MagicName)i, 1);
+            MagicData data = MagicDataMgr.instance.GetMagic((MagicName)i, 1);
+            dic.Add((MagicName)i, data);
         }
         MagicDataMgr.instance.SetMagicLevel(dic);
+        MagicData magicData = MagicDataMgr.instance.GetMagic(MagicName.Fireball, 1);
+        RealMagic realMagic = new RealMagic(0, magicData);
+        MagicDataMgr.instance.AllMagicData.useMagic[0] = realMagic;
     }
 
 }

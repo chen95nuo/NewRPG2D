@@ -146,9 +146,7 @@ public class CameraControl : MonoBehaviour
                 if (isMove == true)
                 {
                     IsShowEdit = false;
-                    Debug.Log("移动了");
                 }
-                Debug.Log("不在移动");
             }
         }
     }
@@ -174,12 +172,10 @@ public class CameraControl : MonoBehaviour
             if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
 #endif
             {
-                Debug.Log("当前触摸在UI上");
                 isUI = true;
             }
             else
             {
-                Debug.Log("当前没有触摸在UI上");
                 isUI = false;
             }
         }
@@ -234,13 +230,8 @@ public class CameraControl : MonoBehaviour
         {
             if (Input.touchCount == 1)
             {
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    Debug.Log("Began Time:" + Time.time);
-                }
                 if (Input.GetTouch(0).phase == TouchPhase.Moved && !isHoldRole && !isUI)
                 {
-                    Debug.Log("Moved Time:" + Time.time);
                     moveTime += Time.deltaTime;
                     if (moveTime > 0.05f)
                     {
@@ -261,9 +252,6 @@ public class CameraControl : MonoBehaviour
                 //点击结束时
                 if (Input.GetTouch(0).phase == TouchPhase.Ended && IsMove == false)
                 {
-                    Debug.Log("Ended Time:" + Time.time);
-
-                    Debug.Log("不在移动,可以点击");
                     ChickClick();
                 }
             }
@@ -375,7 +363,6 @@ public class CameraControl : MonoBehaviour
     {
         if (isHoldRole == true)
         {
-            Debug.Log("关闭了 isHoldRole :" + isHoldRole);
             UIPanelManager.instance.ClosePage<UIDraggingRole>();
             UIMain.instance.CloseSomeUI(true);
             return;
@@ -387,11 +374,9 @@ public class CameraControl : MonoBehaviour
         }
         if (isUI == true)
         {
-            Debug.Log("点到UI了 返回");
             isUI = false;
             return;
         }
-        Debug.Log("没点到UI 继续");
         int colNum = Physics2D.OverlapPointNonAlloc(m_Camera.ScreenToWorldPoint(Input.mousePosition), col);
         if (MapControl.instance.type == CastleType.main)
         {
@@ -407,24 +392,20 @@ public class CameraControl : MonoBehaviour
             }
             else if (col[0].tag == "Role")
             {
-                Debug.Log("点击角色");
                 HallRole role = col[0].GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIRoleInfo>(role.RoleData);
                 CloseRoomLock();
             }
             else if (col[0].tag == "Room")
             {
-                Debug.Log("点到房间");
                 ChickTouchRoom(col[0]);
             }
             else if (col[0].tag == "BuildTip")
             {
-                Debug.Log("点到建造提示框");
                 MainCastle.instance.ChickRaycast(col[0]);
             }
             else if (col[0].tag == "Baby")
             {
-                Debug.Log("点到小孩");
                 HallRole data = col[0].GetComponent<HallRole>();
                 UIPanelManager.instance.ShowPage<UIBabyInfo>(data.currentBaby);
             }
@@ -459,14 +440,11 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickLongPress()
     {
-        Debug.Log("进入长按");
         if (MapControl.instance.type != CastleType.main || isUI || isHoldRole || isShowEdit)
         {
-            Debug.Log("长按不符合标准 返回");
             return;
         }
         int numTemp = Physics2D.OverlapPointNonAlloc(Camera.main.ScreenToWorldPoint(Input.mousePosition), col);
-        Debug.Log("numTemp = " + numTemp);
         if (numTemp > 0)
         {
             bool isRole = false;

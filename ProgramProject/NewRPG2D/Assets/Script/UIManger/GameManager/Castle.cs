@@ -44,9 +44,9 @@ public class Castle : MonoBehaviour
     public void GetNowWallGrid(Vector2 point)
     {
         int widthY = (int)((point.y - wallStartPoint.position.y) / high);
-        Debug.Log("网格Y位置: " + widthY);
+        //Debug.Log("网格Y位置: " + widthY);
         int widthX = (int)((point.x - wallStartPoint.position.x) / width);
-        Debug.Log("网格X位置: " + widthX);
+        //Debug.Log("网格X位置: " + widthX);
     }
 
     public void RoleNavigation(Vector2 startPoint, Vector2 endPoint)
