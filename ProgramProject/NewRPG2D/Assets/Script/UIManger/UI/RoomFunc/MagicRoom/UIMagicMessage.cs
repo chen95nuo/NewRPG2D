@@ -12,6 +12,7 @@ public class UIMagicMessage : TTUIPage
     public Text txt_Tip_1;
 
     public Text txt_LevelTip;
+    public Text txt_LevelBtnTip;
     public Text txt_DownTip;
 
     public Text txt_Name;
@@ -48,7 +49,6 @@ public class UIMagicMessage : TTUIPage
 
     private void ChickLevelUp()
     {
-        Debug.Log("升级");
         if (isCryNewMagic)
         {
             MagicDataMgr.instance.CryNewMagic(currentMagic);
@@ -73,7 +73,7 @@ public class UIMagicMessage : TTUIPage
         currentMagic = data.ItemId;
         this.isCryNewMagic = isCryNewMagic;
         txt_Name.text = data.magicName.ToString();
-        string message = string.Format(LanguageDataMgr.instance.GetString("Info_" + data.magicName), "<color=#77ff58>", "</color>");
+        string message = string.Format(LanguageDataMgr.instance.GetString("Info_" + data.magicName), "<color=#77ff58>" + data.param + "</color>");
         txt_Message.text = message;
         string level = string.Format(LanguageDataMgr.instance.GetString("Tip_Level"));
         txt_LevelTip.text = level + data.level;
@@ -102,11 +102,26 @@ public class UIMagicMessage : TTUIPage
     {
         //要不要显示升级
         levelUp.SetActive(isLevelUp);
+
         if (isLevelUp)
         {
+            //int yield = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.ManaSpace);
+            //txt_Tip_1.gameObject.SetActive(yield < data.produceNeed);
+
+            int space = MagicDataMgr.instance.Space;
+            bool isSpace = space < MagicDataMgr.instance.allMagicSpace;
+            txt_Tip_1.gameObject.SetActive(isSpace);
+            txt_NeedTime.gameObject.SetActive(isSpace);
+            txt_LevelBtnTip.gameObject.SetActive(!isSpace);
+            if (isSpace == false)
+            {
+                txt_LevelBtnTip.text = "空间不足";
+            }
+            btn_LevelUp.interactable = isSpace;
+
             txt_NeedMana.text = data.produceNeed.ToString();
             int time = isCryNewMagic ? data.produceTime : data.levelUpTime;
-            string stime = SystemTime.instance.TimeNormalizedOfMin(time);
+            string stime = SystemTime.instance.TimeNormalizedOf(time);
             txt_NeedTime.text = stime;
         }
         txt_Tip_1.text = isCryNewMagic ? "制作" : "升级";

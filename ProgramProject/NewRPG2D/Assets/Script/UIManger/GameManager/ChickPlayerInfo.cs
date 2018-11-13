@@ -954,6 +954,18 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         }
         return null;
     }
+    public int GetBuildingLevel(BuildRoomName name)
+    {
+        int level = 0;
+        for (int i = 0; i < AllBuilding.Count; i++)
+        {
+            if (AllBuilding[i].buildingData.RoomName == name)
+            {
+                level = AllBuilding[i].buildingData.Level;
+            }
+        }
+        return level;
+    }
 
 
 

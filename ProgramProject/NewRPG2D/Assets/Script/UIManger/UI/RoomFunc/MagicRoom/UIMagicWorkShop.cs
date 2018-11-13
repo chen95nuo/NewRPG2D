@@ -36,9 +36,10 @@ public class UIMagicWorkShop : TTUIPage
     public GameObject CryMagic;
     public UIMagicGrid changeGrid;
     public GameObject ChangeMagicPage;
-    public int maxMagic = 18;
     private int empty = 0;
     private bool isShowUse = true;
+    private bool animIsRun = false;
+    private bool animIsUse = false;
 
     private MagicWorkShopHelper allMagic;
     private MagicWorkShopHelper AllMagic
@@ -52,6 +53,20 @@ public class UIMagicWorkShop : TTUIPage
             return allMagic;
         }
     }
+
+    public int MaxMagic
+    {
+        get
+        {
+            return MagicDataMgr.instance.allMagicSpace;
+        }
+    }
+    public int nowMagic
+    {
+        get { return AllMagic.readyMagic.Count + AllMagic.workQueue.Count; }
+    }
+
+
     private LocalBuildingData currentRoom;
 
     private void Awake()
@@ -66,14 +81,34 @@ public class UIMagicWorkShop : TTUIPage
         btn_ChangeType.onClick.AddListener(ChangeUseType);
         btn_AllSpeedUp.onClick.AddListener(ChickAllSpeed);
     }
+    private void Update()
+    {
+        if (animIsRun)
+        {
+            Debug.Log("运行了222");
 
+            if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("运行了");
+                GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+                if (go == null || go.GetComponent<UIMagicGrid>() == null)
+                {
+                    animIsRun = false;
+                    GridAnim(animIsUse, animIsRun);
+                }
+            }
+        }
+    }
     private void ChickAllSpeed()
     {
         Debug.Log("全部加速");
-        for (int i = 0; i < allMagic.workQueue.Count; i++)
+        int count = allMagic.workQueue.Count;
+        for (int i = 0; i < count; i++)
         {
-            MagicDataMgr.instance.SpeedUpNewMagic(allMagic.workQueue[i].magicID);
+            MagicDataMgr.instance.SpeedUpNewMagic(allMagic.workQueue[0].magicID);
         }
+        UpdateReadMagic();
+        UpdateWorkMagic();
     }
     public void ChangeUseType(bool isShow = true)
     {
@@ -94,20 +129,24 @@ public class UIMagicWorkShop : TTUIPage
     {
         tip.CloseAllUI();
         base.Show(mData);
-        //RoomMgr data = mData as RoomMgr;
-        //currentRoom = data.currentBuildData;
         if (currentRoom != null)
         {
             return;
         }
-        LocalBuildingData data = mData as LocalBuildingData;
-        currentRoom = data;
+        RoomMgr data = mData as RoomMgr;
+        currentRoom = data.currentBuildData;
         UpdateInfo();
     }
 
+    /// <summary>
+    /// 准备好的添加替换
+    /// </summary>
+    /// <param name="currentMagic"></param>
+    /// <param name="isTrue"></param>
     public void ChangeMagic(RealMagic currentMagic, bool isTrue = true)
     {
         ChangeMagicPage.SetActive(isTrue);
+        mainStor.gameObject.SetActive(!isTrue);
         if (isTrue)
         {
             changeGrid.UpdateInfo(currentMagic, true);
@@ -117,8 +156,8 @@ public class UIMagicWorkShop : TTUIPage
 
     private void UpdateInfo()
     {
-        int num = MagicDataMgr.instance.AllMagicData.readyMagic.Count + MagicDataMgr.instance.AllMagicData.workQueue.Count;
-        txt_MagicNum.text = num + "/" + maxMagic;
+        int num = nowMagic;
+        txt_MagicNum.text = num + "/" + MaxMagic;
         txt_FightTip.text = "战斗法术";
         txt_tip_1.text = "制作";
         ChangeMagic(null, false);
@@ -137,6 +176,7 @@ public class UIMagicWorkShop : TTUIPage
     /// </summary>
     public void UpdateUseMagic()
     {
+        empty = 0;
         for (int i = 0; i < AllMagic.useMagic.Length; i++)
         {
             if (AllMagic.useMagic[i] != null)
@@ -162,7 +202,7 @@ public class UIMagicWorkShop : TTUIPage
     public void UpdateReadMagic()
     {
         MainStorMove();
-        AllMagic.readyMagic.Sort((RealMagic x, RealMagic y) => ((int)x.magic.magicName.CompareTo((int)y.magic.magicName)));
+        AllMagic.readyMagic.Sort((RealMagic x, RealMagic y) => (x.magic.magicName.CompareTo(y.magic.magicName)));
         for (int i = 0; i < AllMagic.readyMagic.Count; i++)
         {
             if (readGrids.Count == i)
@@ -177,6 +217,8 @@ public class UIMagicWorkShop : TTUIPage
             readGrids[i].gameObject.SetActive(false);
         }
         readGridPoint.GetComponent<ContentSizeFitter>().SetLayoutVertical();
+        int num = nowMagic;
+        txt_MagicNum.text = num + "/" + MaxMagic;
     }
     /// <summary>
     /// 刷新制造中的技能
@@ -199,22 +241,14 @@ public class UIMagicWorkShop : TTUIPage
         }
 
         WorkSetActive(AllMagic.workQueue.Count <= 0 ? false : true);
+        int num = nowMagic;
+        txt_MagicNum.text = num + "/" + MaxMagic;
     }
-
     private void WorkSetActive(bool isShow)
     {
         WorkGrid.SetActive(isShow);
         WorkGridPoint.GetComponent<ContentSizeFitter>().SetLayoutVertical();
-        //if (isShow == true)
-        //{
-        //    Invoke("WorkBack", 0.1f);
-        //}
     }
-    private void WorkBack()
-    {
-        WorkGrid.transform.localPosition = Vector3.zero;
-    }
-
     /// <summary>
     /// 刷新可制造的技能
     /// </summary>
@@ -236,6 +270,9 @@ public class UIMagicWorkShop : TTUIPage
 
     public void GridAnim(bool isUseAnim = false, bool isRun = true)
     {
+        animIsRun = isRun;
+        Debug.Log(animIsRun);
+        animIsUse = isUseAnim;
         if (isUseAnim)
         {
             for (int i = 0; i < useGrids.Length; i++)
@@ -250,6 +287,13 @@ public class UIMagicWorkShop : TTUIPage
                 readGrids[i].GridAnim(isRun);
             }
         }
+    }
+
+    public void ChangeMagicData(UIMagicGrid gridData)
+    {
+        GridAnim(gridData.ClickType == MagicGridType.Use, false);
+        MagicDataMgr.instance.ChangeMagic(gridData.currentRealMagic, changeGrid.currentRealMagic);
+        ChangeMagic(null, false);
     }
 
     public void InstanceGrid(List<UIMagicGrid> grids, Transform point)
@@ -268,7 +312,7 @@ public class UIMagicWorkShop : TTUIPage
                 break;
             case MagicGridType.Use:
                 int count = allMagic.readyMagic.Count + allMagic.workQueue.Count;
-                magicInfoTip.ShowUse(data, count == maxMagic);
+                magicInfoTip.ShowUse(data, count == MaxMagic);
                 break;
             case MagicGridType.Read:
                 magicInfoTip.ShowRead(data, empty == 0);
@@ -290,5 +334,10 @@ public class UIMagicWorkShop : TTUIPage
     private void MainStorMoveBack()
     {
         mainStor.anchoredPosition = Vector2.zero;
+    }
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(needAnim);
     }
 }

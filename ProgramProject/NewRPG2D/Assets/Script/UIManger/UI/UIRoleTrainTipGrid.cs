@@ -31,7 +31,7 @@ public class UIRoleTrainTipGrid : MonoBehaviour
             HallRole role = HallRoleMgr.instance.GetRole(data);
             this.role = role;
         }
-        txt_Time.text = SystemTime.instance.TimeNormalizedOfSecond(trainData.time);
+        txt_Time.text = SystemTime.instance.TimeNormalizedOf(trainData.time, false);
         slider.fillAmount = (float)(trainData.maxTime - trainData.time) / (float)trainData.maxTime;
         ChickCameraMove();
     }

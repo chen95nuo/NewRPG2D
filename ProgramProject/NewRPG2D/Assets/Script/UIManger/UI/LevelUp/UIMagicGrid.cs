@@ -5,36 +5,53 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Assets.Script.UIManger;
+using DG.Tweening;
 
 public class UIMagicGrid : MonoBehaviour
 {
     public Text txt_Tip_1;
     public Text txt_Empty;
     public Text txt_MagicLevel;
+    public Text txt_Time;
     public GameObject SliderObj;
-    public GameObject LevelObj;
+    public Image LevelObj;
     public Image slider;
     public Image Icon;
     public Image lockIcon;
     public Button btn_Click;
     public Material gray;
 
-    private MagicGridType ClickType = MagicGridType.Empty;
+    public MagicGridType ClickType = MagicGridType.Empty;
     private MagicData currentMagic;
-    private RealMagic currentRealMagic;
+    public RealMagic currentRealMagic;
+
+    private bool isRun = false;
+    private Tweener tween;
 
     private void Awake()
     {
+        HallEventManager.instance.AddListener<int>(HallEventDefineEnum.CryNewMagic, TimeCallBack);
+
         txt_Empty.text = "空";
         SliderObj.SetActive(false);
-        LevelObj.SetActive(false);
+        LevelObj.gameObject.SetActive(false);
         txt_Tip_1.gameObject.SetActive(false);
         lockIcon.gameObject.SetActive(false);
         btn_Click.onClick.AddListener(ChickClick);
     }
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.CryNewMagic, TimeCallBack);
+    }
 
     private void ChickClick()
     {
+        if (isRun)
+        {
+            UIMagicWorkShop.instance.ChangeMagicData(this);
+            return;
+        }
+
         switch (ClickType)
         {
             case MagicGridType.Empty:
@@ -56,14 +73,32 @@ public class UIMagicGrid : MonoBehaviour
                 ClickCryType();
                 break;
             case MagicGridType.CanLevelUp:
+                ClickCanLevelUp();
                 break;
             case MagicGridType.NeedLevelUp:
+                ClickNeedLevelUp();
                 break;
             case MagicGridType.NeedLevel:
+                object st = "请先解锁该技能";
+                UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
                 break;
             default:
                 break;
         }
+    }
+
+    private void ClickNeedLevelUp()
+    {
+        UIPanelManager.instance.ShowPage<UIMagicMessage>();
+        string st = string.Format("需要{0}级房间", currentMagic.levelUpNeed);
+        UIMagicMessage.instance.UpdateInfo(currentMagic, st);
+    }
+
+    private void ClickCanLevelUp()
+    {
+        UIPanelManager.instance.ShowPage<UIMagicMessage>();
+        UIMagicMessage.instance.UpdateInfo(currentMagic, "", true);
+
     }
 
     private void ChickWork()
@@ -88,7 +123,7 @@ public class UIMagicGrid : MonoBehaviour
     private void ClickLockType()
     {
         UIPanelManager.instance.ShowPage<UIMagicMessage>();
-        string st = string.Format("需要{0}级房间", currentRealMagic.magic.needWorkLevel);
+        string st = string.Format("需要{0}级房间", currentMagic.needWorkLevel);
         UIMagicMessage.instance.UpdateInfo(currentMagic, st, false, true, false);
     }
     public void ClickCryType()
@@ -114,50 +149,48 @@ public class UIMagicGrid : MonoBehaviour
         this.ClickType = ClickType;
     }
 
-
-
-    public void UpdateInfo(MagicData data, int roomLevel)
+    public void TimeCallBack(int magicID)
     {
-        if (roomLevel == 0)
+        if (ClickType != MagicGridType.Work)
         {
-            txt_MagicLevel.gameObject.SetActive(false);
-            btn_Click.interactable = false;
-            txt_Tip_1.gameObject.SetActive(false);
-        }
-        txt_MagicLevel.gameObject.SetActive(true);
-        txt_MagicLevel.text = (data.level - 1).ToString();
-        int needLevel = data.needLevel;
-        if (roomLevel >= needLevel)
-        {
-            btn_Click.interactable = true;
-        }
-        else
-        {
-            btn_Click.interactable = false;
-        }
-        if (needLevel > 0)
-        {
-            txt_Tip_1.gameObject.SetActive(true);
-            string tip = string.Format("需要{0}级房间", needLevel);
-            txt_Tip_1.text = tip;
             return;
         }
-        txt_Tip_1.gameObject.SetActive(false);
-    }
 
+        if (magicID == currentRealMagic.magicID)
+        {
+            SliderObj.SetActive(true);
+            txt_Time.text = SystemTime.instance.TimeNormalizedOf(currentRealMagic.time, false);
+            slider.fillAmount = ((float)currentRealMagic.magic.produceTime - (float)currentRealMagic.time) / (float)currentRealMagic.magic.produceTime;
+            return;
+        }
+        SliderObj.SetActive(false);
+    }
     /// <summary>
     /// 选择一个替换的法术
     /// </summary>
     /// <param name="currentMagic"></param>
     /// <param name="v"></param>
-    public void UpdateInfo(RealMagic currentMagic, bool isDrag)
+    public void UpdateInfo(RealMagic realMagic, bool isDrag)
     {
-
+        currentRealMagic = realMagic;
+        Icon.enabled = true;
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magic.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
     }
 
     public void GridAnim(bool isRun)
     {
-
+        this.isRun = isRun;
+        if (isRun)
+        {
+            tween = transform.DOScale(Vector3.one * 1.2f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+            tween.SetAutoKill(false);
+        }
+        else
+        {
+            tween.Kill(true);
+            transform.DOScale(Vector3.one, 0.5f);
+        }
     }
 
     /// <summary>
@@ -187,5 +220,52 @@ public class UIMagicGrid : MonoBehaviour
         Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
         Icon.material = gray;
         btn_Click.image.material = gray;
+    }
+
+    /// <summary>
+    /// 技能升级系列
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="type"></param>
+    /// <param name="isLevelUp">是否有正在升级的技能占用</param>
+    public void UpdateLevelUpInfo(MagicData data, MagicGridType type = MagicGridType.CanLevelUp)
+    {
+        Debug.Log(data.magicName.ToString());
+        currentMagic = data;
+        ClickType = type;
+        txt_Empty.text = "";
+        Icon.enabled = true;
+        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
+        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        LevelObj.gameObject.SetActive(true);
+        txt_MagicLevel.text = data.level.ToString();
+        Color color = new Color(1, 1, 1, 1);
+        txt_Tip_1.gameObject.SetActive(false);
+
+        if (type == MagicGridType.NeedLevel)
+        {
+            Icon.material = gray;
+            LevelObj.gameObject.SetActive(false);
+            btn_Click.image.material = gray;
+            color.a = 0.5f;
+        }
+        else if (type == MagicGridType.NeedLevelUp)
+        {
+            Icon.material = gray;
+            LevelObj.material = gray;
+            btn_Click.image.material = gray;
+            txt_Tip_1.gameObject.SetActive(true);
+            txt_Tip_1.text = string.Format("需要<color=#e3f760>{0}</color>级房间", data.needLevel);
+        }
+        else
+        {
+            Icon.material = null;
+            LevelObj.material = null;
+            btn_Click.image.material = null;
+        }
+
+        Icon.color = color;
+        LevelObj.color = color;
+        btn_Click.image.color = color;
     }
 }

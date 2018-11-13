@@ -11,7 +11,6 @@ public enum HallEventDefineEnum
     ChickBuild,//检查建筑
     ChickStock,//检查空间
     ChickStockFull,//检查空间满值
-    ChickLevelUpTime,//检查升级的房间
     CameraMove,//相机移动了
     EditMode,//建造模式
     EditMgr,//建造模式辅助
@@ -29,6 +28,7 @@ public enum HallEventDefineEnum
     RefreshBagUI,//背包变化 刷新背包UI
     UiMainHight,//顶层高亮显示
     CryNewMagic,//检查新技能时间
+    MagicLevelUp,//技能升级
     EventMax
 }
 

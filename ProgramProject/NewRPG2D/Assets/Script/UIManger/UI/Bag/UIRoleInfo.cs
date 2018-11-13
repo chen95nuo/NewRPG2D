@@ -333,7 +333,7 @@ public class UIRoleInfo : TTUIPage
         if (trainRole.roleID == currentRole.id)
         {
             slider_Train.fillAmount = (trainRole.maxTime - trainRole.time) / trainRole.maxTime;
-            txt_TrainTime.text = SystemTime.instance.TimeNormalizedOfSecond(trainRole.time);
+            txt_TrainTime.text = SystemTime.instance.TimeNormalizedOf(trainRole.time, false);
         }
     }
 

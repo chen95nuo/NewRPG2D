@@ -89,7 +89,7 @@ public class UIMarketGrid : MonoBehaviour
 
         buildingData = data;
         txt_Number.text = number[0] + "/" + number[1];
-        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOfMin(data.NeedTime);
+        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(data.NeedTime);
         string redSt = "<color=#ee5151>{0}</color>";
         string whiteSt = "<color=#ffffff>{0}</color>";
         needStock.Clear();

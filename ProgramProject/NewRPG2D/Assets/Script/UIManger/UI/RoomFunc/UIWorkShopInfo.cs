@@ -114,7 +114,7 @@ public class UIWorkShopInfo : TTUIPage
         txt_NeedPropNum.text = currentShopData[index].NeedPropNum.ToString();
         txt_Name_2.text = currentShopData[index].Level[0] + currentShopData[0].Level[0] + ")";
         txt_Quality.text = LanguageDataMgr.instance.GetString("WorkShop_" + currentShopData[index].Quality.ToString());
-        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOfMin(currentShopData[index].NeedTime);
+        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(currentShopData[index].NeedTime);
         int haveMana = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
         if (haveMana > currentShopData[index].NeedMana)
         {
@@ -156,7 +156,7 @@ public class UIWorkShopInfo : TTUIPage
         if (roomId == currentData.data.ItemId)
         {
             WorkShopHelper data = WorkShopDataMgr.instance.GetWorkTime(roomId);
-            txt_NeedTime.text = SystemTime.instance.TimeNormalizedOfMin(data.time);
+            txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(data.time);
         }
     }
 }

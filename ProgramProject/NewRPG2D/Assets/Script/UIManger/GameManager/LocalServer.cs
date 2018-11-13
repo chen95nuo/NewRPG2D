@@ -98,7 +98,7 @@ public class LocalServer : TSingleton<LocalServer>
         }
         MagicDataMgr.instance.SetMagicLevel(dic);
         MagicData magicData = MagicDataMgr.instance.GetMagic(MagicName.Fireball, 1);
-        RealMagic realMagic = new RealMagic(0, magicData);
+        RealMagic realMagic = new RealMagic(MagicDataMgr.instance.InstanceMagicID, magicData);
         MagicDataMgr.instance.AllMagicData.useMagic[0] = realMagic;
     }
 

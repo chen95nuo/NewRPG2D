@@ -45,8 +45,8 @@ public class GameMain : MonoBehaviour
 
     public void test_3()
     {
-        BuildingData bulidData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10036);
+        BuildingData bulidData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10040);
         LocalBuildingData data = new LocalBuildingData(Vector2.zero, bulidData);
-        UIPanelManager.instance.ShowPage<UIMagicWorkShop>(data);
+        UIPanelManager.instance.ShowPage<UIMagicLevelUp>(data);
     }
 }

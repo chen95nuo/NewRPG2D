@@ -55,7 +55,7 @@ public class UIMagicInfoTip : MonoBehaviour
         if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
             GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-            if (go != null && go.transform.parent != transform)
+            if (go == null || go.transform.parent != transform)
             {
                 gameObject.SetActive(false);
             }
@@ -63,7 +63,10 @@ public class UIMagicInfoTip : MonoBehaviour
     }
     private void ChickSpeedUp()
     {
-        //MagicDataMgr.instance.
+        MagicDataMgr.instance.SpeedUpNewMagic(currentMagic.magicID);
+        UIMagicWorkShop.instance.UpdateWorkMagic();
+        UIMagicWorkShop.instance.UpdateReadMagic();
+        gameObject.SetActive(false);
     }
 
     private void ChickCancel()
@@ -120,25 +123,6 @@ public class UIMagicInfoTip : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateInfo(RealMagic data, int type = 0)
-    {
-        currentMagic = data;
-        currentType = type;
-        switch (type)
-        {
-            case 0:
-                btn_Remove.gameObject.SetActive(true);
-                break;
-            case 1:
-                btn_Add.gameObject.SetActive(true);
-                break;
-            case 2:
-                btn_Change.gameObject.SetActive(true);
-                break;
-            default:
-                break;
-        }
-    }
     public void UpdateInfo(RealMagic data)
     {
         currentMagic = data;
@@ -172,6 +156,7 @@ public class UIMagicInfoTip : MonoBehaviour
         isFull = useIsFull;
         currentMagic = data;
         btn_Add.gameObject.SetActive(true);
+        this.isFull = useIsFull;
         messageType = MagicGridType.Read;
     }
 

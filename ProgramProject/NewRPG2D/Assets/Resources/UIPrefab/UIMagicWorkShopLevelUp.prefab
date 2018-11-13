@@ -350,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1496803982031454
 GameObject:
   m_ObjectHideFlags: 1
@@ -586,14 +586,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ebf5dcdeab8f848bd3bb93938ad9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt_Tip_1: {fileID: 114075754897124702}
-  txt_Empty: {fileID: 114740602832016278}
-  txt_MagicLevel: {fileID: 114574090288206442}
-  SliderObj: {fileID: 1922101786729958}
-  LevelObj: {fileID: 1013390409358862}
-  slider: {fileID: 114286147859963620}
-  Icon: {fileID: 114499071172863748}
-  btn_Click: {fileID: 114186701018278910}
+  txt_Tip_1: {fileID: 114527248704651600, guid: ab52db7d93aff1c4d9c4b73f5a825655,
+    type: 2}
+  txt_Empty: {fileID: 114001952739134906, guid: ab52db7d93aff1c4d9c4b73f5a825655,
+    type: 2}
+  txt_MagicLevel: {fileID: 114323540121753064, guid: ab52db7d93aff1c4d9c4b73f5a825655,
+    type: 2}
+  txt_Time: {fileID: 114399615878526420, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  SliderObj: {fileID: 1048211226214586, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  LevelObj: {fileID: 114654154499866754, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  slider: {fileID: 114601287765768114, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  Icon: {fileID: 114633253855821162, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  lockIcon: {fileID: 114390290918045954, guid: ab52db7d93aff1c4d9c4b73f5a825655, type: 2}
+  btn_Click: {fileID: 114291234003774482, guid: ab52db7d93aff1c4d9c4b73f5a825655,
+    type: 2}
+  gray: {fileID: 2100000, guid: 7e9b8157b52e8744ca02dc396d9f6911, type: 2}
+  ClickType: 0
 --- !u!114 &114027163584329616
 MonoBehaviour:
   m_ObjectHideFlags: 1

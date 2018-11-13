@@ -31,7 +31,7 @@ public class SystemTime : TSingleton<SystemTime>
         return startTime.AddSeconds(onlineTime);
     }
 
-    public void TimeNormalized(int time, Text text)
+    public string TimeNormalized(int time)
     {
         if (time < 0)
         {
@@ -40,17 +40,20 @@ public class SystemTime : TSingleton<SystemTime>
         int hour = time / 3600;
         int minute = (time - hour * 3600) / 60;
         int milliScecond = (time - hour * 3600 - minute * 60);
-        text.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
+        return string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
 
-    public string TimeNormalizedOfMin(int HowManySecond)
+    public string TimeNormalizedOf(float HowManySecond, bool isMin = true)
     {
         int index = 0;
         if (HowManySecond == 0)
         {
             return "0";
         }
-        HowManySecond *= 60;
+        if (isMin)
+        {
+            HowManySecond *= 60;
+        }
         string ShowStr = "";
         if (HowManySecond >= (24 * 3600))
         {
@@ -72,35 +75,6 @@ public class SystemTime : TSingleton<SystemTime>
         if (HowManySecond > 0 && index < 2)
         {
             ShowStr = (HowManySecond % 60) == 0 ? ShowStr : ShowStr += (HowManySecond % 60) + "秒";
-        }
-        return ShowStr;
-    }
-
-    public string TimeNormalizedOfSecond(float Second)
-    {
-        int HowManySecond = (int)Second;
-        if (HowManySecond == 0)
-        {
-            return "0";
-        }
-        string ShowStr = "";
-        if (HowManySecond >= (24 * 3600))
-        {
-            ShowStr += (HowManySecond / (24 * 3600)) + " 天 ";
-            HowManySecond %= (24 * 3600);
-        }
-        if (HowManySecond >= 3600)
-        {
-            ShowStr += (HowManySecond / 3600) + " 小时 ";
-            HowManySecond %= 3600;
-        }
-        if (HowManySecond >= 60)
-        {
-            ShowStr += (HowManySecond / 60) + " 分钟 ";
-        }
-        if (HowManySecond > 0)
-        {
-            ShowStr += (HowManySecond % 60) + "秒";
         }
         return ShowStr;
     }
