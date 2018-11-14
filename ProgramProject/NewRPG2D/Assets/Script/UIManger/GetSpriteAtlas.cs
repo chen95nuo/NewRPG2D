@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using System;
 
 [ExecuteInEditMode]
 public class GetSpriteAtlas : MonoBehaviour
@@ -41,6 +42,17 @@ public class GetSpriteAtlas : MonoBehaviour
         Debug.LogError("没有找到图片: " + name);
         return null;
     }
+    public Sprite GetQuality(string name)
+    {
+        Sprite sp = Icons.GetSprite("Quality_" + name);
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片: " + name);
+        return null;
+    }
+
     public Sprite GetRoleIcon(string name)
     {
         Sprite sp = null;
@@ -51,6 +63,37 @@ public class GetSpriteAtlas : MonoBehaviour
     public Sprite GetEnemyIcon(string name)
     {
         Sprite sp = EnemyIcons.GetSprite(name);
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片: " + name);
+        return null;
+    }
+
+    public Sprite GetSkilIcon(string name)
+    {
+        Sprite sp = Icons.GetSprite("技能1");
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片: " + name);
+        return null;
+    }
+    public Sprite GetWorkIcon(string name)
+    {
+        Sprite sp = Icons.GetSprite("Work_" + name);
+        if (sp != null)
+        {
+            return sp;
+        }
+        Debug.LogError("没有找到图片: " + name);
+        return null;
+    }
+    public Sprite GetWotkType(string name, int type)
+    {
+        Sprite sp = Icons.GetSprite("WorkType_" + name + type);
         if (sp != null)
         {
             return sp;

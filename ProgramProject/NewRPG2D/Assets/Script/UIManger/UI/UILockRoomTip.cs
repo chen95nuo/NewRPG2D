@@ -275,6 +275,9 @@ public class UILockRoomTip : TTUIPage
             case BuildRoomName.MagicWorkShop:
                 UIPanelManager.instance.ShowPage<UIMagicWorkShopInfo>(roomData);
                 break;
+            case BuildRoomName.MagicLab:
+                UIPanelManager.instance.ShowPage<UIMagicWorkShopInfo>(roomData);
+                break;
             default:
                 break;
         }

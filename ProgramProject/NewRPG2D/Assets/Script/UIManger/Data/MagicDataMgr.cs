@@ -332,4 +332,5 @@ public enum MagicGridType
     CanLevelUp,//可以升级的
     NeedLevelUp,//需要升级解锁的
     NeedLevel,//需要房间等级的
+    Nothing,//标准 打开提示框
 }

@@ -22,6 +22,13 @@ public class UIMagicWorkShopInfo : UIRoomInfo
     {
         int num = ChickRoleNumber(roleGrids);
         txt_Tip_2.gameObject.SetActive(num == 0 ? false : true);
+        txt_DownTip.text = LanguageDataMgr.instance.GetInfo(roomMgr.RoomName.ToString());
 
+    }
+
+    private void LeftUpTip(BuildingData data)
+    {
+        slider.fillAmount = data.Param2 / 6;
+        txt_Num.text = data.Param2.ToString();
     }
 }

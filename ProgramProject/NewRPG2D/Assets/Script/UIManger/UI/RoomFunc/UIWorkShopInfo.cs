@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
 using System;
+using DG.Tweening;
 
 public class UIWorkShopInfo : TTUIPage
 {
@@ -15,12 +16,13 @@ public class UIWorkShopInfo : TTUIPage
     public Text txt_Tip_6;
 
     public Text txt_Name;
-    public Text txt_Name_2;
     public Text txt_Quality;
     public Text txt_NeedMana;
     public Text txt_NeedPropNum;
     public Text txt_NeedTime;
     public Text txt_Diamonds;
+    public Text txt_Time;
+    public Image TimeSlider;
 
     public Text txt_HaveMana;
     public Text[] txt_HaveProp;
@@ -30,20 +32,62 @@ public class UIWorkShopInfo : TTUIPage
 
     public Button btn_Next;//下一个
     public Button btn_Previous;//上一个
-    public Button btn_Back;//后退
     public Button btn_Close;//退出
     public Button btn_Start;//启动
+    public Button btn_SpeedUp;//加速
+    public Button[] btn_Type;//左侧选项
+    public Button[] btn_Quality;//品质选项
 
-    private WorkShopInfoData currentData;
+    //private WorkShopInfoData currentData;
     private WorkShopData[] currentShopData;
-    private int currentIndex = 0;
 
-    private string whiteText = LanguageDataMgr.instance.whiteText;
-    private string redText = LanguageDataMgr.instance.redSt;
+    private string whiteText { get { return LanguageDataMgr.instance.whiteText; } }
+    private string redText { get { return LanguageDataMgr.instance.redSt; } }
+
+    private int currentType = 0;//当前装备类型
+    private int currentIndex = 0;//当前品质类型
+    private LocalBuildingData currentData;
+
+    private int[] haveProp = new int[5];
+    private int haveMana = 0;
+
+    public RectTransform RightTip;
+    public Button btn_Mana;
+    public Button btn_Prop;
+    public UIWorkShopTip popTip;
+    public UIWorkShopGrid grid;
+
+    public int CurrentIndex
+    {
+        get
+        {
+            return currentIndex;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                value = btn_Quality.Length - 1;
+            }
+            else if (value >= btn_Quality.Length)
+            {
+                value = 0;
+            }
+            btn_Quality[currentIndex].interactable = true;
+            btn_Quality[currentIndex].transform.DOLocalMoveY(-10, 0.3f);
+            currentIndex = value;
+            btn_Quality[currentIndex].interactable = false;
+            btn_Quality[currentIndex].transform.DOLocalMoveY(10, 0.3f);
+            UpdateInfo(currentIndex);
+        }
+    }
 
     private void Awake()
     {
-        HallEventManager.instance.AddListener<int>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
+        HallEventManager.instance.AddListener<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, UpdateHaveMana);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickFragment, UpdateHaveProp);
+
         txt_Tip_1.text = "所需资源";
         txt_Tip_2.text = "所需碎片";
         txt_Tip_3.text = "物品品质选择";
@@ -53,110 +97,203 @@ public class UIWorkShopInfo : TTUIPage
 
         btn_Next.onClick.AddListener(ChickNext);
         btn_Previous.onClick.AddListener(ChickPrevious);
-        btn_Back.onClick.AddListener(ChickBack);
-        btn_Close.onClick.AddListener(ChickClose);
+        btn_Close.onClick.AddListener(ClosePage);
         btn_Start.onClick.AddListener(ChickStart);
-    }
 
+        for (int i = 0; i < btn_Type.Length; i++)
+        {
+            btn_Type[i].onClick.AddListener(ChickLeftType);
+        }
+
+        for (int i = 0; i < btn_Quality.Length; i++)
+        {
+            btn_Quality[i].onClick.AddListener(ChickQuality);
+        }
+
+        UpdateHaveMana();
+        UpdateHaveProp();
+    }
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
+        HallEventManager.instance.RemoveListener<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickStock, UpdateHaveMana);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickFragment, UpdateHaveProp);
+    }
+
+    private void ChickQuality()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_Quality.Length; i++)
+        {
+            if (btn_Quality[i].gameObject == go)
+            {
+                CurrentIndex = i;
+                break;
+            }
+        }
+    }
+
+    private void ChickLeftType()
+    {
+        GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        for (int i = 0; i < btn_Type.Length; i++)
+        {
+            if (btn_Type[i].gameObject == go)
+            {
+                currentType = i;
+                UpdateInfo(0);
+                break;
+            }
+        }
     }
 
     private void ChickStart()
     {
-        WorkShopDataMgr.instance.AddWork(currentData.data.ItemId, currentShopData[currentIndex]);
-    }
-
-    private void ChickClose()
-    {
-        UIPanelManager.instance.ClosePage<UIWorkShop>();
-        ClosePage();
-    }
-
-    private void ChickBack()
-    {
-        ClosePage();
+        WorkShopDataMgr.instance.AddWork(currentData.id, currentShopData[currentIndex]);
     }
 
     private void ChickPrevious()
     {
-        UpdateInfo(currentIndex--);
+        CurrentIndex--;
     }
 
     private void ChickNext()
     {
-        UpdateInfo(currentIndex--);
+        CurrentIndex++;
     }
 
     public override void Show(object mData)
     {
         base.Show(mData);
-        WorkShopInfoData data = mData as WorkShopInfoData;
-        UpdateInfo(data);
+        //RoomMgr data = mData as RoomMgr;
+        LocalBuildingData data = mData as LocalBuildingData;
+        if (currentData == null || currentData.buildingData.ItemId != data.buildingData.ItemId)
+        {
+            //UpdateHaveMana();
+            //UpdateHaveProp();
+
+            currentData = data;
+            currentType = 0;
+            UpdateInfo(data.buildingData);
+            CurrentIndex = 0;
+
+            WorkShopHelper timeData = WorkShopDataMgr.instance.GetWorkTime(data.id);
+            if (timeData != null)
+            {
+                UpdateTime(timeData);
+            }
+        }
     }
 
-    public void UpdateInfo(WorkShopInfoData data)
+    public void UpdateInfo(BuildingData data)
     {
-        currentShopData = WorkShopDataMgr.instance.GetWorkData(currentData.data.ItemId, currentData.index);
-        string nameSt = LanguageDataMgr.instance.GetString(currentData.data.RoomName.ToString() + currentData.index);
-        txt_Name.text = nameSt + "(";
-        if (data == currentData)
-        {
-            currentIndex = 0;
-        }
-        UpdateInfo(currentIndex);
+        currentShopData = WorkShopDataMgr.instance.GetWorkData(data.ItemId);
+        string nameSt = LanguageDataMgr.instance.GetEquipName(data.RoomName.ToString(), currentType);
+        nameSt += string.Format("(<quad name=Fight size=60 width=1 />{0}-{1})", currentShopData[currentIndex].Level[0], currentShopData[currentIndex].Level[1]);
+        txt_Name.text = nameSt;
     }
 
     public void UpdateInfo(int index)
     {
-        txt_NeedMana.text = currentShopData[index].NeedMana.ToString();
-        txt_NeedPropNum.text = currentShopData[index].NeedPropNum.ToString();
-        txt_Name_2.text = currentShopData[index].Level[0] + currentShopData[0].Level[0] + ")";
+        currentIndex = index;
         txt_Quality.text = LanguageDataMgr.instance.GetString("WorkShop_" + currentShopData[index].Quality.ToString());
+        txt_NeedTime.gameObject.SetActive(true);
         txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(currentShopData[index].NeedTime);
-        int haveMana = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
-        if (haveMana > currentShopData[index].NeedMana)
+        string spriteName = PropDataMgr.instance.GetXmlDataByItemId<PropData>(currentShopData[index].NeedPropId).SpriteName;
+        propIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(spriteName);
+        grid.UpdateInfo(currentData.buildingData, currentIndex);
+        UpdateLeftTip();
+        ChickProp();
+        ChickMana();
+    }
+
+    public void RightTipAnim(bool isCry = false)
+    {
+        if (isCry)
         {
-            txt_HaveMana.text = string.Format(whiteText, haveMana);
+            txt_NeedTime.gameObject.SetActive(false);
+            TimeSlider.gameObject.SetActive(true);
+            btn_Mana.gameObject.SetActive(false);
+            btn_Prop.gameObject.SetActive(false);
+        }
+        RightTip.anchoredPosition = Vector2.right * 500;
+        RightTip.DOAnchorPos(Vector2.zero, 0.5f);
+    }
+
+    public void ChickMana()
+    {
+        if (haveMana >= currentShopData[currentIndex].NeedMana)
+        {
+            txt_NeedMana.text = string.Format(whiteText, currentShopData[currentIndex].NeedMana);
         }
         else
         {
-            txt_HaveMana.text = string.Format(redText, haveMana);
-        }
-        int haveProp = UpdateHaveProp(currentShopData[index].NeedPropId);
-        if (haveProp > currentShopData[index].NeedPropNum)
-        {
-            txt_NeedPropNum.text = string.Format(whiteText, haveProp);
-        }
-        else
-        {
-            txt_NeedPropNum.text = string.Format(redText, haveProp);
+            txt_NeedMana.text = string.Format(redText, currentShopData[currentIndex].NeedMana);
         }
     }
 
-    public int UpdateHaveProp(int id = 0)
+    public void ChickProp()
     {
-        int index = 1006;//第一个道具的ID
-        int haveProp = 0;
+        if (haveProp[currentIndex] >= currentShopData[currentIndex].NeedPropNum)
+        {
+            txt_NeedPropNum.text = string.Format(whiteText, currentShopData[currentIndex].NeedPropNum);
+        }
+        else
+        {
+            txt_NeedPropNum.text = string.Format(redText, currentShopData[currentIndex].NeedPropNum);
+        }
+    }
+    public void UpdateHaveMana()
+    {
+        haveMana = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
+        txt_HaveMana.text = haveMana.ToString();
+    }
+
+    public void UpdateHaveProp()
+    {
+        int index = 1001;//第一个道具的ID
         for (int i = 0; i < txt_HaveProp.Length; i++)
         {
             int temp = ChickItemInfo.instance.GetItemNum(index + i);
-            if (index + i == id)
-            {
-                haveProp = id;
-            }
+            haveProp[i] = temp;
             txt_HaveProp[i].text = temp.ToString();
         }
-        return haveProp;
     }
 
-    public void UpdateTime(int roomId)
+    public void UpdateLeftTip()
     {
-        if (roomId == currentData.data.ItemId)
+        int count = currentShopData[currentIndex].EquipType.Length;
+        for (int i = 0; i < count; i++)
         {
-            WorkShopHelper data = WorkShopDataMgr.instance.GetWorkTime(roomId);
-            txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(data.time);
+            btn_Type[i].gameObject.SetActive(true);
+            btn_Type[i].image.sprite = GetSpriteAtlas.insatnce.GetWotkType(currentData.buildingData.RoomName.ToString(), i);
         }
+        for (int i = count; i < btn_Type.Length; i++)
+        {
+            btn_Type[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateTime(WorkShopHelper timeData)
+    {
+        if (timeData.roomId == currentData.id)
+        {
+            txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(timeData.time);
+        }
+    }
+
+
+
+
+
+
+    public override void Hide(bool needAnim = true)
+    {
+        base.Hide(false);
+    }
+
+    public override void Active(bool needAnim = true)
+    {
+        base.Active(false);
     }
 }

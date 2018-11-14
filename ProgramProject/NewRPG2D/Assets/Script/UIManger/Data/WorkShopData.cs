@@ -14,7 +14,7 @@ public class WorkShopData : ItemBaseData
     public int NeedMana;
     public float[] Level;
     public int NeedTime;
-    public int EquipType;
+    public float[] EquipType;
 
     public override XmlName ItemXmlName
     {
@@ -25,12 +25,12 @@ public class WorkShopData : ItemBaseData
     {
         Quality = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
         RoomID = ReadXmlDataMgr.IntParse(node, "RoomID");
-        NeedPropId = ReadXmlDataMgr.IntParse(node, "NeedPropId");
-        NeedPropNum = ReadXmlDataMgr.IntParse(node, "NeedPropNum");
+        NeedPropId = ReadXmlDataMgr.IntParse(node, "NeedPropID");
+        NeedPropNum = ReadXmlDataMgr.IntParse(node, "NeedProduceNum");
         NeedMana = ReadXmlDataMgr.IntParse(node, "NeedMana");
         Level = ReadXmlDataMgr.FloatArray(node, "Level");
         NeedTime = ReadXmlDataMgr.IntParse(node, "NeedTime");
-        EquipType = ReadXmlDataMgr.IntParse(node, "EquipType");
+        EquipType = ReadXmlDataMgr.FloatArray(node, "EquipType");
         return base.GetXmlDataAttribute(node);
     }
 }

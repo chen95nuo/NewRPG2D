@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using System;
 
 public class UIMagicLevelUp : TTUIPage
 {
@@ -17,6 +18,10 @@ public class UIMagicLevelUp : TTUIPage
     public Text txt_TimeTip;
     public Text txt_BtnTip;
     public Text txt_NeedDiamonds;
+
+    public Button btn_Close;
+    public Button btn_Back;
+    public Button btn_SpeedUp;
     public GameObject LevelUp;
 
     public int currentLevelID = 0;
@@ -26,7 +31,16 @@ public class UIMagicLevelUp : TTUIPage
         instance = this;
 
         HallEventManager.instance.AddListener<MagicLevelUpHelper>(HallEventDefineEnum.MagicLevelUp, LevelUpCallBack);
+        btn_SpeedUp.onClick.AddListener(ChickSpeedUp);
+        btn_Close.onClick.AddListener(ClosePage);
+        btn_Back.onClick.AddListener(ClosePage);
     }
+
+    private void ChickSpeedUp()
+    {
+
+    }
+
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<MagicLevelUpHelper>(HallEventDefineEnum.MagicLevelUp, LevelUpCallBack);
@@ -35,9 +49,8 @@ public class UIMagicLevelUp : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        //RoomMgr room = mData as RoomMgr;
-        LocalBuildingData room = mData as LocalBuildingData;
-        UpdateInfo(room);
+        RoomMgr room = mData as RoomMgr;
+        UpdateInfo(room.currentBuildData);
 
         MagicLevelUpHelper helper = MagicDataMgr.instance.GetLevelUpData;
         if (helper != null)
@@ -56,7 +69,6 @@ public class UIMagicLevelUp : TTUIPage
     public void UpdateInfo(LocalBuildingData room)
     {
         int workShopLevel = ChickPlayerInfo.instance.GetBuildingLevel(BuildRoomName.MagicWorkShop);
-        workShopLevel = 1;
         for (int i = 0; i < (int)MagicName.Max; i++)
         {
             MagicData data = MagicDataMgr.instance.GetMagicLevel((MagicName)i);
@@ -94,7 +106,7 @@ public class UIMagicLevelUp : TTUIPage
         int time = magicData.time;
         string timeTip = "制作时间 " + SystemTime.instance.TimeNormalized(time);
         txt_TimeTip.text = timeTip;
-        txt_NeedDiamonds.text = (time * 0.01f).ToString();
+        txt_NeedDiamonds.text = GameHelper.instance.GetNeedDiamondsOfTime(time).ToString();
         currentLevelID = magicData.id;
     }
     public void LevelUpCallBack(MagicLevelUpHelper magicData)
@@ -106,6 +118,6 @@ public class UIMagicLevelUp : TTUIPage
         int time = magicData.time;
         string timeTip = "制作时间 " + SystemTime.instance.TimeNormalized(time);
         txt_TimeTip.text = timeTip;
-        txt_NeedDiamonds.text = (time * 0.01f).ToString("#0");
+        txt_NeedDiamonds.text = GameHelper.instance.GetNeedDiamondsOfTime(time).ToString();
     }
 }

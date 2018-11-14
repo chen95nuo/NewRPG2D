@@ -82,9 +82,18 @@ public class UIMagicGrid : MonoBehaviour
                 object st = "请先解锁该技能";
                 UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
                 break;
+            case MagicGridType.Nothing:
+                ClickShowMessage();
+                break;
             default:
                 break;
         }
+    }
+
+    private void ClickShowMessage()
+    {
+        UIPanelManager.instance.ShowPage<UIMagicMessage>();
+        UIMagicMessage.instance.UpdateInfo(currentMagic);
     }
 
     private void ClickNeedLevelUp()
@@ -118,7 +127,7 @@ public class UIMagicGrid : MonoBehaviour
     public void ClickType_0()
     {
         //所有已存在的技能颤抖
-        UIMagicWorkShop.instance.GridAnim(true);
+        UIMagicWorkShop.instance.GridAnim();
     }
     private void ClickLockType()
     {
@@ -144,8 +153,7 @@ public class UIMagicGrid : MonoBehaviour
     {
         currentRealMagic = data;
         Icon.enabled = true;
-        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magic.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon(data.magic.magicName.ToString());
         this.ClickType = ClickType;
     }
 
@@ -174,8 +182,7 @@ public class UIMagicGrid : MonoBehaviour
     {
         currentRealMagic = realMagic;
         Icon.enabled = true;
-        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magic.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon(realMagic.magic.magicName.ToString());
     }
 
     public void GridAnim(bool isRun)
@@ -202,13 +209,16 @@ public class UIMagicGrid : MonoBehaviour
         currentMagic = data;
         ClickType = type;
         lockIcon.gameObject.SetActive(false);
-        txt_Tip_1.gameObject.SetActive(true);
-        txt_Tip_1.text = data.magicName.ToString();
+        txt_Tip_1.gameObject.SetActive(type == MagicGridType.CanLevelUp);
         Icon.enabled = true;
-        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon(data.magicName.ToString());
         Icon.material = null;
         btn_Click.image.material = null;
+
+        if (type == MagicGridType.CanLevelUp)
+        {
+            txt_Tip_1.text = LanguageDataMgr.instance.GetString(data.magicName.ToString());
+        }
     }
     public void UpdateLock(MagicData data)
     {
@@ -216,8 +226,7 @@ public class UIMagicGrid : MonoBehaviour
         ClickType = MagicGridType.Lock;
         lockIcon.gameObject.SetActive(true);
         Icon.enabled = true;
-        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon(data.magicName.ToString());
         Icon.material = gray;
         btn_Click.image.material = gray;
     }
@@ -235,8 +244,7 @@ public class UIMagicGrid : MonoBehaviour
         ClickType = type;
         txt_Empty.text = "";
         Icon.enabled = true;
-        //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon(data.magicName.ToString());
         LevelObj.gameObject.SetActive(true);
         txt_MagicLevel.text = data.level.ToString();
         Color color = new Color(1, 1, 1, 1);

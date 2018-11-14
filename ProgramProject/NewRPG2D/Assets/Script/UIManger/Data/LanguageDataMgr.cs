@@ -62,15 +62,21 @@ public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
         st = GetString(st);
         return st;
     }
-    public string GetRoomDes(string name)
+    public string GetDes(string name)
     {
         string st = "Des_" + name;
         st = GetString(st);
         return st;
     }
-    public string GetInfoDownTip(string name)
+    public string GetInfo(string name)
     {
         string st = "Info_" + name;
+        st = GetString(st);
+        return st;
+    }
+    public string GetEquipName(string name, int type)
+    {
+        string st = name + type;
         st = GetString(st);
         return st;
     }

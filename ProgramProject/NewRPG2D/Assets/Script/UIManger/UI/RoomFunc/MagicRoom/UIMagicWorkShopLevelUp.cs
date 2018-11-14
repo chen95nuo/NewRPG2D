@@ -40,7 +40,7 @@ public class UIMagicWorkShopLevelUp : UILevelUp
                 grids.Add(grid);
             }
             grids[i].gameObject.SetActive(true);
-            grids[i].UpdateInfo(magicDatas[i]);
+            grids[i].UpdateInfo(magicDatas[i], MagicGridType.CanLevelUp);
         }
         for (int i = magicDatas.Count; i < grids.Count; i++)
         {

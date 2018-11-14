@@ -163,7 +163,7 @@ public class LinkImageText : Text, IPointerClickHandler
             if (endIndex < toFill.currentVertCount)
             {
                 toFill.PopulateUIVertex(ref vert, endIndex);
-                rt.anchoredPosition = new Vector2(vert.position.x + size.x / 2, vert.position.y + size.y / 2);
+                rt.anchoredPosition = new Vector2(vert.position.x + size.x / 2, vert.position.y + size.y / 3); //这里改图片的上下位置
 
                 // 抹掉左下角的小黑点
                 toFill.PopulateUIVertex(ref vert, endIndex - 3);

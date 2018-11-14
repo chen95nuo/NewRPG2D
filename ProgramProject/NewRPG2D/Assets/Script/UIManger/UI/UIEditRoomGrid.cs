@@ -32,7 +32,7 @@ public class UIEditRoomGrid : MonoBehaviour
         string st = LanguageDataMgr.instance.GetRoomName(data.buildingData[0].buildingData.RoomName.ToString());
         txt_Name.text = st;
 
-        string des = LanguageDataMgr.instance.GetRoomDes(data.buildingData[0].buildingData.RoomName.ToString());
+        string des = LanguageDataMgr.instance.GetDes(data.buildingData[0].buildingData.RoomName.ToString());
         txt_Des.text = des;
 
         Sprite sp = GetSpriteAtlas.insatnce.GetRoomSp(data.buildingData[0].buildingData.RoomName.ToString());

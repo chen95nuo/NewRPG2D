@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using Assets.Script.Timer;
+using System;
 
 public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
 {
@@ -12,19 +13,8 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
         get { return XmlName.WorkShopData; }
     }
 
-    //RoomId , TypeID
-    private Dictionary<int, Dictionary<int, WorkShopData[]>> dic = new Dictionary<int, Dictionary<int, WorkShopData[]>>();
-    public Dictionary<int, Dictionary<int, WorkShopData[]>> Dic
-    {
-        get
-        {
-            if (dic == null)
-            {
-                GetAllDic();
-            }
-            return dic;
-        }
-    }
+    //RoomId , Quality
+    private Dictionary<int, WorkShopData[]> dic = new Dictionary<int, WorkShopData[]>();
 
     //正在工作中的房间 roomId
     private Dictionary<int, WorkShopHelper> WorkDic = new Dictionary<int, WorkShopHelper>();
@@ -36,28 +26,30 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
             WorkShopData data = CurrentItemData[i] as WorkShopData;
             if (dic.ContainsKey(data.RoomID))
             {
-                if (dic[data.RoomID].ContainsKey(data.EquipType))
-                {
-                    dic[data.RoomID][data.EquipType][(int)data.Quality - 1] = data;
-                }
-                else
-                {
-                    dic[data.RoomID].Add(data.EquipType, new WorkShopData[4]);
-                    dic[data.RoomID][data.EquipType][(int)data.Quality] = data;
-                }
+                dic[data.RoomID][(int)data.Quality - 2] = data;
             }
             else
             {
-                dic.Add(data.RoomID, new Dictionary<int, WorkShopData[]>());
-                dic[data.RoomID].Add(data.EquipType, new WorkShopData[4]);
-                dic[data.RoomID][data.EquipType][(int)data.Quality - 1] = data;
+                dic.Add(data.RoomID, new WorkShopData[4]);
+                dic[data.RoomID][(int)data.Quality - 2] = data;
             }
         }
     }
-    public WorkShopData[] GetWorkData(int roomID, int type)
+    public WorkShopData[] GetWorkData(int roomID)
     {
-        return Dic[roomID][type];
+        if (dic.Count <= 0)
+        {
+            GetAllDic();
+        }
+
+        if (dic.ContainsKey(roomID))
+        {
+            return dic[roomID];
+        }
+        Debug.LogError("ID错误");
+        return null;
     }
+
     public WorkShopHelper GetWorkTime(int roomID)
     {
         foreach (var item in WorkDic)
@@ -81,7 +73,7 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
         if (WorkDic.ContainsKey(index))
         {
             WorkDic[index].time--;
-            HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.ChickWorkTime, WorkDic[index].roomId);
+            HallEventManager.instance.SendEvent<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, WorkDic[index]);
         }
         else
         {

@@ -472,7 +472,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         switch (name)
         {
             case BuildRoomName.Gold:
-                if (dic[BuildRoomName.GoldSpace][0] == null)
+                if (!dic.ContainsKey(BuildRoomName.GoldSpace) || dic[BuildRoomName.GoldSpace][0] == null)
                 {
                     index = player.Gold;
                     return index;
@@ -480,7 +480,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 index = (int)dic[BuildRoomName.GoldSpace][0].Stock + player.Gold;
                 break;
             case BuildRoomName.Food:
-                if (dic[BuildRoomName.FoodSpace][0] == null)
+                if (!dic.ContainsKey(BuildRoomName.FoodSpace) || dic[BuildRoomName.FoodSpace][0] == null)
                 {
                     index = player.Food;
                     return index;
@@ -488,14 +488,14 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 index = (int)dic[BuildRoomName.FoodSpace][0].Stock + player.Food;
                 break;
             case BuildRoomName.Wood:
-                if (dic[BuildRoomName.WoodSpace][0] == null)
+                if (!dic.ContainsKey(BuildRoomName.WoodSpace) || dic[BuildRoomName.WoodSpace][0] == null)
                 {
                     index = player.Wood;
                 }
                 index = (int)dic[BuildRoomName.WoodSpace][0].Stock + player.Wood;
                 break;
             case BuildRoomName.Mana:
-                if (dic[BuildRoomName.ManaSpace][0] == null)
+                if (!dic.ContainsKey(BuildRoomName.ManaSpace) || dic[BuildRoomName.ManaSpace][0] == null)
                 {
                     index = player.Mana;
                     return index;
@@ -503,7 +503,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 index = (int)dic[BuildRoomName.ManaSpace][0].Stock + player.Mana;
                 break;
             case BuildRoomName.Iron:
-                if (dic[BuildRoomName.IronSpace][0] == null)
+                if (!dic.ContainsKey(BuildRoomName.IronSpace) || dic[BuildRoomName.IronSpace][0] == null)
                 {
                     index = player.Iron;
                     return index;

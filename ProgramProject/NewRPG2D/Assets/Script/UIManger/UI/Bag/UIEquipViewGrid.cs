@@ -1,4 +1,4 @@
-﻿    using Assets.Script.Battle.BattleData;
+﻿using Assets.Script.Battle.BattleData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,7 +76,7 @@ public class UIEquipViewGrid : MonoBehaviour
         InstanceGrid();
     }
 
-    public void UpdateInfo(EquipmentRealProperty equipData, int btnType, HallRoleData roleData)
+    public void UpdateInfo(EquipmentRealProperty equipData, int btnType, HallRoleData roleData = null)
     {
         ts.anchoredPosition = Vector3.one * -2000;
         Debug.Log("运行了");

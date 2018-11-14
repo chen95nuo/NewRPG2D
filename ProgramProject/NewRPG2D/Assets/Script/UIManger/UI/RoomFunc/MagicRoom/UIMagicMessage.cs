@@ -72,13 +72,13 @@ public class UIMagicMessage : TTUIPage
     {
         currentMagic = data.ItemId;
         this.isCryNewMagic = isCryNewMagic;
-        txt_Name.text = data.magicName.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetString(data.magicName.ToString());
         string message = string.Format(LanguageDataMgr.instance.GetString("Info_" + data.magicName), "<color=#77ff58>" + data.param + "</color>");
         txt_Message.text = message;
         string level = string.Format(LanguageDataMgr.instance.GetString("Tip_Level"));
         txt_LevelTip.text = level + data.level;
         //Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.magicName.ToString());
-        Icon.sprite = GetSpriteAtlas.insatnce.GetIcon("技能1");
+        Icon.sprite = GetSpriteAtlas.insatnce.GetSkilIcon("技能1");
 
         ShowDownTip(st);
         ShowLevelUp(data, isCryPage);

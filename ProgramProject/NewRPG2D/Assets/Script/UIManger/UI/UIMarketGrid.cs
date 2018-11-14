@@ -45,7 +45,7 @@ public class UIMarketGrid : MonoBehaviour
     {
         ChickProduce(false);
 
-        txt_Tip_4.text = LanguageDataMgr.instance.GetRoomDes(data.RoomName.ToString());
+        txt_Tip_4.text = LanguageDataMgr.instance.GetDes(data.RoomName.ToString());
         buildName.text = LanguageDataMgr.instance.GetRoomName(data.RoomName.ToString());
         thisGrid.interactable = isTrue;
 

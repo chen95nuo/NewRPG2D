@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIEquipWorkShop : MonoBehaviour {
+public class UIWorkShopTip : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

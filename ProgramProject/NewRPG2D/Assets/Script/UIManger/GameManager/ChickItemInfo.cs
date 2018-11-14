@@ -139,7 +139,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         {
             if (AllPropList[i].propData.ItemId == propID)
             {
-                num++;
+                num += AllPropList[i].number;
             }
         }
         return num;

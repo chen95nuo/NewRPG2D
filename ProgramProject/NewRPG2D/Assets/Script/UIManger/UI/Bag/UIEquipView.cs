@@ -65,6 +65,17 @@ public class UIEquipView : TTUIPage
             UIEquipInfoHelper_1 equipData = mData as UIEquipInfoHelper_1;
             UpdateInfo(equipData);
         }
+        else
+        {
+            EquipmentRealProperty equipData = mData as EquipmentRealProperty;
+
+        }
+    }
+
+    private void UpdateInfo(EquipmentRealProperty equipData)
+    {
+        LeftPoint.gameObject.SetActive(false);
+        rightEquipGrid.UpdateInfo(equipData, 0);
     }
 
     private void UpdateInfo(UIEquipInfoHelper equipData)
@@ -95,7 +106,7 @@ public class UIEquipView : TTUIPage
         else
         {
             LeftPoint.gameObject.SetActive(true);
-            leftEquipGrid.UpdateInfo(equipInfoData.roleEquipData, 0, null);
+            leftEquipGrid.UpdateInfo(equipInfoData.roleEquipData, 0);
             rightEquipGrid.UpdateInfo(equipInfoData.bagEquipData, 3, equipInfoData.roleData);
             Debug.Log("角色信息背包,有两件装备");
         }

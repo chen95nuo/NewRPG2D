@@ -79,7 +79,7 @@ public abstract class UIRoomInfo : TTUIPage
         txt_Level.text = data.BuildingData.Level.ToString();
         if (NeedTip)
         {
-            txt_DownTip.text = LanguageDataMgr.instance.GetInfoDownTip(name);
+            txt_DownTip.text = LanguageDataMgr.instance.GetInfo(name);
         }
     }
 
