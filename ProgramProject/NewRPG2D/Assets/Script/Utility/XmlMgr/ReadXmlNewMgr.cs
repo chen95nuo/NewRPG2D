@@ -26,6 +26,11 @@ namespace Assets.Script.Utility
         {
             return true;
         }
+
+        public virtual bool GetXmlDataAttribute(string node)
+        {
+            return true;
+        }
     }
 
     public class ReadXmlNewMgr : TSingleton<ReadXmlNewMgr>, IDisposable

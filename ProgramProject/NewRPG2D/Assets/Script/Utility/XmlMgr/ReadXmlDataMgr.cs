@@ -55,7 +55,6 @@ namespace Assets.Script.Utility
         Special,
     }
 
-
     public class ReadXmlDataMgr
     {
         public static string GetXmlPath(string name, XmlTypeEnum xmlType = XmlTypeEnum.Hall)
