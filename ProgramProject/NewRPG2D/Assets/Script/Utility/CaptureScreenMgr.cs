@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace Assets.Script.Utility
 {
     public class CaptureScreenMgr : TSingleton<CaptureScreenMgr>
     {
+
+        public Dictionary<int, Texture2D> IconDic = new Dictionary<int, Texture2D>();
 
         /// <summary>  
         /// 对相机截图。   
@@ -25,14 +28,7 @@ namespace Assets.Script.Utility
             camera.targetTexture = null;
             RenderTexture.active = null;
             GameObject.Destroy(rt);
-            byte[] bytes = screenShot.EncodeToPNG();
-            string dirPath = string.Format("{0}/{1}", Application.persistentDataPath, roleId);
-            DirectoryInfo mydir = new DirectoryInfo(dirPath);
-            if (!mydir.Exists)
-                Directory.CreateDirectory(dirPath);
-
-            System.IO.File.WriteAllBytes(dirPath + "/Icon.png", bytes);
-
+            IconDic[roleId] = screenShot;
             return screenShot;
         }
     }
