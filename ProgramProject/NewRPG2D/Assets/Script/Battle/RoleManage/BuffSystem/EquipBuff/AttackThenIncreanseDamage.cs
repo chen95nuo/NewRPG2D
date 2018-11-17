@@ -6,7 +6,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Script.Battle
 {
-    public class IncreanseDamageWhenAttack : RoleEquipSpecialBuff
+    public class AttackThenIncreanseDamage : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {

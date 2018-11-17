@@ -1,35 +1,34 @@
 ﻿/// <summary>
-///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
+///当前攻击目标被击杀时，x秒内造成的伤害提高y%
 /// </summary>
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Script.Battle
 {
-    public class ContinueDamage : RoleEquipSpecialBuff
+    public class TargetDeadThenIncreaseDamage : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
             get
             {
-                return TirggerTypeEnum.Attack;
+                return TirggerTypeEnum.TargetDeath;
             }
         }
 
         private float triggerChange;
         private float duration;
+        private float extraDamagePercent;
         private float extraDamage;
-
         private bool canTrigger;
         private float addTime;
-        private HurtInfo extraHurtInfo;
-        // private int firstTargetId;
+
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            triggerChange = param1;
-            duration = param2;
-            extraDamage = param3;
+            duration = param1;
+            extraDamagePercent = param2*0.01f;
         }
 
         private float intervalTime = 0;
@@ -40,21 +39,10 @@ namespace Assets.Script.Battle
             if (canTrigger)
             {
                 addTime += deltaTime;
-                if (addTime < duration)
-                {
-                    if (intervalTime < 1)
-                    {
-                        intervalTime += deltaTime;
-                    }
-                    else
-                    {
-                        intervalTime = 0;
-                        currentRole.RoleDamageMoment.HurtDamage(ref extraHurtInfo);
-                    }
-                }
-                else
+                if (addTime >= duration)
                 {
                     canTrigger = false;
+                    currentRole.RolePropertyValue.SetDamage(-extraDamage);
                 }
             }
         }
@@ -65,9 +53,8 @@ namespace Assets.Script.Battle
             {
                 canTrigger = true;
                 addTime = 0;
-                extraHurtInfo = info;
-                // firstTargetId = info.TargeRole.InstanceId;
-                extraHurtInfo.HurtValue = extraDamage / (int)duration;
+                extraDamage = currentRole.RolePropertyValue.Damage * extraDamagePercent;
+                currentRole.RolePropertyValue.SetDamage(extraDamage);
                 return true;
             }
             return false;

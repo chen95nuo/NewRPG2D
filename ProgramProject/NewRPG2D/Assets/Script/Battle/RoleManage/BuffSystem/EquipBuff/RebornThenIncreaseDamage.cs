@@ -6,7 +6,7 @@ using System.Runtime.Hosting;
 
 namespace Assets.Script.Battle
 {
-    public class IncreaseAttackWhenReborn : RoleEquipSpecialBuff
+    public class RebornThenIncreaseDamage : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {

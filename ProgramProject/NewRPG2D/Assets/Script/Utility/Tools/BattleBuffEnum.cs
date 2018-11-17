@@ -30,32 +30,52 @@ namespace Assets.Script
 
     public enum SpecialPropertyEnum
     {
-        None,
-        RebornFriend = 1,               ///以X+（法术强度*Y)点生命值复活一名盟友。Z秒冷却
-        ExtraDamage,                    ///攻击时，有x%概率在y秒内造成z%点分裂伤害。
-        IncreaseAttackWhenReborn,       ///以任何形式复活后，伤害提升x%。持续y秒。
-        HurtAllEnemy,                   ///攻击时，有x%概率对全体敌人造成y%点伤害
-        Dizzy,                          ///攻击时，有x%概率使敌人眩晕y秒
-        ContinueDamage,                 ///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
-        IncreaseCritial,                ///攻击时，有x%概率提高自身y%的暴击。持续z秒。
-        IncreaseDamageWhenTargetDead,   ///当前攻击目标被击杀时，x秒内造成的伤害提高y%。
-        IncreanseDamageWhenAttack,      ///每次攻击都提升x%点伤害，当前目标死亡时，损失所有伤害提升。
+        None,                            
+        HealFriendHp,                    ///每过x秒，为一名受伤程度最重的友方回复y+z点生命值。  Z=当前角色法术强度*P
+        HealFriendHpBuff,                ///每过x秒，在y秒内为一位友方回复Z+A点生命值。 A=当前角色法术强度*P
+        ExtraDamage,                     ///每过x秒，对敌人造成y+z点伤害。       Z=当前角色法术强度*P 
+        ExtraDamageBuff,                 ///每过x秒，在y秒内对敌人造成z+A伤害。   A=当前角色法术强度*P
+        ExtraAllEnemyDamage,             ///每过x秒，造成y+z分裂伤害。       Z=当前角色法术强度*P 
+        ExtraAllEnemyDamageBuff,         ///每过x秒，在 y秒内造成z+A分裂伤害。  A=当前角色法术强度*P 
+        RebornFriend,                    ///每过x秒，复活一位友方并为其回复y+z生命值。  z=当前角色法术强度*P
+        BornSmallMonster,                ///每过x秒，召唤一只{怪物名称}加入战场（生命值为x，伤害为 y）。
+        IncreaseFriendsArmorBuff,        ///每过x秒，为一位友方增加y%护甲。持续z秒。
+        IncreaseFriendsHpBuff,           ///每过x秒，为一位友方增加x%最大生命值。持续z秒。
+        DizzyBuff,                       ///每过x秒，眩晕一名敌人 y 秒。 
+        AttackThenDizzy,                           ///攻击时，有x%概率使敌人眩晕y秒
+        AttackThenHealFriendHp,          ///攻击时，有x%概率为一名受伤程度最重的友方回复y+z点生命值。  Z=当前角色法术强度*P
+        AttackThenExtraDamage,           ///攻击时，有x%概率对一名敌人造成y+z伤害。  Z=当前角色法术强度*P
+        AttackThenIcreaseAFrinedDamageBuff, ///攻击时，有x%概率将一位友方所造成的伤害提升y%。持续z秒。
+        AttackThenHealSlefHp,            ///攻击时，有x%概率为自己回复y%生命值。
+        AttackThenExtraAllEnemyDamage,   ///攻击时，有x%概率造成y%分裂伤害。
+        AttackThenExtraAllEnemyDamageBuff,///攻击时，有x% 概率使敌人流血，在y秒内造成y%伤害 
+        AttackThenIncreaseCritialBuff,   ///攻击时，有x%概率提高自身y%的暴击。持续z秒。
+        AttackThenIncreaseDamageBuff,    ///攻击时，有x%概率将伤害提高y%。持续z秒。
+        AttackThenReduceTargetArmorBuff, ///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒
+        AttackThenIncreaseAvoidBuff,     ///攻击时，有x%概率提高自身y%的闪避。持续z秒。
+        AttackThenIncreaseHpBuff,        ///攻击时，有x%概率提高自身y%的最大生命值。持续z秒。
+        AttackThenIncreaseSelfArmor,     ///攻击时，有x%概率提高自身y%的护甲。持续z秒。
+        AttackThenIncreaseMagicArmor,    ///攻击时，有x%概率使魔法护甲提高y%，持续z秒
+        AttackThenReduceEnemyDamage,     ///攻击时，有x%的概率降低敌人伤害的y%。持续z秒
+        HurtThenHealHp,                  ///受到伤害时，有x%概率为自己恢复x%点生命值
+        HurtThenHealHpBuff,              ///受到伤害时，有x%概率为自己恢复x%点生命值 持续z秒。
+        HurtThenIncreaseArmor,           ///受到攻击时，有x%概率在y秒内回复自身y%的生命值。
+        HurtThenReduceTargetMagicArmorBuff, ///受到攻击时，有x%概率降低敌人y%的魔法护甲。持续z秒。
+        HurtThenIncreaseAvoidHurtChance, ///受到攻击时，有x%概率提升x%闪躲。
+        dummy,
+        AttackThenIncreanseDamage,       ///每次攻击都提升x%点伤害。转换当前攻击目标时，效果重置
+        AttackThenHealHp,                ///攻击命中敌人时，造成x+y伤害，并为友军回复等同于伤害值z%的生命值。  y=法术强度*P
+        AttackThenEnemyExtraDamageBuff,  ///攻击时，x%概率使被击中的敌人所受的伤害提高x%。效果持续y秒。
 
-        ReduceTargetArmor,              ///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒
-        IncreasePhysicDamage,           ///攻击时，有x%概率使物理伤害提高y%，持续z秒
-        IncreaseMagicDamage,            ///攻击时，有x%概率使魔法伤害提高y%，持续z秒
-        HealSelfHp,                     ///攻击时，有x概率使自身回复y%生命值
-        HealFriendHp,                   ///恢复一名受伤程度最重的友方x点生命值。Y秒冷却
-        ReduceEnemyDamage,              ///攻击时，有x%的概率降低敌人伤害的y%。持续z秒
-        IncreaseArmor,                  ///受到伤害时，有x%概率使自身护甲增加y点，持续z秒
+        DeadThenHurtAllEnemy,           ///死亡时，对敌人造成x点范围伤害。
+        DeadThenDizzyAllEnemy,          ///死亡时，眩晕范围内敌人x秒
+        LowHpBornSmallMonster,          ///生命值低于x%时，每隔y秒召唤两个z生命值、a伤害的骷髅。 
+        HurtThenRelectEnemy,            ///受到伤害时， 有x%概率对攻击者造成y%反弹伤害。
+        HurtThenGod,                    ///受到伤害时，有X%概率对自己使用干涉，回复Y点生命值。在干涉期间将不会受到攻击，也无法移动或攻击。持续Z秒
+        DeadThenHealAnother,            ///死亡时，对一名受伤程度最重的友方回复x%生命值。每场战斗仅可启动 1 次。
+        RebornThenIncreaseDamage,         ///以任何形式复活后，伤害提升x%。持续y秒。
+        KillLowHpEnemy,                 ///目标生命值少于x%时，y%概率斩杀敌人。
+        TargetDeadThenIncreaseDamage,    ///当前攻击目标被击杀时，x秒内造成的伤害提高y%。
 
-        BornSmallMonster,               ///每隔x秒，召唤两个y生命值，z伤害的骷髅帮助作战。
-        GodWhenHurt,                    ///受到伤害时，有X%概率对自己使用干涉，回复Y点生命值。在干涉期间将不会受到攻击，也无法移动或攻击。持续Z秒
-        HurtAllEnemyWhenDead,           ///死亡时，对敌人造成x点范围伤害。
-        DizzyAllEnemyWhenDead,          ///死亡时，眩晕范围内敌人x秒
-        IncreaseAvoidHurtChanceWhenHurt,///受到攻击时，有x%概率提升x%闪躲。
-        BornSmallMonsterWhenDead,       ///死亡时，召唤两个x生命值，y伤害的骷髅帮助作战。
-        HealHpWhenHurt,                 ///受到伤害时，有x%概率为自己恢复x%点生命值
-        HealHpPerSecondWhenHurt,        ///受到伤害时，有x%概率在y秒内为自己恢复x%点生命值
     }
 }

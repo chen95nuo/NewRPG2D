@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class ExtraDamageBuff : RoleEquipSpecialBuff
+    public class AttackThenIncreaseDamageBuff : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {

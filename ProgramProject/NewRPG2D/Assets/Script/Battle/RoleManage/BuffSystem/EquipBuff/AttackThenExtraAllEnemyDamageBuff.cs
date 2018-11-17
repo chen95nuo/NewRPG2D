@@ -1,11 +1,11 @@
 ﻿/// <summary>
-///攻击时，有x%概率提高自身y%的暴击。持续z秒
+///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
 /// </summary>
 using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class IncreaseCritial : RoleEquipSpecialBuff
+    public class AttackThenExtraAllEnemyDamageBuff : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
@@ -17,19 +17,19 @@ namespace Assets.Script.Battle
 
         private float triggerChange;
         private float duration;
-        private float extraCritialPercent;
-        private float extraCritial;
+        private float extraDamage;
 
         private bool canTrigger;
         private float addTime;
-
+        private HurtInfo extraHurtInfo;
+        // private int firstTargetId;
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            triggerChange = param1*0.01f;
+            triggerChange = param1;
             duration = param2;
-            extraCritialPercent = param3*0.01f;
+            extraDamage = param3;
         }
 
         private float intervalTime = 0;
@@ -40,10 +40,21 @@ namespace Assets.Script.Battle
             if (canTrigger)
             {
                 addTime += deltaTime;
-                if (addTime >= duration)
+                if (addTime < duration)
+                {
+                    if (intervalTime < 1)
+                    {
+                        intervalTime += deltaTime;
+                    }
+                    else
+                    {
+                        intervalTime = 0;
+                        currentRole.RoleDamageMoment.HurtDamage(ref extraHurtInfo);
+                    }
+                }
+                else
                 {
                     canTrigger = false;
-                    currentRole.RolePropertyValue.SetCriticalPercent(-extraCritial);
                 }
             }
         }
@@ -54,8 +65,9 @@ namespace Assets.Script.Battle
             {
                 canTrigger = true;
                 addTime = 0;
-                extraCritial = currentRole.RolePropertyValue.CriticalPercent * extraCritialPercent;
-                currentRole.RolePropertyValue.SetCriticalPercent(extraCritial);
+                extraHurtInfo = info;
+                // firstTargetId = info.TargeRole.InstanceId;
+                extraHurtInfo.HurtValue = extraDamage / (int)duration;
                 return true;
             }
             return false;

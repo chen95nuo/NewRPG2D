@@ -95,30 +95,29 @@ namespace Assets.Script.Battle
                     buff = new RebornFriendBuff();
                     break;
                 case SpecialPropertyEnum.ExtraDamage:
-                    buff = new ExtraDamageBuff();
+                    //buff = new ExtraDamageBuff();
                     break;
-                case SpecialPropertyEnum.IncreaseAttackWhenReborn:
-                    buff = new IncreaseAttackWhenReborn();
+                case SpecialPropertyEnum.RebornThenIncreaseDamage:
+                    buff = new RebornThenIncreaseDamage();
                     break;
-                case SpecialPropertyEnum.HurtAllEnemy:
-                    buff = new HurtAllEnemy();
+                case SpecialPropertyEnum.AttackThenExtraAllEnemyDamage:
+                    buff = new AttackThenExtraAllEnemyDamage();
                     break;
-                case SpecialPropertyEnum.Dizzy:
-                    buff = new DizzyBuff();
+                case SpecialPropertyEnum.AttackThenDizzy:
+                      buff = new AttackThenDizzy();
                     break;
-                case SpecialPropertyEnum.ContinueDamage:
-                    buff = new ContinueDamage();
+                case SpecialPropertyEnum.AttackThenExtraAllEnemyDamageBuff:
+                    buff = new AttackThenExtraAllEnemyDamageBuff();
                     break;
-                case SpecialPropertyEnum.IncreaseCritial:
-                    buff = new IncreaseCritial();
+                case SpecialPropertyEnum.AttackThenIncreaseCritialBuff:
+                    buff = new AttackThenIncreaseCritial();
                     break;
-                case SpecialPropertyEnum.IncreaseDamageWhenTargetDead:
-                    buff = new IncreaseDamageWhenTargetDead();
+                case SpecialPropertyEnum.TargetDeadThenIncreaseDamage:
+                    buff = new TargetDeadThenIncreaseDamage();
                     break;
-                case SpecialPropertyEnum.IncreanseDamageWhenAttack:
-                    buff = new IncreanseDamageWhenAttack();
+                case SpecialPropertyEnum.AttackThenIncreaseDamageBuff:
+                    buff = new AttackThenIncreaseDamageBuff();
                     break;
-
                 default:
                     buff = new RoleEquipSpecialBuff();
                     break;
