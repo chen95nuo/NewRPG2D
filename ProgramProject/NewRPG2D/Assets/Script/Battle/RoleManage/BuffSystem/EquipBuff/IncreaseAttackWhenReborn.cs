@@ -21,9 +21,9 @@ namespace Assets.Script.Battle
         private bool bTrigger;
         private float addTime=0;
 
-        public override void Init(RoleBase role, float param1, float param2, float param3)
+        public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
-            base.Init(role, param1, param2, param3);
+            base.Init(role, param1, param2, param3, param4);
             duration = param1;
             increaseDamage = param2 * role.RolePropertyValue.Damage;
         }

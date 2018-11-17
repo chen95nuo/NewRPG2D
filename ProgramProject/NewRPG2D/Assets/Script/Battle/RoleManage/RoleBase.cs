@@ -41,6 +41,7 @@ namespace Assets.Script.Battle
         public bool IsCanInterrput;
         public bool CanStartMove;
 
+        public BuffMgr BuffMoment { get; private set; }
         public WeaponMoment RoleWeapon { get; private set; }
         public SearchTarget RoleSearchTarget { get; private set; }
         public RoleRender MonoRoleRender { get; private set; }
@@ -85,6 +86,8 @@ namespace Assets.Script.Battle
 
         public virtual void InitData()
         {
+            BuffMoment = new BuffMgr();
+            BuffMoment.SetCurrentRole(this);
             RoleWeapon = new WeaponMoment();
             RoleWeapon.SetCurrentRole(this);
             RoleAnimation = new RoleAnimationSys();

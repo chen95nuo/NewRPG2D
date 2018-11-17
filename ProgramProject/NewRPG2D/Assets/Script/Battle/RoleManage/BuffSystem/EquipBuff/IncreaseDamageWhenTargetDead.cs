@@ -1,35 +1,34 @@
 ﻿/// <summary>
-///攻击时，有x%概率提高自身y%的暴击。持续z秒
+///当前攻击目标被击杀时，x秒内造成的伤害提高y%
 /// </summary>
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Script.Battle
 {
-    public class IncreaseCritial : RoleEquipSpecialBuff
+    public class IncreaseDamageWhenTargetDead : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
             get
             {
-                return TirggerTypeEnum.Attack;
+                return TirggerTypeEnum.TargetDeath;
             }
         }
 
         private float triggerChange;
         private float duration;
-        private float extraCritialPercent;
-        private float extraCritial;
-
+        private float extraDamagePercent;
+        private float extraDamage;
         private bool canTrigger;
         private float addTime;
 
 
-        public override void Init(RoleBase role, float param1, float param2, float param3)
+        public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
-            base.Init(role, param1, param2, param3);
-            triggerChange = param1*0.01f;
-            duration = param2;
-            extraCritialPercent = param3*0.01f;
+            base.Init(role, param1, param2, param3, param4);
+            duration = param1;
+            extraDamagePercent = param2*0.01f;
         }
 
         private float intervalTime = 0;
@@ -43,7 +42,7 @@ namespace Assets.Script.Battle
                 if (addTime >= duration)
                 {
                     canTrigger = false;
-                    currentRole.RolePropertyValue.SetCriticalPercent(-extraCritial);
+                    currentRole.RolePropertyValue.SetDamage(-extraDamage);
                 }
             }
         }
@@ -54,8 +53,8 @@ namespace Assets.Script.Battle
             {
                 canTrigger = true;
                 addTime = 0;
-                extraCritial = currentRole.RolePropertyValue.CriticalPercent * extraCritialPercent;
-                currentRole.RolePropertyValue.SetCriticalPercent(extraCritial);
+                extraDamage = currentRole.RolePropertyValue.Damage * extraDamagePercent;
+                currentRole.RolePropertyValue.SetDamage(extraDamage);
                 return true;
             }
             return false;

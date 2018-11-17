@@ -22,6 +22,7 @@ namespace Assets.Script.Battle.BattleData
         public float param1;
         public float param2;
         public float param3;
+        public float param4;
     }
 
     public struct RangeData

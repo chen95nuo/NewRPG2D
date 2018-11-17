@@ -18,7 +18,7 @@ namespace Assets.Script.Battle
 
         protected RoleBase currentRole;
 
-        public virtual void Init(RoleBase role, float param1, float param2, float param3)
+        public virtual void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             currentRole = role;
         }
@@ -39,6 +39,7 @@ namespace Assets.Script.Battle
 
         public virtual void Dispose()
         {
+
         }
 
     }

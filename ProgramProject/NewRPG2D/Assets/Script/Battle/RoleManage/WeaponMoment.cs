@@ -124,7 +124,7 @@ namespace Assets.Script.Battle
                     break;
             }
 
-            buff.Init(currentHeroRole, buffData.param1, buffData.param2, buffData.param3);
+            buff.Init(currentHeroRole, buffData.param1, buffData.param2, buffData.param3, buffData.param4);
 
             return buff;
         }

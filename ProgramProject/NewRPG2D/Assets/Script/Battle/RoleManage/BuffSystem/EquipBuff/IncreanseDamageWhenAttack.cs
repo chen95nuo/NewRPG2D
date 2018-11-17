@@ -20,9 +20,9 @@ namespace Assets.Script.Battle
         private bool canTrigger;
         private RoleBase enemyRole;
 
-        public override void Init(RoleBase role, float param1, float param2, float param3)
+        public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
-            base.Init(role, param1, param2, param3);
+            base.Init(role, param1, param2, param3, param4);
             extraDamagePercent = param1*0.01f;
         }
 
