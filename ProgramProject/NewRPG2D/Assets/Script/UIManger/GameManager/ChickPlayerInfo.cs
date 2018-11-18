@@ -194,6 +194,8 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         {
             if (allRoom[i].Id == roomID)
             {
+                role.transform.parent = allRoom[i].RolePoint;
+                role.transform.localPosition = Vector3.zero;
                 allRoom[i].AddRole(role);
             }
         }

@@ -76,6 +76,7 @@ namespace Assets.Script.Net
         private BaseData baseData;
         private Dictionary<int, ISend> cacheSend;
 
+        private string token; //玩家唯一识别码
 
         public override void Init()
         {
@@ -88,6 +89,12 @@ namespace Assets.Script.Net
         {
             base.Dispose();
             AntiInit();
+        }
+
+        public void GameStartMessaget(string url, string token)
+        {
+            InitSocket(url);
+            this.token = token;
         }
 
         public void InitSocket(string url)
@@ -147,6 +154,7 @@ namespace Assets.Script.Net
         void OnOpen(WebSocket ws)
         {
             setConsoleMsg("Connected");
+            Send(NetSendMsg.RQ_StartGame, 1, token);
         }
 
         /// <summary>

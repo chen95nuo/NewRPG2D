@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
 using UnityEngine.SceneManagement;
+using System.Text;
+using System.Security.Cryptography;
+using Assets.Script.Net;
 using BestHTTP;
-using System;
 
 public class UILogin : MonoBehaviour
 {
     private const string registerUrl = "http://39.104.79.77:8882/user/register?u={0}&p={1}";
     private const string loginUrl = "http://39.104.79.77:8882/user/login?u={0}&p={1}";
+    private const string onkeyregisterUrl = "http://39.104.79.77:8882/user/onkeyregister?sid={0}";
 
     public InputField UserName;
     public InputField PassWord;
     public Button btn_Login;
     public Button btn_RegisterPage;
+    public Button btn_RegisterBack;
     public Button btn_Register;
-    public GameObject Load;
-    public Slider slider;
-    public Text txt_LoadNum;
+    public Button btn_OnKeyRegister;
+    public GameObject StartPage;
 
     private int index;
     private bool isRun = false;
@@ -30,18 +33,46 @@ public class UILogin : MonoBehaviour
 
     public GameObject RegisterPopup;
     public InputField registerUserName;
-    public InputField registerPassWodk;
+    public InputField registerPassWord;
     private LoginType type;
+
+    private bool isRegister = false; //是注册？
+
+    private string userName;
+    private string passWord;
 
     private void Awake()
     {
-        slider.value = 0;
         btn_Login.onClick.AddListener(ChickLogin);
         btn_RegisterPage.onClick.AddListener(ChickRegisterPage);
         btn_Register.onClick.AddListener(ChickRegister);
         btn_Error.onClick.AddListener(ChickError);
+        btn_OnKeyRegister.onClick.AddListener(ChickOnkeyRegister);
+        btn_RegisterBack.onClick.AddListener(ChickRegisterBack);
+        StartPage.gameObject.SetActive(false);
+        //if (PlayerPrefs.HasKey("UserName"))
+        //{
+        //    string userName = PlayerPrefs.GetString("UserName");
+        //    string passWord = PlayerPrefs.GetString("PassWord");
+        //    Request(loginUrl, userName, passWord);
+        //}
+        //else
+        //{
+        //    StartPage.gameObject.SetActive(false);
+        //}
+        //PlayerPrefs.SetString("UserName", "Name");
+        //PlayerPrefs.SetString("PassWord", "Name");
     }
 
+    private void ChickRegisterBack()
+    {
+        RegisterPopup.SetActive(false);
+    }
+
+    private void ChickOnkeyRegister()
+    {
+        OnkeyRegister();
+    }
 
     private void ChickError()
     {
@@ -53,59 +84,128 @@ public class UILogin : MonoBehaviour
     {
         string userName = UserName.text;
         string passWord = PassWord.text;
-        if (userName == "" || passWord == "")
-        {
-            ErrorTip("错误：请输入正确的账号密码");
-        }
-        Debug.Log(string.Format("账号:{0},密码:{1}", userName, passWord));
         //SceneManager.LoadScene("EasonMainScene");
-        Login(userName, passWord);
+        Request(loginUrl, userName, passWord);
     }
 
-    private void ErrorTip(string st)
+    private void ErrorTip(int ErrorID)
     {
+        string st = "";
+        switch (ErrorID)
+        {
+            case -1:
+                st = "通用错误";
+                break;
+            case 101:
+                st = "账号已存在";
+                break;
+            case 102:
+                st = "账户不存在";
+                break;
+            case 103:
+                st = "密码错误";
+                break;
+            default:
+                break;
+        }
         ErrorPopup.SetActive(true);
         txt_Error.text = st;
     }
 
     private void ChickRegisterPage()
     {
-        RegisterPopup.SetActive(true);
+        RegisterPopup.SetActive(!isRegister);
     }
 
     private void ChickRegister()
     {
-        RegisterPopup.SetActive(false);
+        isRegister = true;
         string userName = registerUserName.text;
-        string passWord = registerPassWodk.text;
+        string passWord = registerPassWord.text;
         Debug.Log(string.Format("账号:{0},密码:{1}", userName, passWord));
-        Register(userName, passWord);
+        Request(registerUrl, userName, passWord);
     }
 
-    private void onRequestFinished(HTTPRequest originalRequest, HTTPResponse response)
+    private void RegisterComplete(int ret)
     {
-        LoginRequest request = JsonUtility.FromJson<LoginRequest>(response.DataAsText);
-        Debug.LogError(response.DataAsText);
-
-        Debug.LogError("返回 编号:" + request.ret);
-        Debug.LogError("返回 编码:" + request.token);
-
-        switch (type)
+        if (ret != 0)
         {
-            default:
-                break;
+            ErrorTip(ret);
+            return;
         }
+        isRegister = !isRegister;
+        RegisterPopup.SetActive(isRegister);
+
+        UserName.text = registerUserName.text;
+        PassWord.text = registerPassWord.text;
+        PlayerPrefs.SetString("UserName", registerUserName.text);
+        PlayerPrefs.SetString("PassWord", registerPassWord.text);
+        PlayerPrefs.Save();
+        Debug.LogError("注册成功,保存账号密码 :" + registerUserName + registerPassWord);
     }
-    public void Register(string userName, string password)
+
+    private void OnRequestFinished(HTTPRequest originalRequest, HTTPResponse response)
     {
-        HTTPRequest request = new HTTPRequest(new System.Uri(string.Format(registerUrl, userName, password)), onRequestFinished);
+        Debug.Log(response.DataAsText);
+        LoginRequest RS = JsonUtility.FromJson<LoginRequest>(response.DataAsText);
+        if (RS.ret != 0)
+        {
+            ErrorTip(RS.ret);
+            return;
+        }
+        if (isRegister)
+        {
+            RegisterComplete(RS.ret);
+            return;
+        }
+        if (RS.u != null)
+        {
+            Debug.LogError("快速注册成功");
+            PlayerPrefs.SetString("UserName", RS.u);
+            PlayerPrefs.SetString("PassWord", RS.p);
+            Debug.Log(string.Format("账号:{0}密码{1}", RS.u, RS.p));
+            Request(loginUrl, RS.u, RS.p);
+            return;
+        }
+        PlayerPrefs.SetString("UserName", userName);
+        PlayerPrefs.SetString("PassWord", passWord);
+        PlayerPrefs.Save();
+        Debug.LogError("登陆成功");
+        WebSocketManger.instance.GameStartMessaget(string.Format("ws://{0}:{1}/websocket", RS.server_ip, RS.port), RS.token);
+    }
+
+
+
+    public void Request(string Url, string userName, string password)
+    {
+        this.userName = userName;
+        this.passWord = password;
+        password = UserMd5(password);
+        HTTPRequest request = new HTTPRequest(new System.Uri(string.Format(Url, userName, password)), OnRequestFinished);
         request.Send();
     }
 
-    public void Login(string userName, string password)
+    public void OnkeyRegister()
     {
-        HTTPRequest request = new HTTPRequest(new System.Uri(string.Format(loginUrl, userName, password)), onRequestFinished);
+        HTTPRequest request = new HTTPRequest(new System.Uri(string.Format(onkeyregisterUrl, SystemInfo.deviceUniqueIdentifier)), OnRequestFinished);
         request.Send();
+    }
+
+    static string UserMd5(string str)
+    {
+        string cl = str;
+        StringBuilder pwd = new StringBuilder();
+        MD5 md5 = MD5.Create();//实例化一个md5对像
+                               // 加密后是一个字节类型的数组，这里要注意编码UTF8/Unicode等的选择　
+        byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(cl));
+        // 通过使用循环，将字节类型的数组转换为字符串，此字符串是常规字符格式化所得
+        for (int i = 0; i < s.Length; i++)
+        {
+            // 将得到的字符串使用十六进制类型格式。格式后的字符是小写的字母，如果使用大写（X）则格式后的字符是大写字符
+            pwd.Append(s[i].ToString("x2"));
+            //pwd = pwd + s[i].ToString("X");
+        }
+        return pwd.ToString();
     }
 }
 
@@ -113,9 +213,17 @@ public class UILogin : MonoBehaviour
 public class LoginRequest
 {
     [SerializeField]
+    public int port;
+    [SerializeField]
     public int ret;
     [SerializeField]
     public string token;
+    [SerializeField]
+    public string server_ip;
+    [SerializeField]
+    public string u;
+    [SerializeField]
+    public string p;
 }
 
 public enum LoginType

@@ -73,7 +73,7 @@ namespace Assets.Script
 
         public void InitData()
         {
-            WebSocketManger.instance.InitSocket(WebSocketManger.defaultUrl);
+            //WebSocketManger.instance.InitSocket(WebSocketManger.defaultUrl);
             WebSocketManger.instance.Connect();
           
             //isGameOver = true;

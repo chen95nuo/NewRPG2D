@@ -45,6 +45,28 @@ public abstract class RoomMgr : MonoBehaviour
     private UILevelUpTip levelUpTip;
     public LocalBuildingData currentBuildData;
 
+    private Transform rolePoint;//角色位置
+    public Transform RolePoint
+    {
+        get
+        {
+            if (rolePoint == null)
+            {
+                rolePoint = this.transform.Find("RoomTypes/RolePoint").transform;
+            }
+            return rolePoint;
+        }
+    }
+    private Vector2 rolePointMin;//左边界
+    public Vector2 RolePointMin
+    {
+        get
+        {
+            GameHelper.instance.ChickRoleMovePoint(RolePoint.position, BuildingData.RoomSize);
+            return rolePointMin;
+        }
+    }
+
     public Vector2 StartPoint
     {
         get
@@ -872,7 +894,6 @@ public abstract class RoomMgr : MonoBehaviour
                 return false;
             }
         }
-
         return false;
     }
 
@@ -1011,21 +1032,6 @@ public abstract class RoomMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 若房间移动 则将角色重新移动到房间位置
-    /// </summary>
-    public virtual void RoleMove()
-    {
-        for (int i = 0; i < currentBuildData.roleData.Length; i++)
-        {
-            if (currentBuildData.roleData[i] != null)
-            {
-                HallRole role = HallRoleMgr.instance.GetRole(currentBuildData.roleData[i]);
-                Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
-                role.transform.position = point;
-            }
-        }
-    }
-    /// <summary>
     /// 添加角色
     /// </summary>
     public virtual bool AddRole(HallRole role)
@@ -1043,9 +1049,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (currentBuildData.roleData[i] == null)
             {
                 currentBuildData.roleData[i] = role.RoleData;
-                Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
-                LocalServer.instance.RoleChangeRoom(role.RoleData, currentBuildData.id);
-                role.transform.position = point;
+                LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
                 role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)
                 {

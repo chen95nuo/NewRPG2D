@@ -364,6 +364,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickCraftItem()
     {
         Debug.Log("检查装备制造");
+        UIPanelManager.instance.ShowPage<UIWorkShopInfo>(roomData);
     }
     private void ChickResearch()
     {

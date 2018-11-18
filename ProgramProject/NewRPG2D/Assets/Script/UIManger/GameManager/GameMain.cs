@@ -1,4 +1,5 @@
-﻿using Assets.Script.UIManger;
+﻿using Assets.Script.Timer;
+using Assets.Script.UIManger;
 using Assets.Script.Utility;
 using UnityEngine;
 
@@ -45,9 +46,7 @@ public class GameMain : MonoBehaviour
 
     public void test_3()
     {
-        ChickItemInfo.instance.CreateNewProp(1001,20);
-        BuildingData bulidData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(10043);
-        LocalBuildingData data = new LocalBuildingData(Vector2.zero, bulidData);
-        UIPanelManager.instance.ShowPage<UIWorkShopInfo>(data);
+        //HallRole role = HallRoleMgr.instance.GetRole(3);
+        //role.RoleMove(new Vector2(13,2));
     }
 }

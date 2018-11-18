@@ -236,6 +236,7 @@ public class BuildPoint
     public Transform pointWall;//当前位置墙体引用
     public RoomMgr roomMgr;//当前位置房间信息
     public BuildTip tip;//当前位置提示框信息
+    //添加是否有障碍物
 }
 
 /// <summary>

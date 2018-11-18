@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GameHelper : TSingleton<GameHelper>
 {
-
+    public static float high = 2.7f;//默认最小房间高度
+    public static float width = 1.2f;//默认最小房间宽度
 
     public Vector2 GetPoint(Canvas canvas, Vector3 point)
     {
@@ -19,5 +20,10 @@ public class GameHelper : TSingleton<GameHelper>
     public int GetNeedDiamondsOfTime(int time)
     {
         return (int)(time * 0.01f);
+    }
+
+    public float ChickRoleMovePoint(Vector2 rolePoint, int roomSize)
+    {
+        return (high * roomSize) / 2;
     }
 }

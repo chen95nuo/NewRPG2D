@@ -268,6 +268,18 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         return dic[data];
     }
+    public HallRole GetRole(int roleId)
+    {
+        for (int i = 0; i < AllRole.Count; i++)
+        {
+            if (AllRole[i].id == roleId)
+            {
+                return GetRole(AllRole[i]);
+            }
+        }
+        Debug.LogError("没有找到角色");
+        return null;
+    }
 
     public HallRoleData GetRoleData(int roleId)
     {

@@ -16,7 +16,7 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
     //RoomId , Quality
     private Dictionary<int, WorkShopData[]> dic = new Dictionary<int, WorkShopData[]>();
 
-    //正在工作中的房间 roomId
+    //正在工作中的房间 计时器编号
     private Dictionary<int, WorkShopHelper> WorkDic = new Dictionary<int, WorkShopHelper>();
 
     private void GetAllDic()
@@ -65,8 +65,20 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
     {
         needTime = needTime == 0 ? shopData.NeedTime : needTime;
         WorkShopHelper data = new WorkShopHelper(roomId, shopData, needTime);
-        WorkDic.Add(roomId, data);
-        CTimerManager.instance.AddListener(1, data.time, WorkCallBack);
+        int index = CTimerManager.instance.AddListener(1, data.time, WorkCallBack);
+        WorkDic.Add(index, data);
+        WorkCallBack(index);
+    }
+    public void WorkSpeedUp(int roomId)
+    {
+        foreach (var item in WorkDic)
+        {
+            if (item.Value.roomId == roomId)
+            {
+
+                return;
+            }
+        }
     }
     public void WorkCallBack(int index)
     {
@@ -80,6 +92,10 @@ public class WorkShopDataMgr : ItemDataBaseMgr<WorkShopDataMgr>
             Debug.LogError("字典中没有找到这个key");
             CTimerManager.instance.RemoveLister(index);
         }
+    }
+    public void WorkComplate()
+    {
+
     }
 }
 

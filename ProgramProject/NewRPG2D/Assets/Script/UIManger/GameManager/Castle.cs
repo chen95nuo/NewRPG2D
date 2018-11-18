@@ -1,11 +1,34 @@
-﻿using System.Collections;
+﻿using EasonAstar;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Castle : MonoBehaviour
 {
-    public const float high = 2.7f;//默认最小房间高度
-    public const float width = 1.2f;//默认最小房间宽度
+    public float h;
+    public float w;
+    public float high
+    {
+        get
+        {
+            if (h == 0)
+            {
+                h = GameHelper.high;
+            }
+            return h;
+        }
+    }//默认最小房间高度
+    public float width
+    {
+        get
+        {
+            if (w == 0)
+            {
+                w = GameHelper.width;
+            }
+            return w;
+        }
+    }//默认最小房间宽度
     private int buildH = 4;//可变高度
     private int buildW = 17;//可变长度
     public BuildPoint[,] buildPoint;//城堡墙面信息
@@ -41,12 +64,15 @@ public class Castle : MonoBehaviour
     {
         buildPoint = new BuildPoint[maxLength, maxWidth];
     }
-    public void GetNowWallGrid(Vector2 point)
+    public List<Vector2> GetNowWallGrid(Vector2 point, Vector2 endPoint)
     {
         int widthY = (int)((point.y - wallStartPoint.position.y) / high);
-        //Debug.Log("网格Y位置: " + widthY);
+        Debug.Log("网格Y位置: " + widthY);
         int widthX = (int)((point.x - wallStartPoint.position.x) / width);
-        //Debug.Log("网格X位置: " + widthX);
+        Debug.Log("网格X位置: " + widthX);
+        Vector2 pos = new Vector2(widthX, widthY);
+        List<Vector2> v = EasonAstarTest.instance.Find(buildPoint, pos, endPoint);
+        return v;
     }
 
     public void RoleNavigation(Vector2 startPoint, Vector2 endPoint)

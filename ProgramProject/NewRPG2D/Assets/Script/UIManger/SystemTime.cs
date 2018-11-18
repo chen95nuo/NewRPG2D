@@ -43,9 +43,10 @@ public class SystemTime : TSingleton<SystemTime>
         return string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, milliScecond);
     }
 
-    public string TimeNormalizedOf(float HowManySecond, bool isMin = true)
+    public string TimeNormalizedOf(float Second, bool isMin = true)
     {
         int index = 0;
+        int HowManySecond = (int)Second;
         if (HowManySecond == 0)
         {
             return "0";

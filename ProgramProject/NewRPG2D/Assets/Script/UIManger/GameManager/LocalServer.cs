@@ -47,16 +47,20 @@ public class LocalServer : TSingleton<LocalServer>
         MagicLevel();
     }
 
-    public void RoleChangeRoom(HallRoleData role, int roomID)
+    public void RoleChangeRoom(int roleId, int roomID)
     {
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         for (int i = 0; i < saveRoleData.Count; i++)
         {
-            if (saveRoleData[i].role == role)
+            if (saveRoleData[i].role.id == roleId)
             {
                 saveRoleData[i].RoomId = roomID;
             }
         }
+        HallRole hallRole = HallRoleMgr.instance.GetRole(roleId);
+        LocalBuildingData data = ChickPlayerInfo.instance.GetBuilding(roomID);
+        hallRole.transform.parent = data.currentRoom.RolePoint;
+        hallRole.RoleMove(data.buildingPoint);
     }
 
     /// <summary>

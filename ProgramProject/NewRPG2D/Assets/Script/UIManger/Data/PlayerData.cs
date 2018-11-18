@@ -320,7 +320,7 @@ public class PlayerData
         Gold = 100;
         Diamonds = 10000;
         Food = 0;
-        Mana = 10000;
+        Mana = 0;
         Wood = 0;
         Iron = 0;
         GoldSpace = 5000;

@@ -40,7 +40,6 @@ public class MainCastle : Castle
                 {
                     allroom[i].BuildingMove(allbuilding[j], this);
                     allroom[i].ChickLeftOrRight(buildPoint);
-                    allroom[i].RoleMove();
                     break;
                 }
                 index++;

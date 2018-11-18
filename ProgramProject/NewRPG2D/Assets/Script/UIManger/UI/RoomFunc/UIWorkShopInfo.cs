@@ -52,11 +52,12 @@ public class UIWorkShopInfo : TTUIPage
     private int haveMana = 0;
 
     public RectTransform RightTip;
+    public RectTransform LeftTip;
     public Button btn_Mana;
     public Button btn_Prop;
     public UIWorkShopTip popTip;
     public UIWorkShopGrid grid;
-
+    public GameObject GridsGroup;
     public int CurrentIndex
     {
         get
@@ -99,6 +100,7 @@ public class UIWorkShopInfo : TTUIPage
         btn_Previous.onClick.AddListener(ChickPrevious);
         btn_Close.onClick.AddListener(ClosePage);
         btn_Start.onClick.AddListener(ChickStart);
+        btn_SpeedUp.onClick.AddListener(ChickSpeedUp);
 
         for (int i = 0; i < btn_Type.Length; i++)
         {
@@ -113,11 +115,18 @@ public class UIWorkShopInfo : TTUIPage
         UpdateHaveMana();
         UpdateHaveProp();
     }
+
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickStock, UpdateHaveMana);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickFragment, UpdateHaveProp);
+    }
+
+    private void ChickSpeedUp()
+    {
+        Debug.Log("等待后台消息");
+        //WorkShopDataMgr.instance.
     }
 
     private void ChickQuality()
@@ -150,6 +159,7 @@ public class UIWorkShopInfo : TTUIPage
     private void ChickStart()
     {
         WorkShopDataMgr.instance.AddWork(currentData.id, currentShopData[currentIndex]);
+        TipAnim(true);
     }
 
     private void ChickPrevious()
@@ -165,19 +175,17 @@ public class UIWorkShopInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        //RoomMgr data = mData as RoomMgr;
-        LocalBuildingData data = mData as LocalBuildingData;
+        RoomMgr room = mData as RoomMgr;
+        LocalBuildingData data = room.currentBuildData;
         if (currentData == null || currentData.buildingData.ItemId != data.buildingData.ItemId)
         {
-            //UpdateHaveMana();
-            //UpdateHaveProp();
-
             currentData = data;
             currentType = 0;
             UpdateInfo(data.buildingData);
             CurrentIndex = 0;
 
             WorkShopHelper timeData = WorkShopDataMgr.instance.GetWorkTime(data.id);
+            TipAnim(timeData != null, timeData != null && timeData.time <= 0);
             if (timeData != null)
             {
                 UpdateTime(timeData);
@@ -198,7 +206,7 @@ public class UIWorkShopInfo : TTUIPage
         currentIndex = index;
         txt_Quality.text = LanguageDataMgr.instance.GetString("WorkShop_" + currentShopData[index].Quality.ToString());
         txt_NeedTime.gameObject.SetActive(true);
-        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(currentShopData[index].NeedTime);
+        txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(currentShopData[index].NeedTime, false);
         string spriteName = PropDataMgr.instance.GetXmlDataByItemId<PropData>(currentShopData[index].NeedPropId).SpriteName;
         propIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(spriteName);
         grid.UpdateInfo(currentData.buildingData, currentIndex);
@@ -207,17 +215,29 @@ public class UIWorkShopInfo : TTUIPage
         ChickMana();
     }
 
-    public void RightTipAnim(bool isCry = false)
+    public void TipAnim(bool isCry = false, bool isEnd = false)
     {
+        btn_Start.gameObject.SetActive(!isCry);
+        btn_SpeedUp.gameObject.SetActive(isCry);
         if (isCry)
         {
             txt_NeedTime.gameObject.SetActive(false);
             TimeSlider.gameObject.SetActive(true);
             btn_Mana.gameObject.SetActive(false);
             btn_Prop.gameObject.SetActive(false);
+            txt_Tip_3.text = isEnd ? "制作完成" : "制作中";
+            LeftTip.anchoredPosition = Vector2.left * 500;
         }
+        btn_Previous.gameObject.SetActive(!isCry);
+        btn_Next.gameObject.SetActive(!isCry);
+        GridsGroup.gameObject.SetActive(!isCry);
+        txt_Tip_3.text = "物品品质选择";
         RightTip.anchoredPosition = Vector2.right * 500;
-        RightTip.DOAnchorPos(Vector2.zero, 0.5f);
+
+        if (!isEnd)
+        {
+            RightTip.DOAnchorPos(Vector2.zero, 0.5f);
+        }
     }
 
     public void ChickMana()
@@ -278,7 +298,8 @@ public class UIWorkShopInfo : TTUIPage
     {
         if (timeData.roomId == currentData.id)
         {
-            txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(timeData.time);
+            txt_Time.text = SystemTime.instance.TimeNormalizedOf(timeData.time, false);
+            TimeSlider.fillAmount = (timeData.maxTime - timeData.time) / timeData.maxTime;
         }
     }
 

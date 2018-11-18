@@ -29,7 +29,7 @@ public class WorkShopData : ItemBaseData
         NeedPropNum = ReadXmlDataMgr.IntParse(node, "NeedProduceNum");
         NeedMana = ReadXmlDataMgr.IntParse(node, "NeedMana");
         Level = ReadXmlDataMgr.FloatArray(node, "Level");
-        NeedTime = ReadXmlDataMgr.IntParse(node, "NeedTime");
+        NeedTime = ReadXmlDataMgr.IntParse(node, "NeedTime") * 60;
         EquipType = ReadXmlDataMgr.FloatArray(node, "EquipType");
         return base.GetXmlDataAttribute(node);
     }
