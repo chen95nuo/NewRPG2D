@@ -2,8 +2,6 @@
 using UnityEngine;
 using BestHTTP.WebSocket;
 using System;
-using UnityEngine.UI;
-using System.Text;
 using ProtoBuf;
 using System.IO;
 using demo;
@@ -200,7 +198,7 @@ namespace Assets.Script.Net
             Debug.Log(errorMsg);
             setConsoleMsg(errorMsg);
             AntiInit();
-            InitSocket(currentUrl);
+            //InitSocket(currentUrl);
         }
 
         #endregion
