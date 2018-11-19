@@ -36,5 +36,29 @@
 
         }
 
+        protected RoleBase FindLoseMaxHpRole()
+        {
+            float loseMaxHp = 0;
+            int roleIndex = -1;
+
+            for (int i = 0; i < GameRoleMgr.instance.RolesList.Count; i++)
+            {
+                RoleBase tempRole = GameRoleMgr.instance.RolesList[i];
+                if (tempRole.TeamId == currentRole.TeamId)
+                {
+                    float loseHp = tempRole.RolePropertyValue.LoseHp;
+                    if (loseHp > loseMaxHp)
+                    {
+                        roleIndex = i;
+                        loseMaxHp = loseHp;
+                    }
+                }
+            }
+            if (loseMaxHp > 0)
+            {
+                return GameRoleMgr.instance.RolesList[roleIndex]; ;
+            }
+            return null;
+        }
     }
 }

@@ -15,6 +15,11 @@ namespace Assets.Script.Battle
         public float RoleHp { get; private set; }
         public float RoleMp { get; private set; }
         public float MaxHp { get; private set; }
+        public float LoseHp
+        {
+            get { return MaxHp - RoleHp; }
+        }
+
         public float Damage
         {
             get { return UnityEngine.Random.Range(MinDamage, MaxDamage); }
@@ -115,7 +120,7 @@ namespace Assets.Script.Battle
             return SetHp(HpChange);
         }
 
-        private HpChangeParam HpParam= new HpChangeParam();
+        private HpChangeParam HpParam = new HpChangeParam();
         public bool SetHp(float HpChange)
         {
             if (currenRole.IsDead)

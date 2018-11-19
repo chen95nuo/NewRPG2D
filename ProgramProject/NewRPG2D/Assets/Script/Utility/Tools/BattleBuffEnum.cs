@@ -42,12 +42,12 @@ namespace Assets.Script
         IncreaseFriendsArmorBuff,        ///每过x秒，为一位友方增加y%护甲。持续z秒。
         IncreaseFriendsHpBuff,           ///每过x秒，为一位友方增加x%最大生命值。持续z秒。
         DizzyBuff,                       ///每过x秒，眩晕一名敌人 y 秒。 
-        AttackThenDizzy,                           ///攻击时，有x%概率使敌人眩晕y秒
         AttackThenHealFriendHp,          ///攻击时，有x%概率为一名受伤程度最重的友方回复y+z点生命值。  Z=当前角色法术强度*P
         AttackThenExtraDamage,           ///攻击时，有x%概率对一名敌人造成y+z伤害。  Z=当前角色法术强度*P
         AttackThenIcreaseAFrinedDamageBuff, ///攻击时，有x%概率将一位友方所造成的伤害提升y%。持续z秒。
         AttackThenHealSlefHp,            ///攻击时，有x%概率为自己回复y%生命值。
         AttackThenExtraAllEnemyDamage,   ///攻击时，有x%概率造成y%分裂伤害。
+        AttackThenDizzy,                 ///攻击时，有x%概率使敌人眩晕y秒
         AttackThenExtraAllEnemyDamageBuff,///攻击时，有x% 概率使敌人流血，在y秒内造成y%伤害 
         AttackThenIncreaseCritialBuff,   ///攻击时，有x%概率提高自身y%的暴击。持续z秒。
         AttackThenIncreaseDamageBuff,    ///攻击时，有x%概率将伤害提高y%。持续z秒。

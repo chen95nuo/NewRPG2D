@@ -94,6 +94,9 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.RebornFriend:
                     buff = new RebornFriendBuff();
                     break;
+                case SpecialPropertyEnum.HealFriendHp:
+                    buff = new HealFriendHp();
+                    break;
                 case SpecialPropertyEnum.ExtraDamage:
                     //buff = new ExtraDamageBuff();
                     break;
@@ -117,6 +120,12 @@ namespace Assets.Script.Battle
                     break;
                 case SpecialPropertyEnum.AttackThenIncreaseDamageBuff:
                     buff = new AttackThenIncreaseDamageBuff();
+                    break;
+                case SpecialPropertyEnum.HurtThenHealHp:
+                    buff = new HurtThenHealHp();
+                    break;
+                case SpecialPropertyEnum.AttackThenReduceTargetArmorBuff:
+                    buff = new AttackThenReduceTargetArmorBuff();
                     break;
                 default:
                     buff = new RoleEquipSpecialBuff();

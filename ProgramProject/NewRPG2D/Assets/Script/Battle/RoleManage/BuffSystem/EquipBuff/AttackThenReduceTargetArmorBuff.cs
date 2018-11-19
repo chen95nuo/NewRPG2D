@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class ReduceTargetArmor : RoleEquipSpecialBuff
+    public class AttackThenReduceTargetArmorBuff : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
