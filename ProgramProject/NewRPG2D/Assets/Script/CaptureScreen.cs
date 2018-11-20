@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Script.Battle;
 using Assets.Script.Utility;
+using Assets.Script.Utility.Tools;
 using UnityEngine;
 
 public class CaptureScreen : MonoBehaviour
@@ -20,7 +21,7 @@ public class CaptureScreen : MonoBehaviour
     /// <param name="equipId">装备id</param>
     /// <param name="bForce">是否强制更新头像</param>
     /// <returns></returns>
-    public Texture2D CaptureScreenToIcon(int roleId, SexTypeEnum sexType, int equipId, bool bForce = false)
+    public Texture2D CaptureScreenToTexture2D(int roleId, SexTypeEnum sexType, int equipId, bool bForce = false)
     {
         Texture2D texture = null;
         if (CaptureScreenMgr.instance.IconDic.TryGetValue(roleId, out texture) == false || bForce)
@@ -31,14 +32,37 @@ public class CaptureScreen : MonoBehaviour
 
             if (sexType == SexTypeEnum.Man)
             {
-                manEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+                if (equipment == null)
+                {
+                    manEquip.ChangeOriginalEquip(EquipTypeEnum.Armor);
+                }
+                else
+                {
+                    manEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+                }
             }
             else
             {
-                womanEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+                if (equipment == null)
+                {
+                    womanEquip.ChangeOriginalEquip(EquipTypeEnum.Armor);
+                }
+                else
+                {
+                    womanEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+                }
             }
             CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(100, 100)), roleId);
         }
+
+
         return texture;
+    }
+
+    public Sprite CaptureScreenToIcon(int roleId, SexTypeEnum sexType, int equipId, bool bForce = false)
+    {
+        Texture2D texture = CaptureScreenToTexture2D(roleId, sexType, equipId, bForce);
+
+        return SpriteHelper.CreateSprite(texture);
     }
 }
