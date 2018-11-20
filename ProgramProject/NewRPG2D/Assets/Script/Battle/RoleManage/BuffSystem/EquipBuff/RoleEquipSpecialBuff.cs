@@ -1,4 +1,6 @@
-﻿namespace Assets.Script.Battle
+﻿using UnityEngine;
+
+namespace Assets.Script.Battle
 {
     public class RoleEquipSpecialBuff
     {
@@ -10,6 +12,10 @@
             }
         }
 
+        protected float RandomValue
+        {
+            get { return Random.Range(0, 1f); }
+        }
         protected RoleBase currentRole;
 
         public virtual void Init(RoleBase role, float param1, float param2, float param3, float param4)

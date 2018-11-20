@@ -127,6 +127,9 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.AttackThenReduceTargetArmorBuff:
                     buff = new AttackThenReduceTargetArmorBuff();
                     break;
+                case SpecialPropertyEnum.AttackThenHealFriendHp:
+                    buff = new AttackThenHealFriendHp();
+                    break;
                 default:
                     buff = new RoleEquipSpecialBuff();
                     break;
