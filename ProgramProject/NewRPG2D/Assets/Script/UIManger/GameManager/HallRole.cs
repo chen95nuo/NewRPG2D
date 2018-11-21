@@ -83,16 +83,28 @@ public class HallRole : MonoBehaviour
     {
         EquipmentRealProperty equipment = EquipmentMgr.instance.GetEquipmentByEquipId(id);
         RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+        if (equipment.EquipType == EquipTypeEnum.Armor)
+        {
+            Debug.Log("换装换图");
+            GetSpriteAtlas.insatnce.GetRoleIcon(currentData, true);
+        }
     }
     public void ChangeOrigin(EquipTypeEnum type)
     {
         RoleSkinEquip.ChangeOriginalEquip(type);
+        Debug.Log("换装换图");
+        GetSpriteAtlas.insatnce.GetRoleIcon(currentData, true);
     }
 
     public void ChangeSkil(EquipmentRealProperty equipment)
     {
         Debug.Log("换皮肤 类型：" + equipment.EquipType + "  Name: " + equipment.EquipName);
         RoleSkinEquip.ChangeEquip(equipment.EquipType, equipment.EquipName, sex);
+        if (equipment.EquipType == EquipTypeEnum.Armor)
+        {
+            Debug.Log("换装换图");
+            GetSpriteAtlas.insatnce.GetRoleIcon(currentData, true);
+        }
     }
 
     public void ChangeType(BuildRoomName name)
@@ -113,19 +125,50 @@ public class HallRole : MonoBehaviour
 
     public void RoleMove(List<Vector2> v)
     {
-        mySequence.Kill(true);
+        mySequence.Kill();
+
+        mySequence = DOTween.Sequence();
+
+        Vector2 startPoint = new Vector2(transform.position.x, v[0].y);
+        mySequence.Append(transform.DOMove(startPoint, MoveTime(transform.position, startPoint)).SetEase(Ease.Linear));
+
+        for (int i = 0; i < v.Count; i++)
+        {
+            Vector2 previous = i == 0 ? startPoint : v[i - 1];
+            float faceType = v[i].x < previous.x ? -.35f : .35f;
+            mySequence.Append(transform.DOScale(new Vector3(faceType, .35f, .35f), 0));
+            if (v[i].y == previous.y)
+            {
+                mySequence.Append(transform.DOMove(v[i], MoveTime(previous, v[i])).SetEase(Ease.Linear));
+                mySequence.Append(transform.DOMove(new Vector2(v[i].x, v[i].y + .2f), MoveTime(v[i], new Vector2(v[i].x, v[i].y + .2f))));
+            }
+            else
+            {
+                if (i + 1 < v.Count && v[i].y == v[i + 1].y)
+                {
+                    mySequence.Append(transform.DOScale(new Vector3(.1f, .1f, .1f), 1f));
+                    mySequence.Append(transform.DOMove(new Vector2(v[i].x, v[i].y + .2f), 0).SetEase(Ease.Linear));
+                    mySequence.Append(transform.DOScale(new Vector3(.35f, .35f, .35f), 1f));
+                    mySequence.Append(transform.DOMove(v[i], MoveTime(new Vector2(v[i].x, v[i].y + .2f), v[i])).SetEase(Ease.Linear));
+                }
+            }
+        }
+        mySequence.OnComplete(RoleMoveEnd);
     }
 
     public float MoveTime(Vector3 from, Vector3 to)
     {
         float t = 0;
-        t = Vector3.Distance(from, to) * Time.deltaTime;
+        t = Vector3.Distance(from, to) / MoveSpeed;
         return t;
     }
 
     public void RoleMoveEnd()
     {
+
         roleAnim.AnimationState.SetAnimation(1, "stand", true);
+        Debug.Log("移动结束开始房间内动画");
+
     }
 
     public void RoleAnim()

@@ -68,7 +68,7 @@ public class UIEquipView : TTUIPage
         else
         {
             EquipmentRealProperty equipData = mData as EquipmentRealProperty;
-
+            UpdateInfo(equipData);
         }
     }
 
@@ -91,7 +91,6 @@ public class UIEquipView : TTUIPage
             rightEquipGrid.UpdateInfo(equipData.equipData, 3, equipData.roleData);
             Debug.Log("单一面板,有角色,为背包没有装备对比");
         }
-
     }
 
     private void UpdateInfo(UIEquipInfoHelper_1 equipInfoData)

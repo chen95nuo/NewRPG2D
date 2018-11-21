@@ -59,7 +59,7 @@ public class UIBagGrid : MonoBehaviour
     public void UpdateBox(ItemHelper data)
     {
         TreasureBox terboxData = ChickItemInfo.instance.GetBoxData(data.instanceId);
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(terboxData.Icon);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(terboxData.SpriteName);
         image_Item.sprite = sp;
         boxData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
         NumBG.SetActive(true);

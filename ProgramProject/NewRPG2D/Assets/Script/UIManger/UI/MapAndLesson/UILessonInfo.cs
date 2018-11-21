@@ -21,7 +21,7 @@ public class UILessonInfo : TTUIPage
 
     public GameObject itemGrid;
     public Transform itemPoint;
-    public List<UILessonItemGrid> itemGrids = new List<UILessonItemGrid>();
+    public List<UIItemGrid> itemGrids = new List<UIItemGrid>();
 
 
     public Button btn_Role;
@@ -160,14 +160,14 @@ public class UILessonInfo : TTUIPage
             if (itemGrids.Count <= index)
             {
                 GameObject go = Instantiate(itemGrid, itemPoint) as GameObject;
-                UILessonItemGrid gridData = go.GetComponent<UILessonItemGrid>();
+                UIItemGrid gridData = go.GetComponent<UIItemGrid>();
                 itemGrids.Add(gridData);
                 go.SetActive(false);
             }
             if (data.AwardItem[i].ItemId != 0)
             {
                 itemGrids[index].gameObject.SetActive(true);
-                itemGrids[index].UpdateInfo(data.AwardItem[i]);
+                itemGrids[index].UpdateInfo(data.AwardItem[i].ItemId, data.AwardItem[i].ItemMinCount, data.AwardItem[i].ItemMaxCount);
                 index++;
             }
         }
@@ -176,15 +176,15 @@ public class UILessonInfo : TTUIPage
             if (itemGrids.Count <= index)
             {
                 GameObject go = Instantiate(itemGrid, itemPoint) as GameObject;
-                UILessonItemGrid gridData = go.GetComponent<UILessonItemGrid>();
+                UIItemGrid gridData = go.GetComponent<UIItemGrid>();
                 itemGrids.Add(gridData);
                 go.SetActive(false);
             }
             if (data.TreasureBoxIds[i] != 0)
             {
                 itemGrids[index].gameObject.SetActive(true);
-                TreasureBox boxData = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(data.TreasureBoxIds[i]);
-                itemGrids[index].UpdateInfo(boxData);
+                ItemGridHelp itemData = new ItemGridHelp(data.TreasureBoxIds[i], ItemType.Box);
+                itemGrids[index].UpdateInfo(itemData);
             }
         }
     }

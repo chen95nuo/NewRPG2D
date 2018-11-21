@@ -27,3 +27,16 @@ public class GameHelper : TSingleton<GameHelper>
         return (high * roomSize) / 2;
     }
 }
+
+
+public class ItemGridHelp
+{
+    public int itemId;
+    public ItemType type;
+
+    public ItemGridHelp(int itemId, ItemType type)
+    {
+        this.itemId = itemId;
+        this.type = type;
+    }
+}

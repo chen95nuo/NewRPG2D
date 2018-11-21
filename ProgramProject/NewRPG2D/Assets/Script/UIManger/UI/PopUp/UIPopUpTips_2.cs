@@ -14,13 +14,23 @@ public class UIPopUpTips_2 : TTUIPage
     public Text txt_Num_2;
 
     public Transform tipTs;
-    public Button btn_Close;
 
     private void Awake()
     {
         instance = this;
         tipTs.position = Vector3.one * 20000;
-        btn_Close.onClick.AddListener(ClosePage);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+        {
+            GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+            if (go == null || go != tipTs.gameObject)
+            {
+                ClosePage();
+            }
+        }
     }
 
 

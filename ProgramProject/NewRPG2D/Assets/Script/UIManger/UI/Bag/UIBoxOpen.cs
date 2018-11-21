@@ -14,7 +14,7 @@ public class UIBoxOpen : TTUIPage
     public SkeletonGraphic boxAnim;
     public GameObject BoxGrid;
     public Transform boxTrans;
-    public List<UIBoxGrid> boxGrids = new List<UIBoxGrid>();
+    public List<UIItemGrid> boxGrids = new List<UIItemGrid>();
 
     public Button btn_Close;
 
@@ -40,10 +40,10 @@ public class UIBoxOpen : TTUIPage
             if (boxGrids.Count <= index)
             {
                 GameObject go = Instantiate(BoxGrid, boxTrans) as GameObject;
-                UIBoxGrid grid = go.GetComponent<UIBoxGrid>();
+                UIItemGrid grid = go.GetComponent<UIItemGrid>();
                 boxGrids.Add(grid);
             }
-            boxGrids[index].UpdateInfo(propData[i].propData, propData[i].number);
+            boxGrids[index].UpdateInfo(propData[i].propData.ItemId, propData[i].number);
             index++;
         }
         for (int i = 0; i < equipData.Count; i++)
@@ -51,10 +51,11 @@ public class UIBoxOpen : TTUIPage
             if (boxGrids.Count <= index)
             {
                 GameObject go = Instantiate(BoxGrid, boxTrans) as GameObject;
-                UIBoxGrid grid = go.GetComponent<UIBoxGrid>();
+                UIItemGrid grid = go.GetComponent<UIItemGrid>();
                 boxGrids.Add(grid);
             }
-            boxGrids[index].UpdateInfo(equipData[i]);
+            ItemGridHelp helpData = new ItemGridHelp(equipData[i].EquipId, ItemType.Equip);
+            boxGrids[index].UpdateInfo(helpData);
             index++;
         }
     }

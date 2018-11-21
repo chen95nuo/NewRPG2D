@@ -24,7 +24,7 @@ namespace Assets.Script.Battle.BattleData
     public class TreasureBox : ItemBaseData
     {
         public bool DependLevel;
-        public string Icon;
+        public string SpriteName;
         public TreasureBoxItemData[] TreasureBoxItems = new TreasureBoxItemData[10];
         public RandomTreasureBoxItemData[] RandomTreasureBoxItems = new RandomTreasureBoxItemData[5];
 
@@ -38,7 +38,7 @@ namespace Assets.Script.Battle.BattleData
         {
             ItemName = ReadXmlDataMgr.StrParse(node, "Name");
             Description = ReadXmlDataMgr.StrParse(node, "Description");
-            Icon = ReadXmlDataMgr.StrParse(node, "Icon");
+            SpriteName = ReadXmlDataMgr.StrParse(node, "Icon");
             DependLevel = ReadXmlDataMgr.IntParse(node, "DependLevel") == 0;
             for (int i = 0; i < TreasureBoxItems.Length; i++)
             {

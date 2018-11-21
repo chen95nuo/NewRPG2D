@@ -37,16 +37,25 @@ public class UIBoxInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        BoxDataHelper boxdata = mData as BoxDataHelper;
-        UpdateInfo(boxdata);
+        TreasureBox boxData = null;
+        if (mData is BoxDataHelper)
+        {
+            BoxDataHelper boxHelperData = mData as BoxDataHelper;
+            realBoxData = boxHelperData;
+            boxData = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(boxHelperData.boxId);
+        }
+        else
+        {
+            boxData = mData as TreasureBox;
+        }
+        UpdateInfo(boxData);
+        btn_Open.gameObject.SetActive(mData is BoxDataHelper);
     }
 
-    public void UpdateInfo(BoxDataHelper helperData)
+    public void UpdateInfo(TreasureBox boxData)
     {
-        realBoxData = helperData;
-        TreasureBox boxData = TreasureBoxDataMgr.instance.GetXmlDataByItemId<TreasureBox>(helperData.boxId);
         txt_Name.text = boxData.ItemName;
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.Icon);
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(boxData.SpriteName);
         Image_Icon.sprite = sp;
 
         int index = 0;

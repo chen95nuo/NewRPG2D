@@ -137,6 +137,9 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         HallRole role = InstantiateRole(data.sexType, false);
         role.UpdateInfo(data);
         AllRole.Add(data);
+
+        //创建角色拍照
+        GetSpriteAtlas.insatnce.GetRoleIcon(data);
         return role;
     }
     public HallRole AddNewBabyInstance(RoleBabyData data)
