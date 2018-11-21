@@ -102,7 +102,7 @@ public class UITrainRoleGrid : MonoBehaviour
         info.SetActive(true);
         AddRoleIcon.enabled = false;
         roleIcon.enabled = true;
-        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetRoleIcon(data);
         txt_name.text = data.Name;
         switch (data.TrainType)
         {

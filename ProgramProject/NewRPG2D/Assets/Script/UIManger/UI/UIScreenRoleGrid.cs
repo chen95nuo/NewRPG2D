@@ -50,7 +50,7 @@ public class UIScreenRoleGrid : MonoBehaviour
         {
             txt_Level.text = "+" + data.GetAtrProduce(needAtr).ToString();
         }
-        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.sexType.ToString());
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetRoleIcon(data);
         if (needAtr == RoleAttribute.Max)
         {
             image_TypeIcon.sprite = GetSpriteAtlas.insatnce.GetLevelIconToAtr(data.RoleLevel[6].atr);

@@ -19,7 +19,6 @@ public class BuildLivingRoom : RoomMgr
                 {
                     currentBuildData.roleData[i + 1] = role.RoleData;
                     LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
-                    role.ChangeType(RoomName);
                     if (role.RoleData.currentRoom != null)
                     {
                         role.RoleData.currentRoom.RemoveRole(role);
@@ -32,7 +31,6 @@ public class BuildLivingRoom : RoomMgr
                 {
                     currentBuildData.roleData[i - 1] = role.RoleData;
                     LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
-                    role.ChangeType(RoomName);
                     if (role.RoleData.currentRoom != null)
                     {
                         role.RoleData.currentRoom.RemoveRole(role);
@@ -49,7 +47,6 @@ public class BuildLivingRoom : RoomMgr
             {
                 currentBuildData.roleData[i] = role.RoleData;
                 LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
-                role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)
                 {
                     role.RoleData.currentRoom.RemoveRole(role);

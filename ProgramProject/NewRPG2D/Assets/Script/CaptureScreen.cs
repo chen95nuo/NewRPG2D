@@ -52,7 +52,7 @@ public class CaptureScreen : MonoBehaviour
                     womanEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
                 }
             }
-            CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(100, 100)), roleId);
+            CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(121, 140)), roleId);
         }
 
 

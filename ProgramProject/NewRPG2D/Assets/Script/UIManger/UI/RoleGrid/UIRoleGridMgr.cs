@@ -32,7 +32,7 @@ public abstract class UIRoleGridMgr : MonoBehaviour
         room = info;
         Icon_AddRole.enabled = false;
         Icon_RoleFace.enabled = true;
-        Icon_RoleFace.sprite = GetSpriteAtlas.insatnce.GetIcon(role.sexType.ToString());
+        Icon_RoleFace.sprite = GetSpriteAtlas.insatnce.GetRoleIcon(role);
         ShowLevelUp(true, role);
         txt_Name.text = role.Name;
     }

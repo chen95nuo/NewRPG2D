@@ -17,7 +17,6 @@ public class BuildBabyRoom : RoomMgr
                 currentBuildData.roleData[i] = role.RoleData;
                 Vector3 point = new Vector3(transform.position.x + (1.2f * (i + 1)), transform.position.y + 0.3f, role.transform.position.z);
                 role.transform.position = point;
-                role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)
                 {
                     role.RoleData.currentRoom.RemoveRole(role);

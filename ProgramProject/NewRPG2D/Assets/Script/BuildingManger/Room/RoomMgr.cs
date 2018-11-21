@@ -52,7 +52,7 @@ public abstract class RoomMgr : MonoBehaviour
         {
             if (rolePoint == null)
             {
-                rolePoint = this.transform.Find("RoomTypes/RolePoint").transform;
+                rolePoint = this.transform.Find("RoomTypes/RoomRole").transform;
             }
             return rolePoint;
         }
@@ -1050,7 +1050,6 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 currentBuildData.roleData[i] = role.RoleData;
                 LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
-                role.ChangeType(RoomName);
                 if (role.RoleData.currentRoom != null)
                 {
                     role.RoleData.currentRoom.RemoveRole(role);

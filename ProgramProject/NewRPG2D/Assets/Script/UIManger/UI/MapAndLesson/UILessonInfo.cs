@@ -218,7 +218,7 @@ public class UILessonInfo : TTUIPage
             }
         }
         data.Name = roleData.Name;
-        data.Level = roleData.FightLevel;
+        data.Level = roleData.RoleLevel[0].Level;
         data.IconName = roleData.IconName;
         data.Profession = roleData.ProfessionType;
         data.sexType = roleData.sexType;

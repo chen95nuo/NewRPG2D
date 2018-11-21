@@ -17,6 +17,7 @@ using Spine.Unity.Modules.AttachmentTools;
 using DG.Tweening;
 
 public class HallRole : MonoBehaviour
+
 {
     public int roleId;
     public RoleBabyData currentBaby;
@@ -113,35 +114,6 @@ public class HallRole : MonoBehaviour
     public void RoleMove(List<Vector2> v)
     {
         mySequence.Kill(true);
-        //Vector3[] path = new Vector3[v.Count];
-        //for (int i = 0; i < v.Count; i++)
-        //{
-        //    path[i] = new Vector3(v[i].x, v[i].y - 1.05f, transform.position.z);
-        //}
-        //transform.DOPath(path, 10, PathType.Linear, PathMode.Sidescroller2D, 0).OnComplete(RoleMoveEnd);
-        bool isInside = false;
-        bool isUp = false;
-        Vector3 startPoint = new Vector3(transform.position.x, v[0].y);
-
-        mySequence.Append(transform.DOMove(startPoint, MoveTime(transform.position, startPoint)));
-
-        for (int i = 1; i < v.Count - 1; i++)
-        {
-            if (isInside)
-            {
-
-                if (isUp)
-                {
-
-                }
-                else
-                {
-
-                }
-            }
-            isInside = !isInside;
-        }
-        mySequence.Append(transform.DOMove(v[v.Count - 1], MoveTime(transform.position, v[v.Count - 1])));
     }
 
     public float MoveTime(Vector3 from, Vector3 to)

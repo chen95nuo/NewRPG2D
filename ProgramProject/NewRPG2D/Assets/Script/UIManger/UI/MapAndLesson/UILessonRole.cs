@@ -25,7 +25,7 @@ public class UILessonRole : MonoBehaviour
     }
     public void UpdateInfo(HallRoleData roleData)
     {
-        roleIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(roleData.sexType.ToString());
+        roleIcon.sprite = GetSpriteAtlas.insatnce.GetRoleIcon(roleData);
         LockGrid(false);
         Empty(false);
         txt_Name.text = roleData.Name;

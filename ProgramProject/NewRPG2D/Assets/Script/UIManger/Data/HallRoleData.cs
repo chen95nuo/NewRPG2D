@@ -63,9 +63,12 @@ public class HallRoleData
     {
         get
         {
-            float temp = 10 + 1 * roleLevel[0].Level * 1.1f;
-            temp += DPS;
-            return (int)temp;
+            if (DPS == 0)
+            {
+                float temp = 10 + 1 * roleLevel[0].Level * 1.1f;
+                return (int)temp;
+            }
+            else return (int)DPS;
         }
     }
 
@@ -474,34 +477,6 @@ public class HallRoleData
         }
     }
 
-    public int FightLevel
-    {
-        get
-        {
-            return roleLevel[0].Level;
-        }
-    }
-    public int GoldLevel
-    {
-        get { return roleLevel[1].Level; }
-    }
-    public int FoodLevel
-    {
-        get { return roleLevel[2].Level; }
-    }
-    public int ManaLevel
-    {
-        get { return roleLevel[3].Level; }
-    }
-    public int WoodLevel
-    {
-        get { return roleLevel[4].Level; }
-    }
-    public int IronLevel
-    {
-        get { return roleLevel[5].Level; }
-    }
-
     public HallRoleLevel[] RoleLevel
     {
         get
@@ -591,23 +566,23 @@ public class HallRoleData
         switch (attribute)
         {
             case RoleAttribute.Fight:
-                return FightLevel;
+                return roleLevel[0].Level;
             case RoleAttribute.Gold:
-                if (isLevel) return GoldLevel;
+                if (isLevel) return roleLevel[1].Level;
                 return GoldProduce;
             case RoleAttribute.Food:
-                if (isLevel) return FoodLevel;
+                if (isLevel) return roleLevel[2].Level;
                 return FoodProduce;
             case RoleAttribute.Mana:
-                if (isLevel) return ManaLevel;
+                if (isLevel) return roleLevel[3].Level;
                 return ManaProduce;
             case RoleAttribute.ManaSpeed:
                 return ManaSpeedUp;
             case RoleAttribute.Wood:
-                if (isLevel) return WoodLevel;
+                if (isLevel) return roleLevel[4].Level;
                 return WoodProduce;
             case RoleAttribute.Iron:
-                if (isLevel) return IronLevel;
+                if (isLevel) return roleLevel[5].Level;
                 return IronProduce;
             case RoleAttribute.HurtType:
                 return (int)HurtType;
@@ -632,7 +607,6 @@ public class HallRoleData
         }
         return 0;
     }
-
     public int GetAtrLevel(RoleAttribute atr)
     {
         switch (atr)
@@ -719,7 +693,7 @@ public class HallRoleData
         switch (atr)
         {
             case RoleAttribute.Fight:
-                return FightLevel;
+                return roleLevel[0].Level;
             case RoleAttribute.Gold:
                 return GoldProduce;
             case RoleAttribute.Food:
@@ -756,7 +730,7 @@ public class HallRoleData
             case BuildRoomName.Iron:
                 return IronProduce;
             case BuildRoomName.FighterRoom:
-                return FightLevel;
+                return roleLevel[0].Level;
             case BuildRoomName.Kitchen:
                 return roleLevel[2].Level++;
             case BuildRoomName.Mint:
@@ -770,7 +744,7 @@ public class HallRoleData
             case BuildRoomName.Hospital:
                 return HP;
             case BuildRoomName.Barracks:
-                return FightLevel;
+                return roleLevel[0].Level;
             default:
                 break;
         }

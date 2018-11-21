@@ -24,7 +24,7 @@ public class UIDraggingRolePhoto : TTUIPage
     {
         base.Show(mData);
         roleData = mData as HallRoleData;
-        photo.sprite = GetSpriteAtlas.insatnce.GetIcon(roleData.sexType.ToString());
+        photo.sprite = GetSpriteAtlas.insatnce.GetRoleIcon(roleData);
         MouseMove();
     }
 

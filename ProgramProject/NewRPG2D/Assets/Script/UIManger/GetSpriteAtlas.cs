@@ -16,6 +16,8 @@ public class GetSpriteAtlas : MonoBehaviour
     private SpriteAtlas RoomIcons;
     [SerializeField]
     private SpriteAtlas EnemyIcons;
+    [SerializeField]
+    private CaptureScreen manCamera;
 
     private void Awake()
     {
@@ -100,6 +102,13 @@ public class GetSpriteAtlas : MonoBehaviour
         }
         Debug.LogError("没有找到图片: " + name);
         return null;
+    }
+
+    public Sprite GetRoleIcon(HallRoleData data, bool ChangeSkill = false)
+    {
+        Sprite sp = null;
+        sp = manCamera.CaptureScreenToIcon(data.id, data.sexType, data.Equip[(int)EquipTypeEnum.Armor], ChangeSkill);
+        return sp;
     }
 
     public void SetImage(Image[] images)

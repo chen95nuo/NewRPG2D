@@ -87,8 +87,6 @@ namespace EasonAstar
                             //res.Add(cur.point);
                             cur = cur.last;
                         }
-                        Vector2 startPoint = map[(int)start.point.x, (int)start.point.y].roomMgr.RolePoint.position;
-
                         res.Reverse();
                         Debug.Log("完成了");
                         return res;
