@@ -26,6 +26,7 @@ namespace Assets.Script
     public enum BuffTypeEnum
     {
         None,
+        HealHp,
     }
 
     public enum SpecialPropertyEnum

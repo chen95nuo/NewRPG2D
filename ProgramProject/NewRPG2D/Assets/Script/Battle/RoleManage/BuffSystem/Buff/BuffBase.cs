@@ -18,9 +18,9 @@ namespace Assets.Script.Battle
         private float buffDuration, currentTime;
 
 
-        public virtual void AddBuff(float duration, params object[] param)
+        public virtual void AddBuff( params object[] param)
         {
-            buffDuration = duration;
+            buffDuration = (float)param[0];
             currentTime = 0;
             buffState = BuffStateEnum.Running;
         }

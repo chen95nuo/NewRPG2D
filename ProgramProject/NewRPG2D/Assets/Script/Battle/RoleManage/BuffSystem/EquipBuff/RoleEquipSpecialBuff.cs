@@ -16,11 +16,15 @@ namespace Assets.Script.Battle
         {
             get { return Random.Range(0, 1f); }
         }
+
+        protected float magicValue;
+
         protected RoleBase currentRole;
 
         public virtual void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             currentRole = role;
+            magicValue = currentRole.RolePropertyValue.MagicAttack;
         }
 
         public virtual bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)

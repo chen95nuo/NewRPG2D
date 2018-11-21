@@ -19,7 +19,18 @@ namespace Assets.Script.Battle
 
         public void AddBuff(BuffTypeEnum buffType, params Object[] param)
         {
-
+            BuffBase buff = null;
+            if (buffDic.TryGetValue(buffType, out buff) == false)
+            {
+                switch (buffType)
+                {
+                    case BuffTypeEnum.HealHp:
+                        buff = new HealBuff();
+                        break;
+                }
+                buffDic[buffType] = buff;
+            }
+            buff.AddBuff(param);
         }
 
         public void RemoveBuff(BuffTypeEnum buffType)
