@@ -11,8 +11,34 @@ public class CaptureScreen : MonoBehaviour
     [SerializeField] private ChangeRoleEquip manEquip, womanEquip;
     [SerializeField] private Camera mCamera;
 
+    private class IconData
+    {
+        public int roleId;
+        public SexTypeEnum sexType;
+        public int equipId;
+
+        public IconData(int roleId, SexTypeEnum sexType, int equipId)
+        {
+            this.roleId = roleId;
+            this.sexType = sexType;
+            this.equipId = equipId;
+        }
+
+    }
+
     private EquipmentRealProperty equipment;
     private Dictionary<int, Sprite> roleIcon = new Dictionary<int, Sprite>();
+    private Queue<IconData> iconDatas = new Queue<IconData>();
+    private IconData tempIconData = null;
+
+    private void Update()
+    {
+        if (tempIconData != null)
+        {
+            StartCoroutine(DelayCaptureIcon(tempIconData.roleId, tempIconData.sexType, tempIconData.equipId));
+            tempIconData = null;
+        }
+    }
 
     /// <summary>
     /// 获取人物头像
@@ -28,7 +54,11 @@ public class CaptureScreen : MonoBehaviour
         Sprite icon = null;
         if (bForce)
         {
-            StartCoroutine(DelayCaptureIcon(roleId, sexType, equipId));
+            iconDatas.Enqueue(new IconData(roleId, sexType, equipId));
+            if (tempIconData == null)
+            {
+                tempIconData = iconDatas.Dequeue();
+            }
             return icon;
         }
         else
@@ -38,7 +68,11 @@ public class CaptureScreen : MonoBehaviour
                 Texture2D texture = null;
                 if (CaptureScreenMgr.instance.IconDic.TryGetValue(roleId, out texture) == false)
                 {
-                    StartCoroutine(DelayCaptureIcon(roleId, sexType, equipId));
+                    iconDatas.Enqueue(new IconData(roleId, sexType, equipId));
+                    if (tempIconData == null)
+                    {
+                        tempIconData = iconDatas.Dequeue();
+                    }
                     return null;
                 }
                 icon = SpriteHelper.CreateSprite(texture);
@@ -72,10 +106,13 @@ public class CaptureScreen : MonoBehaviour
             }
             else
             {
-                womanEquip.ChangeEquip(equipment.EquipType, equipment.EquipName);
+                womanEquip.ChangeEquip(equipment.EquipType, equipment.EquipName, SexTypeEnum.Woman);
             }
         }
-        yield return new WaitForSeconds(0.5f);
-        CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(121, 140)), roleId);
+        yield return null;
+        Texture2D texture =  CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(121, 140)), roleId);
+        Sprite icon = icon = SpriteHelper.CreateSprite(texture);
+        roleIcon[roleId] = icon;
+        tempIconData = iconDatas.Dequeue();
     }
 }

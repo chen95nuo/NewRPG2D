@@ -23,6 +23,7 @@ namespace Assets.Script.Utility
             camera.Render();
             RenderTexture.active = rt;
             Texture2D screenShot = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGB24, false);
+            screenShot.name = ""+ roleId;
             screenShot.ReadPixels(rect, 0, 0);
             screenShot.Apply();
             camera.targetTexture = null;
