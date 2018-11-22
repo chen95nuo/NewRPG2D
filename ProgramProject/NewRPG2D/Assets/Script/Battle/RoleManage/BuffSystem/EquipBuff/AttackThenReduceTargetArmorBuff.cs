@@ -29,8 +29,8 @@ namespace Assets.Script.Battle
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            triggerChange = param1*0.01f;
-            reduceArmorPercent = param2*0.01f;
+            triggerChange = param1 * 0.01f;
+            reduceArmorPercent = param2 * 0.01f;
             duration = param3;
             targetArmor.Clear();
             armorTime.Clear();
@@ -61,7 +61,7 @@ namespace Assets.Script.Battle
             {
                 canTrigger = true;
                 armorTime[info.TargeRole] = 0;
-                targetArmor[info.TargeRole] = info.TargeRole.RolePropertyValue.PhysicArmor*reduceArmorPercent;
+                targetArmor[info.TargeRole] = info.TargeRole.RolePropertyValue.PhysicArmor * reduceArmorPercent;
                 info.TargeRole.RolePropertyValue.SetPhysicArmor(targetArmor[info.TargeRole]);
                 return true;
             }

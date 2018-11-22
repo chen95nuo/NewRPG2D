@@ -97,8 +97,26 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.HealFriendHp:
                     buff = new HealFriendHp();
                     break;
+                case SpecialPropertyEnum.HealFriendHpBuff:
+                    buff = new HealFriendHpBuff();
+                    break;
                 case SpecialPropertyEnum.ExtraDamage:
-                    //buff = new ExtraDamageBuff();
+                    buff = new ExtraDamage();
+                    break;
+                case SpecialPropertyEnum.ExtraDamageBuff:
+                    buff = new ExtraDamageBuff();
+                    break;
+                case SpecialPropertyEnum.ExtraAllEnemyDamage:
+                    buff = new ExtraAllEnemyDamage();
+                    break;
+                case SpecialPropertyEnum.ExtraAllEnemyDamageBuff:
+                    buff = new ExtraAllEnemyDamageBuff();
+                    break;
+                case SpecialPropertyEnum.IncreaseFriendsArmorBuff:
+                    buff = new IncreaseFriendsArmorBuff();
+                    break;
+                case SpecialPropertyEnum.IncreaseFriendsHpBuff:
+                    buff = new IncreaseFriendsHpBuff();
                     break;
                 case SpecialPropertyEnum.RebornThenIncreaseDamage:
                     buff = new RebornThenIncreaseDamage();

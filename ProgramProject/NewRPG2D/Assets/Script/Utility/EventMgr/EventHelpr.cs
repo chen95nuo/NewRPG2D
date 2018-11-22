@@ -17,6 +17,7 @@ public enum EventDefineEnum : uint
     ClickEnemyRole,
     CreateRole,
     HpChange,
+    HpMaxChange,
     DragStart,
     Draging,
     DragEnd,
@@ -46,6 +47,12 @@ public class HpChangeParam
 {
     public RoleBase role;
     public float changeValue;
+}
+public class HpMaxChangeParam
+{
+    public RoleBase role;
+    public float MaxHp;
+    public float CurrentHp;
 }
 
 public class SelectTargetParam

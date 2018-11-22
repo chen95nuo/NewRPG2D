@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class HealBuff : BuffBase
+    public class BuffChangeArmor : BuffBase
     {
         public override BuffEffectTypeEnum BuffType
         {
             get { return BuffEffectTypeEnum.Buff; }
         }
 
-        public override void AddBuff(params object[] param)
+        private float armorValue;
+        public override void AddBuff(RoleBase currentRole, BuffTypeEnum buffType, params object[] param)
         {
-            base.AddBuff(param);
+            base.AddBuff(currentRole, buffType, param);
+            armorValue = (float) param[1] * currentRole.RolePropertyValue.PhysicArmor;
+            currentRole.RolePropertyValue.SetPhysicArmor(armorValue);
         }
 
         public override void RmoveBuff()
         {
             base.RmoveBuff();
+            CurrentRole.RolePropertyValue.SetPhysicArmor(-armorValue);
         }
 
         public override bool Update(float deltaTime)

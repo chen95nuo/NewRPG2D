@@ -121,6 +121,7 @@ namespace Assets.Script.Battle
         }
 
         private HpChangeParam HpParam = new HpChangeParam();
+        private HpMaxChangeParam MaxHpParam = new HpMaxChangeParam();
         public bool SetHp(float HpChange)
         {
             if (currenRole.IsDead)
@@ -145,6 +146,21 @@ namespace Assets.Script.Battle
             HUDTextInfoinfo.Text = ((int)HpChange).ToString();
             HUDRoot.NewText(HUDTextInfoinfo);
             return RoleHp > 0;
+        }
+
+        public void SetMaxHp(float HpChange)
+        {
+            if (currenRole.IsDead)
+            {
+                return;
+            }
+            MaxHp += HpChange;
+            RoleHp += (RoleHp / MaxHp) * HpChange;
+            RoleHp = Mathf.Max(1, RoleHp);
+            MaxHpParam.role = currenRole;
+            MaxHpParam.MaxHp = MaxHp;
+            MaxHpParam.CurrentHp = RoleHp;
+            EventManager.instance.SendEvent(EventDefineEnum.HpMaxChange, MaxHpParam);
         }
 
         public bool SetMp(float MpChange)

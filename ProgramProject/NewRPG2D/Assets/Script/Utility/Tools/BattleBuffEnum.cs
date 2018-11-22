@@ -27,6 +27,9 @@ namespace Assets.Script
     {
         None,
         HealHp,
+        ExtraDamage,
+        ChangeArmor,
+        ChangeMaxHp,
     }
 
     public enum SpecialPropertyEnum

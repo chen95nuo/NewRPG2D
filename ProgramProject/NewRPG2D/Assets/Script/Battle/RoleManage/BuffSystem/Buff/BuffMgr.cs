@@ -25,17 +25,40 @@ namespace Assets.Script.Battle
                 switch (buffType)
                 {
                     case BuffTypeEnum.HealHp:
-                        buff = new HealBuff();
+                        buff = new BuffHealHp();
+                        break;
+                    case BuffTypeEnum.ExtraDamage:
+                        buff = new BuffExtraDamage();
+                        break;
+                    case BuffTypeEnum.ChangeArmor:
+                        buff = new BuffChangeArmor();
+                        break;
+                    case BuffTypeEnum.ChangeMaxHp:
+                        buff = new BuffChangeMaxHp();
                         break;
                 }
                 buffDic[buffType] = buff;
             }
-            buff.AddBuff(param);
+            buff.AddBuff(currentRole, buffType, param);
         }
 
         public void RemoveBuff(BuffTypeEnum buffType)
         {
+            buffDic[buffType].RmoveBuff();
             buffDic.Remove(buffType);
+        }
+
+        public void RemoveBuff(BuffBase buff)
+        {
+            buff.RmoveBuff();
+            foreach (var buffTemp in buffDic)
+            {
+                if (buffTemp.Value == buff)
+                {
+                    buffDic.Remove(buffTemp.Key);
+                    return;
+                }
+            }
         }
 
         public void Update(float deltaTime)

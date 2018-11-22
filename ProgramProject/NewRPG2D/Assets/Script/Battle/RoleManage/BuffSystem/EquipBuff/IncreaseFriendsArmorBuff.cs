@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class HealFriendHpBuff : RoleEquipSpecialBuff
+    public class IncreaseFriendsArmorBuff : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
@@ -18,16 +18,15 @@ namespace Assets.Script.Battle
 
         private float duration;
         private float buffDuration;
-        private float constHealHp;
-        private float magicAddHeal;
+        private float armorPrecent;
+
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
             duration = param1;
-            buffDuration = param2;
-            constHealHp = param3;
-            magicAddHeal = param4;
+            armorPrecent = param2 * 0.01f;
+            buffDuration = param3;
         }
 
         private float intervalTime = 0;
@@ -47,7 +46,7 @@ namespace Assets.Script.Battle
         {
             if (base.Trigger(tirggerType, ref info))
             {
-               currentRole.BuffMoment.AddBuff(BuffTypeEnum.HealHp, buffDuration, constHealHp + magicAddHeal * MagicValue);
+                currentRole.BuffMoment.AddBuff(BuffTypeEnum.ChangeArmor, buffDuration, armorPrecent);
                 return true;
             }
 

@@ -13,15 +13,20 @@ namespace Assets.Script.Battle
             }
         }
 
-        private BuffStateEnum buffState;
+        protected BuffStateEnum buffState;
+        private BuffTypeEnum buffType;
+        protected RoleBase CurrentRole;
+        protected float buffDuration;
 
-        private float buffDuration, currentTime;
+        private float currentTime;
+        private float addTime;
 
-
-        public virtual void AddBuff( params object[] param)
+        public virtual void AddBuff(RoleBase currentRole, BuffTypeEnum mBuffType, params object[] param)
         {
             buffDuration = (float)param[0];
             currentTime = 0;
+            buffType = mBuffType;
+            CurrentRole = currentRole;
             buffState = BuffStateEnum.Running;
         }
 
@@ -38,14 +43,23 @@ namespace Assets.Script.Battle
             {
                 return false;
             }
-
             currentTime += deltaTime;
             if (currentTime >= buffDuration)
             {
+                CurrentRole.BuffMoment.RemoveBuff(buffType);
                 buffState = BuffStateEnum.Finish;
             }
 
-            return true;
+            addTime += deltaTime;
+            if (addTime > 1)
+            {
+                addTime = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

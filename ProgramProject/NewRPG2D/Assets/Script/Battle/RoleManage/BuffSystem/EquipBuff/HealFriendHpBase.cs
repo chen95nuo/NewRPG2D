@@ -38,7 +38,7 @@ namespace Assets.Script.Battle
             if (base.Trigger(tirggerType, ref info))
             {
                 RoleBase loseHpRole = FindLoseMaxHpRole();
-                loseHpRole.RolePropertyValue.SetHp(-(healHp + currentRole.RolePropertyValue.MagicAttack * healHpMagic));
+                loseHpRole.RolePropertyValue.SetHp(-(healHp + MagicValue * healHpMagic));
                 return true;
             }
             return false;

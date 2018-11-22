@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class HealFriendHpBuff : RoleEquipSpecialBuff
+    public class ExtraAllEnemyDamage : RoleEquipSpecialBuff
     {
         public override TirggerTypeEnum TirggerType
         {
@@ -17,17 +17,15 @@ namespace Assets.Script.Battle
         }
 
         private float duration;
-        private float buffDuration;
-        private float constHealHp;
-        private float magicAddHeal;
+        private float constDamage;
+        private float magicAddtiveDamge;
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
             duration = param1;
-            buffDuration = param2;
-            constHealHp = param3;
-            magicAddHeal = param4;
+            constDamage = param2;
+            magicAddtiveDamge = param3;
         }
 
         private float intervalTime = 0;
@@ -47,10 +45,18 @@ namespace Assets.Script.Battle
         {
             if (base.Trigger(tirggerType, ref info))
             {
-               currentRole.BuffMoment.AddBuff(BuffTypeEnum.HealHp, buffDuration, constHealHp + magicAddHeal * MagicValue);
+                float damage = constDamage + magicAddtiveDamge*MagicValue;
+                HurtEnemy(damage);
+                List<RoleBase> enemys = FindEnemys(Target);
+                if (enemys != null)
+                {
+                    for (int i = 0; i < enemys.Count; i++)
+                    {
+                        HurtEnemy(enemys[i], damage);
+                    }
+                }
                 return true;
             }
-
             return false;
         }
 
