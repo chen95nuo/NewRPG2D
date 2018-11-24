@@ -6,45 +6,22 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class ExtraDamageBuff : RoleEquipSpecialBuff
+    public class ExtraDamageBuff : AlwayTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Always;
-            }
-        }
-
-        private float duration;
         private float buffDuration;
         private float constDamage;
         private float magicAddtiveDamge;
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            duration = param1;
             buffDuration = param2;
             constDamage = param3;
             magicAddtiveDamge = param4;
         }
 
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
+        public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            base.UpdateLogic(deltaTime);
-            intervalTime += deltaTime;
-            if (intervalTime > duration)
-            {
-                intervalTime = 0;
-                Trigger(TirggerType, ref mHurtInfo);
-            }
-        }
-
-        public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
-        {
-            if (base.Trigger(tirggerType, ref info))
+            if (base.Trigger(triggerType, ref info))
             {
 
                 if (Target != null)
@@ -57,9 +34,5 @@ namespace Assets.Script.Battle
             return false;
         }
 
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
     }
 }

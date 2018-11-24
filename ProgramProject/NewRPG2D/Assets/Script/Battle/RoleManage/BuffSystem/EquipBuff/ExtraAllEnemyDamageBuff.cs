@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class ExtraAllEnemyDamageBuff : RoleEquipSpecialBuff
+    public class ExtraAllEnemyDamageBuff : AlwayTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Always;
-            }
-        }
-
-        private float duration;
         private float buffDuration;
         private float constDamage;
         private float magicAddtiveDamge;
@@ -29,45 +20,16 @@ namespace Assets.Script.Battle
             magicAddtiveDamge = param4;
         }
 
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
+        public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            base.UpdateLogic(deltaTime);
-            intervalTime += deltaTime;
-            if (intervalTime > duration)
-            {
-                intervalTime = 0;
-                Trigger(TirggerType, ref mHurtInfo);
-            }
-        }
-
-        public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
-        {
-            if (base.Trigger(tirggerType, ref info))
+            if (base.Trigger(triggerType, ref info))
             {
                 float damage = constDamage + magicAddtiveDamge*MagicValue;
-                if (Target != null)
-                {
-                    Target.BuffMoment.AddBuff(BuffTypeEnum.ExtraDamage, damage);
-                }
-                List<RoleBase> enemys = FindEnemys(Target);
-                if (enemys != null)
-                {
-                    for (int i = 0; i < enemys.Count; i++)
-                    {
-                        enemys[i].BuffMoment.AddBuff(BuffTypeEnum.ExtraDamage, buffDuration, damage);
-                    }
-                }
+                HurtAllEnemyBuff(damage, buffDuration);
                 return true;
             }
 
             return false;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

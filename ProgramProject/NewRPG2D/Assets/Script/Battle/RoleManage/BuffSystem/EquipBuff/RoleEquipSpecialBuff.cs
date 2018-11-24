@@ -19,7 +19,8 @@ namespace Assets.Script.Battle
         }
 
         private float magicValue;
-        protected float MagicValue {
+        protected float MagicValue 
+        {
             get { return magicValue; }
         }
         protected HurtInfo mHurtInfo = default(HurtInfo);
@@ -86,9 +87,9 @@ namespace Assets.Script.Battle
             magicValue = currentRole.RolePropertyValue.MagicAttack;
         }
 
-        public virtual bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
+        public virtual bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            if (tirggerType == TirggerType)
+            if (triggerType == TirggerType)
             {
                 return true;
             }
@@ -117,6 +118,36 @@ namespace Assets.Script.Battle
             mHurtInfo.HurtType = currentRole.RolePropertyValue.HurtType;
             mHurtInfo.HurtValue = damage;
         }
+
+        protected void HurtAllEnemy(float damage)
+        {
+            HurtEnemy(damage);
+            List<RoleBase> enemys = FindEnemys(Target);
+            if (enemys != null)
+            {
+                for (int i = 0; i < enemys.Count; i++)
+                {
+                    HurtEnemy(enemys[i], damage);
+                }
+            }
+        }
+
+        protected void HurtAllEnemyBuff(float damage, float buffDuration)
+        {
+            if (Target != null)
+            {
+                Target.BuffMoment.AddBuff(BuffTypeEnum.ExtraDamage, damage);
+            }
+            List<RoleBase> enemys = FindEnemys(Target);
+            if (enemys != null)
+            {
+                for (int i = 0; i < enemys.Count; i++)
+                {
+                    enemys[i].BuffMoment.AddBuff(BuffTypeEnum.ExtraDamage, buffDuration, damage);
+                }
+            }
+        }
+
 
         protected List<RoleBase> FindEnemys(RoleBase target)
         {
@@ -160,6 +191,21 @@ namespace Assets.Script.Battle
                 return GameRoleMgr.instance.RolesList[roleIndex]; ;
             }
             return null;
+        }
+
+        protected bool RebornRole(float healHp)
+        {
+            for (int i = 0; i < FriendsRoleList.Count; i++)
+            {
+                RoleBase role = FriendsRoleList[i];
+                if (role.IsDead)
+                {
+                    role.Reborn();
+                    role.RolePropertyValue.SetHp(healHp);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

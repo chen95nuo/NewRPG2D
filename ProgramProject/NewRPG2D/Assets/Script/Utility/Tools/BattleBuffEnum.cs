@@ -52,7 +52,7 @@ namespace Assets.Script
         AttackThenHealSlefHp,            ///攻击时，有x%概率为自己回复y%生命值。
         AttackThenExtraAllEnemyDamage,   ///攻击时，有x%概率造成y%分裂伤害。
         AttackThenDizzy,                 ///攻击时，有x%概率使敌人眩晕y秒
-        AttackThenExtraAllEnemyDamageBuff,///攻击时，有x% 概率使敌人流血，在y秒内造成y%伤害 
+        AttackThenExtraAllEnemyDamageBuff,///攻击时，有x% 概率使敌人流血，在y秒内造成z%伤害 
         AttackThenIncreaseCritialBuff,   ///攻击时，有x%概率提高自身y%的暴击。持续z秒。
         AttackThenIncreaseDamageBuff,    ///攻击时，有x%概率将伤害提高y%。持续z秒。
         AttackThenReduceTargetArmorBuff, ///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒

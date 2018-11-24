@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-    public class IncreaseFriendsArmorBuff : RoleEquipSpecialBuff
+    public class IncreaseFriendsArmorBuff : AlwayTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Always;
-            }
-        }
-
-        private float duration;
         private float buffDuration;
         private float armorPrecent;
 
@@ -24,22 +15,8 @@ namespace Assets.Script.Battle
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            duration = param1;
             armorPrecent = param2 * 0.01f;
             buffDuration = param3;
-        }
-
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
-        {
-            base.UpdateLogic(deltaTime);
-            intervalTime += deltaTime;
-            if (intervalTime > duration)
-            {
-                intervalTime = 0;
-                Trigger(TirggerType, ref mHurtInfo);
-            }
         }
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
@@ -51,11 +28,6 @@ namespace Assets.Script.Battle
             }
 
             return false;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

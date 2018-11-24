@@ -1,10 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Assets.Script.Battle.BattleData;
-using UnityEngine.Analytics;
-using UnityScript.Macros;
 
 namespace Assets.Script.Battle
 {

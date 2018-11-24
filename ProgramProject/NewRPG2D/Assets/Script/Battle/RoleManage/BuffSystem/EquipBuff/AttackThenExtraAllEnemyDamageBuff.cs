@@ -5,77 +5,27 @@ using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class AttackThenExtraAllEnemyDamageBuff : RoleEquipSpecialBuff
+    public class AttackThenExtraAllEnemyDamageBuff : AttackTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Attack;
-            }
-        }
-
-        private float triggerChange;
-        private float duration;
-        private float extraDamage;
-
-        private bool canTrigger;
-        private float addTime;
-        private HurtInfo extraHurtInfo;
-        // private int firstTargetId;
+        private float buffDuration;
+        private float damagePercent;
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            triggerChange = param1;
-            duration = param2;
-            extraDamage = param3;
+            buffDuration = param2;
+            damagePercent = param3 * 0.01f;
         }
 
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
+      
+        public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            base.UpdateLogic(deltaTime);
-            if (canTrigger)
+            if (base.Trigger(triggerType, ref info))
             {
-                addTime += deltaTime;
-                if (addTime < duration)
-                {
-                    if (intervalTime < 1)
-                    {
-                        intervalTime += deltaTime;
-                    }
-                    else
-                    {
-                        intervalTime = 0;
-                        currentRole.RoleDamageMoment.HurtDamage(ref extraHurtInfo);
-                    }
-                }
-                else
-                {
-                    canTrigger = false;
-                }
-            }
-        }
-
-        public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
-        {
-            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 1f) < triggerChange)
-            {
-                canTrigger = true;
-                addTime = 0;
-                extraHurtInfo = info;
-                // firstTargetId = info.TargeRole.InstanceId;
-                extraHurtInfo.HurtValue = extraDamage / (int)duration;
+                HurtAllEnemyBuff(currentRole.RolePropertyValue.Damage * damagePercent, buffDuration);
                 return true;
             }
             return false;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Assets.Script.Battle
         {
             get
             {
-                return TirggerTypeEnum.Attack;
+                return TirggerTypeEnum.Hurt;
             }
         }
 

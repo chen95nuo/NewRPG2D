@@ -6,15 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Battle
 {
-   public class HealFriendHpBase : RoleEquipSpecialBuff
+    public class HealFriendHpBase : AlwayTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Always;
-            }
-        }
 
         private float healHp;
         private float healHpMagic;
@@ -24,13 +17,6 @@ namespace Assets.Script.Battle
             base.Init(role, param1, param2, param3, param4);
             healHpMagic = param2;
             healHpMagic = param3;
-        }
-
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
-        {
-            base.UpdateLogic(deltaTime);
         }
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
@@ -43,12 +29,5 @@ namespace Assets.Script.Battle
             }
             return false;
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
-
-      
     }
 }
