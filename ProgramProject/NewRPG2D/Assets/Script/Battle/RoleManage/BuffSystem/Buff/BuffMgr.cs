@@ -36,8 +36,33 @@ namespace Assets.Script.Battle
                     case BuffTypeEnum.ChangeMaxHp:
                         buff = new BuffChangeMaxHp();
                         break;
+                    case BuffTypeEnum.Dizzy:
+                        buff = new BuffDizzy();
+                        break;
+                    case BuffTypeEnum.IncreaseDamage:
+                        buff = new BuffIncreaseDamage();
+                        break;
+                    case BuffTypeEnum.ChangeCritial:
+                        buff = new BuffChangeCritial();
+                        break;
+                    case BuffTypeEnum.ReduceArmor:
+                        buff = new BuffReduceArmor();
+                        break;
+                    case BuffTypeEnum.IncreaseAvoid:
+                        buff = new BuffIncreaseAvoid();
+                        break;
+                    case BuffTypeEnum.IncreaseMagicArmor:
+                        buff = new BuffIncreaseMagicArmor();
+                        break;
+                    case BuffTypeEnum.ReduceDamage:
+                        buff = new BuffReduceDamage();
+                        break;
                 }
                 buffDic[buffType] = buff;
+            }
+            else
+            {
+                buff.RmoveBuff();
             }
             buff.AddBuff(currentRole, buffType, param);
         }

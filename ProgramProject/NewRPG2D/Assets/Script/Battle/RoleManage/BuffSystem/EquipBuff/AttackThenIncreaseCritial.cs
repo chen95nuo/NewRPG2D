@@ -5,57 +5,23 @@ using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class AttackThenIncreaseCritial : RoleEquipSpecialBuff
+    public class AttackThenIncreaseCritial : AttackTriggerBuff
     {
-        public override TirggerTypeEnum TirggerType
-        {
-            get
-            {
-                return TirggerTypeEnum.Attack;
-            }
-        }
-
-        private float triggerChange;
         private float duration;
         private float extraCritialPercent;
-        private float extraCritial;
-
-        private bool canTrigger;
-        private float addTime;
-
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            triggerChange = param1*0.01f;
             duration = param2;
-            extraCritialPercent = param3*0.01f;
+            extraCritialPercent = param3 * 0.01f;
         }
 
-        private float intervalTime = 0;
-
-        public override void UpdateLogic(float deltaTime)
+        public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            base.UpdateLogic(deltaTime);
-            if (canTrigger)
+            if (base.Trigger(triggerType, ref info))
             {
-                addTime += deltaTime;
-                if (addTime >= duration)
-                {
-                    canTrigger = false;
-                    currentRole.RolePropertyValue.SetCriticalPercent(-extraCritial);
-                }
-            }
-        }
-
-        public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
-        {
-            if (base.Trigger(tirggerType, ref info) && Random.Range(0, 1f) < triggerChange)
-            {
-                canTrigger = true;
-                addTime = 0;
-                extraCritial = currentRole.RolePropertyValue.CriticalPercent * extraCritialPercent;
-                currentRole.RolePropertyValue.SetCriticalPercent(extraCritial);
+                currentRole.BuffMoment.AddBuff(BuffTypeEnum.ChangeCritial, duration, extraCritialPercent);
                 return true;
             }
             return false;

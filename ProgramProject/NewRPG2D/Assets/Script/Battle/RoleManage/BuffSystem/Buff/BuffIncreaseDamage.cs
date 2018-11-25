@@ -1,33 +1,27 @@
 ﻿namespace Assets.Script.Battle
 {
-    public class BuffHealHp : BuffBase
+    public class BuffIncreaseDamage : BuffBase
     {
         public override BuffEffectTypeEnum BuffType
         {
             get { return BuffEffectTypeEnum.Buff; }
         }
 
-        private float healHp;
+        private float increasePercent;
+        private float increaseDamage;
 
         public override void AddBuff(RoleBase currentRole, BuffTypeEnum buffType, params object[] param)
         {
             base.AddBuff(currentRole, buffType, param);
-            healHp = (float)param[1] / (int)buffDuration;
+            increasePercent = (float)param[1];
+            increaseDamage = currentRole.RolePropertyValue.Damage * increasePercent;
+            currentRole.RolePropertyValue.SetDamage(increaseDamage);
         }
 
         public override void RmoveBuff()
         {
             base.RmoveBuff();
-        }
-
-        public override bool Update(float deltaTime)
-        {
-            if (base.Update(deltaTime) == false)
-            {
-                return false;
-            }
-            CurrentRole.RolePropertyValue.SetHp(-healHp);
-            return true;
+            CurrentRole.RolePropertyValue.SetDamage(-increaseDamage);
         }
 
     }

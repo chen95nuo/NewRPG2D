@@ -33,7 +33,7 @@ namespace Assets.Script.Battle
                 RoleBase enemy = currentRole.RoleSearchTarget.Target;
                 if (enemy == null)
                 {
-                    enemy = EnemysRoleList[Random.Range(0, EnemysRoleList.Count)];
+                    enemy = FindRandomTarget(EnemysRoleList);
                 }
                 return enemy;
             }
@@ -163,6 +163,11 @@ namespace Assets.Script.Battle
                     continue;
                 }
 
+                if(EnemysRoleList[i].IsDead)
+                {
+                    continue;
+                }
+
                 if (Vector3.Distance(target.RoleTransform.position, EnemysRoleList[i].RoleTransform.position) < 10)
                 {
                     enemys.Add(EnemysRoleList[i]);
@@ -179,6 +184,12 @@ namespace Assets.Script.Battle
 
             for (int i = 0; i < FriendsRoleList.Count; i++)
             {
+
+                if(FriendsRoleList[i].IsDead)
+                {
+                    continue;
+                }
+
                 float loseHp = FriendsRoleList[i].RolePropertyValue.LoseHp;
                 if (loseHp > loseMaxHp)
                 {
@@ -206,6 +217,20 @@ namespace Assets.Script.Battle
                 }
             }
             return false;
+        }
+
+        protected RoleBase FindRandomTarget(List<RoleBase> roseList)
+        {
+            RoleBase target = null;
+            int i = 0;
+            do
+            {
+                i++;
+                target = roseList[Random.Range(0, roseList.Count)];
+
+            } while (target.IsDead && i< roseList.Count * 2);
+
+            return target;
         }
     }
 }

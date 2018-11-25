@@ -1,29 +1,29 @@
 ﻿/// <summary>
-///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒
+///每次攻击都提升x%点伤害，当前目标死亡时，损失所有伤害提升
 /// </summary>
-/// 
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Script.Battle
 {
-    public class AttackThenReduceTargetArmorBuff : AttackTriggerBuff
+    public class AttackThenReduceEnemyDamage : AttackTriggerBuff
     {
+        private float extraDamagePercent;
         private float duration;
-        private float reduceArmorPercent;
 
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            reduceArmorPercent = param2 * 0.01f;
+
+            extraDamagePercent = param2 * 0.01f;
             duration = param3;
         }
 
-        public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
+        public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
         {
-            if (base.Trigger(triggerType, ref info) && Random.Range(0, 1f) < triggerChange)
+            if (base.Trigger(tirggerType, ref info))
             {
-      
-                Target.BuffMoment.AddBuff(BuffTypeEnum.ReduceArmor, duration, reduceArmorPercent);
+                Target.BuffMoment.AddBuff(BuffTypeEnum.ReduceDamage, duration, extraDamagePercent);
                 return true;
             }
             return false;

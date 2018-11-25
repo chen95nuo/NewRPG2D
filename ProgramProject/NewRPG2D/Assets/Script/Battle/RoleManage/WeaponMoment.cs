@@ -114,6 +114,9 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.IncreaseFriendsHpBuff:
                     buff = new IncreaseFriendsHpBuff();
                     break;
+                case SpecialPropertyEnum.DizzyBuff:
+                    buff = new DizzyBuff();
+                    break;
                 case SpecialPropertyEnum.RebornThenIncreaseDamage:
                     buff = new RebornThenIncreaseDamage();
                     break;
@@ -129,17 +132,32 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.AttackThenIncreaseCritialBuff:
                     buff = new AttackThenIncreaseCritial();
                     break;
+                case SpecialPropertyEnum.AttackThenReduceTargetArmorBuff:
+                    buff = new AttackThenReduceTargetArmorBuff();
+                    break;
+                case SpecialPropertyEnum.AttackThenIncreaseHpBuff:
+                    buff = new AttackThenIncreaseHpBuff();
+                    break;
+                case SpecialPropertyEnum.AttackThenIncreaseAvoidBuff:
+                    buff = new AttackThenIncreaseAvoidBuff();
+                    break;
+                case SpecialPropertyEnum.AttackThenIncreaseSelfArmor:
+                    buff = new AttackThenIncreaseSelfArmor();
+                    break;
+                case SpecialPropertyEnum.AttackThenIncreaseMagicArmor:
+                    buff = new AttackThenIncreaseMagicArmor();
+                    break;
                 case SpecialPropertyEnum.TargetDeadThenIncreaseDamage:
                     buff = new TargetDeadThenIncreaseDamage();
                     break;
                 case SpecialPropertyEnum.AttackThenIncreaseDamageBuff:
                     buff = new AttackThenIncreaseDamageBuff();
                     break;
+                case SpecialPropertyEnum.AttackThenIcreaseAFriendDamageBuff:
+                    buff = new AttackThenIcreaseAFriendDamageBuff();
+                    break;
                 case SpecialPropertyEnum.HurtThenHealHp:
                     buff = new HurtThenHealHp();
-                    break;
-                case SpecialPropertyEnum.AttackThenReduceTargetArmorBuff:
-                    buff = new AttackThenReduceTargetArmorBuff();
                     break;
                 case SpecialPropertyEnum.AttackThenHealFriendHp:
                     buff = new AttackThenHealFriendHp();

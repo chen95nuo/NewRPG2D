@@ -1,10 +1,10 @@
 ﻿namespace Assets.Script.Battle
 {
-    public class BuffChangeArmor : BuffBase
+    public class BuffReduceArmor : BuffBase
     {
         public override BuffEffectTypeEnum BuffType
         {
-            get { return BuffEffectTypeEnum.Buff; }
+            get { return BuffEffectTypeEnum.Debuff; }
         }
 
         private float armorValue;
@@ -12,13 +12,13 @@
         {
             base.AddBuff(currentRole, buffType, param);
             armorValue = (float) param[1] * currentRole.RolePropertyValue.PhysicArmor;
-            currentRole.RolePropertyValue.SetPhysicArmor(armorValue);
+            currentRole.RolePropertyValue.SetPhysicArmor(-armorValue);
         }
 
         public override void RmoveBuff()
         {
             base.RmoveBuff();
-            CurrentRole.RolePropertyValue.SetPhysicArmor(-armorValue);
+            CurrentRole.RolePropertyValue.SetPhysicArmor(armorValue);
         }
 
         public override bool Update(float deltaTime)

@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// <summary>
+/// 攻击时，有x%概率使敌人眩晕y秒
+/// </summary>
+using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class AttackThenHealFriendHp : AttackTriggerBuff
+    public class DizzyBuff : AlwayTriggerBuff
     {
-        private float healHp;
-        private float healHpMagic;
+        private float duration;
+
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            healHp = param2;
-            healHpMagic = param3;
+            duration = param2;
         }
 
         public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            if ( base.Trigger(triggerType, ref info))
+            if (base.Trigger(triggerType, ref info))
             {
-                RoleBase loseHpRole = FindLoseMaxHpRole();
-                loseHpRole.RolePropertyValue.SetHp(-(healHp + MagicValue * healHpMagic));
+                RoleBase role = FindRandomTarget(EnemysRoleList);
+                if (role == null)
+                {
+                    return false;
+                }
+                role.BuffMoment.AddBuff(BuffTypeEnum.Dizzy, duration);
+
                 return true;
             }
             return false;
