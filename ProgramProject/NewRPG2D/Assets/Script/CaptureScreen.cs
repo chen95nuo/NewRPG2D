@@ -113,6 +113,9 @@ public class CaptureScreen : MonoBehaviour
         Texture2D texture =  CaptureScreenMgr.instance.CaptureCamera(mCamera, new Rect(Vector2.zero, new Vector2(121, 140)), roleId);
         Sprite icon = icon = SpriteHelper.CreateSprite(texture);
         roleIcon[roleId] = icon;
-        tempIconData = iconDatas.Dequeue();
+        if (iconDatas.Count > 0)
+        {
+            tempIconData = iconDatas.Dequeue();
+        }
     }
 }
