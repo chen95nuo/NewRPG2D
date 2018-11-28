@@ -1,23 +1,23 @@
 ﻿namespace Assets.Script.Battle
 {
-    public class BuffIncreaseMagicArmor : BuffBase
+    public class BuffReduceMagicArmor : BuffBase
     {
         public override BuffEffectTypeEnum BuffType
         {
-            get { return BuffEffectTypeEnum.Buff; }
+            get { return BuffEffectTypeEnum.Debuff; }
         }
-        private float increaseMagicArmorValue;
+        private float reduceMagicArmorValue;
         public override void AddBuff(RoleBase currentRole, BuffTypeEnum buffType, params object[] param)
         {
             base.AddBuff(currentRole, buffType, param);
-            increaseMagicArmorValue = (float)param[1] * currentRole.RolePropertyValue.MagicArmor;
-            currentRole.RolePropertyValue.SetMagicArmor(increaseMagicArmorValue);
+            reduceMagicArmorValue = (float)param[1] * currentRole.RolePropertyValue.MagicArmor;
+            currentRole.RolePropertyValue.SetMagicArmor(-reduceMagicArmorValue);
         }
 
         public override void RmoveBuff()
         {
             base.RmoveBuff();
-            CurrentRole.RolePropertyValue.SetMagicArmor(-increaseMagicArmorValue);
+            CurrentRole.RolePropertyValue.SetMagicArmor(reduceMagicArmorValue);
         }
 
         public override bool Update(float deltaTime)

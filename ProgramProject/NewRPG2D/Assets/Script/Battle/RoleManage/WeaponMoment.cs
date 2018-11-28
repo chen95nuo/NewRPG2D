@@ -156,11 +156,28 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.AttackThenIcreaseAFriendDamageBuff:
                     buff = new AttackThenIcreaseAFriendDamageBuff();
                     break;
+                case SpecialPropertyEnum.AttackThenIncreaseDamage:
+                    buff = new AttackThenIncreaseDamage();
+                    break;
+              
+                case SpecialPropertyEnum.AttackThenHealFriendHp:
+                    buff = new AttackThenHealFriendHp();
+                    break;
+                case SpecialPropertyEnum.AttackThenHealAllFriendsHp:
+                    buff = new AttackThenHealAllFriendsHp();
+                    break;
+
                 case SpecialPropertyEnum.HurtThenHealHp:
                     buff = new HurtThenHealHp();
                     break;
-                case SpecialPropertyEnum.AttackThenHealFriendHp:
-                    buff = new AttackThenHealFriendHp();
+                case SpecialPropertyEnum.HurtThenHealHpBuff:
+                    buff = new HurtThenHealHpBuff();
+                    break;
+                case SpecialPropertyEnum.HurtThenIncreaseArmor:
+                    buff = new HurtThenIncreaseArmor();
+                    break;
+                case SpecialPropertyEnum.HurtThenReduceTargetMagicArmorBuff:
+                    buff = new HurtThenReduceTargetMagicArmorBuff();
                     break;
                 default:
                     buff = new RoleEquipSpecialBuff();

@@ -57,6 +57,9 @@ namespace Assets.Script.Battle
                     case BuffTypeEnum.ReduceDamage:
                         buff = new BuffReduceDamage();
                         break;
+                    case BuffTypeEnum.ReduceMagicArmor:
+                        buff = new BuffReduceMagicArmor();
+                        break;
                 }
                 buffDic[buffType] = buff;
             }

@@ -37,6 +37,7 @@ namespace Assets.Script
         IncreaseAvoid,
         IncreaseMagicArmor,
         ReduceDamage,
+        ReduceMagicArmor,
     }
 
     public enum SpecialPropertyEnum
@@ -68,12 +69,13 @@ namespace Assets.Script
         AttackThenIncreaseSelfArmor,     ///攻击时，有x%概率提高自身y%的护甲。持续z秒。
         AttackThenIncreaseMagicArmor,    ///攻击时，有x%概率使魔法护甲提高y%，持续z秒
         AttackThenReduceEnemyDamage,     ///攻击时，有x%的概率降低敌人伤害的y%。持续z秒
-        HurtThenHealHp,                  ///受到伤害时，有x%概率为自己恢复x%点生命值
-        HurtThenHealHpBuff,              ///受到伤害时，有x%概率为自己恢复x%点生命值 持续z秒。
-        HurtThenIncreaseArmor,           ///受到攻击时，有x%概率在y秒内回复自身y%的生命值。
+        HurtThenHealHp,                  ///受到伤害时，有x%概率为自己恢复y%点生命值
+        HurtThenHealHpBuff,              ///受到伤害时，有x%概率为自己恢复y%点生命值 持续z秒。
+        HurtThenIncreaseArmor,            ///受到伤害时，有x%概率提升y%点护甲 持续z秒。
         HurtThenReduceTargetMagicArmorBuff, ///受到攻击时，有x%概率降低敌人y%的魔法护甲。持续z秒。
-        AttackThenIncreaseDamage,       ///每次攻击都提升x%点伤害。转换当前攻击目标时，效果重置
-        AttackThenHealHp,                ///攻击命中敌人时，造成x+y伤害，并为友军回复等同于伤害值z%的生命值。  y=法术强度*P
+        AttackThenIncreaseDamage,        ///每次攻击都提升x%点伤害。转换当前攻击目标时，效果重置
+        AttackThenHealAllFriendsHp,      ///攻击命中敌人时，造成x+y伤害，并为友军回复等同于伤害值z%的生命值。  y=法术强度*P
+
         AttackThenEnemyExtraDamageBuff,  ///攻击时，x%概率使被击中的敌人所受的伤害提高x%。效果持续y秒。
         DeadThenHurtAllEnemy,           ///死亡时，对敌人造成x点范围伤害。
         DeadThenDizzyAllEnemy,          ///死亡时，眩晕范围内敌人x秒
