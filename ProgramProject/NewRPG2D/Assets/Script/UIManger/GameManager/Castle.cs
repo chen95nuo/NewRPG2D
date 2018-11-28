@@ -64,26 +64,27 @@ public class Castle : MonoBehaviour
     {
         buildPoint = new BuildPoint[maxLength, maxWidth];
     }
-    public List<Vector2> GetNowWallGrid(Vector2 point, Vector2 endPoint)
+    public List<Vector2> GetNowWallGrid(Vector2 rolePoint, Vector2 endPoint)
+    {
+
+        Vector2 rolePos = WorldToGrid(rolePoint);
+        Vector2 endPos = WorldToGrid(endPoint);
+        Debug.Log(endPos);
+        List<Vector2> v = EasonAstarTest.instance.Find(buildPoint, rolePos, endPos);
+        v[v.Count - 1] = endPoint;
+        return v;
+    }
+
+    /// <summary>
+    /// 世界坐标转换网格
+    /// </summary>
+    private Vector2 WorldToGrid(Vector2 point)
     {
         int widthY = (int)((point.y - wallStartPoint.position.y) / high);
         Debug.Log("网格Y位置: " + widthY);
         int widthX = (int)((point.x - wallStartPoint.position.x) / width);
-        Debug.Log("网格X位置: " + widthX);
-        Vector2 pos = new Vector2(widthX, widthY);
-        List<Vector2> v = EasonAstarTest.instance.Find(buildPoint, pos, endPoint);
-        return v;
-    }
-
-    public void RoleNavigation(Vector2 startPoint, Vector2 endPoint)
-    {
-        List<Vector2> Stairs = new List<Vector2>();
-        buildPoint[(int)startPoint.x, (int)startPoint.y].roomMgr.RoleNavigation(Stairs);
-    }
-
-    public void RoleNavigationCallBack()
-    {
-
+        Vector2 gridPoint = new Vector2(widthX, widthY);
+        return gridPoint;
     }
 
     /// <summary>

@@ -6,22 +6,28 @@ using UnityEngine;
 public class HallRoleData
 {
     public int id;
-    public readonly SexTypeEnum sexType;
     private string name;//名字
-    private string iconName;
-    private int star;//星级
-    private HallRoleLevel[] roleLevel = new HallRoleLevel[7];
-    public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
-    private int[] equip;//装备 1武器2防具3戒指4项链 5神器
-    private RoleTrainType trainType;//训练类型
-    public int trainIndex;//训练编号
-    public RoleLoveType LoveType;//爱情状态
+    public readonly SexTypeEnum sexType;//性别
+    private HallRoleLevel[] roleLevel = new HallRoleLevel[7];//天赋等级
+    private int trainTime;//训练时间
+    private int battlePower;//角色战力
     private float nowHp;//当前血量
-    public RoleBabyData babyData;//宝宝数据
+    private int[] equip;//装备 1武器2防具3戒指4项链 5神器
+    public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
+    private int star;//星级
+    private string currentRoomId;
+    public RoleLoveType LoveType;//爱情状态
+    private int boredomTime;//厌倦爱情剩余时间
+    private int[] faceSpriteID;//脸部皮肤ID 0、胡子 1、头发前 2、头发后
+
+    //需要删除 或者优化
     public HallRole currentRole;
     public int roomPoint;
+    private WeaponProfessionEnum professionType;//角色职业
+    public RoleBabyData babyData;//肚子里的宝宝数据
     public RoomMgr currentRoom;
-    private WeaponProfessionEnum professionType;
+    private RoleTrainType trainType;//训练的当前状态
+    public int trainIndex;//训练编号
 
     public string Name
     {
@@ -484,7 +490,6 @@ public class HallRoleData
             return roleLevel;
         }
     } //0战斗 1金币 2食物 3魔法 4木材 5铁
-
     public RoleTrainType TrainType
     {
         get
@@ -503,7 +508,6 @@ public class HallRoleData
 
         }
     }
-
     public float NowHp
     {
         get
@@ -517,7 +521,6 @@ public class HallRoleData
             nowHp = value;
         }
     }
-
     public int[] Equip
     {
         get
@@ -529,7 +532,6 @@ public class HallRoleData
             return equip;
         }
     }
-
     public WeaponProfessionEnum ProfessionType
     {
         get
@@ -544,19 +546,6 @@ public class HallRoleData
                 professionType = equipData.WeaponProfession;
             }
             return professionType;
-        }
-    }
-
-    public string IconName
-    {
-        get
-        {
-            return iconName;
-        }
-
-        set
-        {
-            iconName = value;
         }
     }
     #endregion

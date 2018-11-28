@@ -33,34 +33,41 @@ public class LocalServer : TSingleton<LocalServer>
         if (saveRoleData == null)
         {
             HallRoleData data_1 = HallRoleMgr.instance.BuildNewRole(1);
-            HallRoleData data_2 = HallRoleMgr.instance.BuildNewRole(2);
-            HallRoleData data_3 = HallRoleMgr.instance.BuildNewRole(1);
-            HallRoleData data_4 = HallRoleMgr.instance.BuildNewRole(2);
+            HallRoleData data_2 = HallRoleMgr.instance.BuildNewRole(1);
+            //HallRoleData data_3 = HallRoleMgr.instance.BuildNewRole(1);
+            //HallRoleData data_4 = HallRoleMgr.instance.BuildNewRole(1);
             saveRoleData = new List<ServerHallRoleData>();
             saveRoleData.Add(new ServerHallRoleData(9, data_1));
             saveRoleData.Add(new ServerHallRoleData(9, data_2));
-            saveRoleData.Add(new ServerHallRoleData(4, data_3));
-            saveRoleData.Add(new ServerHallRoleData(4, data_4));
+            //saveRoleData.Add(new ServerHallRoleData(4, data_3));
+            //saveRoleData.Add(new ServerHallRoleData(4, data_4));
         }
         HallRoleMgr.instance.ChickRoleDic(saveRoleData);
         HallRoleMgr.instance.ChickBabyDic(saveBabydata);
         MagicLevel();
     }
 
-    public void RoleChangeRoom(int roleId, int roomID)
+    public void RoleChangeRoom(int roleId, LocalBuildingData roomData, int index = 0)
     {
+        HallRole hallRole = HallRoleMgr.instance.GetRole(roleId);
+        if (roomData == null)
+        {
+            hallRole.RoleWorldRoam();
+        }
         HallEventManager.instance.SendEvent(HallEventDefineEnum.CameraMove);
         for (int i = 0; i < saveRoleData.Count; i++)
         {
             if (saveRoleData[i].role.id == roleId)
             {
-                saveRoleData[i].RoomId = roomID;
+                saveRoleData[i].RoomId = roomData.id;
             }
         }
-        HallRole hallRole = HallRoleMgr.instance.GetRole(roleId);
-        LocalBuildingData data = ChickPlayerInfo.instance.GetBuilding(roomID);
-        hallRole.transform.parent = data.currentRoom.RolePoint;
-        hallRole.RoleMove(data.buildingPoint);
+        hallRole.transform.parent = roomData.currentRoom.RolePoint;
+        hallRole.currentBuildIndex = index;
+        Vector2 roomPoint = roomData.currentRoom.RolePoint.transform.position;
+        Vector2 rolePoint = roomData.buildingData.RolePoint[index];
+        Vector2 endPoint = roomPoint + rolePoint;
+        hallRole.RoleMove(endPoint);
     }
 
     /// <summary>

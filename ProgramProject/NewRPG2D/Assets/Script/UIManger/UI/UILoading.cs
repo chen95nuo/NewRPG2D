@@ -6,18 +6,24 @@ using Assets.Script.UIManger;
 
 public class UILoading : TTUIPage
 {
+    public static UILoading instance = null;
 
     public Slider slider;
     public Text txt_LoadNum;
+    public bool GetMessageDown = false;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Update()
     {
-        if (slider.value < 97)
+        if (slider.value < 98)
         {
             slider.value += Time.deltaTime * 80;
         }
-        else
+        else if (GetMessageDown)
         {
             slider.value += Time.deltaTime * 5;
         }

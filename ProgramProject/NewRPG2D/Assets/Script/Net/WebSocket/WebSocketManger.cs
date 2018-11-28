@@ -213,6 +213,12 @@ namespace Assets.Script.Net
                 case NetSendMsg.RQ_StartGame:
                     send = new NetStartGameSend();
                     break;
+                case NetSendMsg.RQ_RoleLogin:
+                    send = new NetRoleloginSend();
+                    break;
+                case NetSendMsg.RQ_CreateRoleName:
+                    send = new NetCreateRoleNameSend();
+                    break;
                 case NetSendMsg.Q_HG_RefreshTili:
                     send = new NetRefreshTiliSend();
                     break;
@@ -232,11 +238,15 @@ namespace Assets.Script.Net
                 case NetReceiveMsg.RS_StartGame:
                     receive = new NetStartGameRev();
                     break;
+                case NetReceiveMsg.RS_RoleLogin:
+                    receive = new NetRoleLoginRev();
+                    break;
                 case NetReceiveMsg.A_HG_Tili:
                     break;
                 case NetReceiveMsg.A_ErrorMessage:
                     receive = new NetErrorMessageRev();
                     break;
+
                 default:
                     break;
 

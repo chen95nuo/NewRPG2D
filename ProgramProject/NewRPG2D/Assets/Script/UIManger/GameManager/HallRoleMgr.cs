@@ -88,7 +88,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         dic.Add(data, role);
     }
 
-    internal void ChickRoleDic(List<ServerHallRoleData> saveRoleData)
+    public void ChickRoleDic(List<ServerHallRoleData> saveRoleData)
     {
         DicClear();
         for (int i = 0; i < saveRoleData.Count; i++)
@@ -318,7 +318,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         }
         else
         {
-            oldRole.ChangeType(BuildRoomName.Nothing);
+            oldRole.RoleAnim();
         }
 
 
@@ -714,6 +714,7 @@ public class RoleLoveHelper
 public class RoleBabyData
 {
     public HallRoleData child;
+    public int[] faceSprintID;
     public int fatherID;
     public int matherID;
     public int time;

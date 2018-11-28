@@ -18,7 +18,7 @@ public class BuildLivingRoom : RoomMgr
                 if (i % 2 == 0 && currentBuildData.roleData[i + 1] == null)
                 {
                     currentBuildData.roleData[i + 1] = role.RoleData;
-                    LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
+                    LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData, i);
                     if (role.RoleData.currentRoom != null)
                     {
                         role.RoleData.currentRoom.RemoveRole(role);
@@ -30,7 +30,7 @@ public class BuildLivingRoom : RoomMgr
                 else if (i % 2 != 0 && currentBuildData.roleData[i - 1] == null)
                 {
                     currentBuildData.roleData[i - 1] = role.RoleData;
-                    LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
+                    LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData, i);
                     if (role.RoleData.currentRoom != null)
                     {
                         role.RoleData.currentRoom.RemoveRole(role);
@@ -46,7 +46,7 @@ public class BuildLivingRoom : RoomMgr
             if (currentBuildData.roleData[i] == null)
             {
                 currentBuildData.roleData[i] = role.RoleData;
-                LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
+                LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData, i);
                 if (role.RoleData.currentRoom != null)
                 {
                     role.RoleData.currentRoom.RemoveRole(role);
@@ -71,7 +71,6 @@ public class BuildLivingRoom : RoomMgr
             role.RoleData.currentRoom.RemoveRole(role);
             HallRoleData data = currentBuildData.roleData[index];
             HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
-            roleTemp.ChangeType(BuildRoomName.Nothing);
             currentBuildData.roleData[index] = role.RoleData;
         }
         return true;

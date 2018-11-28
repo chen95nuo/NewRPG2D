@@ -83,10 +83,10 @@ public enum RoleTrainType
 public enum RoleLoveType
 {
     Nothing,
-    WaitFor,
-    Start,
-    ChildBirth,
-    boredom,
+    WaitFor,//自由 或 等待
+    Start,//开始恋爱
+    ChildBirth,//怀孕 等待
+    boredom,//厌倦爱情 冷却
     End
 }
 

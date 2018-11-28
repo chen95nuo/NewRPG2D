@@ -48,7 +48,8 @@ namespace Assets.Script
             isInit = true;
             InitComponent();
             InitListener();
-            InitData();
+            //InitData();
+
         }
 
         /// <summary>
@@ -71,11 +72,11 @@ namespace Assets.Script
         {
         }
 
-        public void InitData()
+        public void InitData(string serverIp, int Port, string token)
         {
-            //WebSocketManger.instance.InitSocket(WebSocketManger.defaultUrl);
-            WebSocketManger.instance.Connect();
-          
+            WebSocketManger.instance.GameStartMessaget(string.Format("ws://{0}:{1}/websocket", serverIp, Port), token);
+            //WebSocketManger.instance.Connect();
+
             //isGameOver = true;
         }
 

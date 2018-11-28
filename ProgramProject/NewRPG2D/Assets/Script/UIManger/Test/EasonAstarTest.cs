@@ -36,19 +36,22 @@ namespace EasonAstar
 
         public List<Vector2> Find(BuildPoint[,] grids, Vector2 from, Vector2 to)
         {
+            if (from == to)
+            {
+                List<Vector2> res = new List<Vector2>();
+                Vector2 endPoint = map[(int)to.x, (int)to.y].roomMgr.RolePoint.position;
+                res.Add(endPoint);
+                return res;
+            }
+
             Reset();
             map = grids;
-
-
-            int type;
 
             //初始化Start
             start = GetNode(from, to);
             end = GetNode(to, to);
-            //OpenReset(start);
             Open.Add(start);
 
-            int count = 0;
             while (Open.Count != 0)
             {
                 var N = GetMinFNode(); //当前最近的点 和值最小的点

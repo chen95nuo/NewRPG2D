@@ -157,10 +157,10 @@ namespace Spine {
 			return false;
 		}
 
-		/// <summary>
-		/// Poses the skeleton using the track entry animations. There are no side effects other than invoking listeners, so the
-		/// animation state can be applied to multiple skeletons to pose them identically.</summary>
-		public bool Apply (Skeleton skeleton) {
+        /// <summary>
+        /// Poses the skeleton using the track entry animations. There are no side effects other than invoking listeners, so the
+        /// animation state can be applied to multiple skeletons to pose them identically.</summary>
+        public bool Apply (Skeleton skeleton) {
 			if (skeleton == null) throw new ArgumentNullException("skeleton", "skeleton cannot be null.");
 			if (animationsChanged) AnimationsChanged();
 

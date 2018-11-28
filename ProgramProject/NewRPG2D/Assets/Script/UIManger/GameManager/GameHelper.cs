@@ -24,7 +24,7 @@ public class GameHelper : TSingleton<GameHelper>
 
     public float ChickRoleMovePoint(Vector2 rolePoint, int roomSize)
     {
-        return (high * roomSize) / 2;
+        return (width * roomSize) / 2;
     }
 }
 

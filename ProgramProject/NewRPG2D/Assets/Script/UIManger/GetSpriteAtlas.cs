@@ -106,7 +106,7 @@ public class GetSpriteAtlas : MonoBehaviour
 
     public Sprite GetRoleIcon(HallRoleData data, bool ChangeSkill = false)
     {
-        Debug.Log(data.id);
+        Debug.Log("性别: " + data.sexType);
         Sprite sp = manCamera.CaptureScreenToIcon(data.id, data.sexType, data.Equip[(int)EquipTypeEnum.Armor], ChangeSkill);
         return sp;
     }

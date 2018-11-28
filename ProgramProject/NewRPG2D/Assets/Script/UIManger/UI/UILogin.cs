@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using Assets.Script.Net;
 using BestHTTP;
 
-public class UILogin : MonoBehaviour
+public class UILogin : TTUIPage
 {
     private const string registerUrl = "http://39.104.79.77:8882/user/register?u={0}&p={1}";
     private const string loginUrl = "http://39.104.79.77:8882/user/login?u={0}&p={1}";
@@ -141,7 +141,7 @@ public class UILogin : MonoBehaviour
         PlayerPrefs.SetString("UserName", registerUserName.text);
         PlayerPrefs.SetString("PassWord", registerPassWord.text);
         PlayerPrefs.Save();
-        Debug.LogError("注册成功,保存账号密码 :" + registerUserName + registerPassWord);
+        Debug.Log("注册成功,保存账号密码 :" + registerUserName + registerPassWord);
     }
 
     private void OnRequestFinished(HTTPRequest originalRequest, HTTPResponse response)
@@ -160,7 +160,7 @@ public class UILogin : MonoBehaviour
         }
         if (RS.u != null)
         {
-            Debug.LogError("快速注册成功");
+            Debug.Log("快速注册成功");
             PlayerPrefs.SetString("UserName", RS.u);
             PlayerPrefs.SetString("PassWord", RS.p);
             Debug.Log(string.Format("账号:{0}密码{1}", RS.u, RS.p));
@@ -170,8 +170,9 @@ public class UILogin : MonoBehaviour
         PlayerPrefs.SetString("UserName", userName);
         PlayerPrefs.SetString("PassWord", passWord);
         PlayerPrefs.Save();
-        Debug.LogError("登陆成功");
-        WebSocketManger.instance.GameStartMessaget(string.Format("ws://{0}:{1}/websocket", RS.server_ip, RS.port), RS.token);
+        Debug.Log("登陆成功=====" + RS.server_ip + " port:" + RS.port + " token:" + RS.token);
+        Assets.Script.GameLogic.Instance.InitData(RS.server_ip, RS.port, RS.token);
+        //WebSocketManger.instance.GameStartMessaget(string.Format("ws://{0}:{1}/websocket", RS.server_ip, RS.port), RS.token);
     }
 
 

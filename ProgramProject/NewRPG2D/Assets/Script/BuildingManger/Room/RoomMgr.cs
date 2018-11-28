@@ -24,9 +24,12 @@ public abstract class RoomMgr : MonoBehaviour
 
     public bool mainLink = false;//主链接
     public bool linkType = false;//连接状态
+    public bool roomWork = false;//是否有工作
     private bool isHarvest = false;//可否收获
     private bool constructionType = false;//是否在施工中
     private bool stockFull = false;//该类资源是否满值
+    private bool makeItem = false;//制作物品
+    private bool workType = true;
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
 
@@ -57,12 +60,12 @@ public abstract class RoomMgr : MonoBehaviour
             return rolePoint;
         }
     }
-    private Vector2 rolePointMin;//左边界
-    public Vector2 RolePointMin
+    private float rolePointMin;//左边界
+    public float RolePointMin
     {
         get
         {
-            GameHelper.instance.ChickRoleMovePoint(RolePoint.position, BuildingData.RoomSize);
+            rolePointMin = GameHelper.instance.ChickRoleMovePoint(RolePoint.position, BuildingData.RoomSize);
             return rolePointMin;
         }
     }
@@ -96,6 +99,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (index != constructionType && MapControl.instance.type == CastleType.main)
             {
                 constructionType = value;
+                RoomWork = !value;
                 currentBuildData.ConstructionType = value;
                 if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
                 {
@@ -124,6 +128,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (temp != StockFull)
             {
                 stockFull = value;
+                RoomWork = !value;
                 if (stockFull == false)
                 {
                     Debug.Log("未满");
@@ -308,6 +313,32 @@ public abstract class RoomMgr : MonoBehaviour
                 roomConstruction = this.transform.Find("RoomTypes/RoomLeveUp").gameObject;
             }
             return roomConstruction;
+        }
+    }
+
+    public bool RoomWork
+    {
+        get
+        {
+            if (roomWork && !constructionType && !stockFull || makeItem)
+                return true;
+            else
+                return false;
+        }
+        set
+        {
+            Debug.Log(value);
+            if (workType != value)
+            {
+                for (int i = 0; i < currentBuildData.roleData.Length; i++)
+                {
+                    if (currentBuildData.roleData[i] != null)
+                    {
+                        currentBuildData.roleData[i].currentRole.RoleAnim();
+                    }
+                }
+                workType = value;
+            }
         }
     }
 
@@ -1032,7 +1063,7 @@ public abstract class RoomMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 添加角色
+    /// 添加角色 通过大厅
     /// </summary>
     public virtual bool AddRole(HallRole role)
     {
@@ -1049,7 +1080,7 @@ public abstract class RoomMgr : MonoBehaviour
             if (currentBuildData.roleData[i] == null)
             {
                 currentBuildData.roleData[i] = role.RoleData;
-                LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData.id);
+                LocalServer.instance.RoleChangeRoom(role.RoleData.id, currentBuildData, i);
                 if (role.RoleData.currentRoom != null)
                 {
                     role.RoleData.currentRoom.RemoveRole(role);
@@ -1078,6 +1109,11 @@ public abstract class RoomMgr : MonoBehaviour
         }
         return true;
     }
+    /// <summary>
+    /// 通过房间UI选项 替换角色
+    /// </summary>
+    /// <param name="role"></param>
+    /// <param name="oldRoleID"></param>
     public virtual void AddRole(HallRole role, int oldRoleID)
     {
         for (int i = 0; i < currentBuildData.roleData.Length; i++)
@@ -1097,7 +1133,6 @@ public abstract class RoomMgr : MonoBehaviour
                     role.RoleData.currentRoom.RemoveRole(role);
                     HallRoleData data = currentBuildData.roleData[i];
                     HallRole roleTemp = HallRoleMgr.instance.GetRole(data);
-                    roleTemp.ChangeType(BuildRoomName.Nothing);
                     currentBuildData.roleData[i] = role.RoleData;
                     return;
                 }
@@ -1107,6 +1142,7 @@ public abstract class RoomMgr : MonoBehaviour
         return;
 
     }
+
     /// <summary>
     /// 删除房间内的角色
     /// </summary>
@@ -1253,22 +1289,19 @@ public abstract class RoomMgr : MonoBehaviour
 
     }
 
-    public bool RoleNavigation(List<Vector2> point, int index = 0)
-    {//左右上下
-        index++;
-        for (int i = 0; i < nearbyRoom.Length; i++) //递归左右侧房间
+    public void ResumeWork()
+    {
+        Vector2 roomRolePoint = RolePoint.transform.position;
+        for (int i = 0; i < currentBuildData.roleData.Length; i++)
         {
-            if (nearbyRoom[i] != null)
+            if (currentBuildData.roleData[i] != null)
             {
-                nearbyRoom[i].RoleNavigation(point, index);
+                HallRole role = HallRoleMgr.instance.GetRole(currentBuildData.roleData[i]);
+                Vector2 point = roomRolePoint + currentBuildData.buildingData.RolePoint[i];
+                role.RoleMove(point);
             }
         }
-
-
-
-        return true;
     }
-
 
     protected void GetCompoment()
     {

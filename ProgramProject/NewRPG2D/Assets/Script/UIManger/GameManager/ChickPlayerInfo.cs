@@ -913,6 +913,11 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 UILevelUpTip.instance.RemoveLister(item.Value.tipID);
                 ChickLeveUp(item.Value);
                 buildNumber.Remove(item.Key);
+                LocalBuildingData local = GetBuilding(item.Value.roomID);
+                if (local != null)
+                {
+                    local.currentRoom.ConstructionType = false;
+                }
                 return;
             }
         }
