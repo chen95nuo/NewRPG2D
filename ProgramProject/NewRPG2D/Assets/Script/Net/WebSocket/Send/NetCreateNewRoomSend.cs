@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProtoBuf;
-using proto.SLGV1_0;
+using proto.SLGV1;
 
 namespace Assets.Script.Net
 {
-    class NetCreateNewRoomSend : ISend
+    public class NetCreateNewRoomSend : ISend
     {
-        RQ_createNewRoom mCreateNewRoom;
+        RQ_CreateNewRoom mCreateNewRoom;
         public NetCreateNewRoomSend()
         {
-            mCreateNewRoom = new RQ_createNewRoom();
+            mCreateNewRoom = new RQ_CreateNewRoom();
         }
 
         public IExtensible Send(params object[] param)
@@ -24,7 +24,6 @@ namespace Assets.Script.Net
             {
                 mCreateNewRoom.xFloorOriginOffset.Add(point[i]);
             }
-
             return mCreateNewRoom;
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using demo;
+using proto.SLGV1;
 using ProtoBuf;
 
 namespace Assets.Script.Net
@@ -19,8 +19,9 @@ namespace Assets.Script.Net
 
         public IExtensible Send(params object[] param)
         {
-            mStartGame.serverId = (int)param[0];
-            mStartGame.token = (string)param[1];
+            DebugHelper.Log("登陆成功发送拉取数据消息 RQ_StartGame  token = " + param[0]);
+            mStartGame.token = (string)param[0];
+            DebugHelper.Log(mStartGame.token);
             return mStartGame;
         }
     }

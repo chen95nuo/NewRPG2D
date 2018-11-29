@@ -1,5 +1,5 @@
 ﻿using Assets.Script.UIManger;
-using demo;
+using proto.SLGV1;
 using ProtoBuf;
 using UnityEngine.SceneManagement;
 
@@ -20,10 +20,10 @@ namespace Assets.Script.Net
                 switch (state)
                 {
                     case 0:
-                        DebugHelper.Log("未创建角色名");
+                        DebugHelper.Log("未创建角色名 新用户");
                         break;
                     case 1:
-                        DebugHelper.Log("已创建角色名");
+                        DebugHelper.Log("已创建角色名 老用户");
                         break;
                     case 2:
                         DebugHelper.Log("禁止登陆");

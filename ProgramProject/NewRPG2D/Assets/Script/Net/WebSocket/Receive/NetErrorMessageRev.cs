@@ -1,4 +1,4 @@
-﻿using demo;
+﻿using proto.SLGV1;
 using ProtoBuf;
 
 namespace Assets.Script.Net

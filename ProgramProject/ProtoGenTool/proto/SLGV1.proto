@@ -58,12 +58,11 @@ message CharacterInfo{
 	optional int32 power = 12;			//战力
 	optional int32 grailNum = 13;		//圣杯数量
 	optional int32 popNum = 14;			//人口或者居民数量
-	optional int32 buildingNum = 15;	//建筑工人数量
-	repeated int32 castleSkill=16;		// 城堡的皮肤 [背景,天气,桥梁,旗帜,砖瓦,墙壁,窗户]
-	optional int64 roleCreateTime=17;	// 角色创建时间 (待用)
+	optional int32 builderNum = 15;		//建筑工人数量
+	repeated int32 castleSkin=16;		// 城堡的皮肤 [背景,天气,桥梁,旗帜,砖瓦,墙壁,窗户]
+	optional int32 loginDays=17;	// 角色登录天数
 	repeated string thirdAcctInfo=18;   //  faceBook.Twitter,手机.... 如未绑定无此字段
 }
-
 
 //创建角色名称
 message RQ_CreateRoleName {  
@@ -89,20 +88,48 @@ message RoomInfo{
 	optional int32  leftTime=3;// 剩余多少时间完成升级任务 0 表示升级成功 >0 还有多少时间完成下一级升级 单位为毫秒
 	optional int32  residents=4;// 屋子里面的居民 [居民1,居民2....] 
 }
+// 推送 房间信息
+message A_RoomInfo{
+	required A_RoomInfo roomInfo=1; // 房间
+	extend BaseData {
+        optional A_RoomInfo ext = 2001;
+    }
+}
 
+//发送建造的房间基础信息 判断材料是否足够
+message RQ_CheckCreateNewRoom{
+	required int32 roomType=1; // 7 :伐木场<服务自动生成对应 房间逻辑Id ;01 ,02 ,04>
+	extend BaseData {
+        optional RQ_CheckCreateNewRoom ext = 107;
+    }
+}
+//返回是否可以建造 缺乏材料数量
+message RS_CheckCreateNewRoom{
+	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
+	repeated ConsumeItem neeedItem = 2;//数组 玩家不足的材料数量 材料类型 数量
+	extend BaseData {
+        optional RS_CheckCreateNewRoom ext = 108  ;
+    }
+}
+//材料中包括钻石 用于提示需要多少钻石才能购买该数量材料
+message ConsumeItem{
+	required int32 produceType = 1;//材料类型 0钻石 1金币 2食物 3......
+	required int32 needNum = 2;//需要数量
+}
 //创建一个生产类房间
-message RQ_createNewRoom{
+message RQ_CreateNewRoom{
 	required int32 roomType=1; // 7 :伐木场<服务自动生成对应 房间逻辑Id ;01 ,02 ,04>
 	repeated int32 xFloorOriginOffset=2;// 所在楼层和起点网格和偏移网格 例如[1,2,3] 在一层 从第2个网格开始占了3个格子
 	extend BaseData {
-        optional RQ_createNewRoom ext = 107;  
+        optional RQ_CreateNewRoom ext = 109;  
     }
 }
 message RS_CreateNewRoom{
 	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
 	optional RoomInfo baseRoomInfo=2;// 房屋基本信息
+	
 	extend BaseData {
-        optional RS_CreateNewRoom ext = 108;  
+        optional RS_CreateNewRoom ext = 110;  
     }
 }
 
@@ -123,14 +150,14 @@ message StoreRoom{
 message  A_ProduceRoom{
 	repeated ProduceRoom proRoom=1;
 	extend BaseData {
-        optional A_ProduceRoom ext = 2001;  
+        optional A_ProduceRoom ext = 2002;  
     }
 }
 //推送
 message  A_StoreRoom{
 	repeated StoreRoom storeRoom=1;
 	extend BaseData {
-        optional A_StoreRoom ext = 2002;  
+        optional A_StoreRoom ext = 2003;  
     }
 }
 
@@ -145,41 +172,59 @@ message  ResidentRoom{
 	repeated int32  appointmentTimes=3;//开始时间[时间1,时间2...]
 	repeated int32  state=4;// 同性-1,异性,(恋爱(才显示时间),怀孕,厌倦爱情)  
 }
-//推送
+// 检查 房间状态信息 [客户端和服务器同步消息 ]消息返回  A_ResidentRoom
+message Q_CheckResidentRoomState {
+	required string roomId=1;// 房间Id
+	extend BaseData {
+        optional Q_CheckProudctEquipState ext = 1001;  
+    }
+}
+//推送(居民室)
 message  A_ResidentRoom{
 	repeated ResidentRoom residentRoom=1;
 	extend BaseData {
-        optional A_ResidentRoom ext = 2003;  
+        optional A_ResidentRoom ext = 2004;  
     }
 }
 
 // 武器厂和护甲厂生成 装备信息
 message ProudctEquipInfo{
-	optional int32  weaponProducting=1;// 正在加工武器 [武器类型,品质,剩余时间] 
-									   // 武器类型 0 近战,1 远程,2魔法
+	optional int32  wHJHProducting=1;// 正在加工武器,护甲,戒指,护符 [房间Id,装备类型,品质,剩余时间] 
+									   // 武器类型 0 近战,1 远程,2魔法,3 斗士(板甲),4 弓箭手(皮甲),5 法师外衣,6 戒指,7 护符
 									   // 品质 : 0 罕见,1 稀有, 2史诗,3传说
-									   // 当剩余时间为零的时候 即可 领取 (只能有一个在生成)
-	optional int32  armorProducting=2;// 正在加工护甲 [护甲类型,品质,剩余时间] 
-									   // 护甲类型 0 斗士,1 弓箭手,2 法师外衣
-									   // 品质 : 0 罕见,1 稀有, 2史诗,3传说
-									   // 当剩余时间为零的时候 即可 领取
+									   // 当剩余时间为零的时候 即可 领取 
 }
-
+// Q_xxx 消息是 不需要客户端等待返回的(防止卡在)是个异步消息. 只有客户端写好监听回来消息即可
+// 检查生成装备的状态 [客户端和服务器 同步最新信息  消息 A_ProudctEquipInfo]
+message Q_CheckProudctEquipState {
+	required string roomId=1;// 房间id(服务器返回对应装备)
+	extend BaseData {
+        optional Q_CheckProudctEquipState ext = 1002;  
+    }
+}
+message A_ProudctEquipInfo{
+	required ProudctEquipInfo proEquipInfo=1;// 此房间生成装备的状态信息
+	extend BaseData {
+        optional A_ProudctEquipInfo ext = 2005;  
+    }
+}
 
 // 点击领取 已经制作完成武器或者护甲
-message RQ_PickupWeaponAndArmor{
-	required int32 type=1;// 0 护甲 1 武器
+message RQ_PickupProCompleteEquip{
+	required string roomId=1;// 房间id(服务器返回对应装备)
+	
 }
-message RS_PickupWeaponAndArmor{
+message RS_PickupProCompleteEquip{
 	required int32 ret=1;// 0 成功  其他异常
-	optional EquipmentInfo equip=2;// 显示制造成功物品
+	optional ProudctEquipInfo equip=2;// 显示制造成功物品
 }
 
 // 所有法术 (魔法工厂生产和魔法实验室研制)
 message AllMagicSkillInfo{
-	repeated MagicSkillInfo  proAndCompletMagicSkill=1;// 生产中和已完成生产的
-	repeated MagicSkillInfo  battleInUseMagicSkill=2;//战斗中使用的
-	repeated MagicSkillLevel magicSkillLevel=3;// 8种类型魔法技能等级最高和状态.
+	repeated MagicSkillInfo  proMagicSkill=1;// 生产中[按照顺序生成]
+	repeated MagicSkillInfo  completMagicSkill=2;// 已经完成的
+	repeated MagicSkillInfo  battleInUseMagicSkill=3;//战斗中使用的
+	repeated MagicSkillLevel magicSkillLevel=4;// 8种类型魔法技能等级最高和状态.
 }
 
 // 魔法工坊 制作法术
@@ -192,54 +237,54 @@ message MagicSkillInfo{
 
 // 魔法法术等级 (8种类型魔法技能等级最高和状态)
 message MagicSkillLevel{
-	repeated int32 skillId=1;//读表id
-	required int32 levelUpTime=2; //研究下一等级完成剩余时间:  研究完成==0; > 0 正在提升的
+	required int32 skillId=2;//读表id
+	required int32 levelUpTime=3; //研究下一等级完成剩余时间:  研究完成==0; > 0 正在提升的
 }
 
 // 研究新型法术(法术升级) 正在加个生产的继续使用 之前等级法术
 message RQ_ResearchMagicSkill{
 	required int32 type=1;// 0 普通 1 钻石加速
-	repeated int32 skillId=2;//需要升级法术Id
+	required int32 skillId=2;//需要升级法术Id
 	extend BaseData {
-        optional RQ_ResearchMagicSkill ext = 109;  
+        optional RQ_ResearchMagicSkill ext = 111;  
     }
 }
 message RS_ResearchMagicSkill{
 	required int32 ret=1;
 	optional MagicSkillLevel magicSkill=2;// 正在法术升级
 	extend BaseData {
-        optional RS_ResearchMagicSkill ext = 110;  
+        optional RS_ResearchMagicSkill ext = 112;  
     }
 }
 
 // 制造(生成)法术
 message RQ_MakeMagicSkill{
-	required int32 type=1;// 0 普通生成, 1 加速生产, 2 取消生产
-	required MagicSkillLevel selectMagicSkill=2;// 选择要制作的法术
+	required int32 type=1;// 0 普通生成, 1 加速生产, 2 取消生产,3 全局加速
+	optional int32 skillId=2;// 选择要制作的法术(全局加速不需要上传)
 	extend BaseData {
-        optional RQ_MakeMagicSkill ext = 111;  
+        optional RQ_MakeMagicSkill ext = 113;  
     }
 }
 message RS_MakeMagicSkill{
 	required int32 ret =1;// 0 开始制造
-	optional MagicSkillInfo magicSkilling=2;// 正在制造的法术
+	repeated MagicSkillInfo magicSkillings=2;// 正在制造的法术和完成的法术
 	extend BaseData {
-        optional RS_MakeMagicSkill ext = 112;  
+        optional RS_MakeMagicSkill ext = 114;  
     }
 }
 // 添加法术到战斗中去
 message RQ_AddBattleInMagicSkill{
-	repeated int32 positions=1;// [位置1,位置2...]
-	repeated MagicSkillInfo magicSkills=2;// 和上面对应起来[法术1,法术2...]
+	required int32 positions=1;// [约定的位置]
+	required int32 magicId=2;// 法术Id
 	extend BaseData {
-        optional RQ_AddBattleInMagicSkill ext = 113;  
+        optional RQ_AddBattleInMagicSkill ext = 115;  
     }
 }
 message RS_AddBattleInMagicSkill{
 	required int32 ret =1;// 0 成功
 	repeated MagicSkillInfo  battleInUseMagicSkill=2;//战斗中使用的法术
 	extend BaseData {
-        optional RS_AddBattleInMagicSkill ext = 114;  
+        optional RS_AddBattleInMagicSkill ext = 116;  
     }
 }
 
@@ -247,29 +292,36 @@ message RS_AddBattleInMagicSkill{
 message JewelleryFactoryRoom{
 		// 待定
 }
-
+// 同步房间状态信息 [返回 A_RoomInfo]
+message Q_RoomState{
+	required string roomId=1;// 房间Id 07 01
+	extend BaseData {
+        optional Q_RoomState ext = 1003;  
+    }
+}
 
 // 房间升级/房间加快升级/取消升级
 message RQ_RoomUpdateLevel{
 	required string roomId=1;// 房间Id 07 01
 	required int32 type=2;// 操作类型  1，普通升级； 2 加快升级 0：取消升级
 	extend BaseData {
-        optional RQ_RoomUpdateLevel ext = 115;  
+        optional RQ_RoomUpdateLevel ext = 117;  
     }
 }
 
 message RS_RoomUpdateLevel{
 	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
 	optional RoomInfo roomInfo=2;
+	repeated ConsumeItem returnItem=3;//退还的物品(取消操作)
 	extend BaseData {
-        optional RS_RoomUpdateLevel ext = 116;  
+        optional RS_RoomUpdateLevel ext = 118;  
     }
 }
 // 房间的合并(这个最好还是客户端和服务端 各自算,原因在于编辑模式 存在数据干扰,或者关闭按钮取消拆分和合并)
 message RQ_RoomMerger{
 	repeated int32 roomIds =1;// 房间ids1....
 	extend BaseData {
-        optional RQ_RoomMerger ext = 117;  
+        optional RQ_RoomMerger ext = 119;  
     }
 }
 message RS_RoomMerger{
@@ -277,7 +329,7 @@ message RS_RoomMerger{
 	repeated int32 reqRoomIds =2;//  (透传参数)请求合并的房间id1,Id2....
 	optional RoomInfo newroomInfo=3;// 大房间
 	extend BaseData {
-        optional RS_RoomMerger ext = 118;  
+        optional RS_RoomMerger ext = 120;  
     }
 }
 
@@ -285,7 +337,7 @@ message RS_RoomMerger{
 message RQ_RoomSplit{
 	required int32 roomId=1;// 大房间的Id
 	extend BaseData {
-        optional RQ_RoomSplit ext = 119;  
+        optional RQ_RoomSplit ext = 121;  
     }
 }
 message RS_RoomSplit{
@@ -293,7 +345,7 @@ message RS_RoomSplit{
 	required int32 reqRoomId=2;// (透传参数)请求拆分的大房间
 	repeated RoomInfo rooms =3;//  分解之后房间rood1,room2....
 	extend BaseData {
-        optional RS_RoomSplit ext = 120;  
+        optional RS_RoomSplit ext = 122;  
     }
 }
 
@@ -301,12 +353,12 @@ message RS_RoomSplit{
 message  RQ_SaveAllRoom{
 	repeated RoomInfo room =1;// 请求所有房间 (只需要Id和位置信息)
 	extend BaseData {
-        optional RQ_SaveAllRoom ext = 121;  
+        optional RQ_SaveAllRoom ext = 123;  
     }
 }
 message  RS_SaveAllRoom{
-	required int32 id=1;// 0 成功, -1 失败
-	// 须返回 所有房间信息
+	required int32 ret=1;// 0 成功, -1 失败
+	// 需返回 所有房间信息
 	repeated RoomInfo allRoom=3;// 所有房间 基础信息
 	repeated ResidentInfo allResident=4 ;//所有居民
 	repeated ProduceRoom allProRoom=5;// 生产类房间
@@ -315,7 +367,7 @@ message  RS_SaveAllRoom{
 	optional ProudctEquipInfo proEquip=8;// 武器厂和护甲厂正在生产或已经完成生产的装备(未领取)
 	optional AllMagicSkillInfo allMagicSkill=9;// 魔法工厂生产和投入战斗使用的法术 以及魔法实验室研制法术最高等级
 	extend BaseData {
-        optional RS_SaveAllRoom ext = 122;  
+        optional RS_SaveAllRoom ext = 124;  
     }
 }
 //---------------房间信息结束---------
@@ -354,7 +406,7 @@ message ChildAndBaby{
 message RQ_ConfirmRearKid{
 	required int32 id=1;// 居民Id (女性的id)
 	extend BaseData {
-        optional RQ_ConfirmRearKid ext = 123;  
+        optional RQ_ConfirmRearKid ext = 125;  
     }
 }
 message RS_ConfirmRearKid{
@@ -363,21 +415,21 @@ message RS_ConfirmRearKid{
 	optional int32 motherId=3;// 母亲Id(成年)
 	optional int32 fatherId=4;// 父亲Id
 	extend BaseData {
-        optional RS_ConfirmRearKid ext = 124;  
+        optional RS_ConfirmRearKid ext = 126;  
     }
 }
 // 确认小孩成年
 message RQ_ConfirmKidAdult{
 	required int32 id=1;// 居民Id 
 	extend BaseData {
-        optional RQ_ConfirmKidAdult ext = 125;  
+        optional RQ_ConfirmKidAdult ext = 127;  
     }
 }
 message RS_ConfirmKidAdult{
 	required int32 ret=1;// 0 成功; -1 <参数意义统一编码>
 	optional ResidentInfo adult=2;// 成年之后
 	extend BaseData {
-        optional RS_ConfirmKidAdult ext = 126;  
+        optional RS_ConfirmKidAdult ext = 128;  
     }
 }
 
@@ -386,14 +438,14 @@ message RS_ConfirmKidAdult{
 message RQ_ConfirmTrain{
 	required int32 id=1;// 居民Id 
 	extend BaseData {
-        optional RQ_ConfirmTrain ext = 127;  
+        optional RQ_ConfirmTrain ext = 129;  
     }
 }
 message RS_ConfirmTrain{
 	required int32 ret=1;// 0 成功; -1 <参数意义统一编码>
 	optional ResidentInfo  residentInfo=2;// 最新的居民信息(如果存在下一级自动升级为下一级)
 	extend BaseData {
-        optional RS_ConfirmTrain ext = 128;  
+        optional RS_ConfirmTrain ext = 130;  
     }
 }
 
@@ -402,14 +454,14 @@ message RQ_DragIntoRoom{
 	required int32 id=1;// 居民Id 
 	required string roomId=2;//房间Id
 	extend BaseData {
-        optional RQ_DragIntoRoom ext = 129;  
+        optional RQ_DragIntoRoom ext = 131;  
     }
 }
 message RS_DragIntoRoom{
 	required int32 ret=1;// 0 成功; -1 <参数意义统一编码>
 	repeated ResidentInfo  residentInfos=2;// 可能有人被挤掉了.
 	extend BaseData {
-        optional RS_DragIntoRoom ext = 130;  
+        optional RS_DragIntoRoom ext = 132;  
     }
 }
 // 把居民替换掉
@@ -461,25 +513,52 @@ message A_QiPao{
 	required int32 id=1;// 气泡Id
 	required int32 jumingId=2;// 气泡 在那个居民身上
 	extend BaseData {
-        optional A_QiPao ext = 2004;  
+        optional A_QiPao ext = 2006;  
     }
 }
 // 推送幸福度 
 message A_HappinessState{
 	optional int32 happinessNum = 1;	//幸福度点数<关连宠物>
 	extend BaseData {
-        optional A_HappinessState ext = 2005;  
+        optional A_HappinessState ext = 2007;  
     }
 }
 
 
-//断线重连的sessionToken
+
+
+//断线重连
+message RQ_Reconnect {  
+    required string sessionToken = 1;		//上次登录成功后返回的session token
+    extend BaseData {  
+        optional RQ_Reconnect ext = 133;
+    } 
+}
+message RS_Reconnect {  
+    required int32 ret= 1 ;		// 0 成功,-1 失败
+    extend BaseData {
+        optional RS_Reconnect ext = 134;
+    } 
+}
+
+
+//推送错误消息
+message A_ErrorMessage {
+	required string msg = 1;	//消息内容
+	extend BaseData {
+        optional A_ErrorMessage ext = 2008;  
+    }
+}
+
+//断线重连的sessionToken (这个消息在登录成功之后就会推送给你 ,保存在客户端)
 message A_SessionToken {
 	required string sessionToken = 1;	//当前连接的token
 	extend BaseData {
-        optional A_SessionToken ext = 2006;  
+        optional A_SessionToken ext = 2009;  
     }
 }
+
+
 
 //PS:
 // 1.房间的合并和拆分

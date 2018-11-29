@@ -4,7 +4,7 @@ using BestHTTP.WebSocket;
 using System;
 using ProtoBuf;
 using System.IO;
-using demo;
+using proto.SLGV1;
 using System.Collections.Generic;
 
 namespace Assets.Script.Net
@@ -152,7 +152,8 @@ namespace Assets.Script.Net
         void OnOpen(WebSocket ws)
         {
             setConsoleMsg("Connected");
-            Send(NetSendMsg.RQ_StartGame, 1, token);
+            Debug.Log("服务器连接成功开始拉取数据");
+            Send(NetSendMsg.RQ_StartGame, token);//服务器连接成功拉取数据
         }
 
         /// <summary>
@@ -219,8 +220,41 @@ namespace Assets.Script.Net
                 case NetSendMsg.RQ_CreateRoleName:
                     send = new NetCreateRoleNameSend();
                     break;
-                case NetSendMsg.Q_HG_RefreshTili:
-                    send = new NetRefreshTiliSend();
+                case NetSendMsg.RQ_CreateNewRoom:
+                    send = new NetCreateNewRoomSend();
+                    break;
+                case NetSendMsg.RQ_ResearchMagicSkill:
+                    send = new NetResearchMagicSkillSend();
+                    break;
+                case NetSendMsg.RQ_MakeMagicSkill:
+                    send = new NetMakeMagicSkillSend();
+                    break;
+                case NetSendMsg.RQ_AddBattleInMagicSkill:
+                    send = new NetAddbattleInMagicSkillSend();
+                    break;
+                case NetSendMsg.RQ_RoomUpdateLevel:
+                    send = new NetRoomUpdateLevelSend();
+                    break;
+                case NetSendMsg.RQ_RoomMerger:
+                    send = new NetRoomMergerSend();
+                    break;
+                case NetSendMsg.RQ_RoomSplit:
+                    send = new NetRoomSplitSend();
+                    break;
+                case NetSendMsg.RQ_SaveAllRoom:
+                    send = new NetSaveAllRoomSend();
+                    break;
+                case NetSendMsg.RQ_ConfirmRearKid:
+                    send = new NetConfirmRearKidSend();
+                    break;
+                case NetSendMsg.RQ_ConfirmKidAdult:
+                    send = new NetConfirmKidAdultSend();
+                    break;
+                case NetSendMsg.RQ_ConfirmTrain:
+                    send = new NetConfirmTrainSend();
+                    break;
+                case NetSendMsg.RQ_DragIntoRoom:
+                    send = new NetDragIntoRoomSend();
                     break;
                 default:
                     break;
@@ -241,18 +275,71 @@ namespace Assets.Script.Net
                 case NetReceiveMsg.RS_RoleLogin:
                     receive = new NetRoleLoginRev();
                     break;
-                case NetReceiveMsg.A_HG_Tili:
-                    break;
                 case NetReceiveMsg.A_ErrorMessage:
                     receive = new NetErrorMessageRev();
                     break;
-
+                case NetReceiveMsg.RS_CreateRoleName:
+                    receive = new NetCreateRoleNameRev();
+                    break;
+                case NetReceiveMsg.RS_CreateNewRoom:
+                    receive = new NetCreateNewRoomRev();
+                    break;
+                case NetReceiveMsg.RS_ResearchMagicSkill:
+                    receive = new NetResearchMagicSkillRev();
+                    break;
+                case NetReceiveMsg.RS_MakeMagicSkill:
+                    receive = new NetMakeMagicSkillRev();
+                    break;
+                case NetReceiveMsg.RS_AddBattleInMagicSkill:
+                    receive = new NetAddbattleInMagicSkillRev();
+                    break;
+                case NetReceiveMsg.RS_RoomUpdateLevel:
+                    receive = new NetRoomUpdateLevelRev();
+                    break;
+                case NetReceiveMsg.RS_RoomMerger:
+                    receive = new NetRoomMergerRev();
+                    break;
+                case NetReceiveMsg.RS_RoomSplit:
+                    receive = new NetRoomSplitRev();
+                    break;
+                case NetReceiveMsg.RS_SaveAllRoom:
+                    receive = new NetSaveAllRoomRev();
+                    break;
+                case NetReceiveMsg.RS_ConfirmRearKid:
+                    receive = new NetConfirmRearKidRev();
+                    break;
+                case NetReceiveMsg.RS_ConfirmKidAdult:
+                    receive = new NetConfirmKidAdultRev();
+                    break;
+                case NetReceiveMsg.RS_ConfirmTrain:
+                    receive = new NetConfirmTrainRev();
+                    break;
+                case NetReceiveMsg.RS_DragIntoRoom:
+                    receive = new NetDragIntoRoomRev();
+                    break;
+                case NetReceiveMsg.A_ProduceRoom:
+                    receive = new NetProduceRoomRev();
+                    break;
+                case NetReceiveMsg.A_StoreRoom:
+                    receive = new NetStoreRoomRev();
+                    break;
+                case NetReceiveMsg.A_ResidentRoom:
+                    receive = new NetResidentRoomRev();
+                    break;
+                case NetReceiveMsg.A_QiPao:
+                    receive = new NetQiPaoRev();
+                    break;
+                case NetReceiveMsg.A_HappinessState:
+                    receive = new NetHappinessStateRev();
+                    break;
+                case NetReceiveMsg.A_SessionToken:
+                    receive = new NetSessionTokenRev();
+                    break;
                 default:
                     break;
 
             }
             receive.Receive(receiveData, (int)netId);
         }
-
     }
 }

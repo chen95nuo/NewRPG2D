@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProtoBuf;
-using proto.SLGV1_0;
+using proto.SLGV1;
 
 namespace Assets.Script.Net
 {
-    class NetCreateNewRoomRev : IReceive
+   public class NetCreateNewRoomRev : IReceive
     {
         public void Receive(IExtensible data, int id)
         {
@@ -20,8 +20,7 @@ namespace Assets.Script.Net
                 DebugHelper.Log("新房间获取失败");
                 return;
             }
-            proto.SLGV1_0.RoomInfo baseRoomInfo = mCreateNewRoom.baseRoomInfo;//新建的房间基本信息
-
+            proto.SLGV1.RoomInfo baseRoomInfo = mCreateNewRoom.baseRoomInfo;//新建的房间基本信息
         }
     }
 }

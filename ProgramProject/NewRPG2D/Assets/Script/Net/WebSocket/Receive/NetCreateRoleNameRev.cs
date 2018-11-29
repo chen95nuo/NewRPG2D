@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using proto.SLGV1_0;
+using proto.SLGV1;
 using ProtoBuf;
 
 namespace Assets.Script.Net
