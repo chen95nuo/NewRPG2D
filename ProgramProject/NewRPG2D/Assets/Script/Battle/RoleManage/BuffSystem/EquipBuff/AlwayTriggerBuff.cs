@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Assets.Script.Battle
 {
@@ -31,11 +27,13 @@ namespace Assets.Script.Battle
             base.UpdateLogic(deltaTime);
 
             intervalTime += deltaTime;
-            if (intervalTime > duration)
+            if (intervalTime > duration * currentRole.RolePropertyValue.CDTimePercent)
             {
                 if(Trigger(TirggerType, ref mHurtInfo))
                 {
-                    intervalTime = 0; 
+                    intervalTime = 0;
+                    //currentRole.BuffMoment.RemoveBuff(BuffTypeEnum.IncreaseCDTime);
+                    //currentRole.BuffMoment.RemoveBuff(BuffTypeEnum.ReduceCDTime);
                 }
             }
         }

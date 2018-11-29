@@ -1,7 +1,6 @@
 ﻿/// <summary>
 /// 攻击时，有x%概率在y秒内造成z%点分裂伤害
 /// </summary>
-using UnityEngine;
 
 namespace Assets.Script.Battle
 {

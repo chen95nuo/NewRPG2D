@@ -1,29 +1,34 @@
 ﻿/// <summary>
-///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
+///当前攻击目标被击杀时，x秒内造成的伤害提高y%
 /// </summary>
+using UnityEngine;
 
 namespace Assets.Script.Battle
 {
-    public class HurtThenHealHpBuff : HurtTriggerBuff
+    public class DeadThenHurtAllEnemy : TargetDeadTrigger
     {
-        private float healHpPercent;
+        private float damage;
 
-        private float duration;
+
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            healHpPercent = param2 * 0.01f;
-            duration = param3;
+            damage = param1;
         }
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
         {
             if (base.Trigger(tirggerType, ref info))
             {
-                currentRole.BuffMoment.AddBuff(BuffTypeEnum.HealHp, currentRole.RolePropertyValue.MaxHp * healHpPercent, duration);
+              HurtAllEnemy(damage);
                 return true;
             }
             return false;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
     }
 }

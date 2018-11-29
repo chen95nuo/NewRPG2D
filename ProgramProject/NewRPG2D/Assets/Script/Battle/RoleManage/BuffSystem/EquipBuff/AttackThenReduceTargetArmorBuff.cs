@@ -2,7 +2,6 @@
 ///攻击时，有x%概率使一名敌人的护甲降低y%，持续z秒
 /// </summary>
 /// 
-using UnityEngine;
 
 namespace Assets.Script.Battle
 {
@@ -20,7 +19,7 @@ namespace Assets.Script.Battle
 
         public override bool Trigger(TirggerTypeEnum triggerType, ref HurtInfo info)
         {
-            if (base.Trigger(triggerType, ref info) && Random.Range(0, 1f) < triggerChange)
+            if (base.Trigger(triggerType, ref info) && RandomValue < triggerChange)
             {
       
                 Target.BuffMoment.AddBuff(BuffTypeEnum.ReduceArmor, duration, reduceArmorPercent);

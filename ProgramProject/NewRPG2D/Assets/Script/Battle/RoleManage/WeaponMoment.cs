@@ -179,6 +179,27 @@ namespace Assets.Script.Battle
                 case SpecialPropertyEnum.HurtThenReduceTargetMagicArmorBuff:
                     buff = new HurtThenReduceTargetMagicArmorBuff();
                     break;
+                case SpecialPropertyEnum.AttackThenEnemyExtraDamageBuff:
+                    buff = new AttackThenEnemyExtraDamageBuff();
+                    break;
+                case SpecialPropertyEnum.DeadThenHurtAllEnemy:
+                    buff = new DeadThenHurtAllEnemy();
+                    break;
+                case SpecialPropertyEnum.DeadThenDizzyAllEnemy:
+                    buff = new DeadThenDizzyAllEnemy();
+                    break;
+                case SpecialPropertyEnum.HurtThenRelectEnemy:
+                    buff = new HurtThenRelectEnemy();
+                    break;
+                case SpecialPropertyEnum.HurtThenGod:
+                    buff = new HurtThenGod();
+                    break;
+                case SpecialPropertyEnum.DeadThenHealAnother:
+                    buff = new DeadThenHealAnother();
+                    break;
+                case SpecialPropertyEnum.KillLowHpEnemy:
+                    buff = new KillLowHpEnemy();
+                    break;
                 default:
                     buff = new RoleEquipSpecialBuff();
                     break;

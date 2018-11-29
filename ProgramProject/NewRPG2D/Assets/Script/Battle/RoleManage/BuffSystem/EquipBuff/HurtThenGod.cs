@@ -4,23 +4,22 @@
 
 namespace Assets.Script.Battle
 {
-    public class HurtThenHealHpBuff : HurtTriggerBuff
+    public class HurtThenGod : HurtTriggerBuff
     {
-        private float healHpPercent;
+        private float healHp;
 
         private float duration;
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            healHpPercent = param2 * 0.01f;
-            duration = param3;
+            healHp = param2;
         }
 
         public override bool Trigger(TirggerTypeEnum tirggerType, ref HurtInfo info)
         {
             if (base.Trigger(tirggerType, ref info))
             {
-                currentRole.BuffMoment.AddBuff(BuffTypeEnum.HealHp, currentRole.RolePropertyValue.MaxHp * healHpPercent, duration);
+                currentRole.BuffMoment.AddBuff(BuffTypeEnum.Freezing, duration, healHp);
                 return true;
             }
             return false;

@@ -2,9 +2,6 @@
 /// 以X+（法术强度*Y)点生命值复活一名盟友。Z秒冷却
 /// </summary>
 
-using System.Runtime.Hosting;
-using UnityEngine;
-
 namespace Assets.Script.Battle
 {
     public class AttackThenExtraAllEnemyDamage : AttackTriggerBuff

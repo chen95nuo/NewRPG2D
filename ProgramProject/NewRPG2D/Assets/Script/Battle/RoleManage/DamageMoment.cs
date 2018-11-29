@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Script.Battle
@@ -12,6 +8,7 @@ namespace Assets.Script.Battle
     {
         private RoleBase currenRole;
 
+        public float AddtiveDamagePercent = 1;
 
         public void SetCurrentRole(RoleBase mRole)
         {
@@ -22,7 +19,7 @@ namespace Assets.Script.Battle
         {
             ValueProperty attackProperty = hurtInfo.AttackRole.RolePropertyValue;
             ValueProperty targeProperty = hurtInfo.TargeRole.RolePropertyValue;
-            float hurtValue = hurtInfo.HurtValue;
+            float hurtValue = hurtInfo.HurtValue * AddtiveDamagePercent;
             RolePropertyDamage(attackProperty, targeProperty, ref hurtValue);
             //  CriticalDamage(attackProperty, targeProperty, ref hurtValue);
             switch (hurtInfo.HurtType)

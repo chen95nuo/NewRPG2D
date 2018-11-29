@@ -31,6 +31,7 @@ namespace Assets.Script.Battle
         public float CriticalPercent { get; private set; }  //暴击
         public float AviodHurtPercent { get; private set; } //闪避
         public float HitPercent { get; private set; }       //命中 
+        public float CDTimePercent { get; private set; }    //影响冷却时间
 
         public float MoveSpeed { get; private set; }
         public float AttackSpeed { get; private set; }
@@ -87,6 +88,7 @@ namespace Assets.Script.Battle
                 AttackRange = 2;
             }
             MaxHp = RoleHp;
+            CDTimePercent = 1;
         }
 
         public PropertyData GetPropertyData()
@@ -203,6 +205,11 @@ namespace Assets.Script.Battle
         public void SetHitPercent(float hitPercentChange)
         {
             HitPercent += hitPercentChange;
+        }
+
+        public void SetCDTimePercent(float percentChange)
+        {
+            CDTimePercent += percentChange;
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿/// <summary>
-///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
+///攻击时，x%概率使被击中的敌人所受的伤害提高x%。效果持续y秒。
 /// </summary>
 
 namespace Assets.Script.Battle
 {
-    public class HurtThenHealHpBuff : HurtTriggerBuff
+    public class AttackThenEnemyExtraDamageBuff : AttackTriggerBuff
     {
-        private float healHpPercent;
-
+        private float extraDamagePercent;
         private float duration;
+
         public override void Init(RoleBase role, float param1, float param2, float param3, float param4)
         {
             base.Init(role, param1, param2, param3, param4);
-            healHpPercent = param2 * 0.01f;
+
+            extraDamagePercent = param2 * 0.01f;
             duration = param3;
         }
 
@@ -20,10 +21,15 @@ namespace Assets.Script.Battle
         {
             if (base.Trigger(tirggerType, ref info))
             {
-                currentRole.BuffMoment.AddBuff(BuffTypeEnum.HealHp, currentRole.RolePropertyValue.MaxHp * healHpPercent, duration);
+                Target.BuffMoment.AddBuff(BuffTypeEnum.IncreaseEnemyDamage, duration, extraDamagePercent);
                 return true;
             }
             return false;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
     }
 }

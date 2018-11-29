@@ -1,7 +1,6 @@
 ﻿/// <summary>
 ///攻击时，有x%概率时敌人流血，在y秒内造成z点伤害
 /// </summary>
-using UnityEngine;
 
 namespace Assets.Script.Battle
 {

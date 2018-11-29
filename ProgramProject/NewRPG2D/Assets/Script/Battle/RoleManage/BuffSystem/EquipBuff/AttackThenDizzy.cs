@@ -1,8 +1,6 @@
 ﻿/// <summary>
 /// 攻击时，有x%概率使敌人眩晕y秒
 /// </summary>
-using UnityEngine;
-
 namespace Assets.Script.Battle
 {
     public class AttackThenDizzy : AttackTriggerBuff
@@ -19,14 +17,7 @@ namespace Assets.Script.Battle
         {
             if (base.Trigger(triggerType, ref info))
             {
-                for (int i = 0; i < EnemysRoleList.Count; i++)
-                {
-                    RoleBase role = EnemysRoleList[i];
-                    if (role.IsDead == false)
-                    {
-                        role.BuffMoment.AddBuff(BuffTypeEnum.Dizzy, duration);
-                    }
-                }
+                DizzyAllEnemy(duration);
                 return true;
             }
             return false;

@@ -1,8 +1,6 @@
 ﻿/// <summary>
 ///每次攻击都提升x%点伤害，当前目标死亡时，损失所有伤害提升
 /// </summary>
-using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Script.Battle
 {

@@ -117,6 +117,7 @@ namespace Assets.Script.Battle
             mHurtInfo.AttackRole = currentRole;
             mHurtInfo.HurtType = currentRole.RolePropertyValue.HurtType;
             mHurtInfo.HurtValue = damage;
+            currentRole.RoleDamageMoment.HurtDamage(ref mHurtInfo);
         }
 
         protected void HurtAllEnemy(float damage)
@@ -144,6 +145,18 @@ namespace Assets.Script.Battle
                 for (int i = 0; i < enemys.Count; i++)
                 {
                     enemys[i].BuffMoment.AddBuff(BuffTypeEnum.ExtraDamage, buffDuration, damage);
+                }
+            }
+        }
+
+        protected void DizzyAllEnemy(float duration)
+        {
+            for (int i = 0; i < EnemysRoleList.Count; i++)
+            {
+                RoleBase role = EnemysRoleList[i];
+                if (role.IsDead == false)
+                {
+                    role.BuffMoment.AddBuff(BuffTypeEnum.Dizzy, duration);
                 }
             }
         }

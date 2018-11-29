@@ -60,6 +60,15 @@ namespace Assets.Script.Battle
                     case BuffTypeEnum.ReduceMagicArmor:
                         buff = new BuffReduceMagicArmor();
                         break;
+                    case BuffTypeEnum.ReduceCDTime:
+                        buff = new BuffReduceCDTime();
+                        break;
+                    case BuffTypeEnum.IncreaseCDTime:
+                        buff = new BuffIncreaseCDTime();
+                        break;
+                    case BuffTypeEnum.Freezing:
+                        buff = new BuffFreezing();
+                        break;
                 }
                 buffDic[buffType] = buff;
             }

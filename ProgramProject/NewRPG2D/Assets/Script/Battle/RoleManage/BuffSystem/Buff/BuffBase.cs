@@ -1,5 +1,4 @@
 ﻿
-
 namespace Assets.Script.Battle
 {
 

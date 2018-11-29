@@ -1,8 +1,7 @@
 ﻿/// <summary>
 ///攻击时，有x%概率提高自身y%的暴击。持续z秒
 /// </summary>
-using UnityEngine;
-
+/// 
 namespace Assets.Script.Battle
 {
     public class AttackThenIncreaseCritial : AttackTriggerBuff

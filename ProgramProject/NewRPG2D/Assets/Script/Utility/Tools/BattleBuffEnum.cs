@@ -38,6 +38,10 @@ namespace Assets.Script
         IncreaseMagicArmor,
         ReduceDamage,
         ReduceMagicArmor,
+        ReduceCDTime,
+        IncreaseCDTime,
+        IncreaseEnemyDamage,     ///重伤效果
+        Freezing,
     }
 
     public enum SpecialPropertyEnum
