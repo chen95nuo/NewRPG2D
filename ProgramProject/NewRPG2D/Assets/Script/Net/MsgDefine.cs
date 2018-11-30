@@ -46,11 +46,11 @@ public enum NetReceiveMsg
     /// <summary>
     /// 服务端->客户端 ,服务端主动推送的消息	消息号范围:2001-2999
     /// </summary>
-    A_ErrorMessage = 2000,
     A_ProduceRoom = 2001,
     A_StoreRoom = 2002,
     A_ResidentRoom = 2003,
-    A_QiPao = 2004,
-    A_HappinessState = 2005,
-    A_SessionToken = 2006,
+    A_QiPao = 2006,
+    A_HappinessState = 2007,
+    A_ErrorMessage = 2008,
+    A_SessionToken = 2009,
 }

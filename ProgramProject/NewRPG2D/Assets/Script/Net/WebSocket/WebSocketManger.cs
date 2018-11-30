@@ -339,7 +339,15 @@ namespace Assets.Script.Net
                     break;
 
             }
-            receive.Receive(receiveData, (int)netId);
+            try
+            {
+                receive.Receive(receiveData, (int)netId);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("返回的协议号为 :" + (int)netId);
+                throw;
+            }
         }
     }
 }

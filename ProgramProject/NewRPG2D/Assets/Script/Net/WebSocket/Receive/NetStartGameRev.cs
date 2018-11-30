@@ -37,7 +37,7 @@ namespace Assets.Script.Net
                 SceneManager.LoadSceneAsync("EasonMainScene");
             }
             DebugHelper.Log("角色获取失败");
-            DebugHelper.Log("NetStartGameRev ==  " + ret + "  " + state);
+            DebugHelper.Log("StartGame返回消息 ==  ret:" + ret + " state:" + state);
         }
     }
 }

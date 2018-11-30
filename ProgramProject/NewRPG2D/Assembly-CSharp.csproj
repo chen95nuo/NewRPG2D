@@ -247,11 +247,13 @@
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\Buff\BuffMgr.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\Buff\BuffReduceArmor.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\Buff\BuffReduceDamage.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\Buff\BuffReduceMagicArmor.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AlwayTriggerBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenDizzy.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenExtraAllEnemyDamage.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenExtraAllEnemyDamageBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenExtraDamage.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenHealAllFriendsHp.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenHealFriendHp.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenIcreaseAFriendDamageBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\AttackThenIncreaseAvoidBuff.cs" />
@@ -273,6 +275,10 @@
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HealFriendHpBase.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HealFriendHpBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HurtThenHealHp.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HurtThenHealHpBuff.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HurtThenIncreaseArmor.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HurtThenReduceTargetMagicArmorBuff.cs" />
+    <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\HurtTriggerBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\IncreaseFriendsArmorBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\IncreaseFriendsHpBuff.cs" />
     <Compile Include="Assets\Script\Battle\RoleManage\BuffSystem\EquipBuff\RebornFriendBuff.cs" />
@@ -1270,6 +1276,7 @@
     <Compile Include="Assets\Script\UIManger\Data\WorkShopDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\WorldMapData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\WorldMapDataMgr.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\BuildingManager.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\BuildingType.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\CameraControl.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\Castle.cs" />

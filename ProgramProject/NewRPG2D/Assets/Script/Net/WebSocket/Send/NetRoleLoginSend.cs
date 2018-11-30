@@ -19,6 +19,7 @@ namespace Assets.Script.Net
 
         public IExtensible Send(params object[] param)
         {
+            DebugHelper.Log("玩家角色登陆");
             return mRoleLogin;
         }
     }

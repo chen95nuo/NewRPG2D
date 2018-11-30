@@ -12,7 +12,8 @@ namespace Assets.Script.Net
     {
         public void Receive(IExtensible data, int id)
         {
-
+            A_SessionToken sessionToken = Extensible.GetValue<A_SessionToken>(data, id);
+            DebugHelper.Log("断线重连");
         }
     }
 }
