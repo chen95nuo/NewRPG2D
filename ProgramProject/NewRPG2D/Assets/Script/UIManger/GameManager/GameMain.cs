@@ -23,30 +23,11 @@ public class GameMain : MonoBehaviour
     public void Init()
     {
         UIPanelManager.instance.ShowPage<UILoading>();
-        Invoke("test", 0.5f);
+        Invoke("test", 1f);
     }
 
     private void test()
     {
-        Invoke("test_1", 0.5f);
-        Invoke("test_2", 1.0f);
-        Invoke("test_3", 1.5f);
-    }
 
-    private void test_1()
-    {
-        ChickPlayerInfo.instance.ChickBuilding();
-    }
-
-    private void test_2()
-    {
-        //LocalServer.instance.StartInit();
-
-    }
-
-    public void test_3()
-    {
-        //HallRole role = HallRoleMgr.instance.GetRole(3);
-        //role.RoleMove(new Vector2(13,2));
     }
 }

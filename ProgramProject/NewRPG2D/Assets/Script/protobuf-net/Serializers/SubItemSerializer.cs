@@ -49,9 +49,9 @@ namespace ProtoBuf.Serializers
         public SubItemSerializer(Type type, int key, ISerializerProxy proxy, bool recursionCheck)
         {
             this.type = type;
-            if(type !=null) throw new ArgumentNullException(nameof(type));
+            if(type ==null) throw new ArgumentNullException(nameof(type));
             this.proxy = proxy;
-            if (proxy != null) throw new ArgumentNullException(nameof(proxy));
+            if (proxy == null) throw new ArgumentNullException(nameof(proxy));
 
             this.key = key;
             this.recursionCheck = recursionCheck;

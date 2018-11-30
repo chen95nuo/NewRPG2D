@@ -7,10 +7,11 @@ using Assets.Script.UIManger;
 
 public class HallRoleMgr : TSingleton<HallRoleMgr>
 {
-    Dictionary<HallRoleData, HallRole> dic = new Dictionary<HallRoleData, HallRole>();
+    Dictionary<HallRoleData, HallRole> dic = new Dictionary<HallRoleData, HallRole>(); //删除
     Dictionary<int, RoleTrainHelper> timeAction = new Dictionary<int, RoleTrainHelper>();
     Dictionary<int, RoleBabyData> childrenTime = new Dictionary<int, RoleBabyData>();
     Dictionary<int, RoleLoveHelper> loveData = new Dictionary<int, RoleLoveHelper>();
+    private List<proto.SLGV1.ResidentInfo> AllRoleData = new List<proto.SLGV1.ResidentInfo>();
     private List<HallRole> AllHallRole = new List<HallRole>();
     private List<HallRoleData> AllRole = new List<HallRoleData>();
     private int childNeedTime = 360;//小孩所需时间
@@ -33,7 +34,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             return roleBoy;
         }
     }
-
     private GameObject RoleGirl
     {
         get
@@ -45,7 +45,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             return roleGirl;
         }
     }
-
     private GameObject RoleMan
     {
         get
@@ -57,7 +56,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             return roleMan;
         }
     }
-
     private GameObject RoleWoman
     {
         get
@@ -82,9 +80,43 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     {
         dic.Clear();
     }
+
+    #region New
+    /// <summary>
+    /// 获取服务器上的角色数据
+    /// </summary>
+    /// <param name="allRole"></param>
+    public void GetServerAllRole(List<proto.SLGV1.ResidentInfo> allRole)
+    {
+        AllRoleData = new List<proto.SLGV1.ResidentInfo>();
+        AllRoleData = allRole;
+        ResetRoleData();
+    }
+    /// <summary>
+    /// 将将原始数据进行重新实例
+    /// </summary>
+    public void ResetRoleData()
+    {
+        foreach (var data in AllRoleData)
+        {
+            SetServerRoleData(data);
+        }
+    }
+    /// <summary>
+    /// 将数据实例化
+    /// </summary>
+    /// <param name="s_RoleInfo">服务器角色数据</param>
+    public void SetServerRoleData(proto.SLGV1.ResidentInfo s_RoleInfo)
+    {
+        //将角色数据赋值 然后实例
+        HallRoleData roleData = new HallRoleData(s_RoleInfo);
+        AddNewRoleInstance(roleData);
+    }
+    #endregion
+
     public void AddRole(HallRoleData data, HallRole role)
     {
-        data.currentRole = role;
+        data.instance = role;
         dic.Add(data, role);
     }
 

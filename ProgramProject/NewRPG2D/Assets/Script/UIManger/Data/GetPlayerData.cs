@@ -26,4 +26,8 @@ public class GetPlayerData
         }
         return data;
     }
+    public void SetData(proto.SLGV1.CharacterInfo S_PlayerData)
+    {
+        data = new PlayerData(S_PlayerData);
+    }
 }

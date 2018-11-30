@@ -29,7 +29,7 @@ public class LocalServer : TSingleton<LocalServer>
         {
             TestRoom();
         }
-        ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
+        //ChickPlayerInfo.instance.ChickBuildDic(saveRoomData);
         if (saveRoleData == null)
         {
             HallRoleData data_1 = HallRoleMgr.instance.BuildNewRole(1);

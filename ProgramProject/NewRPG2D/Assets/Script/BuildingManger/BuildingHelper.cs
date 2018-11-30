@@ -63,9 +63,11 @@ public class LocalBuildingData
     public Vector2 buildingPoint;//房间位置
     public BuildingData buildingData;//房间ID
     public float Stock = 0;
+    public float speedProd = 0;//产出速度
     public bool ConstructionType = false;
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
+    public int leftTime;//升级时间
 
     public float AllRoleProduction()
     {
@@ -224,6 +226,12 @@ public class LocalBuildingData
         this.Stock = Stock;
         int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
+    }
+    public LocalBuildingData(proto.SLGV1.RoomInfo data, int id)
+    {
+        this.id = id;
+        this.buildingPoint = new Vector2(data.xFloorOriginOffset[0], data.xFloorOriginOffset[1]);
+        this.leftTime = data.leftTime;
     }
 }
 

@@ -334,7 +334,7 @@ public abstract class RoomMgr : MonoBehaviour
                 {
                     if (currentBuildData.roleData[i] != null)
                     {
-                        currentBuildData.roleData[i].currentRole.RoleAnim();
+                        currentBuildData.roleData[i].instance.RoleAnim();
                     }
                 }
                 workType = value;
@@ -496,7 +496,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// 创建或重新激活建筑
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateBuilding(LocalBuildingData data, Castle castle)
+    public void UpdateBuilding(LocalBuildingData data, Castle castle, bool isNew = false)
     {
         currentBuildData = data;
         data.currentRoom = this;
@@ -517,67 +517,47 @@ public abstract class RoomMgr : MonoBehaviour
         BuildingMove(data, castle);
         ChickLeftOrRight(castle.buildPoint);
 
-        //如果是主场景 那么施工
-        if (castle.castleType == CastleType.main)
+        if (isNew)
         {
-            if (data.buildingData.NeedTime != 0)
+            //如果是主场景 那么施工
+            if (castle.castleType == CastleType.main)
             {
-                //新建的建筑需要建造时间 那么开始施工
-                ConstructionStart(data.buildingData.ItemId, 0);
+                if (data.buildingData.NeedTime != 0)
+                {
+                    //新建的建筑需要建造时间 那么开始施工
+                    ConstructionStart(data.buildingData.ItemId, 0);
+                }
+                else
+                {
+                    //不需要建造时间的判断是否需要添加事件
+                    ConstructionType = false;
+                    if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+                    {
+                        Debug.Log("添加监听");
+                        //施工结束就添加事件
+                        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+                    }
+                }
             }
             else
             {
-                //不需要建造时间的判断是否需要添加事件
-                ConstructionType = false;
-                if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-                {
-                    Debug.Log("添加监听");
-                    //施工结束就添加事件
-                    ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-                }
+                ConstructionType = data.ConstructionType;
+                castleMgr.ChickMergeRoom(this);
+                AddConnection();
             }
         }
         else
         {
-            ConstructionType = data.ConstructionType;
-            castleMgr.ChickMergeRoom(this);
-            AddConnection();
+            //不需要建造时间的判断是否需要添加事件
+            ConstructionType = false;
+            if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+            {
+                Debug.Log("添加监听");
+                //施工结束就添加事件
+                ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+            }
         }
     }
-
-    /// <summary>
-    /// 直接创建建筑
-    /// </summary>
-    /// <param name="data"></param>
-    public void UpdateBuilding(LocalBuildingData data, Castle castle, ServerBuildData s_data = null)
-    {
-        currentBuildData = data;
-        data.currentRoom = this;
-
-        if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
-        {
-            PlayerData playerdata = GetPlayerData.Instance.GetData();
-            playerdata.MainHall = currentBuildData;
-        }
-        else if (currentBuildData.buildingData.RoomName == BuildRoomName.Barracks)
-        {
-            PlayerData playerdata = GetPlayerData.Instance.GetData();
-            playerdata.BarracksData = currentBuildData;
-        }
-        castleMgr = castle;
-        BuildingMove(data, castle);
-        ChickLeftOrRight(castle.buildPoint);
-
-        //不需要建造时间的判断是否需要添加事件
-        ConstructionType = false;
-        if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-        {
-            Debug.Log("添加监听");
-            //施工结束就添加事件
-            ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-        }
-    }
-
 
     /// <summary>
     /// 添加空位信息

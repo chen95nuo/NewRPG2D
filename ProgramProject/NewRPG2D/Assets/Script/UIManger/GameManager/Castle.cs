@@ -333,11 +333,11 @@ public class Castle : MonoBehaviour
                 room.transform.parent = buildingPoint;
                 if (isNew)
                 {
-                    room.UpdateBuilding(data, this);
+                    room.UpdateBuilding(data, this, isNew);
                 }
                 else
                 {
-                    room.UpdateBuilding(data, this, null);
+                    room.UpdateBuilding(data, this, isNew);
                 }
                 removeRoom.Remove(removeRoom[i]);
                 return room;
@@ -365,11 +365,11 @@ public class Castle : MonoBehaviour
         allroom.Add(room_1);
         if (isNew)
         {
-            room_1.UpdateBuilding(data, this);
+            room_1.UpdateBuilding(data, this, isNew);
         }
         else
         {
-            room_1.UpdateBuilding(data, this, null);
+            room_1.UpdateBuilding(data, this, isNew);
         }
         return room_1;
     }
@@ -402,46 +402,4 @@ public class Castle : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// 生成房间
-    /// </summary>
-    public RoomMgr InstanceRoom(LocalBuildingData data, ServerBuildData s_data)
-    {
-        List<RoomMgr> removeRoom = MapControl.instance.removeRoom;
-        for (int i = 0; i < removeRoom.Count; i++)
-        {
-            if (removeRoom[i].RoomName == data.buildingData.RoomName
-                 && removeRoom[i].BuildingData.RoomSize == data.buildingData.RoomSize)
-            {
-                Debug.Log("有相同的  : " + data.buildingData);
-                RoomMgr room = removeRoom[i];
-                allroom.Add(room);
-                room.UpdateBuilding(data, this, s_data);
-                removeRoom.Remove(removeRoom[i]);
-                return room;
-            }
-        }
-        GameObject go = null;
-        if (data.buildingData.RoomType != RoomType.Production)
-        {
-            go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName);
-        }
-        else
-        {
-            switch (data.buildingData.RoomSize)
-            {
-                case 3: go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName); break;
-                case 6: go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName + "_1"); break;
-                case 9: go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName + "_2"); break;
-                default:
-                    break;
-            }
-        }
-        go = Instantiate(go, buildingPoint) as GameObject;
-        go.name = data.buildingData.RoomName.ToString();
-        RoomMgr room_1 = go.GetComponent<RoomMgr>();
-        room_1.UpdateBuilding(data, this, s_data);
-        allroom.Add(room_1);
-        return room_1;
-    }
 }

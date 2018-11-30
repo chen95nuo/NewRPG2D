@@ -10,7 +10,7 @@ public class UILoading : TTUIPage
 
     public Slider slider;
     public Text txt_LoadNum;
-    public bool GetMessageDown = false;
+    public bool GetMessageDown { get { return GameHelper.instance.ServerInfo; } }
 
     private void Awake()
     {

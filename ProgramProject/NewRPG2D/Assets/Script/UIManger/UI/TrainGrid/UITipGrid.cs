@@ -49,11 +49,11 @@ public abstract class UITipGrid : MonoBehaviour
 
     protected void UpdatePos()
     {
-        if (currentData.currentRole == null)
+        if (currentData.instance == null)
         {
             return;
         }
-        Vector3 ts = currentData.currentRole.TipPoint.position;
+        Vector3 ts = currentData.instance.TipPoint.position;
         rt.anchoredPosition = GameHelper.instance.GetPoint(canvas, ts);
     }
 

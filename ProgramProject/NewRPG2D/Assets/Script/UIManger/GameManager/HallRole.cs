@@ -57,9 +57,10 @@ public class HallRole : MonoBehaviour
     {
         currentData = data;
         sex = data.sexType;
-        HallRoleMgr.instance.AddRole(data, this);
         isChildren = false;
-        ChickEquip(data);
+        data.instance = this;
+        ChickFace();
+        ChickEquip();
     }
 
     public void UpdateInfo(RoleBabyData baby)
@@ -70,14 +71,26 @@ public class HallRole : MonoBehaviour
         HallRoleMgr.instance.AddRole(baby.child, this);
         isChildren = true;
     }
-
-    private void ChickEquip(HallRoleData data)
+    //刷新脸部皮肤
+    private void ChickFace()
     {
-        for (int i = 0; i < data.Equip.Length; i++)
+        return;
+        for (int i = 0; i < currentData.faceSpriteID.Length; i++)
         {
-            if (data.Equip[i] != 0)
+            if (currentData.faceSpriteID[i] != 0)
             {
-                ChangeSkil(data.Equip[i]);
+                ChangeSkil(currentData.faceSpriteID[i]);
+            }
+        }
+    }
+    //刷新装备皮肤
+    private void ChickEquip()
+    {
+        for (int i = 0; i < currentData.Equip.Length; i++)
+        {
+            if (currentData.Equip[i] != 0)
+            {
+                ChangeSkil(currentData.Equip[i]);
             }
         }
     }

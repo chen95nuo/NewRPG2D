@@ -52,6 +52,25 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         }
     }
 
+    /// <summary>
+    /// 从服务器获取技能
+    /// </summary>
+    /// <param name="allSkill"></param>
+    public void GetAllMaic(proto.SLGV1.AllMagicSkillInfo allSkill)
+    {
+        MagicLevel = new Dictionary<MagicName, MagicData>();
+        foreach (var SkillLevel in allSkill.magicSkillLevel)
+        {
+            if (MagicLevel.ContainsKey((MagicName)SkillLevel.skillId))
+            {
+                Debug.Log("SkillType重复");
+            }
+        }
+
+    }
+
+    #region old
+
     public List<MagicData> GetMagic(int level)
     {
         List<MagicData> datas = new List<MagicData>();
@@ -184,6 +203,9 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         allMagicData.readyMagic.Add(magic);
         NewMagicTimeControl();
     }
+
+
+
     public void MagicWorkComplate(int magicID)
     {
         allMagicData.readyMagic.Add(allMagicData.workQueue[0]);
@@ -275,6 +297,7 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
     /// 修改技能等级
     /// </summary>
     public void ChangeMagicLevel(MagicName name, int ChangeLevel) { }
+    #endregion
 }
 
 public class RealMagic

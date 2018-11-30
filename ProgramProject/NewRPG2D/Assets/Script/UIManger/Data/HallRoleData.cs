@@ -18,10 +18,10 @@ public class HallRoleData
     private string currentRoomId;
     public RoleLoveType LoveType;//爱情状态
     private int boredomTime;//厌倦爱情剩余时间
-    private int[] faceSpriteID;//脸部皮肤ID 0、胡子 1、头发前 2、头发后
+    public int[] faceSpriteID;//脸部皮肤ID 0、胡子 1、头发前 2、头发后
+    public HallRole instance;
 
     //需要删除 或者优化
-    public HallRole currentRole;
     public int roomPoint;
     private WeaponProfessionEnum professionType;//角色职业
     public RoleBabyData babyData;//肚子里的宝宝数据
@@ -920,6 +920,46 @@ public class HallRoleData
         roleLevel[5] = new HallRoleLevel(RoleAttribute.Iron, level[5]);
         nowHp = -1;
         ChickMaxLevel();
+    }
+    /// <summary>
+    /// 服务器角色数据
+    /// </summary>
+    /// <param name="roleInfo"></param>
+    public HallRoleData(proto.SLGV1.ResidentInfo roleInfo)
+    {
+        this.id = roleInfo.id;
+        this.name = roleInfo.name;
+        this.sexType = (SexTypeEnum)roleInfo.sex;
+        for (int i = 0; i < roleInfo.talentAttr.Count; i++)
+        {
+            this.roleLevel[i] = new HallRoleLevel(RoleAttribute.Fight + i, roleInfo.talentAttr[i]);
+        }
+        //roleInfo.talentAttrUpdateBeginTime//天赋升级待定
+        this.battlePower = roleInfo.battlePower;
+        this.nowHp = roleInfo.hp;
+        equip = new int[roleInfo.equips.Count];
+        for (int i = 0; i < roleInfo.equips.Count; i++)
+        {
+            this.equip[i] = roleInfo.equips[i];
+        }
+        //属性
+        this.attribute = new Dictionary<RoleAttribute, float>();
+        attribute.Add(RoleAttribute.HurtType, roleInfo.attrs[0]);
+        attribute.Add(RoleAttribute.DPS, roleInfo.attrs[1]);
+        for (int i = 2; i < roleInfo.attrs.Count; i++)
+        {
+            attribute.Add(RoleAttribute.PArmor + i, roleInfo.attrs[i]);
+        }
+        this.star = roleInfo.startLv;
+        this.currentRoomId = roleInfo.roomId;
+        faceSpriteID = new int[roleInfo.hairAndBeard.Count];
+        for (int i = 0; i < roleInfo.hairAndBeard.Count; i++)
+        {
+            faceSpriteID[i] = roleInfo.hairAndBeard[i];
+        }
+        //怀孕状态
+        this.LoveType = (RoleLoveType)roleInfo.womanPrivileges;
+        this.boredomTime = roleInfo.womanPrivilegesTime;
     }
 }
 

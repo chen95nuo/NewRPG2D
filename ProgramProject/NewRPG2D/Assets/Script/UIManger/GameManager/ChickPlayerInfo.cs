@@ -159,34 +159,34 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     /// 获取服务器上的建筑数据后 将其转为本地信息
     /// </summary>
     /// <param name="s_BuildData"></param>
-    public void ChickBuildDic(List<ServerBuildData> s_BuildData)
-    {
-        for (int i = 0; i < s_BuildData.Count; i++)
-        {
-            BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(s_BuildData[i].RoomId);
-            if (s_BuildData[i].id > buildingIdIndex)
-            {
-                buildingIdIndex = s_BuildData[i].id;
-            }
-            for (int j = 0; j < dic[data.RoomName].Length; j++)
-            {
-                if (dic[data.RoomName][j] == null)
-                {
-                    dic[data.RoomName][j] = new LocalBuildingData(s_BuildData[i].id, s_BuildData[i].buildingPoint, data, s_BuildData[i].Stock);
-                    AllBuilding.Add(dic[data.RoomName][j]);
-                    MainCastle.instance.InstanceRoom(dic[data.RoomName][j], s_BuildData[i]);
-                    if (ChickStorage(dic[data.RoomName][j]))
-                    {
-                        Debug.Log(dic[data.RoomName][j]);
-                        dic[data.RoomName][j].Stock = s_BuildData[i].Stock;
-                        ThisStorage(dic[data.RoomName][j]);
-                        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, data.RoomName);
-                    }
-                    break;
-                }
-            }
-        }
-    }
+    //public void ChickBuildDic(List<ServerBuildData> s_BuildData)
+    //{
+    //    for (int i = 0; i < s_BuildData.Count; i++)
+    //    {
+    //        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(s_BuildData[i].RoomId);
+    //        if (s_BuildData[i].id > buildingIdIndex)
+    //        {
+    //            buildingIdIndex = s_BuildData[i].id;
+    //        }
+    //        for (int j = 0; j < dic[data.RoomName].Length; j++)
+    //        {
+    //            if (dic[data.RoomName][j] == null)
+    //            {
+    //                dic[data.RoomName][j] = new LocalBuildingData(s_BuildData[i].id, s_BuildData[i].buildingPoint, data, s_BuildData[i].Stock);
+    //                AllBuilding.Add(dic[data.RoomName][j]);
+    //                MainCastle.instance.InstanceRoom(dic[data.RoomName][j], s_BuildData[i]);
+    //                if (ChickStorage(dic[data.RoomName][j]))
+    //                {
+    //                    Debug.Log(dic[data.RoomName][j]);
+    //                    dic[data.RoomName][j].Stock = s_BuildData[i].Stock;
+    //                    ThisStorage(dic[data.RoomName][j]);
+    //                    HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, data.RoomName);
+    //                }
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
     public void ChickRoleDic(int roomID, HallRole role)
     {
         List<RoomMgr> allRoom = MainCastle.instance.allroom;

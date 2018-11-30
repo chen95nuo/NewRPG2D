@@ -138,7 +138,7 @@ public enum RolePropertyTypeEnum
 
 public enum SexTypeEnum : byte
 {
-    Man = 1,
+    Man,
     Woman,
 }
 

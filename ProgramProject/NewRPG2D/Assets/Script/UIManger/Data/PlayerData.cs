@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Battle.BattleData;
+using proto.SLGV1;
 
 public class PlayerData
 {
+    private int roleId;//角色ID
+    private int userId;//用户ID
     private string name;//玩家昵称
-    private Vector2 castle;//城堡等级
+    private string spriteName;//头像
     private int gold;//金币数量
     private int diamonds;//钻石数量
     private int food;//食物
@@ -18,6 +21,14 @@ public class PlayerData
     private int manaSpace;//魔法空间
     private int woodSpace;//木材空间
     private int ironSpace;//铁矿空间
+    private int power;//战力
+    private int grailNum;//圣杯数量
+    private int popNum;//人口(居民)数量
+    private int builderNum;//建筑工人数量
+    private List<int> castleSkin;//城堡皮肤[背景,天气,桥梁,旗帜,砖瓦,墙壁,窗户]
+    private int loginDays;//角色登陆天数
+    private List<string> thirdAcctInfo;//绑定信息
+    private Vector2 castle;//城堡等级
     private LocalBuildingData mainHall;
     private LocalBuildingData barracksLevel;
     private int currentLessonID;
@@ -329,5 +340,26 @@ public class PlayerData
         WoodSpace = 5000;
         IronSpace = 5000;
         currentLessonID = 10001;
+    }
+
+    public PlayerData(proto.SLGV1.CharacterInfo s_PlayerData)
+    {
+        this.roleId = s_PlayerData.roleId;
+        this.userId = s_PlayerData.userId;
+        this.name = s_PlayerData.roleName;
+        this.spriteName = s_PlayerData.headimgurl;
+        this.gold = s_PlayerData.gold;
+        this.diamonds = s_PlayerData.diamond;
+        this.food = s_PlayerData.appNum;
+        this.mana = s_PlayerData.magicNum;
+        this.wood = s_PlayerData.woodNum;
+        this.iron = s_PlayerData.feNum;
+        this.power = s_PlayerData.power;
+        this.grailNum = s_PlayerData.grailNum;
+        this.popNum = s_PlayerData.popNum;
+        this.builderNum = s_PlayerData.builderNum;
+        this.castleSkin = s_PlayerData.castleSkin;
+        this.loginDays = s_PlayerData.loginDays;
+        this.thirdAcctInfo = s_PlayerData.thirdAcctInfo;
     }
 }
