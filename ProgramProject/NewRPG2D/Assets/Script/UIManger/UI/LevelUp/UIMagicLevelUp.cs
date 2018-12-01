@@ -68,7 +68,7 @@ public class UIMagicLevelUp : TTUIPage
 
     public void UpdateInfo(LocalBuildingData room)
     {
-        int workShopLevel = ChickPlayerInfo.instance.GetBuildingLevel(BuildRoomName.MagicWorkShop);
+        int workShopLevel = CheckPlayerInfo.instance.GetBuildingLevel(BuildRoomName.MagicWorkShop);
         for (int i = 0; i < (int)MagicName.Max; i++)
         {
             MagicData data = MagicDataMgr.instance.GetMagicLevel((MagicName)i);

@@ -25,7 +25,7 @@ public class UIThroneInfo : UIRoomInfo
         {
             return;
         }
-        dic = ChickPlayerInfo.instance.ThroneLeveUpRoomInfo(roomMgr.BuildingData);
+        dic = CheckPlayerInfo.instance.ThroneLeveUpRoomInfo(roomMgr.BuildingData);
         if (dic == null) return;
         ChickGrid();
         level = roomMgr.BuildingData.Level;

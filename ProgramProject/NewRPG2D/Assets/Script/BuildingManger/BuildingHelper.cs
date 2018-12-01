@@ -108,27 +108,7 @@ public class LocalBuildingData
 
         return temp;
     }
-    //public RoleAttribute BuildingRoleHelper()
-    //{
-    //    switch (buildingData.RoomName)
-    //    {
-    //        case BuildRoomName.Gold:
-    //            return RoleAttribute.Gold;
-    //        case BuildRoomName.Food:
-    //            return RoleAttribute.Food;
-    //        case BuildRoomName.Mana:
-    //            return RoleAttribute.Mana;
-    //        case BuildRoomName.Wood:
-    //            return RoleAttribute.Wood;
-    //        case BuildRoomName.Iron:
-    //            return RoleAttribute.Iron;
-    //        case BuildRoomName.Barracks:
-    //            return RoleAttribute.DPS;
-    //        default:
-    //            break;
-    //    }
-    //    return RoleAttribute.Nothing;
-    //}
+
     public int ScreenAllYeild(RoleAttribute type, bool isUp)
     {
         Debug.Log("角色产量筛选");
@@ -206,7 +186,7 @@ public class LocalBuildingData
     {
         this.buildingPoint = point;
         this.buildingData = data;
-        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(data);
+        int maxRole = CheckPlayerInfo.instance.ChickRoomSize(data);
         roleData = new HallRoleData[maxRole];
     }
     public LocalBuildingData(int id, Vector2 point, BuildingData roomData, bool ConstructionType)
@@ -215,7 +195,7 @@ public class LocalBuildingData
         this.buildingPoint = point;
         this.buildingData = roomData;
         this.ConstructionType = ConstructionType;
-        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
+        int maxRole = CheckPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
     }
     public LocalBuildingData(int id, Vector2 point, BuildingData roomData, float Stock)
@@ -224,14 +204,27 @@ public class LocalBuildingData
         this.buildingPoint = point;
         this.buildingData = roomData;
         this.Stock = Stock;
-        int maxRole = ChickPlayerInfo.instance.ChickRoomSize(roomData);
+        int maxRole = CheckPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
     }
     public LocalBuildingData(proto.SLGV1.RoomInfo data, int id)
     {
         this.id = id;
+        this.buildingData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.id);
         this.buildingPoint = new Vector2(data.xFloorOriginOffset[0], data.xFloorOriginOffset[1]);
         this.leftTime = data.leftTime;
+
+        int maxRole = CheckPlayerInfo.instance.ChickRoomSize(buildingData);
+        this.roleData = new HallRoleData[maxRole];
+
+        for (int i = 0; i < data.residents.Count; i++)
+        {
+            if (data.residents[i] != 0)
+            {
+                HallRoleData roleData = HallRoleMgr.instance.GetRoleData(data.residents[i]);
+                this.roleData[i] = roleData;
+            }
+        }
     }
 }
 
@@ -284,5 +277,6 @@ public class EditMergeRoomData
 
     public EditMergeRoomData() { }
 }
+
 
 

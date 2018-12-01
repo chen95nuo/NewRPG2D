@@ -35,7 +35,7 @@ public class UILevelUpTip : TTUIPage
 
     public int AddLister(int roomID)
     {
-        LocalBuildingData roomData = ChickPlayerInfo.instance.GetBuilding(roomID);
+        LocalBuildingData roomData = CheckPlayerInfo.instance.GetBuilding(roomID);
         if (roomData.currentRoom == null)
         {
             return -1;
@@ -79,7 +79,7 @@ public class UILevelUpTip : TTUIPage
             return;
         }
         int newTip = AddLister(data.roomID);
-        ChickPlayerInfo.instance.ChangeBuildNumber(data, newTip);
+        CheckPlayerInfo.instance.ChangeBuildNumber(data, newTip);
         timeTextGrids[newTip].UpdateTime(data);
     }
 }

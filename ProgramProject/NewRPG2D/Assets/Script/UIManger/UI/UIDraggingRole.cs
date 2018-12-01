@@ -111,7 +111,7 @@ public class UIDraggingRole : TTUIPage
                 {
                     return;
                 }
-                bool isTrue = ChickPlayerInfo.instance.ChickProduction(room.currentBuildData);
+                bool isTrue = CheckPlayerInfo.instance.ChickProduction(room.currentBuildData);
                 if (isTrue)
                 {
                     RoleAttribute roleAtr = room.NeedAttribute;

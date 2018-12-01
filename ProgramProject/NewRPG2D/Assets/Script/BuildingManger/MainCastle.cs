@@ -11,8 +11,6 @@ public class MainCastle : Castle
     private void Awake()
     {
         instance = this;
-
-        Init();
     }
 
     public void AddNewRole(GameObject role)
@@ -53,7 +51,7 @@ public class MainCastle : Castle
         }
         for (int i = 0; i < newRoom.Count; i++)
         {
-            ChickPlayerInfo.instance.AddBuilding(newRoom[i], false);
+            CheckPlayerInfo.instance.AddBuilding(newRoom[i], false);
         }
     }
 }

@@ -20,14 +20,19 @@ public class GetPlayerData
     private PlayerData data;
     public PlayerData GetData()
     {
-        if (data == null)
-        {
-            data = new PlayerData();
-        }
         return data;
     }
     public void SetData(proto.SLGV1.CharacterInfo S_PlayerData)
     {
         data = new PlayerData(S_PlayerData);
+    }
+
+    public void SetThroneRoom(LocalBuildingData buildingData)
+    {
+        data.MainHall = buildingData;
+    }
+    public void SetBarracks(LocalBuildingData buildingData)
+    {
+        data.BarracksData = buildingData;
     }
 }

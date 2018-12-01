@@ -192,6 +192,7 @@
     <Compile Include="Assets\Script\Battle\BattleData\BattleDetailDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\EquipBasePropertyData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\EquipmentData.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\ItemBaseCsvData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\ItemBaseData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\MapLevelData.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\MapSceneLevelData.cs" />
@@ -201,10 +202,12 @@
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Data\TreasureBox.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\EquipBasePropertyDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\EquipmentDataMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\ItemCsvDataBaseMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\ItemDataBaseMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\MapLevelDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\MapSceneLevelMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RoleDataMgr.cs" />
+    <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RolePropertyCsvDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\RolePropertyDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\SkillDataMgr.cs" />
     <Compile Include="Assets\Script\Battle\BattleData\ReadData\Manger\TreasureBoxDataMgr.cs" />
@@ -1136,6 +1139,7 @@
     <Compile Include="Assets\Script\Net\WebSocket\IReceive.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\ISend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetAddbattleInMagicSkillRev.cs" />
+    <Compile Include="Assets\Script\Net\WebSocket\Receive\NetCheckCreateNewRoomRev.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetConfirmKidAdultRev.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetConfirmRearKidRev.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetConfirmTrainRev.cs" />
@@ -1159,6 +1163,7 @@
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetStartGameRev.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Receive\NetStoreRoomRev.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetAddbattleInMagicSkillSend.cs" />
+    <Compile Include="Assets\Script\Net\WebSocket\Send\NetCheckCreateNewRoomSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetConfirmKidAdultSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetConfirmRearKidSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetConfirmTrainSend.cs" />
@@ -1362,6 +1367,7 @@
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUp_2.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUP_3.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUp_3Grid.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUp_4.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_1.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_2.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_3.cs" />

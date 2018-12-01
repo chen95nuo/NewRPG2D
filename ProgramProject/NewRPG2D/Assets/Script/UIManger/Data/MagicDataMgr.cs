@@ -185,7 +185,7 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         }
         int needProduce = data.magic.produceNeed;
         allMagicData.workQueue.Remove(data);
-        ChickPlayerInfo.instance.AddStock(BuildRoomName.ManaSpace, needProduce);
+        CheckPlayerInfo.instance.AddStock(BuildRoomName.ManaSpace, needProduce);
         NewMagicTimeControl();
     }
     public void SpeedUpNewMagic(int magicID)

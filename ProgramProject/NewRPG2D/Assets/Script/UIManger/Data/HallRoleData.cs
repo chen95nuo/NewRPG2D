@@ -12,7 +12,7 @@ public class HallRoleData
     private int trainTime;//训练时间
     private int battlePower;//角色战力
     private float nowHp;//当前血量
-    private int[] equip;//装备 1武器2防具3戒指4项链 5神器
+    private int[] equip;//装备 1武器2防具3戒指4护符5神器
     public Dictionary<RoleAttribute, float> attribute = new Dictionary<RoleAttribute, float>();//属性
     private int star;//星级
     private string currentRoomId;

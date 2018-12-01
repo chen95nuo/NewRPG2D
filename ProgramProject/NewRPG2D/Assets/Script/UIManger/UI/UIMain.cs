@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
 using System;
+using Assets.Script.Net;
+using proto.SLGV1;
 
 public class UIMain : TTUIPage
 {
@@ -64,37 +66,38 @@ public class UIMain : TTUIPage
     public Button btn_Achievement;
     public Button btn_Task;
 
+    private BuildingData currentBuildData;
 
     private void Awake()
     {
         instance = this;
 
         btn_UIMarket.onClick.AddListener(ShowMarket);
-        btn_UIBag.onClick.AddListener(ChickBag);
-        btn_UIMap.onClick.AddListener(ChickMap);
-        btn_Cancel.onClick.AddListener(ChickCancel);
-
-        btn_People.onClick.AddListener(ChickPeople);
-        btn_Worker.onClick.AddListener(ChickWorkr);
-        btn_Happiness.onClick.AddListener(ChickHappiness);
-        btn_Info.onClick.AddListener(ChickInfo);
-        btn_UIRank.onClick.AddListener(ChickRank);
-        btn_SetUp.onClick.AddListener(ChickSetUp);
-        btn_UIChat.onClick.AddListener(ChickChat);
-        btn_MaliBox.onClick.AddListener(ChickMali);
-        btn_UISetting.onClick.AddListener(ChickSetting);
-        btn_Achievement.onClick.AddListener(ChickAchie);
-        btn_Task.onClick.AddListener(ChickTask);
+        btn_UIBag.onClick.AddListener(CheckBag);
+        btn_UIMap.onClick.AddListener(CheckMap);
+        btn_Cancel.onClick.AddListener(CheckCancel);
+        btn_People.onClick.AddListener(CheckPeople);
+        btn_Worker.onClick.AddListener(CheckWorkr);
+        btn_Happiness.onClick.AddListener(CheckHappiness);
+        btn_Info.onClick.AddListener(CheckInfo);
+        btn_UIRank.onClick.AddListener(CheckRank);
+        btn_SetUp.onClick.AddListener(CheckSetUp);
+        btn_UIChat.onClick.AddListener(CheckChat);
+        btn_MaliBox.onClick.AddListener(CheckMail);
+        btn_UISetting.onClick.AddListener(CheckSetting);
+        btn_Achievement.onClick.AddListener(CheckAchie);
+        btn_Task.onClick.AddListener(CheckTask);
 
         for (int i = 0; i < btn_Produces.Length; i++)
         {
-            btn_Produces[i].onClick.AddListener(ChickProduceTips);
+            btn_Produces[i].onClick.AddListener(CheckProduceTips);
         }
         market.gameObject.SetActive(false);
 
-        HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
-        HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
+        HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
+        HallEventManager.instance.AddListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
         UIMainHight(-1);
 
         Init();
@@ -107,73 +110,73 @@ public class UIMain : TTUIPage
         diamonds = new SpaceNumJump(text_diamonds);
     }
 
-    private void ChickTask()
+    private void CheckTask()
     {
         object st = "任务系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickAchie()
+    private void CheckAchie()
     {
         object st = "成就系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickSetting()
+    private void CheckSetting()
     {
         object st = "设置系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickMali()
+    private void CheckMail()
     {
         object st = "邮箱系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickChat()
+    private void CheckChat()
     {
         object st = "聊天系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickSetUp()
+    private void CheckSetUp()
     {
         object st = "入侵系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickRank()
+    private void CheckRank()
     {
         object st = "排行系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickInfo()
+    private void CheckInfo()
     {
         object st = "玩家数据系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickHappiness()
+    private void CheckHappiness()
     {
         object st = "好感度加成系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickWorkr()
+    private void CheckWorkr()
     {
         object st = "任务系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickPeople()
+    private void CheckPeople()
     {
         object st = "人口系统暂未开放";
         UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
     }
 
-    private void ChickProduceTips()
+    private void CheckProduceTips()
     {
         Debug.Log("按钮按下");
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -203,9 +206,10 @@ public class UIMain : TTUIPage
 
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, ChickDiamonds);
-        HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.ChickStock, GetSpace);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
+        HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
+        HallEventManager.instance.AddListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
 
     }
     public void Init()
@@ -217,28 +221,23 @@ public class UIMain : TTUIPage
         {
             btn_Produces[0].gameObject.SetActive(true);
             text_gold.text = playerData.Gold.ToString();
-            ChickAllStock(BuildRoomName.Gold, goldSlider);
             btn_Produces[1].gameObject.SetActive(true);
             text_food.text = playerData.Food.ToString();
-            ChickAllStock(BuildRoomName.Food, foodSlider);
         }
         if (level >= 4)
         {
             btn_Produces[2].gameObject.SetActive(true);
             text_mana.text = playerData.Mana.ToString();
-            ChickAllStock(BuildRoomName.Mana, manaSlider);
         }
         if (level >= 6)
         {
             btn_Produces[3].gameObject.SetActive(true);
             text_wood.text = playerData.Wood.ToString();
-            ChickAllStock(BuildRoomName.Wood, woodSlider);
         }
         if (level >= 9)
         {
             btn_Produces[4].gameObject.SetActive(true);
             text_iron.text = playerData.Iron.ToString();
-            ChickAllStock(BuildRoomName.Iron, ironSlider);
         }
         text_diamonds.text = playerData.Diamonds.ToString();
     }
@@ -246,7 +245,7 @@ public class UIMain : TTUIPage
     {
         CloseSomeUI(false);
         market.gameObject.SetActive(true);
-        market.ChickBtnType();
+        market.CheckBtnType();
     }
 
     public void ShowBack(bool isTrue)
@@ -267,54 +266,47 @@ public class UIMain : TTUIPage
     private void GetSpace(BuildRoomName name)
     {
         Debug.Log("检查容量");
-        switch (name)
+        CheckDiamonds();
+    }
+
+    /// <summary>
+    /// 通过消息更新当前某资源容量
+    /// </summary>
+    /// <param name="newStock"></param>
+    private void GetSpace(UIMainCheckStock newStock)
+    {
+        Image slider = null;
+        float allSpace = BuildingManager.instance.SearchRoomSpace(newStock.name);
+        float allStock = BuildingManager.instance.SearchRoomStock(newStock.name);
+        switch (newStock.name)
         {
-            case BuildRoomName.Gold:
-                gold.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
-                StartCoroutine(JumpNumber(gold));
-                break;
             case BuildRoomName.GoldSpace:
-                gold.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
-                StartCoroutine(JumpNumber(gold));
-                break;
-            case BuildRoomName.Food:
-                food.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(food));
+                slider = goldSlider;
+                text_gold.text = allStock.ToString();
                 break;
             case BuildRoomName.FoodSpace:
-                food.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(food));
-                break;
-            case BuildRoomName.Mana:
-                mana.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(mana));
+                slider = foodSlider;
+                text_food.text = allStock.ToString();
                 break;
             case BuildRoomName.ManaSpace:
-                mana.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(mana));
-                break;
-            case BuildRoomName.Wood:
-                wood.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(wood));
+                slider = manaSlider;
+                text_mana.text = allStock.ToString();
                 break;
             case BuildRoomName.WoodSpace:
-                wood.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(wood));
-                break;
-            case BuildRoomName.Iron:
-                iron.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(iron));
+                slider = woodSlider;
+                text_wood.text = allStock.ToString();
                 break;
             case BuildRoomName.IronSpace:
-                iron.maxNum = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Food);
-                StartCoroutine(JumpNumber(iron));
+                slider = ironSlider;
+                text_iron.text = allStock.ToString();
                 break;
             default:
                 break;
         }
+        slider.fillAmount = (allStock / allSpace);
     }
 
-    private void ChickDiamonds()
+    private void CheckDiamonds()
     {
         text_diamonds.text = playerData.Diamonds.ToString();
     }
@@ -333,26 +325,30 @@ public class UIMain : TTUIPage
         data.txt.text = data.num.ToString();
     }
 
-    public void ChickBag()
+    public void CheckBag()
     {
         UIPanelManager.instance.ShowPage<UIBag>();
     }
-    public void ChickMap()
+    public void CheckMap()
     {
         UIPanelManager.instance.ShowPage<UIWorldMap>();
     }
-    public void ChickCancel()
+    public void CheckCancel()
     {
         ShowBack(false);
         MapControl.instance.ResetRoomTip();
         ShowMarket();
     }
 
-    public void ChickAllStock(BuildRoomName name, Image slider)
+    public void GetStock()
     {
-        float all = ChickPlayerInfo.instance.GetAllStock(name);
-        float allStock = ChickPlayerInfo.instance.GetAllStockSpace(name);
-        slider.fillAmount = (all / allStock);
+
+    }
+    public void CheckAllStock(BuildRoomName name, Image slider)
+    {
+        //float all = ChickPlayerInfo.instance.GetAllStock(name);
+        //float allStock = ChickPlayerInfo.instance.GetAllStockSpace(name);
+        //slider.fillAmount = (all / allStock);
     }
 
     public void RefreshText()
@@ -370,6 +366,36 @@ public class UIMain : TTUIPage
         }
     }
 
+    public void RSCheckCreateNewRoom(BuildingData buildingData)
+    {
+        //发送建造请求
+        WebSocketManger.instance.Send(NetSendMsg.RQ_CheckCreateNewRoom, buildingData.ItemId);
+        currentBuildData = buildingData;
+    }
+
+    public void RQCheckCreateNewRoom(RS_CheckCreateNewRoom checkCreateRoom)
+    {
+
+        if (checkCreateRoom.ret == -1)
+        {
+            UIPanelManager.instance.ShowPage<UIPopUp_4>(checkCreateRoom.neeedItem[0]);
+        }
+        else if (checkCreateRoom.ret == -2)
+        {
+            Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
+            for (int i = 0; i < checkCreateRoom.neeedItem.Count; i++)
+            {
+                needStock.Add((MaterialName)checkCreateRoom.neeedItem[i].produceType, checkCreateRoom.neeedItem[i].needNum);
+            }
+
+            UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
+            return;
+        }
+        ShowBack(true);
+        market.gameObject.SetActive(false);
+        MainCastle.instance.BuildRoomTip(currentBuildData);
+    }
+
     public override void Hide(bool needAnim = true)
     {
         base.Hide(needAnim = false);
@@ -379,6 +405,7 @@ public class UIMain : TTUIPage
     {
         base.Active(needAnim = false);
     }
+
 }
 public class SpaceNumJump
 {
@@ -391,5 +418,16 @@ public class SpaceNumJump
         num = 0;
         this.maxNum = 0;
         this.txt = txt;
+    }
+}
+public class UIMainCheckStock
+{
+    public BuildRoomName name;
+    public int stock;
+
+    public UIMainCheckStock(BuildRoomName name, int stock)
+    {
+        this.name = name;
+        this.stock = stock;
     }
 }

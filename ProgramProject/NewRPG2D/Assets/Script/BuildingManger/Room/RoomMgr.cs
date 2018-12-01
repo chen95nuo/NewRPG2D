@@ -101,19 +101,19 @@ public abstract class RoomMgr : MonoBehaviour
                 constructionType = value;
                 RoomWork = !value;
                 currentBuildData.ConstructionType = value;
-                if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+                if (CheckPlayerInfo.instance.ChickProduction(currentBuildData))
                 {
                     if (value == false)
                     {
                         Debug.Log("施工结束 添加监听事件");
                         //施工结束就添加事件
-                        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+                        CheckPlayerInfo.instance.ThisProduction(currentBuildData);
                     }
                     else
                     {
                         Debug.Log("施工中 关闭监听事件");
                         //施工中就关闭事件
-                        ChickPlayerInfo.instance.ClostProduction(currentBuildData);
+                        CheckPlayerInfo.instance.ClostProduction(currentBuildData);
                     }
                 }
             }
@@ -500,63 +500,50 @@ public abstract class RoomMgr : MonoBehaviour
     {
         currentBuildData = data;
         data.currentRoom = this;
-        if (MapControl.instance.type == CastleType.main)
-        {
-            if (currentBuildData.buildingData.RoomName == BuildRoomName.ThroneRoom)
-            {
-                PlayerData playerdata = GetPlayerData.Instance.GetData();
-                playerdata.MainHall = currentBuildData;
-            }
-            else if (currentBuildData.buildingData.RoomName == BuildRoomName.Barracks)
-            {
-                PlayerData playerdata = GetPlayerData.Instance.GetData();
-                playerdata.BarracksData = currentBuildData;
-            }
-        }
         castleMgr = castle;
         BuildingMove(data, castle);
         ChickLeftOrRight(castle.buildPoint);
 
-        if (isNew)
-        {
-            //如果是主场景 那么施工
-            if (castle.castleType == CastleType.main)
-            {
-                if (data.buildingData.NeedTime != 0)
-                {
-                    //新建的建筑需要建造时间 那么开始施工
-                    ConstructionStart(data.buildingData.ItemId, 0);
-                }
-                else
-                {
-                    //不需要建造时间的判断是否需要添加事件
-                    ConstructionType = false;
-                    if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-                    {
-                        Debug.Log("添加监听");
-                        //施工结束就添加事件
-                        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-                    }
-                }
-            }
-            else
-            {
-                ConstructionType = data.ConstructionType;
-                castleMgr.ChickMergeRoom(this);
-                AddConnection();
-            }
-        }
-        else
-        {
-            //不需要建造时间的判断是否需要添加事件
-            ConstructionType = false;
-            if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-            {
-                Debug.Log("添加监听");
-                //施工结束就添加事件
-                ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-            }
-        }
+        //if (isNew)
+        //{
+        //    //如果是主场景 那么施工
+        //    if (castle.castleType == CastleType.main)
+        //    {
+        //        if (data.buildingData.NeedTime != 0)
+        //        {
+        //            //新建的建筑需要建造时间 那么开始施工
+        //            ConstructionStart(data.buildingData.ItemId, 0);
+        //        }
+        //        else
+        //        {
+        //            //不需要建造时间的判断是否需要添加事件
+        //            ConstructionType = false;
+        //            if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+        //            {
+        //                Debug.Log("添加监听");
+        //                //施工结束就添加事件
+        //                ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ConstructionType = data.ConstructionType;
+        //        castleMgr.ChickMergeRoom(this);
+        //        AddConnection();
+        //    }
+        //}
+        //else
+        //{
+        //    //不需要建造时间的判断是否需要添加事件
+        //    ConstructionType = false;
+        //    if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
+        //    {
+        //        Debug.Log("添加监听");
+        //        //施工结束就添加事件
+        //        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
+        //    }
+        //}
     }
 
     /// <summary>
@@ -1010,7 +997,7 @@ public abstract class RoomMgr : MonoBehaviour
         {
             needTime = time;
         }
-        ChickPlayerInfo.instance.Timer(Id, needTime, nextId);
+        CheckPlayerInfo.instance.Timer(Id, needTime, nextId);
         CameraControl.instance.CloseRoomLock();
     }
 
@@ -1025,7 +1012,7 @@ public abstract class RoomMgr : MonoBehaviour
     public void ConstructionComplete(LevelUPHelper data)
     {
         BuildingData changeData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nextID);
-        ChickPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
+        CheckPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
         levelUpTip = null;
         ConstructionType = false;
         ChickConstructionCompleteRole();

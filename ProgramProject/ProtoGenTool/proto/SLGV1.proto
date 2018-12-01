@@ -35,7 +35,7 @@ message RS_RoleLogin {
 	repeated ProduceRoom allProRoom=5;// 生产类房间
 	repeated StoreRoom  allStoreRoom=6;// 存储类房间
 	repeated ResidentRoom  allResidentRoom=7;// 居民室
-	optional ProudctEquipInfo proEquip=8;// 武器厂和护甲厂正在生产或已经完成生产的装备(未领取)
+	repeated ProduceEquipInfo proEquip=8;// 武器厂和护甲厂正在生产或已经完成生产的装备(未领取)
 	optional AllMagicSkillInfo allMagicSkill=9;// 魔法工厂生产和投入战斗使用的法术 以及魔法实验室研制法术最高等级
 	optional Box boxs=10;// 背包库
 	extend BaseData {
@@ -60,8 +60,10 @@ message CharacterInfo{
 	optional int32 popNum = 14;			//人口或者居民数量
 	optional int32 builderNum = 15;		//建筑工人数量
 	repeated int32 castleSkin=16;		// 城堡的皮肤 [背景,天气,桥梁,旗帜,砖瓦,墙壁,窗户]
-	optional int32 loginDays=17;	// 角色登录天数
+	optional int32 loginDays=17;		// 角色登录天数
 	repeated string thirdAcctInfo=18;   //  faceBook.Twitter,手机.... 如未绑定无此字段
+	optional int32 stageId=19;			// 当前关卡进度 读表 初始值 10001 ; 通关关卡 99999
+	
 }
 
 //创建角色名称
@@ -84,9 +86,10 @@ message RS_CreateRoleName {
 // 房间信息 楼梯也算在内<统一抽象房间-通用房间>
 message RoomInfo{
 	required string roomId=1;// 房间Id 类型+ 01/02/04...
-	repeated int32  xFloorOriginOffset=2;// 所在楼层和起点网格 例如[1,2] 在一层 从第2个网格开始
-	optional int32  leftTime=3;// 剩余多少时间完成升级任务 0 表示升级成功 >0 还有多少时间完成下一级升级 单位为毫秒
-	optional int32  residents=4;// 屋子里面的居民 [居民1,居民2....] 
+	required int32  id=2;// 读表ID
+	repeated int32  xFloorOriginOffset=3;// 所在楼层和起点网格 例如[1,2] 在一层 从第2个网格开始
+	optional int32  leftTime=4;// 剩余多少时间完成升级任务 0 表示升级成功 >0 还有多少时间完成下一级升级 单位为秒
+	repeated int32  residents=5;// 屋子里面的居民 [居民1,居民2....] 
 }
 // 推送 房间信息
 message A_RoomInfo{
@@ -96,9 +99,9 @@ message A_RoomInfo{
     }
 }
 
-//发送建造的房间基础信息 判断材料是否足够
+//发送建造的房间的表ID 判断材料是否足够
 message RQ_CheckCreateNewRoom{
-	required int32 roomType=1; // 7 :伐木场<服务自动生成对应 房间逻辑Id ;01 ,02 ,04>
+	required int32 roomId=1; // 房间读表id 
 	extend BaseData {
         optional RQ_CheckCreateNewRoom ext = 107;
     }
@@ -139,7 +142,7 @@ message RS_CreateNewRoom{
 message ProduceRoom{
 	required string roomId=1;// 房间Id 类型+ 01/02/04...
 	optional int32  toBeCollected=2;//[待收资源] 仅对于生成类房间
-	optional int32  speedProd=3;// 产出速度
+	optional int32  speedProd=3;// 产出速度(居民影响值,基础值不传)
 }
 
 message StoreRoom{
@@ -176,7 +179,7 @@ message  ResidentRoom{
 message Q_CheckResidentRoomState {
 	required string roomId=1;// 房间Id
 	extend BaseData {
-        optional Q_CheckProudctEquipState ext = 1001;  
+        optional Q_CheckResidentRoomState ext = 1001;  
     }
 }
 //推送(居民室)
@@ -188,24 +191,25 @@ message  A_ResidentRoom{
 }
 
 // 武器厂和护甲厂生成 装备信息
-message ProudctEquipInfo{
-	optional int32  wHJHProducting=1;// 正在加工武器,护甲,戒指,护符 [房间Id,装备类型,品质,剩余时间] 
+message ProduceEquipInfo{
+	required string roomId=1;// 房间Id
+	repeated int32  wHJHProducting=2;// 正在加工武器,护甲,戒指,护符 [装备类型,品质,剩余时间] 
 									   // 武器类型 0 近战,1 远程,2魔法,3 斗士(板甲),4 弓箭手(皮甲),5 法师外衣,6 戒指,7 护符
 									   // 品质 : 0 罕见,1 稀有, 2史诗,3传说
 									   // 当剩余时间为零的时候 即可 领取 
 }
 // Q_xxx 消息是 不需要客户端等待返回的(防止卡在)是个异步消息. 只有客户端写好监听回来消息即可
-// 检查生成装备的状态 [客户端和服务器 同步最新信息  消息 A_ProudctEquipInfo]
-message Q_CheckProudctEquipState {
+// 检查生成装备的状态 [客户端和服务器 同步最新信息  消息 A_ProduceEquipInfo]
+message Q_CheckProductEquipState {
 	required string roomId=1;// 房间id(服务器返回对应装备)
 	extend BaseData {
-        optional Q_CheckProudctEquipState ext = 1002;  
+        optional Q_CheckProductEquipState ext = 1002;  
     }
 }
-message A_ProudctEquipInfo{
-	required ProudctEquipInfo proEquipInfo=1;// 此房间生成装备的状态信息
+message A_ProduceEquipInfo{
+	required ProduceEquipInfo proEquipInfo=1;// 此房间生成装备的状态信息
 	extend BaseData {
-        optional A_ProudctEquipInfo ext = 2005;  
+        optional A_ProduceEquipInfo ext = 2005;  
     }
 }
 
@@ -216,7 +220,7 @@ message RQ_PickupProCompleteEquip{
 }
 message RS_PickupProCompleteEquip{
 	required int32 ret=1;// 0 成功  其他异常
-	optional ProudctEquipInfo equip=2;// 显示制造成功物品
+	optional ProduceEquipInfo equip=2;// 显示制造成功物品
 }
 
 // 所有法术 (魔法工厂生产和魔法实验室研制)
@@ -364,7 +368,7 @@ message  RS_SaveAllRoom{
 	repeated ProduceRoom allProRoom=5;// 生产类房间
 	repeated StoreRoom  allStoreRoom=6;// 存储类房间
 	repeated ResidentRoom  allResidentRoom=7;// 居民室
-	optional ProudctEquipInfo proEquip=8;// 武器厂和护甲厂正在生产或已经完成生产的装备(未领取)
+	optional ProduceEquipInfo proEquip=8;// 武器厂和护甲厂正在生产或已经完成生产的装备(未领取)
 	optional AllMagicSkillInfo allMagicSkill=9;// 魔法工厂生产和投入战斗使用的法术 以及魔法实验室研制法术最高等级
 	extend BaseData {
         optional RS_SaveAllRoom ext = 124;  
@@ -379,12 +383,20 @@ message ResidentInfo{
 	required int32 id=1;// 居民Id
 	optional string name=2;//居民名称
 	required int32 sex=3;// 0 男 1 女
-	repeated int32 talentAttr=4;// 天赋属性数值 6种 按照顺序[战士,炼金术,木匠,厨师,会计,铁匠] 
-	repeated int32 talentAttrUpdateBeginTime=5;// 天赋升级时间 6种 按照顺序[战士,炼金术,木匠,厨师,会计,铁匠]  0 表示升级成功; >0 还需多少完成时间（居民在训练房）
+	repeated int32 talentAttr=4;
+	// 天赋属性数值 6种 按照顺序[战士，会计，厨师，炼金，木匠，铁匠] 
+	repeated int32 talentAttrUpdateBeginTime=5;
+	// 天赋升级时间改为 两位数组 第0位为训练类型 第1位为训练时间 [类型，时间]
+	// 天赋升级时间 6种 按照顺序[类型，升级时间]  0 表示升级成功; >0 还需多少完成时间（居民在训练房）
+	// 没有升级的 就是空
+	
 	optional int32 battlePower=6;//战力
 	optional int32 hp=7;// 生命值<血量>
-	repeated int32 equips=8;// 身上装备ID 5种 按照顺序[武器,护甲,神器,护符,首饰]
-	repeated int32 attrs=9;// 穿装备和居民升级之后合成的属性值 按照顺序 [物理伤害/s,魔法伤害/s,暴击,物理护甲,魔法护甲,闪避,命中,法术强度]
+	repeated int32 equips=8;// 身上装备ID 5种 按照顺序[武器，护甲，首饰，护符，神器]
+	// 穿装备和居民升级之后合成的属性值 按照顺序 
+	// [伤害类型，伤害/s，物理护甲，魔法护甲，暴击率，法强，命中，闪避]
+	//  魔法1/物理2
+	repeated int32 attrs=9;
 	optional int32 startLv=10;// 居民的星级
 	optional string roomId=11;// 所属房间Id , 0 表示只由人 1,系统送的
 	repeated int32  hairAndBeard=12;//[发型,胡须]
@@ -392,6 +404,7 @@ message ResidentInfo{
 	optional int32 womanPrivileges=13 ;// 0000  自由身 0001 恋爱期 0010 怀孕 0100 哺育期间
 	optional int32 womanPrivilegesTime =14;// 女性居民特权期 结束时间(恋爱期,哺育期)
 }
+
 // 婴幼儿
 message ChildAndBaby{
 	required int32 id=1;// 居民Id

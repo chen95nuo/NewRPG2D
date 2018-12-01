@@ -10,7 +10,7 @@ using UnityEngine;
 using Assets.Script.Timer;
 using Assets.Script.UIManger;
 
-public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
+public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
 {
     public Dictionary<BuildRoomName, LocalBuildingData[]> dic = new Dictionary<BuildRoomName, LocalBuildingData[]>();
     private Dictionary<int, LevelUPHelper> buildNumber = new Dictionary<int, LevelUPHelper>();//房间序号 用于储存施工中的房间
@@ -32,27 +32,9 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
-    /// 将建筑数量和信息格式化
-    /// </summary>
-    public void ChickBuilding()
-    {
-        dic.Clear();
-        var index = BuildingDataMgr.instance.GetBuilding();
-        foreach (var item in index)
-        {
-            if (item.Key == BuildRoomName.Stairs)
-            {
-                dic.Add(item.Key, new LocalBuildingData[30]);
-                continue;
-            }
-            dic.Add(item.Key, new LocalBuildingData[item.Value.Length]);
-        }
-    }
-
-    /// <summary>
     /// 编辑模式保存了
     /// </summary>
-    public void ChickEditSave(List<LocalBuildingData> editAllBuilding, List<LocalBuildingData> ChangeBuilding)
+    public void CheckEditSave(List<LocalBuildingData> editAllBuilding, List<LocalBuildingData> ChangeBuilding)
     {
         List<LocalBuildingData> newRoom = new List<LocalBuildingData>();
         Debug.Log("筛选出新的房间和将移位的房间位置改变");
@@ -352,48 +334,6 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
     }
 
     /// <summary>
-    /// 给主菜单建造房间提供当前房间数量
-    /// </summary>
-    /// <returns></returns>
-    public int[] GetBuildiDicInfo(BuildingData data)
-    {
-        int[] index = new int[2];
-        PlayerData player = GetPlayerData.Instance.GetData();
-        if (data.RoomName != BuildRoomName.Stairs)
-        {
-            for (int i = 0; i < data.UnlockLevel.Length; i++)
-            {
-                if (data.UnlockLevel[i] <= player.MainHallLevel)
-                {
-                    index[1]++;//获取当前等级的可建造数
-                }
-            }
-        }
-        else
-        {
-            index[1] = 4 + player.MainHallLevel;
-        }
-        for (int i = 0; i < dic[data.RoomName].Length; i++)
-        {
-            if (dic[data.RoomName][i] != null)
-            {
-                index[0]++;//获取该类建筑已建造数量
-                if (dic[data.RoomName][i].buildingData.RoomType == RoomType.Production)
-                {
-                    switch (dic[data.RoomName][i].buildingData.RoomSize)
-                    {
-                        case 6: index[0]++; break;
-                        case 9: index[0] += 2; break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-        return index;
-    }
-
-    /// <summary>
     /// 获取某种建筑的全部产量
     /// </summary>
     /// <returns></returns>
@@ -673,7 +613,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 break;
         }
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
-        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.CheckStock, name);
     }
 
     /// <summary>
@@ -697,7 +637,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
             {
                 dic[name][0].Stock += index;
                 HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
-                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+                HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.CheckStock, name);
                 return;
             }
         }
@@ -728,7 +668,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
                 break;
         }
         HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickBuild);
-        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, name);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.CheckStock, name);
     }
     public void AddStock(int Id, int index)
     {
@@ -934,7 +874,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         else
         {
             BuildingData data_1 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
-            ChickPlayerInfo.instance.ChickBuildDicChange(LocalData, data_1);
+            CheckPlayerInfo.instance.ChickBuildDicChange(LocalData, data_1);
         }
     }
 
@@ -1006,7 +946,7 @@ public class ChickPlayerInfo : TSingleton<ChickPlayerInfo>
         }
         if (EventKey == key)
         {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.ChickStock);
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.CheckStock);
         }
     }
 

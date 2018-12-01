@@ -92,6 +92,7 @@ public class Castle : MonoBehaviour
     /// </summary>
     protected void instanceWall()
     {
+        Debug.Log("生成背景墙");
         PlayerData playerData = GetPlayerData.Instance.GetData();
         Vector2 buildXY = playerData.Castle;
         buildH = (int)buildXY.y;
@@ -149,7 +150,7 @@ public class Castle : MonoBehaviour
     /// 扩建背景墙
     /// </summary>
     public void ExtensionWall(int x, int y)
-    {
+    { 
         buildH = y;
         buildW = x;
         castleBg.UpdateInfo(buildW, buildH);
@@ -260,9 +261,9 @@ public class Castle : MonoBehaviour
         }
         room_1.RemoveBuilding();
         room_2.RemoveBuilding();
-        ChickPlayerInfo.instance.AddBuilding(mergeData);
-        ChickPlayerInfo.instance.RemoveBuilding(room_1.currentBuildData);
-        ChickPlayerInfo.instance.RemoveBuilding(room_2.currentBuildData);
+        CheckPlayerInfo.instance.AddBuilding(mergeData);
+        CheckPlayerInfo.instance.RemoveBuilding(room_1.currentBuildData);
+        CheckPlayerInfo.instance.RemoveBuilding(room_2.currentBuildData);
     }
 
     /// <summary>
@@ -274,12 +275,12 @@ public class Castle : MonoBehaviour
         BuildTip tip = hit.GetComponent<BuildTip>();
         Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
         LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
-        ChickPlayerInfo.instance.AddBuilding(data);
+        CheckPlayerInfo.instance.AddBuilding(data);
         //删除当前已使用空位
         allEmptyPoint.Remove(tip.emptyPoint);
         //将所有标签移出屏幕
         MapControl.instance.ResetRoomTip();
-        ChickPlayerInfo.instance.RoomUseStock(data.buildingData);
+        CheckPlayerInfo.instance.RoomUseStock(data.buildingData);
         UIMain.instance.CloseSomeUI(true);
         UIMain.instance.ShowBack(false);
     }
@@ -344,7 +345,7 @@ public class Castle : MonoBehaviour
             }
         }
         GameObject go = null;
-        if (data.buildingData.RoomType != RoomType.Production)
+        if (data.buildingData.RoomType != RoomType.Production && data.buildingData.RoomName != BuildRoomName.LivingRoom)
         {
             go = Resources.Load<GameObject>("UIPrefab/Building/Build_" + data.buildingData.RoomName);
         }

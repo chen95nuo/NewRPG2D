@@ -16,23 +16,16 @@ namespace Assets.Script.Net
             int ret = mRoleLogin.ret; //0成功 -1失败
             if (ret == 0)
             {
-                CharacterInfo characterInfo = mRoleLogin.userInfo;//账号信息
-                GetPlayerData.Instance.SetData(mRoleLogin.userInfo);
-                List<ResidentInfo> residentInfo = mRoleLogin.allResident;//所有居民
-                HallRoleMgr.instance.GetServerAllRole(mRoleLogin.allResident);
-                List<proto.SLGV1.RoomInfo> allRoom = mRoleLogin.allRoom;//所有房间
-                BuildingManager.instance.GetAllBuildingData(mRoleLogin.allRoom);
-                List<ProduceRoom> allProRoom = mRoleLogin.allProRoom;//生产类房间
-                BuildingManager.instance.GetAllProduceRoom(mRoleLogin.allProRoom);
-                List<StoreRoom> allStoreRoom = mRoleLogin.allStoreRoom;//储存类房间
-                BuildingManager.instance.GetAllStoreRoom(mRoleLogin.allStoreRoom);
-                List<ResidentRoom> allResidentRoom = mRoleLogin.allResidentRoom;//居民室
-                BuildingManager.instance.GetAllResidentRoom(mRoleLogin.allResidentRoom);
-                ProudctEquipInfo proEquip = mRoleLogin.proEquip;//后期需要更改
-                AllMagicSkillInfo allMagicSkill = mRoleLogin.allMagicSkill;//魔法生产和投入战斗 以及魔法实验室法术最高等级
-                BuildingManager.instance.GetAllMagicSkillInfo(mRoleLogin.allMagicSkill);
+                GetPlayerData.Instance.SetData(mRoleLogin.userInfo);//获取账号信息
+                HallRoleMgr.instance.GetServerAllRole(mRoleLogin.allResident);//获取所有居民
+                BuildingManager.instance.GetAllBuildingData(mRoleLogin.allRoom);//获取所有房间
+                BuildingManager.instance.GetAllProduceRoom(mRoleLogin.allProRoom);//获取生产房间数据
+                BuildingManager.instance.GetAllStoreRoom(mRoleLogin.allStoreRoom);//获取储存类房间数据
+                BuildingManager.instance.GetAllResidentRoom(mRoleLogin.allResidentRoom);//获取居民室数据
+                List<ProduceEquipInfo> proEquip = mRoleLogin.proEquip;//获取装备房间数据
+                BuildingManager.instance.GetAllMagicSkillInfo(mRoleLogin.allMagicSkill);//获取魔法数据
                 Box boxs = mRoleLogin.boxs;//背包
-                DebugHelper.Log("获取到账号数据" + characterInfo.userId);
+                DebugHelper.Log("获取到账号数据" + mRoleLogin.userInfo.userId);
 
                 GameHelper.instance.ServerInfo = true;//让进度条继续
             }

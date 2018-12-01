@@ -11,7 +11,6 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     Dictionary<int, RoleTrainHelper> timeAction = new Dictionary<int, RoleTrainHelper>();
     Dictionary<int, RoleBabyData> childrenTime = new Dictionary<int, RoleBabyData>();
     Dictionary<int, RoleLoveHelper> loveData = new Dictionary<int, RoleLoveHelper>();
-    private List<proto.SLGV1.ResidentInfo> AllRoleData = new List<proto.SLGV1.ResidentInfo>();
     private List<HallRole> AllHallRole = new List<HallRole>();
     private List<HallRoleData> AllRole = new List<HallRoleData>();
     private int childNeedTime = 360;//小孩所需时间
@@ -88,16 +87,23 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <param name="allRole"></param>
     public void GetServerAllRole(List<proto.SLGV1.ResidentInfo> allRole)
     {
-        AllRoleData = new List<proto.SLGV1.ResidentInfo>();
-        AllRoleData = allRole;
-        ResetRoleData();
+        foreach (var role in allRole)
+        {
+            HallRoleData roleData = new HallRoleData(role);
+            AllRole.Add(roleData);
+        }
+    }
+    public void GetServerRole(proto.SLGV1.ResidentInfo role)
+    {
+        HallRoleData roleData = new HallRoleData(role);
+        AllRole.Add(roleData);
     }
     /// <summary>
     /// 将将原始数据进行重新实例
     /// </summary>
     public void ResetRoleData()
     {
-        foreach (var data in AllRoleData)
+        foreach (var data in AllRole)
         {
             SetServerRoleData(data);
         }
@@ -106,12 +112,27 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// 将数据实例化
     /// </summary>
     /// <param name="s_RoleInfo">服务器角色数据</param>
-    public void SetServerRoleData(proto.SLGV1.ResidentInfo s_RoleInfo)
+    public void SetServerRoleData(HallRoleData roleData)
     {
         //将角色数据赋值 然后实例
-        HallRoleData roleData = new HallRoleData(s_RoleInfo);
         AddNewRoleInstance(roleData);
     }
+
+    #region 查询
+
+    public HallRoleData GetRoleData(int roleId)
+    {
+        foreach (var item in AllRole)
+        {
+            if (item.id == roleId)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    #endregion
     #endregion
 
     public void AddRole(HallRoleData data, HallRole role)
@@ -130,7 +151,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
                 roleIdIndex = saveRoleData[i].role.id;
             }
             HallRole role = AddNewRoleInstance(saveRoleData[i].role);
-            ChickPlayerInfo.instance.ChickRoleDic(saveRoleData[i].RoomId, role);
+            CheckPlayerInfo.instance.ChickRoleDic(saveRoleData[i].RoomId, role);
         }
     }
 
@@ -159,7 +180,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         for (int i = 0; i < saveBabydata.Count; i++)
         {
             HallRole role = AddNewBabyInstance(saveBabydata[i]);
-            ChickPlayerInfo.instance.ChickBabyDic(role);
+            CheckPlayerInfo.instance.ChickBabyDic(role);
             return;
         }
     }
@@ -316,18 +337,18 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         return null;
     }
 
-    public HallRoleData GetRoleData(int roleId)
-    {
-        for (int i = 0; i < AllRole.Count; i++)
-        {
-            if (AllRole[i].id == roleId)
-            {
-                return AllRole[i];
-            }
-        }
-        Debug.LogError("没有找到角色");
-        return null;
-    }
+    //public HallRoleData GetRoleData(int roleId)
+    //{
+    //    for (int i = 0; i < AllRole.Count; i++)
+    //    {
+    //        if (AllRole[i].id == roleId)
+    //        {
+    //            return AllRole[i];
+    //        }
+    //    }
+    //    Debug.LogError("没有找到角色");
+    //    return null;
+    //}
 
     /// <summary>
     /// 角色切换房间
@@ -661,13 +682,13 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
             {
                 HallRoleData roleData = GetRoleData(data.child.id);
                 HallRole role = GetRole(roleData);
-                ChickPlayerInfo.instance.RemoveBaby(role);
+                CheckPlayerInfo.instance.RemoveBaby(role);
                 RemoveRole(role);
                 childrenTime.Remove(item.Key);
                 dic.Remove(data.child);
                 AllRole.Remove(data.child);
                 HallRole roleInstance = AddNewRoleInstance(data.child);
-                ChickPlayerInfo.instance.ChickBabyDic(roleInstance);
+                CheckPlayerInfo.instance.ChickBabyDic(roleInstance);
                 return;
             }
         }

@@ -41,8 +41,8 @@ public class UIPopUpTips_2 : TTUIPage
 
     public void UpdateInfo(BuildRoomName name, Transform ts)
     {
-        int allyield = ChickPlayerInfo.instance.GetAllYield(name);
-        int allStock = ChickPlayerInfo.instance.GetAllStockSpace(name);
+        int allyield = CheckPlayerInfo.instance.GetAllYield(name);
+        int allStock = CheckPlayerInfo.instance.GetAllStockSpace(name);
         txt_Num_1.text = allyield.ToString();
         txt_Num_2.text = allStock.ToString();
         tipTs.position = ts.position;

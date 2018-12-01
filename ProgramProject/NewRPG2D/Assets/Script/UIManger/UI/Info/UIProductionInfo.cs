@@ -22,11 +22,11 @@ public class UIProductionInfo : UIRoomInfo
     protected override void Awake()
     {
         base.Awake();
-        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, RefreshStock);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.CheckStock, RefreshStock);
     }
     private void OnDestroy()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickStock, RefreshStock);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CheckStock, RefreshStock);
     }
     private void Start()
     {
@@ -46,7 +46,7 @@ public class UIProductionInfo : UIRoomInfo
         txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
         ChickRoleNumber(roleGrids);
 
-        ChickPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
+        CheckPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
 
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
         icons.sprite = sp;
@@ -57,7 +57,7 @@ public class UIProductionInfo : UIRoomInfo
     private void ChickBack()
     {
         UIPanelManager.instance.ClosePage<UIProductionInfo>();
-        ChickPlayerInfo.instance.RemoveRoomEvent();
+        CheckPlayerInfo.instance.RemoveRoomEvent();
     }
 
     protected override void UpdateName(RoomMgr data, bool NeedTip = true)

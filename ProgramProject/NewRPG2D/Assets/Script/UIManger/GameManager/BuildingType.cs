@@ -74,8 +74,8 @@ public enum ThroneInfoType
 
 public enum MaterialName
 {
+    diamonds,
     Gold,
-    Food,
     Mana,
     Wood,
     Iron

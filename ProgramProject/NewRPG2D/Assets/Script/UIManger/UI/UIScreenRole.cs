@@ -41,7 +41,7 @@ public class UIScreenRole : TTUIPage
         base.Show(mData);
         info = mData as UIRoomInfo;
         needAnim = false;
-        if (ChickPlayerInfo.instance.ChickProduction(info.roomData.currentBuildData))
+        if (CheckPlayerInfo.instance.ChickProduction(info.roomData.currentBuildData))
             isLevel = false;
         else
             isLevel = true;
@@ -50,7 +50,7 @@ public class UIScreenRole : TTUIPage
 
     private void UpdateInfo()
     {
-        int index = ChickPlayerInfo.instance.ChickAtrNumber();
+        int index = CheckPlayerInfo.instance.ChickAtrNumber();
         for (int i = 0; i < btnGroup.Length; i++)
         {
             if (i < index + 2)

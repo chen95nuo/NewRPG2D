@@ -56,6 +56,19 @@ public class BuildingDataMgr : ItemDataBaseMgr<BuildingDataMgr>
         return dic;
     }
 
+    public BuildingData GetbuildingData(BuildRoomName name)
+    {
+        for (int i = 0; i < CurrentItemData.Length; i++)
+        {
+            BuildingData data = CurrentItemData[i] as BuildingData;
+            if (data.RoomName == name && data.Level == 1)
+            {
+                return data;
+            }
+        }
+        return null;
+    }
+
     public List<BuildingData> AllRoomData()
     {
         List<BuildingData> data = new List<BuildingData>();

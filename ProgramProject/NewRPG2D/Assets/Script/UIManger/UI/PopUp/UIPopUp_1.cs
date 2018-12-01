@@ -57,7 +57,7 @@ public class UIPopUp_1 : TTUIPage
             {
                 txt_Gold.transform.parent.gameObject.SetActive(true);
                 txt_Gold.text = item.Value.ToString("#0");
-                if (ChickPlayerInfo.instance.ChickAllStock(BuildRoomName.GoldSpace) < item.Value)
+                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.GoldSpace) < item.Value)
                 {
                     isStockFull = true;
                 }
@@ -66,7 +66,7 @@ public class UIPopUp_1 : TTUIPage
             {
                 txt_Mana.transform.parent.gameObject.SetActive(true);
                 txt_Mana.text = item.Value.ToString("#0");
-                if (ChickPlayerInfo.instance.ChickAllStock(BuildRoomName.ManaSpace) < item.Value)
+                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.ManaSpace) < item.Value)
                 {
                     isStockFull = true;
                 }
@@ -75,7 +75,7 @@ public class UIPopUp_1 : TTUIPage
             {
                 txt_Wood.transform.parent.gameObject.SetActive(true);
                 txt_Wood.text = item.Value.ToString("#0");
-                if (ChickPlayerInfo.instance.ChickAllStock(BuildRoomName.WoodSpace) < item.Value)
+                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.WoodSpace) < item.Value)
                 {
                     isStockFull = true;
                 }
@@ -84,7 +84,7 @@ public class UIPopUp_1 : TTUIPage
             {
                 txt_Iron.transform.parent.gameObject.SetActive(true);
                 txt_Iron.text = item.Value.ToString("#0");
-                if (ChickPlayerInfo.instance.ChickAllStock(BuildRoomName.IronSpace) < item.Value)
+                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.IronSpace) < item.Value)
                 {
                     isStockFull = true;
                 }
@@ -145,10 +145,6 @@ public class UIPopUp_1 : TTUIPage
                             name = BuildRoomName.GoldSpace;
                             dic.Add(name, item.Value);
                             break;
-                        case MaterialName.Food:
-                            name = BuildRoomName.FoodSpace;
-                            dic.Add(name, item.Value);
-                            break;
                         case MaterialName.Mana:
                             name = BuildRoomName.ManaSpace;
                             dic.Add(name, item.Value);
@@ -168,7 +164,7 @@ public class UIPopUp_1 : TTUIPage
             }
             foreach (var item in dic)
             {
-                ChickPlayerInfo.instance.AddStock(item.Key, item.Value);
+                CheckPlayerInfo.instance.AddStock(item.Key, item.Value);
             }
         }
         ClosePage();

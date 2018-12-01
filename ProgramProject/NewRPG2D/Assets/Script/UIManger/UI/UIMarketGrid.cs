@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using proto.SLGV1;
 
 public class UIMarketGrid : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class UIMarketGrid : MonoBehaviour
 
     public void UpdateBuilding(BuildingData data, int[] number, bool isTrue)
     {
-        ChickProduce(false);
+        CheckProduce(false);
 
         txt_Tip_4.text = LanguageDataMgr.instance.GetDes(data.RoomName.ToString());
         buildName.text = LanguageDataMgr.instance.GetRoomName(data.RoomName.ToString());
@@ -96,11 +97,12 @@ public class UIMarketGrid : MonoBehaviour
         if (data.NeedGold > 0)
         {
             txt_Gold.gameObject.SetActive(true);
-            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold);
+            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.GoldSpace);
             if (stock < data.NeedGold)
             {
                 txt_Gold.text = string.Format(redSt, data.NeedGold);
                 int need = data.NeedGold - stock;
+
                 needStock.Add(MaterialName.Gold, need);
             }
             else
@@ -112,7 +114,7 @@ public class UIMarketGrid : MonoBehaviour
         if (data.NeedMana > 0)
         {
             txt_Mana.gameObject.SetActive(true);
-            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
+            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.ManaSpace);
             if (stock < data.NeedMana)
             {
                 txt_Mana.text = string.Format(redSt, data.NeedMana);
@@ -128,7 +130,7 @@ public class UIMarketGrid : MonoBehaviour
         {
             txt_Wood.gameObject.SetActive(true);
             txt_Wood.text = data.NeedWood.ToString();
-            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood);
+            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.WoodSpace);
             if (stock < data.NeedWood)
             {
                 txt_Wood.text = string.Format(redSt, data.NeedWood);
@@ -144,7 +146,7 @@ public class UIMarketGrid : MonoBehaviour
         {
             txt_Iron.gameObject.SetActive(true);
             txt_Iron.text = data.NeedIron.ToString();
-            int stock = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron);
+            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.IronSpace);
             if (stock < data.NeedGold)
             {
                 txt_Iron.text = string.Format(redSt, data.NeedIron);
@@ -165,15 +167,42 @@ public class UIMarketGrid : MonoBehaviour
         //检测资源是否足够
         if (needStock.Count > 0)
         {
+            BuildRoomName name = BuildRoomName.Nothing;
+            foreach (var need in needStock)
+            {
+                switch (need.Key)
+                {
+                    case MaterialName.Gold:
+                        name = BuildRoomName.GoldSpace;
+                        break;
+                    case MaterialName.Mana:
+                        name = BuildRoomName.ManaSpace;
+                        break;
+                    case MaterialName.Wood:
+                        name = BuildRoomName.WoodSpace;
+                        break;
+                    case MaterialName.Iron:
+                        name = BuildRoomName.IronSpace;
+                        break;
+                    default:
+                        break;
+                }
+                int empty = BuildingManager.instance.SearchRoomEmpty(name);
+                if (empty < need.Value)
+                {
+                    ConsumeItem consume = new ConsumeItem();
+                    consume.produceType = (int)need.Key;
+                    UIPanelManager.instance.ShowPage<UIPopUp_4>(consume);
+                    return;
+                }
+            }
             UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
             return;
         }
-        MainCastle.instance.BuildRoomTip(buildingData);
-        UIMain.instance.ShowBack(true);
-        UIMain.instance.market.gameObject.SetActive(false);
+        UIMain.instance.RSCheckCreateNewRoom(this.buildingData);
     }
 
-    private void ChickProduce(bool isTrue)
+    private void CheckProduce(bool isTrue)
     {
         txt_Gold.gameObject.SetActive(false);
         txt_Mana.gameObject.SetActive(false);

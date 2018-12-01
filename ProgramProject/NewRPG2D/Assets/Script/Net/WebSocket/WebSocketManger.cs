@@ -220,6 +220,9 @@ namespace Assets.Script.Net
                 case NetSendMsg.RQ_CreateRoleName:
                     send = new NetCreateRoleNameSend();
                     break;
+                case NetSendMsg.RQ_CheckCreateNewRoom:
+                    send = new NetCheckCreateNewRoomSend();
+                    break;
                 case NetSendMsg.RQ_CreateNewRoom:
                     send = new NetCreateNewRoomSend();
                     break;
@@ -288,6 +291,9 @@ namespace Assets.Script.Net
                     break;
                 case NetReceiveMsg.RS_CreateRoleName:
                     receive = new NetCreateRoleNameRev();
+                    break;
+                case NetReceiveMsg.RS_CheckCreateNewRoom:
+                    receive = new NetCheckCreateNewRoomRev();
                     break;
                 case NetReceiveMsg.RS_CreateNewRoom:
                     receive = new NetCreateNewRoomRev();

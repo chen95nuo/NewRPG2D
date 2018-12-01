@@ -216,7 +216,7 @@ public class UILockRoomTip : TTUIPage
         btn_Cancel.gameObject.SetActive(isTrue);
         if (isTrue == true)
         {
-            LevelUPHelper data = ChickPlayerInfo.instance.GetBuildNumber(roomData.Id);
+            LevelUPHelper data = CheckPlayerInfo.instance.GetBuildNumber(roomData.Id);
             if (data != null)
             {
                 addSpeedNeed = data.needTime * 0.01f;
@@ -320,7 +320,7 @@ public class UILockRoomTip : TTUIPage
         if (data.Diamonds >= addSpeedNeed)
         {
             data.Diamonds -= (int)addSpeedNeed;
-            ChickPlayerInfo.instance.ChickNowComplete(roomData.Id);
+            CheckPlayerInfo.instance.ChickNowComplete(roomData.Id);
         }
         else
         {

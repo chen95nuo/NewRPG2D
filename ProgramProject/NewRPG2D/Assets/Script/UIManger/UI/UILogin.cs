@@ -43,6 +43,7 @@ public class UILogin : TTUIPage
 
     private void Awake()
     {
+        Debug.Log(Mathf.Round(0.5f));
         btn_Login.onClick.AddListener(ChickLogin);
         btn_RegisterPage.onClick.AddListener(ChickRegisterPage);
         btn_Register.onClick.AddListener(ChickRegister);

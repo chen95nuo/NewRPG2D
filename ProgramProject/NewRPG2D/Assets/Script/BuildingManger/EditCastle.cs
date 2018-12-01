@@ -17,7 +17,7 @@ public class EditCastle : Castle
 
     public void SaveAllBuild()
     {
-        ChickPlayerInfo.instance.ChickEditSave(editAllBuilding, ChangeBuilding);
+        CheckPlayerInfo.instance.CheckEditSave(editAllBuilding, ChangeBuilding);
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class EditCastle : Castle
         RemoveAllRoom(false);
         editAllBuilding.Clear();
         allRemoveRoom.Clear();
-        List<LocalBuildingData> AllBuilding = ChickPlayerInfo.instance.GetAllBuilding();
+        List<LocalBuildingData> AllBuilding = CheckPlayerInfo.instance.GetAllBuilding();
         for (int i = 0; i < AllBuilding.Count; i++)
         {
             LocalBuildingData data = new LocalBuildingData(AllBuilding[i].id, AllBuilding[i].buildingPoint, AllBuilding[i].buildingData, AllBuilding[i].ConstructionType);

@@ -55,7 +55,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         }
         if (pData.propType == PropType.Resources)
         {
-            ChickPlayerInfo.instance.AddStock(pData.ItemId, num);
+            CheckPlayerInfo.instance.AddStock(pData.ItemId, num);
             RealPropData data_1 = new RealPropData(pData, -1, num);
             return data_1;
         }

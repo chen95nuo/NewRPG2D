@@ -61,28 +61,28 @@ public class UILevelUpHelper : MonoBehaviour
         {
             txt_Gold.transform.parent.gameObject.SetActive(true);
             txt_Gold.text = b_Data_2.NeedGold.ToString();
-            needGold = b_Data_2.NeedGold - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Gold));
+            needGold = b_Data_2.NeedGold - (CheckPlayerInfo.instance.GetAllStock(BuildRoomName.Gold));
             allNeed += (int)needGold;
         }
         if (b_Data_2.NeedMana > 0)
         {
             txt_Mana.transform.parent.gameObject.SetActive(true);
             txt_Mana.text = b_Data_2.NeedMana.ToString();
-            needMana = b_Data_2.NeedMana - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana));
+            needMana = b_Data_2.NeedMana - (CheckPlayerInfo.instance.GetAllStock(BuildRoomName.Mana));
             allNeed += (int)needMana;
         }
         if (b_Data_2.NeedWood > 0)
         {
             txt_Wood.transform.parent.gameObject.SetActive(true);
             txt_Wood.text = b_Data_2.NeedWood.ToString();
-            needWood = b_Data_2.NeedWood - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Wood));
+            needWood = b_Data_2.NeedWood - (CheckPlayerInfo.instance.GetAllStock(BuildRoomName.Wood));
             allNeed += (int)needWood;
         }
         if (b_Data_2.NeedIron > 0)
         {
             txt_Iron.transform.parent.gameObject.SetActive(true);
             txt_Iron.text = b_Data_2.NeedIron.ToString();
-            needIron = b_Data_2.NeedIron - (ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Iron));
+            needIron = b_Data_2.NeedIron - (CheckPlayerInfo.instance.GetAllStock(BuildRoomName.Iron));
             allNeed += (int)needIron;
         }
 
@@ -120,7 +120,7 @@ public class UILevelUpHelper : MonoBehaviour
             int id = roomMgr.BuildingData.NextLevelID;
             roomMgr.ConstructionStart(id, 0);
             BuildingData temp = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(roomMgr.BuildingData.NextLevelID);
-            ChickPlayerInfo.instance.RoomUseStock(temp);
+            CheckPlayerInfo.instance.RoomUseStock(temp);
             return;
         }
         else

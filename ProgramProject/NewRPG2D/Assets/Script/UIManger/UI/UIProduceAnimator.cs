@@ -98,7 +98,7 @@ public class UIProduceAnimator : TTUIPage
     private void IconMoveFinsh(UIProduceAnimHelper icons)
     {
         icons.IsUse = false;
-        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, icons.name);
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.CheckStock, icons.name);
     }
 
     private IEnumerator IconMove(Vector3 startPoint, Vector3 point, int iconNum, BuildRoomName name)

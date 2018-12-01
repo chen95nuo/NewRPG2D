@@ -10,17 +10,8 @@ public class PlayerData
     private int userId;//用户ID
     private string name;//玩家昵称
     private string spriteName;//头像
-    private int gold;//金币数量
     private int diamonds;//钻石数量
-    private int food;//食物
-    private int mana;//法力值
-    private int wood;//木材
-    private int iron;//铁矿
-    private int goldSpace;//金币空间
-    private int foodSpace;//食物空间
-    private int manaSpace;//魔法空间
-    private int woodSpace;//木材空间
-    private int ironSpace;//铁矿空间
+    private Dictionary<BuildRoomName, int> produceSpace;//资源容量
     private int power;//战力
     private int grailNum;//圣杯数量
     private int popNum;//人口(居民)数量
@@ -33,6 +24,19 @@ public class PlayerData
     private LocalBuildingData barracksLevel;
     private int currentLessonID;
     private MapLevelData currentLessonData;
+
+
+    //待删除
+    public int Gold;
+    public int Food;
+    public int Mana;
+    public int Wood;
+    public int Iron;
+    private int goldSpace;//金币空间
+    private int foodSpace;//食物空间
+    private int manaSpace;//魔法空间
+    private int woodSpace;//木材空间
+    private int ironSpace;//铁矿空间
 
     public string Name
     {
@@ -63,24 +67,6 @@ public class PlayerData
         }
     }
 
-    public int Gold
-    {
-        get
-        {
-            return gold;
-        }
-
-        set
-        {
-            int temp = value;
-            if (temp != gold)
-            {
-                gold = temp;
-                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Gold);
-            }
-        }
-    }
-
     public int Diamonds
     {
         get
@@ -95,78 +81,6 @@ public class PlayerData
             {
                 diamonds = temp;
                 HallEventManager.instance.SendEvent(HallEventDefineEnum.diamondsSpace);
-            }
-        }
-    }
-
-    public int Food
-    {
-        get
-        {
-            return food;
-        }
-
-        set
-        {
-            int temp = value;
-            if (temp != food)
-            {
-                food = temp;
-                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Food);
-            }
-        }
-    }
-
-    public int Mana
-    {
-        get
-        {
-            return mana;
-        }
-
-        set
-        {
-            int temp = value;
-            if (temp != mana)
-            {
-                mana = temp;
-                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Mana);
-            }
-        }
-    }
-
-    public int Wood
-    {
-        get
-        {
-            return wood;
-        }
-
-        set
-        {
-            int temp = value;
-            if (temp != wood)
-            {
-                wood = temp;
-                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Wood);
-            }
-        }
-    }
-
-    public int Iron
-    {
-        get
-        {
-            return iron;
-        }
-
-        set
-        {
-            int temp = value;
-            if (temp != iron)
-            {
-                iron = temp;
-                //HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.ChickStock, BuildRoomName.Iron);
             }
         }
     }
@@ -265,14 +179,14 @@ public class PlayerData
             int x = (int)mainHall.buildingData.Param1;
             CameraControl.instance.currentAddWidth = (x - 17) * 2.7f;
             int y = (int)mainHall.buildingData.Param2;
-            if (EditCastle.instance != null)
-            {
-                EditCastle.instance.ExtensionWall(x, y);
-            }
-            if (MainCastle.instance != null)
-            {
-                MainCastle.instance.ExtensionWall(x, y);
-            }
+            //if (EditCastle.instance != null)
+            //{
+            //    EditCastle.instance.ExtensionWall(x, y);
+            //}
+            //if (MainCastle.instance != null)
+            //{
+            //    MainCastle.instance.ExtensionWall(x, y);
+            //}
         }
     }
 
@@ -325,21 +239,14 @@ public class PlayerData
         }
     }
 
-    public PlayerData()
+    public int defaultSpace
     {
-        Name = "Baymax";
-        Gold = 100;
-        Diamonds = 10000;
-        Food = 0;
-        Mana = 0;
-        Wood = 0;
-        Iron = 0;
-        GoldSpace = 5000;
-        FoodSpace = 5000;
-        ManaSpace = 5000;
-        WoodSpace = 5000;
-        IronSpace = 5000;
-        currentLessonID = 10001;
+        get { return 5000; }
+    }
+
+    public int GetResSpace(BuildRoomName name)
+    {
+        return produceSpace[name];
     }
 
     public PlayerData(proto.SLGV1.CharacterInfo s_PlayerData)
@@ -348,12 +255,13 @@ public class PlayerData
         this.userId = s_PlayerData.userId;
         this.name = s_PlayerData.roleName;
         this.spriteName = s_PlayerData.headimgurl;
-        this.gold = s_PlayerData.gold;
         this.diamonds = s_PlayerData.diamond;
-        this.food = s_PlayerData.appNum;
-        this.mana = s_PlayerData.magicNum;
-        this.wood = s_PlayerData.woodNum;
-        this.iron = s_PlayerData.feNum;
+        produceSpace = new Dictionary<BuildRoomName, int>();
+        produceSpace.Add(BuildRoomName.GoldSpace, s_PlayerData.gold);
+        produceSpace.Add(BuildRoomName.FoodSpace, s_PlayerData.appNum);
+        produceSpace.Add(BuildRoomName.ManaSpace, s_PlayerData.magicNum);
+        produceSpace.Add(BuildRoomName.WoodSpace, s_PlayerData.woodNum);
+        produceSpace.Add(BuildRoomName.IronSpace, s_PlayerData.feNum);
         this.power = s_PlayerData.power;
         this.grailNum = s_PlayerData.grailNum;
         this.popNum = s_PlayerData.popNum;

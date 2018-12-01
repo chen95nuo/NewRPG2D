@@ -51,7 +51,7 @@ public class UILessonInfo : TTUIPage
     {
         if (FightRoleData.Count > 0)
         {
-            ChickPlayerInfo.instance.UpLoadAllRoom();
+            CheckPlayerInfo.instance.UpLoadAllRoom();
             HallRoleMgr.instance.SaveBabyData();
             LocalStartFight.instance.UpdateInfo(FightRoleData, currentLesson);
             return;

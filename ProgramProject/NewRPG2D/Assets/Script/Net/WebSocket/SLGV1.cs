@@ -138,15 +138,13 @@ namespace proto.SLGV1
       get { return _allResidentRoom; }
     }
   
-
-    private ProudctEquipInfo _proEquip = null;
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"proEquip", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public ProudctEquipInfo proEquip
+    private readonly global::System.Collections.Generic.List<ProduceEquipInfo> _proEquip = new global::System.Collections.Generic.List<ProduceEquipInfo>();
+    [global::ProtoBuf.ProtoMember(8, Name=@"proEquip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ProduceEquipInfo> proEquip
     {
       get { return _proEquip; }
-      set { _proEquip = value; }
     }
+  
 
     private AllMagicSkillInfo _allMagicSkill = null;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"allMagicSkill", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -331,6 +329,15 @@ namespace proto.SLGV1
       get { return _thirdAcctInfo; }
     }
   
+
+    private int _stageId = default(int);
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"stageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int stageId
+    {
+      get { return _stageId; }
+      set { _stageId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -391,8 +398,15 @@ namespace proto.SLGV1
       get { return _roomId; }
       set { _roomId = value; }
     }
+    private int _id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int id
+    {
+      get { return _id; }
+      set { _id = value; }
+    }
     private readonly global::System.Collections.Generic.List<int> _xFloorOriginOffset = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"xFloorOriginOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, Name=@"xFloorOriginOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<int> xFloorOriginOffset
     {
       get { return _xFloorOriginOffset; }
@@ -400,22 +414,20 @@ namespace proto.SLGV1
   
 
     private int _leftTime = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"leftTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"leftTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int leftTime
     {
       get { return _leftTime; }
       set { _leftTime = value; }
     }
-
-    private int _residents = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"residents", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int residents
+    private readonly global::System.Collections.Generic.List<int> _residents = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"residents", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> residents
     {
       get { return _residents; }
-      set { _residents = value; }
     }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -443,12 +455,12 @@ namespace proto.SLGV1
   {
     public RQ_CheckCreateNewRoom() {}
     
-    private int _roomType;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int roomType
+    private int _roomId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int roomId
     {
-      get { return _roomType; }
-      set { _roomType = value; }
+      get { return _roomId; }
+      set { _roomId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -718,29 +730,34 @@ namespace proto.SLGV1
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ProudctEquipInfo")]
-  public partial class ProudctEquipInfo : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ProduceEquipInfo")]
+  public partial class ProduceEquipInfo : global::ProtoBuf.IExtensible
   {
-    public ProudctEquipInfo() {}
+    public ProduceEquipInfo() {}
     
-
-    private int _wHJHProducting = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"wHJHProducting", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int wHJHProducting
+    private string _roomId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string roomId
+    {
+      get { return _roomId; }
+      set { _roomId = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _wHJHProducting = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"wHJHProducting", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> wHJHProducting
     {
       get { return _wHJHProducting; }
-      set { _wHJHProducting = value; }
     }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Q_CheckProudctEquipState")]
-  public partial class Q_CheckProudctEquipState : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Q_CheckProductEquipState")]
+  public partial class Q_CheckProductEquipState : global::ProtoBuf.IExtensible
   {
-    public Q_CheckProudctEquipState() {}
+    public Q_CheckProductEquipState() {}
     
     private string _roomId;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -754,14 +771,14 @@ namespace proto.SLGV1
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"A_ProudctEquipInfo")]
-  public partial class A_ProudctEquipInfo : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"A_ProduceEquipInfo")]
+  public partial class A_ProduceEquipInfo : global::ProtoBuf.IExtensible
   {
-    public A_ProudctEquipInfo() {}
+    public A_ProduceEquipInfo() {}
     
-    private ProudctEquipInfo _proEquipInfo;
+    private ProduceEquipInfo _proEquipInfo;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"proEquipInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public ProudctEquipInfo proEquipInfo
+    public ProduceEquipInfo proEquipInfo
     {
       get { return _proEquipInfo; }
       set { _proEquipInfo = value; }
@@ -801,10 +818,10 @@ namespace proto.SLGV1
       set { _ret = value; }
     }
 
-    private ProudctEquipInfo _equip = null;
+    private ProduceEquipInfo _equip = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"equip", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public ProudctEquipInfo equip
+    public ProduceEquipInfo equip
     {
       get { return _equip; }
       set { _equip = value; }
@@ -1309,10 +1326,10 @@ namespace proto.SLGV1
     }
   
 
-    private ProudctEquipInfo _proEquip = null;
+    private ProduceEquipInfo _proEquip = null;
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"proEquip", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public ProudctEquipInfo proEquip
+    public ProduceEquipInfo proEquip
     {
       get { return _proEquip; }
       set { _proEquip = value; }

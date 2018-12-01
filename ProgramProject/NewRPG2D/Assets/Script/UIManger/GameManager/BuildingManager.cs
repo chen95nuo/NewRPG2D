@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class BuildingManager : TSingleton<BuildingManager>
 {
-    private Dictionary<BuildRoomName, List<LocalBuildingData>> allBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
+    private Dictionary<BuildRoomName, List<LocalBuildingData>> AllBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
     private Dictionary<int, LocalBuildingData> proBuilding = new Dictionary<int, LocalBuildingData>();
 
     private int produceInterval = 30;
@@ -23,7 +23,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="s_AllRoom"></param>
     public void GetAllBuildingData(List<proto.SLGV1.RoomInfo> s_AllRoom)
     {
-        allBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
+        AllBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
         for (int i = 0; i < s_AllRoom.Count; i++)
         {
             AddNewRoom(s_AllRoom[i]);
@@ -34,13 +34,19 @@ public class BuildingManager : TSingleton<BuildingManager>
     {
         int[] id = TypeOfRoomId(roomInfo.roomId);
         BuildRoomName name = (BuildRoomName)id[0];
-        if (!allBuilding.ContainsKey(name))
+        if (!AllBuilding.ContainsKey(name))
         {
-            allBuilding.Add(name, new List<LocalBuildingData>());
+            AllBuilding.Add(name, new List<LocalBuildingData>());
         }
+
         LocalBuildingData buildingData = new LocalBuildingData(roomInfo, id[1]);
-        allBuilding[name].Add(buildingData);
-        SetAllBuildingData(buildingData);
+        AllBuilding[name].Add(buildingData);
+    }
+
+    public void SetMainHallRoom()
+    {
+        GetPlayerData.Instance.SetThroneRoom(AllBuilding[BuildRoomName.ThroneRoom][0]);
+        GetPlayerData.Instance.SetBarracks(AllBuilding[BuildRoomName.Barracks][0]);
     }
 
     /// <summary>
@@ -48,7 +54,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// </summary>
     public void ResetBuildingData()
     {
-        foreach (var roomData in allBuilding)
+        foreach (var roomData in AllBuilding)
         {
             for (int i = 0; i < roomData.Value.Count; i++)
             {
@@ -63,11 +69,22 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="roomData"></param>
     public void SetAllBuildingData(LocalBuildingData roomData)
     {
-        //while (MainCastle.instance == null) { }
         MainCastle.instance.InstanceRoom(roomData);
         if (roomData.leftTime > 0) //如果该房间在升级
         {
-
+            //发送消息给升级标签
+        }
+        for (int i = 0; i < roomData.roleData.Length; i++)
+        {
+            if (roomData.roleData[i] != null)
+            {
+                HallRole data = roomData.roleData[i].instance;
+                data.roleRoomIndex = i;
+                data.transform.parent = roomData.currentRoom.RolePoint;
+                data.transform.localPosition = Vector3.zero;
+                Vector2 endPoint = roomData.buildingData.RolePoint[i];
+                data.RoleMove(endPoint);
+            }
         }
     }
     #endregion
@@ -160,7 +177,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     #endregion
 
     #region 装备生产工厂
-    public void GetAllEquipProRoom(List<proto.SLGV1.ProudctEquipInfo> equipRoom)
+    public void GetAllEquipProRoom(List<proto.SLGV1.ProduceEquipInfo> equipRoom)
     {
         for (int i = 0; i < equipRoom.Count; i++)
         {
@@ -168,7 +185,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
     }
 
-    public void GetEquipProRoom(proto.SLGV1.ProudctEquipInfo equipRoom)
+    public void GetEquipProRoom(proto.SLGV1.ProduceEquipInfo equipRoom)
     {
         //给UI发送房间信息 让UI追踪房间 该房间施工状态为True;
     }
@@ -183,8 +200,72 @@ public class BuildingManager : TSingleton<BuildingManager>
 
     #endregion
 
-    #region 查找功能
+    #region UI刷新
+    /// <summary>
+    /// 刷新所有房间资源
+    /// </summary>
+    public void ResetUIProduce()
+    {
+        UpdateProduce(BuildRoomName.GoldSpace);
+        UpdateProduce(BuildRoomName.FoodSpace);
+        UpdateProduce(BuildRoomName.ManaSpace);
+        UpdateProduce(BuildRoomName.WoodSpace);
+        UpdateProduce(BuildRoomName.IronSpace);
+    }
+    /// <summary>
+    /// 刷新房间资源
+    /// </summary>
+    /// <param name="room"></param>
+    public void UpdateProduce(BuildRoomName room)
+    {
+        int produce = GetPlayerData.Instance.GetData().GetResSpace(room);
+        HallEventManager.instance.SendEvent<UIMainCheckStock>(HallEventDefineEnum.CheckStock, new UIMainCheckStock(room, produce));
+    }
+    public int[] GetBuildDicInfo(BuildingData data)
+    {
+        int[] index = new int[2];
+        PlayerData player = GetPlayerData.Instance.GetData();
+        if (data.RoomName != BuildRoomName.Stairs)
+        {
+            for (int i = 0; i < data.UnlockLevel.Length; i++)
+            {
+                if (data.UnlockLevel[i] <= player.MainHallLevel)
+                {
+                    index[1]++;//获取当前等级的可建造数
+                }
+            }
+        }
+        else
+        {
+            index[1] = 4 + player.MainHallLevel;
+        }
+        if (!AllBuilding.ContainsKey(data.RoomName))
+        {
+            index[0] = 0;
+            return index;
+        }
+        for (int i = 0; i < AllBuilding[data.RoomName].Count; i++)
+        {
+            if (AllBuilding[data.RoomName][i] != null)
+            {
+                index[0]++;//获取该类建筑已建造数量
+                if (AllBuilding[data.RoomName][i].buildingData.RoomType == RoomType.Production)
+                {
+                    switch (AllBuilding[data.RoomName][i].buildingData.RoomSize)
+                    {
+                        case 6: index[0]++; break;
+                        case 9: index[0] += 2; break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        return index;
+    }
+    #endregion
 
+    #region 查找功能
     /// <summary>
     /// 通过类型和ID查找房间
     /// </summary>
@@ -193,7 +274,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <returns></returns>
     public LocalBuildingData SearchRoomData(BuildRoomName type, int id)
     {
-        List<LocalBuildingData> TypeRoom = allBuilding[type];
+        List<LocalBuildingData> TypeRoom = AllBuilding[type];
         for (int i = 0; i < TypeRoom.Count; i++)
         {
             if (TypeRoom[i].id == id) return TypeRoom[i];
@@ -201,6 +282,53 @@ public class BuildingManager : TSingleton<BuildingManager>
         return null;
     }
 
+    /// <summary>
+    /// 通过BuildRoomName查找总容量
+    /// </summary>
+    /// <returns></returns>
+    public int SearchRoomSpace(BuildRoomName name)
+    {
+        int space = 0;
+        if (AllBuilding.ContainsKey(name))
+        {
+            space += (int)AllBuilding[name][0].buildingData.Param2;
+        }
+        space += GetPlayerData.Instance.GetData().defaultSpace;
+        return space;
+    }
+
+    /// <summary>
+    /// 通过BuildRoomName查找剩余空间
+    /// </summary>
+    /// <returns></returns>
+    public int SearchRoomEmpty(BuildRoomName name)
+    {
+        int empty = 0;
+        if (AllBuilding.ContainsKey(name))
+        {
+            LocalBuildingData data = AllBuilding[name][0];
+            empty += (int)(data.buildingData.Param2 - data.Stock);
+        }
+        PlayerData playData = GetPlayerData.Instance.GetData();
+        empty += (playData.defaultSpace - playData.GetResSpace(name));
+        return empty;
+    }
+
+    /// <summary>
+    /// 通过BuildRoomName查找总数量
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public int SearchRoomStock(BuildRoomName name)
+    {
+        int stock = 0;
+        if (AllBuilding.ContainsKey(name))
+        {
+            stock += (int)AllBuilding[name][0].Stock;
+        }
+        stock += GetPlayerData.Instance.GetData().GetResSpace(name);
+        return stock;
+    }
     #endregion
 
     #region 工具

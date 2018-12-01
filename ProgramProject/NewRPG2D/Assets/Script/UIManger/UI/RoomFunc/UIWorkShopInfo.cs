@@ -86,7 +86,7 @@ public class UIWorkShopInfo : TTUIPage
     private void Awake()
     {
         HallEventManager.instance.AddListener<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
-        HallEventManager.instance.AddListener(HallEventDefineEnum.ChickStock, UpdateHaveMana);
+        HallEventManager.instance.AddListener(HallEventDefineEnum.CheckStock, UpdateHaveMana);
         HallEventManager.instance.AddListener(HallEventDefineEnum.ChickFragment, UpdateHaveProp);
 
         txt_Tip_1.text = "所需资源";
@@ -119,7 +119,7 @@ public class UIWorkShopInfo : TTUIPage
     private void OnDestroy()
     {
         HallEventManager.instance.RemoveListener<WorkShopHelper>(HallEventDefineEnum.ChickWorkTime, UpdateTime);
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickStock, UpdateHaveMana);
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.CheckStock, UpdateHaveMana);
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.ChickFragment, UpdateHaveProp);
     }
 
@@ -265,7 +265,7 @@ public class UIWorkShopInfo : TTUIPage
     }
     public void UpdateHaveMana()
     {
-        haveMana = ChickPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
+        haveMana = CheckPlayerInfo.instance.GetAllStock(BuildRoomName.Mana);
         txt_HaveMana.text = haveMana.ToString();
     }
 

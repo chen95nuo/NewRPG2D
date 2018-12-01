@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using proto.SLGV1;
+using System;
 
 public class UIMarket : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class UIMarket : MonoBehaviour
 
     private Dictionary<RoomType, List<BuildingData>> dic;
     private int currentType = 1;
+
 
 
     private void Awake()
@@ -31,7 +34,7 @@ public class UIMarket : MonoBehaviour
     {
         for (int i = 0; i < btn_AllType.Length; i++)
         {
-            btn_AllType[i].onClick.AddListener(ChickBtnType);
+            btn_AllType[i].onClick.AddListener(CheckBtnType);
         }
 
         btn_back.onClick.AddListener(ClosePage);
@@ -50,7 +53,7 @@ public class UIMarket : MonoBehaviour
         Debug.Log("获取字典");
     }
 
-    public void ChickBtnType()
+    public void CheckBtnType()
     {
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < btn_AllType.Length; i++)
@@ -81,7 +84,7 @@ public class UIMarket : MonoBehaviour
                 grids.Add(go.GetComponent<UIMarketGrid>());
             }
             grids[i].gameObject.SetActive(true);
-            int[] index = ChickPlayerInfo.instance.GetBuildiDicInfo(dic[type][i]);
+            int[] index = BuildingManager.instance.GetBuildDicInfo(dic[type][i]);
             bool isTrue = true;
             if (index[0] >= index[1])
             {
