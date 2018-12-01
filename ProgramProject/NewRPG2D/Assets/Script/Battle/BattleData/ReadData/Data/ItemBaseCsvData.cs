@@ -27,13 +27,12 @@ namespace Assets.Script.Battle.BattleData
             return ItemName;
         }
 
-        public static float[] FloatArray(string a)
+        public static float[] FloatArray(List<float> parse)
         {
-            string[] astr = a.Split(',');
-            float[] f = new float[astr.Length];
-            for (int i = 0; i < astr.Length; i++)
+            float[] f = new float[parse.Count];
+            for (int i = 0; i < parse.Count; i++)
             {
-                f[i] = float.Parse(astr[i]);
+                f[i] = parse[i];
                 if (f[i] == 0)
                 {
                     return null;

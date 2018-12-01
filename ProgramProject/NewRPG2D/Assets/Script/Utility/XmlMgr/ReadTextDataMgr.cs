@@ -25,13 +25,13 @@ namespace Assets.Script.Utility
         //战斗内的
         RolePropertyData,
         BuildingData,
+        Max,
+
         MagicData,
         ChildData,
         PropData,
         WorldMapData,
         TrainData,
-        Max,
-
         //城堡大厅的
         WorkShopData,
 

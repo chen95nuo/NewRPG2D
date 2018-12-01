@@ -28,7 +28,7 @@ public class BuildingData : ItemBaseCsvData
     public Vector2[] RolePoint;//每个位置的角色坐标
     public string[] RoleAnim;//每个位置的角色动画
 
-    public override CsvEChartsType ItemCsvName 
+    public override CsvEChartsType ItemCsvName
     {
         get { return CsvEChartsType.BuildingData; }
     }
@@ -51,7 +51,7 @@ public class BuildingData : ItemBaseCsvData
             RoomRole = ChickRoomRole(RoomSize);
             MergeID = IntParse(data, 12);
             SplitID = IntParse(data, 13);
-            UnlockLevel = FloatArray(StrParse(data, 14));
+            UnlockLevel = FloatArray(ListParse(data, 14));
             NextLevelID = IntParse(data, 15);
             Param1 = FloatParse(data, 16);
             Param2 = FloatParse(data, 17);
@@ -70,12 +70,11 @@ public class BuildingData : ItemBaseCsvData
 
     private Vector2[] Vector2Parse(string[] data, int index)
     {
-        string a = StrParse(data, index);
-        string[] astr = a.Split(',');
-        Vector2[] point = new Vector2[astr.Length];
-        for (int i = 0; i < astr.Length; i++)
+        List<float> astr = ListParse(data, index);
+        Vector2[] point = new Vector2[astr.Count];
+        for (int i = 0; i < astr.Count; i++)
         {
-            float f = float.Parse(astr[i]);
+            float f =astr[i];
             point[i] = new Vector2(f, 0);
         }
         return point;
