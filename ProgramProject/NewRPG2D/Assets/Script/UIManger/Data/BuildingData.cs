@@ -28,7 +28,7 @@ public class BuildingData : ItemBaseCsvData
     public Vector2[] RolePoint;//每个位置的角色坐标
     public string[] RoleAnim;//每个位置的角色动画
 
-    public override CsvEChartsType ItemCsvName
+    public override CsvEChartsType ItemCsvName 
     {
         get { return CsvEChartsType.BuildingData; }
     }

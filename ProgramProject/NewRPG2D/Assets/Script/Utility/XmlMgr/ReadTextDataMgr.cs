@@ -24,15 +24,15 @@ namespace Assets.Script.Utility
 
         //战斗内的
         RolePropertyData,
-        Max,
-
-        //城堡大厅的
         BuildingData,
-        TrainData,
         MagicData,
         ChildData,
         PropData,
         WorldMapData,
+        TrainData,
+        Max,
+
+        //城堡大厅的
         WorkShopData,
 
 
@@ -80,6 +80,8 @@ namespace Assets.Script.Utility
                     return new PropData();
                 case CsvEChartsType.WorldMapData:
                     return new WorldMapData();
+                case CsvEChartsType.TrainData:
+                    return new TrainData();
 
 
                 default: return new ItemBaseCsvData();
