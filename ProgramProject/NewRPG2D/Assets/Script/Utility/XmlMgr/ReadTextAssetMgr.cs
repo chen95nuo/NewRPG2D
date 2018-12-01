@@ -28,7 +28,7 @@ namespace Assets.Script.Utility
                 }
                 catch
                 {
-                    Debug.LogError(" IntParse  data is error " + data[index]);
+                    Debug.LogError(" IntParse  data is error " + data[index] + " index ==" + index);
                 }
             }
             else
@@ -49,7 +49,7 @@ namespace Assets.Script.Utility
                 }
                 catch
                 {
-                    Debug.LogError(" FloatParse  data is error " + data[index]);
+                    Debug.LogError(" FloatParse  data is error " + data[index] + " index ==" + index);
                 }
             }
             else
@@ -70,7 +70,7 @@ namespace Assets.Script.Utility
                 }
                 catch
                 {
-                    Debug.LogError(" StrParse  data is error " + data[index]);
+                    Debug.LogError(" StrParse  data is error " + data[index] + " index ==" + index);
                 }
             }
             else
@@ -87,6 +87,10 @@ namespace Assets.Script.Utility
             {
                 try
                 {
+                    if (data[index].Length < 3)
+                    {
+                        return new List<float>() { FloatParse(data, index) };
+                    }
                     realData = new List<float>();
                     string realDateString = data[index].Substring(1, data[index].Length - 2);
                     string[] realDateStringArray = realDateString.Split(',');
@@ -98,12 +102,12 @@ namespace Assets.Script.Utility
                 }
                 catch
                 {
-                    Debug.LogError(" StrParse  data is error " + data[index]);
+                    Debug.LogError(" ListParse  data is error " + data[index]);
                 }
             }
             else
             {
-                Debug.LogError(" StrParse index is error " + index);
+                Debug.LogError(" ListParse index is error " + index);
             }
             return realData;
         }

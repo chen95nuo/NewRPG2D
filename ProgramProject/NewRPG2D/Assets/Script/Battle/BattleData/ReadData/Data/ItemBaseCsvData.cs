@@ -29,6 +29,10 @@ namespace Assets.Script.Battle.BattleData
 
         public static float[] FloatArray(List<float> parse)
         {
+            if (parse == null)
+            {
+                return null;
+            }
             float[] f = new float[parse.Count];
             for (int i = 0; i < parse.Count; i++)
             {
