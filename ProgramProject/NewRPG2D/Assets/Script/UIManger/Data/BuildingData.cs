@@ -30,7 +30,7 @@ public class BuildingData : ItemBaseCsvData
 
     public override CsvEChartsType ItemCsvName
     {
-        get { return CsvEChartsType.RolePropertyData; }
+        get { return CsvEChartsType.BuildingData; }
     }
 
     public override bool AnalySis(string[] data)
