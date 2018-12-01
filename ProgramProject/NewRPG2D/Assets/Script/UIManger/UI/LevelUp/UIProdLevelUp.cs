@@ -143,7 +143,7 @@ public class UIProdLevelUp : UILevelUp
             txt_StockUp.text = "+" + 0;
             return;
         }
-        b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
+        b_Data_2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(b_Data_1.NextLevelID);
         txt_YieldUp.text = "+" + (b_Data_2.Param1 - b_Data_1.Param1);
         txt_StockUp.text = "+" + (b_Data_2.Param2 - b_Data_1.Param2);
 
@@ -169,7 +169,7 @@ public class UIProdLevelUp : UILevelUp
             txt_StockUp_2.text = "+" + 0;
             return;
         }
-        b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
+        b_Data_2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(b_Data_1.NextLevelID);
         txt_StockUp_2.text = "+" + (b_Data_2.Param2 - b_Data_1.Param2);
     }
 

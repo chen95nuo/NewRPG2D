@@ -5,7 +5,7 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using System.Xml;
 
-public class PropData : ItemBaseData
+public class PropData : ItemBaseCsvData
 {
     public string des;
     public string SpriteName;
@@ -14,18 +14,22 @@ public class PropData : ItemBaseData
     public PropType propType;//道具类型
     public int num;
 
-    public override XmlName ItemXmlName
+    public override CsvEChartsType ItemCsvName
     {
-        get { return XmlName.PropData; }
+        get { return CsvEChartsType.PropData; }
     }
 
-    public override bool GetXmlDataAttribute(XmlNode node)
+    public override bool AnalySis(string[] data)
     {
-        des = ReadXmlDataMgr.StrParse(node, "Description");
-        SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteId");
-        quality = (QualityTypeEnum)ReadXmlDataMgr.IntParse(node, "Quality");
-        getAccess = (GetAccess)ReadXmlDataMgr.IntParse(node, "GetAccess");
-        propType = (PropType)ReadXmlDataMgr.IntParse(node, "PropType");
-        return base.GetXmlDataAttribute(node);
+        if (base.AnalySis(data))
+        {
+            des = StrParse(data, 1);
+            SpriteName = StrParse(data, 2);
+            quality = (QualityTypeEnum)IntParse(data, 3);
+            getAccess = (GetAccess)IntParse(data, 4);
+            propType = (PropType)IntParse(data, 5);
+            return true;
+        }
+        return false;
     }
 }

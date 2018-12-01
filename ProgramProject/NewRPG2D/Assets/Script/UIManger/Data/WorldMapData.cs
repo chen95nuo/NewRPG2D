@@ -5,22 +5,26 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using System.Xml;
 
-public class WorldMapData : ItemBaseData
+public class WorldMapData : ItemBaseCsvData
 {
     public string Name;
     public int ChapterID;
     public string SpriteName;
 
-    public override XmlName ItemXmlName
+    public override CsvEChartsType ItemCsvName
     {
-        get { return XmlName.WorldMapData; }
+        get { return CsvEChartsType.WorldMapData; }
     }
 
-    public override bool GetXmlDataAttribute(XmlNode node)
+    public override bool AnalySis(string[] data)
     {
-        Name = ReadXmlDataMgr.StrParse(node, "Name");
-        ChapterID = ReadXmlDataMgr.IntParse(node, "LessonID");
-        SpriteName = ReadXmlDataMgr.StrParse(node, "SpriteName");
-        return base.GetXmlDataAttribute(node);
+        if (base.AnalySis(data))
+        {
+            Name = StrParse(data, 2);
+            ChapterID = IntParse(data, 3);
+            SpriteName = StrParse(data, 4);
+            return true;
+        }
+        return false;
     }
 }

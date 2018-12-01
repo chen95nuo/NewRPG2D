@@ -6,7 +6,7 @@ using Assets.Script.Battle.BattleData;
 using System.Xml;
 
 [System.Serializable]
-public class BuildingData : ItemBaseData
+public class BuildingData : ItemBaseCsvData
 {
     public int Level;
     public BuildRoomName RoomName;//房间类型
@@ -28,45 +28,49 @@ public class BuildingData : ItemBaseData
     public Vector2[] RolePoint;//每个位置的角色坐标
     public string[] RoleAnim;//每个位置的角色动画
 
-    public override XmlName ItemXmlName
+    public override CsvEChartsType ItemCsvName
     {
-        get { return XmlName.BuildingData; }
+        get { return CsvEChartsType.RolePropertyData; }
     }
 
-    public override bool GetXmlDataAttribute(XmlNode node)
+    public override bool AnalySis(string[] data)
     {
-        Level = ReadXmlDataMgr.IntParse(node, "Level");
-        string name = ReadXmlDataMgr.StrParse(node, "RoomName");
-        RoomName = (BuildRoomName)System.Enum.Parse(typeof(BuildRoomName), name);
-        RoomType = (RoomType)ReadXmlDataMgr.IntParse(node, "RoomType");
-        NeedGold = ReadXmlDataMgr.IntParse(node, "NeedGold");
-        NeedMana = ReadXmlDataMgr.IntParse(node, "NeedMana");
-        NeedWood = ReadXmlDataMgr.IntParse(node, "NeedWood");
-        NeedIron = ReadXmlDataMgr.IntParse(node, "NeedIron");
-        NeedTime = ReadXmlDataMgr.IntParse(node, "NeedTime");
-        NeedLevel = ReadXmlDataMgr.IntParse(node, "NeedLevel");
-        RoomSize = ReadXmlDataMgr.IntParse(node, "RoomSize");
-        RoomRole = ChickRoomRole(RoomSize);
-        MergeID = ReadXmlDataMgr.IntParse(node, "MergeID");
-        SplitID = ReadXmlDataMgr.IntParse(node, "SplitID");
-        UnlockLevel = ReadXmlDataMgr.FloatArray(node, "UnlockLevel");
-        NextLevelID = ReadXmlDataMgr.IntParse(node, "NextLevelID");
-        Param1 = ReadXmlDataMgr.FloatParse(node, "Param1");
-        Param2 = ReadXmlDataMgr.FloatParse(node, "Param2");
-        RolePoint = Vector2Parse(node, "RolePoint");
-        RoleAnim = StringArray(node, "RoleAnim");
-        return base.GetXmlDataAttribute(node);
+        if (base.AnalySis(data))
+        {
+            Level = IntParse(data, 2);
+            string name = StrParse(data, 3);
+            RoomName = (BuildRoomName)System.Enum.Parse(typeof(BuildRoomName), name);
+            RoomType = (RoomType)IntParse(data, 4);
+            NeedGold = IntParse(data, 5);
+            NeedMana = IntParse(data, 6);
+            NeedWood = IntParse(data, 7);
+            NeedIron = IntParse(data, 8);
+            NeedTime = IntParse(data, 9);
+            NeedLevel = IntParse(data, 10);
+            RoomSize = IntParse(data, 11);
+            RoomRole = ChickRoomRole(RoomSize);
+            MergeID = IntParse(data, 12);
+            SplitID = IntParse(data, 13);
+            UnlockLevel = FloatArray(StrParse(data, 14));
+            NextLevelID = IntParse(data, 15);
+            Param1 = FloatParse(data, 16);
+            Param2 = FloatParse(data, 17);
+            RolePoint = Vector2Parse(data, 18);
+            RoleAnim = StringArray(data, 19);
+            return true;
+        }
+        return false;
     }
 
-    private string[] StringArray(XmlNode node, string name)
+    private string[] StringArray(string[] data, int index)
     {
-        string a = ReadXmlDataMgr.StrParse(node, name);
+        string a = StrParse(data, index);
         return a.Split(',');
     }
 
-    private Vector2[] Vector2Parse(XmlNode node, string name)
+    private Vector2[] Vector2Parse(string[] data, int index)
     {
-        string a = ReadXmlDataMgr.StrParse(node, name);
+        string a = StrParse(data, index);
         string[] astr = a.Split(',');
         Vector2[] point = new Vector2[astr.Length];
         for (int i = 0; i < astr.Length; i++)

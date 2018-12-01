@@ -207,7 +207,7 @@ public class UIWorkShopInfo : TTUIPage
         txt_Quality.text = LanguageDataMgr.instance.GetString("WorkShop_" + currentShopData[index].Quality.ToString());
         txt_NeedTime.gameObject.SetActive(true);
         txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(currentShopData[index].NeedTime, false);
-        string spriteName = PropDataMgr.instance.GetXmlDataByItemId<PropData>(currentShopData[index].NeedPropId).SpriteName;
+        string spriteName = PropDataMgr.instance.GetDataByItemId<PropData>(currentShopData[index].NeedPropId).SpriteName;
         propIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(spriteName);
         grid.UpdateInfo(currentData.buildingData, currentIndex);
         UpdateLeftTip();

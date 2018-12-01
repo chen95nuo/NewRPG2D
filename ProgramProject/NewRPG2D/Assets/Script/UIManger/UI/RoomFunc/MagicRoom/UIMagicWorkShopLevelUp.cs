@@ -26,7 +26,7 @@ public class UIMagicWorkShopLevelUp : UILevelUp
         base.Init(data);
         slider_1.fillAmount = data.currentBuildData.buildingData.Param2 / 6;
         txt_UseNum.text = data.currentBuildData.buildingData.Param2.ToString();
-        BuildingData buildData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.currentBuildData.buildingData.NextLevelID);
+        BuildingData buildData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.currentBuildData.buildingData.NextLevelID);
         slider_2.fillAmount = buildData.Param2 / 6;
         txt_NextNum.text = buildData.Param2.ToString();
 

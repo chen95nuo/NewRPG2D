@@ -19,18 +19,6 @@ namespace Assets.Script.Utility
         {
             switch (name)
             {
-                case XmlName.BuildingData:
-                    return new BuildingData();
-                case XmlName.TrainData:
-                    return new TrainData();
-                case XmlName.MagicData:
-                    return new MagicData();
-                case XmlName.ChildData:
-                    return new ChildData();
-                case XmlName.PropData:
-                    return new PropData();
-                case XmlName.WorldMapData:
-                    return new WorldMapData();
                 case XmlName.WorkShopData:
                     return new WorkShopData();
                 default: return new XmlData();

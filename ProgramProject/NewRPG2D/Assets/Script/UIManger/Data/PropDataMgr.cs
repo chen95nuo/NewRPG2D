@@ -4,11 +4,11 @@ using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 
-public class PropDataMgr : ItemDataBaseMgr<PropDataMgr>
+public class PropDataMgr : ItemCsvDataBaseMgr<PropDataMgr>
 {
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.PropData; }
+        get { return CsvEChartsType.PropData; }
     }
 
     public List<PropData> GetPropDataByType(PropType propType, QualityTypeEnum qualityType)

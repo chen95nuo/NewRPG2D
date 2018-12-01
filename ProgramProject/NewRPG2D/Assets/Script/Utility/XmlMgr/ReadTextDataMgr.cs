@@ -45,7 +45,7 @@ namespace Assets.Script.Utility
         LanguageData,
         CreateEnemyData,
 
-    
+
 
         //动态读取
         MapSceneLevel,
@@ -70,11 +70,22 @@ namespace Assets.Script.Utility
                 //    return new RolePropertyData();
                 //case CsvEChartsType.MapSceneLevel:
                 //    return new MapSceneLevelData();
-               
+                case CsvEChartsType.BuildingData:
+                    return new BuildingData();
+                case CsvEChartsType.MagicData:
+                    return new MagicData();
+                case CsvEChartsType.ChildData:
+                    return new ChildData();
+                case CsvEChartsType.PropData:
+                    return new PropData();
+                case CsvEChartsType.WorldMapData:
+                    return new WorldMapData();
+
+
                 default: return new ItemBaseCsvData();
             }
         }
-     
+
 
         //文件名返回路径
         public static string FileCSV(string _fileName)

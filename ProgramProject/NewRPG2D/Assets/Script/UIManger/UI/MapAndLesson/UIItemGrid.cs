@@ -27,7 +27,7 @@ public class UIItemGrid : MonoBehaviour
     public void UpdateInfo(int itemId, int minCount, int MaxCount = 0)
     {
         gridType = ItemType.All;
-        PropData propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(itemId);
+        PropData propData = PropDataMgr.instance.GetDataByItemId<PropData>(itemId);
         Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
         Debug.Log("MinCount" + minCount);
         Debug.Log("MaxCount" + MaxCount);
@@ -60,7 +60,7 @@ public class UIItemGrid : MonoBehaviour
                 Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(boxData.SpriteName);
                 break;
             case ItemType.Prop:
-                propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(data.itemId);
+                propData = PropDataMgr.instance.GetDataByItemId<PropData>(data.itemId);
                 Icon.sprite = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
                 break;
             case ItemType.Equip:

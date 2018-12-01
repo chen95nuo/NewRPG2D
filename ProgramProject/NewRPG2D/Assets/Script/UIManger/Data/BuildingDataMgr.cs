@@ -4,11 +4,11 @@ using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 
-public class BuildingDataMgr : ItemDataBaseMgr<BuildingDataMgr>
+public class BuildingDataMgr : ItemCsvDataBaseMgr<BuildingDataMgr>
 {
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.BuildingData; }
+        get { return CsvEChartsType.BuildingData; }
     }
 
     /// <summary>

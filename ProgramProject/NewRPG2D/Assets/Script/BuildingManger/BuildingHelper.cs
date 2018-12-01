@@ -210,7 +210,7 @@ public class LocalBuildingData
     public LocalBuildingData(proto.SLGV1.RoomInfo data, int id)
     {
         this.id = id;
-        this.buildingData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.id);
+        this.buildingData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.id);
         this.buildingPoint = new Vector2(data.xFloorOriginOffset[0], data.xFloorOriginOffset[1]);
         this.leftTime = data.leftTime;
 

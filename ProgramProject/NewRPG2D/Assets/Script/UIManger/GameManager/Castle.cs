@@ -216,11 +216,11 @@ public class Castle : MonoBehaviour
                 //如果这是个可以合并的组合
                 if (data.BuildingData.RoomSize < data.nearbyRoom[i].BuildingData.RoomSize)
                 {
-                    b_data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nearbyRoom[i].BuildingData.MergeID);
+                    b_data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.nearbyRoom[i].BuildingData.MergeID);
                 }
                 else
                 {
-                    b_data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.BuildingData.MergeID);
+                    b_data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.BuildingData.MergeID);
                 }
                 LocalBuildingData s_data = new LocalBuildingData();
                 //判断谁在左边

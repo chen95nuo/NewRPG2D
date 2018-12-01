@@ -987,7 +987,7 @@ public abstract class RoomMgr : MonoBehaviour
             return;
         }
         ConstructionType = true;
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(nextId);
+        BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextId);
         int needTime = 0;
         if (time == 0)
         {
@@ -1011,7 +1011,7 @@ public abstract class RoomMgr : MonoBehaviour
     /// </summary>
     public void ConstructionComplete(LevelUPHelper data)
     {
-        BuildingData changeData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.nextID);
+        BuildingData changeData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.nextID);
         CheckPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
         levelUpTip = null;
         ConstructionType = false;

@@ -15,7 +15,7 @@ public class UIMagicLabLevelUp : UILevelUp
     {
         base.Init(room);
         int nextID = room.currentBuildData.buildingData.NextLevelID;
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(nextID);
+        BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextID);
         int nowUnLock = (int)room.BuildingData.Param1 - 1;
         int nextUnlock = (int)data.Param1;
         for (int i = nowUnLock; i < nextUnlock; i++)

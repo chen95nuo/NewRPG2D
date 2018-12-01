@@ -19,7 +19,7 @@ public class UITrainLevelUp : UILevelUp
     {
         base.Init(data);
         BuildingData d1 = data.currentBuildData.buildingData;
-        BuildingData d2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(d1.NextLevelID);
+        BuildingData d2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(d1.NextLevelID);
 
         txt_Number.text = d1.Param1.ToString();
         txt_UpNumber.text = (d2.Param1 - d1.Param1).ToString();

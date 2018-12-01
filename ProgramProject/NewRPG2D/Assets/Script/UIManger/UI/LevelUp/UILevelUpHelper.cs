@@ -54,7 +54,7 @@ public class UILevelUpHelper : MonoBehaviour
             txt_Diamonds.text = "";
             return;
         }
-        b_Data_2 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(b_Data_1.NextLevelID);
+        b_Data_2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(b_Data_1.NextLevelID);
 
         allNeed = 0;
         if (b_Data_2.NeedGold > 0)
@@ -119,7 +119,7 @@ public class UILevelUpHelper : MonoBehaviour
             //材料足够倒计时升级
             int id = roomMgr.BuildingData.NextLevelID;
             roomMgr.ConstructionStart(id, 0);
-            BuildingData temp = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(roomMgr.BuildingData.NextLevelID);
+            BuildingData temp = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(roomMgr.BuildingData.NextLevelID);
             CheckPlayerInfo.instance.RoomUseStock(temp);
             return;
         }

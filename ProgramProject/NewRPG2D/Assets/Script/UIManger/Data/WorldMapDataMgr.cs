@@ -4,11 +4,11 @@ using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 
-public class WorldMapDataMgr : ItemDataBaseMgr<WorldMapDataMgr>
+public class WorldMapDataMgr : ItemCsvDataBaseMgr<WorldMapDataMgr>
 {
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.WorldMapData; }
+        get { return CsvEChartsType.WorldMapData; }
     }
 
     private Dictionary<WorldMapData, List<MapLevelData>> allLessonData;

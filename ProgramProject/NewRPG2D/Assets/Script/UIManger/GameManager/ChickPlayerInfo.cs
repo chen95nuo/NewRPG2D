@@ -265,7 +265,7 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
     /// </summary>
     public void ChickBuildMerge(ServerBuildData data)
     {
-        BuildingData TempData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(data.id);
+        BuildingData TempData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.id);
         for (int i = 0; i < dic[TempData.RoomName].Length; i++)
         {
             if (dic[TempData.RoomName][i] != null
@@ -873,7 +873,7 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
         }
         else
         {
-            BuildingData data_1 = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
+            BuildingData data_1 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
             CheckPlayerInfo.instance.ChickBuildDicChange(LocalData, data_1);
         }
     }
@@ -1221,7 +1221,7 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
             return null;
         }
         int id = data.NextLevelID;
-        BuildingData newData = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(id);
+        BuildingData newData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(id);
         Dictionary<ThroneInfoType, List<BuildingData>> temp = new Dictionary<ThroneInfoType, List<BuildingData>>();
         temp.Add(ThroneInfoType.Build, new List<BuildingData>());
         temp.Add(ThroneInfoType.Upgraded, new List<BuildingData>());

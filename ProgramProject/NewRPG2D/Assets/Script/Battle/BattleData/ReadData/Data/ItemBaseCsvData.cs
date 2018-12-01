@@ -26,5 +26,20 @@ namespace Assets.Script.Battle.BattleData
         {
             return ItemName;
         }
+
+        public static float[] FloatArray(string a)
+        {
+            string[] astr = a.Split(',');
+            float[] f = new float[astr.Length];
+            for (int i = 0; i < astr.Length; i++)
+            {
+                f[i] = float.Parse(astr[i]);
+                if (f[i] == 0)
+                {
+                    return null;
+                }
+            }
+            return f;
+        }
     }
 }

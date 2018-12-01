@@ -48,7 +48,7 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
                 }
             }
         }
-        PropData pData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(id);
+        PropData pData = PropDataMgr.instance.GetDataByItemId<PropData>(id);
         if (pData == null)
         {
             return null;

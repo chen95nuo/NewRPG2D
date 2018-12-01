@@ -4,11 +4,11 @@ using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 
-public class TrainDataMgr : ItemDataBaseMgr<TrainDataMgr>
+public class TrainDataMgr : ItemCsvDataBaseMgr<TrainDataMgr>
 {
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.TrainData; }
+        get { return CsvEChartsType.TrainData; }
     }
 
     public int GetTrainData(TrainType type, int level)

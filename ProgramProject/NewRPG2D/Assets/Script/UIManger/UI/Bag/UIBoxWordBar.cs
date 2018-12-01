@@ -18,7 +18,7 @@ public class UIBoxWordBar : MonoBehaviour
 
     public void UpdateInfo(TreasureBoxItemData data)
     {
-        PropData propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(data.ItemId);
+        PropData propData = PropDataMgr.instance.GetDataByItemId<PropData>(data.ItemId);
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.SpriteName);
         image_Icon.sprite = sp;
         string tip = UpdateStart(data.ItemMinCount, data.ItemMaxCount, propData.quality, propData.des);
@@ -26,7 +26,7 @@ public class UIBoxWordBar : MonoBehaviour
     }
     public void UpdateInfo(RandomTreasureBoxItemData data)
     {
-        PropData propData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(data.ItemData.ItemId);
+        PropData propData = PropDataMgr.instance.GetDataByItemId<PropData>(data.ItemData.ItemId);
         UpdateStart(data.ItemData.ItemMinCount, data.ItemData.ItemMaxCount, propData.quality, propData.des);
     }
 

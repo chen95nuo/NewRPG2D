@@ -6,23 +6,27 @@ using Assets.Script.Battle.BattleData;
 using System.Xml;
 
 [System.Serializable]
-public class TrainData : ItemBaseData
+public class TrainData : ItemBaseCsvData
 {
     public TrainType trainType;
     public float[] level;
     public int needTime;
 
-    public override XmlName ItemXmlName
+    public override CsvEChartsType ItemCsvName
     {
-        get { return XmlName.TrainData; }
+        get { return CsvEChartsType.TrainData; }
     }
 
-    public override bool GetXmlDataAttribute(XmlNode node)
+    public override bool AnalySis(string[] data)
     {
-        int typeIndex = ReadXmlDataMgr.IntParse(node, "TrainType");
-        trainType = (TrainType)typeIndex;
-        level = ReadXmlDataMgr.FloatArray(node, "Level");
-        needTime = ReadXmlDataMgr.IntParse(node, "NeedTime");
-        return base.GetXmlDataAttribute(node);
+        if (base.AnalySis(data))
+        {
+            int typeIndex = IntParse(data, 1);
+            trainType = (TrainType)typeIndex;
+            level = FloatArray(StrParse(data, 2));
+            needTime = IntParse(data, 3);
+            return true;
+        }
+        return false;
     }
 }

@@ -6,7 +6,7 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using Assets.Script.Timer;
 
-public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
+public class MagicDataMgr : ItemCsvDataBaseMgr<MagicDataMgr>
 {
     private MagicWorkShopHelper allMagicData = new MagicWorkShopHelper();
     private Dictionary<MagicName, MagicData> MagicLevel = new Dictionary<MagicName, MagicData>();//所有技能等级
@@ -22,9 +22,9 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
         }
     }
 
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.MagicData; }
+        get { return CsvEChartsType.MagicData; }
     }
 
     public MagicWorkShopHelper AllMagicData
@@ -132,7 +132,7 @@ public class MagicDataMgr : ItemDataBaseMgr<MagicDataMgr>
     public void CryNewMagic(int id, int time = 0)
     {
         int index = InstanceMagicID;
-        MagicData magicData = GetXmlDataByItemId<MagicData>(id);
+        MagicData magicData = GetDataByItemId<MagicData>(id);
         RealMagic data = new RealMagic(index, magicData, time);
         data.time = time == 0 ? data.magic.produceTime : time;
         allMagicData.workQueue.Add(data);

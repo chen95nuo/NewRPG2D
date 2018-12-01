@@ -95,7 +95,7 @@ public class UIMagicLevelUp : TTUIPage
     public void ChickLevelUpInfo()
     {
         MagicLevelUpHelper magicData = MagicDataMgr.instance.GetLevelUpData;
-        MagicData nextMagic = MagicDataMgr.instance.GetXmlDataByItemId<MagicData>(magicData.id);
+        MagicData nextMagic = MagicDataMgr.instance.GetDataByItemId<MagicData>(magicData.id);
         MagicData nowMagic = MagicDataMgr.instance.GetMagic(nextMagic.magicName, nextMagic.level - 1);
         levelUpGrid.UpdateInfo(nowMagic);
         txt_Level.text = nowMagic.level.ToString();

@@ -89,7 +89,7 @@ public class UIEditMode : TTUIPage
         }
         EditCastle.instance.editAllBuilding.Remove(selectRoom.currentBuildData);
         int index = selectRoom.BuildingData.RoomSize / 3;
-        BuildingData data = BuildingDataMgr.instance.GetXmlDataByItemId<BuildingData>(selectRoom.BuildingData.SplitID);
+        BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(selectRoom.BuildingData.SplitID);
         EditCastle.instance.RemoveRoom(selectRoom);
         for (int i = 0; i < index; i++)
         {

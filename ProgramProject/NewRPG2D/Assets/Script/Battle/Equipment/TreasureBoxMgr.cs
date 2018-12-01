@@ -60,7 +60,7 @@ namespace Assets.Script.Battle.Equipment
             {
                 return;
             }
-            PropData mData = PropDataMgr.instance.GetXmlDataByItemId<PropData>(itemId);
+            PropData mData = PropDataMgr.instance.GetDataByItemId<PropData>(itemId);
             if (mData.propType == PropType.Equipment)
             {
                 for (int i = 0; i < count; i++)
