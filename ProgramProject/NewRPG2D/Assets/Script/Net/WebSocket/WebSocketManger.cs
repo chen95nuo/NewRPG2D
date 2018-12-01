@@ -259,7 +259,15 @@ namespace Assets.Script.Net
                 default:
                     break;
             }
-            data = send.Send(param);
+            try
+            {
+                data = send.Send(param);
+            }
+            catch
+            {
+                Debug.LogError("发送的协议号为 :" + netId);
+                throw;
+            }
             return data;
         }
 
@@ -339,13 +347,14 @@ namespace Assets.Script.Net
                     break;
 
             }
+
             try
             {
                 receive.Receive(receiveData, (int)netId);
             }
-            catch (Exception e)
+            catch
             {
-                Debug.Log("返回的协议号为 :" + (int)netId);
+                Debug.LogError("返回的协议号为 :" + (int)netId);
                 throw;
             }
         }
