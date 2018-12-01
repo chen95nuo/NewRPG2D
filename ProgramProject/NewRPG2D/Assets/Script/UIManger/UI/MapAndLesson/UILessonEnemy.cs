@@ -12,7 +12,7 @@ public class UILessonEnemy : MonoBehaviour
     public void UpdateInfo(int enemyID)
     {
         Debug.Log("怪物ID :" + enemyID);
-        RolePropertyData roleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(enemyID);
+        RolePropertyData roleData = RolePropertyCsvDataMgr.instance.GetDataByItemId<RolePropertyData>(enemyID);
         Icon.sprite = GetSpriteAtlas.insatnce.GetEnemyIcon(roleData.SpriteName);
     }
 }

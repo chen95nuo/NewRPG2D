@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.Battle;
 using Assets.Script.Battle.BattleData;
+using Assets.Script.Battle.BattleData.ReadData;
 using Assets.Script.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ public class BattleStartTest : MonoBehaviour
     {
         //ReadJsonNewMgr.instance.LoadJsonByMono(this);
         ReadXmlNewMgr.instance.ReadXmlByType(XmlName.RoleData, XmlName.Battle, XmlTypeEnum.Battle);
+        ReadTextAssetMgr.CreateInstance();
     }
 
     // Use this for initialization
@@ -29,6 +31,17 @@ public class BattleStartTest : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            RolePropertyData data = RolePropertyCsvDataMgr.instance.GetDataByItemId<RolePropertyData>(10001);
+            Debug.LogError("name  ==" + data.ItemCsvName);
+        }
+    }
+
+
     public void StartGame()
     {
         RoleDetailData role1 = new RoleDetailData();//GameCardData.Instance.GetItem(Int32.Parse(Role1Field.text));

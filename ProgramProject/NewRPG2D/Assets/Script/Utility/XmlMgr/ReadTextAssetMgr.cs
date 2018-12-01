@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,39 +8,158 @@ using UnityEngine;
 
 namespace Assets.Script.Utility
 {
+    public abstract class CSVAnalysis
+    {
+        public virtual CsvEChartsType ItemCsvName
+        {
+            get { return 0; }
+        }
+
+        public abstract bool AnalySis(string[] data);
+
+        protected int IntParse(string[] data, int index)
+        {
+
+            if (data.Length > index)
+            {
+                try
+                {
+                    return int.Parse(data[index]);
+                }
+                catch
+                {
+                    Debug.LogError(" IntParse  data is error " + data[index]);
+                }
+            }
+            else
+            {
+                Debug.LogError(" IntParse index is error " + index);
+            }
+            return 0;
+        }
+
+        protected float FloatParse(string[] data, int index)
+        {
+
+            if (data.Length > index)
+            {
+                try
+                {
+                    return float.Parse(data[index]);
+                }
+                catch
+                {
+                    Debug.LogError(" FloatParse  data is error " + data[index]);
+                }
+            }
+            else
+            {
+                Debug.LogError(" FloatParse index is error " + index);
+            }
+            return 0.0f;
+        }
+
+        protected string StrParse(string[] data, int index)
+        {
+
+            if (data.Length > index)
+            {
+                try
+                {
+                    return data[index];
+                }
+                catch
+                {
+                    Debug.LogError(" StrParse  data is error " + data[index]);
+                }
+            }
+            else
+            {
+                Debug.LogError(" StrParse index is error " + index);
+            }
+            return "";
+        }
+
+        protected List<float> ListParse(string[] data, int index)
+        {
+            List<float> realData = null;
+            if (data.Length > index)
+            {
+                try
+                {
+                    realData = new List<float>();
+                    string realDateString = data[index].Substring(1, data[index].Length - 2);
+                    string[] realDateStringArray = realDateString.Split(',');
+                    for (int i = 0; i < realDateStringArray.Length; i++)
+                    {
+                        realData.Add(FloatParse(realDateStringArray, i));
+                    }
+                    return realData;
+                }
+                catch
+                {
+                    Debug.LogError(" StrParse  data is error " + data[index]);
+                }
+            }
+            else
+            {
+                Debug.LogError(" StrParse index is error " + index);
+            }
+            return realData;
+        }
+
+    }
+
     public class ReadTextAssetMgr : TSingleton<ReadTextAssetMgr>
     {
-        public Dictionary<int, XmlData[]> AllTxtDataDic;
+        public Dictionary<Enum, List<CSVAnalysis>> dicCsvMode = new Dictionary<Enum, List<CSVAnalysis>>();
+        public bool isLoading = true;
+        int loadIndex = 0;
         public override void Init()
         {
             base.Init();
-            AllTxtDataDic = new Dictionary<int, XmlData[]>(10);
-
-            for (int i = 0; i < (int)XmlName.Max; i++)
+            Debug.Log("开始下载");
+            for (int i = 0; i < (int)CsvEChartsType.Max; i++)
             {
-                if (i == (int) XmlName.Hall || i == (int) XmlName.Battle)
-                {
-                    continue;;
-                }
-
-                XmlName name = (XmlName)i;
-                ReadTxt(name);
+                ConfigCSVFileName((CsvEChartsType)i);
             }
         }
 
-        private void ReadTxt(XmlName name)
+        /// <summary>
+        /// 配置CSV文件名,并配置对应的解析CSV文件的类
+        /// </summary>
+        private void ConfigCSVFileName(CsvEChartsType filEChartsType)
         {
-            string mPath = ReadXmlDataMgr.GetXmlPath(name.ToString());
-            TextAsset binAsset = Resources.Load(mPath, typeof(TextAsset)) as TextAsset;
-            string[] lineArray = binAsset.text.Split("\r"[0]);
-            XmlData[] xmlDataArray = new XmlData[lineArray.Length];
-            for (int i = 0; i < lineArray.Length; i++)
+            GameLogic.Instance.StartCoroutine(DownLoadData(filEChartsType));
+        }
+
+        private IEnumerator DownLoadData(CsvEChartsType filEChartsType)
+        {
+            isLoading = true;
+
+            //下载ECharts.csv
+            List<string[]> model = new List<string[]>();
+
+            yield return model = ReadTextDataMgr.ReadCSV(filEChartsType.ToString());
+
+            List<CSVAnalysis> listCsv = new List<CSVAnalysis>(model.Count);
+            int tabelHead = 3;
+            for (int i = tabelHead; i < model.Count; i++)
             {
-                XmlData data = ReadTextDataMgr.GetXmlData(name);
-                data.GetXmlDataAttribute(lineArray[i]);
-                xmlDataArray[i] = data;
+                CSVAnalysis data = ReadTextDataMgr.GetXmlData(filEChartsType);
+                data.AnalySis(model[i]);
+                listCsv.Add(data);
             }
-            AllTxtDataDic[(int)name] = xmlDataArray;
+            dicCsvMode[filEChartsType] = listCsv;
+            isLoading = false;
+        }
+
+        public void DownLoad(string fileName, Action<string, List<string[]>> callback)
+        {
+            if (callback != null)
+            {
+                callback(fileName, ReadTextDataMgr.ReadCSV(fileName));
+            }
         }
     }
 }

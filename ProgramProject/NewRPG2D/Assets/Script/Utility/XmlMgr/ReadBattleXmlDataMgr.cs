@@ -20,12 +20,12 @@ namespace Assets.Script.Utility
             {
                 case XmlName.RoleData:
                     return new RoleData();
-                case XmlName.RolePropertyData:
-                    return new RolePropertyData();
+                //case XmlName.RolePropertyData:
+                //    return new RolePropertyData();
                 case XmlName.SkillData:
                     return new SkillData();
-                case XmlName.BufferData:
-                    return new RolePropertyData();
+                //case XmlName.BufferData:
+                //    return new RolePropertyData();
                 case XmlName.MapSceneLevel:
                     return new MapSceneLevelData();
                

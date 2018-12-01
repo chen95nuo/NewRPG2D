@@ -46,7 +46,7 @@ namespace Assets.Script.Battle
             info.RoleId = roleId;
             info.RoleType = RoleTypeEnum.Monster;
             role.SetRoleInfo(info, roleMono);
-            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
+            RolePropertyData currentRoleData = RolePropertyCsvDataMgr.instance.GetDataByItemId<RolePropertyData>(roleId);
             role.InitRoleBaseProperty(currentRoleData, null);
             if (currentRoleData.Profession == WeaponProfessionEnum.Fighter)
             {
@@ -115,7 +115,7 @@ namespace Assets.Script.Battle
 
         private RoleRender SetRoleTransform(int roleId, string indexName, int instanceId, Transform transform, Vector3 mPosition, float angle)
         {
-            RolePropertyData currentRoleData = RolePropertyDataMgr.instance.GetXmlDataByItemId<RolePropertyData>(roleId);
+            RolePropertyData currentRoleData = RolePropertyCsvDataMgr.instance.GetDataByItemId<RolePropertyData>(roleId);
             if (currentRoleData == null)
             {
                 return null;
