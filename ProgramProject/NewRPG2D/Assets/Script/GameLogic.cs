@@ -63,6 +63,7 @@ namespace Assets.Script
             CTimerManager.CreateInstance();
             ResourcesLoadMgr.GetInstance();
             WebSocketManger.GetInstance();
+            ReadTextAssetMgr.CreateInstance();
         }
 
         /// <summary>
