@@ -24,17 +24,18 @@ namespace Assets.Script.Utility
 
         //战斗内的
         RolePropertyData,
+        //城堡大厅的
         BuildingData,
-        Max,
-
+        TrainData,
         MagicData,
         ChildData,
         PropData,
         WorldMapData,
-        TrainData,
+
+        Max,
+
         //城堡大厅的
         WorkShopData,
-
 
         SkillData,
         RoleData,
@@ -130,7 +131,7 @@ namespace Assets.Script.Utility
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError(e.Message + "请检查本地文件是否打开");
+                    Debug.LogError(e.Message + "请检查本地文件是否打开" + _fileName);
                 }
 
             }
@@ -161,7 +162,7 @@ namespace Assets.Script.Utility
         {
             string[] values = line.Split(',');
             List<string> valueList = new List<string>(values.Length);
-            int startIndex = values.Length, endIndex = 0;
+            int startIndex = values.Length, endIndex = 0, needChangeCount = 0;
             for (int i = 0; i < values.Length; i++)
             {
                 if (values[i].StartsWith("\"") && values[i].EndsWith("\"") == false)
@@ -172,24 +173,21 @@ namespace Assets.Script.Utility
 
                 if (i > startIndex && i < endIndex)
                 {
+                  
+                    values[startIndex] += "," + values[i];
                     if (values[i].EndsWith("\""))
                     {
                         endIndex = i;
+                        int listIndex = valueList.Count <= startIndex ? startIndex - needChangeCount: startIndex;
+                        valueList[listIndex] = values[startIndex];
                     }
-                    values[startIndex] += "," + values[i];
+                    needChangeCount++;
                     values[i] = string.Empty;
                 }
 
                 if (String.IsNullOrEmpty(values[i]) == false)
                 {
                     valueList.Add(values[i]);
-                }
-                else
-                {
-                    if (valueList.Count >= startIndex)
-                    {
-                        valueList[startIndex] = values[startIndex];
-                    }
                 }
             }
             return valueList.ToArray();
