@@ -6,80 +6,72 @@ using Assets.Script.UIManger;
 
 public class UILevelUpTip : TTUIPage
 {
-    public static UILevelUpTip instance;
-
     public Transform tipGridPoint;
     public GameObject tip;
-    private Dictionary<int, UILevelUpTipGrid> timeTextGrids = new Dictionary<int, UILevelUpTipGrid>();
-    private List<UILevelUpTipGrid> outGrids = new List<UILevelUpTipGrid>();
-    private int dicIndex = 0;
     private Canvas canvas;
 
-    public int DicIndex
-    {
-        get
-        {
-            return dicIndex++;
-        }
-    }
+    private Dictionary<int, UILevelUpTipGrid> levelUpGrids = new Dictionary<int, UILevelUpTipGrid>();
+    private List<UILevelUpTipGrid> outGrids = new List<UILevelUpTipGrid>();
 
     private void Awake()
     {
-        instance = this;
         canvas = TTUIRoot.Instance.GetComponent<Canvas>();
     }
     public override void Show(object mData)
     {
         base.Show(mData);
+        LocalBuildingData data = mData as LocalBuildingData;
+        UpdateTime(data);
     }
 
-    public int AddLister(int roomID)
+    private void UpdateTime(LocalBuildingData data)
     {
-        LocalBuildingData roomData = CheckPlayerInfo.instance.GetBuilding(roomID);
-        if (roomData.currentRoom == null)
+        if (levelUpGrids.ContainsKey(data.id))
         {
-            return -1;
-        }
-        int index = 0;
-        index = DicIndex;
-        if (outGrids.Count <= 0)
-        {
-            GameObject go = Instantiate(tip, tipGridPoint) as GameObject;
-            UILevelUpTipGrid data = go.GetComponent<UILevelUpTipGrid>();
-            Transform ts = roomData.currentRoom.disTip.transform;
-            data.GetInfo(ts, canvas);
-            timeTextGrids.Add(index, data);
+            if (data.leftTime == -1)//如果是训练结束发来的消息 删除当前
+            {
+                RemoveLister(data);
+                return;
+            }
+            levelUpGrids[data.id].GetInfo(data, canvas);
         }
         else
         {
-            Transform ts = roomData.currentRoom.disTip.transform;
-            outGrids[0].GetInfo(ts, canvas);
-            outGrids[0].gameObject.SetActive(true);
-            timeTextGrids.Add(index, outGrids[0]);
+            if (data.leftTime == -1)
+            {
+                Debug.LogError("错误消息");
+            }
+            AddLister(data);
+        }
+    }
+
+    private void AddLister(LocalBuildingData buildingData)
+    {
+        UILevelUpTipGrid data;
+        if (outGrids.Count <= 0)
+        {
+            GameObject go = Instantiate(tip, tipGridPoint) as GameObject;
+            data = go.GetComponent<UILevelUpTipGrid>();
+            data.GetInfo(buildingData, canvas);
+        }
+        else
+        {
+            data = outGrids[0];
+            data.gameObject.SetActive(true);
+            data.GetInfo(buildingData, canvas);
             outGrids.RemoveAt(0);
         }
-        return index;
+        levelUpGrids.Add(buildingData.id, data);
+
     }
 
-    public void RemoveLister(int index)
+    public void RemoveLister(LocalBuildingData buildingData)
     {
-        if (timeTextGrids.ContainsKey(index))
+        if (levelUpGrids.ContainsKey(buildingData.id))
         {
-            outGrids.Add(timeTextGrids[index]);
-            timeTextGrids[index].gameObject.SetActive(false);
-            timeTextGrids.Remove(index);
+            outGrids.Add(levelUpGrids[buildingData.id]);
+            levelUpGrids[buildingData.id].gameObject.SetActive(false);
+            levelUpGrids.Remove(buildingData.id);
         }
-    }
-
-    public void UpdateTime(LevelUPHelper data)
-    {
-        if (timeTextGrids.ContainsKey(data.tipID))
-        {
-            timeTextGrids[data.tipID].UpdateTime(data);
-            return;
-        }
-        int newTip = AddLister(data.roomID);
-        CheckPlayerInfo.instance.ChangeBuildNumber(data, newTip);
-        timeTextGrids[newTip].UpdateTime(data);
     }
 }

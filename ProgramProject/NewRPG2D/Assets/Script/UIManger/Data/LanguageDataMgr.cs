@@ -5,16 +5,16 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using System;
 
-public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
+public class LanguageDataMgr : ItemCsvDataBaseMgr<LanguageDataMgr>
 {
     public string redSt = "<color=#ee5151>{0}</color>";
     public string whiteText = "<color=#cccccc>{0}</color>";
 
     Dictionary<string, LanguageData> dic = new Dictionary<string, LanguageData>();
 
-    protected override XmlName CurrentXmlName
+    protected override CsvEChartsType CurrentCsvName
     {
-        get { return XmlName.LanguageData; }
+        get { return CsvEChartsType.LanguageData; }
     }
 
     public string GetString(string message)
@@ -28,6 +28,11 @@ public class LanguageDataMgr : ItemDataBaseMgr<LanguageDataMgr>
             }
         }
         return "";
+    }
+
+    public string GetUIString(string message)
+    {
+        return GetString("UI_" + message);
     }
 
     public string GetRoomTxtColor(BuildRoomName name)

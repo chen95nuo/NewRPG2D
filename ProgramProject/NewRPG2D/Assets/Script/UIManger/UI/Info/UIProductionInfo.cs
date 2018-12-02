@@ -36,21 +36,21 @@ public class UIProductionInfo : UIRoomInfo
 
     private void RefreshStock()
     {
-        slider.fillAmount = roomData.currentBuildData.Stock / roomData.BuildingData.Param2;
-        txt_Stock.text = roomData.currentBuildData.Stock.ToString("#0") + "/" + roomData.BuildingData.Param2.ToString("#0");
+        slider.fillAmount = roomData.Stock / roomData.buildingData.Param2;
+        txt_Stock.text = roomData.Stock.ToString("#0") + "/" + roomData.buildingData.Param2.ToString("#0");
     }
 
-    protected override void UpdateInfo(RoomMgr data)
+    protected override void UpdateInfo(LocalBuildingData data)
     {
-        txt_Yield.text = (data.currentBuildData.buildingData.Param1 + data.currentBuildData.AllRoleProduction()).ToString();
-        txt_Stock.text = data.currentBuildData.Stock.ToString("#0") + "/" + data.BuildingData.Param2.ToString("#0");
+        txt_Yield.text = (data.buildingData.Param1 + data.AllRoleProduction()).ToString();
+        txt_Stock.text = data.Stock.ToString("#0") + "/" + data.buildingData.Param2.ToString("#0");
         ChickRoleNumber(roleGrids);
 
-        CheckPlayerInfo.instance.GetRoomEvent(data.currentBuildData);
+        CheckPlayerInfo.instance.GetRoomEvent(data);
 
-        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.RoomName.ToString());
+        Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.buildingData.RoomName.ToString());
         icons.sprite = sp;
-        rightIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.RoomName + "Stock");
+        rightIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.buildingData.RoomName + "Stock");
         RefreshStock();
     }
 
@@ -60,10 +60,10 @@ public class UIProductionInfo : UIRoomInfo
         CheckPlayerInfo.instance.RemoveRoomEvent();
     }
 
-    protected override void UpdateName(RoomMgr data, bool NeedTip = true)
+    protected override void UpdateName(LocalBuildingData data, bool NeedTip = true)
     {
         base.UpdateName(data, false);
-        string space = string.Format("<quad name={0} size=36 width=1 />", data.RoomName);
+        string space = string.Format("<quad name={0} size=36 width=1 />", data.buildingData.RoomName);
         txt_DownTip.text = string.Format("该建筑生产{0}资源", space);
     }
 }

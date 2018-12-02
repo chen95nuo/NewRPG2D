@@ -58,17 +58,17 @@ public class UIBagGrid : MonoBehaviour
 
     public void UpdateBox(ItemHelper data)
     {
-        TreasureBox terboxData = ChickItemInfo.instance.GetBoxData(data.instanceId);
+        TreasureBox terboxData = ItemInfoManager.instance.GetBoxData(data.instanceId);
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(terboxData.SpriteName);
         image_Item.sprite = sp;
-        boxData = ChickItemInfo.instance.GetBoxHelperData(data.instanceId);
+        boxData = ItemInfoManager.instance.GetBoxHelperData(data.instanceId);
         NumBG.SetActive(true);
         txt_Num.text = boxData.num.ToString();
         image_Quality.sprite = GetSpriteAtlas.insatnce.GetIcon("Quality_White");
     }
     public void UpdateProp(ItemHelper data)
     {
-        propData = ChickItemInfo.instance.GetPropData(data.instanceId);
+        propData = ItemInfoManager.instance.GetPropData(data.instanceId);
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(propData.propData.SpriteName);
         image_Item.sprite = sp;
         NumBG.SetActive(true);

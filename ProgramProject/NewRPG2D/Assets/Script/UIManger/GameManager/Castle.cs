@@ -1,4 +1,5 @@
-﻿using EasonAstar;
+﻿using Assets.Script.Net;
+using EasonAstar;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -150,7 +151,7 @@ public class Castle : MonoBehaviour
     /// 扩建背景墙
     /// </summary>
     public void ExtensionWall(int x, int y)
-    { 
+    {
         buildH = y;
         buildW = x;
         castleBg.UpdateInfo(buildW, buildH);
@@ -271,16 +272,20 @@ public class Castle : MonoBehaviour
     /// </summary>
     public virtual void ChickRaycast(Collider2D hit)
     {
+        //发送消息给服务器
+
         //生成建筑 建筑去计算他附近的空位 那么需要知道他自身的起点坐标 上下左右坐标
         BuildTip tip = hit.GetComponent<BuildTip>();
-        Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
-        LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
-        CheckPlayerInfo.instance.AddBuilding(data);
+        List<int> point = new List<int>() { tip.startX, (int)tip.emptyPoint.startPoint.y };
+        //Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
+        //LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
+        WebSocketManger.instance.Send(NetSendMsg.RQ_CreateNewRoom, 1, point);
+        //CheckPlayerInfo.instance.AddBuilding(data);
         //删除当前已使用空位
-        allEmptyPoint.Remove(tip.emptyPoint);
+        //allEmptyPoint.Remove(tip.emptyPoint);
         //将所有标签移出屏幕
         MapControl.instance.ResetRoomTip();
-        CheckPlayerInfo.instance.RoomUseStock(data.buildingData);
+        //CheckPlayerInfo.instance.RoomUseStock(data.buildingData);
         UIMain.instance.CloseSomeUI(true);
         UIMain.instance.ShowBack(false);
     }

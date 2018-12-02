@@ -8,7 +8,7 @@ using proto.SLGV1;
 
 namespace Assets.Script.Net
 {
-   public class NetCreateNewRoomRev : IReceive
+    public class NetCreateNewRoomRev : IReceive
     {
         public void Receive(IExtensible data, int id)
         {
@@ -20,7 +20,7 @@ namespace Assets.Script.Net
                 DebugHelper.Log("新房间获取失败");
                 return;
             }
-            proto.SLGV1.RoomInfo baseRoomInfo = mCreateNewRoom.baseRoomInfo;//新建的房间基本信息
+            BuildingManager.instance.AddNewRoom(mCreateNewRoom.baseRoomInfo);//新建的房间基本信息
         }
     }
 }

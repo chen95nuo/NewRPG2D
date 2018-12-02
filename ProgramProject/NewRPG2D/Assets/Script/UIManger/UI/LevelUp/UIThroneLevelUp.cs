@@ -18,18 +18,18 @@ public class UIThroneLevelUp : UILevelUp
     private int level = 0;
     private List<UIThroneLevelUpGrid> grids = new List<UIThroneLevelUpGrid>();
 
-    protected override void Init(RoomMgr data)
+    protected override void Init(LocalBuildingData data)
     {
         base.Init(data);
 
-        if (data.BuildingData.Level == level)
+        if (data.buildingData.Level == level)
         {
             return;
         }
-        dic = CheckPlayerInfo.instance.ThroneLeveUpRoomInfo(data.BuildingData);
+        dic = CheckPlayerInfo.instance.ThroneLeveUpRoomInfo(data.buildingData);
         if (dic == null) return;
         ChickGrid();
-        level = data.BuildingData.Level;
+        level = data.buildingData.Level;
     }
 
     /// <summary>

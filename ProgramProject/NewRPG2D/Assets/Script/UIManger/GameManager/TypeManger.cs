@@ -30,6 +30,7 @@ public enum HallEventDefineEnum
     UiMainHight,//顶层高亮显示
     CryNewMagic,//检查新技能时间
     MagicLevelUp,//技能升级
+    CheckHappiness,//幸福度消息
     EventMax
 }
 

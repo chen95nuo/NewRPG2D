@@ -17,7 +17,7 @@ public class UITrainInfo : UIRoomInfo
 
     List<UITrainRoleGrid> roleGrids = new List<UITrainRoleGrid>();
 
-    protected override void UpdateInfo(RoomMgr roomMgr)
+    protected override void UpdateInfo(LocalBuildingData roomMgr)
     {
         string space_1 = "       ";
         string space_2 = "     ";
@@ -25,15 +25,15 @@ public class UITrainInfo : UIRoomInfo
         txt_Tip_2.text = "广告";
         txt_Tip_3.text = string.Format("将城堡内的居民移动至该房间，提升居民的{0}等级。\n{1}能够影响战斗表现。", space_1, space_2);
         txt_Tip_4.text = "缩短<color=#8BFF7F>40</color>分钟";
-        txt_MaxLevel.text = roomMgr.BuildingData.Param2.ToString();
-        slider_maxLevel.value = roomMgr.BuildingData.Param2;
+        txt_MaxLevel.text = roomMgr.buildingData.Param2.ToString();
+        slider_maxLevel.value = roomMgr.buildingData.Param2;
         ChickRoleNumber(roleGrids);
-        Sprite sp = GetSpriteAtlas.insatnce.GetLevelIconToRoom(roomMgr.RoomName);
+        Sprite sp = GetSpriteAtlas.insatnce.GetLevelIconToRoom(roomMgr.buildingData.RoomName);
         for (int i = 0; i < roleGrids.Count; i++)
         {
-            if (roomData.currentBuildData.roleData[i] != null)
+            if (roomData.roleData[i] != null)
             {
-                roleGrids[i].UpdateInfo(roomData.currentBuildData.roleData[i], sp, this);
+                roleGrids[i].UpdateInfo(roomData.roleData[i], sp, this);
             }
             else
             {

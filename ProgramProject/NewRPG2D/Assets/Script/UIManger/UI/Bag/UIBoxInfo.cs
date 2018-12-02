@@ -135,7 +135,7 @@ public class UIBoxInfo : TTUIPage
         ItemDataInTreasure data = TreasureBoxMgr.instance.OpenTreasureBox(realBoxData.boxId, fight, life);
         UIPanelManager.instance.ShowPage<UIBoxOpen>();
         UIBoxOpen.instance.ShowAnim(data.PropDataList, data.EquipmentList);
-        ChickItemInfo.instance.UseBox(realBoxData.instanceId);
+        ItemInfoManager.instance.UseBox(realBoxData.instanceId);
         HallEventManager.instance.SendEvent(HallEventDefineEnum.RefreshBagUI);
         ClosePage();
     }

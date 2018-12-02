@@ -21,12 +21,18 @@ public class UIMain : TTUIPage
     public Button[] btn_Produces;
     public Button btn_diamonds;
 
-    public Text text_gold;
-    public Text text_food;
-    public Text text_mana;
-    public Text text_wood;
-    public Text text_iron;
-    public Text text_diamonds;
+    public Text txt_gold;
+    public Text txt_food;
+    public Text txt_mana;
+    public Text txt_wood;
+    public Text txt_iron;
+    public Text txt_grailNum;//圣杯数量
+    public Text txt_diamonds;
+    public Text txt_playerName;
+    public Text txt_ClanName;//工会信息
+    public Text txt_Population;//人数
+    public Text txt_builderNum;//工程队
+    public Text txt_happinessState;
 
     public Image goldSlider;
     public Image foodSlider;
@@ -98,16 +104,23 @@ public class UIMain : TTUIPage
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
         HallEventManager.instance.AddListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
+        HallEventManager.instance.AddListener<int>(HallEventDefineEnum.CheckHappiness, HappinessChange);
         UIMainHight(-1);
 
-        Init();
-
-        gold = new SpaceNumJump(text_gold);
-        food = new SpaceNumJump(text_food);
-        mana = new SpaceNumJump(text_mana);
-        wood = new SpaceNumJump(text_wood);
-        iron = new SpaceNumJump(text_iron);
-        diamonds = new SpaceNumJump(text_diamonds);
+        gold = new SpaceNumJump(txt_gold);
+        food = new SpaceNumJump(txt_food);
+        mana = new SpaceNumJump(txt_mana);
+        wood = new SpaceNumJump(txt_wood);
+        iron = new SpaceNumJump(txt_iron);
+        diamonds = new SpaceNumJump(txt_diamonds);
+    }
+    private void OnDestroy()
+    {
+        HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
+        HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
+        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
+        HallEventManager.instance.RemoveListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
+        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.CheckHappiness, HappinessChange);
     }
 
     private void CheckTask()
@@ -200,19 +213,16 @@ public class UIMain : TTUIPage
                 return;
             }
         }
-
-
     }
 
-    private void OnDestroy()
+    private void Start()
     {
-        HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
-        HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
-        HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
-        HallEventManager.instance.AddListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
-
+        Init();//初始化UI
     }
-    public void Init()
+    /// <summary>
+    /// 初始化数据
+    /// </summary>
+    private void Init()
     {
         RefreshText();
         playerData = GetPlayerData.Instance.GetData();
@@ -220,33 +230,75 @@ public class UIMain : TTUIPage
         if (level > 0)
         {
             btn_Produces[0].gameObject.SetActive(true);
-            text_gold.text = playerData.Gold.ToString();
+            txt_gold.text = playerData.GetResSpace(BuildRoomName.GoldSpace).ToString();
             btn_Produces[1].gameObject.SetActive(true);
-            text_food.text = playerData.Food.ToString();
+            txt_food.text = playerData.GetResSpace(BuildRoomName.FoodSpace).ToString();
         }
         if (level >= 4)
         {
             btn_Produces[2].gameObject.SetActive(true);
-            text_mana.text = playerData.Mana.ToString();
+            txt_mana.text = playerData.GetResSpace(BuildRoomName.ManaSpace).ToString();
         }
         if (level >= 6)
         {
             btn_Produces[3].gameObject.SetActive(true);
-            text_wood.text = playerData.Wood.ToString();
+            txt_wood.text = playerData.GetResSpace(BuildRoomName.WoodSpace).ToString();
         }
         if (level >= 9)
         {
             btn_Produces[4].gameObject.SetActive(true);
-            text_iron.text = playerData.Iron.ToString();
+            txt_iron.text = playerData.GetResSpace(BuildRoomName.IronSpace).ToString();
         }
-        text_diamonds.text = playerData.Diamonds.ToString();
+        txt_playerName.text = playerData.Name;
+        txt_ClanName.text = "";
+        txt_diamonds.text = playerData.Diamonds.ToString();
+        txt_grailNum.text = playerData.GrailNum.ToString();
+        txt_builderNum.text = playerData.BuilderNum + "/" + HallConfigDataMgr.instance.GetValue(HallConfigEnum.builder);
+        HappinessChange(GameHelper.instance.Happiness);
+        CheckDiamonds();
+        CheckResident();
     }
+
+    /// <summary>
+    /// 幸福度系统
+    /// </summary>
+    /// <param name="number"></param>
+    private void HappinessChange(int number)
+    {
+        txt_happinessState.text = "+" + number.ToString() + "%";
+    }
+
+    /// <summary>
+    /// 检查居民数和上限
+    /// </summary>
+    private void CheckResident()
+    {
+        txt_Population.text = HallRoleMgr.instance.GetAllRoleNum + "/" + BuildingManager.instance.SearchRoleSpace();
+    }
+
+    #region Market
+    /// <summary>
+    /// UIMarket
+    /// </summary>
     private void ShowMarket()
     {
         CloseSomeUI(false);
         market.gameObject.SetActive(true);
         market.CheckBtnType();
     }
+    public void ShowMarket(int page = 1)
+    {
+        CloseSomeUI(false);
+        market.gameObject.SetActive(true);
+        market.currentType = page;
+        market.CheckBtnType();
+    }
+    public void CloseMarket()
+    {
+        CloseSomeUI(true);
+        market.gameObject.SetActive(false);
+    }
+    #endregion
 
     public void ShowBack(bool isTrue)
     {
@@ -282,23 +334,23 @@ public class UIMain : TTUIPage
         {
             case BuildRoomName.GoldSpace:
                 slider = goldSlider;
-                text_gold.text = allStock.ToString();
+                txt_gold.text = allStock.ToString();
                 break;
             case BuildRoomName.FoodSpace:
                 slider = foodSlider;
-                text_food.text = allStock.ToString();
+                txt_food.text = allStock.ToString();
                 break;
             case BuildRoomName.ManaSpace:
                 slider = manaSlider;
-                text_mana.text = allStock.ToString();
+                txt_mana.text = allStock.ToString();
                 break;
             case BuildRoomName.WoodSpace:
                 slider = woodSlider;
-                text_wood.text = allStock.ToString();
+                txt_wood.text = allStock.ToString();
                 break;
             case BuildRoomName.IronSpace:
                 slider = ironSlider;
-                text_iron.text = allStock.ToString();
+                txt_iron.text = allStock.ToString();
                 break;
             default:
                 break;
@@ -308,7 +360,7 @@ public class UIMain : TTUIPage
 
     private void CheckDiamonds()
     {
-        text_diamonds.text = playerData.Diamonds.ToString();
+        txt_diamonds.text = playerData.Diamonds.ToString();
     }
 
     public IEnumerator JumpNumber(SpaceNumJump data)
@@ -366,6 +418,10 @@ public class UIMain : TTUIPage
         }
     }
 
+    /// <summary>
+    /// 向服务器发送建造验证
+    /// </summary>
+    /// <param name="buildingData"></param>
     public void RSCheckCreateNewRoom(BuildingData buildingData)
     {
         //发送建造请求
@@ -373,14 +429,18 @@ public class UIMain : TTUIPage
         currentBuildData = buildingData;
     }
 
+    /// <summary>
+    /// 接收服务器建造验证结果
+    /// </summary>
+    /// <param name="checkCreateRoom"></param>
     public void RQCheckCreateNewRoom(RS_CheckCreateNewRoom checkCreateRoom)
     {
 
-        if (checkCreateRoom.ret == -1)
+        if (checkCreateRoom.ret == -1)//库满
         {
             UIPanelManager.instance.ShowPage<UIPopUp_4>(checkCreateRoom.neeedItem[0]);
         }
-        else if (checkCreateRoom.ret == -2)
+        else if (checkCreateRoom.ret == -2)//资源不足
         {
             Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
             for (int i = 0; i < checkCreateRoom.neeedItem.Count; i++)

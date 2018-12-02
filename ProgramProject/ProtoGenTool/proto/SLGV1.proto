@@ -48,11 +48,11 @@ message CharacterInfo{
 	optional int32 userId = 2;			//用户ID
 	optional string roleName = 3;		//角色名称
 	optional string headimgurl = 4;		//头像[设置中应用图标的顺序数据数字]
-	optional int32 feNum=5;				//铁矿数量
-	optional int32 woodNum = 6;			//木材数量
-	optional int32 magicNum = 7;		//魔力数量
-	optional int32 appNum = 8;			//苹果数量
-	optional int32 gold = 9;			//金币
+	optional int32 feNum=5;				//铁矿数量<角色额外库存,每次消耗之前先消耗角色,然后先补充房间,在补充角色的>
+	optional int32 woodNum = 6;			//木材数量<角色额外库存>
+	optional int32 magicNum = 7;		//魔力数量<角色额外库存>
+	optional int32 appNum = 8;			//苹果数量<角色额外库存>
+	optional int32 gold = 9;			//金币<角色额外库存>
 	optional int32 diamond = 10;		//钻石
 	optional int32 lv = 11;				//等级<待定>
 	optional int32 power = 12;			//战力
@@ -88,12 +88,14 @@ message RoomInfo{
 	required string roomId=1;// 房间Id 类型+ 01/02/04...
 	required int32  id=2;// 读表ID
 	repeated int32  xFloorOriginOffset=3;// 所在楼层和起点网格 例如[1,2] 在一层 从第2个网格开始
-	optional int32  leftTime=4;// 剩余多少时间完成升级任务 0 表示升级成功 >0 还有多少时间完成下一级升级 单位为秒
+	optional int32  leftTime=4;// 剩余多少时间完成升级任务 -1 没有升级的房间, 0 表示升级成功 >0 还有多少时间完成下一级升级 单位为秒
 	repeated int32  residents=5;// 屋子里面的居民 [居民1,居民2....] 
 }
+
+
 // 推送 房间信息
 message A_RoomInfo{
-	required A_RoomInfo roomInfo=1; // 房间
+	required RoomInfo roomInfo=1; // 房间
 	extend BaseData {
         optional A_RoomInfo ext = 2001;
     }
@@ -108,7 +110,7 @@ message RQ_CheckCreateNewRoom{
 }
 //返回是否可以建造 缺乏材料数量
 message RS_CheckCreateNewRoom{
-	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
+	required int32 ret=1;//0:成功 -1 : 库存不足 -2: 资源不足
 	repeated ConsumeItem neeedItem = 2;//数组 玩家不足的材料数量 材料类型 数量
 	extend BaseData {
         optional RS_CheckCreateNewRoom ext = 108  ;
@@ -116,7 +118,7 @@ message RS_CheckCreateNewRoom{
 }
 //材料中包括钻石 用于提示需要多少钻石才能购买该数量材料
 message ConsumeItem{
-	required int32 produceType = 1;//材料类型 0钻石 1金币 2食物 3......
+	required int32 produceType = 1;//材料类型 0钻石, 1金币 2 魔法,3 木头, 4 铁矿
 	required int32 needNum = 2;//需要数量
 }
 //创建一个生产类房间
@@ -297,6 +299,7 @@ message JewelleryFactoryRoom{
 		// 待定
 }
 // 同步房间状态信息 [返回 A_RoomInfo]
+//  检查已经升级完成的房间信息,并同步更新客户端消息
 message Q_RoomState{
 	required string roomId=1;// 房间Id 07 01
 	extend BaseData {
@@ -498,7 +501,7 @@ message EquipmentInfo{
 message PropInfo{
 	required int32 propId=1;// 读<<外部道具配置表>>
 	required int32 num=2;// 数量
-	required int32 type=3;// 类型  自定义 0 碎片 1 宝箱 ,2材料,3钻石
+	required int32 type=3;// 类型  自定义 0 碎片 1 宝箱 ,2材料
 }
 
 

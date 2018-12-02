@@ -91,7 +91,7 @@ namespace Assets.Script.Battle.Equipment
                 List<PropData> propDataList = PropDataMgr.instance.GetPropDataByType(mData.propType, mData.quality);
                 propDataList.Remove(mData);
                 PropData propData = propDataList[Random.Range(0, propDataList.Count)];
-                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(propData.ItemId, count);
+                RealPropData mRealPropData = ItemInfoManager.instance.CreateNewProp(propData.ItemId, count);
                 for (int i = 0; i < count; i++)
                 {
                     if (data.PropDataList.Contains(mRealPropData))
@@ -107,7 +107,7 @@ namespace Assets.Script.Battle.Equipment
             }
             else
             {
-                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(itemId, count);
+                RealPropData mRealPropData = ItemInfoManager.instance.CreateNewProp(itemId, count);
                 data.PropDataList.Add(mRealPropData);
             }
 

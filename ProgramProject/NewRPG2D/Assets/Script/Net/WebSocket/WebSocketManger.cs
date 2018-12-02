@@ -259,6 +259,9 @@ namespace Assets.Script.Net
                 case NetSendMsg.RQ_DragIntoRoom:
                     send = new NetDragIntoRoomSend();
                     break;
+                case NetSendMsg.Q_RoomState:
+                    send = new NetRoomStateSend();
+                    break;
                 default:
                     break;
             }

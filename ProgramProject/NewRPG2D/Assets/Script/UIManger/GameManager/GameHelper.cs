@@ -2,12 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GameHelper : TSingleton<GameHelper>
 {
     public static float high = 2.7f;//默认最小房间高度
     public static float width = 1.2f;//默认最小房间宽度
     public bool ServerInfo = false;
+    private int happiness = 0;
+
+    public int Happiness
+    {
+        get
+        {
+            return happiness;
+        }
+
+        set
+        {
+            happiness = value;
+            HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.CheckHappiness, happiness);
+        }
+    }
+
+
 
     public Vector2 GetPoint(Canvas canvas, Vector3 point)
     {

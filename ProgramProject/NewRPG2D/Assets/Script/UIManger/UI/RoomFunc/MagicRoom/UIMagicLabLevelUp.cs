@@ -11,12 +11,12 @@ public class UIMagicLabLevelUp : UILevelUp
     public GameObject grid;
     public List<UIMagicGrid> magicGrids = new List<UIMagicGrid>();
 
-    protected override void Init(RoomMgr room)
+    protected override void Init(LocalBuildingData room)
     {
         base.Init(room);
-        int nextID = room.currentBuildData.buildingData.NextLevelID;
+        int nextID = room.buildingData.NextLevelID;
         BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextID);
-        int nowUnLock = (int)room.BuildingData.Param1 - 1;
+        int nowUnLock = (int)room.buildingData.Param1 - 1;
         int nextUnlock = (int)data.Param1;
         for (int i = nowUnLock; i < nextUnlock; i++)
         {

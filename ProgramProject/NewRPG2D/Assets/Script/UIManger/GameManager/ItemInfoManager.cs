@@ -4,7 +4,7 @@ using UnityEngine;
 using Assets.Script.Battle.BattleData;
 
 
-public class ChickItemInfo : TSingleton<ChickItemInfo>
+public class ItemInfoManager : TSingleton<ItemInfoManager>
 {
     private Dictionary<int, RealPropData> AllProp = new Dictionary<int, RealPropData>();
     private List<RealPropData> AllPropList = new List<RealPropData>();
@@ -34,6 +34,24 @@ public class ChickItemInfo : TSingleton<ChickItemInfo>
         base.Init();
         AllProp.Clear();
     }
+
+    #region 初始化
+    /// <summary>
+    /// 获取服务器道具
+    /// </summary>
+    public void GetServerItem(proto.SLGV1.Box boxs)
+    {
+        foreach (var equip in boxs.equips)
+        {
+
+        }
+        foreach (var item in boxs.bxAndProps)
+        {
+
+        }
+
+    }
+    #endregion
 
     public RealPropData CreateNewProp(int id, int num = 1)
     {

@@ -31,19 +31,19 @@ public abstract class UILevelUp : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        UpdateInfo(mData as RoomMgr);
+        UpdateInfo(mData as LocalBuildingData);
     }
 
-    private void UpdateInfo(RoomMgr data)
+    private void UpdateInfo(LocalBuildingData data)
     {
-        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.BuildingData.RoomName.ToString());
-        txt_Level.text = data.BuildingData.Level.ToString();
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.buildingData.RoomName.ToString());
+        txt_Level.text = data.buildingData.Level.ToString();
         btnLevel.Init();
         btnLevel.UpdateUIfo(data);
         Init(data);
     }
 
-    protected virtual void Init(RoomMgr data) { }
+    protected virtual void Init(LocalBuildingData data) { }
 
     protected virtual void ChickClose()
     {

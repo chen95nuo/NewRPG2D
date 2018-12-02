@@ -13,7 +13,8 @@ namespace Assets.Script.Net
         public void Receive(IExtensible data, int id)
         {
             A_HappinessState happinessState = Extensible.GetValue<A_HappinessState>(data, id);
-            DebugHelper.Log("当前幸福度为====="+happinessState.happinessNum);
+            DebugHelper.Log("当前幸福度为=====" + happinessState.happinessNum);
+            GameHelper.instance.Happiness = happinessState.happinessNum;
         }
     }
 }

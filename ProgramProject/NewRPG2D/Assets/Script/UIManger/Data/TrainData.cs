@@ -23,8 +23,8 @@ public class TrainData : ItemBaseCsvData
         {
             int typeIndex = IntParse(data, 1);
             trainType = (TrainType)typeIndex;
-            level = FloatArray(ListParse(data, 2));
-            needTime = IntParse(data, 3);
+            level = FloatArray(ListParse(data, 3));
+            needTime = IntParse(data, 4);
             return true;
         }
         return false;

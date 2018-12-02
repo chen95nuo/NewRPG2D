@@ -43,7 +43,6 @@ public class UILogin : TTUIPage
 
     private void Awake()
     {
-        Debug.Log(Mathf.Round(0.5f));
         btn_Login.onClick.AddListener(ChickLogin);
         btn_RegisterPage.onClick.AddListener(ChickRegisterPage);
         btn_Register.onClick.AddListener(ChickRegister);
@@ -51,6 +50,7 @@ public class UILogin : TTUIPage
         btn_OnKeyRegister.onClick.AddListener(ChickOnkeyRegister);
         btn_RegisterBack.onClick.AddListener(ChickRegisterBack);
         StartPage.gameObject.SetActive(false);
+
         //if (PlayerPrefs.HasKey("UserName"))
         //{
         //    string userName = PlayerPrefs.GetString("UserName");
@@ -64,6 +64,11 @@ public class UILogin : TTUIPage
         //PlayerPrefs.SetString("UserName", "Name");
         //PlayerPrefs.SetString("PassWord", "Name");
     }
+
+    //private void Start()
+    //{
+    //    Assets.Script.GameLogic.Instance.InitData("192.168.1.102", 9010, "123");
+    //}
 
     private void ChickRegisterBack()
     {
@@ -173,7 +178,6 @@ public class UILogin : TTUIPage
         PlayerPrefs.Save();
         Debug.Log("登陆成功=====" + RS.server_ip + " port:" + RS.port + " token:" + RS.token);
         Assets.Script.GameLogic.Instance.InitData(RS.server_ip, RS.port, RS.token);
-        //WebSocketManger.instance.GameStartMessaget(string.Format("ws://{0}:{1}/websocket", RS.server_ip, RS.port), RS.token);
     }
 
 

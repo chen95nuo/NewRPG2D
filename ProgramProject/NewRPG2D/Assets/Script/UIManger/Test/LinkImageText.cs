@@ -8,6 +8,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 
+
+//"<quad name={0} size=36 width=1 />" 字符串
+
+
 /// <summary>
 /// 文本控件，支持超链接、图片
 /// </summary>

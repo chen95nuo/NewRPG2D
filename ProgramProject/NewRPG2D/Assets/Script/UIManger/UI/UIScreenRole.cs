@@ -41,7 +41,7 @@ public class UIScreenRole : TTUIPage
         base.Show(mData);
         info = mData as UIRoomInfo;
         needAnim = false;
-        if (CheckPlayerInfo.instance.ChickProduction(info.roomData.currentBuildData))
+        if (CheckPlayerInfo.instance.ChickProduction(info.roomData))
             isLevel = false;
         else
             isLevel = true;

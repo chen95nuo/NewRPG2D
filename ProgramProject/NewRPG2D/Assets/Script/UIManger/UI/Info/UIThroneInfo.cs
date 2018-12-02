@@ -17,18 +17,18 @@ public class UIThroneInfo : UIRoomInfo
     private int level = 0;
     private List<UIThroneLevelUpGrid> grids = new List<UIThroneLevelUpGrid>();
 
-    protected override void UpdateInfo(RoomMgr roomMgr)
+    protected override void UpdateInfo(LocalBuildingData roomMgr)
     {
         txt_Tip_1.text = "升级解锁";
         txt_Tip_2.text = "升级国王大厅来解锁新的建筑和建筑等级";
-        if (roomMgr.BuildingData.Level == level)
+        if (roomMgr.buildingData.Level == level)
         {
             return;
         }
-        dic = CheckPlayerInfo.instance.ThroneLeveUpRoomInfo(roomMgr.BuildingData);
+        dic = CheckPlayerInfo.instance.ThroneLeveUpRoomInfo(roomMgr.buildingData);
         if (dic == null) return;
         ChickGrid();
-        level = roomMgr.BuildingData.Level;
+        level = roomMgr.buildingData.Level;
     }
 
     /// <summary>

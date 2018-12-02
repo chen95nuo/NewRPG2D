@@ -15,12 +15,12 @@ public class UIPopUp_4 : TTUIPage
     public Text txt_Enter;
     public Text txt_Cancel;
 
+    private BuildRoomName name;
+
     private void Awake()
     {
         btn_Enter.onClick.AddListener(ShowBuildStock);
         btn_Cancel.onClick.AddListener(ClosePage);
-        txt_Enter.text = LanguageDataMgr.instance.GetString("Enter");
-        txt_Cancel.text = LanguageDataMgr.instance.GetString("Cancel");
     }
 
     public override void Show(object mData)
@@ -36,7 +36,7 @@ public class UIPopUp_4 : TTUIPage
     /// <param name="data"></param>
     public void UpdateInfo(ConsumeItem data)
     {
-        BuildRoomName name = BuildRoomName.Nothing;
+        name = BuildRoomName.Nothing;
         switch ((MaterialName)data.produceType)
         {
             case MaterialName.Gold:
@@ -54,8 +54,21 @@ public class UIPopUp_4 : TTUIPage
             default:
                 break;
         }
-        BuildingData buildData = BuildingDataMgr.instance.GetbuildingData(name);
-        txt_Message.text = "仓库不足缺少" + buildData.RoomName;
+        LocalBuildingData buildData = BuildingManager.instance.SearchRoomData(name, 1);
+        if (BuildingDataMgr.instance.GetbuildingData(name) == null)
+        {
+            txt_Message.text = "仓库空间不足缺少" + buildData.buildingData.RoomName;
+            txt_Enter.text = LanguageDataMgr.instance.GetUIString("xinjian");
+        }
+        else
+        {
+            txt_Message.text = "仓库等级不够升级" + buildData.buildingData.RoomName;
+            txt_Enter.text = LanguageDataMgr.instance.GetUIString("shengji");
+        }
+
+
+
+        UIMain.instance.CloseMarket();
     }
 
     /// <summary>
@@ -63,6 +76,18 @@ public class UIPopUp_4 : TTUIPage
     /// </summary>
     private void ShowBuildStock()
     {
-
+        //仓库容量不足判断是否有仓库
+        //有仓库打开仓库升级
+        LocalBuildingData buildData = BuildingManager.instance.SearchRoomData(name, 1);
+        if (buildData == null)
+        {
+            UIMain.instance.ShowMarket();
+        }
+        else
+        {
+            UIPanelManager.instance.ShowPage<UIProdLevelUp>(buildData);
+        }
+        //没有仓库跳转到购买仓库
+        ClosePage();
     }
 }

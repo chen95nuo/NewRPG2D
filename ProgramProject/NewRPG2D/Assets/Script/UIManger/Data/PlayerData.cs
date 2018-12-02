@@ -172,10 +172,6 @@ public class PlayerData
         set
         {
             mainHall = value;
-            if (UIMain.instance != null)
-            {
-                UIMain.instance.Init();
-            }
             int x = (int)mainHall.buildingData.Param1;
             CameraControl.instance.currentAddWidth = (x - 17) * 2.7f;
             int y = (int)mainHall.buildingData.Param2;
@@ -244,6 +240,32 @@ public class PlayerData
         get { return 5000; }
     }
 
+    public int GrailNum
+    {
+        get
+        {
+            return grailNum;
+        }
+
+        set
+        {
+            grailNum = value;
+        }
+    }
+
+    public int BuilderNum
+    {
+        get
+        {
+            return builderNum;
+        }
+
+        set
+        {
+            builderNum = value;
+        }
+    }
+
     public int GetResSpace(BuildRoomName name)
     {
         return produceSpace[name];
@@ -263,9 +285,9 @@ public class PlayerData
         produceSpace.Add(BuildRoomName.WoodSpace, s_PlayerData.woodNum);
         produceSpace.Add(BuildRoomName.IronSpace, s_PlayerData.feNum);
         this.power = s_PlayerData.power;
-        this.grailNum = s_PlayerData.grailNum;
+        this.GrailNum = s_PlayerData.grailNum;
         this.popNum = s_PlayerData.popNum;
-        this.builderNum = s_PlayerData.builderNum;
+        this.BuilderNum = s_PlayerData.builderNum;
         this.castleSkin = s_PlayerData.castleSkin;
         this.loginDays = s_PlayerData.loginDays;
         this.thirdAcctInfo = s_PlayerData.thirdAcctInfo;

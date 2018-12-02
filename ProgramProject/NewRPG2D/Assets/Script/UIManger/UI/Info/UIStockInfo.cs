@@ -17,17 +17,16 @@ public class UIStockInfo : TTUIPage
 
     public Image stockIcon;
     public Sprite[] iconSp;
-    public Image icon;
     public Image slider;
 
     public Button btn_back;
     public Button btn_back_1;
 
-    private RoomMgr roomData;
+    private LocalBuildingData roomData;
     public override void Show(object mData)
     {
         base.Show(mData);
-        roomData = mData as RoomMgr;
+        roomData = mData as LocalBuildingData;
         UpdateInfo(roomData);
     }
     private void Awake()
@@ -38,45 +37,40 @@ public class UIStockInfo : TTUIPage
 
     private void Start()
     {
-        string st = "           ";
-        txt_Tip_1.text = "升级增加";
-        txt_Tip_2.text = "容量";
-        txt_Tip_3.text = string.Format("升级该房间来增加{0}资源容量", st);
+        txt_Tip_1.text = LanguageDataMgr.instance.GetUIString("shengjizengjia");
+        txt_Tip_2.text = LanguageDataMgr.instance.GetUIString("rongliang");
     }
-    private void UpdateInfo(RoomMgr data)
+    private void UpdateInfo(LocalBuildingData data)
     {
-        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.BuildingData.RoomName.ToString());
-        txt_Level.text = data.BuildingData.Level.ToString();
-        txt_Stock.text = data.currentBuildData.Stock.ToString() + "/" + data.currentBuildData.buildingData.Param2;
-        slider.fillAmount = data.currentBuildData.Stock / data.currentBuildData.buildingData.Param2;
-
+        txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.buildingData.RoomName.ToString());
+        txt_Level.text = data.buildingData.Level.ToString();
+        txt_Stock.text = data.Stock.ToString() + "/" + data.buildingData.Param2;
+        slider.fillAmount = data.Stock / data.buildingData.Param2;
+        string st = LanguageDataMgr.instance.GetUIString("shengjigaifangjian");
+        string iconName = "";
         Sprite sp = null;
-        switch (data.RoomName)
+        switch (data.buildingData.RoomName)
         {
             case BuildRoomName.GoldSpace:
-                stockIcon.sprite = iconSp[0];
-                sp = GetSpriteAtlas.insatnce.GetIcon("Gold");
+                iconName = "Gold";
                 break;
             case BuildRoomName.FoodSpace:
-                stockIcon.sprite = iconSp[1];
-                sp = GetSpriteAtlas.insatnce.GetIcon("Food");
+                iconName = "Food";
                 break;
             case BuildRoomName.ManaSpace:
-                stockIcon.sprite = iconSp[2];
-                sp = GetSpriteAtlas.insatnce.GetIcon("Mana");
+                iconName = "Mana";
                 break;
             case BuildRoomName.WoodSpace:
-                stockIcon.sprite = iconSp[3];
-                sp = GetSpriteAtlas.insatnce.GetIcon("Wood");
+                iconName = "Wood";
                 break;
             case BuildRoomName.IronSpace:
-                stockIcon.sprite = iconSp[4];
-                sp = GetSpriteAtlas.insatnce.GetIcon("Iron");
+                iconName = "Iron";
                 break;
             default:
                 break;
         }
-        icon.sprite = sp;
+        iconName = string.Format("<quad name={0} size=36 width=1 />", iconName);
+        txt_Tip_3.text = string.Format(st, iconName);
     }
     private void ChickBack()
     {

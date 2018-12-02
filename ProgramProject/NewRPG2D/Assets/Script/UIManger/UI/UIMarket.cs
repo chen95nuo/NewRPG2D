@@ -15,7 +15,7 @@ public class UIMarket : MonoBehaviour
     public List<UIMarketGrid> grids;
 
     private Dictionary<RoomType, List<BuildingData>> dic;
-    private int currentType = 1;
+    public int currentType = 1;
 
 
 

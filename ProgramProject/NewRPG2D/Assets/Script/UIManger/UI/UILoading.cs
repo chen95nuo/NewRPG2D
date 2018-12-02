@@ -31,9 +31,8 @@ public class UILoading : TTUIPage
         if (slider.value == slider.maxValue)
         {
             ClosePage();
-            UIPanelManager.instance.ShowPage<UIMain>();
             BuildingManager.instance.ResetUIProduce();
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.diamondsSpace);
+            UIPanelManager.instance.ShowPage<UIMain>();
         }
     }
 

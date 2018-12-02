@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 222045794727541956}
   - component: {fileID: 114021574988457790}
   m_Layer: 5
-  m_Name: Text
+  m_Name: txt_GrailNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1493,10 +1493,9 @@ GameObject:
   - component: {fileID: 224967099460747768}
   - component: {fileID: 222952961552175596}
   - component: {fileID: 114970478085494002}
-  - component: {fileID: 114088797751396772}
   - component: {fileID: 114328417241683568}
   m_Layer: 5
-  m_Name: txt_Num
+  m_Name: txt_ClanName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1943,19 +1942,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114088797751396772
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1916672548209944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 0
 --- !u!114 &114106241780686512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2785,11 +2771,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e56ff9e1dcd05634fa5ba6e92739d61c, type: 3}
-    m_FontSize: 50
+    m_FontSize: 45
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 5
-    m_MaxSize: 50
+    m_BestFit: 1
+    m_MinSize: 1
+    m_MaxSize: 45
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -4651,12 +4637,18 @@ MonoBehaviour:
   - {fileID: 114061639465988154}
   - {fileID: 114884891171462938}
   btn_diamonds: {fileID: 114545971914107146}
-  text_gold: {fileID: 114547120279678136}
-  text_food: {fileID: 114433796620674644}
-  text_mana: {fileID: 114248290710070936}
-  text_wood: {fileID: 114862250865051694}
-  text_iron: {fileID: 114344109014093178}
-  text_diamonds: {fileID: 114868435331373808}
+  txt_gold: {fileID: 114547120279678136}
+  txt_food: {fileID: 114433796620674644}
+  txt_mana: {fileID: 114248290710070936}
+  txt_wood: {fileID: 114862250865051694}
+  txt_iron: {fileID: 114344109014093178}
+  txt_grailNum: {fileID: 114021574988457790}
+  txt_diamonds: {fileID: 114868435331373808}
+  txt_playerName: {fileID: 114970468081902930}
+  txt_ClanName: {fileID: 114970478085494002}
+  txt_Population: {fileID: 114333809241871374}
+  txt_builderNum: {fileID: 114341961405288276}
+  txt_happinessState: {fileID: 114936425298458498}
   goldSlider: {fileID: 114047345096375624}
   foodSlider: {fileID: 114611691626964956}
   manaSlider: {fileID: 114370103096134030}
@@ -4711,6 +4703,7 @@ MonoBehaviour:
   gridTrans: {fileID: 224313500492212386}
   grid: {fileID: 1588230689945438, guid: 4cbba14bb6569634199e5b8f3e767186, type: 2}
   grids: []
+  currentType: 1
 --- !u!114 &114768484850369324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5519,7 +5512,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9999
+  m_Text: "\u6076\u5927\u5927\u6492\u6492\u6492"
 --- !u!114 &114998626288936478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7385,12 +7378,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 224967099460747768}
-  m_RootOrder: 0
+  m_Father: {fileID: 224910978498490212}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -9.299999, y: -0.0000038146973}
+  m_AnchoredPosition: {x: 93.1, y: -23.63501}
   m_SizeDelta: {x: 36.97, y: 35.88}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &224769934665877748
@@ -7605,6 +7598,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224825103179170252}
+  - {fileID: 224758929091206432}
   - {fileID: 224967099460747768}
   m_Father: {fileID: 224439052267443064}
   m_RootOrder: 0
@@ -7737,15 +7731,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 224758929091206432}
+  m_Children: []
   m_Father: {fileID: 224910978498490212}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.6, y: -3.2}
-  m_SizeDelta: {x: 0, y: 40.87}
+  m_AnchoredPosition: {x: 41.64, y: -3.2}
+  m_SizeDelta: {x: 130.51, y: 40.87}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224977502920175206
 RectTransform:

@@ -30,12 +30,12 @@ public class UIProdLevelUp : UILevelUp
     public Image[] Icons;
     public Image[] stockIcons;
 
-    protected override void Init(RoomMgr data)
+    protected override void Init(LocalBuildingData data)
     {
         base.Init(data);
         UIReset();
 
-        switch (data.BuildingData.RoomName)
+        switch (data.buildingData.RoomName)
         {
             case BuildRoomName.Gold:
                 UpdateInfo_1(data);
@@ -97,7 +97,7 @@ public class UIProdLevelUp : UILevelUp
             default:
                 break;
         }
-        switch (data.BuildingData.RoomType)
+        switch (data.buildingData.RoomType)
         {
             case RoomType.Nothing:
                 break;
@@ -105,8 +105,8 @@ public class UIProdLevelUp : UILevelUp
                 break;
             case RoomType.Training:
                 UpdateInfo_2(data);
-                string space_1 = LanguageDataMgr.instance.GetString("Info_" + data.RoomName);
-                string space_2 = string.Format("<quad name={0} size=36 width=1 />", data.RoomName.ToString());
+                string space_1 = LanguageDataMgr.instance.GetString("Info_" + data.buildingData.RoomName);
+                string space_2 = string.Format("<quad name={0} size=36 width=1 />", data.buildingData.RoomName.ToString());
                 txt_Tip_5.text = string.Format(space_1, space_2);
                 break;
             case RoomType.Support:
@@ -122,7 +122,7 @@ public class UIProdLevelUp : UILevelUp
     /// 界面1 仅用于生产类
     /// </summary>
     /// <param name="data"></param>
-    private void UpdateInfo_1(RoomMgr data)
+    private void UpdateInfo_1(LocalBuildingData data)
     {
         Type_1.anchoredPosition = Vector3.zero;
 
@@ -134,7 +134,7 @@ public class UIProdLevelUp : UILevelUp
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
         BuildingData b_Data_2;//下一级房间信息
-        b_Data_1 = data.BuildingData;
+        b_Data_1 = data.buildingData;
         txt_Yield.text = b_Data_1.Param1.ToString("#0");
         txt_Stock.text = b_Data_1.Param2.ToString("#0");
         if (b_Data_1.NextLevelID == 0)//如果满级了
@@ -153,7 +153,7 @@ public class UIProdLevelUp : UILevelUp
     /// 界面2 通用性强 用于储存类 训练类 起居室 军营
     /// </summary>
     /// <param name="data"></param>
-    private void UpdateInfo_2(RoomMgr data)
+    private void UpdateInfo_2(LocalBuildingData data)
     {
         Type_2.anchoredPosition = Vector3.zero;
 
@@ -162,7 +162,7 @@ public class UIProdLevelUp : UILevelUp
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
         BuildingData b_Data_2;//下一级房间信息
-        b_Data_1 = data.BuildingData;
+        b_Data_1 = data.buildingData;
         txt_Stock_2.text = b_Data_1.Param2.ToString("#0");
         if (b_Data_1.NextLevelID == 0)//如果满级了
         {

@@ -438,9 +438,9 @@ namespace proto.SLGV1
   {
     public A_RoomInfo() {}
     
-    private A_RoomInfo _roomInfo;
+    private RoomInfo _roomInfo;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public A_RoomInfo roomInfo
+    public RoomInfo roomInfo
     {
       get { return _roomInfo; }
       set { _roomInfo = value; }

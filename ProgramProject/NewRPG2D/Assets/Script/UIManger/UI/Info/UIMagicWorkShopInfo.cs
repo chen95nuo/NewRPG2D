@@ -18,11 +18,11 @@ public class UIMagicWorkShopInfo : UIRoomInfo
         base.Awake();
         txt_Tip_2.text = LanguageDataMgr.instance.GetString("WorkShopTip");
     }
-    protected override void UpdateInfo(RoomMgr roomMgr)
+    protected override void UpdateInfo(LocalBuildingData roomMgr)
     {
         int num = ChickRoleNumber(roleGrids);
         txt_Tip_2.gameObject.SetActive(num == 0 ? false : true);
-        txt_DownTip.text = LanguageDataMgr.instance.GetInfo(roomMgr.RoomName.ToString());
+        txt_DownTip.text = LanguageDataMgr.instance.GetInfo(roomMgr.buildingData.RoomName.ToString());
 
     }
 

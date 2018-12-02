@@ -274,7 +274,7 @@ public class UIWorkShopInfo : TTUIPage
         int index = 1001;//第一个道具的ID
         for (int i = 0; i < txt_HaveProp.Length; i++)
         {
-            int temp = ChickItemInfo.instance.GetItemNum(index + i);
+            int temp = ItemInfoManager.instance.GetItemNum(index + i);
             haveProp[i] = temp;
             txt_HaveProp[i].text = temp.ToString();
         }

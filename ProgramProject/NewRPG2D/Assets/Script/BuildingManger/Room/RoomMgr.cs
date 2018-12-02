@@ -981,24 +981,24 @@ public abstract class RoomMgr : MonoBehaviour
     /// <param name="data">当前房间需要变成哪个</param>
     public void ConstructionStart(int nextId, int time)
     {
-        if (ConstructionType == true)
-        {
-            Debug.LogError("已在升级");
-            return;
-        }
-        ConstructionType = true;
-        BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextId);
-        int needTime = 0;
-        if (time == 0)
-        {
-            needTime = data.NeedTime * 60;
-        }
-        else
-        {
-            needTime = time;
-        }
-        CheckPlayerInfo.instance.Timer(Id, needTime, nextId);
-        CameraControl.instance.CloseRoomLock();
+        //if (ConstructionType == true)
+        //{
+        //    Debug.LogError("已在升级");
+        //    return;
+        //}
+        //ConstructionType = true;
+        //BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextId);
+        //int needTime = 0;
+        //if (time == 0)
+        //{
+        //    needTime = data.NeedTime * 60;
+        //}
+        //else
+        //{
+        //    needTime = time;
+        //}
+        //CheckPlayerInfo.instance.Timer(Id, needTime, nextId);
+        //CameraControl.instance.CloseRoomLock();
     }
 
     public void ConstructionCancel()
@@ -1075,6 +1075,11 @@ public abstract class RoomMgr : MonoBehaviour
             AddRole(role);
         }
         return true;
+    }
+
+    public virtual void AddRole(HallRoleData role, int index)
+    {
+
     }
     /// <summary>
     /// 通过房间UI选项 替换角色

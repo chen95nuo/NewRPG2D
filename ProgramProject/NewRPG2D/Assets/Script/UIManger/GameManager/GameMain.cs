@@ -28,12 +28,12 @@ public class GameMain : MonoBehaviour
 
     private void Init()
     {
-        BuildingManager.instance.SetMainHallRoom();//写入大厅等级和战斗室等级
+        BuildingManager.instance.InitMainHallRoom();//写入大厅等级和战斗室等级
         MainCastle.instance.Init();//建造墙体
         //EditCastle.instance.Init();
-        HallRoleMgr.instance.ResetRoleData();//刷新所有角色
-        BuildingManager.instance.ResetBuildingData();//刷新房间并安排角色
-        Debug.Log(MainCastle.instance.buildPoint);
+        HallRoleMgr.instance.InitRoleData();//刷新所有角色
+        BuildingManager.instance.InitBuildingData();//刷新房间并安排角色
+                                                    //ItemInfoManager.instance
     }
 
     private IEnumerator ChickInfo()

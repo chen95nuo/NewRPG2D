@@ -1176,6 +1176,7 @@
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoleLoginSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomMergerSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomSplitSend.cs" />
+    <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomStateSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomUpdateLevelSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetSaveAllRoomSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetStartGameSend.cs" />
@@ -1279,6 +1280,8 @@
     <Compile Include="Assets\Script\UIManger\Data\ChildData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\ChildDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\GetPlayerData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\HallConfigData.cs" />
+    <Compile Include="Assets\Script\UIManger\Data\HallConfigDataMgr.cs" />
     <Compile Include="Assets\Script\UIManger\Data\HallRoleData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\LanguageData.cs" />
     <Compile Include="Assets\Script\UIManger\Data\LanguageDataMgr.cs" />
@@ -1297,15 +1300,14 @@
     <Compile Include="Assets\Script\UIManger\GameManager\BuildingType.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\CameraControl.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\Castle.cs" />
-    <Compile Include="Assets\Script\UIManger\GameManager\ChickItemInfo.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\ChickPlayerInfo.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GameHelper.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\GameMain.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallChildren.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallRole.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\HallRoleMgr.cs" />
-    <Compile Include="Assets\Script\UIManger\GameManager\IconMgr.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\InfinityGridLayoutGroup.cs" />
+    <Compile Include="Assets\Script\UIManger\GameManager\ItemInfoManager.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LocalServer.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LocalStartFight.cs" />
     <Compile Include="Assets\Script\UIManger\GameManager\LoginScene.cs" />
@@ -1368,6 +1370,7 @@
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUP_3.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUp_3Grid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUp_4.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpLoading.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_1.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_2.cs" />
     <Compile Include="Assets\Script\UIManger\UI\PopUp\UIPopUpTips_3.cs" />

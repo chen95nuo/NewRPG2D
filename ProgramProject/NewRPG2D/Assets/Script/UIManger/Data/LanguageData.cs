@@ -5,20 +5,24 @@ using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
 using System.Xml;
 
-public class LanguageData : ItemBaseData
+public class LanguageData : ItemBaseCsvData
 {
     public string GetName;
     public string Chinese;
 
-    public override XmlName ItemXmlName
+    public override CsvEChartsType ItemCsvName
     {
-        get { return XmlName.LanguageData; }
+        get { return CsvEChartsType.LanguageData; }
     }
 
-    public override bool GetXmlDataAttribute(XmlNode node)
+    public override bool AnalySis(string[] data)
     {
-        GetName = ReadXmlDataMgr.StrParse(node, "GetName");
-        Chinese = ReadXmlDataMgr.StrParse(node, "Chinese");
-        return base.GetXmlDataAttribute(node);
+        if (base.AnalySis(data))
+        {
+            GetName = StrParse(data, 1);
+            Chinese = StrParse(data, 2);
+            return true;
+        }
+        return false;
     }
 }

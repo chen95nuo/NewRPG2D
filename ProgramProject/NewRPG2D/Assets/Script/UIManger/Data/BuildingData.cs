@@ -1,9 +1,8 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.Utility;
 using Assets.Script.Battle.BattleData;
-using System.Xml;
 
 [System.Serializable]
 public class BuildingData : ItemBaseCsvData

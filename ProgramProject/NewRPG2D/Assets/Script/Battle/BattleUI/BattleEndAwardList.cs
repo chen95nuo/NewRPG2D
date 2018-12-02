@@ -26,7 +26,7 @@ namespace Assets.Script.Battle.BattleUI
             for (int i = 0; i < itemCount; i++)
             {
                 int count = UnityEngine.Random.Range(itemDatas[i].ItemMinCount, itemDatas[i].ItemMaxCount);
-                RealPropData mRealPropData = ChickItemInfo.instance.CreateNewProp(itemDatas[i].ItemId, count);
+                RealPropData mRealPropData = ItemInfoManager.instance.CreateNewProp(itemDatas[i].ItemId, count);
                 if (mRealPropData != null && mRealPropData.propData != null)
                 {
                     items[i].gameObject.CustomSetActive(true);
@@ -39,7 +39,7 @@ namespace Assets.Script.Battle.BattleUI
                 if (box != null)
                 {
                     realCount++;
-                    ChickItemInfo.instance.CreateNewBox(box.ItemId);
+                    ItemInfoManager.instance.CreateNewBox(box.ItemId);
                     items[i].gameObject.CustomSetActive(true);
                     items[i].SetBoxInfo(GetSpriteAtlas.insatnce.GetIcon(box.SpriteName), 1);
                 }

@@ -15,10 +15,10 @@ public class UITrainLevelUp : UILevelUp
 
 
 
-    protected override void Init(RoomMgr data)
+    protected override void Init(LocalBuildingData data)
     {
         base.Init(data);
-        BuildingData d1 = data.currentBuildData.buildingData;
+        BuildingData d1 = data.buildingData;
         BuildingData d2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(d1.NextLevelID);
 
         txt_Number.text = d1.Param1.ToString();

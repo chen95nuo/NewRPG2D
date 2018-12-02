@@ -23,7 +23,7 @@ public class UILevelUpHelper : MonoBehaviour
     private float needWood = 0;
     private float needIron = 0;
 
-    private RoomMgr roomMgr = null;
+    private LocalBuildingData roomMgr = null;
 
     private int allNeed = 0;
     private void Awake()
@@ -39,12 +39,12 @@ public class UILevelUpHelper : MonoBehaviour
         CloseTxt(false);
     }
 
-    public void UpdateUIfo(RoomMgr roomMgr)
+    public void UpdateUIfo(LocalBuildingData roomMgr)
     {
         this.roomMgr = roomMgr;
         PlayerData playerData = GetPlayerData.Instance.GetData();
 
-        BuildingData b_Data_1 = roomMgr.BuildingData;//当前房间信息
+        BuildingData b_Data_1 = roomMgr.buildingData;//当前房间信息
         BuildingData b_Data_2;//下一级房间信息
         if (b_Data_1.NextLevelID == 0)
         {
@@ -117,9 +117,9 @@ public class UILevelUpHelper : MonoBehaviour
         if (needGold <= 0 && needMana <= 0 && needWood <= 0 && needIron <= 0)
         {
             //材料足够倒计时升级
-            int id = roomMgr.BuildingData.NextLevelID;
-            roomMgr.ConstructionStart(id, 0);
-            BuildingData temp = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(roomMgr.BuildingData.NextLevelID);
+            int id = roomMgr.buildingData.NextLevelID;
+            roomMgr.currentRoom.ConstructionStart(id, 0);
+            BuildingData temp = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(roomMgr.buildingData.NextLevelID);
             CheckPlayerInfo.instance.RoomUseStock(temp);
             return;
         }

@@ -20,7 +20,7 @@ public abstract class UIRoomInfo : TTUIPage
 
     protected Button[] btn_ScreenRole;
     [System.NonSerialized]
-    public RoomMgr roomData;
+    public LocalBuildingData roomData;
     protected int currentBtn = 0;
     private bool isShow = false;
 
@@ -63,7 +63,7 @@ public abstract class UIRoomInfo : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        roomData = mData as RoomMgr;
+        roomData = mData as LocalBuildingData;
         UpdateInfo(roomData);
         UpdateName(roomData);
     }
@@ -72,11 +72,11 @@ public abstract class UIRoomInfo : TTUIPage
     /// 刷新房间名称和等级
     /// </summary>
     /// <param name="data"></param>
-    protected virtual void UpdateName(RoomMgr data, bool NeedTip = true)
+    protected virtual void UpdateName(LocalBuildingData data, bool NeedTip = true)
     {
-        string name = data.BuildingData.RoomName.ToString();
+        string name = data.buildingData.RoomName.ToString();
         txt_Name.text = LanguageDataMgr.instance.GetRoomName(name);
-        txt_Level.text = data.BuildingData.Level.ToString();
+        txt_Level.text = data.buildingData.Level.ToString();
         if (NeedTip)
         {
             txt_DownTip.text = LanguageDataMgr.instance.GetInfo(name);
@@ -90,7 +90,7 @@ public abstract class UIRoomInfo : TTUIPage
     /// <param name="roleGrids"></param>
     protected virtual int ChickRoleNumber<T>(List<T> roleGrids)
     {
-        int index = roomData.BuildingData.RoomRole;
+        int index = roomData.buildingData.RoomRole;
         btn_ScreenRole = new Button[index];
         int num = 0;//角色数量
         for (int i = 0; i < index; i++)
@@ -102,9 +102,9 @@ public abstract class UIRoomInfo : TTUIPage
                 roleGrids.Add(grid);
             }
             UIRoleGridMgr mgr = roleGrids[i] as UIRoleGridMgr;
-            if (roomData.currentBuildData.roleData[i] != null)
+            if (roomData.roleData[i] != null)
             {
-                mgr.UpdateInfo(roomData.currentBuildData.roleData[i], this);
+                mgr.UpdateInfo(roomData.roleData[i], this);
                 num++;
             }
             else
@@ -138,7 +138,7 @@ public abstract class UIRoomInfo : TTUIPage
 
     public virtual void RoomAddRole(HallRole role, int oldRoleId)
     {
-        roomData.AddRole(role, oldRoleId);
+        roomData.currentRoom.AddRole(role, oldRoleId);
         UpdateInfo(roomData);
     }
 
@@ -153,7 +153,7 @@ public abstract class UIRoomInfo : TTUIPage
         pageDownTip.DOAnchorPos(Vector2.zero, 0.5f);
     }
 
-    protected abstract void UpdateInfo(RoomMgr roomMgr);
+    protected abstract void UpdateInfo(LocalBuildingData roomMgr);
     protected virtual void ChickClose()
     {
         System.Type type = GetType();

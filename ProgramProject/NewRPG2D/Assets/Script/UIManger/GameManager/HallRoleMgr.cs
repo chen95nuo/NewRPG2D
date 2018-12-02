@@ -13,6 +13,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     Dictionary<int, RoleLoveHelper> loveData = new Dictionary<int, RoleLoveHelper>();
     private List<HallRole> AllHallRole = new List<HallRole>();
     private List<HallRoleData> AllRole = new List<HallRoleData>();
+    private List<HallRoleData> AllChildren = new List<HallRoleData>();
     private int childNeedTime = 360;//小孩所需时间
     private int LoveTime = 10;//恋爱所需时间
     private int roleIdIndex = 0;
@@ -81,6 +82,12 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     }
 
     #region New
+
+    public int GetAllRoleNum
+    {
+        get { return AllRole.Count + AllChildren.Count; }
+    }
+
     /// <summary>
     /// 获取服务器上的角色数据
     /// </summary>
@@ -101,7 +108,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     /// <summary>
     /// 将将原始数据进行重新实例
     /// </summary>
-    public void ResetRoleData()
+    public void InitRoleData()
     {
         foreach (var data in AllRole)
         {

@@ -42,8 +42,8 @@ public abstract class UIRoleGridMgr : MonoBehaviour
         if (isShow)
         {
             txt_Level.gameObject.SetActive(true);
-            Icon_Level.sprite = GetSpriteAtlas.insatnce.GetLevelIconToRoom(room.roomData.RoomName);
-            txt_Level.text = "+" + role.GetArtProduce(room.roomData.RoomName).ToString();
+            Icon_Level.sprite = GetSpriteAtlas.insatnce.GetLevelIconToRoom(room.roomData.buildingData.RoomName);
+            txt_Level.text = "+" + role.GetArtProduce(room.roomData.buildingData.RoomName).ToString();
         }
         else
         {

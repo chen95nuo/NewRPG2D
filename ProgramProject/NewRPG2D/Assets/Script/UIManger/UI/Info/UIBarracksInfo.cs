@@ -31,13 +31,13 @@ public class UIBarracksInfo : UIRoomInfo
         }
     }
 
-    protected override void UpdateInfo(RoomMgr roomMgr)
+    protected override void UpdateInfo(LocalBuildingData roomData)
     {
         txt_AllFight.text = "19999";
         txt_Tip_1.text = "战斗力";
 
         ChickRoleNumber(roleGrids);
-        UnlockIndex = (int)roomMgr.currentBuildData.buildingData.Param2;
+        UnlockIndex = (int)roomData.buildingData.Param2;
         for (int i = UnlockIndex; i < roleGrids.Count; i++)
         {
             roleGrids[i].UpdateLockInfo(this, i);

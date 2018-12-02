@@ -67,7 +67,7 @@ public class LocalBuildingData
     public bool ConstructionType = false;
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
-    public int leftTime;//升级时间
+    public float leftTime;//升级时间
 
     public float AllRoleProduction()
     {

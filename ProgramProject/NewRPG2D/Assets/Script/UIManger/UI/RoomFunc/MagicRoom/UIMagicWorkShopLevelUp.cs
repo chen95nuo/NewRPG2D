@@ -21,12 +21,12 @@ public class UIMagicWorkShopLevelUp : UILevelUp
         txt_Tip_1.text = "升级增加";
         txt_Tip_2.text = "数量";
     }
-    protected override void Init(RoomMgr data)
+    protected override void Init(LocalBuildingData data)
     {
         base.Init(data);
-        slider_1.fillAmount = data.currentBuildData.buildingData.Param2 / 6;
-        txt_UseNum.text = data.currentBuildData.buildingData.Param2.ToString();
-        BuildingData buildData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.currentBuildData.buildingData.NextLevelID);
+        slider_1.fillAmount = data.buildingData.Param2 / 6;
+        txt_UseNum.text = data.buildingData.Param2.ToString();
+        BuildingData buildData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.buildingData.NextLevelID);
         slider_2.fillAmount = buildData.Param2 / 6;
         txt_NextNum.text = buildData.Param2.ToString();
 

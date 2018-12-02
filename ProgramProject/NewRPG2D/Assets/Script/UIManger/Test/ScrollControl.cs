@@ -83,38 +83,38 @@ public class ScrollControl : MonoBehaviour
     private void ChickAllItem()
     {
         Debug.Log("刷新所有物品");
-        items = ChickItemInfo.instance.GetAllItem();
+        items = ItemInfoManager.instance.GetAllItem();
         UpdateInfo(items);
     }
     private void ChickWeapon()
     {
         Debug.Log("刷新全部武器");
-        items = ChickItemInfo.instance.GetEquip(EquipTypeEnum.Sword);
+        items = ItemInfoManager.instance.GetEquip(EquipTypeEnum.Sword);
         UpdateInfo(items);
     }
     private void ChickArmor()
     {
         Debug.Log("刷新全部防具");
-        items = ChickItemInfo.instance.GetEquip(EquipTypeEnum.Armor);
+        items = ItemInfoManager.instance.GetEquip(EquipTypeEnum.Armor);
         UpdateInfo(items);
     }
     private void ChickJewelry()
     {
         Debug.Log("刷新全部首饰");
-        items = ChickItemInfo.instance.GetEquip((EquipTypeEnum)2, (EquipTypeEnum)3, (EquipTypeEnum)4);
+        items = ItemInfoManager.instance.GetEquip((EquipTypeEnum)2, (EquipTypeEnum)3, (EquipTypeEnum)4);
 
         UpdateInfo(items);
     }
     private void ChickBox()
     {
         Debug.Log("刷新全部宝箱");
-        items = ChickItemInfo.instance.GetAllBox();
+        items = ItemInfoManager.instance.GetAllBox();
         UpdateInfo(items);
     }
     private void ChickProp()
     {
         Debug.Log("刷新全部道具");
-        items = ChickItemInfo.instance.GetAllProp();
+        items = ItemInfoManager.instance.GetAllProp();
         UpdateInfo(items);
     }
 }

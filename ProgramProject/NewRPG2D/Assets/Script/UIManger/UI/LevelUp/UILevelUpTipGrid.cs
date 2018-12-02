@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using Assets.Script.Net;
 
 public class UILevelUpTipGrid : MonoBehaviour
 {
     public Text txt_time;
     [System.NonSerialized]
-    public Transform ts;
     private Canvas canvas;
     public Image slider;
     private Vector3 point;
     public Image icon;
     public Text txt_Tip;
+
+    private LocalBuildingData buildingData;
 
     private void Awake()
     {
@@ -25,9 +27,26 @@ public class UILevelUpTipGrid : MonoBehaviour
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.CameraMove, UpdatePos);
     }
 
-    public void GetInfo(Transform transform, Canvas canvas)
+    private void Update()
     {
-        ts = transform;
+        if (buildingData != null && buildingData.leftTime > 0)
+        {
+            buildingData.leftTime -= Time.deltaTime;
+            float time = buildingData.leftTime;
+            txt_time.text = (time <= 0 ? 0 : time).ToString();
+            if (buildingData.leftTime <= -1)
+            {
+                string roomid = (int)buildingData.buildingData.RoomName + "_" + buildingData.id;
+                WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, roomid);
+
+            }
+        }
+    }
+
+    public void GetInfo(LocalBuildingData buildingData, Canvas canvas)
+    {
+        this.buildingData = buildingData;
+        Transform ts = buildingData.currentRoom.disTip.transform;
         point = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
         this.canvas = canvas;
         UpdatePos();
@@ -45,20 +64,5 @@ public class UILevelUpTipGrid : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, v3, canvas.worldCamera, out pos);
         RectTransform rect = transform.transform as RectTransform;
         rect.anchoredPosition = pos;
-    }
-
-    public void UpdateTime(LevelUPHelper data)
-    {
-        if (MapControl.instance.type == CastleType.edit)
-        {
-            this.gameObject.SetActive(false);
-            return;
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
-        slider.fillAmount = (float)(data.allTime - data.needTime) / (float)data.allTime;
-        txt_time.text = SystemTime.instance.TimeNormalizedOf(data.needTime, false);
     }
 }

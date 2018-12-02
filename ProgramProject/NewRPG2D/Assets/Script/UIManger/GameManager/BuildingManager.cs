@@ -8,6 +8,7 @@ using Assets.Script.Timer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Script.UIManger;
 
 public class BuildingManager : TSingleton<BuildingManager>
 {
@@ -30,20 +31,31 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
     }
 
-    public void AddNewRoom(proto.SLGV1.RoomInfo roomInfo)
+    /// <summary>
+    /// 添加一个新房间,如有重复认为修改房间消息
+    /// </summary>
+    /// <param name="roomInfo"></param>
+    public LocalBuildingData AddNewRoom(proto.SLGV1.RoomInfo roomInfo)
     {
         int[] id = TypeOfRoomId(roomInfo.roomId);
         BuildRoomName name = (BuildRoomName)id[0];
+
+        //寻找是否有重复房间
         if (!AllBuilding.ContainsKey(name))
         {
             AllBuilding.Add(name, new List<LocalBuildingData>());
-        }
 
+        }
         LocalBuildingData buildingData = new LocalBuildingData(roomInfo, id[1]);
         AllBuilding[name].Add(buildingData);
+        SetAllBuildingData(buildingData);
+        return buildingData;
     }
 
-    public void SetMainHallRoom()
+    /// <summary>
+    /// 写入主房间
+    /// </summary>
+    public void InitMainHallRoom()
     {
         GetPlayerData.Instance.SetThroneRoom(AllBuilding[BuildRoomName.ThroneRoom][0]);
         GetPlayerData.Instance.SetBarracks(AllBuilding[BuildRoomName.Barracks][0]);
@@ -52,7 +64,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <summary>
     /// 切场景回来后重新放置房间
     /// </summary>
-    public void ResetBuildingData()
+    public void InitBuildingData()
     {
         foreach (var roomData in AllBuilding)
         {
@@ -69,10 +81,15 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="roomData"></param>
     public void SetAllBuildingData(LocalBuildingData roomData)
     {
+        if (MainCastle.instance = null)
+        {
+            return;
+        }
         MainCastle.instance.InstanceRoom(roomData);
         if (roomData.leftTime > 0) //如果该房间在升级
         {
             //发送消息给升级标签
+            BuildingRoomLevelUp(roomData);
         }
         for (int i = 0; i < roomData.roleData.Length; i++)
         {
@@ -84,6 +101,22 @@ public class BuildingManager : TSingleton<BuildingManager>
                 data.transform.localPosition = Vector3.zero;
                 Vector2 endPoint = roomData.buildingData.RolePoint[i];
                 data.RoleMove(endPoint);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 房间升级
+    /// </summary>
+    public void BuildingRoomLevelUp(LocalBuildingData buildingData)
+    {
+        //如果该房间没有实例 判断不在主场景
+        if (buildingData.currentRoom != null)
+        {
+            //如果该房间正在升级 或升级完成
+            if (buildingData.leftTime >= 0)
+            {
+                UIPanelManager.instance.ShowPage<UILevelUpTip>(buildingData);
             }
         }
     }
@@ -274,10 +307,13 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <returns></returns>
     public LocalBuildingData SearchRoomData(BuildRoomName type, int id)
     {
-        List<LocalBuildingData> TypeRoom = AllBuilding[type];
-        for (int i = 0; i < TypeRoom.Count; i++)
+        if (AllBuilding.ContainsKey(type))
         {
-            if (TypeRoom[i].id == id) return TypeRoom[i];
+            List<LocalBuildingData> TypeRoom = AllBuilding[type];
+            for (int i = 0; i < TypeRoom.Count; i++)
+            {
+                if (TypeRoom[i].id == id) return TypeRoom[i];
+            }
         }
         return null;
     }
@@ -328,6 +364,24 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
         stock += GetPlayerData.Instance.GetData().GetResSpace(name);
         return stock;
+    }
+
+    /// <summary>
+    /// 查询总人口空间
+    /// </summary>
+    /// <returns></returns>
+    public int SearchRoleSpace()
+    {
+        int num = (int)HallConfigDataMgr.instance.GetValue(HallConfigEnum.population);
+        if (AllBuilding.ContainsKey(BuildRoomName.LivingRoom))
+        {
+            List<LocalBuildingData> LivingRooms = AllBuilding[BuildRoomName.LivingRoom];
+            foreach (var room in LivingRooms)
+            {
+                num += (int)room.buildingData.Param2;
+            }
+        }
+        return num;
     }
     #endregion
 

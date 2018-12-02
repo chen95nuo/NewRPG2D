@@ -24,6 +24,7 @@ namespace Assets.Script.Utility
 
         //战斗内的
         RolePropertyData,
+
         //城堡大厅的
         BuildingData,
         TrainData,
@@ -31,6 +32,10 @@ namespace Assets.Script.Utility
         ChildData,
         PropData,
         WorldMapData,
+        HallConfigData,
+
+        //公共的
+        LanguageData,
 
         Max,
 
@@ -43,7 +48,6 @@ namespace Assets.Script.Utility
         TreasureBox,
         Equipment,
         EquipBaseProperty,
-        LanguageData,
         CreateEnemyData,
 
 
@@ -83,7 +87,10 @@ namespace Assets.Script.Utility
                     return new WorldMapData();
                 case CsvEChartsType.TrainData:
                     return new TrainData();
-
+                case CsvEChartsType.LanguageData:
+                    return new LanguageData();
+                case CsvEChartsType.HallConfigData:
+                    return new HallConfigData();
 
                 default: return new ItemBaseCsvData();
             }
@@ -99,9 +106,9 @@ namespace Assets.Script.Utility
 #elif UNITY_EDITOR
             path = Application.dataPath + "/StreamingAssets/Config/CSV/" + _fileName + ".csv";
 #elif UNITY_IPHONE
-    path = Application.dataPath + "/Raw/Config/Csv/" + _str + ".csv";
+    path = Application.dataPath + "/Raw/Config/Csv/" + _fileName + ".csv";
 #elif UNITY_ANDROID
-    path = "jar:file://" + Application.dataPath + "!/assets/Config/CSV/"+ _str +".csv";
+    path = "jar:file://" + Application.dataPath + "!/assets/Config/CSV/"+ _fileName +".csv";
 #endif
             Debug.Log(path);
             return path;
@@ -173,12 +180,12 @@ namespace Assets.Script.Utility
 
                 if (i > startIndex && i < endIndex)
                 {
-                  
+
                     values[startIndex] += "," + values[i];
                     if (values[i].EndsWith("\""))
                     {
                         endIndex = i;
-                        int listIndex = valueList.Count <= startIndex ? startIndex - needChangeCount: startIndex;
+                        int listIndex = valueList.Count <= startIndex ? startIndex - needChangeCount : startIndex;
                         valueList[listIndex] = values[startIndex];
                     }
                     needChangeCount++;

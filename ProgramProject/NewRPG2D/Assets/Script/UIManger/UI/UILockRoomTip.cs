@@ -27,7 +27,7 @@ public class UILockRoomTip : TTUIPage
     private UILockTrainSpeed uiTrainSpeed_1;
     private UILockTrainSpeed uiTrainSpeed_2;
 
-    private RoomMgr roomData;
+    private LocalBuildingData roomData;
     private bool isOpen = false;
     private RectTransform rt;
     private float addSpeedNeed = 0;
@@ -44,8 +44,8 @@ public class UILockRoomTip : TTUIPage
         RoomMgr data = mData as RoomMgr;
         rt.anchoredPosition = Vector3.down * 540;
         rt.DOAnchorPos(Vector3.zero, 0.15f);
-        LockRoomData(data);
-        LockRoomData(data);
+        LockRoomData(data.currentBuildData);
+        LockRoomData(data.currentBuildData);
     }
 
     private void Init()
@@ -69,13 +69,13 @@ public class UILockRoomTip : TTUIPage
         btn_Research.onClick.AddListener(ChickResearch);
     }
 
-    private void LockRoomData(RoomMgr data)
+    private void LockRoomData(LocalBuildingData data)
     {
         roomData = data;
-        string st = LanguageDataMgr.instance.GetRoomName(roomData.RoomName.ToString());
+        string st = LanguageDataMgr.instance.GetRoomName(roomData.buildingData.RoomName.ToString());
         txt_Name.text = st;
-        txt_Level.text = roomData.BuildingData.Level.ToString();
-        switch (data.BuildingData.RoomType)
+        txt_Level.text = roomData.buildingData.Level.ToString();
+        switch (data.buildingData.RoomType)
         {
             case RoomType.Nothing:
                 break;
@@ -148,7 +148,7 @@ public class UILockRoomTip : TTUIPage
             RoomLevelUp(true);
             return;
         }
-        switch (roomData.BuildingData.RoomName)
+        switch (roomData.buildingData.RoomName)
         {
             case BuildRoomName.Nothing:
                 Debug.LogError("错误房间类型超限");
@@ -216,7 +216,7 @@ public class UILockRoomTip : TTUIPage
         btn_Cancel.gameObject.SetActive(isTrue);
         if (isTrue == true)
         {
-            LevelUPHelper data = CheckPlayerInfo.instance.GetBuildNumber(roomData.Id);
+            LevelUPHelper data = CheckPlayerInfo.instance.GetBuildNumber(roomData.id);
             if (data != null)
             {
                 addSpeedNeed = data.needTime * 0.01f;
@@ -229,7 +229,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickMessage()
     {
         Debug.Log("根据类型弹出信息框");
-        switch (roomData.BuildingData.RoomName)
+        switch (roomData.buildingData.RoomName)
         {
             case BuildRoomName.Nothing:
                 break;
@@ -286,7 +286,7 @@ public class UILockRoomTip : TTUIPage
     private void ChickLevelUp()
     {
         Debug.Log("根据类型弹出升级框");
-        switch (roomData.BuildingData.RoomType)
+        switch (roomData.buildingData.RoomType)
         {
             case RoomType.Nothing:
                 Debug.LogError("错误房间类型超限");
@@ -320,7 +320,7 @@ public class UILockRoomTip : TTUIPage
         if (data.Diamonds >= addSpeedNeed)
         {
             data.Diamonds -= (int)addSpeedNeed;
-            CheckPlayerInfo.instance.ChickNowComplete(roomData.Id);
+            //CheckPlayerInfo.instance.ChickNowComplete(roomData.id);
         }
         else
         {
@@ -390,7 +390,7 @@ public class UILockRoomTip : TTUIPage
 
     private void SupportType()
     {
-        switch (roomData.BuildingData.RoomName)
+        switch (roomData.buildingData.RoomName)
         {
             case BuildRoomName.Nothing:
                 Debug.LogError("错误房间类型超限");

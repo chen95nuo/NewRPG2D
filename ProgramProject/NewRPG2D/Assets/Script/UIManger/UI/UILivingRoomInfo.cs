@@ -23,13 +23,13 @@ public class UILivingRoomInfo : UIRoomInfo
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.ChickRoleLove, ChickLoveCallBack);
     }
 
-    protected override void UpdateInfo(RoomMgr roomMgr)
+    protected override void UpdateInfo(LocalBuildingData roomMgr)
     {
         txt_Tip_1.text = "居民数量";
-        txt_roleNumber.text = roomMgr.currentBuildData.buildingData.Param2.ToString();
+        txt_roleNumber.text = roomMgr.buildingData.Param2.ToString();
 
         //刷角色格子背景数量
-        switch (roomMgr.BuildingData.RoomSize)
+        switch (roomMgr.buildingData.RoomSize)
         {
             case 3:
                 ChickGridBG(1);
@@ -44,7 +44,7 @@ public class UILivingRoomInfo : UIRoomInfo
                 break;
         }
         //检查同性
-        ChickTimeText(roomMgr.currentBuildData.roleData);
+        ChickTimeText(roomMgr.roleData);
 
         ChickRoleNumber(roleGrids);
     }
@@ -113,7 +113,7 @@ public class UILivingRoomInfo : UIRoomInfo
     private void ChickLoveCallBack(int index)
     {
         RoleLoveHelper loveData = HallRoleMgr.instance.GetLoveData(index);
-        HallRoleData[] roleData = roomData.currentBuildData.roleData;
+        HallRoleData[] roleData = roomData.roleData;
         for (int i = 0; i < roleData.Length; i++)
         {
             if (roleData[i].id == loveData.roleID[0] && roleData[i + 1].id == loveData.roleID[1])
