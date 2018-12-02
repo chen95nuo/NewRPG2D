@@ -74,7 +74,7 @@ public class BuildingData : ItemBaseCsvData
         Vector2[] point = new Vector2[astr.Count];
         for (int i = 0; i < astr.Count; i++)
         {
-            float f =astr[i];
+            float f = astr[i];
             point[i] = new Vector2(f, 0);
         }
         return point;

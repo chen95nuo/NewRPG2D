@@ -53,6 +53,9 @@ public class UIPopUp_1 : TTUIPage
         foreach (var item in needStock)
         {
             temp += item.Value;
+
+            GameHelper.instance.MaterialNameToBuildRoomName(item.Key);
+
             if (item.Key == MaterialName.Gold)
             {
                 txt_Gold.transform.parent.gameObject.SetActive(true);
