@@ -68,6 +68,17 @@ public class LocalBuildingData
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
     public float leftTime;//升级时间
+    public int GetYield
+    {
+        get
+        {
+            return (int)(speedProd + buildingData.Param1);
+        }
+        set
+        {
+            speedProd = value;
+        }
+    }
 
     public float AllRoleProduction()
     {

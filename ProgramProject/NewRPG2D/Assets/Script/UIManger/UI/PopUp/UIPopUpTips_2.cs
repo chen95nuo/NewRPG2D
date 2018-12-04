@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//主界面资源提示框
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,8 +43,8 @@ public class UIPopUpTips_2 : TTUIPage
 
     public void UpdateInfo(BuildRoomName name, Transform ts)
     {
-        int allyield = CheckPlayerInfo.instance.GetAllYield(name);
-        int allStock = CheckPlayerInfo.instance.GetAllStockSpace(name);
+        int allyield = BuildingManager.instance.SearchRoomYield(name);
+        int allStock = BuildingManager.instance.SearchRoomSpace(name.ToString());
         txt_Num_1.text = allyield.ToString();
         txt_Num_2.text = allStock.ToString();
         tipTs.position = ts.position;

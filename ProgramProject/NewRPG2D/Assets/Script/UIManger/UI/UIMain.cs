@@ -62,9 +62,9 @@ public class UIMain : TTUIPage
     public Button btn_UIBag;
     public Button btn_UIMap;
     public Button btn_Cancel;
-    public Button btn_People;
-    public Button btn_Worker;
-    public Button btn_Happiness;
+    public Button btn_People;//人口提示 popUpTips_3
+    public Button btn_Worker;//建筑工人提示 popUpTips_4
+    public Button btn_Happiness;//幸福度提示 popUpTips_5
     public Button btn_Info;
     public Button btn_Rank;
     public Button btn_SetUp;
@@ -103,7 +103,6 @@ public class UIMain : TTUIPage
         HallEventManager.instance.AddListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
         HallEventManager.instance.AddListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
-        HallEventManager.instance.AddListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.AddListener<int>(HallEventDefineEnum.CheckHappiness, HappinessChange);
         UIMainHight(-1);
 
@@ -119,7 +118,6 @@ public class UIMain : TTUIPage
         HallEventManager.instance.RemoveListener(HallEventDefineEnum.diamondsSpace, CheckDiamonds);
         HallEventManager.instance.RemoveListener<BuildRoomName>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.UiMainHight, UIMainHight);
-        HallEventManager.instance.RemoveListener<UIMainCheckStock>(HallEventDefineEnum.CheckStock, GetSpace);
         HallEventManager.instance.RemoveListener<int>(HallEventDefineEnum.CheckHappiness, HappinessChange);
     }
 
@@ -173,8 +171,7 @@ public class UIMain : TTUIPage
 
     private void CheckHappiness()
     {
-        object st = "好感度加成系统暂未开放";
-        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+        UIPanelManager.instance.ShowPage<UIPopUpTips_5>(btn_Happiness.transform);
     }
 
     private void CheckWorkr()
@@ -185,13 +182,18 @@ public class UIMain : TTUIPage
 
     private void CheckPeople()
     {
-        object st = "人口系统暂未开放";
-        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+        List<object> obj = new List<object>();
+        string st = HallRoleMgr.instance.GetAllRoleNum + "/" + BuildingManager.instance.SearchRoleSpace();
+        obj.Add(btn_People.transform);
+        obj.Add(st);
+        UIPanelManager.instance.ShowPage<UIPopUpTips_3>(obj);
     }
 
+    /// <summary>
+    /// 右上材料点击方法
+    /// </summary>
     private void CheckProduceTips()
     {
-        Debug.Log("按钮按下");
         GameObject go = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         for (int i = 0; i < btn_Produces.Length; i++)
         {
@@ -230,33 +232,34 @@ public class UIMain : TTUIPage
         if (level > 0)
         {
             btn_Produces[0].gameObject.SetActive(true);
-            txt_gold.text = playerData.GetResSpace(BuildRoomName.GoldSpace).ToString();
             btn_Produces[1].gameObject.SetActive(true);
-            txt_food.text = playerData.GetResSpace(BuildRoomName.FoodSpace).ToString();
+            GetSpace(BuildRoomName.GoldSpace);
+            GetSpace(BuildRoomName.FoodSpace);
         }
         if (level >= 4)
         {
             btn_Produces[2].gameObject.SetActive(true);
-            txt_mana.text = playerData.GetResSpace(BuildRoomName.ManaSpace).ToString();
+            GetSpace(BuildRoomName.ManaSpace);
         }
         if (level >= 6)
         {
             btn_Produces[3].gameObject.SetActive(true);
-            txt_wood.text = playerData.GetResSpace(BuildRoomName.WoodSpace).ToString();
+            GetSpace(BuildRoomName.WoodSpace);
         }
         if (level >= 9)
         {
             btn_Produces[4].gameObject.SetActive(true);
-            txt_iron.text = playerData.GetResSpace(BuildRoomName.IronSpace).ToString();
+            GetSpace(BuildRoomName.IronSpace);
         }
         txt_playerName.text = playerData.Name;
         txt_ClanName.text = "";
         txt_diamonds.text = playerData.Diamonds.ToString();
         txt_grailNum.text = playerData.GrailNum.ToString();
         txt_builderNum.text = playerData.BuilderNum + "/" + HallConfigDataMgr.instance.GetValue(HallConfigEnum.builder);
-        HappinessChange(GameHelper.instance.Happiness);
         CheckDiamonds();
         CheckResident();
+        HappinessChange(playerData.Happiness);
+
     }
 
     /// <summary>
@@ -265,6 +268,7 @@ public class UIMain : TTUIPage
     /// <param name="number"></param>
     private void HappinessChange(int number)
     {
+        number = HallConfigDataMgr.instance.GetNowHappiness(number);
         txt_happinessState.text = "+" + number.ToString() + "%";
     }
 
@@ -315,22 +319,16 @@ public class UIMain : TTUIPage
         btn_UISetting.gameObject.SetActive(isTrue);
     }
 
-    private void GetSpace(BuildRoomName name)
-    {
-        Debug.Log("检查容量");
-        CheckDiamonds();
-    }
-
     /// <summary>
     /// 通过消息更新当前某资源容量
     /// </summary>
     /// <param name="newStock"></param>
-    private void GetSpace(UIMainCheckStock newStock)
+    private void GetSpace(BuildRoomName name)
     {
         Image slider = null;
-        float allSpace = BuildingManager.instance.SearchRoomSpace(newStock.name);
-        float allStock = BuildingManager.instance.SearchRoomStock(newStock.name);
-        switch (newStock.name)
+        float allSpace = BuildingManager.instance.SearchRoomSpace(name);
+        float allStock = BuildingManager.instance.SearchRoomStock(name);
+        switch (name)
         {
             case BuildRoomName.GoldSpace:
                 slider = goldSlider;

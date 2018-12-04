@@ -17,14 +17,27 @@ public class GetPlayerData
         }
     }
 
+    public int Happiness
+    {
+        set
+        {
+            if (data != null)
+            {
+                data.Happiness = happiness;
+            }
+            happiness = value;
+        }
+    }
+
     private PlayerData data;
+    private int happiness;
     public PlayerData GetData()
     {
         return data;
     }
     public void SetData(proto.SLGV1.CharacterInfo S_PlayerData)
     {
-        data = new PlayerData(S_PlayerData);
+        data = new PlayerData(S_PlayerData, happiness);
     }
 
     public void SetThroneRoom(LocalBuildingData buildingData)

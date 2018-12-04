@@ -75,8 +75,12 @@ public class UIMarketGrid : MonoBehaviour
 
         if (isTrue == false)
         {
-            if (data.NeedLevel == 0 || (number[0] == number[1] && number[1] != 0)) txt_Tip_3.text = "建筑数量已达上限";
-            else txt_Tip_3.text = string.Format("需要{0}级国王大厅", data.NeedLevel);
+            if (data.NeedLevel == 0 || (number[0] == number[1] && number[1] != 0)) txt_Tip_3.text = LanguageDataMgr.instance.GetUIString("jianzhuyidashangxian");
+            else
+            {
+                string st = LanguageDataMgr.instance.GetUIString("xuyaoguowangdating");
+                txt_Tip_3.text = string.Format(st, data.NeedLevel);
+            }
             lockObj.SetActive(true);
             for (int i = 0; i < lockImages.Length; i++)
             {
@@ -85,8 +89,8 @@ public class UIMarketGrid : MonoBehaviour
             return;
         }
 
-        txt_Tip_1.text = "建造时间";
-        txt_Tip_2.text = "建筑数量";
+        txt_Tip_1.text = LanguageDataMgr.instance.GetUIString("jianzaoshijian");
+        txt_Tip_2.text = LanguageDataMgr.instance.GetUIString("jianzhushuliang");
 
         buildingData = data;
         txt_Number.text = number[0] + "/" + number[1];
@@ -109,7 +113,6 @@ public class UIMarketGrid : MonoBehaviour
             {
                 txt_Gold.text = string.Format(whiteSt, data.NeedGold);
             }
-
         }
         if (data.NeedMana > 0)
         {

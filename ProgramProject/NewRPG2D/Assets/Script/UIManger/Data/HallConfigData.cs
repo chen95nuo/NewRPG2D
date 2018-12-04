@@ -7,7 +7,7 @@ public class HallConfigData : ItemBaseCsvData
 {
 
     public HallConfigEnum key;//key
-    public float value;//value
+    public string value;//value
 
     public override CsvEChartsType ItemCsvName
     {
@@ -20,7 +20,7 @@ public class HallConfigData : ItemBaseCsvData
         {
             string keystr = StrParse(data, 1);
             key = (HallConfigEnum)System.Enum.Parse(typeof(HallConfigEnum), keystr);
-            value = FloatParse(data, 2);
+            value = StrParse(data, 2);
 
             return true;
         }
@@ -38,4 +38,6 @@ public enum HallConfigEnum
     ironSpace,
     builder,//默认工人数量
     population,//默认人口
+    happiness,//幸福度各阶段的值
+    happinessMax,//幸福度上限
 }

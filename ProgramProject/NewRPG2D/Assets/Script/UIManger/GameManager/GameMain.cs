@@ -24,6 +24,12 @@ public class GameMain : MonoBehaviour
     {
         UIPanelManager.instance.ShowPage<UILoading>();
         StartCoroutine(ChickInfo());
+
+        Test();
+    }
+    private void Test()
+    {
+
     }
 
     private void Init()

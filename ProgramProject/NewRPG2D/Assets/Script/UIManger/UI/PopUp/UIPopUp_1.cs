@@ -26,9 +26,9 @@ public class UIPopUp_1 : TTUIPage
     {
         ChickAllTxt(false);
 
-        txt_Tip_1.text = "购买所需物资";
-        txt_Tip_2.text = "购买";
-        txt_Tip_3.text = "取消";
+        txt_Tip_1.text = LanguageDataMgr.instance.GetUIString("goumaisuoxuwuzi");
+        txt_Tip_2.text = LanguageDataMgr.instance.GetUIString("goumai");
+        txt_Tip_3.text = LanguageDataMgr.instance.GetUIString("quxiao");
 
         btn_enter.onClick.AddListener(ChickEnter);
         btn_back.onClick.AddListener(ClosePage);
@@ -52,59 +52,53 @@ public class UIPopUp_1 : TTUIPage
         float temp = 0;
         foreach (var item in needStock)
         {
-            temp += item.Value;
-
             GameHelper.instance.MaterialNameToBuildRoomName(item.Key);
-
-            if (item.Key == MaterialName.Gold)
+            switch (item.Key)
             {
-                txt_Gold.transform.parent.gameObject.SetActive(true);
-                txt_Gold.text = item.Value.ToString("#0");
-                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.GoldSpace) < item.Value)
-                {
-                    isStockFull = true;
-                }
-            }
-            if (item.Key == MaterialName.Mana)
-            {
-                txt_Mana.transform.parent.gameObject.SetActive(true);
-                txt_Mana.text = item.Value.ToString("#0");
-                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.ManaSpace) < item.Value)
-                {
-                    isStockFull = true;
-                }
-            }
-            if (item.Key == MaterialName.Wood)
-            {
-                txt_Wood.transform.parent.gameObject.SetActive(true);
-                txt_Wood.text = item.Value.ToString("#0");
-                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.WoodSpace) < item.Value)
-                {
-                    isStockFull = true;
-                }
-            }
-            if (item.Key == MaterialName.Iron)
-            {
-                txt_Iron.transform.parent.gameObject.SetActive(true);
-                txt_Iron.text = item.Value.ToString("#0");
-                if (CheckPlayerInfo.instance.ChickAllStock(BuildRoomName.IronSpace) < item.Value)
-                {
-                    isStockFull = true;
-                }
+                case MaterialName.Gold:
+                    txt_Gold.transform.parent.gameObject.SetActive(true);
+                    txt_Gold.text = item.Value.ToString();
+                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.GoldSpace, item.Value);
+                    break;
+                case MaterialName.Mana:
+                    txt_Mana.transform.parent.gameObject.SetActive(true);
+                    txt_Mana.text = item.Value.ToString();
+                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.ManaSpace, item.Value);
+                    break;
+                case MaterialName.Wood:
+                    txt_Wood.transform.parent.gameObject.SetActive(true);
+                    txt_Wood.text = item.Value.ToString();
+                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.WoodSpace, item.Value);
+                    break;
+                case MaterialName.Iron:
+                    txt_Iron.transform.parent.gameObject.SetActive(true);
+                    txt_Iron.text = item.Value.ToString();
+                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.IronSpace, item.Value);
+                    break;
+                default:
+                    break;
             }
         }
 
-        temp *= 0.01f;
-        temp = Mathf.Clamp(temp, 1, temp);
-        PlayerData player = GetPlayerData.Instance.GetData();
-        if (player.Diamonds >= temp)
+        if (needStock.ContainsKey(MaterialName.Diamonds))
         {
-            txt_DiaNum.text = temp.ToString("#0");
-            needDiaNumber = (int)temp;
+            Debug.LogError("服务器和本地材料数据不同步");
+            if (temp != needStock[MaterialName.Diamonds])
+            {
+                Debug.LogError("服务器和本地钻石数据不同步");
+            }
+            temp = needStock[MaterialName.Diamonds];
+        }
+
+        PlayerData player = GetPlayerData.Instance.GetData();
+        needDiaNumber = (int)(player.Diamonds - temp);
+        if (needDiaNumber > 0)
+        {
+            txt_DiaNum.text = temp.ToString();
         }
         else
         {
-            txt_DiaNum.text = "<color=#ee5151>" + temp.ToString("#0") + "</color>";
+            txt_DiaNum.text = "<color=#ee5151>" + temp.ToString() + "</color>";
         }
     }
 
@@ -118,57 +112,51 @@ public class UIPopUp_1 : TTUIPage
 
     private void ChickEnter()
     {
-        PlayerData player = GetPlayerData.Instance.GetData();
-        if (needDiaNumber <= 0)
+        if (needDiaNumber < 0)
         {
             isStockFull = false;
-            object st = "钻石不足";
-            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
-        }
-        //发现有材料仓库不足
-        else if (isStockFull)
-        {
-            isStockFull = false;
-            object st = "仓库空间余量不足请升级仓库";
-            UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+            needDiaNumber = -needDiaNumber;
+            UIPanelManager.instance.ShowPage<UIPopUP_5>(needDiaNumber);
         }
         else
         {
-            Debug.Log("添加材料");
-            player.Diamonds -= needDiaNumber;
-            Dictionary<BuildRoomName, int> dic = new Dictionary<BuildRoomName, int>();
-            foreach (var item in needStock)
-            {
-                BuildRoomName name = BuildRoomName.Nothing;
-                if (item.Value > 0)
-                {
-                    switch (item.Key)
-                    {
-                        case MaterialName.Gold:
-                            name = BuildRoomName.GoldSpace;
-                            dic.Add(name, item.Value);
-                            break;
-                        case MaterialName.Mana:
-                            name = BuildRoomName.ManaSpace;
-                            dic.Add(name, item.Value);
-                            break;
-                        case MaterialName.Wood:
-                            name = BuildRoomName.WoodSpace;
-                            dic.Add(name, item.Value);
-                            break;
-                        case MaterialName.Iron:
-                            name = BuildRoomName.IronSpace;
-                            dic.Add(name, item.Value);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            foreach (var item in dic)
-            {
-                CheckPlayerInfo.instance.AddStock(item.Key, item.Value);
-            }
+            //向服务器发送 消耗钻石购买建材
+            Debug.Log("向服务器发送消耗钻石购买材料");
+            //PlayerData player = GetPlayerData.Instance.GetData();
+            //player.Diamonds -= needDiaNumber;
+            //Dictionary<BuildRoomName, int> dic = new Dictionary<BuildRoomName, int>();
+            //foreach (var item in needStock)
+            //{
+            //    BuildRoomName name = BuildRoomName.Nothing;
+            //    if (item.Value > 0)
+            //    {
+            //        switch (item.Key)
+            //        {
+            //            case MaterialName.Gold:
+            //                name = BuildRoomName.GoldSpace;
+            //                dic.Add(name, item.Value);
+            //                break;
+            //            case MaterialName.Mana:
+            //                name = BuildRoomName.ManaSpace;
+            //                dic.Add(name, item.Value);
+            //                break;
+            //            case MaterialName.Wood:
+            //                name = BuildRoomName.WoodSpace;
+            //                dic.Add(name, item.Value);
+            //                break;
+            //            case MaterialName.Iron:
+            //                name = BuildRoomName.IronSpace;
+            //                dic.Add(name, item.Value);
+            //                break;
+            //            default:
+            //                break;
+            //        }
+            //    }
+            //}
+            //foreach (var item in dic)
+            //{
+            //    CheckPlayerInfo.instance.AddStock(item.Key, item.Value);
+            //}
         }
         ClosePage();
     }

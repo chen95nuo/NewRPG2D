@@ -82,7 +82,6 @@ public class Castle : MonoBehaviour
     private Vector2 WorldToGrid(Vector2 point)
     {
         int widthY = (int)((point.y - wallStartPoint.position.y) / high);
-        Debug.Log("网格Y位置: " + widthY);
         int widthX = (int)((point.x - wallStartPoint.position.x) / width);
         Vector2 gridPoint = new Vector2(widthX, widthY);
         return gridPoint;
@@ -93,7 +92,6 @@ public class Castle : MonoBehaviour
     /// </summary>
     protected void instanceWall()
     {
-        Debug.Log("生成背景墙");
         PlayerData playerData = GetPlayerData.Instance.GetData();
         Vector2 buildXY = playerData.Castle;
         buildH = (int)buildXY.y;

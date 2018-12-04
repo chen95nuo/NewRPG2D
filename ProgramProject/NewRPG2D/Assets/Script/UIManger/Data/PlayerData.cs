@@ -24,6 +24,30 @@ public class PlayerData
     private LocalBuildingData barracksLevel;
     private int currentLessonID;
     private MapLevelData currentLessonData;
+    private int happiness = 0;//幸福度
+    private bool vip;
+
+    public bool Vip
+    {
+        get
+        {
+            return vip;
+        }
+    }
+
+    public int Happiness
+    {
+        get
+        {
+            return happiness;
+        }
+
+        set
+        {
+            happiness = value;
+            HallEventManager.instance.SendEvent<int>(HallEventDefineEnum.CheckHappiness, happiness);
+        }
+    }
 
 
     //待删除
@@ -271,15 +295,17 @@ public class PlayerData
         return produceSpace[name];
     }
 
-    public PlayerData(proto.SLGV1.CharacterInfo s_PlayerData)
+    public PlayerData(proto.SLGV1.CharacterInfo s_PlayerData, int happiness)
     {
         this.roleId = s_PlayerData.roleId;
         this.userId = s_PlayerData.userId;
         this.name = s_PlayerData.roleName;
         this.spriteName = s_PlayerData.headimgurl;
         this.diamonds = s_PlayerData.diamond;
+        //this.diamonds = 0;
         produceSpace = new Dictionary<BuildRoomName, int>();
         produceSpace.Add(BuildRoomName.GoldSpace, s_PlayerData.gold);
+        //produceSpace.Add(BuildRoomName.GoldSpace,0);
         produceSpace.Add(BuildRoomName.FoodSpace, s_PlayerData.appNum);
         produceSpace.Add(BuildRoomName.ManaSpace, s_PlayerData.magicNum);
         produceSpace.Add(BuildRoomName.WoodSpace, s_PlayerData.woodNum);
@@ -291,5 +317,7 @@ public class PlayerData
         this.castleSkin = s_PlayerData.castleSkin;
         this.loginDays = s_PlayerData.loginDays;
         this.thirdAcctInfo = s_PlayerData.thirdAcctInfo;
+        this.Happiness = happiness;
+        this.vip = false;
     }
 }

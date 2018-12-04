@@ -14,6 +14,7 @@ public class BuildingManager : TSingleton<BuildingManager>
 {
     private Dictionary<BuildRoomName, List<LocalBuildingData>> AllBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
     private Dictionary<int, LocalBuildingData> proBuilding = new Dictionary<int, LocalBuildingData>();
+    private Dictionary<BuildRoomName, LocalBuildingData> stockBuilding = new Dictionary<BuildRoomName, LocalBuildingData>();
 
     private int produceInterval = 30;
 
@@ -81,7 +82,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="roomData"></param>
     public void SetAllBuildingData(LocalBuildingData roomData)
     {
-        if (MainCastle.instance = null)
+        if (MainCastle.instance == null)
         {
             return;
         }
@@ -251,8 +252,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="room"></param>
     public void UpdateProduce(BuildRoomName room)
     {
-        int produce = GetPlayerData.Instance.GetData().GetResSpace(room);
-        HallEventManager.instance.SendEvent<UIMainCheckStock>(HallEventDefineEnum.CheckStock, new UIMainCheckStock(room, produce));
+        HallEventManager.instance.SendEvent<BuildRoomName>(HallEventDefineEnum.CheckStock, room);
     }
     public int[] GetBuildDicInfo(BuildingData data)
     {
@@ -305,7 +305,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="type">房间类型</param>
     /// <param name="id">房间ID</param>
     /// <returns></returns>
-    public LocalBuildingData SearchRoomData(BuildRoomName type, int id)
+    public LocalBuildingData SearchRoomData(BuildRoomName type, int id = 1)
     {
         if (AllBuilding.ContainsKey(type))
         {
@@ -322,6 +322,12 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// 通过BuildRoomName查找总容量
     /// </summary>
     /// <returns></returns>
+    public int SearchRoomSpace(string name)//非储存类房间名转储存房间名
+    {
+        name = name + "Space";
+        BuildRoomName roomname = (BuildRoomName)System.Enum.Parse(typeof(BuildRoomName), name);
+        return SearchRoomSpace(roomname);
+    }
     public int SearchRoomSpace(BuildRoomName name)
     {
         int space = 0;
@@ -366,6 +372,19 @@ public class BuildingManager : TSingleton<BuildingManager>
         return stock;
     }
 
+    public int SearchRoomYield(BuildRoomName name)
+    {
+        int yield = 0;
+        if (AllBuilding.ContainsKey(name))
+        {
+            foreach (var yeildRoom in AllBuilding[name])
+            {
+                yield += yeildRoom.GetYield;
+            }
+        }
+        return yield;
+    }
+
     /// <summary>
     /// 查询总人口空间
     /// </summary>
@@ -382,6 +401,23 @@ public class BuildingManager : TSingleton<BuildingManager>
             }
         }
         return num;
+    }
+
+    /// <summary>
+    /// 通过仓库等级和材料转化钻石
+    /// </summary>
+    /// <param name="name">房间名称</param>
+    /// <param name="amount">所需材料数量</param>
+    /// <returns></returns>
+    public int SearchRoomStockToDiamonds(BuildRoomName name, int amount)
+    {
+        if (AllBuilding.ContainsKey(name))
+        {
+            LocalBuildingData L_data = SearchRoomData(name);
+            return (int)Mathf.Ceil(amount / L_data.buildingData.Param1);
+        }
+        BuildingData B_data = BuildingDataMgr.instance.GetbuildingData(name);
+        return (int)Mathf.Ceil(amount / B_data.Param1);
     }
     #endregion
 
