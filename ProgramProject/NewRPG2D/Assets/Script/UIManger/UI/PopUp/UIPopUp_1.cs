@@ -49,56 +49,17 @@ public class UIPopUp_1 : TTUIPage
     public void UpdateInfo(Dictionary<MaterialName, int> needStock)
     {
         this.needStock = needStock;
-        float temp = 0;
-        foreach (var item in needStock)
-        {
-            GameHelper.instance.MaterialNameToBuildRoomName(item.Key);
-            switch (item.Key)
-            {
-                case MaterialName.Gold:
-                    txt_Gold.transform.parent.gameObject.SetActive(true);
-                    txt_Gold.text = item.Value.ToString();
-                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.GoldSpace, item.Value);
-                    break;
-                case MaterialName.Mana:
-                    txt_Mana.transform.parent.gameObject.SetActive(true);
-                    txt_Mana.text = item.Value.ToString();
-                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.ManaSpace, item.Value);
-                    break;
-                case MaterialName.Wood:
-                    txt_Wood.transform.parent.gameObject.SetActive(true);
-                    txt_Wood.text = item.Value.ToString();
-                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.WoodSpace, item.Value);
-                    break;
-                case MaterialName.Iron:
-                    txt_Iron.transform.parent.gameObject.SetActive(true);
-                    txt_Iron.text = item.Value.ToString();
-                    temp += BuildingManager.instance.SearchRoomStockToDiamonds(BuildRoomName.IronSpace, item.Value);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (needStock.ContainsKey(MaterialName.Diamonds))
-        {
-            Debug.LogError("服务器和本地材料数据不同步");
-            if (temp != needStock[MaterialName.Diamonds])
-            {
-                Debug.LogError("服务器和本地钻石数据不同步");
-            }
-            temp = needStock[MaterialName.Diamonds];
-        }
+        float diamonds = needStock[MaterialName.Diamonds];
 
         PlayerData player = GetPlayerData.Instance.GetData();
-        needDiaNumber = (int)(player.Diamonds - temp);
+        needDiaNumber = (int)(player.Diamonds - diamonds);
         if (needDiaNumber > 0)
         {
-            txt_DiaNum.text = temp.ToString();
+            txt_DiaNum.text = diamonds.ToString();
         }
         else
         {
-            txt_DiaNum.text = "<color=#ee5151>" + temp.ToString() + "</color>";
+            txt_DiaNum.text = "<color=#ee5151>" + diamonds.ToString() + "</color>";
         }
     }
 

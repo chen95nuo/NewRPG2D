@@ -1130,10 +1130,7 @@ MonoBehaviour:
     Level: 0
     RoomName: 0
     RoomType: 0
-    NeedGold: 0
-    NeedMana: 0
-    NeedWood: 0
-    NeedIron: 0
+    needMaterial: 
     NeedTime: 0
     NeedLevel: 0
     RoomSize: 0
@@ -1144,15 +1141,18 @@ MonoBehaviour:
     NextLevelID: 0
     Param1: 0
     Param2: 0
+    RolePoint: []
+    RoleAnim: []
   buildName: {fileID: 114408703542423956}
   txt_Tip_1: {fileID: 114467927112577362}
   txt_Tip_2: {fileID: 114482208158275454}
   txt_Tip_3: {fileID: 114520499561589298}
   txt_Tip_4: {fileID: 114893060918788670}
-  txt_Gold: {fileID: 114410255492192444}
-  txt_Mana: {fileID: 114105117042389530}
-  txt_Wood: {fileID: 114979812743370054}
-  txt_Iron: {fileID: 114870280044169482}
+  txt_material:
+  - {fileID: 114410255492192444}
+  - {fileID: 114105117042389530}
+  - {fileID: 114979812743370054}
+  - {fileID: 114870280044169482}
   RoomIcon_1: {fileID: 114590752376295990}
   RoomIcon_2: {fileID: 114118714052643518}
   RoomIcon_3: {fileID: 114056700905879260}

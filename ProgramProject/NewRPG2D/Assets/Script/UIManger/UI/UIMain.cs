@@ -176,8 +176,7 @@ public class UIMain : TTUIPage
 
     private void CheckWorkr()
     {
-        object st = "任务系统暂未开放";
-        UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
+        UIPanelManager.instance.ShowPage<UIPopUpTips_4>();
     }
 
     private void CheckPeople()

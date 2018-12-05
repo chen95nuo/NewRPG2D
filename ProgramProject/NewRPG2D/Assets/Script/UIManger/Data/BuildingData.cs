@@ -10,10 +10,11 @@ public class BuildingData : ItemBaseCsvData
     public int Level;
     public BuildRoomName RoomName;//房间类型
     public RoomType RoomType;
-    public int NeedGold;
-    public int NeedMana;
-    public int NeedWood;
-    public int NeedIron;
+    public int[] needMaterial;
+    //public int NeedGold;
+    //public int NeedMana;
+    //public int NeedWood;
+    //public int NeedIron;
     public int NeedTime;//建造时间
     public int NeedLevel;//需要大厅等级
     public int RoomSize;//房间大小
@@ -40,10 +41,15 @@ public class BuildingData : ItemBaseCsvData
             string name = StrParse(data, 3);
             RoomName = (BuildRoomName)System.Enum.Parse(typeof(BuildRoomName), name);
             RoomType = (RoomType)IntParse(data, 4);
-            NeedGold = IntParse(data, 5);
-            NeedMana = IntParse(data, 6);
-            NeedWood = IntParse(data, 7);
-            NeedIron = IntParse(data, 8);
+            needMaterial = new int[4];
+            for (int i = 0; i < needMaterial.Length; i++)
+            {
+                needMaterial[i] = IntParse(data, 5 + i);
+            }
+            //NeedGold = IntParse(data, 5);
+            //NeedMana = IntParse(data, 6);
+            //NeedWood = IntParse(data, 7);
+            //NeedIron = IntParse(data, 8);
             NeedTime = IntParse(data, 9);
             NeedLevel = IntParse(data, 10);
             RoomSize = IntParse(data, 11);

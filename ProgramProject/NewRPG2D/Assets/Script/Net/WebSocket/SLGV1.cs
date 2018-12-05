@@ -1168,9 +1168,9 @@ namespace proto.SLGV1
   {
     public RQ_RoomMerger() {}
     
-    private readonly global::System.Collections.Generic.List<int> _roomIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(1, Name=@"roomIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> roomIds
+    private readonly global::System.Collections.Generic.List<string> _roomIds = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"roomIds", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> roomIds
     {
       get { return _roomIds; }
     }
@@ -1192,9 +1192,9 @@ namespace proto.SLGV1
       get { return _ret; }
       set { _ret = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _reqRoomIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"reqRoomIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> reqRoomIds
+    private readonly global::System.Collections.Generic.List<string> _reqRoomIds = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"reqRoomIds", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> reqRoomIds
     {
       get { return _reqRoomIds; }
     }
@@ -1218,9 +1218,9 @@ namespace proto.SLGV1
   {
     public RQ_RoomSplit() {}
     
-    private int _roomId;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int roomId
+    private string _roomId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string roomId
     {
       get { return _roomId; }
       set { _roomId = value; }
@@ -1242,9 +1242,9 @@ namespace proto.SLGV1
       get { return _ret; }
       set { _ret = value; }
     }
-    private int _reqRoomId;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"reqRoomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int reqRoomId
+    private string _reqRoomId;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"reqRoomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string reqRoomId
     {
       get { return _reqRoomId; }
       set { _reqRoomId = value; }
@@ -1702,11 +1702,11 @@ namespace proto.SLGV1
       get { return _ret; }
       set { _ret = value; }
     }
-    private readonly global::System.Collections.Generic.List<ResidentInfo> _residentInfos = new global::System.Collections.Generic.List<ResidentInfo>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"residentInfos", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<ResidentInfo> residentInfos
+    private readonly global::System.Collections.Generic.List<string> _moveNewJuming = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"moveNewJuming", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> moveNewJuming
     {
-      get { return _residentInfos; }
+      get { return _moveNewJuming; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

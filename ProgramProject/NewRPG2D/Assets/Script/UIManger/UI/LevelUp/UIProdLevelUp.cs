@@ -79,18 +79,18 @@ public class UIProdLevelUp : UILevelUp
                 return;
             case BuildRoomName.LivingRoom:
                 UpdateInfo_2(data);
-                txt_Tip_4.text = "居民数量";
-                txt_Tip_5.text = "此房间可以增加城堡的最大居民数量并让居民们生育下一代，\n父母的潜能越高，孩子的潜能可能就越高";
+                txt_Tip_4.text = LanguageDataMgr.instance.GetUIString("jumingshuliang");
+                txt_Tip_5.text = LanguageDataMgr.instance.GetString("LevelUP_LivingRoom");
                 UpdateIcon("HumanStock", "HumanStock");
                 return;
             case BuildRoomName.Barracks:
                 UpdateInfo_2(data);
-                txt_Tip_4.text = "可携带人数";
-                txt_Tip_5.text = "升级可提升参与战斗的人数";
+                txt_Tip_4.text = LanguageDataMgr.instance.GetUIString("kexiedairenshu");
+                txt_Tip_5.text = LanguageDataMgr.instance.GetString("LevelUp_Barracks");
                 UpdateIcon("HumanStock", "HumanStock");
                 return;
             case BuildRoomName.MagicWorkShop:
-                txt_Tip_4.text = "战斗可用数";
+                txt_Tip_4.text = LanguageDataMgr.instance.GetString("zhandoukeyongshu");
                 txt_Tip_5.text = "";
                 UpdateInfo_2(data);
                 return;
@@ -126,10 +126,10 @@ public class UIProdLevelUp : UILevelUp
     {
         Type_1.anchoredPosition = Vector3.zero;
 
-        txt_Tip_1.text = "升级增加";
-        txt_Tip_2.text = "每小时产量";
-        txt_Tip_3.text = "房间容量";
-        txt_Tip_4.text = "升级该建筑来增加";
+        txt_Tip_1.text = LanguageDataMgr.instance.GetUIString("shengjizengjia");
+        txt_Tip_2.text = LanguageDataMgr.instance.GetUIString("meixiaoshichanlaing");
+        txt_Tip_3.text = LanguageDataMgr.instance.GetUIString("fangjianrongliang");
+        txt_Tip_4.text = LanguageDataMgr.instance.GetUIString("shengjigaijianzhulaizengjia");
 
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息
@@ -157,7 +157,7 @@ public class UIProdLevelUp : UILevelUp
     {
         Type_2.anchoredPosition = Vector3.zero;
 
-        txt_Tip_4.text = "容量";
+        txt_Tip_4.text = LanguageDataMgr.instance.GetUIString("rongliang");
 
         PlayerData playerData = GetPlayerData.Instance.GetData();
         BuildingData b_Data_1;//当前房间信息

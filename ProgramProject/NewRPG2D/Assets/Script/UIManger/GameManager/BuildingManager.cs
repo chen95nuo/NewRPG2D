@@ -9,6 +9,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script.UIManger;
+using proto.SLGV1;
+using UnityEngine.UI;
 
 public class BuildingManager : TSingleton<BuildingManager>
 {
@@ -45,7 +47,6 @@ public class BuildingManager : TSingleton<BuildingManager>
         if (!AllBuilding.ContainsKey(name))
         {
             AllBuilding.Add(name, new List<LocalBuildingData>());
-
         }
         LocalBuildingData buildingData = new LocalBuildingData(roomInfo, id[1]);
         AllBuilding[name].Add(buildingData);
@@ -74,6 +75,30 @@ public class BuildingManager : TSingleton<BuildingManager>
                 SetAllBuildingData(roomData.Value[i]);
             }
         }
+    }
+
+    public void RoomMerge(RS_RoomMerger mergeData)
+    {
+        int[] id1 = TypeOfRoomId(mergeData.reqRoomIds[0]);
+        LocalBuildingData room_1 = SearchRoomData((BuildRoomName)id1[0], id1[1]);
+        int[] id2 = TypeOfRoomId(mergeData.reqRoomIds[1]);
+        LocalBuildingData room_2 = SearchRoomData((BuildRoomName)id2[0], id2[1]);
+        RemoveRoom(room_1);
+        RemoveRoom(room_2);
+
+        AddNewRoom(mergeData.newroomInfo);
+    }
+
+    public void RemoveRoom(LocalBuildingData room)
+    {
+        if (CheckProduction(room))
+        {
+            RemoveProduce(room);
+        }
+        bool isTrue = AllBuilding[room.buildingData.RoomName].Remove(room);
+        room.currentRoom.RemoveBuilding();
+        if (!isTrue)
+            Debug.Log("房间删除 失败");
     }
 
     /// <summary>
@@ -142,12 +167,12 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// 给生产房间添加时间事件
     /// </summary>
     /// <param name="proData"></param>
-    public void GetProduceRoom(proto.SLGV1.ProduceRoom proData)
+    private void GetProduceRoom(proto.SLGV1.ProduceRoom proData)
     {
         string[] id = proData.roomId.Split('_');
         LocalBuildingData data = SearchRoomData((BuildRoomName)int.Parse(id[0]), int.Parse(id[1]));
         data.Stock = proData.toBeCollected;
-        data.speedProd = proData.speedProd;
+        data.Yield = proData.speedProd;
         if (proBuilding.ContainsValue(data))
         {
             Debug.Log("重复的生产房间 或者有房间生产参数需要更改,暂时return");
@@ -160,11 +185,15 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// 生产事件计时回调
     /// </summary>
     /// <param name="index"></param>
-    public void ProduceCallBack(int index)
+    private void ProduceCallBack(int index)
     {
         LocalBuildingData roomData = proBuilding[index];
-        roomData.Stock += (roomData.speedProd * produceInterval);
+        roomData.Stock += (roomData.Yield * produceInterval);
         //必要的情况下通知UI
+    }
+    private void RemoveProduce(LocalBuildingData data)
+    {
+
     }
     #endregion
 
@@ -379,7 +408,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             foreach (var yeildRoom in AllBuilding[name])
             {
-                yield += yeildRoom.GetYield;
+                yield += yeildRoom.Yield;
             }
         }
         return yield;
@@ -417,7 +446,88 @@ public class BuildingManager : TSingleton<BuildingManager>
             return (int)Mathf.Ceil(amount / L_data.buildingData.Param1);
         }
         BuildingData B_data = BuildingDataMgr.instance.GetbuildingData(name);
-        return (int)Mathf.Ceil(amount / B_data.Param1);
+        float temp = 400;
+        if (B_data != null)
+        {
+            Debug.Log("房间不足加次判定  后期更改");
+            temp = B_data.Param1;
+        }
+        return (int)Mathf.Ceil(amount / temp);
+    }
+
+    /// <summary>
+    /// 搜索所有可升级的房间
+    /// </summary>
+    /// <returns></returns>
+    public List<LocalBuildingData> SearchCanUpgradedRoom()
+    {
+        int mainLevel = GetPlayerData.Instance.GetData().MainHallLevel;
+        List<LocalBuildingData> canUpBuild = new List<LocalBuildingData>();
+        foreach (var room in AllBuilding)
+        {
+            for (int i = 0; i < room.Value.Count; i++)
+            {
+                if (room.Value[i].buildingData.NeedLevel <= mainLevel
+                    && room.Value[i].buildingData.NextLevelID != 0)
+                {
+                    canUpBuild.Add(room.Value[i]);
+                }
+            }
+        }
+        return canUpBuild;
+    }
+
+    /// <summary>
+    /// 检查是否是生产类
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool CheckProduction(LocalBuildingData data)
+    {
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.Gold:
+                return true;
+            case BuildRoomName.Food:
+                return true;
+            case BuildRoomName.Mana:
+                return true;
+            case BuildRoomName.Wood:
+                return true;
+            case BuildRoomName.Iron:
+                return true;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 检查是否是储存类
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool CheckStorage(LocalBuildingData data)
+    {
+        switch (data.buildingData.RoomName)
+        {
+            case BuildRoomName.GoldSpace:
+                return true;
+            case BuildRoomName.FoodSpace:
+                return true;
+
+            case BuildRoomName.ManaSpace:
+                return true;
+
+            case BuildRoomName.WoodSpace:
+                return true;
+
+            case BuildRoomName.IronSpace:
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
     #endregion
 
@@ -433,6 +543,79 @@ public class BuildingManager : TSingleton<BuildingManager>
         string[] st = stId.Split('_');
         int[] id = new int[2] { int.Parse(st[0]), int.Parse(st[1]) };
         return id;
+    }
+
+    #endregion
+
+    #region 帮助类
+
+    public int TimeToDiamonds(BuildingData data)
+    {
+        return (int)(data.NeedTime * 0.01f);
+    }
+
+    /// <summary>
+    /// 通过房间需要的材料 修改txt字体颜色 返回材料字典
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="txt"></param>
+    /// <returns></returns>
+    public Dictionary<MaterialName, int> RoomNeedMaterialHelper(BuildingData data, Text[] txt)
+    {
+        Dictionary<MaterialName, int> dic = new Dictionary<MaterialName, int>();
+        int needDimonds = 0;
+        for (int i = 0; i < data.needMaterial.Length; i++)
+        {
+            if (data.needMaterial[i] > 0)
+            {
+                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+                int stock = SearchRoomStock(name);
+                int temp = stock - data.needMaterial[i];
+                if (temp < 0)
+                {
+                    temp = -temp;
+                    dic.Add((MaterialName)i + 1, temp);
+                    txt[i].text = string.Format(LanguageDataMgr.instance.redSt, data.needMaterial[i]);
+                    needDimonds += BuildingManager.instance.SearchRoomStockToDiamonds(name, temp);
+                }
+                else
+                {
+                    txt[i].text = string.Format(LanguageDataMgr.instance.whiteText, data.needMaterial[i]);
+                }
+            }
+        }
+        dic.Add(MaterialName.Diamonds, needDimonds);
+        return dic;
+    }
+
+    /// <summary>
+    /// 通过材料名字转换房间名字
+    /// </summary>
+    /// <param name="mat"></param>
+    /// <returns></returns>
+    public BuildRoomName MaterialNameToBuildRoomName(MaterialName mat)
+    {
+        BuildRoomName name = BuildRoomName.Nothing;
+        switch (mat)
+        {
+            case MaterialName.Diamonds:
+                break;
+            case MaterialName.Gold:
+                name = BuildRoomName.GoldSpace;
+                break;
+            case MaterialName.Mana:
+                name = BuildRoomName.ManaSpace;
+                break;
+            case MaterialName.Wood:
+                name = BuildRoomName.WoodSpace;
+                break;
+            case MaterialName.Iron:
+                name = BuildRoomName.IronSpace;
+                break;
+            default:
+                break;
+        }
+        return name;
     }
 
     #endregion

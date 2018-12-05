@@ -20,7 +20,7 @@ namespace Assets.Script.Net
         {
             for (int i = 0; i < param.Length; i++)
             {
-                roomMerger.roomIds.Add((int)param[i]);
+                roomMerger.roomIds.Add((string)param[i]);
             }
             DebugHelper.Log("发起房间合并========");
             return roomMerger;

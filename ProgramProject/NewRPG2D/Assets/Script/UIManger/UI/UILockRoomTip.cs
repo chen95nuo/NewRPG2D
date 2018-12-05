@@ -41,11 +41,11 @@ public class UILockRoomTip : TTUIPage
     public override void Show(object mData)
     {
         base.Show(mData);
-        RoomMgr data = mData as RoomMgr;
+        LocalBuildingData data = mData as LocalBuildingData;
         rt.anchoredPosition = Vector3.down * 540;
         rt.DOAnchorPos(Vector3.zero, 0.15f);
-        LockRoomData(data.currentBuildData);
-        LockRoomData(data.currentBuildData);
+        LockRoomData(data);
+        LockRoomData(data);
     }
 
     private void Init()

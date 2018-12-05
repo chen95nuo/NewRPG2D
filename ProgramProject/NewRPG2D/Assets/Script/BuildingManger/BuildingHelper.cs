@@ -63,12 +63,12 @@ public class LocalBuildingData
     public Vector2 buildingPoint;//房间位置
     public BuildingData buildingData;//房间ID
     public float Stock = 0;
-    public float speedProd = 0;//产出速度
+    private float speedProd = 0;//产出速度
     public bool ConstructionType = false;
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
     public float leftTime;//升级时间
-    public int GetYield
+    public int Yield
     {
         get
         {

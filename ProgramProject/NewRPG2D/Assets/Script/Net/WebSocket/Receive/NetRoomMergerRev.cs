@@ -19,6 +19,7 @@ namespace Assets.Script.Net
                 return;
             }
             DebugHelper.Log("房间合并成功=======" + roomMerger.newroomInfo.roomId);
+            BuildingManager.instance.RoomMerge(roomMerger);
         }
     }
 }

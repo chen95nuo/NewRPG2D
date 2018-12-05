@@ -50,6 +50,7 @@ namespace Assets.Script
             InitListener();
             //InitData();
 
+
         }
 
         /// <summary>

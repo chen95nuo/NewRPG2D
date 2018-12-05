@@ -1016,7 +1016,7 @@ public abstract class RoomMgr : MonoBehaviour
         levelUpTip = null;
         ConstructionType = false;
         ChickConstructionCompleteRole();
-        CameraControl.instance.RefreshRoomLock(this);
+        CameraControl.instance.RefreshRoomLock(currentBuildData);
         //检查合并
         if (MapControl.instance.type == CastleType.main)
         {

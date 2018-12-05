@@ -202,19 +202,19 @@ public class CameraControl : MonoBehaviour
             if (moveRoomType == true)
             {
                 Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMin);
-                if (m_Camera.orthographicSize - zMin <= 0.01f)
-                {
-                    moving = false;
-                }
+                //if (m_Camera.orthographicSize - zMin <= 0.01f)
+                //{
+                //    moving = false;
+                //}
                 CameraMove(point);
             }
             else
             {
                 Vector3 point = new Vector3(room.RoomProp.transform.position.x, room.RoomProp.transform.position.y, zMax);
-                if (zMax - m_Camera.orthographicSize <= 0.01f)
-                {
-                    moving = false;
-                }
+                //if (zMax - m_Camera.orthographicSize <= 0.01f)
+                //{
+                //    moving = false;
+                //}
                 CameraMove(point);
             }
         }
@@ -348,13 +348,25 @@ public class CameraControl : MonoBehaviour
     /// 重置锁定的房间
     /// </summary>
     /// <param name="roomMgr"></param>
-    public void RefreshRoomLock(RoomMgr roomMgr)
+    public void RefreshRoomLock(LocalBuildingData roomMgr)
     {
-        if (room != null && room == roomMgr)
+        if (room != null && room.currentBuildData == roomMgr)
         {
             UIPanelManager.instance.ShowPage<UILockRoomTip>(roomMgr);
         }
     }
+
+    public void LockRoom(LocalBuildingData data)
+    {
+        CloseRoomLock();
+        room = data.currentRoom;
+        room.ShowRoomLockUI(true);
+        UIPanelManager.instance.ShowPage<UILockRoomTip>(data);
+        moving = true;
+        moveRoomType = true;
+    }
+
+
 
     /// <summary>
     /// 检查点击
@@ -496,6 +508,10 @@ public class CameraControl : MonoBehaviour
         transform.position = new Vector3(v3.x, v3.y, transform.position.z);
         m_Camera.orthographicSize = v3.z;
         MoveSpeed = (a * m_Camera.orthographicSize) + b;
+        if (Vector3.Distance(v3, point) < 0.1f)
+        {
+            moving = false;
+        }
     }
 
     /// <summary>
@@ -529,7 +545,7 @@ public class CameraControl : MonoBehaviour
             room = data;
             //子物体启动
             room.ShowRoomLockUI(true);
-            UIPanelManager.instance.ShowPage<UILockRoomTip>(room);//显示底侧UI
+            UIPanelManager.instance.ShowPage<UILockRoomTip>(room.currentBuildData);//显示底侧UI
         }
         else if (room != data)
         {
@@ -585,7 +601,7 @@ public class CameraControl : MonoBehaviour
     /// <param name="data">新选中的房间</param>
     private void ChangeRoomMgr(RoomMgr data)
     {
-        UIPanelManager.instance.ShowPage<UILockRoomTip>(data);
+        UIPanelManager.instance.ShowPage<UILockRoomTip>(data.currentBuildData);
 
         room.ShowRoomLockUI(false);
         data.ShowRoomLockUI(true);

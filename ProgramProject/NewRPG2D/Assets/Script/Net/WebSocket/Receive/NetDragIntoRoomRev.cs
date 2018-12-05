@@ -18,7 +18,7 @@ namespace Assets.Script.Net
                 DebugHelper.Log("角色加入房间失败=========");
                 return;
             }
-            DebugHelper.Log("角色加入房间成功" + dragIntoRoom.residentInfos.Count);
+            DebugHelper.Log("角色加入房间成功" + dragIntoRoom.moveNewJuming.Count);
         }
     }
 }

@@ -326,14 +326,14 @@ message RS_RoomUpdateLevel{
 }
 // 房间的合并(这个最好还是客户端和服务端 各自算,原因在于编辑模式 存在数据干扰,或者关闭按钮取消拆分和合并)
 message RQ_RoomMerger{
-	repeated int32 roomIds =1;// 房间ids1....
+	repeated string roomIds =1;// 房间ids1....
 	extend BaseData {
         optional RQ_RoomMerger ext = 119;  
     }
 }
 message RS_RoomMerger{
 	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
-	repeated int32 reqRoomIds =2;//  (透传参数)请求合并的房间id1,Id2....
+	repeated string reqRoomIds =2;//  (透传参数)请求合并的房间id1,Id2....
 	optional RoomInfo newroomInfo=3;// 大房间
 	extend BaseData {
         optional RS_RoomMerger ext = 120;  
@@ -342,14 +342,14 @@ message RS_RoomMerger{
 
 // 拆分房间(这个最好还是客户端和服务端 各自算)
 message RQ_RoomSplit{
-	required int32 roomId=1;// 大房间的Id
+	required string roomId=1;// 大房间的Id
 	extend BaseData {
         optional RQ_RoomSplit ext = 121;  
     }
 }
 message RS_RoomSplit{
 	required int32 ret=1;//0:成功 -1:失败(失败具体原因在常量描述中)
-	required int32 reqRoomId=2;// (透传参数)请求拆分的大房间
+	required string reqRoomId=2;// (透传参数)请求拆分的大房间
 	repeated RoomInfo rooms =3;//  分解之后房间rood1,room2....
 	extend BaseData {
         optional RS_RoomSplit ext = 122;  
@@ -475,7 +475,11 @@ message RQ_DragIntoRoom{
 }
 message RS_DragIntoRoom{
 	required int32 ret=1;// 0 成功; -1 <参数意义统一编码>
-	repeated ResidentInfo  residentInfos=2;// 可能有人被挤掉了.
+	//repeated ResidentInfo  residentInfos=2;// 可能有人被挤掉了.
+	repeated  string    moveNewJuming=2; // 居民Id,房间Id,pos]; pos位置下标 使用逗号分号
+	// 游荡状态 挤掉 别人,别人也会变成 游荡状态
+	// 上空位
+	// 交互
 	extend BaseData {
         optional RS_DragIntoRoom ext = 132;  
     }

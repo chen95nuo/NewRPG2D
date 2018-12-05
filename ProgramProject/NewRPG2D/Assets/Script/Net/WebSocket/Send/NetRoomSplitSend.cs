@@ -17,7 +17,7 @@ namespace Assets.Script.Net
         }
         public IExtensible Send(params object[] param)
         {
-            roomSplit.roomId = (int)param[0];
+            roomSplit.roomId = (string)param[0];
             DebugHelper.Log("发起了房屋拆分======" + roomSplit.roomId);
             return roomSplit;
         }

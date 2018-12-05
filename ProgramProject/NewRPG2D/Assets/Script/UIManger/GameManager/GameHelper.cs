@@ -34,31 +34,6 @@ public class GameHelper : TSingleton<GameHelper>
     {
         return (width * roomSize) / 2;
     }
-
-    public BuildRoomName MaterialNameToBuildRoomName(MaterialName mat)
-    {
-        BuildRoomName name = BuildRoomName.Nothing;
-        switch (mat)
-        {
-            case MaterialName.Diamonds:
-                break;
-            case MaterialName.Gold:
-                name = BuildRoomName.GoldSpace;
-                break;
-            case MaterialName.Mana:
-                name = BuildRoomName.ManaSpace;
-                break;
-            case MaterialName.Wood:
-                name = BuildRoomName.WoodSpace;
-                break;
-            case MaterialName.Iron:
-                name = BuildRoomName.IronSpace;
-                break;
-            default:
-                break;
-        }
-        return name;
-    }
 }
 
 

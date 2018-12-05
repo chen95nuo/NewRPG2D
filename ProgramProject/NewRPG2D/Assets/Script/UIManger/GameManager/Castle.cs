@@ -277,7 +277,7 @@ public class Castle : MonoBehaviour
         List<int> point = new List<int>() { tip.startX, (int)tip.emptyPoint.startPoint.y };
         //Vector2 startPoint = new Vector2(tip.startX, tip.emptyPoint.startPoint.y);
         //LocalBuildingData data = new LocalBuildingData(startPoint, currentBuilding);
-        WebSocketManger.instance.Send(NetSendMsg.RQ_CreateNewRoom, 1, point);
+        WebSocketManger.instance.Send(NetSendMsg.RQ_CreateNewRoom, (int)currentBuilding.RoomName, point);
         //CheckPlayerInfo.instance.AddBuilding(data);
         //删除当前已使用空位
         //allEmptyPoint.Remove(tip.emptyPoint);

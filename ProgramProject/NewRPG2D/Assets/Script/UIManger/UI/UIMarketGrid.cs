@@ -16,10 +16,7 @@ public class UIMarketGrid : MonoBehaviour
     public Text txt_Tip_3;
     public Text txt_Tip_4;
 
-    public Text txt_Gold;
-    public Text txt_Mana;
-    public Text txt_Wood;
-    public Text txt_Iron;
+    public Text[] txt_material;
 
     public Image RoomIcon_1;
     public Image RoomIcon_2;
@@ -95,73 +92,15 @@ public class UIMarketGrid : MonoBehaviour
         buildingData = data;
         txt_Number.text = number[0] + "/" + number[1];
         txt_NeedTime.text = SystemTime.instance.TimeNormalizedOf(data.NeedTime);
-        string redSt = "<color=#ee5151>{0}</color>";
-        string whiteSt = "<color=#ffffff>{0}</color>";
         needStock.Clear();
-        if (data.NeedGold > 0)
+        needStock = BuildingManager.instance.RoomNeedMaterialHelper(data, txt_material);
+        for (int i = 0; i < data.needMaterial.Length; i++)
         {
-            txt_Gold.gameObject.SetActive(true);
-            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.GoldSpace);
-            if (stock < data.NeedGold)
+            if (data.needMaterial[i] != 0)
             {
-                txt_Gold.text = string.Format(redSt, data.NeedGold);
-                int need = data.NeedGold - stock;
-
-                needStock.Add(MaterialName.Gold, need);
-            }
-            else
-            {
-                txt_Gold.text = string.Format(whiteSt, data.NeedGold);
+                txt_material[i].gameObject.SetActive(true);
             }
         }
-        if (data.NeedMana > 0)
-        {
-            txt_Mana.gameObject.SetActive(true);
-            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.ManaSpace);
-            if (stock < data.NeedMana)
-            {
-                txt_Mana.text = string.Format(redSt, data.NeedMana);
-                int need = data.NeedMana - stock;
-                needStock.Add(MaterialName.Mana, need);
-            }
-            else
-            {
-                txt_Mana.text = string.Format(whiteSt, data.NeedMana);
-            }
-        }
-        if (data.NeedWood > 0)
-        {
-            txt_Wood.gameObject.SetActive(true);
-            txt_Wood.text = data.NeedWood.ToString();
-            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.WoodSpace);
-            if (stock < data.NeedWood)
-            {
-                txt_Wood.text = string.Format(redSt, data.NeedWood);
-                int need = data.NeedWood - stock;
-                needStock.Add(MaterialName.Wood, need);
-            }
-            else
-            {
-                txt_Wood.text = string.Format(whiteSt, data.NeedWood);
-            }
-        }
-        if (data.NeedIron > 0)
-        {
-            txt_Iron.gameObject.SetActive(true);
-            txt_Iron.text = data.NeedIron.ToString();
-            int stock = BuildingManager.instance.SearchRoomStock(BuildRoomName.IronSpace);
-            if (stock < data.NeedGold)
-            {
-                txt_Iron.text = string.Format(redSt, data.NeedIron);
-                int need = data.NeedIron - stock;
-                needStock.Add(MaterialName.Iron, need);
-            }
-            else
-            {
-                txt_Iron.text = string.Format(whiteSt, data.NeedIron);
-            }
-        }
-
     }
 
     private void AddBuilding()
@@ -207,10 +146,10 @@ public class UIMarketGrid : MonoBehaviour
 
     private void CheckProduce(bool isTrue)
     {
-        txt_Gold.gameObject.SetActive(false);
-        txt_Mana.gameObject.SetActive(false);
-        txt_Wood.gameObject.SetActive(false);
-        txt_Iron.gameObject.SetActive(false);
+        for (int i = 0; i < txt_material.Length; i++)
+        {
+            txt_material[i].gameObject.SetActive(false);
+        }
 
         RoomIcon_1.gameObject.SetActive(false);
         RoomIcon_2.gameObject.SetActive(false);
