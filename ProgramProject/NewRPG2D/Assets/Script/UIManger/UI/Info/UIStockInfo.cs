@@ -44,7 +44,9 @@ public class UIStockInfo : TTUIPage
     {
         txt_Name.text = LanguageDataMgr.instance.GetRoomName(data.buildingData.RoomName.ToString());
         txt_Level.text = data.buildingData.Level.ToString();
-        txt_Stock.text = data.Stock.ToString() + "/" + data.buildingData.Param2;
+        int stock = GetPlayerData.Instance.GetStock(data.buildingData.RoomName);
+        stock = (stock - data.buildingData.Param2) >= 0 ? (int)data.buildingData.Param2 : (int)(data.buildingData.Param2 - (data.buildingData.Param2 - stock));
+        txt_Stock.text = stock + "/" + data.buildingData.Param2;
         slider.fillAmount = data.Stock / data.buildingData.Param2;
         string st = LanguageDataMgr.instance.GetUIString("shengjigaifangjian");
         string iconName = "";

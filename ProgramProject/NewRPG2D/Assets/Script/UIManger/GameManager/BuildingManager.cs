@@ -364,7 +364,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             space += (int)AllBuilding[name][0].buildingData.Param2;
         }
-        space += GetPlayerData.Instance.GetData().defaultSpace;
+        space += GetPlayerData.Instance.GetData().DefaultSpace;
         return space;
     }
 
@@ -381,7 +381,7 @@ public class BuildingManager : TSingleton<BuildingManager>
             empty += (int)(data.buildingData.Param2 - data.Stock);
         }
         PlayerData playData = GetPlayerData.Instance.GetData();
-        empty += (playData.defaultSpace - playData.GetResSpace(name));
+        empty += (playData.DefaultSpace - playData.GetResSpace(name));
         return empty;
     }
 

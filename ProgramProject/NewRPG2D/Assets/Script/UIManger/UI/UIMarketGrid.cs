@@ -107,8 +107,9 @@ public class UIMarketGrid : MonoBehaviour
     {
         Debug.Log(buildingData.RoomName);
         //检测资源是否足够
-        if (needStock.Count > 0)
+        if (needStock.ContainsKey(MaterialName.Diamonds) && needStock[MaterialName.Diamonds] > 0)
         {
+            Debug.Log("资源不足 购买资源");
             BuildRoomName name = BuildRoomName.Nothing;
             foreach (var need in needStock)
             {
@@ -141,7 +142,10 @@ public class UIMarketGrid : MonoBehaviour
             UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
             return;
         }
-        UIMain.instance.RSCheckCreateNewRoom(this.buildingData);
+        //足够
+        Debug.Log("资源足够");
+        UIMain.instance.ShowBack(true);
+        MainCastle.instance.BuildRoomTip(buildingData);
     }
 
     private void CheckProduce(bool isTrue)

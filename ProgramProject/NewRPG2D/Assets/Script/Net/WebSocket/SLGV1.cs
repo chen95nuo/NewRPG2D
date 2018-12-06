@@ -450,47 +450,6 @@ namespace proto.SLGV1
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RQ_CheckCreateNewRoom")]
-  public partial class RQ_CheckCreateNewRoom : global::ProtoBuf.IExtensible
-  {
-    public RQ_CheckCreateNewRoom() {}
-    
-    private int _roomId;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int roomId
-    {
-      get { return _roomId; }
-      set { _roomId = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RS_CheckCreateNewRoom")]
-  public partial class RS_CheckCreateNewRoom : global::ProtoBuf.IExtensible
-  {
-    public RS_CheckCreateNewRoom() {}
-    
-    private int _ret;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ret", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int ret
-    {
-      get { return _ret; }
-      set { _ret = value; }
-    }
-    private readonly global::System.Collections.Generic.List<ConsumeItem> _neeedItem = new global::System.Collections.Generic.List<ConsumeItem>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"neeedItem", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<ConsumeItem> neeedItem
-    {
-      get { return _neeedItem; }
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ConsumeItem")]
   public partial class ConsumeItem : global::ProtoBuf.IExtensible
   {
@@ -520,12 +479,12 @@ namespace proto.SLGV1
   {
     public RQ_CreateNewRoom() {}
     
-    private int _roomType;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int roomType
+    private int _roomId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int roomId
     {
-      get { return _roomType; }
-      set { _roomType = value; }
+      get { return _roomId; }
+      set { _roomId = value; }
     }
     private readonly global::System.Collections.Generic.List<int> _xFloorOriginOffset = new global::System.Collections.Generic.List<int>();
     [global::ProtoBuf.ProtoMember(2, Name=@"xFloorOriginOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -1213,27 +1172,34 @@ namespace proto.SLGV1
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RQ_RoomSplit")]
-  public partial class RQ_RoomSplit : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RQ_UnifiedDiamondConsumerEntry")]
+  public partial class RQ_UnifiedDiamondConsumerEntry : global::ProtoBuf.IExtensible
   {
-    public RQ_RoomSplit() {}
+    public RQ_UnifiedDiamondConsumerEntry() {}
     
-    private string _roomId;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string roomId
+    private int _type;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int type
     {
-      get { return _roomId; }
-      set { _roomId = value; }
+      get { return _type; }
+      set { _type = value; }
+    }
+    private string _bussCode;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"bussCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string bussCode
+    {
+      get { return _bussCode; }
+      set { _bussCode = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RS_RoomSplit")]
-  public partial class RS_RoomSplit : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RS_UnifiedDiamondConsumerEntry")]
+  public partial class RS_UnifiedDiamondConsumerEntry : global::ProtoBuf.IExtensible
   {
-    public RS_RoomSplit() {}
+    public RS_UnifiedDiamondConsumerEntry() {}
     
     private int _ret;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ret", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -1242,18 +1208,32 @@ namespace proto.SLGV1
       get { return _ret; }
       set { _ret = value; }
     }
-    private string _reqRoomId;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"reqRoomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string reqRoomId
+    private int _type;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int type
     {
-      get { return _reqRoomId; }
-      set { _reqRoomId = value; }
+      get { return _type; }
+      set { _type = value; }
+    }
+    private string _bussCode;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"bussCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string bussCode
+    {
+      get { return _bussCode; }
+      set { _bussCode = value; }
     }
     private readonly global::System.Collections.Generic.List<RoomInfo> _rooms = new global::System.Collections.Generic.List<RoomInfo>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"rooms", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(4, Name=@"rooms", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<RoomInfo> rooms
     {
       get { return _rooms; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<ResidentInfo> _residents = new global::System.Collections.Generic.List<ResidentInfo>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"residents", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ResidentInfo> residents
+    {
+      get { return _residents; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -306,6 +306,7 @@ public class UIMain : TTUIPage
     public void ShowBack(bool isTrue)
     {
         btn_Cancel.gameObject.SetActive(isTrue);
+        market.gameObject.SetActive(!isTrue);
     }
 
     public void CloseSomeUI(bool isTrue)
@@ -415,43 +416,43 @@ public class UIMain : TTUIPage
         }
     }
 
-    /// <summary>
-    /// 向服务器发送建造验证
-    /// </summary>
-    /// <param name="buildingData"></param>
-    public void RSCheckCreateNewRoom(BuildingData buildingData)
-    {
-        //发送建造请求
-        WebSocketManger.instance.Send(NetSendMsg.RQ_CheckCreateNewRoom, buildingData.ItemId);
-        currentBuildData = buildingData;
-    }
+    ///// <summary>
+    ///// 向服务器发送建造验证
+    ///// </summary>
+    ///// <param name="buildingData"></param>
+    //public void RSCheckCreateNewRoom(BuildingData buildingData)
+    //{
+    //    //发送建造请求
+    //    WebSocketManger.instance.Send(NetSendMsg.RQ_CheckCreateNewRoom, buildingData.ItemId);
+    //    currentBuildData = buildingData;
+    //}
 
-    /// <summary>
-    /// 接收服务器建造验证结果
-    /// </summary>
-    /// <param name="checkCreateRoom"></param>
-    public void RQCheckCreateNewRoom(RS_CheckCreateNewRoom checkCreateRoom)
-    {
+    ///// <summary>
+    ///// 接收服务器建造验证结果
+    ///// </summary>
+    ///// <param name="checkCreateRoom"></param>
+    //public void RQCheckCreateNewRoom(RS_CheckCreateNewRoom checkCreateRoom)
+    //{
 
-        if (checkCreateRoom.ret == -1)//库满
-        {
-            UIPanelManager.instance.ShowPage<UIPopUp_4>(checkCreateRoom.neeedItem[0]);
-        }
-        else if (checkCreateRoom.ret == -2)//资源不足
-        {
-            Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
-            for (int i = 0; i < checkCreateRoom.neeedItem.Count; i++)
-            {
-                needStock.Add((MaterialName)checkCreateRoom.neeedItem[i].produceType, checkCreateRoom.neeedItem[i].needNum);
-            }
+    //    if (checkCreateRoom.ret == -1)//库满
+    //    {
+    //        UIPanelManager.instance.ShowPage<UIPopUp_4>(checkCreateRoom.neeedItem[0]);
+    //    }
+    //    else if (checkCreateRoom.ret == -2)//资源不足
+    //    {
+    //        Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
+    //        for (int i = 0; i < checkCreateRoom.neeedItem.Count; i++)
+    //        {
+    //            needStock.Add((MaterialName)checkCreateRoom.neeedItem[i].produceType, checkCreateRoom.neeedItem[i].needNum);
+    //        }
 
-            UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
-            return;
-        }
-        ShowBack(true);
-        market.gameObject.SetActive(false);
-        MainCastle.instance.BuildRoomTip(currentBuildData);
-    }
+    //        UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
+    //        return;
+    //    }
+    //    ShowBack(true);
+    //    market.gameObject.SetActive(false);
+    //    MainCastle.instance.BuildRoomTip(currentBuildData);
+    //}
 
     public override void Hide(bool needAnim = true)
     {

@@ -26,6 +26,7 @@ public class PlayerData
     private MapLevelData currentLessonData;
     private int happiness = 0;//幸福度
     private bool vip;
+    private int defaultSpace = 0;
 
     public bool Vip
     {
@@ -259,9 +260,16 @@ public class PlayerData
         }
     }
 
-    public int defaultSpace
+    public int DefaultSpace
     {
-        get { return 5000; }
+        get
+        {
+            if (defaultSpace == 0)
+            {
+                defaultSpace = (int)HallConfigDataMgr.instance.GetValue(HallConfigEnum.goldSpace);
+            }
+            return defaultSpace;
+        }
     }
 
     public int GrailNum

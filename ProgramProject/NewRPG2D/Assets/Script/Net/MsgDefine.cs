@@ -6,20 +6,19 @@
     RQ_StartGame = 101,
     RQ_RoleLogin = 103,
     RQ_CreateRoleName = 105,
-    RQ_CheckCreateNewRoom = 107,
     RQ_CreateNewRoom = 109,
     RQ_ResearchMagicSkill = 111,
     RQ_MakeMagicSkill = 113,
     RQ_AddBattleInMagicSkill = 115,
     RQ_RoomUpdateLevel = 117,
     RQ_RoomMerger = 119,
-    RQ_RoomSplit = 121,
     RQ_SaveAllRoom = 123,
     RQ_ConfirmRearKid = 125,
     RQ_ConfirmKidAdult = 127,
     RQ_ConfirmTrain = 129,
     RQ_DragIntoRoom = 131,
     RQ_Reconnect = 133,
+    RQ_UnifiedDiamondConsumerEntry = 135,
     /// <summary>
     /// 客户端->服务端,无需应答的消息		消息号范围:1001-1999
     /// </summary>
@@ -36,20 +35,19 @@ public enum NetReceiveMsg
     RS_StartGame = 102,
     RS_RoleLogin = 104,
     RS_CreateRoleName = 106,
-    RS_CheckCreateNewRoom = 108,
     RS_CreateNewRoom = 110,
     RS_ResearchMagicSkill = 112,
     RS_MakeMagicSkill = 114,
     RS_AddBattleInMagicSkill = 116,
     RS_RoomUpdateLevel = 118,
     RS_RoomMerger = 120,
-    RS_RoomSplit = 122,
     RS_SaveAllRoom = 124,
     RS_ConfirmRearKid = 126,
     RS_ConfirmKidAdult = 128,
     RS_ConfirmTrain = 130,
     RS_DragIntoRoom = 132,
     RS_Reconnect = 134,
+    RS_UnifiedDiamondConsumerEntry = 136,
     /// <summary>
     /// 服务端->客户端 ,服务端主动推送的消息	消息号范围:2001-2999
     /// </summary>

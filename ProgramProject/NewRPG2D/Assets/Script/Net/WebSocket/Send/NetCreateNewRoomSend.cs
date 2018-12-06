@@ -18,7 +18,7 @@ namespace Assets.Script.Net
 
         public IExtensible Send(params object[] param)
         {
-            mCreateNewRoom.roomType = (int)param[0];
+            mCreateNewRoom.roomId = (int)param[0];
             List<int> point = (List<int>)param[1];
             for (int i = 0; i < point.Count; i++)
             {

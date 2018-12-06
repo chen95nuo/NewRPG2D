@@ -8,6 +8,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Assets.Script.Net;
 using BestHTTP;
+using System;
 
 public class UILogin : TTUIPage
 {
@@ -41,6 +42,11 @@ public class UILogin : TTUIPage
     private string userName;
     private string passWord;
 
+
+    public InputField Ip;
+    public InputField Port;
+    public Button Link;
+
     private void Awake()
     {
         btn_Login.onClick.AddListener(ChickLogin);
@@ -50,6 +56,8 @@ public class UILogin : TTUIPage
         btn_OnKeyRegister.onClick.AddListener(ChickOnkeyRegister);
         btn_RegisterBack.onClick.AddListener(ChickRegisterBack);
         StartPage.gameObject.SetActive(false);
+
+        Link.onClick.AddListener(TestLink);
 
         //if (PlayerPrefs.HasKey("UserName"))
         //{
@@ -63,6 +71,22 @@ public class UILogin : TTUIPage
         //}
         //PlayerPrefs.SetString("UserName", "Name");
         //PlayerPrefs.SetString("PassWord", "Name");
+    }
+
+    private void TestLink()
+    {
+        string ip = Ip.text;
+        if (Ip.text.Equals(""))
+        {
+            ip = "127.0.0.1";
+        }
+        int port = int.Parse(Port.text);
+        if (Port.text.Equals(""))
+        {
+            port = 9010;
+        }
+
+        Assets.Script.GameLogic.Instance.InitData(ip, port, "");
     }
 
     //private void Start()

@@ -146,3 +146,14 @@ public enum BagType
     Prop,
     Max
 }
+
+public enum UseDiamondsType
+{
+    Material,//建筑材料不足
+    BuildRoom,//建筑直接建造完成
+    RoomSpeedUp,//建造加速
+    TrainSpeedUp,//训练加速
+    //魔法生产加速
+    //魔法批量加速
+
+}

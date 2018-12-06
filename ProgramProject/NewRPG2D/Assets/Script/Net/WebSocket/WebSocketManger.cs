@@ -220,9 +220,6 @@ namespace Assets.Script.Net
                 case NetSendMsg.RQ_CreateRoleName:
                     send = new NetCreateRoleNameSend();
                     break;
-                case NetSendMsg.RQ_CheckCreateNewRoom:
-                    send = new NetCheckCreateNewRoomSend();
-                    break;
                 case NetSendMsg.RQ_CreateNewRoom:
                     send = new NetCreateNewRoomSend();
                     break;
@@ -240,9 +237,6 @@ namespace Assets.Script.Net
                     break;
                 case NetSendMsg.RQ_RoomMerger:
                     send = new NetRoomMergerSend();
-                    break;
-                case NetSendMsg.RQ_RoomSplit:
-                    send = new NetRoomSplitSend();
                     break;
                 case NetSendMsg.RQ_SaveAllRoom:
                     send = new NetSaveAllRoomSend();
@@ -295,9 +289,6 @@ namespace Assets.Script.Net
                 case NetReceiveMsg.RS_CreateRoleName:
                     receive = new NetCreateRoleNameRev();
                     break;
-                case NetReceiveMsg.RS_CheckCreateNewRoom:
-                    receive = new NetCheckCreateNewRoomRev();
-                    break;
                 case NetReceiveMsg.RS_CreateNewRoom:
                     receive = new NetCreateNewRoomRev();
                     break;
@@ -315,9 +306,6 @@ namespace Assets.Script.Net
                     break;
                 case NetReceiveMsg.RS_RoomMerger:
                     receive = new NetRoomMergerRev();
-                    break;
-                case NetReceiveMsg.RS_RoomSplit:
-                    receive = new NetRoomSplitRev();
                     break;
                 case NetReceiveMsg.RS_SaveAllRoom:
                     receive = new NetSaveAllRoomRev();

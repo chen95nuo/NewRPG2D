@@ -39,6 +39,10 @@ public class GetPlayerData
     {
         data = new PlayerData(S_PlayerData, happiness);
     }
+    public int GetStock(BuildRoomName name)
+    {
+        return data.GetResSpace(name);
+    }
 
     public void SetThroneRoom(LocalBuildingData buildingData)
     {
