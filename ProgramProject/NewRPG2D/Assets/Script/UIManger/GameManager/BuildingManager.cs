@@ -142,7 +142,7 @@ public class BuildingManager : TSingleton<BuildingManager>
             //如果该房间正在升级 或升级完成
             if (buildingData.leftTime >= 0)
             {
-                UIPanelManager.instance.ShowPage<UILevelUpTip>(buildingData);
+                buildingData.ConstructionType = true;
             }
         }
     }
@@ -618,5 +618,55 @@ public class BuildingManager : TSingleton<BuildingManager>
         return name;
     }
 
+    public RoleAttribute NameToAtr(BuildRoomName RoomName)
+    {
+        switch (RoomName)
+        {
+            case BuildRoomName.Nothing:
+                break;
+            case BuildRoomName.Gold:
+                return RoleAttribute.Gold;
+            case BuildRoomName.Food:
+                return RoleAttribute.Food;
+            case BuildRoomName.Mana:
+                return RoleAttribute.Mana;
+            case BuildRoomName.Wood:
+                return RoleAttribute.Wood;
+            case BuildRoomName.Iron:
+                return RoleAttribute.Iron;
+            case BuildRoomName.FighterRoom:
+                return RoleAttribute.Fight;
+            case BuildRoomName.Kitchen:
+                return RoleAttribute.Food;
+            case BuildRoomName.Mint:
+                return RoleAttribute.Gold;
+            case BuildRoomName.Laboratory:
+                return RoleAttribute.Mana;
+            case BuildRoomName.Crafting:
+                return RoleAttribute.Wood;
+            case BuildRoomName.Foundry:
+                return RoleAttribute.Fight;
+            case BuildRoomName.Hospital:
+                return RoleAttribute.HP;
+            case BuildRoomName.MagicWorkShop:
+                return RoleAttribute.ManaSpeed;
+            case BuildRoomName.MagicLab:
+                return RoleAttribute.ManaSpeed;
+            case BuildRoomName.WeaponsWorkShop:
+            case BuildRoomName.ArmorWorkShop:
+                return RoleAttribute.ManaSpeed;
+            case BuildRoomName.GemWorkShop:
+                return RoleAttribute.ManaSpeed;
+            case BuildRoomName.Barracks:
+                return RoleAttribute.Fight;
+            case BuildRoomName.LivingRoom:
+                return RoleAttribute.Max;
+            case BuildRoomName.MaxRoom:
+            default:
+                break;
+        }
+        return RoleAttribute.Nothing;
+
+    }
     #endregion
 }

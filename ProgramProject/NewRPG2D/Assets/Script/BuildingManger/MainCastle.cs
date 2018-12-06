@@ -51,7 +51,7 @@ public class MainCastle : Castle
         }
         for (int i = 0; i < newRoom.Count; i++)
         {
-            CheckPlayerInfo.instance.AddBuilding(newRoom[i], false);
+            //CheckPlayerInfo.instance.AddBuilding(newRoom[i], false);
         }
     }
 }

@@ -64,7 +64,7 @@ public class LocalBuildingData
     public BuildingData buildingData;//房间ID
     public float Stock = 0;
     private float speedProd = 0;//产出速度
-    public bool ConstructionType = false;
+    private bool constructionType = false;
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
     public float leftTime;//升级时间
@@ -77,6 +77,23 @@ public class LocalBuildingData
         set
         {
             speedProd = value;
+        }
+    }
+
+    public bool ConstructionType
+    {
+        get
+        {
+            return constructionType;
+        }
+
+        set
+        {
+            constructionType = value;
+            if (currentRoom != null)
+            {
+                currentRoom.ConstructionType = value;
+            }
         }
     }
 
@@ -205,7 +222,7 @@ public class LocalBuildingData
         this.id = id;
         this.buildingPoint = point;
         this.buildingData = roomData;
-        this.ConstructionType = ConstructionType;
+        this.constructionType = ConstructionType;
         int maxRole = CheckPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
     }

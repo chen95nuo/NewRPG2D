@@ -94,7 +94,7 @@ public class UILevelUpHelper : MonoBehaviour
         {
             //材料足够倒计时升级
             int id = roomMgr.buildingData.NextLevelID;
-            roomMgr.currentRoom.ConstructionStart(id, 0);
+            //roomMgr.currentRoom.ConstructionStart(id, 0);
             BuildingData temp = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(roomMgr.buildingData.NextLevelID);
             CheckPlayerInfo.instance.RoomUseStock(temp);
             return;

@@ -149,11 +149,15 @@ public enum BagType
 
 public enum UseDiamondsType
 {
-    Material,//建筑材料不足
+    NeedMaterial,//建筑材料不足
     BuildRoom,//建筑直接建造完成
     RoomSpeedUp,//建造加速
     TrainSpeedUp,//训练加速
-    //魔法生产加速
-    //魔法批量加速
+    SkillSpeedUp,//魔法生产加速
+    AllSkillSpeedUp,//魔法批量加速
+    SkillLevelUp,//魔法升级加速
+    EquipSpeedUp,//装备制造加速
+    OpenBox,//开启宝箱加速
+    BuyMaterial,//购买材料
 
 }

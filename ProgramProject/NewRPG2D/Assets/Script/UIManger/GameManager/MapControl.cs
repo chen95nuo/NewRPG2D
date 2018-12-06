@@ -12,7 +12,7 @@ public class MapControl : MonoBehaviour
     public MainCastle mainCastle;
     public EditCastle editCastle;
     public CastleType type;//当前建筑模式
-    public List<RoomMgr> removeRoom = new List<RoomMgr>();
+    public List<BuildTip> removeRoom = new List<BuildTip>();
     public List<BuildTip> allTips = new List<BuildTip>();
     public GameObject buildTip;//提示框
     public Transform TipPoint;//提示框位置
@@ -108,7 +108,13 @@ public class MapControl : MonoBehaviour
 
     public void RemoveRoom(RoomMgr mgr)
     {
-        mgr.transform.parent = RemoveRoomPoint;
-        mgr.transform.localPosition = Vector3.zero;
+        BuildTip tip = mgr.GetComponent<BuildTip>();
+        tip.transform.parent = RemoveRoomPoint;
+        tip.transform.localPosition = Vector3.zero;
+        removeRoom.Add(tip);
+        Destroy(mgr);
+
+
+
     }
 }

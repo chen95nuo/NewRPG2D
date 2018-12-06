@@ -697,14 +697,14 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
     /// 新建建筑 添加建筑 注:无ID
     /// </summary>
     /// <param name="data"></param>
-    public void AddBuilding(LocalBuildingData data, bool isNew = true)
+    public void AddBuilding(LocalBuildingData data)
     {
         data.id = BuildingIdIndex;
         AllBuilding.Add(data);
         ChickBuildDicAdd(data);
 
         //若新建的房间内拥有角色 那么将角色加入房间
-        RoomMgr mgr = MainCastle.instance.InstanceRoom(data, isNew);
+        RoomMgr mgr = MainCastle.instance.InstanceRoom(data);
         for (int i = 0; i < data.roleData.Length; i++)
         {
             if (data.roleData[i] != null)
@@ -783,21 +783,6 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
         }
         Debug.Log("没有找到要加速的建筑");
         return null;
-    }
-
-    public void ChickLeveUp(LevelUPHelper data)
-    {
-        LocalBuildingData LocalData = GetBuilding(data.roomID);
-
-        if (LocalData.currentRoom != null)
-        {
-            LocalData.currentRoom.ConstructionComplete(data);
-        }
-        else
-        {
-            BuildingData data_1 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(LocalData.buildingData.NextLevelID);
-            CheckPlayerInfo.instance.ChickBuildDicChange(LocalData, data_1);
-        }
     }
 
     public LocalBuildingData GetBuilding(int RoomID)

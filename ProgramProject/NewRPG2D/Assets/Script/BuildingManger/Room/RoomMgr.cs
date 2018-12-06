@@ -32,34 +32,20 @@ public abstract class RoomMgr : MonoBehaviour
     private bool workType = true;
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
-
-    [System.NonSerialized]
-    public GameObject disTip;//断开连接的标签
-    private GameObject roomLock;//房间选定框
     private SpriteRenderer roomLockRend;
-    [System.NonSerialized]
-    private GameObject roomProp;//资源获取框
-    private GameObject roomConstruction;
-    [System.NonSerialized]
-    public SpriteRenderer roomPropIcon;//资源Icon
-    [System.NonSerialized]
-    public SpriteRenderer roomPropIconBG;//资源Icon背景
 
-    private UILevelUpTip levelUpTip;
+    private GameObject disTip;//断开连接的标签
+    private GameObject roomLock;//房间选定框
+    private GameObject roomProp;//资源获取框
+    private UIBuildLevelUp levelUp;
+    private SpriteRenderer roomImage;
+
+    private SpriteRenderer roomPropIcon;//资源Icon
+    private SpriteRenderer roomPropIconBG;//资源Icon背景
+    private Transform rolePoint;//角色位置
+
     public LocalBuildingData currentBuildData;
 
-    private Transform rolePoint;//角色位置
-    public Transform RolePoint
-    {
-        get
-        {
-            if (rolePoint == null)
-            {
-                rolePoint = this.transform.Find("RoomTypes/RoomRole").transform;
-            }
-            return rolePoint;
-        }
-    }
     private float rolePointMin;//左边界
     public float RolePointMin
     {
@@ -85,7 +71,6 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.buildingData;
         }
     }
-
     public bool ConstructionType
     {
         get
@@ -95,30 +80,18 @@ public abstract class RoomMgr : MonoBehaviour
         set
         {
             bool index = value;
-            RoomConstruction.SetActive(value);
+            LevelUp.gameObject.SetActive(value);
             if (index != constructionType && MapControl.instance.type == CastleType.main)
             {
                 constructionType = value;
                 RoomWork = !value;
-                currentBuildData.ConstructionType = value;
-                if (CheckPlayerInfo.instance.ChickProduction(currentBuildData))
+                if (value)
                 {
-                    if (value == false)
-                    {
-                        Debug.Log("施工结束 添加监听事件");
-                        //施工结束就添加事件
-                        CheckPlayerInfo.instance.ThisProduction(currentBuildData);
-                    }
-                    else
-                    {
-                        Debug.Log("施工中 关闭监听事件");
-                        //施工中就关闭事件
-                        CheckPlayerInfo.instance.ClostProduction(currentBuildData);
-                    }
+                    LevelUp.UpdateInfo(currentBuildData);
                 }
             }
         }
-    }
+    }//房间施工状态
     public bool StockFull
     {
         get { return stockFull; }
@@ -163,52 +136,7 @@ public abstract class RoomMgr : MonoBehaviour
     {
         get
         {
-            switch (RoomName)
-            {
-                case BuildRoomName.Nothing:
-                    break;
-                case BuildRoomName.Gold:
-                    return RoleAttribute.Gold;
-                case BuildRoomName.Food:
-                    return RoleAttribute.Food;
-                case BuildRoomName.Mana:
-                    return RoleAttribute.Mana;
-                case BuildRoomName.Wood:
-                    return RoleAttribute.Wood;
-                case BuildRoomName.Iron:
-                    return RoleAttribute.Iron;
-                case BuildRoomName.FighterRoom:
-                    return RoleAttribute.Fight;
-                case BuildRoomName.Kitchen:
-                    return RoleAttribute.Food;
-                case BuildRoomName.Mint:
-                    return RoleAttribute.Gold;
-                case BuildRoomName.Laboratory:
-                    return RoleAttribute.Mana;
-                case BuildRoomName.Crafting:
-                    return RoleAttribute.Wood;
-                case BuildRoomName.Foundry:
-                    return RoleAttribute.Fight;
-                case BuildRoomName.Hospital:
-                    return RoleAttribute.HP;
-                case BuildRoomName.MagicWorkShop:
-                    return RoleAttribute.ManaSpeed;
-                case BuildRoomName.MagicLab:
-                    return RoleAttribute.ManaSpeed;
-                case BuildRoomName.WeaponsWorkShop:
-                case BuildRoomName.ArmorWorkShop:
-                    return RoleAttribute.ManaSpeed;
-                case BuildRoomName.GemWorkShop:
-                    return RoleAttribute.ManaSpeed;
-                case BuildRoomName.Barracks:
-                    return RoleAttribute.Fight;
-                case BuildRoomName.LivingRoom:
-                    return RoleAttribute.Max;
-                case BuildRoomName.MaxRoom:
-                default:
-                    break;
-            }
-            return RoleAttribute.Nothing;
+            return BuildingManager.instance.NameToAtr(RoomName);
         }
     }
     public BuildRoomName RoomName
@@ -218,8 +146,6 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.buildingData.RoomName;
         }
     }
-
-
     public bool IsHarvest
     {
         get
@@ -234,88 +160,26 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 isHarvest = value;
                 RoomProp.SetActive(value);
-                if (roomPropIcon == null)
-                {
-                    roomPropIcon = this.transform.Find("RoomTypes/RoomProp/PropBG/Gold").GetComponent<SpriteRenderer>();
-                    Sprite sp = GetSpriteAtlas.insatnce.GetIcon(RoomName.ToString());
-                    roomPropIcon.sprite = sp;
-                }
             }
         }
     }
-
-    public SpriteRenderer RoomPropIconBG
-    {
-        get
-        {
-            if (roomPropIconBG == null)
-            {
-                Debug.Log(RoomName);
-                roomPropIconBG = this.transform.Find("RoomTypes/RoomProp/PropBG").GetComponent<SpriteRenderer>();
-            }
-            return roomPropIconBG;
-        }
-    }
-
-    public SpriteRenderer RoomLockRend
-    {
-        get
-        {
-            if (roomLockRend == null)
-            {
-                roomLockRend = roomLock.GetComponent<SpriteRenderer>();
-            }
-            return roomLockRend;
-        }
-    }
-
     public void ShowRoomLockUI(bool isTrue, bool isRole = false)
     {
         if (isTrue == false)
         {
-            roomLock.SetActive(isTrue);
+            RoomLock.SetActive(isTrue);
             return;
         }
-        roomLock.SetActive(isTrue);
+        RoomLock.SetActive(isTrue);
         if (isRole == true)
         {
-            RoomLockRend.color = new Color(255 / 255f, 238 / 255f, 89 / 255f);
+            roomLockRend.color = new Color(255 / 255f, 238 / 255f, 89 / 255f);
         }
         else
         {
-            RoomLockRend.color = new Color(90 / 255f, 255 / 255f, 167 / 255f);
+            roomLockRend.color = new Color(90 / 255f, 255 / 255f, 167 / 255f);
         }
     }
-
-    public GameObject RoomProp
-    {
-        get
-        {
-            if (roomProp == null)
-            {
-                GetCompoment();
-            }
-            return roomProp;
-        }
-
-        set
-        {
-            roomProp = value;
-        }
-    }
-
-    public GameObject RoomConstruction
-    {
-        get
-        {
-            if (roomConstruction == null)
-            {
-                roomConstruction = this.transform.Find("RoomTypes/RoomLeveUp").gameObject;
-            }
-            return roomConstruction;
-        }
-    }
-
     public bool RoomWork
     {
         get
@@ -341,6 +205,97 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }
+
+    #region 动态寻找模组
+    public GameObject DisTip
+    {
+        get
+        {
+            if (disTip == null)
+            {
+                GetOBJ();
+            }
+            return disTip;
+        }
+    }
+    public GameObject RoomLock
+    {
+        get
+        {
+            if (roomLock == null)
+            {
+                GetOBJ();
+            }
+            return roomLock;
+        }
+    }
+    public GameObject RoomProp
+    {
+        get
+        {
+            if (roomProp == null)
+            {
+                GetOBJ();
+            }
+            return roomProp;
+        }
+    }
+    public UIBuildLevelUp LevelUp
+    {
+        get
+        {
+            if (levelUp == null)
+            {
+                GetOBJ();
+            }
+            return levelUp;
+        }
+    }
+    public SpriteRenderer RoomImage
+    {
+        get
+        {
+            if (roomImage == null)
+            {
+                GetOBJ();
+            }
+            return roomImage;
+        }
+    }
+    public SpriteRenderer RoomPropIcon
+    {
+        get
+        {
+            if (roomPropIcon == null)
+            {
+                GetOBJ();
+            }
+            return roomPropIcon;
+        }
+    }
+    public SpriteRenderer RoomPropIconBG
+    {
+        get
+        {
+            if (roomPropIconBG == null)
+            {
+                GetOBJ();
+            }
+            return roomPropIconBG;
+        }
+    }
+    public Transform RolePoint
+    {
+        get
+        {
+            if (rolePoint == null)
+            {
+                GetOBJ();
+            }
+            return rolePoint;
+        }
+    }
+    #endregion
 
     /// <summary>
     /// 左右
@@ -475,10 +430,7 @@ public abstract class RoomMgr : MonoBehaviour
 
     public virtual void Awake()
     {
-        GetCompoment();
         HallEventManager.instance.AddListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
-
-
     }
     private void OnDestroy()
     {
@@ -496,54 +448,24 @@ public abstract class RoomMgr : MonoBehaviour
     /// 创建或重新激活建筑
     /// </summary>
     /// <param name="data"></param>
-    public void UpdateBuilding(LocalBuildingData data, Castle castle, bool isNew = false)
+    public void UpdateInfo(LocalBuildingData data, Castle castle)
     {
+
         currentBuildData = data;
         data.currentRoom = this;
         castleMgr = castle;
         BuildingMove(data, castle);
         ChickLeftOrRight(castle.buildPoint);
 
-        //if (isNew)
-        //{
-        //    //如果是主场景 那么施工
-        //    if (castle.castleType == CastleType.main)
-        //    {
-        //        if (data.buildingData.NeedTime != 0)
-        //        {
-        //            //新建的建筑需要建造时间 那么开始施工
-        //            ConstructionStart(data.buildingData.ItemId, 0);
-        //        }
-        //        else
-        //        {
-        //            //不需要建造时间的判断是否需要添加事件
-        //            ConstructionType = false;
-        //            if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-        //            {
-        //                Debug.Log("添加监听");
-        //                //施工结束就添加事件
-        //                ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ConstructionType = data.ConstructionType;
-        //        castleMgr.ChickMergeRoom(this);
-        //        AddConnection();
-        //    }
-        //}
-        //else
-        //{
-        //    //不需要建造时间的判断是否需要添加事件
-        //    ConstructionType = false;
-        //    if (ChickPlayerInfo.instance.ChickProduction(currentBuildData))
-        //    {
-        //        Debug.Log("添加监听");
-        //        //施工结束就添加事件
-        //        ChickPlayerInfo.instance.ThisProduction(currentBuildData);
-        //    }
-        //}
+        ConstructionType = data.ConstructionType;//同步建造状态
+        if (data.buildingData.RoomSize > 3)
+        {
+            RoomImage.sprite = GetSpriteAtlas.insatnce.GetRoomSp(RoomName + "_" + ((data.buildingData.RoomSize / 3) - 1));
+        }
+        else
+        {
+            RoomImage.sprite = GetSpriteAtlas.insatnce.GetRoomSp(RoomName.ToString());
+        }
     }
 
     /// <summary>
@@ -566,7 +488,6 @@ public abstract class RoomMgr : MonoBehaviour
     public void RemoveBuilding()
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        MapControl.instance.removeRoom.Add(this);
         MapControl.instance.RemoveRoom(this);
         bool isRemove = castleMgr.allroom.Remove(this);
         int startX = (int)StartPoint.x;
@@ -967,66 +888,12 @@ public abstract class RoomMgr : MonoBehaviour
     {
         if (linkType == true)
         {
-            disTip.SetActive(false);
+            DisTip.SetActive(false);
         }
         else
         {
-            disTip.SetActive(true);
+            DisTip.SetActive(true);
         }
-    }
-
-    /// <summary>
-    /// 开始施工
-    /// </summary>
-    /// <param name="data">当前房间需要变成哪个</param>
-    public void ConstructionStart(int nextId, int time)
-    {
-        //if (ConstructionType == true)
-        //{
-        //    Debug.LogError("已在升级");
-        //    return;
-        //}
-        //ConstructionType = true;
-        //BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(nextId);
-        //int needTime = 0;
-        //if (time == 0)
-        //{
-        //    needTime = data.NeedTime * 60;
-        //}
-        //else
-        //{
-        //    needTime = time;
-        //}
-        //CheckPlayerInfo.instance.Timer(Id, needTime, nextId);
-        //CameraControl.instance.CloseRoomLock();
-    }
-
-    public void ConstructionCancel()
-    {
-        ConstructionType = false;
-    }
-
-    /// <summary>
-    /// 施工完成
-    /// </summary>
-    public void ConstructionComplete(LevelUPHelper data)
-    {
-        BuildingData changeData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.nextID);
-        CheckPlayerInfo.instance.ChickBuildDicChange(currentBuildData, changeData);
-        levelUpTip = null;
-        ConstructionType = false;
-        ChickConstructionCompleteRole();
-        CameraControl.instance.RefreshRoomLock(currentBuildData);
-        //检查合并
-        if (MapControl.instance.type == CastleType.main)
-        {
-            castleMgr.ChickMergeRoom(this);
-        }
-        else
-        {
-
-        }
-        ChickComplete();
     }
 
     /// <summary>
@@ -1135,10 +1002,6 @@ public abstract class RoomMgr : MonoBehaviour
         }
         Debug.LogError("没有找到要删除的角色");
     }
-
-    public virtual void ThisRoomFunc() { }
-    public virtual void RoomAwake() { GetCompoment(); }
-    public virtual void ChickComplete() { }
 
     /// <summary>
     /// 房间开始施工时 角色功能
@@ -1275,17 +1138,30 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
-    protected void GetCompoment()
-    {
-        disTip = this.transform.Find("RoomFrame/SelectSign").gameObject;
-        roomLock = this.transform.Find("RoomTypes/RoomLock").gameObject;
-        RoomProp = this.transform.Find("RoomTypes/RoomProp").gameObject;
-    }
-
     #region ProductionType
     public virtual void ShowHarvest()
     {
         IsHarvest = true;
+    }
+
+    /// <summary>
+    /// 查找子物体
+    /// </summary>
+    protected void GetOBJ()
+    {
+        disTip = GameObject.Find("RoomFrame/SelectSign").gameObject;
+        roomLock = GameObject.Find("RoomTypes/RoomLock").gameObject;
+        roomProp = GameObject.Find("RoomTypes/RoomProp").gameObject;
+
+        GameObject go = GameObject.Find("RoomTypes/RoomLeveUp");
+        levelUp = go.GetComponent<UIBuildLevelUp>();
+        roomImage = GameObject.Find("RoomImage").GetComponent<SpriteRenderer>();
+        go = GameObject.Find("RoomTypes/RoomProp/PropBG");
+        if (go != null)
+        {
+            roomPropIconBG = go.GetComponent<SpriteRenderer>();
+            roomPropIcon = go.GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
     public virtual void ChickRoomStock()

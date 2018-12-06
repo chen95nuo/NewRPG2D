@@ -1131,6 +1131,7 @@
     <Compile Include="Assets\Script\BuildingManger\Room\BuildLivingRoom.cs" />
     <Compile Include="Assets\Script\BuildingManger\Room\BuildStandardRoom.cs" />
     <Compile Include="Assets\Script\BuildingManger\Room\RoomMgr.cs" />
+    <Compile Include="Assets\Script\BuildingManger\RoomTag.cs" />
     <Compile Include="Assets\Script\CaptureScreen.cs" />
     <Compile Include="Assets\Script\FPSReadOut.cs" />
     <Compile Include="Assets\Script\GameLogic.cs" />
@@ -1172,7 +1173,6 @@
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetPickupProCompleteEquiSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetResearchMagicSkillSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoleLoginSend.cs" />
-    <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomInfoSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomMergerSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomStateSend.cs" />
     <Compile Include="Assets\Script\Net\WebSocket\Send\NetRoomUpdateLevelSend.cs" />
@@ -1342,10 +1342,9 @@
     <Compile Include="Assets\Script\UIManger\UI\Info\UIThroneInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\Info\UITrainInfo.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIBarracksLevelUp.cs" />
+    <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIBuildLevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UILevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UILevelUpHelper.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\LevelUp\UILevelUpTip.cs" />
-    <Compile Include="Assets\Script\UIManger\UI\LevelUp\UILevelUpTipGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIMagicGrid.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIMagicLevelUp.cs" />
     <Compile Include="Assets\Script\UIManger\UI\LevelUp\UIProdLevelUp.cs" />

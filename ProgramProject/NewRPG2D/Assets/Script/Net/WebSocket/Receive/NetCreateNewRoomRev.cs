@@ -14,7 +14,6 @@ namespace Assets.Script.Net
         {
             RS_CreateNewRoom mCreateNewRoom = Extensible.GetValue<RS_CreateNewRoom>(data, id);
             int ret = mCreateNewRoom.ret;
-
             if (ret != 0)
             {
                 DebugHelper.Log("新房间获取失败");
