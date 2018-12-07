@@ -12,7 +12,7 @@ public class MapControl : MonoBehaviour
     public MainCastle mainCastle;
     public EditCastle editCastle;
     public CastleType type;//当前建筑模式
-    public List<BuildTip> removeRoom = new List<BuildTip>();
+    public List<RoomTag> removeRoom = new List<RoomTag>();
     public List<BuildTip> allTips = new List<BuildTip>();
     public GameObject buildTip;//提示框
     public Transform TipPoint;//提示框位置
@@ -58,7 +58,7 @@ public class MapControl : MonoBehaviour
         UIPanelManager.instance.ClosePage<UIMain>();
         UIPanelManager.instance.ShowPage<UIEditMode>();
         CameraControl.instance.CloseRoomLock();
-        CameraControl.instance.RefreshRoomLock(null);
+        //CameraControl.instance.RefreshRoomLock(null);
         EditCastle.instance.ResetEditRoom();
         //if (first == true)
         //{
@@ -108,13 +108,10 @@ public class MapControl : MonoBehaviour
 
     public void RemoveRoom(RoomMgr mgr)
     {
-        BuildTip tip = mgr.GetComponent<BuildTip>();
+        RoomTag tip = mgr.GetComponent<RoomTag>();
         tip.transform.parent = RemoveRoomPoint;
         tip.transform.localPosition = Vector3.zero;
         removeRoom.Add(tip);
         Destroy(mgr);
-
-
-
     }
 }

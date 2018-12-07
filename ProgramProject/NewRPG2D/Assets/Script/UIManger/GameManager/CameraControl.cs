@@ -373,10 +373,11 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void ChickClick()
     {
+        HallEventManager.instance.SendEvent(HallEventDefineEnum.OnClick);
         if (isHoldRole == true)
         {
             UIPanelManager.instance.ClosePage<UIDraggingRole>();
-            UIMain.instance.CloseSomeUI(true);
+            UIMain.instance.ShowSomeUI(true);
             return;
         }
         if (IsShowEdit == true)
@@ -487,7 +488,7 @@ public class CameraControl : MonoBehaviour
                     HallRole role = col[index].GetComponent<HallRole>();
                     UIPanelManager.instance.ShowPage<UIDraggingRole>(role);
                     isHoldRole = true;
-                    UIMain.instance.CloseSomeUI(false);
+                    UIMain.instance.ShowSomeUI(false);
                 }
             }
             else if (isRoom)

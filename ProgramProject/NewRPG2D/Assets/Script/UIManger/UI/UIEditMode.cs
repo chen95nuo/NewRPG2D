@@ -19,9 +19,15 @@ public class UIEditMode : TTUIPage
     public Button btn_clearType;//清除模式
     public Button btn_Remove;//移除
     public Button btn_split;//拆分
+
+    public Button btn_CloseBuild;
+
     public Text txt_ClearType;//清除模式文字提示
     public Transform Content;//建筑框创建地址
+    public GameObject RoomList;
+
     public List<UIEditRoomGrid> roomGrid;//被删除的房间 放置到下方列表
+
     private RoomMgr selectRoom;//记录当前指定的房间
     private bool removeType = false;//删除模式
 
@@ -38,6 +44,8 @@ public class UIEditMode : TTUIPage
         btn_clearType.onClick.AddListener(ChickClearType);
         btn_Remove.onClick.AddListener(ChickRemove);
         btn_split.onClick.AddListener(ChickSplit);
+        btn_CloseBuild.onClick.AddListener(UICloseBG);
+        ShowCloseBG(false);
         HallEventManager.instance.AddListener<LocalBuildingData>(HallEventDefineEnum.AddBuild, RemoveBuildingList);
     }
     private void OnDestroy()
@@ -78,22 +86,34 @@ public class UIEditMode : TTUIPage
         }
     }
 
+    public void ShowCloseBG(bool isShow)
+    {
+        RoomList.SetActive(!isShow);
+        btn_CloseBuild.gameObject.SetActive(isShow);
+    }
+
+    public void UICloseBG()
+    {
+        ShowCloseBG(false);
+        MapControl.instance.ResetRoomTip();
+    }
+
     /// <summary>
     /// 拆分
     /// </summary>
     private void ChickSplit()
     {
-        if (selectRoom.currentBuildData.id > 0)
-        {
-            EditCastle.instance.ChangeBuilding.Add(selectRoom.currentBuildData);
-        }
-        EditCastle.instance.editAllBuilding.Remove(selectRoom.currentBuildData);
+        List<LocalBuildingData> allData = EditCastle.instance.editAllBuilding[selectRoom.currentBuildData.buildingData.RoomName];
+        allData.Remove(selectRoom.currentBuildData);
         int index = selectRoom.BuildingData.RoomSize / 3;
+        int[] newID = RoomIdControl.SplitID(allData, index);
         BuildingData data = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(selectRoom.BuildingData.SplitID);
-        EditCastle.instance.RemoveRoom(selectRoom);
+        selectRoom.RemoveBuilding(true);
         for (int i = 0; i < index; i++)
         {
+            Debug.Log("拆分房间 ID" + i + " = " + newID[i]);
             LocalBuildingData s_data = new LocalBuildingData(Vector2.zero, data);
+            s_data.id = newID[i];
             ListAddData(s_data);
         }
         ShowMenu(null);
@@ -104,10 +124,10 @@ public class UIEditMode : TTUIPage
     /// </summary>
     private void ChickRemove()
     {
+        //CameraControl.instance.CloseRoomLock();
         ListAddData(selectRoom.currentBuildData);
-        EditCastle.instance.RemoveRoom(selectRoom);
+        selectRoom.RemoveBuilding(true);
         ShowMenu(null);
-        CameraControl.instance.CloseRoomLock();
     }
     /// <summary>
     /// 检查删除房间
@@ -149,7 +169,7 @@ public class UIEditMode : TTUIPage
             UIPanelManager.instance.ShowPage<UIPopUp_2>(st);
             return;
         }
-        EditCastle.instance.SaveAllBuild();
+        EditCastle.instance.EditSave();
         ChickBack();
     }
 
@@ -253,9 +273,7 @@ public class UIEditMode : TTUIPage
         }
         Debug.Log("没有找到同类 添加新的");
         rooms.Add(new EditModeHelper(s_data));
-        ChickRoomGrid();
-        roomGrid[rooms.Count - 1].gameObject.SetActive(true);
-        roomGrid[rooms.Count - 1].UpdateInfo(rooms[rooms.Count - 1]);
+        ChickRoomGrid(rooms.Count - 1);
     }
 
     /// <summary>
@@ -297,18 +315,19 @@ public class UIEditMode : TTUIPage
     /// <summary>
     /// 检查UI格子是否足够 不足则添加
     /// </summary>
-    private void ChickRoomGrid()
+    private void ChickRoomGrid(int index = 0)
     {
-        if (roomGrid.Count < rooms.Count)
+        for (int i = index; i < rooms.Count; i++)
         {
-            int index = rooms.Count - roomGrid.Count;
-            for (int i = 0; i < index; i++)
+            if (roomGrid.Count <= i)
             {
                 GameObject go = Resources.Load<GameObject>("UIPrefab/UIEditRoomGrid");
                 go = Instantiate(go, Content) as GameObject;
                 UIEditRoomGrid RG = go.GetComponent<UIEditRoomGrid>();
                 roomGrid.Add(RG);
             }
+            roomGrid[i].gameObject.SetActive(true);
+            roomGrid[i].UpdateInfo(rooms[i]);
         }
     }
 

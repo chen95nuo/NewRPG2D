@@ -32,10 +32,9 @@ public abstract class RoomMgr : MonoBehaviour
     private bool workType = true;
 
     private List<RoomMgr> disconnectRoom = new List<RoomMgr>();//断开连接的房间用于楼梯上下
-    private SpriteRenderer roomLockRend;
 
     private GameObject disTip;//断开连接的标签
-    private GameObject roomLock;//房间选定框
+    private SpriteRenderer roomLock;//房间选定框
     private GameObject roomProp;//资源获取框
     private UIBuildLevelUp levelUp;
     private SpriteRenderer roomImage;
@@ -47,6 +46,9 @@ public abstract class RoomMgr : MonoBehaviour
     public LocalBuildingData currentBuildData;
 
     private float rolePointMin;//左边界
+
+    #region 便捷路径
+
     public float RolePointMin
     {
         get
@@ -55,7 +57,6 @@ public abstract class RoomMgr : MonoBehaviour
             return rolePointMin;
         }
     }
-
     public Vector2 StartPoint
     {
         get
@@ -63,7 +64,6 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.buildingPoint;
         }
     }
-
     public BuildingData BuildingData
     {
         get
@@ -81,7 +81,7 @@ public abstract class RoomMgr : MonoBehaviour
         {
             bool index = value;
             LevelUp.gameObject.SetActive(value);
-            if (index != constructionType && MapControl.instance.type == CastleType.main)
+            if (index != constructionType && castleMgr.castleType == CastleType.main)
             {
                 constructionType = value;
                 RoomWork = !value;
@@ -115,7 +115,6 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }
-
     public void Clear()
     {
         castleMgr = null;
@@ -131,7 +130,6 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.id;
         }
     }
-
     public RoleAttribute NeedAttribute
     {
         get
@@ -167,17 +165,17 @@ public abstract class RoomMgr : MonoBehaviour
     {
         if (isTrue == false)
         {
-            RoomLock.SetActive(isTrue);
+            RoomLock.gameObject.SetActive(isTrue);
             return;
         }
-        RoomLock.SetActive(isTrue);
+        RoomLock.gameObject.SetActive(isTrue);
         if (isRole == true)
         {
-            roomLockRend.color = new Color(255 / 255f, 238 / 255f, 89 / 255f);
+            RoomLock.color = new Color(255 / 255f, 238 / 255f, 89 / 255f);
         }
         else
         {
-            roomLockRend.color = new Color(90 / 255f, 255 / 255f, 167 / 255f);
+            RoomLock.color = new Color(90 / 255f, 255 / 255f, 167 / 255f);
         }
     }
     public bool RoomWork
@@ -218,7 +216,7 @@ public abstract class RoomMgr : MonoBehaviour
             return disTip;
         }
     }
-    public GameObject RoomLock
+    public SpriteRenderer RoomLock
     {
         get
         {
@@ -295,6 +293,16 @@ public abstract class RoomMgr : MonoBehaviour
             return rolePoint;
         }
     }
+    private void ChickStockFull(RoomStockFullHelper data)
+    {
+        if (data.name != RoomName)
+        {
+            return;
+        }
+        StockFull = data.isFull;
+    }
+    #endregion
+
     #endregion
 
     /// <summary>
@@ -436,14 +444,6 @@ public abstract class RoomMgr : MonoBehaviour
     {
         HallEventManager.instance.RemoveListener<RoomStockFullHelper>(HallEventDefineEnum.ChickStockFull, ChickStockFull);
     }
-    private void ChickStockFull(RoomStockFullHelper data)
-    {
-        if (data.name != RoomName)
-        {
-            return;
-        }
-        StockFull = data.isFull;
-    }
     /// <summary>
     /// 创建或重新激活建筑
     /// </summary>
@@ -458,7 +458,8 @@ public abstract class RoomMgr : MonoBehaviour
         ChickLeftOrRight(castle.buildPoint);
 
         ConstructionType = data.ConstructionType;//同步建造状态
-        if (data.buildingData.RoomSize > 3)
+
+        if ((data.buildingData.MergeID > 0 || data.buildingData.SplitID > 0) && data.buildingData.RoomSize > 3)
         {
             RoomImage.sprite = GetSpriteAtlas.insatnce.GetRoomSp(RoomName + "_" + ((data.buildingData.RoomSize / 3) - 1));
         }
@@ -466,6 +467,7 @@ public abstract class RoomMgr : MonoBehaviour
         {
             RoomImage.sprite = GetSpriteAtlas.insatnce.GetRoomSp(RoomName.ToString());
         }
+        if (castle.castleType == CastleType.edit) AddConnection();//编辑模式新建的建筑添加连接信息
     }
 
     /// <summary>
@@ -485,10 +487,9 @@ public abstract class RoomMgr : MonoBehaviour
     /// <summary>
     /// 删除建筑
     /// </summary>
-    public void RemoveBuilding()
+    public void RemoveBuilding(bool isEdit = false)
     {
         //将建筑的使用信息改为停用 将墙面移动回原位
-        MapControl.instance.RemoveRoom(this);
         bool isRemove = castleMgr.allroom.Remove(this);
         int startX = (int)StartPoint.x;
         int startY = (int)StartPoint.y;
@@ -509,54 +510,27 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
         emptyPoints = new EmptyPoint[4];
+        if (isEdit) EditRemoveBuilding();
+        MapControl.instance.RemoveRoom(this);
     }
 
     /// <summary>
-    /// 建造模式删除建筑
+    /// 编辑模式删除建筑
     /// </summary>
-    public void EditRemoveBuilding()
+    private void EditRemoveBuilding()
     {
         linkType = false; //断开自身链接
-        int index = 0;
         for (int i = 0; i < nearbyRoom.Length; i++)
         {
             if (nearbyRoom[i] != null)
             {
                 nearbyRoom[i].UpdateBuilding();
-                nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
+                nearbyRoom[i].CheckConnection(this, linkType);//通知附近房间检查自身链接
+                nearbyRoom[i].CheckDisTip();
                 nearbyRoom[i] = null;
-                index++;
             }
         }
-        if (nearbyRoom[0] == null && nearbyRoom[1] != null)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                if (castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
-                {
-                    castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
-                }
-                if (castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
-                {
-                    castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
-                }
-            }
-        }
-        else if (nearbyRoom[0] != null && nearbyRoom[1] == null)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                if (castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr != null)
-                {
-                    castleMgr.buildPoint[(int)buidStartPoint.x - i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
-                }
-                if (castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr != null)
-                {
-                    castleMgr.buildPoint[buildEndPoint + i, (int)buidStartPoint.y].roomMgr.UpdateBuilding();
-                }
-            }
-        }
-
+        //让左右两边房间重新搜寻空位
         if (nearbyRoom[0] == null && nearbyRoom[1] == null)
         {
             bool right = true;
@@ -626,7 +600,7 @@ public abstract class RoomMgr : MonoBehaviour
         if (castle.castleType == CastleType.main)
         {
             linkType = true;
-            ChickDisTip();
+            CheckDisTip();
         }
         //将房间移动到指定位置
         transform.position = castle.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
@@ -645,58 +619,17 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
-
-
-    /// <summary>
-    /// 检查链接信息 让附近房间递归搜寻信息
-    /// </summary>
-    public void BuildingChickLink()
-    {
-        linkType = false; //断开自身链接
-        int index = 0;
-        for (int i = 0; i < nearbyRoom.Length; i++)
-        {
-            if (nearbyRoom[i] != null)
-            {
-                nearbyRoom[i].ChickNearBuilding();
-                nearbyRoom[i].ChickConnection(this, linkType);//通知附近房间检查自身链接
-                nearbyRoom[i] = null;
-                index++;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 递归检查附近房间链接信息
-    /// </summary>
-    public void ChickNearBuilding()
-    {
-        //删除当前建筑提供的位置信息
-        for (int i = 0; i < emptyPoints.Length; i++)
-        {
-            if (emptyPoints[i] != null)
-            {
-                castleMgr.allEmptyPoint.Remove(emptyPoints[i]);
-            }
-        }
-        emptyPoints = new EmptyPoint[4];
-        nearbyRoom = new RoomMgr[4];
-        //重新检测附近空位
-        ChickLeftOrRight(castleMgr.buildPoint);
-    }
-
-
     /// <summary>
     /// 检查连接、断开、路径点
     /// </summary>
     /// <param name="data"></param>
     /// <param name="n"></param>
-    protected bool ChickConnection(RoomMgr data, bool islink)
+    protected bool CheckConnection(RoomMgr data, bool islink)
     {
         if (mainLink)
         {
             linkType = true;
-            ChickDisTip();
+            CheckDisTip();
             return true;
         }
         if (linkType == true)
@@ -722,7 +655,7 @@ public abstract class RoomMgr : MonoBehaviour
                                 {
                                     if (nearbyRoom[i].linkType == false)
                                     {
-                                        nearbyRoom[i].ChickConnection(this, true);
+                                        nearbyRoom[i].CheckConnection(this, true);
                                     }
                                 }
                                 //本就是通常所以不需要改变状态.
@@ -741,14 +674,14 @@ public abstract class RoomMgr : MonoBehaviour
                         else if ((nearbyRoom[i].buidStartPoint.y == buidStartPoint.y))
                         {
                             linkType = false;
-                            bool thisLink = nearbyRoom[i].ChickConnection(this, false);
+                            bool thisLink = nearbyRoom[i].CheckConnection(this, false);
                             if (thisLink == false) //保存断开的房间信息
                             {
                                 disconnectRoom.Add(nearbyRoom[i]);
                             }
                             //当前这个路线回来是通畅那么就返回了 所以不会出现通畅之后在堵塞的问题
                             linkType = thisLink; //如果返回的信息是通畅那么就不用管了 如果是堵塞那就改成堵塞
-                            ChickDisTip();
+                            CheckDisTip();
                             if (thisLink == true)//如果某条路线返回通畅 查询附近堵塞的路线 将其改为通畅 然后返回通畅
                             {
                                 for (int j = 0; j < disconnectRoom.Count; j++)
@@ -756,7 +689,7 @@ public abstract class RoomMgr : MonoBehaviour
                                     if (disconnectRoom[j].linkType == false)
                                     {
                                         Debug.Log("运行了");
-                                        disconnectRoom[j].ChickConnection(this, linkType);
+                                        disconnectRoom[j].CheckConnection(this, linkType);
                                     }
                                 }
                                 disconnectRoom.Clear();
@@ -771,12 +704,12 @@ public abstract class RoomMgr : MonoBehaviour
                     if (linkType == true)//通常这种情况出现在楼梯 且楼梯只向上
                     {
                         Debug.LogError("走到边缘楼梯 楼梯可通往上下" + RoomName);
-                        bool link = room.ChickConnection(this, false);
+                        bool link = room.CheckConnection(this, false);
                         linkType = link;
-                        ChickDisTip();
+                        CheckDisTip();
                         return link;
                     }
-                    bool thisLink = room.ChickConnection(this, linkType);
+                    bool thisLink = room.CheckConnection(this, linkType);
                     Debug.Log(linkType);
                     if (thisLink == true)//如果远的楼层返回true
                     {
@@ -786,7 +719,7 @@ public abstract class RoomMgr : MonoBehaviour
                 else
                 {
                     linkType = false;
-                    ChickDisTip();
+                    CheckDisTip();
                     return false;
                 }
             }
@@ -797,12 +730,12 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 Debug.Log("我方堵塞 对方通畅");
                 linkType = true;
-                ChickDisTip();
+                CheckDisTip();
                 for (int i = 0; i < nearbyRoom.Length; i++)
                 {
                     if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
                     {
-                        nearbyRoom[i].ChickConnection(this, linkType);
+                        nearbyRoom[i].CheckConnection(this, linkType);
                     }
                 }
                 return true;
@@ -816,9 +749,6 @@ public abstract class RoomMgr : MonoBehaviour
         return false;
     }
 
-    /*
-     * 遍历附近的房间 检查连接状态
-     */
     /// <summary>
     /// 建造房间 检查附近连接
     /// </summary>
@@ -840,12 +770,12 @@ public abstract class RoomMgr : MonoBehaviour
         if (mainLink)
         {
             linkType = true;
-            ChickDisTip();
+            CheckDisTip();
             for (int i = 0; i < nearbyRoom.Length; i++)
             {
                 if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
                 {
-                    nearbyRoom[i].ChickConnection(this, true);
+                    nearbyRoom[i].CheckConnection(this, true);
                 }
             }
             return;
@@ -869,7 +799,7 @@ public abstract class RoomMgr : MonoBehaviour
                 if (nearbyRoom[i] != null && nearbyRoom[i].linkType == false)
                 {
                     //如果我有多个连接 但是也有一些断开的那就顺便让他们连接并检查;
-                    nearbyRoom[i].ChickConnection(this, linkType);//将自己的连接状态发给对方
+                    nearbyRoom[i].CheckConnection(this, linkType);//将自己的连接状态发给对方
                 }
             }
         }
@@ -878,21 +808,23 @@ public abstract class RoomMgr : MonoBehaviour
             linkType = false;
         }
 
-        ChickDisTip();
+        CheckDisTip();
     }
 
     /// <summary>
     /// 检查断开连接提示框状态
     /// </summary>
-    protected void ChickDisTip()
+    protected void CheckDisTip()
     {
         if (linkType == true)
         {
             DisTip.SetActive(false);
+            Debug.Log("连接成功");
         }
         else
         {
             DisTip.SetActive(true);
+            Debug.Log("连接断开");
         }
     }
 
@@ -1119,11 +1051,6 @@ public abstract class RoomMgr : MonoBehaviour
         role.TrainType = RoleTrainType.Nothing;
     }
 
-    public void UpdateProduceIcon(Sprite IconBG)
-    {
-
-    }
-
     public void ResumeWork()
     {
         Vector2 roomRolePoint = RolePoint.transform.position;
@@ -1149,19 +1076,25 @@ public abstract class RoomMgr : MonoBehaviour
     /// </summary>
     protected void GetOBJ()
     {
-        disTip = GameObject.Find("RoomFrame/SelectSign").gameObject;
-        roomLock = GameObject.Find("RoomTypes/RoomLock").gameObject;
-        roomProp = GameObject.Find("RoomTypes/RoomProp").gameObject;
+        disTip = this.transform.Find("RoomFrame/SelectSign").gameObject;
+        roomLock = this.transform.Find("RoomTypes/RoomLock").GetComponent<SpriteRenderer>();
+        roomProp = this.transform.Find("RoomTypes/RoomProp").gameObject;
 
-        GameObject go = GameObject.Find("RoomTypes/RoomLeveUp");
-        levelUp = go.GetComponent<UIBuildLevelUp>();
-        roomImage = GameObject.Find("RoomImage").GetComponent<SpriteRenderer>();
-        go = GameObject.Find("RoomTypes/RoomProp/PropBG");
-        if (go != null)
+        Debug.Log(currentBuildData.buildingData.RoomName);
+        Transform ts = this.transform.Find("RoomTypes/RoomLevelUp");
+        levelUp = ts.GetComponent<UIBuildLevelUp>();
+        roomImage = this.transform.Find("RoomImage").GetComponent<SpriteRenderer>();
+        ts = this.transform.Find("RoomTypes/RoomProp/PropBG");
+        if (ts != null)
         {
-            roomPropIconBG = go.GetComponent<SpriteRenderer>();
-            roomPropIcon = go.GetComponentInChildren<SpriteRenderer>();
+            roomPropIconBG = ts.GetComponent<SpriteRenderer>();
+            roomPropIcon = ts.GetChild(0).GetComponent<SpriteRenderer>();
+            roomPropIcon.gameObject.SetActive(false);
+            roomPropIconBG.gameObject.SetActive(false);
         }
+        disTip.SetActive(false);
+        roomLock.gameObject.SetActive(false);
+        roomProp.SetActive(false);
     }
 
     public virtual void ChickRoomStock()

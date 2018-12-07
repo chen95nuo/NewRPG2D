@@ -68,7 +68,7 @@ public class UIMarket : MonoBehaviour
 
     private void ClosePage()
     {
-        UIMain.instance.CloseSomeUI(true);
+        UIMain.instance.ShowSomeUI(true);
         this.gameObject.SetActive(false);
     }
 

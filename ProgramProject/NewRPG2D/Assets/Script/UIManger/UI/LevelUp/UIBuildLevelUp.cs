@@ -14,22 +14,31 @@ public class UIBuildLevelUp : MonoBehaviour
 
     private LocalBuildingData data;
 
+    private float currentNum;
+
     // Update is called once per frame
     void Update()
     {
         if (data != null && data.leftTime >= 0)
         {
-            data.leftTime -= Time.deltaTime;
-            if (data.leftTime == -1)
+            currentNum += Time.deltaTime;
+            if (currentNum >= 1)
             {
-                WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, data.id);
+                data.leftTime -= currentNum;
+                if (data.leftTime == -1)
+                {
+                    WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, data.id);
+                }
             }
-            txt_Time.text = data.leftTime.ToString();
+            txt_Time.text = SystemTime.instance.TimeNormalizedOf(data.leftTime);
+            currentNum = 0;
         }
     }
 
-    public void UpdateInfo(LocalBuildingData data)
+    public void UpdateInfo(LocalBuildingData data, bool isEdit = false, bool isWork = false)
     {
         this.data = data;
+        Icon.transform.parent.gameObject.SetActive(!isEdit);
+        Icon.SetActive(!isWork);
     }
 }

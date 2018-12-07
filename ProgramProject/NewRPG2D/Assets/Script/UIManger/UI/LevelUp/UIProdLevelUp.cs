@@ -146,7 +146,9 @@ public class UIProdLevelUp : UILevelUp
         b_Data_2 = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(b_Data_1.NextLevelID);
         txt_YieldUp.text = "+" + (b_Data_2.Param1 - b_Data_1.Param1);
         txt_StockUp.text = "+" + (b_Data_2.Param2 - b_Data_1.Param2);
-
+        string st = LanguageDataMgr.instance.GetUIString("shengjigaifangjian");
+        string st_1 = string.Format("<quad name={0} size=36 width=1 />", data.buildingData.RoomName);
+        txt_Tip_5.text = string.Format(st, st_1);
     }
 
     /// <summary>

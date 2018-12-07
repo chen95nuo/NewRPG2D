@@ -52,6 +52,8 @@ public class Castle : MonoBehaviour
 
     public BuildCastleBg castleBg;
 
+    private bool isCreateBuilding = false;//当前是否出现建造提示框
+
     public void Init()
     {
         UpdateBGNumber();
@@ -182,14 +184,7 @@ public class Castle : MonoBehaviour
                 }
             }
         }
-        ChangeCastle(x, y);
     }
-
-    public void ChangeCastle(int x, int y)
-    {
-
-    }
-
 
     /// <summary>
     /// 检测当前房间是否可以合并
@@ -242,28 +237,30 @@ public class Castle : MonoBehaviour
 
     public virtual void MergeRoom(RoomMgr room_1, RoomMgr room_2, LocalBuildingData mergeData)
     {
-        int index = 0;
-        for (int i = 0; i < room_1.currentBuildData.roleData.Length; i++)
-        {
-            if (room_1.currentBuildData.roleData[i] != null)
-            {
-                mergeData.roleData[index] = room_1.currentBuildData.roleData[i];
-                index++;
-            }
-        }
-        for (int i = 0; i < room_2.currentBuildData.roleData.Length; i++)
-        {
-            if (room_2.currentBuildData.roleData[i] != null)
-            {
-                mergeData.roleData[index] = room_2.currentBuildData.roleData[i];
-                index++;
-            }
-        }
-        room_1.RemoveBuilding();
-        room_2.RemoveBuilding();
-        CheckPlayerInfo.instance.AddBuilding(mergeData);
-        CheckPlayerInfo.instance.RemoveBuilding(room_1.currentBuildData);
-        CheckPlayerInfo.instance.RemoveBuilding(room_2.currentBuildData);
+        //发送合并请求
+
+        //int index = 0;
+        //for (int i = 0; i < room_1.currentBuildData.roleData.Length; i++)
+        //{
+        //    if (room_1.currentBuildData.roleData[i] != null)
+        //    {
+        //        mergeData.roleData[index] = room_1.currentBuildData.roleData[i];
+        //        index++;
+        //    }
+        //}
+        //for (int i = 0; i < room_2.currentBuildData.roleData.Length; i++)
+        //{
+        //    if (room_2.currentBuildData.roleData[i] != null)
+        //    {
+        //        mergeData.roleData[index] = room_2.currentBuildData.roleData[i];
+        //        index++;
+        //    }
+        //}
+        //room_1.RemoveBuilding();
+        //room_2.RemoveBuilding();
+        //CheckPlayerInfo.instance.AddBuilding(mergeData);
+        //CheckPlayerInfo.instance.RemoveBuilding(room_1.currentBuildData);
+        //CheckPlayerInfo.instance.RemoveBuilding(room_2.currentBuildData);
     }
 
     /// <summary>
@@ -285,14 +282,15 @@ public class Castle : MonoBehaviour
         //将所有标签移出屏幕
         MapControl.instance.ResetRoomTip();
         //CheckPlayerInfo.instance.RoomUseStock(data.buildingData);
-        UIMain.instance.ShowBack(false);
-        UIMain.instance.CloseSomeUI(true);
+        UIMain.instance.CloseMarket();
     }
+
     /// <summary>
     /// 建筑生成提示框
     /// </summary>
     public void BuildRoomTip(BuildingData data)
     {
+        isCreateBuilding = true;
         MapControl.instance.ResetRoomTip();
         currentBuilding = data;
         int index = 0;
@@ -305,7 +303,7 @@ public class Castle : MonoBehaviour
         {
             if (allEmptyPoint[i].emptyNumber == 0)
             {
-                Debug.LogError("有空地址");
+                Debug.LogError("有空地址 :" + allEmptyPoint[i].startPoint);
                 allEmptyPoint.RemoveAt(i);
             }
             if (allEmptyPoint[i].emptyNumber >= data.RoomSize)
@@ -332,11 +330,11 @@ public class Castle : MonoBehaviour
         {
             t = Type.GetType("BuildStandardRoom");
         }
-        List<BuildTip> removeRoom = MapControl.instance.removeRoom;
+        List<RoomTag> removeRoom = MapControl.instance.removeRoom;
         RoomMgr room = null;
         for (int i = 0; i < removeRoom.Count; i++)
         {
-            if (removeRoom[i].roomSize == data.buildingData.RoomSize)
+            if (removeRoom[i].Size == data.buildingData.RoomSize)
             {
                 Debug.Log("有相同的");
                 room = removeRoom[i].gameObject.AddComponent(t) as RoomMgr;

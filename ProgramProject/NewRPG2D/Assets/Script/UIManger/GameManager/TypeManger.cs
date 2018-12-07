@@ -31,6 +31,7 @@ public enum HallEventDefineEnum
     CryNewMagic,//检查新技能时间
     MagicLevelUp,//技能升级
     CheckHappiness,//幸福度消息
+    OnClick,//
     EventMax
 }
 

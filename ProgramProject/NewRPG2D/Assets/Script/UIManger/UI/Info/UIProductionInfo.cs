@@ -46,8 +46,6 @@ public class UIProductionInfo : UIRoomInfo
         txt_Stock.text = data.Stock.ToString("#0") + "/" + data.buildingData.Param2.ToString("#0");
         ChickRoleNumber(roleGrids);
 
-        CheckPlayerInfo.instance.GetRoomEvent(data);
-
         Sprite sp = GetSpriteAtlas.insatnce.GetIcon(data.buildingData.RoomName.ToString());
         icons.sprite = sp;
         rightIcon.sprite = GetSpriteAtlas.insatnce.GetIcon(data.buildingData.RoomName + "Stock");

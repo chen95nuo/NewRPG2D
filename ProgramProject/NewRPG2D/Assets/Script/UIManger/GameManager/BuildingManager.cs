@@ -14,12 +14,16 @@ using UnityEngine.UI;
 
 public class BuildingManager : TSingleton<BuildingManager>
 {
-    private Dictionary<BuildRoomName, List<LocalBuildingData>> AllBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
+    private Dictionary<BuildRoomName, List<LocalBuildingData>> allBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
     private Dictionary<int, LocalBuildingData> proBuilding = new Dictionary<int, LocalBuildingData>();
     private Dictionary<BuildRoomName, LocalBuildingData> stockBuilding = new Dictionary<BuildRoomName, LocalBuildingData>();
 
     private int produceInterval = 30;
 
+    public Dictionary<BuildRoomName, List<LocalBuildingData>> AllBuildingData
+    {
+        get { return allBuilding; }
+    }
     #region 房间建设
     /// <summary>
     /// 第一次启动通过服务器或的房间
@@ -27,7 +31,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <param name="s_AllRoom"></param>
     public void GetAllBuildingData(List<proto.SLGV1.RoomInfo> s_AllRoom)
     {
-        AllBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
+        allBuilding = new Dictionary<BuildRoomName, List<LocalBuildingData>>();
         for (int i = 0; i < s_AllRoom.Count; i++)
         {
             AddNewRoom(s_AllRoom[i]);
@@ -44,12 +48,12 @@ public class BuildingManager : TSingleton<BuildingManager>
         BuildRoomName name = (BuildRoomName)id[0];
 
         //寻找是否有重复房间
-        if (!AllBuilding.ContainsKey(name))
+        if (!allBuilding.ContainsKey(name))
         {
-            AllBuilding.Add(name, new List<LocalBuildingData>());
+            allBuilding.Add(name, new List<LocalBuildingData>());
         }
         LocalBuildingData buildingData = new LocalBuildingData(roomInfo, id[1]);
-        AllBuilding[name].Add(buildingData);
+        allBuilding[name].Add(buildingData);
         SetAllBuildingData(buildingData);
         return buildingData;
     }
@@ -59,8 +63,8 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// </summary>
     public void InitMainHallRoom()
     {
-        GetPlayerData.Instance.SetThroneRoom(AllBuilding[BuildRoomName.ThroneRoom][0]);
-        GetPlayerData.Instance.SetBarracks(AllBuilding[BuildRoomName.Barracks][0]);
+        GetPlayerData.Instance.SetThroneRoom(allBuilding[BuildRoomName.ThroneRoom][0]);
+        GetPlayerData.Instance.SetBarracks(allBuilding[BuildRoomName.Barracks][0]);
     }
 
     /// <summary>
@@ -68,7 +72,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// </summary>
     public void InitBuildingData()
     {
-        foreach (var roomData in AllBuilding)
+        foreach (var roomData in allBuilding)
         {
             for (int i = 0; i < roomData.Value.Count; i++)
             {
@@ -95,7 +99,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             RemoveProduce(room);
         }
-        bool isTrue = AllBuilding[room.buildingData.RoomName].Remove(room);
+        bool isTrue = allBuilding[room.buildingData.RoomName].Remove(room);
         room.currentRoom.RemoveBuilding();
         if (!isTrue)
             Debug.Log("房间删除 失败");
@@ -301,19 +305,19 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             index[1] = 4 + player.MainHallLevel;
         }
-        if (!AllBuilding.ContainsKey(data.RoomName))
+        if (!allBuilding.ContainsKey(data.RoomName))
         {
             index[0] = 0;
             return index;
         }
-        for (int i = 0; i < AllBuilding[data.RoomName].Count; i++)
+        for (int i = 0; i < allBuilding[data.RoomName].Count; i++)
         {
-            if (AllBuilding[data.RoomName][i] != null)
+            if (allBuilding[data.RoomName][i] != null)
             {
                 index[0]++;//获取该类建筑已建造数量
-                if (AllBuilding[data.RoomName][i].buildingData.RoomType == RoomType.Production)
+                if (allBuilding[data.RoomName][i].buildingData.RoomType == RoomType.Production)
                 {
-                    switch (AllBuilding[data.RoomName][i].buildingData.RoomSize)
+                    switch (allBuilding[data.RoomName][i].buildingData.RoomSize)
                     {
                         case 6: index[0]++; break;
                         case 9: index[0] += 2; break;
@@ -336,9 +340,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <returns></returns>
     public LocalBuildingData SearchRoomData(BuildRoomName type, int id = 1)
     {
-        if (AllBuilding.ContainsKey(type))
+        if (allBuilding.ContainsKey(type))
         {
-            List<LocalBuildingData> TypeRoom = AllBuilding[type];
+            List<LocalBuildingData> TypeRoom = allBuilding[type];
             for (int i = 0; i < TypeRoom.Count; i++)
             {
                 if (TypeRoom[i].id == id) return TypeRoom[i];
@@ -360,9 +364,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     public int SearchRoomSpace(BuildRoomName name)
     {
         int space = 0;
-        if (AllBuilding.ContainsKey(name))
+        if (allBuilding.ContainsKey(name))
         {
-            space += (int)AllBuilding[name][0].buildingData.Param2;
+            space += (int)allBuilding[name][0].buildingData.Param2;
         }
         space += GetPlayerData.Instance.GetData().DefaultSpace;
         return space;
@@ -375,9 +379,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     public int SearchRoomEmpty(BuildRoomName name)
     {
         int empty = 0;
-        if (AllBuilding.ContainsKey(name))
+        if (allBuilding.ContainsKey(name))
         {
-            LocalBuildingData data = AllBuilding[name][0];
+            LocalBuildingData data = allBuilding[name][0];
             empty += (int)(data.buildingData.Param2 - data.Stock);
         }
         PlayerData playData = GetPlayerData.Instance.GetData();
@@ -393,9 +397,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     public int SearchRoomStock(BuildRoomName name)
     {
         int stock = 0;
-        if (AllBuilding.ContainsKey(name))
+        if (allBuilding.ContainsKey(name))
         {
-            stock += (int)AllBuilding[name][0].Stock;
+            stock += (int)allBuilding[name][0].Stock;
         }
         stock += GetPlayerData.Instance.GetData().GetResSpace(name);
         return stock;
@@ -404,9 +408,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     public int SearchRoomYield(BuildRoomName name)
     {
         int yield = 0;
-        if (AllBuilding.ContainsKey(name))
+        if (allBuilding.ContainsKey(name))
         {
-            foreach (var yeildRoom in AllBuilding[name])
+            foreach (var yeildRoom in allBuilding[name])
             {
                 yield += yeildRoom.Yield;
             }
@@ -421,9 +425,9 @@ public class BuildingManager : TSingleton<BuildingManager>
     public int SearchRoleSpace()
     {
         int num = (int)HallConfigDataMgr.instance.GetValue(HallConfigEnum.population);
-        if (AllBuilding.ContainsKey(BuildRoomName.LivingRoom))
+        if (allBuilding.ContainsKey(BuildRoomName.LivingRoom))
         {
-            List<LocalBuildingData> LivingRooms = AllBuilding[BuildRoomName.LivingRoom];
+            List<LocalBuildingData> LivingRooms = allBuilding[BuildRoomName.LivingRoom];
             foreach (var room in LivingRooms)
             {
                 num += (int)room.buildingData.Param2;
@@ -440,7 +444,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     /// <returns></returns>
     public int SearchRoomStockToDiamonds(BuildRoomName name, int amount)
     {
-        if (AllBuilding.ContainsKey(name))
+        if (allBuilding.ContainsKey(name))
         {
             LocalBuildingData L_data = SearchRoomData(name);
             return (int)Mathf.Ceil(amount / L_data.buildingData.Param1);
@@ -463,7 +467,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     {
         int mainLevel = GetPlayerData.Instance.GetData().MainHallLevel;
         List<LocalBuildingData> canUpBuild = new List<LocalBuildingData>();
-        foreach (var room in AllBuilding)
+        foreach (var room in allBuilding)
         {
             for (int i = 0; i < room.Value.Count; i++)
             {
@@ -551,7 +555,7 @@ public class BuildingManager : TSingleton<BuildingManager>
 
     public int TimeToDiamonds(BuildingData data)
     {
-        return (int)(data.NeedTime * 0.01f);
+        return (int)Mathf.Ceil(data.NeedTime * 0.01f);
     }
 
     /// <summary>
@@ -576,7 +580,7 @@ public class BuildingManager : TSingleton<BuildingManager>
                     temp = -temp;
                     dic.Add((MaterialName)i + 1, temp);
                     txt[i].text = string.Format(LanguageDataMgr.instance.redSt, data.needMaterial[i]);
-                    needDimonds += BuildingManager.instance.SearchRoomStockToDiamonds(name, temp);
+                    needDimonds += SearchRoomStockToDiamonds(name, temp);
                 }
                 else
                 {
@@ -586,6 +590,39 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
         dic.Add(MaterialName.Diamonds, needDimonds);
         return dic;
+    }
+    /// <summary>
+    /// 房间需要的材料转成钻石
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public int RoomNeedDiamondsHelper(BuildingData data)
+    {
+        int needDia = 0;
+        for (int i = 0; i < data.needMaterial.Length; i++)
+        {
+            if (data.needMaterial[i] > 0)
+            {
+                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+                needDia += SearchRoomStockToDiamonds(name, data.needMaterial[i]);
+            }
+        }
+        return needDia;
+    }
+    /// <summary>
+    /// 判断仓库大小是否足够
+    /// </summary>
+    public bool RoomNeedSpaceHelper(BuildingData data)
+    {
+        for (int i = 0; i < data.needMaterial.Length; i++)
+        {
+            BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+            if (SearchRoomSpace(name) < data.needMaterial[i])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     /// <summary>
@@ -617,7 +654,6 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
         return name;
     }
-
     public RoleAttribute NameToAtr(BuildRoomName RoomName)
     {
         switch (RoomName)

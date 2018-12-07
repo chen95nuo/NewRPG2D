@@ -43,6 +43,7 @@ public class UIEditRoomGrid : MonoBehaviour
 
     private void ChickEndter()
     {
+        UIEditMode.instance.ShowCloseBG(true);
         EditCastle.instance.AddBuilding(s_data.buildingData[0]);
     }
 

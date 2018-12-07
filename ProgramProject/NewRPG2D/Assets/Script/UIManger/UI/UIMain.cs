@@ -283,22 +283,23 @@ public class UIMain : TTUIPage
     /// <summary>
     /// UIMarket
     /// </summary>
-    private void ShowMarket()
+    public void ShowMarket()
     {
-        CloseSomeUI(false);
+        ShowSomeUI(false);
         market.gameObject.SetActive(true);
         market.CheckBtnType();
     }
-    public void ShowMarket(int page = 1)
+    public void ShowMarket(int page)
     {
-        CloseSomeUI(false);
+        ShowSomeUI(false);
         market.gameObject.SetActive(true);
         market.currentType = page;
         market.CheckBtnType();
     }
     public void CloseMarket()
     {
-        CloseSomeUI(true);
+        ShowBack(false);
+        ShowSomeUI(true);
         market.gameObject.SetActive(false);
     }
     #endregion
@@ -309,7 +310,7 @@ public class UIMain : TTUIPage
         market.gameObject.SetActive(!isTrue);
     }
 
-    public void CloseSomeUI(bool isTrue)
+    public void ShowSomeUI(bool isTrue)
     {
         leftUp.SetActive(isTrue);
         rightDown.SetActive(isTrue);

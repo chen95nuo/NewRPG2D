@@ -62,7 +62,7 @@ public class LocalBuildingData
     public int id;//房间ID
     public Vector2 buildingPoint;//房间位置
     public BuildingData buildingData;//房间ID
-    public float Stock = 0;
+    private float stock = 0;
     private float speedProd = 0;//产出速度
     private bool constructionType = false;
     public HallRoleData[] roleData;
@@ -94,6 +94,20 @@ public class LocalBuildingData
             {
                 currentRoom.ConstructionType = value;
             }
+        }
+    }
+
+    public float Stock
+    {
+        get
+        {
+            return stock;
+        }
+
+        set
+        {
+            stock = value;
+            HallEventManager.instance.SendEvent(HallEventDefineEnum.CheckStock);
         }
     }
 
@@ -223,15 +237,6 @@ public class LocalBuildingData
         this.buildingPoint = point;
         this.buildingData = roomData;
         this.constructionType = ConstructionType;
-        int maxRole = CheckPlayerInfo.instance.ChickRoomSize(roomData);
-        roleData = new HallRoleData[maxRole];
-    }
-    public LocalBuildingData(int id, Vector2 point, BuildingData roomData, float Stock)
-    {
-        this.id = id;
-        this.buildingPoint = point;
-        this.buildingData = roomData;
-        this.Stock = Stock;
         int maxRole = CheckPlayerInfo.instance.ChickRoomSize(roomData);
         roleData = new HallRoleData[maxRole];
     }

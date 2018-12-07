@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Script.UIManger;
+using Assets.Script.Net;
 
 
 public class UILevelUpHelper : MonoBehaviour
@@ -17,7 +18,7 @@ public class UILevelUpHelper : MonoBehaviour
 
     private float[] needMaterial;
 
-    private LocalBuildingData roomMgr = null;
+    private LocalBuildingData currentRoomData;
 
     private Dictionary<MaterialName, int> needStock = new Dictionary<MaterialName, int>();
 
@@ -35,12 +36,12 @@ public class UILevelUpHelper : MonoBehaviour
         CloseTxt(false);
     }
 
-    public void UpdateUIfo(LocalBuildingData roomMgr)
+    public void UpdateUIfo(LocalBuildingData roomData)
     {
-        this.roomMgr = roomMgr;
+        this.currentRoomData = roomData;
         PlayerData playerData = GetPlayerData.Instance.GetData();
 
-        BuildingData data = roomMgr.buildingData;//当前房间信息
+        BuildingData data = roomData.buildingData;//当前房间信息
         if (data.NextLevelID == 0)
         {
             btn_NowUp.interactable = false;
@@ -62,8 +63,18 @@ public class UILevelUpHelper : MonoBehaviour
 
         txt_Tip_3.text = SystemTime.instance.TimeNormalizedOf(data.NeedTime);
         int timeToDia = BuildingManager.instance.TimeToDiamonds(data);
-        string diamonds = (needStock[MaterialName.Diamonds] + timeToDia).ToString();
-        txt_Diamonds.text = diamonds;
+        int diamonds = BuildingManager.instance.RoomNeedDiamondsHelper(data) + timeToDia;
+        txt_Diamonds.text = diamonds.ToString();
+
+        if (roomData.buildingData.NeedLevel > data.NeedLevel)
+        {
+            btn_NowUp.interactable = false;
+            btn_LevelUp.interactable = false;
+        }
+        else if (!BuildingManager.instance.RoomNeedSpaceHelper(data))
+        {
+            btn_LevelUp.interactable = false;
+        }
     }
     private void ChickNowUp()
     {
@@ -73,6 +84,8 @@ public class UILevelUpHelper : MonoBehaviour
         {
             data.Diamonds -= allNeed;
             //直接升级跳过时间
+            string RoomID = currentRoomData.buildingData.RoomName + "_" + currentRoomData.id;
+            WebSocketManger.instance.Send(NetSendMsg.RQ_RoomUpdateLevel, RoomID, 3);
         }
         else
         {
@@ -87,22 +100,17 @@ public class UILevelUpHelper : MonoBehaviour
     /// </summary>
     private void ChickLevelUp()
     {
-        PlayerData data = GetPlayerData.Instance.GetData();
         //如果材料足够进入升级 如果材料不够 提示是用钻石购买材料
         //需要各个材料的值，若不足需要知道还缺多少
-        if (!needStock.ContainsKey(MaterialName.Diamonds))
+        if (needStock[MaterialName.Diamonds] > 0)
         {
-            //材料足够倒计时升级
-            int id = roomMgr.buildingData.NextLevelID;
-            //roomMgr.currentRoom.ConstructionStart(id, 0);
-            BuildingData temp = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(roomMgr.buildingData.NextLevelID);
-            CheckPlayerInfo.instance.RoomUseStock(temp);
-            return;
-        }
-        else
-        {
+            //材料不足需要消耗钻石
             UIPanelManager.instance.ShowPage<UIPopUp_1>(needStock);
         }
+        //材料足够倒计时升级
+        Debug.Log("材料足够 开始升级");
+        string RoomID = currentRoomData.buildingData.RoomName + "_" + currentRoomData.id;
+        WebSocketManger.instance.Send(NetSendMsg.RQ_RoomUpdateLevel, RoomID, 1);
     }
 
     private void CloseTxt(bool isTrue)

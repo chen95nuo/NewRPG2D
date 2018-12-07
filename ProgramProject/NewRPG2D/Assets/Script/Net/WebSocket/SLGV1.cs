@@ -1177,19 +1177,21 @@ namespace proto.SLGV1
   {
     public RQ_UnifiedDiamondConsumerEntry() {}
     
-    private int _type;
+    private DiamondConsumerType _type;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int type
+    public DiamondConsumerType type
     {
       get { return _type; }
       set { _type = value; }
     }
-    private string _bussCode;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"bussCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string bussCode
+
+    private string _bussparam = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"bussparam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string bussparam
     {
-      get { return _bussCode; }
-      set { _bussCode = value; }
+      get { return _bussparam; }
+      set { _bussparam = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1208,19 +1210,21 @@ namespace proto.SLGV1
       get { return _ret; }
       set { _ret = value; }
     }
-    private int _type;
+    private DiamondConsumerType _type;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int type
+    public DiamondConsumerType type
     {
       get { return _type; }
       set { _type = value; }
     }
-    private string _bussCode;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"bussCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string bussCode
+
+    private string _bussparam = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"bussparam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string bussparam
     {
-      get { return _bussCode; }
-      set { _bussCode = value; }
+      get { return _bussparam; }
+      set { _bussparam = value; }
     }
     private readonly global::System.Collections.Generic.List<RoomInfo> _rooms = new global::System.Collections.Generic.List<RoomInfo>();
     [global::ProtoBuf.ProtoMember(4, Name=@"rooms", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -1234,6 +1238,13 @@ namespace proto.SLGV1
     public global::System.Collections.Generic.List<ResidentInfo> residents
     {
       get { return _residents; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<ConsumeItem> _items = new global::System.Collections.Generic.List<ConsumeItem>();
+    [global::ProtoBuf.ProtoMember(6, Name=@"items", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ConsumeItem> items
+    {
+      get { return _items; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1944,5 +1955,16 @@ namespace proto.SLGV1
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"DiamondConsumerType")]
+    public enum DiamondConsumerType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CreateRoomExchangeMaterial", Value=0)]
+      CreateRoomExchangeMaterial = 0,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"UpdateRoomExchangeMaterial", Value=1)]
+      UpdateRoomExchangeMaterial = 1
+    }
   
 }
