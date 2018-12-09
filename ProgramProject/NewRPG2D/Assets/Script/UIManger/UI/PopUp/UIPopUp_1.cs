@@ -82,42 +82,7 @@ public class UIPopUp_1 : TTUIPage
         else
         {
             //向服务器发送 消耗钻石购买建材
-            Debug.Log("向服务器发送消耗钻石购买材料");
-            //PlayerData player = GetPlayerData.Instance.GetData();
-            //player.Diamonds -= needDiaNumber;
-            //Dictionary<BuildRoomName, int> dic = new Dictionary<BuildRoomName, int>();
-            //foreach (var item in needStock)
-            //{
-            //    BuildRoomName name = BuildRoomName.Nothing;
-            //    if (item.Value > 0)
-            //    {
-            //        switch (item.Key)
-            //        {
-            //            case MaterialName.Gold:
-            //                name = BuildRoomName.GoldSpace;
-            //                dic.Add(name, item.Value);
-            //                break;
-            //            case MaterialName.Mana:
-            //                name = BuildRoomName.ManaSpace;
-            //                dic.Add(name, item.Value);
-            //                break;
-            //            case MaterialName.Wood:
-            //                name = BuildRoomName.WoodSpace;
-            //                dic.Add(name, item.Value);
-            //                break;
-            //            case MaterialName.Iron:
-            //                name = BuildRoomName.IronSpace;
-            //                dic.Add(name, item.Value);
-            //                break;
-            //            default:
-            //                break;
-            //        }
-            //    }
-            //}
-            //foreach (var item in dic)
-            //{
-            //    CheckPlayerInfo.instance.AddStock(item.Key, item.Value);
-            //}
+            Debug.Log("向服务器发送消耗钻石购买材料"); 
         }
         ClosePage();
     }

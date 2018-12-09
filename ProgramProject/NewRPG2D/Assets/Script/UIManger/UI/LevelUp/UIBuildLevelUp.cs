@@ -19,19 +19,21 @@ public class UIBuildLevelUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (data != null && data.leftTime >= 0)
+        if (data != null && data.leftTime > -1)
         {
             currentNum += Time.deltaTime;
             if (currentNum >= 1)
             {
                 data.leftTime -= currentNum;
-                if (data.leftTime == -1)
+                UpdateSlider();
+                currentNum = 0;
+                if (data.leftTime <= -1)
                 {
+                    Debug.Log("发送升级完毕");
                     WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, data.id);
                 }
+                txt_Time.text = SystemTime.instance.TimeNormalizedOf(data.leftTime, false);
             }
-            txt_Time.text = SystemTime.instance.TimeNormalizedOf(data.leftTime);
-            currentNum = 0;
         }
     }
 
@@ -40,5 +42,14 @@ public class UIBuildLevelUp : MonoBehaviour
         this.data = data;
         Icon.transform.parent.gameObject.SetActive(!isEdit);
         Icon.SetActive(!isWork);
+        txt_Time.text = SystemTime.instance.TimeNormalizedOf(data.leftTime, false);
+        UpdateSlider();
+    }
+
+    public void UpdateSlider()
+    {
+        Vector2 size = sr.size;
+        size.x = maxLeft - ((data.leftTime / (data.buildingData.NeedTime * 60)) * maxLeft);
+        sr.size = size;
     }
 }

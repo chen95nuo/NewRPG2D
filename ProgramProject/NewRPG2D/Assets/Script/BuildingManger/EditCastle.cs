@@ -1,4 +1,5 @@
 ﻿using Assets.Script.UIManger;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -127,5 +128,10 @@ public class EditCastle : Castle
         room_1.RemoveBuilding();
         room_2.RemoveBuilding();
         InstanceRoom(mergeData);
+    }
+
+    public void RemoveRoom(LocalBuildingData currentBuildData)
+    {
+        editAllBuilding[currentBuildData.buildingData.RoomName].Remove(currentBuildData);
     }
 }

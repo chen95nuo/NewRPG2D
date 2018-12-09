@@ -20,6 +20,7 @@ namespace Assets.Script.Net
         {
             mCreateNewRoom.roomId = (int)param[0];
             List<int> point = (List<int>)param[1];
+            mCreateNewRoom.xFloorOriginOffset.Clear();
             for (int i = 0; i < point.Count; i++)
             {
                 mCreateNewRoom.xFloorOriginOffset.Add(point[i]);

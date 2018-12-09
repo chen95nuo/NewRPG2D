@@ -86,7 +86,7 @@ public class UILogin : TTUIPage
             port = 9010;
         }
 
-        Assets.Script.GameLogic.Instance.InitData(ip, port, "");
+        Assets.Script.GameLogic.Instance.InitData(ip, port, "1");
     }
 
     //private void Start()

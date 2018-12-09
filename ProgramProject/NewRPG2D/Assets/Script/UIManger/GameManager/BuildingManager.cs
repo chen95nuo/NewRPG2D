@@ -18,11 +18,21 @@ public class BuildingManager : TSingleton<BuildingManager>
     private Dictionary<int, LocalBuildingData> proBuilding = new Dictionary<int, LocalBuildingData>();
     private Dictionary<BuildRoomName, LocalBuildingData> stockBuilding = new Dictionary<BuildRoomName, LocalBuildingData>();
 
+    private List<LocalBuildingData> levelUpBuild = new List<LocalBuildingData>();
+
     private int produceInterval = 30;
 
     public Dictionary<BuildRoomName, List<LocalBuildingData>> AllBuildingData
     {
         get { return allBuilding; }
+    }
+
+    public List<LocalBuildingData> LevelUpBuild
+    {
+        get
+        {
+            return levelUpBuild;
+        }
     }
     #region 房间建设
     /// <summary>
@@ -55,6 +65,10 @@ public class BuildingManager : TSingleton<BuildingManager>
         LocalBuildingData buildingData = new LocalBuildingData(roomInfo, id[1]);
         allBuilding[name].Add(buildingData);
         SetAllBuildingData(buildingData);
+        if (buildingData.leftTime > 0)
+        {
+            LevelUpBuild.Add(buildingData);
+        }
         return buildingData;
     }
 
@@ -81,6 +95,10 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
     }
 
+    /// <summary>
+    /// 房间合并
+    /// </summary>
+    /// <param name="mergeData"></param>
     public void RoomMerge(RS_RoomMerger mergeData)
     {
         int[] id1 = TypeOfRoomId(mergeData.reqRoomIds[0]);
@@ -92,7 +110,10 @@ public class BuildingManager : TSingleton<BuildingManager>
 
         AddNewRoom(mergeData.newroomInfo);
     }
-
+    /// <summary>
+    /// 合并删除
+    /// </summary>
+    /// <param name="room"></param>
     public void RemoveRoom(LocalBuildingData room)
     {
         if (CheckProduction(room))
@@ -103,6 +124,27 @@ public class BuildingManager : TSingleton<BuildingManager>
         room.currentRoom.RemoveBuilding();
         if (!isTrue)
             Debug.Log("房间删除 失败");
+    }
+
+    /// <summary>
+    /// 房间升级
+    /// </summary>
+    /// <param name="roomUpdateLevel"></param>
+    public void RoomUpdateLevelUp(RS_RoomUpdateLevel roomUpdateLevel)
+    {
+        int[] id = TypeOfRoomId(roomUpdateLevel.roomInfo.roomId);
+        BuildRoomName name = (BuildRoomName)id[0];
+        LocalBuildingData data = SearchRoomData(name, id[1]);
+        data.leftTime = roomUpdateLevel.roomInfo.leftTime;
+        if (data.leftTime > 0)
+        {
+            data.ConstructionType = true;
+            LevelUpBuild.Add(data);
+        }
+        else
+        {
+            LevelUpBuild.Remove(data);
+        }
     }
 
     /// <summary>

@@ -106,6 +106,13 @@ public class UIMarketGrid : MonoBehaviour
     private void AddBuilding()
     {
         Debug.Log(buildingData.RoomName);
+        //检查工人数量是否足够
+        if (GetPlayerData.Instance.GetData().BuilderNum <= BuildingManager.instance.LevelUpBuild.Count)
+        {
+            Debug.Log("建筑工人数量不足");
+            //return;
+        }
+
         //检测资源是否足够
         if (needStock.ContainsKey(MaterialName.Diamonds) && needStock[MaterialName.Diamonds] > 0)
         {

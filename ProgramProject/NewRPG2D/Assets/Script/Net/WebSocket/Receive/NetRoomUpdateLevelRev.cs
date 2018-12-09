@@ -19,8 +19,8 @@ namespace Assets.Script.Net
                 DebugHelper.Log("房间升级验证失败+=========");
                 return;
             }
-            //roomUpdateLevel.returnItem
-            DebugHelper.Log("房间完成升级扣除材料 ====== " + roomUpdateLevel.roomInfo.roomId);
+            BuildingManager.instance.RoomUpdateLevelUp(roomUpdateLevel);
+            DebugHelper.Log("房间开始升级扣除材料 ====== " + roomUpdateLevel.roomInfo.roomId);
         }
     }
 }

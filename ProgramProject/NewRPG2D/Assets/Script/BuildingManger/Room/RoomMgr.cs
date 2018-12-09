@@ -510,7 +510,11 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
         emptyPoints = new EmptyPoint[4];
-        if (isEdit) EditRemoveBuilding();
+        if (isEdit)
+        {
+            EditRemoveBuilding();
+            EditCastle.instance.RemoveRoom(currentBuildData);
+        }
         MapControl.instance.RemoveRoom(this);
     }
 

@@ -525,7 +525,8 @@ public class CameraControl : MonoBehaviour
         if (data.IsHarvest)//如果有产出那么获取产出
         {
             float temp = data.currentBuildData.Stock;
-            CheckPlayerInfo.instance.GetProductionStock(data.currentBuildData);
+            Debug.Log("获得房间产出");
+            //CheckPlayerInfo.instance.GetProductionStock(data.currentBuildData);
 
             //检测资源是否被取走
             if (temp == data.currentBuildData.Stock && temp > 0)//如果资源满了 无法取走 那么更换选中房间
