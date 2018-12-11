@@ -217,7 +217,7 @@ public class PlayerData
         {
             if (currentLessonData == null)
             {
-                currentLessonData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(currentLessonID);
+                currentLessonData = MapLevelDataMgr.instance.GetDataByItemId<MapLevelData>(currentLessonID);
             }
             return currentLessonData;
         }
@@ -243,7 +243,7 @@ public class PlayerData
             if (currentLessonID != value)
             {
                 currentLessonID = value;
-                currentLessonData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(value);
+                currentLessonData = MapLevelDataMgr.instance.GetDataByItemId<MapLevelData>(value);
             }
         }
     }

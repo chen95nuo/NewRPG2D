@@ -71,7 +71,6 @@ namespace Assets.Script.Net
 
         private string currentUrl;
         private WebSocket webSocket;
-        private BaseData baseData;
         private Dictionary<int, ISend> cacheSend;
 
         private string token; //玩家唯一识别码
@@ -79,7 +78,6 @@ namespace Assets.Script.Net
         public override void Init()
         {
             base.Init();
-            baseData = new BaseData();
             //InitSocket();
         }
 
@@ -128,6 +126,7 @@ namespace Assets.Script.Net
         public void Send(NetSendMsg netId, params object[] param)
         {
             int codeId = (int)netId;
+            BaseData baseData = new BaseData();
             IExtensible sendData = GetSendData(netId, param);
             if (sendData == null)
             {

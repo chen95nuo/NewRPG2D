@@ -112,6 +112,101 @@ namespace Assets.Script.Utility
             return realData;
         }
 
+        protected int IntParse(string[] data, ref int index)
+        {
+            index++;
+            if (data.Length > index)
+            {
+                try
+                {
+                    return int.Parse(data[index]);
+                }
+                catch
+                {
+                    Debug.LogError(" IntParse  data is error " + data[index] + " index ==" + index);
+                }
+            }
+            else
+            {
+                Debug.LogError(" IntParse index is error " + index);
+            }
+            return 0;
+        }
+
+        protected float FloatParse(string[] data, ref int index)
+        {
+            index++;
+            if (data.Length > index)
+            {
+                try
+                {
+                    return float.Parse(data[index]);
+                }
+                catch
+                {
+                    Debug.LogError(" FloatParse  data is error " + data[index] + " index ==" + index);
+                }
+            }
+            else
+            {
+                Debug.LogError(" FloatParse index is error " + index);
+            }
+            return 0.0f;
+        }
+
+        protected string StrParse(string[] data, ref int index)
+        {
+            index++;
+            if (data.Length > index)
+            {
+                try
+                {
+                    return data[index];
+                }
+                catch
+                {
+                    Debug.LogError(" StrParse  data is error " + data[index] + " index ==" + index);
+                }
+            }
+            else
+            {
+                Debug.LogError(" StrParse index is error " + index);
+            }
+            return "";
+        }
+
+        protected List<float> ListParse(string[] data, ref int index)
+        {
+            index++;
+            List<float> realData = null;
+            if (data.Length > index)
+            {
+                try
+                {
+                    if (data[index].Length < 3)
+                    {
+                        return new List<float>() { FloatParse(data, index) };
+                    }
+                    realData = new List<float>();
+                    string realDateString = data[index].Substring(1, data[index].Length - 2);
+                    string[] realDateStringArray = realDateString.Split(',');
+                    for (int i = 0; i < realDateStringArray.Length; i++)
+                    {
+                        realData.Add(FloatParse(realDateStringArray, i));
+                    }
+                    return realData;
+                }
+                catch
+                {
+                    Debug.LogError(" ListParse  data is error " + data[index]);
+                }
+            }
+            else
+            {
+                Debug.LogError(" ListParse index is error " + index);
+            }
+            return realData;
+        }
     }
 
     public class ReadTextAssetMgr : TSingleton<ReadTextAssetMgr>

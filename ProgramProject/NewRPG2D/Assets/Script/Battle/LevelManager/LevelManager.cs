@@ -184,7 +184,7 @@ namespace Assets.Script.Battle.LevelManager
 
         private void GetEnemyData(int enemyDataId)
         {
-            MapLevelData enemyData = MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(enemyDataId);
+            MapLevelData enemyData = MapLevelDataMgr.instance.GetDataByItemId<MapLevelData>(enemyDataId);
             if (enemyData != null)
             {
                 //enemyDatas.Enqueue(enemyData);

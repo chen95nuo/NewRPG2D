@@ -24,6 +24,7 @@ namespace Assets.Script.Utility
 
         //战斗内的
         RolePropertyData,
+        CreateEnemyData,
 
         //城堡大厅的
         BuildingData,
@@ -48,7 +49,7 @@ namespace Assets.Script.Utility
         TreasureBox,
         Equipment,
         EquipBaseProperty,
-        CreateEnemyData,
+
 
 
 
@@ -73,8 +74,8 @@ namespace Assets.Script.Utility
                 //    return new SkillData();
                 //case CsvEChartsType.BufferData:
                 //    return new RolePropertyData();
-                //case CsvEChartsType.MapSceneLevel:
-                //    return new MapSceneLevelData();
+                case CsvEChartsType.CreateEnemyData:
+                    return new MapLevelData();
                 case CsvEChartsType.BuildingData:
                     return new BuildingData();
                 case CsvEChartsType.MagicData:

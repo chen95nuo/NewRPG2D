@@ -4,11 +4,11 @@ using Assets.Script.Utility;
 
 namespace Assets.Script.Battle.BattleData
 {
-    public class MapLevelDataMgr : ItemDataBaseMgr<MapLevelDataMgr>
+    public class MapLevelDataMgr : ItemCsvDataBaseMgr<MapLevelDataMgr>
     {
-        protected override XmlName CurrentXmlName
+        protected override CsvEChartsType CurrentCsvName
         {
-            get { return XmlName.CreateEnemyData; }
+            get { return CsvEChartsType.CreateEnemyData; }
         }
         
         /// <summary>

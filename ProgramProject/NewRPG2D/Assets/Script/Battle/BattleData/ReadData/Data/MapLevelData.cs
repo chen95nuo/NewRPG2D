@@ -16,7 +16,7 @@ namespace Assets.Script.Battle.BattleData
         public int ItemMinCount, ItemMaxCount;
     }
 
-    public class MapLevelData : ItemBaseData
+    public class MapLevelData : ItemBaseCsvData
     {
 
         public string Name;
@@ -28,35 +28,45 @@ namespace Assets.Script.Battle.BattleData
         public int NextLessonID;
         public int NeedNum;
 
-        public override XmlName ItemXmlName
+        public override CsvEChartsType ItemCsvName
         {
-            get { return XmlName.CreateEnemyData; }
+            get { return CsvEChartsType.CreateEnemyData; }
         }
 
-        public override bool GetXmlDataAttribute(XmlNode node)
+        public override bool AnalySis(string[] data)
         {
-            Name = ReadXmlDataMgr.StrParse(node, "Name");
-            ReadXmlDataMgr.StrParse(node, "Description");
-            for (int i = 0; i < CreateEnemyIds.Length; i++)
+            if (base.AnalySis(data))
             {
-                CreateEnemyIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("EnemyPoint{0}RoleId", i + 1));
-            }
+                int index = 0;
+                Name = StrParse(data, ref index);
+                StrParse(data, ref index);
+                for (int i = 0; i < CreateEnemyIds.Length; i++)
+                {
+                    CreateEnemyIds[i] = IntParse(data, ref index);
+                }
 
-            for (int i = 0; i < AwardItem.Length; i++)
-            {
-                AwardItem[i].ItemId = ReadXmlDataMgr.IntParse(node, string.Format("ItemId{0}", (i + 1)));
-                StringHelper.instance.GetRange(ReadXmlDataMgr.StrParse(node, "ItemCount" + (i + 1)), out AwardItem[i].ItemMinCount, out AwardItem[i].ItemMaxCount);
-            }
+                for (int i = 0; i < AwardItem.Length; i++)
+                {
+                    AwardItem[i].ItemId = IntParse(data, ref index);
+                    List<float> itemCount = ListParse(data, ref index);
+                    if (itemCount != null)
+                    {
+                        if (itemCount.Count > 0) AwardItem[i].ItemMinCount = (int)itemCount[0];
+                        if (itemCount.Count > 1) AwardItem[i].ItemMaxCount = (int)itemCount[1];
+                    }
+                }
 
-            for (int i = 0; i < TreasureBoxIds.Length; i++)
-            {
-                TreasureBoxIds[i] = ReadXmlDataMgr.IntParse(node, string.Format("TreasureBoxId{0}", i + 1));
+                for (int i = 0; i < TreasureBoxIds.Length; i++)
+                {
+                    TreasureBoxIds[i] = IntParse(data, ref index);
+                }
+                ChapterID = IntParse(data, ref index);
+                Lesson = IntParse(data, ref index);
+                NextLessonID = IntParse(data, ref index);
+                NeedNum = IntParse(data, ref index);
+                return true;
             }
-            ChapterID = ReadXmlDataMgr.IntParse(node, "Chapter");
-            Lesson = ReadXmlDataMgr.IntParse(node, "Lesson");
-            NextLessonID = ReadXmlDataMgr.IntParse(node, "NextLessonID");
-            NeedNum = ReadXmlDataMgr.IntParse(node, "NeedNum");
-            return base.GetXmlDataAttribute(node);
+            return true;
         }
     }
 }

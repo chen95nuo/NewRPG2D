@@ -33,16 +33,9 @@ namespace Assets.Script.Battle.BattleData
         {
             Name = ReadXmlDataMgr.StrParse(node, "Name");
             ReadXmlDataMgr.StrParse(node, "Description");
-            //Point1RoleId = ReadXmlDataMgr.IntParse(node, "Point1RoleId");
-            //Point2RoleId = ReadXmlDataMgr.IntParse(node, "Point2RoleId");
-            //Point3RoleId = ReadXmlDataMgr.IntParse(node, "Point3RoleId");
-            //Point4RoleId = ReadXmlDataMgr.IntParse(node, "Point4RoleId");
-            //Point5RoleId = ReadXmlDataMgr.IntParse(node, "Point5RoleId");
             CreateEnemy01 = ReadXmlDataMgr.IntParse(node, "CreateEnemy01");
             CreateEnemy02 = ReadXmlDataMgr.IntParse(node, "CreateEnemy02");
             CreateEnemy03 = ReadXmlDataMgr.IntParse(node, "CreateEnemy03");
-            //VictoryReward = ReadItemList(ReadXmlDataMgr.StrParse(node, "VictoryReward"));
-            //FailureReward = ReadItemList(ReadXmlDataMgr.StrParse(node, "FailureReward"));
             return base.GetXmlDataAttribute(node);
         }
 

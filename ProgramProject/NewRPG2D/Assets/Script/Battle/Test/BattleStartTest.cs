@@ -79,7 +79,7 @@ public class BattleStartTest : MonoBehaviour
             role1,
             role2,
         };
-        LocalStartFight.instance.UpdateInfo(roles, MapLevelDataMgr.instance.GetXmlDataByItemId<MapLevelData>(10001));
+        LocalStartFight.instance.UpdateInfo(roles, MapLevelDataMgr.instance.GetDataByItemId<MapLevelData>(10001));
         BattleStaticAndEnum.isGod = IsGod.isOn;
         // GoFightMgr.instance.PlayerLevel = 1;
         SceneManager.LoadScene("SceneLoad");

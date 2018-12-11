@@ -25,8 +25,8 @@ namespace Assets.Script.Utility
                     return new TreasureBox();
                 case XmlName.EquipBaseProperty:
                     return new EquipBasePropertyData();
-                case XmlName.CreateEnemyData:
-                    return new MapLevelData();
+                //case XmlName.CreateEnemyData:
+                //    return new MapLevelData();
                 default: return new XmlData();
             }
         }
