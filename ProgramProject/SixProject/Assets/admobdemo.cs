@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using admob;
+using GoogleMobileAds.Api;
+
 public class admobdemo
 {
     private static admobdemo instance;
@@ -48,7 +50,7 @@ public class admobdemo
         ad.rewardedVideoEventHandler += onRewardedVideoEvent;
         ad.nativeBannerEventHandler += onNativeBannerEvent;
         ad.initSDK(appID, adProperties);//reqired,adProperties can been null
-
+        MobileAds.Initialize(appID);
         ad.loadRewardedVideo(rewardedID);
     }
 
