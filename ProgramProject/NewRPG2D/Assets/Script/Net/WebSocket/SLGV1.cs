@@ -524,6 +524,56 @@ namespace proto.SLGV1
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RQ_PickUpProRoomResource")]
+  public partial class RQ_PickUpProRoomResource : global::ProtoBuf.IExtensible
+  {
+    public RQ_PickUpProRoomResource() {}
+    
+    private string _roomId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string roomId
+    {
+      get { return _roomId; }
+      set { _roomId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RS_PickUpProRoomResource")]
+  public partial class RS_PickUpProRoomResource : global::ProtoBuf.IExtensible
+  {
+    public RS_PickUpProRoomResource() {}
+    
+    private int _ret;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ret", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int ret
+    {
+      get { return _ret; }
+      set { _ret = value; }
+    }
+    private string _roomId;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string roomId
+    {
+      get { return _roomId; }
+      set { _roomId = value; }
+    }
+
+    private ConsumeItem _collectedResource = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"collectedResource", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public ConsumeItem collectedResource
+    {
+      get { return _collectedResource; }
+      set { _collectedResource = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ProduceRoom")]
   public partial class ProduceRoom : global::ProtoBuf.IExtensible
   {

@@ -14,6 +14,7 @@ namespace Assets.Script.Net
         {
             A_RoomInfo roomInfo = Extensible.GetValue<A_RoomInfo>(data, id);
             DebugHelper.Log("获取到房间升级完成消息 NetRoomInfoRev");
+            BuildingManager.instance.BuildingLevelUPEnd(roomInfo.roomInfo);
         }
     }
 }

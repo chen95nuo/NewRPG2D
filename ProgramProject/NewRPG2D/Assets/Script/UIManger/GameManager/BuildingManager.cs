@@ -11,6 +11,7 @@ using UnityEngine;
 using Assets.Script.UIManger;
 using proto.SLGV1;
 using UnityEngine.UI;
+using Assets.Script.Net;
 
 public class BuildingManager : TSingleton<BuildingManager>
 {
@@ -127,7 +128,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     }
 
     /// <summary>
-    /// 房间升级
+    /// 房间升级开始
     /// </summary>
     /// <param name="roomUpdateLevel"></param>
     public void RoomUpdateLevelUp(RS_RoomUpdateLevel roomUpdateLevel)
@@ -145,6 +146,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             LevelUpBuild.Remove(data);
         }
+        GetPlayerData.Instance.UseResource(data);
     }
 
     /// <summary>
@@ -178,7 +180,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     }
 
     /// <summary>
-    /// 房间升级
+    /// 房间升级检测
     /// </summary>
     public void BuildingRoomLevelUp(LocalBuildingData buildingData)
     {
@@ -191,6 +193,19 @@ public class BuildingManager : TSingleton<BuildingManager>
                 buildingData.ConstructionType = true;
             }
         }
+    }
+
+    /// <summary>
+    /// 房间升级结束验证
+    /// </summary>
+    public void BuildingLevelUPEnd(proto.SLGV1.RoomInfo roomData)
+    {
+        int[] id = TypeOfRoomId(roomData.roomId);
+        BuildRoomName name = (BuildRoomName)id[0];
+        LocalBuildingData data = SearchRoomData(name, id[1]);
+        data.leftTime = roomData.leftTime;
+        data.ConstructionType = roomData.leftTime > 0;
+        data.buildingData = BuildingDataMgr.instance.GetDataByItemId<BuildingData>(data.id);
     }
     #endregion
 
@@ -224,7 +239,7 @@ public class BuildingManager : TSingleton<BuildingManager>
             Debug.Log("重复的生产房间 或者有房间生产参数需要更改,暂时return");
             return;
         }
-        int index = CTimerManager.instance.AddListener(produceInterval, 0, ProduceCallBack);
+        int index = CTimerManager.instance.AddListener(1/*produceInterval*/, 0, ProduceCallBack);
         proBuilding.Add(index, data);
     }
     /// <summary>
@@ -234,12 +249,42 @@ public class BuildingManager : TSingleton<BuildingManager>
     private void ProduceCallBack(int index)
     {
         LocalBuildingData roomData = proBuilding[index];
-        roomData.Stock += (roomData.Yield * produceInterval);
+        roomData.Stock += (roomData.Yield / 60 / 60) * produceInterval;
+        if (roomData.Stock > (roomData.buildingData.Param2 * .005f) && roomData.currentRoom != null)
+        {
+            roomData.currentRoom.IsHarvest = true;
+        }
         //必要的情况下通知UI
     }
     private void RemoveProduce(LocalBuildingData data)
     {
+        foreach (var item in proBuilding)
+        {
+            if (item.Value == data)
+            {
+                CTimerManager.instance.RemoveLister(item.Key);
+                return;
+            }
+        }
+        Debug.LogError("没有找到要删除的生产房间");
+    }
 
+    public void GetProduceResource(LocalBuildingData data)
+    {
+        string name = (int)data.buildingData.RoomName + "_" + data.id;
+        WebSocketManger.instance.Send(NetSendMsg.RQ_PickUpProRoomResource, name);
+    }
+    public void GetProduceResource(RS_PickUpProRoomResource data)
+    {
+        LocalBuildingData localData = TypeOfRoomData(data.roomId);
+        localData.Stock -= data.collectedResource.needNum;
+        GetPlayerData.Instance.AddResource(data.collectedResource);
+        CameraControl.instance.RoomChangeResource(localData);
+        if (localData.Stock < 0)
+        {
+            localData.Stock = 0;
+            Debug.LogError("资源参数异常");
+        }
     }
     #endregion
 
@@ -449,7 +494,7 @@ public class BuildingManager : TSingleton<BuildingManager>
 
     public int SearchRoomYield(BuildRoomName name)
     {
-        int yield = 0;
+        float yield = 0;
         if (allBuilding.ContainsKey(name))
         {
             foreach (var yeildRoom in allBuilding[name])
@@ -457,7 +502,7 @@ public class BuildingManager : TSingleton<BuildingManager>
                 yield += yeildRoom.Yield;
             }
         }
-        return yield;
+        return (int)yield;
     }
 
     /// <summary>
@@ -590,6 +635,14 @@ public class BuildingManager : TSingleton<BuildingManager>
         int[] id = new int[2] { int.Parse(st[0]), int.Parse(st[1]) };
         return id;
     }
+    public LocalBuildingData TypeOfRoomData(string stId)
+    {
+        string[] st = stId.Split('_');
+        int[] id = new int[2] { int.Parse(st[0]), int.Parse(st[1]) };
+        BuildRoomName name = (BuildRoomName)id[0];
+        LocalBuildingData data = SearchRoomData(name, id[1]);
+        return data;
+    }
 
     #endregion
 
@@ -614,13 +667,13 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             if (data.needMaterial[i] > 0)
             {
-                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i);
                 int stock = SearchRoomStock(name);
                 int temp = stock - data.needMaterial[i];
                 if (temp < 0)
                 {
                     temp = -temp;
-                    dic.Add((MaterialName)i + 1, temp);
+                    dic.Add((MaterialName)i, temp);
                     txt[i].text = string.Format(LanguageDataMgr.instance.redSt, data.needMaterial[i]);
                     needDimonds += SearchRoomStockToDiamonds(name, temp);
                 }
@@ -645,7 +698,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         {
             if (data.needMaterial[i] > 0)
             {
-                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+                BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i);
                 needDia += SearchRoomStockToDiamonds(name, data.needMaterial[i]);
             }
         }
@@ -658,7 +711,7 @@ public class BuildingManager : TSingleton<BuildingManager>
     {
         for (int i = 0; i < data.needMaterial.Length; i++)
         {
-            BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i + 1);
+            BuildRoomName name = MaterialNameToBuildRoomName((MaterialName)i);
             if (SearchRoomSpace(name) < data.needMaterial[i])
             {
                 return false;

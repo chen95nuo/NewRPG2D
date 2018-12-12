@@ -25,6 +25,10 @@ namespace Assets.Script.Net
             {
                 mCreateNewRoom.xFloorOriginOffset.Add(point[i]);
             }
+            foreach (var item in mCreateNewRoom.xFloorOriginOffset)
+            {
+                DebugHelper.Log("参数为: " + item);
+            }
             return mCreateNewRoom;
         }
     }

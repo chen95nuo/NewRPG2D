@@ -526,21 +526,7 @@ public class CameraControl : MonoBehaviour
         {
             float temp = data.currentBuildData.Stock;
             Debug.Log("获得房间产出");
-            //CheckPlayerInfo.instance.GetProductionStock(data.currentBuildData);
-
-            //检测资源是否被取走
-            if (temp == data.currentBuildData.Stock && temp > 0)//如果资源满了 无法取走 那么更换选中房间
-            {
-                ChangeRoomMgr(data);
-            }
-            else
-            {
-                data.IsHarvest = false;
-                data.RoomProp.SetActive(false);
-                UIPanelManager.instance.ShowPage<UIProduceAnimator>(data);
-                UIPopUp_3Helper popdata = new UIPopUp_3Helper(data.RoomName, (int)temp, data.RoomProp.transform.position);
-                UIPanelManager.instance.ShowPage<UIPopUP_3>(popdata);
-            }
+            BuildingManager.instance.GetProduceResource(data.currentBuildData);
         }
         else if (room == null)
         {
@@ -608,6 +594,26 @@ public class CameraControl : MonoBehaviour
         room.ShowRoomLockUI(false);
         data.ShowRoomLockUI(true);
         room = data;
+    }
+
+    /// <summary>
+    /// 检测资源是否被收获
+    /// </summary>
+    /// <param name="data"></param>
+    public void RoomChangeResource(LocalBuildingData data)
+    {
+        if (data.Stock > 0)
+        {
+            ChangeRoomMgr(data.currentRoom);
+        }
+        else
+        {
+            data.currentRoom.IsHarvest = false;
+            data.currentRoom.RoomProp.SetActive(false);
+            UIPanelManager.instance.ShowPage<UIProduceAnimator>(data);
+            UIPopUp_3Helper popdata = new UIPopUp_3Helper(data.buildingData.RoomName, (int)data.Stock, data.currentRoom.RoomProp.transform.position);
+            UIPanelManager.instance.ShowPage<UIPopUP_3>(popdata);
+        }
     }
 
     /// <summary>

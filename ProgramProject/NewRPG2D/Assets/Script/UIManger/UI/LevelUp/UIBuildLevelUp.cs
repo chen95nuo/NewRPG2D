@@ -30,7 +30,8 @@ public class UIBuildLevelUp : MonoBehaviour
                 if (data.leftTime <= -1)
                 {
                     Debug.Log("发送升级完毕");
-                    WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, data.id);
+                    string id = (int)data.buildingData.RoomName + "_" + data.id;
+                    WebSocketManger.instance.Send(NetSendMsg.Q_RoomState, id);
                 }
                 txt_Time.text = SystemTime.instance.TimeNormalizedOf(data.leftTime, false);
             }

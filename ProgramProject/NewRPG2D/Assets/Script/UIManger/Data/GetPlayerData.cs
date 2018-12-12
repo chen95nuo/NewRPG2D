@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using proto.SLGV1;
 using UnityEngine;
 
 public class GetPlayerData
@@ -51,5 +52,23 @@ public class GetPlayerData
     public void SetBarracks(LocalBuildingData buildingData)
     {
         data.BarracksData = buildingData;
+    }
+
+    public void UseResource(LocalBuildingData data)
+    {
+        for (int i = 0; i < data.buildingData.needMaterial.Length; i++)
+        {
+            if (data.buildingData.needMaterial[i] > 0)
+            {
+                BuildRoomName name = BuildingManager.instance.MaterialNameToBuildRoomName((MaterialName)i);
+                this.data.UseRes(name, data.buildingData.needMaterial[i]);
+            }
+        }
+    }
+
+    public void AddResource(ConsumeItem collectedResource)
+    {
+        BuildRoomName name = BuildingManager.instance.MaterialNameToBuildRoomName((MaterialName)collectedResource.produceType);
+       data.AddRes(name, collectedResource.needNum);
     }
 }

@@ -255,6 +255,9 @@ namespace Assets.Script.Net
                 case NetSendMsg.Q_RoomState:
                     send = new NetRoomStateSend();
                     break;
+                case NetSendMsg.RQ_PickUpProRoomResource:
+                    send = new NetPickUpProRoomResourceSend();
+                    break;
                 default:
                     break;
             }
@@ -339,6 +342,13 @@ namespace Assets.Script.Net
                 case NetReceiveMsg.A_SessionToken:
                     receive = new NetSessionTokenRev();
                     break;
+                case NetReceiveMsg.A_RoomInfo:
+                    receive = new NetRoomInfoRev();
+                    break;
+                case NetReceiveMsg.RS_PickUpProRoomResource:
+                    receive = new NetPickUpProRoomResourceRev();
+                    break;
+
                 default:
                     break;
 

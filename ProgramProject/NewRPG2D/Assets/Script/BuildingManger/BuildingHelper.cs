@@ -68,11 +68,11 @@ public class LocalBuildingData
     public HallRoleData[] roleData;
     public RoomMgr currentRoom;
     public float leftTime;//升级时间
-    public int Yield
+    public float Yield
     {
         get
         {
-            return (int)(speedProd + buildingData.Param1);
+            return (speedProd + buildingData.Param1);
         }
         set
         {

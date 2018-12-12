@@ -303,6 +303,28 @@ public class PlayerData
         return produceSpace[name];
     }
 
+    public bool UseRes(BuildRoomName name, int amount)
+    {
+        if (produceSpace[name] - amount >= 0)
+        {
+            produceSpace[name] -= amount;
+            return true;
+        }
+        Debug.LogError("材料数量出错");
+        return false;
+    }
+    public bool AddRes(BuildRoomName name, int amount)
+    {
+        int space = BuildingManager.instance.SearchRoomSpace(name);
+        if (produceSpace[name] + amount <= space)
+        {
+            produceSpace[name] += amount;
+            return true;
+        }
+        Debug.LogError("材料添加出错 越界");
+        return false;
+    }
+
     public PlayerData(proto.SLGV1.CharacterInfo s_PlayerData, int happiness)
     {
         this.roleId = s_PlayerData.roleId;

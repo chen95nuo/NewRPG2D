@@ -19,6 +19,7 @@
     RQ_DragIntoRoom = 131,
     RQ_Reconnect = 133,
     RQ_UnifiedDiamondConsumerEntry = 135,
+    RQ_PickUpProRoomResource = 137,
     /// <summary>
     /// 客户端->服务端,无需应答的消息		消息号范围:1001-1999
     /// </summary>
@@ -48,6 +49,7 @@ public enum NetReceiveMsg
     RS_DragIntoRoom = 132,
     RS_Reconnect = 134,
     RS_UnifiedDiamondConsumerEntry = 136,
+    RS_PickUpProRoomResource = 138,
     /// <summary>
     /// 服务端->客户端 ,服务端主动推送的消息	消息号范围:2001-2999
     /// </summary>

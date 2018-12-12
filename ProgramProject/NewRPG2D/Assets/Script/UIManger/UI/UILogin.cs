@@ -75,18 +75,18 @@ public class UILogin : TTUIPage
 
     private void TestLink()
     {
-        string ip = Ip.text;
-        if (Ip.text.Equals(""))
-        {
-            ip = "127.0.0.1";
-        }
-        int port = int.Parse(Port.text);
-        if (Port.text.Equals(""))
-        {
-            port = 9010;
-        }
+        //string ip = Ip.text;
+        //if (Ip.text.Equals(""))
+        //{
+        //    ip = "127.0.0.1";
+        //}
+        //int port = int.Parse(Port.text);
+        //if (Port.text.Equals(""))
+        //{
+        //    port = 9010;
+        //}
 
-        Assets.Script.GameLogic.Instance.InitData(ip, port, "1");
+        Assets.Script.GameLogic.Instance.InitData("192.168.1.102", 9010, "1");
     }
 
     //private void Start()

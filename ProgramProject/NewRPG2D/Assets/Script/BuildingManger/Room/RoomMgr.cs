@@ -607,6 +607,7 @@ public abstract class RoomMgr : MonoBehaviour
             CheckDisTip();
         }
         //将房间移动到指定位置
+        Debug.Log(string.Format("房间：{0},移动到({1},{2})", RoomName, data.buildingPoint.x, data.buildingPoint.y));
         transform.position = castle.buildPoint[(int)data.buildingPoint.x, (int)data.buildingPoint.y].pointWall.transform.position;
         //将房间这一段墙壁移出 给这一段空间添加该房间引用
         int startX = (int)StartPoint.x;
