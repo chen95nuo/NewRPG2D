@@ -241,6 +241,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         }
         int index = CTimerManager.instance.AddListener(1/*produceInterval*/, 0, ProduceCallBack);
         proBuilding.Add(index, data);
+        CheckProduceHarvest(data);
     }
     /// <summary>
     /// 生产事件计时回调
@@ -249,13 +250,22 @@ public class BuildingManager : TSingleton<BuildingManager>
     private void ProduceCallBack(int index)
     {
         LocalBuildingData roomData = proBuilding[index];
-        roomData.Stock += (roomData.Yield / 60 / 60) * produceInterval;
+        float nowValue = roomData.Stock += (roomData.Yield / 60 / 60) * produceInterval;
+        roomData.Stock = nowValue > roomData.buildingData.Param2 ? roomData.buildingData.Param2 : nowValue;
+        CheckProduceHarvest(roomData);
+    }
+
+    /// <summary>
+    /// 检查当前可收获图标是否显示
+    /// </summary>
+    private void CheckProduceHarvest(LocalBuildingData roomData)
+    {
         if (roomData.Stock > (roomData.buildingData.Param2 * .005f) && roomData.currentRoom != null)
         {
             roomData.currentRoom.IsHarvest = true;
         }
-        //必要的情况下通知UI
     }
+
     private void RemoveProduce(LocalBuildingData data)
     {
         foreach (var item in proBuilding)
@@ -269,7 +279,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         Debug.LogError("没有找到要删除的生产房间");
     }
 
-    public void GetProduceResource(LocalBuildingData data)
+    public void SendProduceResource(LocalBuildingData data)
     {
         string name = (int)data.buildingData.RoomName + "_" + data.id;
         WebSocketManger.instance.Send(NetSendMsg.RQ_PickUpProRoomResource, name);
@@ -279,7 +289,7 @@ public class BuildingManager : TSingleton<BuildingManager>
         LocalBuildingData localData = TypeOfRoomData(data.roomId);
         localData.Stock -= data.collectedResource.needNum;
         GetPlayerData.Instance.AddResource(data.collectedResource);
-        CameraControl.instance.RoomChangeResource(localData);
+        CameraControl.instance.RoomChangeResource(localData);//检查锁定状态
         if (localData.Stock < 0)
         {
             localData.Stock = 0;

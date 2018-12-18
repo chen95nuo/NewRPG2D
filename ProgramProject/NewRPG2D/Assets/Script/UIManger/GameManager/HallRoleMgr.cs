@@ -358,7 +358,17 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
     //}
 
     /// <summary>
-    /// 角色切换房间
+    /// 房间直接添加角色
+    /// </summary>
+    /// <param name="role"></param>
+    /// <param name="room"></param>
+    public void RoleChangeRoom(HallRoleData role, LocalBuildingData room)
+    {
+        Debug.Log("上传角色换房间信息");
+    }
+
+    /// <summary>
+    /// 房间替换角色
     /// </summary>
     /// <param name="room"></param>
     public void RoleChangeRoom(HallRole newRole, HallRole oldRole)
@@ -380,8 +390,7 @@ public class HallRoleMgr : TSingleton<HallRoleMgr>
         {
             oldRole.RoleAnim();
         }
-
-
+        Debug.Log("上传角色换房间且替换位置信息");
     }
     /// <summary>
     /// 角色排序

@@ -13,8 +13,10 @@ public class DontDestroyScript : MonoBehaviour
 
     void Start()
     {
-        UmengGameAnalytics.instance.Init();
+        //UmengGameAnalytics.instance.Init();
         //AdsController.instance.Init();
+
+        admobdemo.Instance.initAdmob();
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class DontDestroyScript : MonoBehaviour
 
     public void OnDestroy()
     {
-        UmengGameAnalytics.instance.OnDestroy();
+        //UmengGameAnalytics.instance.OnDestroy();
         //AdsController.instance.OnDestroy();
     }
 }

@@ -839,22 +839,7 @@ public class CheckPlayerInfo : TSingleton<CheckPlayerInfo>
     /// <param name="key"></param>
     public void ChickProduction(int key)
     {
-        float roleNumber = production[key].AllRoleProduction();
-        float Yeild = roleNumber + production[key].buildingData.Param1;
-        if (production[key].ConstructionType == true)
-        {
-            return;
-        }
-        float number = Yeild / 60 / 60;
-        production[key].Stock += number * 30f;
-        if (production[key].Stock > production[key].buildingData.Param2 * 0.05f)
-        {
-            MainCastle.instance.FindRoom(production[key].id);
-        }
-        if (EventKey == key)
-        {
-            HallEventManager.instance.SendEvent(HallEventDefineEnum.CheckStock);
-        }
+
     }
 
     /// <summary>

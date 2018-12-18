@@ -526,7 +526,7 @@ public class CameraControl : MonoBehaviour
         {
             float temp = data.currentBuildData.Stock;
             Debug.Log("获得房间产出");
-            BuildingManager.instance.GetProduceResource(data.currentBuildData);
+            BuildingManager.instance.SendProduceResource(data.currentBuildData);
         }
         else if (room == null)
         {
@@ -591,7 +591,10 @@ public class CameraControl : MonoBehaviour
     {
         UIPanelManager.instance.ShowPage<UILockRoomTip>(data.currentBuildData);
 
-        room.ShowRoomLockUI(false);
+        if (room != null)
+        {
+            room.ShowRoomLockUI(false);
+        }
         data.ShowRoomLockUI(true);
         room = data;
     }

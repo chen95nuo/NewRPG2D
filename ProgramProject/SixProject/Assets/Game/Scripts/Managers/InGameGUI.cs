@@ -148,7 +148,7 @@ namespace MadFireOn
             sound.Play();
             try
             {
-                UmengGameAnalytics.instance.UpdataEvent("suspend_Click");
+                //UmengGameAnalytics.instance.UpdataEvent("suspend_Click");
             }
             catch (System.Exception)
             {
@@ -257,7 +257,7 @@ namespace MadFireOn
 
             try
             {
-                UmengGameAnalytics.instance.UpdataEvent("revive_Click");
+                //UmengGameAnalytics.instance.UpdataEvent("revive_Click");
             }
             catch (System.Exception)
             {

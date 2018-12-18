@@ -74,7 +74,7 @@ namespace MadFireOn
             try
             {
                 //AnalyticsTools.Instance.GetUMAnalytics().OnEvent("start_Click");
-                UmengGameAnalytics.instance.UpdataEvent("start_Click");
+                //UmengGameAnalytics.instance.UpdataEvent("start_Click");
             }
             catch (System.Exception)
             {
@@ -134,17 +134,17 @@ namespace MadFireOn
         {
             sound.Play();
             //Purchaser.instance.BuyNoAds(); //uncomment after adding respective sdk
-            UmengGameAnalytics.instance.PayNoADs();
+            //UmengGameAnalytics.instance.PayNoADs();
             GameManager.instance.canShowAds = false;
             //AdsController.instance.HideADs();
-            UmengGameAnalytics.instance.UpdataEvent("cost_Click");
+            //UmengGameAnalytics.instance.UpdataEvent("cost_Click");
         }
 
         void LeaderboardBtn()
         {
             try
             {
-                UmengGameAnalytics.instance.UpdataEvent("rank_Click");
+                //UmengGameAnalytics.instance.UpdataEvent("rank_Click");
             }
             catch (System.Exception)
             {

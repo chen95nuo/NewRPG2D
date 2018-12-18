@@ -57,6 +57,7 @@ public abstract class RoomMgr : MonoBehaviour
             return rolePointMin;
         }
     }
+    //房间起点坐标
     public Vector2 StartPoint
     {
         get
@@ -71,6 +72,8 @@ public abstract class RoomMgr : MonoBehaviour
             return currentBuildData.buildingData;
         }
     }
+
+    //房间是否在工作
     public bool ConstructionType
     {
         get
@@ -92,6 +95,37 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }//房间施工状态
+
+    public int Id
+    {
+        get
+        {
+            return currentBuildData.id;
+        }
+    }
+    public RoleAttribute NeedAttribute
+    {
+        get
+        {
+            return BuildingManager.instance.NameToAtr(RoomName);
+        }
+    }
+    public BuildRoomName RoomName
+    {
+        get
+        {
+            return currentBuildData.buildingData.RoomName;
+        }
+    }
+    public void Clear()
+    {
+        castleMgr = null;
+        buidStartPoint = Vector3.zero;
+        wall = null;
+        emptyPoints = new EmptyPoint[4];
+        nearbyRoom = new RoomMgr[4];
+    }
+    //仓库已满提示
     public bool StockFull
     {
         get { return stockFull; }
@@ -115,35 +149,7 @@ public abstract class RoomMgr : MonoBehaviour
             }
         }
     }
-    public void Clear()
-    {
-        castleMgr = null;
-        buidStartPoint = Vector3.zero;
-        wall = null;
-        emptyPoints = new EmptyPoint[4];
-        nearbyRoom = new RoomMgr[4];
-    }
-    public int Id
-    {
-        get
-        {
-            return currentBuildData.id;
-        }
-    }
-    public RoleAttribute NeedAttribute
-    {
-        get
-        {
-            return BuildingManager.instance.NameToAtr(RoomName);
-        }
-    }
-    public BuildRoomName RoomName
-    {
-        get
-        {
-            return currentBuildData.buildingData.RoomName;
-        }
-    }
+    //房间可收获显示
     public bool IsHarvest
     {
         get
@@ -158,9 +164,13 @@ public abstract class RoomMgr : MonoBehaviour
             {
                 isHarvest = value;
                 RoomProp.SetActive(value);
+                RoomPropIcon.gameObject.SetActive(value);
+                RoomPropIconBG.gameObject.SetActive(value);
             }
         }
     }
+
+    //房间锁定框颜色更改
     public void ShowRoomLockUI(bool isTrue, bool isRole = false)
     {
         if (isTrue == false)
@@ -450,7 +460,6 @@ public abstract class RoomMgr : MonoBehaviour
     /// <param name="data"></param>
     public void UpdateInfo(LocalBuildingData data, Castle castle)
     {
-
         currentBuildData = data;
         data.currentRoom = this;
         castleMgr = castle;
@@ -857,6 +866,7 @@ public abstract class RoomMgr : MonoBehaviour
                     role.RoleData.currentRoom.RemoveRole(role);
                 }
                 role.RoleData.currentRoom = this;
+                HallRoleMgr.instance.RoleChangeRoom(role.RoleData, this.currentBuildData);
                 return true;
             }
         }
@@ -883,7 +893,8 @@ public abstract class RoomMgr : MonoBehaviour
 
     public virtual void AddRole(HallRoleData role, int index)
     {
-
+        currentBuildData.roleData[index] = role;
+        role.instance.RoleMove(currentBuildData.buildingData.RolePoint[index]);
     }
     /// <summary>
     /// 通过房间UI选项 替换角色
@@ -1070,12 +1081,6 @@ public abstract class RoomMgr : MonoBehaviour
         }
     }
 
-    #region ProductionType
-    public virtual void ShowHarvest()
-    {
-        IsHarvest = true;
-    }
-
     /// <summary>
     /// 查找子物体
     /// </summary>
@@ -1101,19 +1106,4 @@ public abstract class RoomMgr : MonoBehaviour
         roomLock.gameObject.SetActive(false);
         roomProp.SetActive(false);
     }
-
-    public virtual void ChickRoomStock()
-    {
-        Debug.Log(currentBuildData.Stock);
-        if (currentBuildData.Stock < 1)
-        {
-            Debug.Log("资源被取走了");
-            IsHarvest = false;
-        }
-        else
-        {
-            Debug.Log("部分资源被取走了");
-        }
-    }
-    #endregion
 }

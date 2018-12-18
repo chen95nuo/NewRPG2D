@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Umeng;
+//using Umeng;
 using System.Runtime.InteropServices;
 
 

@@ -394,21 +394,6 @@ public class Castle : MonoBehaviour
         return room;
     }
 
-    /// <summary>
-    /// 寻找房间
-    /// </summary>
-    /// <param name="id">房间ID</param>
-    public void FindRoom(int id)
-    {
-        for (int i = 0; i < allroom.Count; i++)
-        {
-            if (allroom[i].Id == id)
-            {
-                allroom[i].ShowHarvest();
-                return;
-            }
-        }
-    }
     public RoomMgr FindRoom(BuildRoomName name)
     {
         for (int i = 0; i < allroom.Count; i++)

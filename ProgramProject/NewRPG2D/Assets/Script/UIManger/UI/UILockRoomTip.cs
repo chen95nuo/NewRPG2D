@@ -17,15 +17,13 @@ public class UILockRoomTip : TTUIPage
     public Button btn_CastleEditor;
     public Button btn_CastleMod;
     public Button btn_Train;
-    public Button btn_TrainSpeedUp_1;
-    public Button btn_TrainSpeedUp_2;
+    public UILockTrainSpeed btn_TrainSpeedUp_1;
+    public UILockTrainSpeed btn_TrainSpeedUp_2;
     public Button btn_Craft;
     public Button btn_CraftItem;
     public Button btn_Research;
 
     private UILockSpeedUp uiSpeedUp;
-    private UILockTrainSpeed uiTrainSpeed_1;
-    private UILockTrainSpeed uiTrainSpeed_2;
 
     private LocalBuildingData roomData;
     private bool isOpen = false;
@@ -52,8 +50,6 @@ public class UILockRoomTip : TTUIPage
     {
         ClostAllBtn(false);
         uiSpeedUp = btn_SpeedUp.GetComponent<UILockSpeedUp>();
-        uiTrainSpeed_1 = btn_TrainSpeedUp_1.GetComponent<UILockTrainSpeed>();
-        uiTrainSpeed_2 = btn_TrainSpeedUp_2.GetComponent<UILockTrainSpeed>();
 
         btn_Message.onClick.AddListener(ChickMessage);
         btn_LevelUp.onClick.AddListener(ChickLevelUp);
@@ -62,8 +58,6 @@ public class UILockRoomTip : TTUIPage
         btn_CastleEditor.onClick.AddListener(ChickCastleEddit);
         btn_CastleMod.onClick.AddListener(ChickCastleMod);
         btn_Train.onClick.AddListener(ChickTrain);
-        btn_TrainSpeedUp_1.onClick.AddListener(ChickTranSpeedUP_1);
-        btn_TrainSpeedUp_2.onClick.AddListener(ChickTranSpeedUP_2);
         btn_Craft.onClick.AddListener(ChickCraft);
         btn_CraftItem.onClick.AddListener(ChickCraftItem);
         btn_Research.onClick.AddListener(ChickResearch);
@@ -135,6 +129,15 @@ public class UILockRoomTip : TTUIPage
         btn_LevelUp.gameObject.SetActive(isOpen);
         btn_Train.gameObject.SetActive(isOpen);
         //这边还需要判断有多少个角色对应角色出现提示框
+        int index = 0;
+        for (int i = 0; i < roomData.roleData.Length; i++)
+        {
+            if (roomData.roleData[i] != null)
+            {
+
+                index++;
+            }
+        }
     }
 
     /// <summary>

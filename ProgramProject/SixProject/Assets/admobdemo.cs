@@ -25,7 +25,7 @@ public class admobdemo
     string rewardedID = "";
     string nativeBannerID = "";
 
-    void initAdmob()
+    public void initAdmob()
     {
         Debug.Log("初始化 Admob-------------");
 #if UNITY_IOS
@@ -38,7 +38,7 @@ public class admobdemo
         appID = "ca-app-pub-2785934198997173~4354683412";
         //bannerID = "ca-app-pub-3940256099942544/6300978111";
         //interstitialID = "ca-app-pub-3940256099942544/1033173712";
-        rewardedID = "ca-app-pub-3940256099942544/5224354917";
+        rewardedID = "ca-app-pub-2785934198997173/2114892253";
         //nativeBannerID = "ca-app-pub-3940256099942544/2247696110";
 #endif
         AdProperties adProperties = new AdProperties();
