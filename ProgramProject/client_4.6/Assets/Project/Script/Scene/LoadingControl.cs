@@ -8,10 +8,10 @@ public class LoadingControl : MonoBehaviour ,ProcessResponse{
 	
 	public static LoadingControl instance;
 	//==内网公告服==//
-	private string InnerServerIp="211.149.198.194";
+	private string InnerServerIp="118.25.209.26";
 	private string InnerServerPort="8080";
 	//==外网测试公告服==//
-	private string OuterServerIp="211.149.198.194";
+	private string OuterServerIp="118.25.209.26";
 	private string OutServerPort="8080";
 	//==外网公告服==//
 	//private string OuterServerIp="112.124.25.230";
@@ -70,7 +70,7 @@ public class LoadingControl : MonoBehaviour ,ProcessResponse{
 	private const string ResManager="res_manager.bin";
 	//==下载到本地的包名==//
 	private string packageName;
-	private const string VersionUrl="http://211.149.198.194:8080/card_server_center/gift.htm?action=serverVersion";
+	private const string VersionUrl="http://118.25.209.26:8080/card_server_center/gift.htm?action=serverVersion";
 	
 	private bool receiveEnterGameMsg = false;
 	
