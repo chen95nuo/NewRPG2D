@@ -1310,7 +1310,7 @@ public class CardInfoPanelManager : MonoBehaviour ,ProcessResponse
         }
         else
         {
-            if (pcardN + multCard >= cardN && PlayerInfo.getInstance().player.diamond > diamond)
+            if (pcardN + multCard >= cardN && PlayerInfo.getInstance().player.diamond >= diamond)
             {
                 List<int> listCards = new List<int>();
 
@@ -1340,7 +1340,7 @@ public class CardInfoPanelManager : MonoBehaviour ,ProcessResponse
             }
             else
             {
-                if (card.bn > 3 && PlayerInfo.getInstance().player.diamond > diamond)
+                if (card.bn > 3 && PlayerInfo.getInstance().player.diamond >= diamond)
                 {
                     requestType = 16;
                     PlayerInfo.getInstance().sendRequest(new BreakJson(card.i, new List<int>()), this);

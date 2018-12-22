@@ -22,6 +22,7 @@ public class SwitchAccountManager : MonoBehaviour,ProcessResponse{
 		}
 		Object.DontDestroyOnLoad(gameObject);
 		mInstance=this;
+        //PlayerPrefs.DeleteAll();
 	}
 	
 	// Update is called once per frame
