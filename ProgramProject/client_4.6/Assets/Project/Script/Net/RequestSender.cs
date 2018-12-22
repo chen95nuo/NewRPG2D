@@ -126,7 +126,7 @@ public class RequestSender {
 		//设置请求时间//
 		startTime=GameObjectUtil.getCurTime();
 		//设置请求明细//
-		this.url=(cd.urlPrefix+cd.urlSuffix).Replace("211.149.198.194",serverIp).Replace("8080",serverPort);
+		this.url=(cd.urlPrefix+cd.urlSuffix).Replace("118.25.209.26",serverIp).Replace("8080",serverPort);
 		//Debug.Log("url:"+url);
 		this.param=param;
 		requestAsyncSpecial();
@@ -151,7 +151,7 @@ public class RequestSender {
 		//设置请求时间//
 		startTime=GameObjectUtil.getCurTime();
 		//设置请求明细//
-		this.url=url.Replace("211.149.198.194",serverIp).Replace("8080",serverPort);
+		this.url=url.Replace("118.25.209.26",serverIp).Replace("8080",serverPort);
 		//Debug.Log("url:"+url);
 		this.param=param;
 		requestAsync();
