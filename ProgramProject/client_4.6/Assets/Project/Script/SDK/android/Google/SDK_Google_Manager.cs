@@ -1,109 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SDK_Google_Manager : MonoBehaviour {
+public class SDK_Google_Manager {
 	public const int LoginId=1;
     private const string pay_notify_url = "http://118.25.209.26:8080/card_server_pay/pay.htm?action=googelinpay";
-    void Awake()
-	{
-		if(PlayerInfo.getInstance().isLogout == true)
-		{
-			Destroy(gameObject);
-			return;
-		}
-	}
 
-	// Use this for initialization
-	void Start () {
-		Object.DontDestroyOnLoad(gameObject);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	public static void sdk_call(int id)
-	{
-		
-		#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-			using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.baidu.LauncherActivity"))
-			{
-				using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-				{
-				jo.Call("sdk_call",new string[]{id+""});
-				}
-			}
-		#endif	
-		
-	}
-	 
-	
-	public static void sdk_call_pay(string amount,string order_number,string extra)
-	{
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-			using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.baidu.LauncherActivity"))
-			{
-				using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-				{
-				jo.Call("sdk_call_pay",new string[]{amount,order_number,extra,pay_notify_url});
-				}
-			}
-#endif
+    private AndroidJavaObject mIABHelperObj = null;
+    private static SDK_Google_Manager g_inst;
+    public static SDK_Google_Manager ins
+    {
+     get
+        {
+            if (g_inst == null)
+            {
+                g_inst = new SDK_Google_Manager();
+            }
 
+            return g_inst;
+        }
     }
 
-    public static void sdk_exit()
-	{
-		#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-			using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.baidu.LauncherActivity"))
-			{
-				using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-				{
-				jo.Call("sdk_exit");
-				}
-			}
-		#endif	
-		
-	}
+    // Update is called once per frame
+    void Update () {
 	
-	public void loginCallBack(string json)
-	{
-		#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		Debug.Log("11111111111111111111111111111111111");
-			
-		//msg="msg==:"+json;
-		BDDKLoginJson bdj = JsonMapper.ToObject<BDDKLoginJson>(json);
-		LoginUI_new.mInstance.sdk_login(bdj.userId,"",bdj.userName);
-		#endif	
 	}
-	
-	public void payCallback(string data)
-	{
-		#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		if(data.Equals("1"))
-		{
-			ToastWindow.mInstance.showText(TextsData.getData(399).chinese);
-			ChargePanel charge = UISceneStateControl.mInstace.GetComponentByType(UISceneStateControl.UI_STATE_TYPE.UI_STATE_CZ,"ChargePanel") as ChargePanel;
-			charge.UpdateChargePanelRequest();
-		}
-		else
-		{
-			ToastWindow.mInstance.showText(TextsData.getData(400).chinese);
-		}
-		#endif	
-	}
-	
-	public void changeUID()
-	{
-		#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		SwitchAccountManager.mInstance.logout();
-		#endif
-	}
-	
+
+    public void init(string base64EncodedPublicKey)
+    {
+        dispose();
+        mIABHelperObj = new AndroidJavaObject("com.xyjsec.google.googlepay.overrideActivity", new object[2] { base64EncodedPublicKey, "StubSDK" });
+    }
+
+    public void dispose()
+    {
+        if (mIABHelperObj != null)
+        {
+            mIABHelperObj.Call("dispose");
+            mIABHelperObj.Dispose();
+            mIABHelperObj = null;
+        }
+    }
+
+    public void sdk_call_pay(string strSKU, string reqCode, string payload)
+    {
+        if (mIABHelperObj != null)
+        {
+            mIABHelperObj.Call("purchase", new object[3] { strSKU, reqCode, payload });
+        }
+    }
+
+    public void consume_inapp(string strPurchaseJsonInfo, string strSignature)
+    {
+        if (mIABHelperObj != null)
+        {
+            mIABHelperObj.Call("consume", new object[3] { "inapp", strPurchaseJsonInfo, strSignature });
+        }
+    }
 	
 }

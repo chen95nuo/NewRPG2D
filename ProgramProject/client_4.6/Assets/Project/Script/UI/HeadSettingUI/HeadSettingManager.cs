@@ -326,10 +326,10 @@ public class HeadSettingManager : MonoBehaviour , ProcessResponse, BWWarnUI{
 //		PlayerInfo.getInstance().sendRequest(new UIJson(STATE.UI_HEADSET_SHOWDATA),this);
 		
 		//==华为渠道打开改名界面时要隐藏浮标,关闭改名界面时再显示浮标==//
-		if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
-		{
-			SDK_StubManager.sdk_hideFloatingView();
-		}
+		//if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
+		//{
+		//	SDK_StubManager.sdk_hideFloatingView();
+		//}
 	}
 	
 	public void SetData(HeadSetResultJson hrj)
@@ -695,10 +695,10 @@ public class HeadSettingManager : MonoBehaviour , ProcessResponse, BWWarnUI{
 		UISceneStateControl.mInstace.DestoryObj(UISceneStateControl.UI_STATE_TYPE.UI_STATE_HEADSETTING);
 		
 		//==华为渠道打开改名界面时要隐藏浮标,关闭改名界面时再显示浮标==//
-		if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
-		{
-			SDK_StubManager.sdk_showFloatingView();
-		}
+		//if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
+		//{
+		//	SDK_StubManager.sdk_showFloatingView();
+		//}
 	}
 	
 	

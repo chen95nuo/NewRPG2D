@@ -176,7 +176,7 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
                             {
                                 // 金额单位：元， porj.order 订单号, porj.extra额外信息//
                                 int amount = StringUtil.getInt(porj.consumValue);
-                                SDK_Google_Manager.sdk_call_pay(amount + "", porj.order + "", porj.extra);
+                                SDK_Google_Manager.ins.sdk_call_pay(amount + "", porj.order + "", porj.extra);
                             }
                         }
                     }

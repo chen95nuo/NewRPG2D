@@ -1,307 +1,111 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+
 
 public class SDK_StubManager : MonoBehaviour
 {
+    public static SDK_StubManager g_inst = null;
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        if (PlayerInfo.getInstance().isLogout == true)
+        if (g_inst != null)
         {
             Destroy(gameObject);
             return;
         }
-        Object.DontDestroyOnLoad(gameObject);
+        g_inst = this;
+        DontDestroyOnLoad(gameObject);
+
+        SDK_Google_Manager.ins.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1n1N8ZFe+B7PhdobZNVHc2Ve9AhuvftbD74YODh6V0xeZFGkNE42gZXbsel7rKQaOoF8BXJj4CPZ2HZKxuD4lZJ4q8pe170TNabJThC3yaUCWqmg0JJkRpM8uPVhrg/+4LW10MbJE33KbT9tVnDBLdhQJ2/1gsVFZDFZrKdNu/5OMZelBoVIG42NZmjEeLzIn5eqIOyMA7iDj+YYpB58MwCbCnEAJYPE7l65XLut1Uk7+todaSJVhTvLMxFeYlNV57a90Bj+AAcS0kzFa7ko1ErmuARvEXvWT/Mi1mDRu0qzQVCAUwQhvIDmTbkbDCv1UlDvRGLX7Ja8ZsyczUuWwIDAQAB");
+    }
+
+    public static void MsyRevicer(string json)
+    {
+        GooglePayBackJson cache = JsonMapper.ToObject<GooglePayBackJson>(json);
+        switch (cache.code)
+        {
+            case 0:
+                {
+                    //unknown
+                    Debug.Log("Unity-iabWrappe :cannot parse cache[code]");
+
+                }
+                break;
+
+            case 1: // init
+                {
+                    //OnIabSetupFinishedListener
+                    if (cache.ret == true)
+                    {
+                        Debug.Log("iab successfully initialized");
+
+                    }
+                    else
+                    {
+                        Debug.LogError("failed to initialize iab");
+                    }
+                }
+                break;
+
+            case 2: //购买成功
+                {
+
+                    if (cache.ret)
+                    {
+                        //可使用
+                        //if (iabPurchaseCB != null)
+                        //{
+                        //    iabPurchaseCB(new object[3] { true, (string)cache["desc"], (string)cache["sign"] });
+                        //}
+
+                    }
+                    else
+                    {
+                        //不可使用
+                        //if (iabPurchaseCB != null)
+                        //{
+                        //    iabPurchaseCB(new object[3] { false, "", "" });
+                        //}
+
+                    }
+                }
+                break;
+
+            case 3: //消耗成功
+                {
+                    //OnConsumeFinishedListener
+                    if (cache.ret)
+                    {
+                        //可使用
+                        //if (iabConsumeCB != null)
+                        //{
+                        //    iabConsumeCB(new object[3] { true, (string)cache["desc"], (string)cache["sign"] });
+                        //}
+
+                    }
+                    else
+                    {
+                        //不可使用
+                        //if (iabConsumeCB != null)
+                        //{
+                        //    iabConsumeCB(new object[3] { false, "", "" });
+                        //}
+                    }
+                }
+                break;
+        }
     }
 
 
 
-    /**
-	 * 设置注销回调
-	 * lt@2014-6-13 上午10:34:08
-	 */
-    public static void sdk_setLogoutCallback()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_setLogoutCallback");
-			}
-		}
-#endif
 
-    }
-    /**
-	 * 设置账户切换回调
-	 * lt@2014-6-13 上午10:35:09
-	 */
-    public static void sdk_setAccountSwitchCallback()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_setAccountSwitchCallback");
-			}
-		}
-#endif
-    }
-    /**
-	 * 登录
-	 * lt@2014-6-13 上午10:37:04
-	 */
-    public static void sdk_startLogin()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_startLogin");
-			}
-		}
-#endif
-    }
-    /**
-	 * 登录统计
-	 * lt@2014-6-13 上午10:38:20
-	 * @param serverMark 服务器标识
-	 */
-    public static void sdk_startGameServerLogin(string serverMark)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-			jo.Call("sdk_startGameServerLogin",new string[]{serverMark});
-			}
-		}
-#endif
-    }
-    /**
-	 * 提交扩展数据(游戏中为用户成功登录游戏角色时，提交该“游戏登录角色”数据)
-	 * lt@2014-6-13 上午11:10:44
-	 * @param type loginGameRole
-	 * @param data json格式
-	 * {
-		"roleId":"string", //必填
-		"roleName":"string", //必填
-		"roleLevel":"string", //必填
-		"zoneId":int, //必填
-		"zoneName":"string", //可选
-		}
-	 */
-    public static void sdk_submitExtendData(string type, string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-			jo.Call("sdk_submitExtendData",new string[]{type,data});
-			}
-		}
-#endif
-    }
-    /**
-	 * 支付
-	 * @param amount 消费金额
-	 * @param product 商品名称
-	 * @param serverMark 服务器标识
-	 * @param extra 附加参数
-	 */
-    public static void sdk_startPayment(int amount, string product, string serverMark, string extra)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-			jo.Call("sdk_startPayment",new string[]{amount+"",product,serverMark,extra});
-			}
-		}
-#endif
-    }
-    /**
-	 * 显示悬浮窗
-	 * lt@2014-6-13 上午10:53:04
-	 */
-    public static void sdk_showFloatingView()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_showFloatingView");
-			}
-		}
-#endif
-    }
-    /**
-	 * 隐藏悬浮窗
-	 * lt@2014-6-13 上午10:53:38
-	 */
-    public static void sdk_hideFloatingView()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_hideFloatingView");
-			}
-		}
-#endif
-    }
-    /**
-	 * 打开论坛
-	 * lt@2014-6-13 上午10:55:20
-	 */
-    public void sdk_openForum()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_openForum");
-			}
-		}
-#endif
-    }
-    /**
-	 * 打开用户中心
-	 * lt@2014-6-13 上午10:55:50
-	 */
-    public static void sdk_openMemberCenter()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_openMemberCenter");
-			}
-		}
-#endif
-    }
-    /**
-	 * 打开退出界面
-	 * lt@2014-6-13 上午10:56:53
-	 */
-    public static void sdk_openExitPopup()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_openExitPopup");
-			}
-		}
-#endif
-    }
+        public void payCallback(bool succeed)
+        {
 
-    //==install apk==//
-    public static void installApk(string fileURL)
-    {
-        return;
 #if ((UNITY_ANDROID && !UNITY_EDITOR))
 			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-			jo.Call("installApk",new string[]{fileURL});
-			}
-		}
-#endif
-    }
-
-    public static void sdk_startUpdate(string v)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-			jo.Call("sdk_startUpdate",new string[]{v});
-			}
-		}
-#endif
-    }
-
-
-    //=====================================CallBack=============================================//
-
-    public static void sdk_getVersionName()
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		using(AndroidJavaClass jc=new AndroidJavaClass("com.Begamer.Card.LauncherActivity"))
-		{
-			using(AndroidJavaObject jo=jc.GetStatic<AndroidJavaObject>("launcher"))
-			{
-				jo.Call("sdk_getVersionName");
-			}
-		}
-#endif
-    }
-
-    public void loginCallBack(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		Debug.Log(data);
-		GCLoginJson gclj=JsonMapper.ToObject<GCLoginJson>(data);
-		if(TalkingDataManager.channelId.Equals("870"))
-		{
-			LoginUI_new.mInstance.sdk_tangguo_login(gclj.userId,"",gclj.userName,gclj.tangguoserver);
-		}
-		else
-		{
-			LoginUI_new.mInstance.sdk_login(gclj.userId,"",gclj.userName);
-		}
-#endif
-    }
-
-    public void payCallback(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		if(data.Equals("1"))
+		if(succeed)
 		{
 			//ToastWindow.mInstance.showText(TextsData.getData(399).chinese);
 			ChargePanel charge = UISceneStateControl.mInstace.GetComponentByType(UISceneStateControl.UI_STATE_TYPE.UI_STATE_CZ,"ChargePanel") as ChargePanel;
@@ -313,67 +117,4 @@ public class SDK_StubManager : MonoBehaviour
 		}
 #endif
     }
-
-    public void getVersionNameCallBack(string version)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		LoadingControl.instance.setVersion(version);
-#endif
-    }
-
-    public void updateCallback(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-			
-		if(string.IsNullOrEmpty(data))
-		{
-			return;
-		}
-		UpdateJson uj=JsonMapper.ToObject<UpdateJson>(data);
-		//LoadingControl.instance.downloadPackage(uj);
-		if(uj.flag!=0)
-		{
-			Application.OpenURL(uj.url);
-		}
-#endif
-    }
-
-    public void logoutCallback(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		SwitchAccountManager.mInstance.logout();
-#endif
-    }
-
-    public void accountSwitchCallback(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		//loginCallBack(data);
-			
-		if(string.IsNullOrEmpty(data))
-		{
-			return;
-		}
-		GCLoginJson gclj=JsonMapper.ToObject<GCLoginJson>(data);
-		string username="GC_"+gclj.userId;
-		string password="";
-		string nickname=gclj.userName;
-		string platform=Constant.OS_ANDROID;
-		SwitchAccountManager.mInstance.switchAccount(username,password,platform,nickname);
-#endif
-    }
-
-    public void exitProgram(string data)
-    {
-        return;
-#if ((UNITY_ANDROID && !UNITY_EDITOR))
-		Application.Quit();
-#endif
-    }
-
 }

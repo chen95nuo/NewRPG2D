@@ -59,32 +59,32 @@ public class SwitchAccountManager : MonoBehaviour,ProcessResponse{
 				{
 					PlayerElement pe=PlayerInfo.getInstance().player;
 					//==gc登录统计==//
-					if(SDKManager.getInstance().isSDKGCUsing())
-					{
-						if(Application.platform==RuntimePlatform.Android)
-						{
-							SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
-							SDK_StubManager.sdk_showFloatingView();
+					//if(SDKManager.getInstance().isSDKGCUsing())
+					//{
+					//	if(Application.platform==RuntimePlatform.Android)
+					//	{
+					//		SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
+					//		SDK_StubManager.sdk_showFloatingView();
 							
 							
 							
-							//==UC自己的扩展数据==//
-							if(TalkingDataManager.channelId.Equals("71"))
-							{
-								ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
-								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
-							}
-							else
-							{
-								ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
-							}
+					//		//==UC自己的扩展数据==//
+					//		if(TalkingDataManager.channelId.Equals("71"))
+					//		{
+					//			ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
+					//			SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+					//		}
+					//		else
+					//		{
+					//			ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
+					//			SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+					//		}
 							
 							
-							//ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-							//SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
-						}
-					}
+					//		//ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
+					//		//SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+					//	}
+					//}
 					
 					if(pe.owncards!=null)
 					{

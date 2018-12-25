@@ -122,26 +122,26 @@ public class LoginUI_new : BWUIPanel,ProcessResponse {
 				{
 					PlayerElement pe=PlayerInfo.getInstance().player;
 					//==gc登录统计==//
-					if(SDKManager.getInstance().isSDKGCUsing())
-					{
-						if(Application.platform==RuntimePlatform.Android)
-						{
-							SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
-							SDK_StubManager.sdk_showFloatingView();
+					//if(SDKManager.getInstance().isSDKGCUsing())
+					//{
+					//	if(Application.platform==RuntimePlatform.Android)
+					//	{
+					//		SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
+					//		SDK_StubManager.sdk_showFloatingView();
 							
-							//==UC自己的扩展数据==//
-							if(TalkingDataManager.channelId.Equals("71"))
-							{
-								ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
-								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
-							}
-							else
-							{
-								ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
-							}
-						}
-					}
+					//		//==UC自己的扩展数据==//
+					//		if(TalkingDataManager.channelId.Equals("71"))
+					//		{
+					//			ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
+					//			SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+					//		}
+					//		else
+					//		{
+					//			ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
+					//			SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+					//		}
+					//	}
+					//}
 					if(pe.owncards!=null)
 					{
 						UniteSkillInfo.cardUnlockTable.Clear();
@@ -621,7 +621,7 @@ public void onClickEnter(int param)
         if (Application.platform == RuntimePlatform.Android)
         {
             //SDK_CPYY_manager.msg="start login";
-            SDK_Google_Manager.sdk_call(SDK_Google_Manager.LoginId);
+          //  SDK_Google_Manager.sdk_call(SDK_Google_Manager.LoginId);
         }
         //播放音效//
         if (SDKManager.getInstance().isUseBreakSDK())
@@ -730,10 +730,10 @@ public void onClickEnter(int param)
 		}
 		else if(SDKManager.getInstance().isSDKGCUsing())
 		{
-			if(Application.platform==RuntimePlatform.Android)
-			{
-				SDK_StubManager.sdk_startLogin();
-			}
+			//if(Application.platform==RuntimePlatform.Android)
+			//{
+			//	SDK_StubManager.sdk_startLogin();
+			//}
 		}
 		else if(SDKManager.getInstance().isSDKCPYYUsing())
 		{
@@ -901,8 +901,8 @@ public void onClickEnter(int param)
 		{
 			if(Application.platform==RuntimePlatform.Android)
 			{
-				SDK_StubManager.sdk_setLogoutCallback();
-				SDK_StubManager.sdk_setAccountSwitchCallback();
+				//SDK_StubManager.sdk_setLogoutCallback();
+				//SDK_StubManager.sdk_setAccountSwitchCallback();
 			}
 		}
 		

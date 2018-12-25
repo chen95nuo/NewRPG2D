@@ -301,23 +301,23 @@ public class LoadingControl : MonoBehaviour ,ProcessResponse{
 			//processLabel.text=downPackage.text+(int)(sliderValue*100)+"%";
 		//}
 		//==游戏包下载完成,安装游戏包==//
-		if(canInstall)
-		{
-			canInstall=false;
-			if(Application.platform==RuntimePlatform.Android)
-			{
-				//processLabel.text=installPackage.text+"...";
-				if(SDKManager.getInstance().isSDKGCUsing())
-				{
-					//==调用android方法==//
-					SDK_StubManager.installApk(localPath+packageName);
-				}
-				else if(SDKManager.getInstance().isSDKCPYYUsing())
-				{
-					SDK_StubManager.installApk(localPath+packageName);
-				}
-			}
-		}
+		//if(canInstall)
+		//{
+		//	canInstall=false;
+		//	if(Application.platform==RuntimePlatform.Android)
+		//	{
+		//		//processLabel.text=installPackage.text+"...";
+		//		if(SDKManager.getInstance().isSDKGCUsing())
+		//		{
+		//			//==调用android方法==//
+		//			SDK_StubManager.installApk(localPath+packageName);
+		//		}
+		//		else if(SDKManager.getInstance().isSDKCPYYUsing())
+		//		{
+		//			SDK_StubManager.installApk(localPath+packageName);
+		//		}
+		//	}
+		//}
 		
 //		processBar.GetComponent<UISlider>().value=sliderValue;
 		
