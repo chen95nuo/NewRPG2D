@@ -328,7 +328,7 @@ public class HeadSettingManager : MonoBehaviour , ProcessResponse, BWWarnUI{
 		//==华为渠道打开改名界面时要隐藏浮标,关闭改名界面时再显示浮标==//
 		if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
 		{
-			SDK_GCStubManager.sdk_hideFloatingView();
+			SDK_StubManager.sdk_hideFloatingView();
 		}
 	}
 	
@@ -697,7 +697,7 @@ public class HeadSettingManager : MonoBehaviour , ProcessResponse, BWWarnUI{
 		//==华为渠道打开改名界面时要隐藏浮标,关闭改名界面时再显示浮标==//
 		if(SDKManager.getInstance().isSDKGCUsing() && TalkingDataManager.channelId.Equals("879"))
 		{
-			SDK_GCStubManager.sdk_showFloatingView();
+			SDK_StubManager.sdk_showFloatingView();
 		}
 	}
 	

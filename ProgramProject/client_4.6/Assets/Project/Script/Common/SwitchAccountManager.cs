@@ -63,8 +63,8 @@ public class SwitchAccountManager : MonoBehaviour,ProcessResponse{
 					{
 						if(Application.platform==RuntimePlatform.Android)
 						{
-							SDK_GCStubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
-							SDK_GCStubManager.sdk_showFloatingView();
+							SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
+							SDK_StubManager.sdk_showFloatingView();
 							
 							
 							
@@ -72,17 +72,17 @@ public class SwitchAccountManager : MonoBehaviour,ProcessResponse{
 							if(TalkingDataManager.channelId.Equals("71"))
 							{
 								ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
-								SDK_GCStubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
 							}
 							else
 							{
 								ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-								SDK_GCStubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
 							}
 							
 							
 							//ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-							//SDK_GCStubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+							//SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
 						}
 					}
 					

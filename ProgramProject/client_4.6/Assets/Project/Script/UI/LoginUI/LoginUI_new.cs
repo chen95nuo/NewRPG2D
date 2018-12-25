@@ -126,19 +126,19 @@ public class LoginUI_new : BWUIPanel,ProcessResponse {
 					{
 						if(Application.platform==RuntimePlatform.Android)
 						{
-							SDK_GCStubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
-							SDK_GCStubManager.sdk_showFloatingView();
+							SDK_StubManager.sdk_startGameServerLogin(PlayerPrefs.GetInt("lastServerId")+"");
+							SDK_StubManager.sdk_showFloatingView();
 							
 							//==UC自己的扩展数据==//
 							if(TalkingDataManager.channelId.Equals("71"))
 							{
 								ExtendDataForUC ed=new ExtendDataForUC(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"));
-								SDK_GCStubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
 							}
 							else
 							{
 								ExtendData ed=new ExtendData(pe.id+"",pe.name,pe.level+"",PlayerPrefs.GetInt("lastServerId"),PlayerPrefs.GetString("lastServerName"),pe.crystal+"","",pe.vipLevel+"");
-								SDK_GCStubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
+								SDK_StubManager.sdk_submitExtendData("loginGameRole",JsonMapper.ToJson(ed));
 							}
 						}
 					}
@@ -618,9 +618,13 @@ public void onClickEnter(int param)
         loginType = 0;
         showPanel(3);
         return;
-     
-		//播放音效//
-		if(SDKManager.getInstance().isUseBreakSDK())
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            //SDK_CPYY_manager.msg="start login";
+            SDK_Google_Manager.sdk_call(SDK_Google_Manager.LoginId);
+        }
+        //播放音效//
+        if (SDKManager.getInstance().isUseBreakSDK())
 		{
 			if(Application.platform  == RuntimePlatform.IPhonePlayer)
 			{
@@ -728,7 +732,7 @@ public void onClickEnter(int param)
 		{
 			if(Application.platform==RuntimePlatform.Android)
 			{
-				SDK_GCStubManager.sdk_startLogin();
+				SDK_StubManager.sdk_startLogin();
 			}
 		}
 		else if(SDKManager.getInstance().isSDKCPYYUsing())
@@ -897,8 +901,8 @@ public void onClickEnter(int param)
 		{
 			if(Application.platform==RuntimePlatform.Android)
 			{
-				SDK_GCStubManager.sdk_setLogoutCallback();
-				SDK_GCStubManager.sdk_setAccountSwitchCallback();
+				SDK_StubManager.sdk_setLogoutCallback();
+				SDK_StubManager.sdk_setAccountSwitchCallback();
 			}
 		}
 		

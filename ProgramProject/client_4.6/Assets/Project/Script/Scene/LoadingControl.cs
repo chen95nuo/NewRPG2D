@@ -310,11 +310,11 @@ public class LoadingControl : MonoBehaviour ,ProcessResponse{
 				if(SDKManager.getInstance().isSDKGCUsing())
 				{
 					//==调用android方法==//
-					SDK_GCStubManager.installApk(localPath+packageName);
+					SDK_StubManager.installApk(localPath+packageName);
 				}
 				else if(SDKManager.getInstance().isSDKCPYYUsing())
 				{
-					SDK_GCStubManager.installApk(localPath+packageName);
+					SDK_StubManager.installApk(localPath+packageName);
 				}
 			}
 		}

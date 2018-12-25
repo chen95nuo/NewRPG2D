@@ -24,7 +24,7 @@ public class ExitUI : BWUIPanel
 			{
 				if(Application.platform==RuntimePlatform.Android)
 				{
-					SDK_GCStubManager.sdk_openExitPopup();
+					SDK_StubManager.sdk_openExitPopup();
 				}
 			}
 			else
