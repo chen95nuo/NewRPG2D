@@ -4,7 +4,7 @@ using UnityEngine;
 public class SDK_StubManager : MonoBehaviour, ProcessResponse
 {
     public static SDK_StubManager g_inst = null;
-
+    Queue<GooglePayBackJson> orderList = new Queue<GooglePayBackJson>();
     private void Start()
     {
         if (g_inst != null)
@@ -61,16 +61,11 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
                     if (cache.ret)
                     {
                         //可使用
-                        GooglePayJson payjson = new GooglePayJson(cache.mOrderId, cache.mOriginalJson, cache.mSignature, cache.mPackageName, cache.mItemType);
-                        PlayerInfo.getInstance().sendRequest(payjson, this);
+                        SendOrder(cache);
                     }
                     else
                     {
-                        //不可使用
-                        //if (iabPurchaseCB != null)
-                        //{
-                        //    iabPurchaseCB(new object[3] { false, "", "" });
-                        //}
+                        Debug.LogError(" 支付失败 == " + cache.mOriginalJson);
 
                     }
                 }
@@ -119,8 +114,23 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
 #endif
     }
 
+    private void SendOrder(GooglePayBackJson cache)
+    {
+        orderList.Enqueue(cache);
+        GooglePayJson payjson = new GooglePayJson(cache.mOrderId, cache.mOriginalJson, cache.mSignature, cache.mPackageName, cache.mItemType);
+        PlayerInfo.getInstance().sendRequest(payjson, this);
+    }
+
     public void receiveResponse(string json)
     {
         Debug.Log("receiveResponse == " + json);
+        if (orderList.Count > 0)
+        {
+            GooglePayBackJson cache = orderList.Dequeue();
+            if (json != "SUCCESS")
+            {
+                SendOrder(cache);
+            }
+        }
     }
 }
