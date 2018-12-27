@@ -175,8 +175,10 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
                             if (Application.platform == RuntimePlatform.Android)
                             {
                                 // 金额单位：元， porj.order 订单号, porj.extra额外信息//
-                                int amount = StringUtil.getInt(porj.consumValue);
-                                SDK_Google_Manager.ins.sdk_call_pay(amount + "", porj.order + "", porj.extra);
+
+                               // int amount = StringUtil.getInt(porj.consumValue);
+
+                                SDK_Google_Manager.ins.sdk_call_pay(porj.consumValue, porj.order + "", porj.extra);
                             }
                         }
                     }
@@ -464,12 +466,14 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
         //}
         //else
         {
-            if (Application.platform == RuntimePlatform.Android)
+           // if (Application.platform == RuntimePlatform.Android)
             {
                 PayExtraJson pej = new PayExtraJson(PlayerPrefs.GetString("username"), PlayerInfo.getInstance().player.id, rd.id, "android", TextsData.getData(730).chinese);
                 string extraStr = JsonMapper.ToJson(pej);
                 requestType = 3;
-                PlayerInfo.getInstance().sendRequest(new PayOrderJson(rd.cost + "", extraStr), this);
+                int index = rd.id-1 <= 0 ? 7: rd.id - 1;
+
+                PlayerInfo.getInstance().sendRequest(new PayOrderJson("com.xyjsec.buy_" + index, extraStr), this);
             }
         }
     }

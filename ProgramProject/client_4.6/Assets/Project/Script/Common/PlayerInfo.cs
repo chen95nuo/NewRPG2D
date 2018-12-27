@@ -410,7 +410,12 @@ public class PlayerInfo
 			ActiveJson aj = (ActiveJson)bj;
 			result = RequestSender.getInstance().request(63,JsonMapper.ToJson(aj),true,pr);
 		}
-		return result;
+        else if (bj is GooglePayJson)      //google 支付//
+        {
+            GooglePayJson aj = (GooglePayJson)bj;
+            result = RequestSender.getInstance().requestGooglePay(JsonMapper.ToJson(aj), pr);
+        }
+        return result;
 	}
 
     //请求非背包时使用//

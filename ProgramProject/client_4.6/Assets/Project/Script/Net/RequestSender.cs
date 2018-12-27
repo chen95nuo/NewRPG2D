@@ -132,8 +132,34 @@ public class RequestSender {
 		requestAsyncSpecial();
 		return true;
 	}
-	
-	public bool request(string url,string param,bool needEncriptAndCompress,ProcessResponse pr)
+
+    public bool requestGooglePay(string param, ProcessResponse prSpecial)
+    {
+        while (!lastRequestOver)
+        {
+            Thread.Sleep(100);
+        }
+        if (client.IsBusy)
+        {
+            Debug.Log("正在请求,请等待:,pr:" + pr + ",param:" + param);
+            return false;
+        }
+
+        //重置//
+        requestTimes = 0;
+        this.needEncriptAndCompress = false;
+        this.pr = prSpecial;
+        //设置请求时间//
+        startTime = GameObjectUtil.getCurTime();
+        //设置请求明细//
+        this.url = "http://118.25.209.26:8080/card_server_pay/pay.htm?action=googelinpay";
+        //Debug.Log("url:"+url);
+        this.param = param;
+        requestAsync();
+        return true;
+    }
+
+    public bool request(string url,string param,bool needEncriptAndCompress,ProcessResponse pr)
 	{
 		while(!lastRequestOver)
 		{

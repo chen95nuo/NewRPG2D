@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SDK_Google_Manager {
-	public const int LoginId=1;
+public class SDK_Google_Manager
+{
+    public const int LoginId = 1;
     private const string pay_notify_url = "http://118.25.209.26:8080/card_server_pay/pay.htm?action=googelinpay";
 
     private AndroidJavaObject mIABHelperObj = null;
     private static SDK_Google_Manager g_inst;
     public static SDK_Google_Manager ins
     {
-     get
+        get
         {
             if (g_inst == null)
             {
@@ -21,14 +22,17 @@ public class SDK_Google_Manager {
     }
 
     // Update is called once per frame
-    void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 
     public void init(string base64EncodedPublicKey)
     {
+#if ((UNITY_ANDROID && !UNITY_EDITOR))
         dispose();
         mIABHelperObj = new AndroidJavaObject("com.xyjsec.google.googlepay.overrideActivity", new object[2] { base64EncodedPublicKey, "StubSDK" });
+#endif
     }
 
     public void dispose()
@@ -56,5 +60,7 @@ public class SDK_Google_Manager {
             mIABHelperObj.Call("consume", new object[3] { "inapp", strPurchaseJsonInfo, strSignature });
         }
     }
-	
+
+
+
 }

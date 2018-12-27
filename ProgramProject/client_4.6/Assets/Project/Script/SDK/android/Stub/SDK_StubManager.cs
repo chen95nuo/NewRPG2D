@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class SDK_StubManager : MonoBehaviour
+public class SDK_StubManager : MonoBehaviour, ProcessResponse
 {
     public static SDK_StubManager g_inst = null;
 
@@ -20,7 +18,16 @@ public class SDK_StubManager : MonoBehaviour
         SDK_Google_Manager.ins.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1n1N8ZFe+B7PhdobZNVHc2Ve9AhuvftbD74YODh6V0xeZFGkNE42gZXbsel7rKQaOoF8BXJj4CPZ2HZKxuD4lZJ4q8pe170TNabJThC3yaUCWqmg0JJkRpM8uPVhrg/+4LW10MbJE33KbT9tVnDBLdhQJ2/1gsVFZDFZrKdNu/5OMZelBoVIG42NZmjEeLzIn5eqIOyMA7iDj+YYpB58MwCbCnEAJYPE7l65XLut1Uk7+todaSJVhTvLMxFeYlNV57a90Bj+AAcS0kzFa7ko1ErmuARvEXvWT/Mi1mDRu0qzQVCAUwQhvIDmTbkbDCv1UlDvRGLX7Ja8ZsyczUuWwIDAQAB");
     }
 
-    public static void MsyRevicer(string json)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            //GooglePayJson payjson = new GooglePayJson("1", "1", "1", "1", "1");
+            //PlayerInfo.getInstance().sendRequest(payjson, this);
+        }
+    }
+
+    public void MsyRevicer(string json)
     {
         GooglePayBackJson cache = JsonMapper.ToObject<GooglePayBackJson>(json);
         switch (cache.code)
@@ -54,11 +61,8 @@ public class SDK_StubManager : MonoBehaviour
                     if (cache.ret)
                     {
                         //可使用
-                        //if (iabPurchaseCB != null)
-                        //{
-                        //    iabPurchaseCB(new object[3] { true, (string)cache["desc"], (string)cache["sign"] });
-                        //}
-
+                        GooglePayJson payjson = new GooglePayJson(cache.mOrderId, cache.mOriginalJson, cache.mSignature, cache.mPackageName, cache.mItemType);
+                        PlayerInfo.getInstance().sendRequest(payjson, this);
                     }
                     else
                     {
@@ -97,11 +101,8 @@ public class SDK_StubManager : MonoBehaviour
         }
     }
 
-
-
-
-        public void payCallback(bool succeed)
-        {
+    public void payCallback(bool succeed)
+    {
 
 #if ((UNITY_ANDROID && !UNITY_EDITOR))
 			
@@ -116,5 +117,10 @@ public class SDK_StubManager : MonoBehaviour
 			ToastWindow.mInstance.showText(TextsData.getData(400).chinese);
 		}
 #endif
+    }
+
+    public void receiveResponse(string json)
+    {
+        Debug.Log("receiveResponse == " + json);
     }
 }
