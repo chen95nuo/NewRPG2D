@@ -15,7 +15,7 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
         g_inst = this;
         DontDestroyOnLoad(gameObject);
 
-        SDK_Google_Manager.ins.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1n1N8ZFe+B7PhdobZNVHc2Ve9AhuvftbD74YODh6V0xeZFGkNE42gZXbsel7rKQaOoF8BXJj4CPZ2HZKxuD4lZJ4q8pe170TNabJThC3yaUCWqmg0JJkRpM8uPVhrg/+4LW10MbJE33KbT9tVnDBLdhQJ2/1gsVFZDFZrKdNu/5OMZelBoVIG42NZmjEeLzIn5eqIOyMA7iDj+YYpB58MwCbCnEAJYPE7l65XLut1Uk7+todaSJVhTvLMxFeYlNV57a90Bj+AAcS0kzFa7ko1ErmuARvEXvWT/Mi1mDRu0qzQVCAUwQhvIDmTbkbDCv1UlDvRGLX7Ja8ZsyczUuWwIDAQAB");
+        SDK_Google_Manager.ins.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgFfZHmpnWJY3N3HFcNKDxjnkWHOoMFbxEni+W5pDgMiDECXgo59zXAD0bwc1R/uodqhPJkKMBe9rGTfKbfxiy8xx0XxB1IRC2pb6sC/bMwOJw7Q+i/e8nje1FabOF0pKEm6cOcyL8ertPAT5kxmGj22GxS77PbI7T+0+QWWdv5a6SZUd4rNVDpGGau00XvU6n2HuJSCVHhZTirqzAikUfVi9v0WTIzq1zcjgs8HD8C1ipKZQzrDnss2djHlHJ2yzDZf4mzHgJy1lC4gfGjCOKEde1ROwyhJYxzi+c89sProkRgebYNBTOnbXO77Z+E4m/tFgLAhCwc7zWgehUW5cWwIDAQAB");
     }
 
     private void Update()
