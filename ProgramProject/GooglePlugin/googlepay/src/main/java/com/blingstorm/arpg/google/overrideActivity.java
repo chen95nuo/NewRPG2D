@@ -1,4 +1,4 @@
-package com.xyjsec.google.googlepay;
+package com.blingstorm.arpg.google;
  
 import com.unity3d.player.UnityPlayerActivity;
  

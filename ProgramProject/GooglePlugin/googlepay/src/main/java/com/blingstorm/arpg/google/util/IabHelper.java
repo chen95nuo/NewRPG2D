@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.xyjsec.google.googlepay.util;
+package com.blingstorm.arpg.google.util;
 
 import android.app.Activity;
 import android.app.PendingIntent;

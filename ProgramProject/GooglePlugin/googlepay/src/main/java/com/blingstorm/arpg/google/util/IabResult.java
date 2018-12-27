@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.xyjsec.google.googlepay.util;
+package com.blingstorm.arpg.google.util;
 
 /**
  * Represents the result of an in-app billing operation.

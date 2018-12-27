@@ -1,4 +1,4 @@
-package com.xyjsec.google.googlepay;
+package com.blingstorm.arpg.google;
 
 import com.unity3d.player.UnityPlayer;
 
@@ -10,8 +10,8 @@ import android.content.Intent;
 
 import java.util.*;
 
-import com.xyjsec.google.googlepay.util.*;
-import com.xyjsec.google.googlepay.*;
+import com.blingstorm.arpg.google.util.*;
+import com.blingstorm.arpg.google.*;
 
 public class iabWrapper {
     private Activity mActivity;
