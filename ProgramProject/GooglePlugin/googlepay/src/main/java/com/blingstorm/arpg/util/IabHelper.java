@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.blingstorm.arpg.google.util;
+package com.blingstorm.arpg.util;
 
 import android.app.Activity;
 import android.app.PendingIntent;

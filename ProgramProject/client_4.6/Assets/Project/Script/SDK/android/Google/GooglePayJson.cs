@@ -18,13 +18,3 @@ public class GooglePayJson : BasicJson
     }
 }
 
-public class GooglePayBackJson
-{
-    public int code;
-    public bool ret;
-    public string mOrderId;
-    public string mOriginalJson;
-    public string mSignature;
-    public string mPackageName;
-    public string mItemType;
-}

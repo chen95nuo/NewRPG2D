@@ -1,4 +1,4 @@
-package com.blingstorm.arpg.google;
+package com.blingstorm.arpg;
  
 import com.unity3d.player.UnityPlayerActivity;
  

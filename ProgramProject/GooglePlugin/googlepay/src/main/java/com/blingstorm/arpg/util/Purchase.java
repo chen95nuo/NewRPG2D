@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.blingstorm.arpg.google.util;
+package com.blingstorm.arpg.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -35,8 +35,8 @@ public class TalkingDataManager : MonoBehaviour {
     bool preIsRunBackgroud;
 	public static string channelId = "";
 	string appId;
-	
-	public static bool isTDPC = false;
+    public static TalkingDataManager ins = null;
+    public static bool isTDPC = false;
 	
 	void Awake()
 	{
@@ -45,7 +45,9 @@ public class TalkingDataManager : MonoBehaviour {
 			Destroy(gameObject);
 			return;
 		}
-		init();
+        ins = this;
+
+        init();
 		channelId = ChannelTyp_GC;
 		
 		_myTransform = transform;
@@ -77,9 +79,16 @@ public class TalkingDataManager : MonoBehaviour {
 		appId = "E325350367EE4DDFD312D700208C8748";
 		preIsRunBackgroud = Application.runInBackground;
 	}
-	
-	//==蜂巢SDK回传的channelId==//
-	public void initTalkingData(string channelIdFromAndroid)
+
+    //==蜂巢SDK回传的channelId==//
+    public void initTalkingData()
+    {
+        initTalkingData(ChannelTyp_Normal);
+    }
+
+
+    //==蜂巢SDK回传的channelId==//
+    public void initTalkingData(string channelIdFromAndroid)
 	{
 		init();
 		channelId=channelIdFromAndroid;

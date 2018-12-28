@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.blingstorm.arpg.google.util;
+package com.blingstorm.arpg.util;
 
 /**
  * Represents the result of an in-app billing operation.

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.blingstorm.arpg.google.util;
+package com.blingstorm.arpg.util;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

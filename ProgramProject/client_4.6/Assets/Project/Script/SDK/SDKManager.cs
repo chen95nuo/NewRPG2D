@@ -29,7 +29,7 @@ public class SDKManager
 		useSDK91 = false;
 		useSDKPP = false;
 		useSDKTB = false;
-		useSDKGC = true;
+		useSDKGC = false;
 		useSDKCPYY=false;
 		useCoolpad=false;
 		useSDKBDDK=false;

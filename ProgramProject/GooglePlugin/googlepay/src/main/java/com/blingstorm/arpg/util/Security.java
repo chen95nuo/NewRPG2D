@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.blingstorm.arpg.google.util;
+package com.blingstorm.arpg.util;
 
 import android.text.TextUtils;
 import android.util.Log;
