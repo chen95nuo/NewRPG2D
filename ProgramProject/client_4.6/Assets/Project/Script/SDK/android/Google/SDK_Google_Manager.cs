@@ -31,7 +31,7 @@ public class SDK_Google_Manager
     {
 #if ((UNITY_ANDROID && !UNITY_EDITOR))
         dispose();
-        mIABHelperObj = new AndroidJavaObject("com.xyjsec.google.googlepay.overrideActivity", new object[2] { base64EncodedPublicKey, "StubSDK" });
+        mIABHelperObj = new AndroidJavaObject("com.blingstorm.arpg.google.overrideActivity", new object[2] { base64EncodedPublicKey, "StubSDK" });
 #endif
     }
 
