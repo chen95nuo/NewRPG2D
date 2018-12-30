@@ -15,7 +15,7 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
         g_inst = this;
         DontDestroyOnLoad(gameObject);
         SDK_Google_Manager.ins.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgFfZHmpnWJY3N3HFcNKDxjnkWHOoMFbxEni+W5pDgMiDECXgo59zXAD0bwc1R/uodqhPJkKMBe9rGTfKbfxiy8xx0XxB1IRC2pb6sC/bMwOJw7Q+i/e8nje1FabOF0pKEm6cOcyL8ertPAT5kxmGj22GxS77PbI7T+0+QWWdv5a6SZUd4rNVDpGGau00XvU6n2HuJSCVHhZTirqzAikUfVi9v0WTIzq1zcjgs8HD8C1ipKZQzrDnss2djHlHJ2yzDZf4mzHgJy1lC4gfGjCOKEde1ROwyhJYxzi+c89sProkRgebYNBTOnbXO77Z+E4m/tFgLAhCwc7zWgehUW5cWwIDAQAB");
-        TalkingDataManager.ins.initTalkingData();
+       // TalkingDataManager.ins.initTalkingData();
     }
 
     private void Update()

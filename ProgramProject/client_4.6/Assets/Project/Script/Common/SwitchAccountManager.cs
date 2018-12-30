@@ -107,7 +107,7 @@ public class SwitchAccountManager : MonoBehaviour,ProcessResponse{
 					{
 						//发送唯一id,等级,登入区服,账号类型,//
 						string username = PlayerPrefs.GetInt("username").ToString();
-						//if(!TalkingDataManager.isTDPC)
+						if(!TalkingDataManager.isTDPC)
 						{
 							TDGAAccount account = TDGAAccount.SetAccount(username);
 							account.SetLevel(pe.level);

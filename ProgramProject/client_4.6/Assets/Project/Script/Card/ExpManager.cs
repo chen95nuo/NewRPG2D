@@ -428,8 +428,8 @@ public class ExpManager : MonoBehaviour {
 						ResultTipManager.mInstance.ChangePlayerLevel(lastLevel);
 						if(!TalkingDataManager.isTDPC)
 						{
-                        	TDGAAccount account = TDGAAccount.SetAccount(PlayerPrefs.GetString("username"));
-                        	account.SetLevel(lastLevel);
+                        	//TDGAAccount account = TDGAAccount.SetAccount(PlayerPrefs.GetString("username"));
+                        	//account.SetLevel(lastLevel);
 						}
 					}
 					

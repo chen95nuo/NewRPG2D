@@ -24,6 +24,7 @@ public class TDGAVirtualCurrency {
 	
 	public static void OnChargeRequest(string orderId, string iapId,
             double currencyAmount, string currencyType, double virtualCurrencyAmount, string paymentType) {
+        return;
 		//if the platform is real device
 		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
@@ -36,8 +37,9 @@ public class TDGAVirtualCurrency {
 	}
 	
 	public static void OnChargeSuccess(string orderId) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnChargSuccess(orderId);
 #elif UNITY_ANDROID
@@ -47,8 +49,9 @@ public class TDGAVirtualCurrency {
 	}
 	
 	public static void OnReward(double virtualCurrencyAmount, string reason) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnReward(virtualCurrencyAmount, reason);
 #elif UNITY_ANDROID

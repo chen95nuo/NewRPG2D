@@ -68,7 +68,8 @@ public class TDGAAccount {
 #endif
 	
 	public static TDGAAccount SetAccount(string accountId) {
-		TDGAAccount account = new TDGAAccount();
+        return null;
+        TDGAAccount account = new TDGAAccount();
 		//if the platform is real device
 		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
@@ -87,8 +88,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetGameServer(string gameServer) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetGameServer(gameServer);
 #elif UNITY_ANDROID
@@ -100,8 +102,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetAccountName(string accountName) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetAccountName(accountName);
 #elif UNITY_ANDROID
@@ -113,8 +116,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetLevel(int level) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetLevel(level);
 #elif UNITY_ANDROID
@@ -126,8 +130,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetAge(int age) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetAge(age);
 #elif UNITY_ANDROID
@@ -139,8 +144,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetAccountType(AccountType type) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetAccountType((int)type);
 #elif UNITY_ANDROID
@@ -154,8 +160,9 @@ public class TDGAAccount {
 	}
 	
 	public void SetGender(Gender type) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetGender((int)type);
 #elif UNITY_ANDROID

@@ -257,7 +257,7 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
             }
         }
         //得到type=1的项,并且倒序加到list里面去//
-        for (int i = RechargeData.dataList.Count - 1; i >= 0; i--)
+        for (int i =0; i < RechargeData.dataList.Count; i++)
         {
             RechargeData trData = RechargeData.dataList[i];
             if (trData.type == 1)
@@ -308,7 +308,7 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
 
             pItem.transform.FindChild("itemIcon").GetComponent<UISprite>().spriteName = tReData.icon;
             pItem.transform.FindChild("CZName").GetComponent<UILabel>().text = tReData.name;
-            pItem.transform.FindChild("CZValue").GetComponent<UILabel>().text = tReData.cost.ToString() + "RMB";
+            pItem.transform.FindChild("CZValue").GetComponent<UILabel>().text = "$" + tReData.RealCost.ToString();
 
             pItem.transform.FindChild("CZButton").GetComponent<UIButtonMessage>().target = gameObject;
             pItem.transform.FindChild("CZButton").GetComponent<UIButtonMessage>().param = tReData.id;

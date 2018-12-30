@@ -19,8 +19,9 @@ public class TDGAItem {
 #endif
 	
 	public static void OnPurchase(string item, int itemNumber, double priceInVirtualCurrency) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnPurchase(item, itemNumber, priceInVirtualCurrency);
 #elif UNITY_ANDROID
@@ -30,8 +31,9 @@ public class TDGAItem {
 	}
 	
 	public static void OnUse(string item, int itemNumber) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnUse(item, itemNumber);
 #elif UNITY_ANDROID

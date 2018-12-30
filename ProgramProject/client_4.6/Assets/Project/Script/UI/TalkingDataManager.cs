@@ -74,7 +74,7 @@ public class TalkingDataManager : MonoBehaviour {
 		}
 		else
 		{
-			isTDPC=false;
+			isTDPC=true;
 		}
 		appId = "E325350367EE4DDFD312D700208C8748";
 		preIsRunBackgroud = Application.runInBackground;

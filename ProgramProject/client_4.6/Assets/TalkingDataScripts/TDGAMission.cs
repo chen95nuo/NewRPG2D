@@ -22,8 +22,9 @@ public class TDGAMission {
 #endif
 	
 	public static void OnBegin(string missionId) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnBegin(missionId);
 #elif UNITY_ANDROID
@@ -33,8 +34,9 @@ public class TDGAMission {
 	}
 	
 	public static void OnCompleted(string missionId) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnCompleted(missionId);
 #elif UNITY_ANDROID
@@ -44,8 +46,9 @@ public class TDGAMission {
 	}
 	
 	public static void OnFailed(string missionId, string failedCause) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaOnFailed(missionId, failedCause);
 #elif UNITY_ANDROID

@@ -35,17 +35,20 @@ public class TalkingDataGA {
 	
 #if UNITY_ANDROID
 	public static void AttachCurrentThread() {
-		AndroidJNI.AttachCurrentThread();
+        return;
+        AndroidJNI.AttachCurrentThread();
 	}
 	
 	public static void DetachCurrentThread() {
-		AndroidJNI.DetachCurrentThread();
+        return;
+        AndroidJNI.DetachCurrentThread();
 	}
 #endif
 	
 	public static string GetDeviceId() {
-		//if the platform is real device
-		string ret = null;
+        return "";
+        //if the platform is real device
+        string ret = null;
 		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			ret = _tdgaGetDeviceId();
@@ -60,8 +63,9 @@ public class TalkingDataGA {
 	}
 
 	public static void OnStart(string appID, string channelId) {
-		//if the platform is real device
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        //if the platform is real device
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetSdkType(2);
 			_tdgaOnStart(appID, channelId);
@@ -79,7 +83,8 @@ public class TalkingDataGA {
 	}
 	
 	public static void OnEnd() {
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
+        return;
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
 #if UNITY_ANDROID
 			if (agent != null) {
 				AndroidJavaObject activity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
@@ -92,7 +97,8 @@ public class TalkingDataGA {
 	}
 	
 	public static void OnKill() {
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
+        return;
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
 #if UNITY_ANDROID
 			if (agent != null) {
 				AndroidJavaObject activity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
@@ -105,7 +111,8 @@ public class TalkingDataGA {
 	}
 	
 	public static void OnEvent(string actionId, Dictionary<string, object> parameters) {
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
+        return;
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
 			if (parameters != null && parameters.Count > 0 && parameters.Count <= 10) {
 #if UNITY_IPHONE
 				int count = parameters.Count;
@@ -158,7 +165,8 @@ public class TalkingDataGA {
     }
 	
 	public static void SetVerboseLogDisabled() {
-		if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
+        return;
+        if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor){
 #if UNITY_IPHONE
 			_tdgaSetVerboseLogDisabled();
 #elif UNITY_ANDROID
