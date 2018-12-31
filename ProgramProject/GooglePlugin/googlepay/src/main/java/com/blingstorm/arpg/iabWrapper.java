@@ -90,10 +90,11 @@ public class iabWrapper {
                 ret = true;
                 result_json = purchase.getOriginalJson().replace('\"', '\'');
                 result_sign = purchase.getSignature();
-                mOrderId = purchase.getOrderId();
+                mOrderId = purchase.getDeveloperPayload();
                 mPackageName = purchase.getPackageName();
                 mItemType = purchase.getSku();
             }
+            consume(purchase.getItemType(), purchase.getOriginalJson(),purchase.getSignature());
             UnityPlayer.UnitySendMessage(mEventHandler, "MsgReceiver", "{\"code\":2,\"ret\":" + ret + ",\"mOrderId\":\"" + mOrderId + "\",\"mOriginalJson\":\"" + result_json + "\",\"mSignature\":\"" + result_sign + "\",\"mPackageName\":\"" + mPackageName + "\",\"mItemType\":\"" + mItemType + "\"}");
         }
     };
@@ -127,7 +128,7 @@ public class iabWrapper {
                 Log.d("iabWrapper", "Consumption successful. Provisioning");
                 String result_json = purchase.getOriginalJson().replace('\"', '\'');
                 String result_sign = purchase.getSignature();
-                String mOrderId = purchase.getOrderId();
+                String mOrderId = purchase.getDeveloperPayload();
                 String mPackageName = purchase.getPackageName();
                 String mItemType = purchase.getSku();
                 UnityPlayer.UnitySendMessage(mEventHandler, "MsgReceiver", "{\"code\":3,\"ret\":true,\"mOrderId\":\"" + mOrderId + "\",\"mOriginalJson\":\"" + result_json + "\",\"mSignature\":\"" + result_sign + "\",\"mPackageName\":\"" + mPackageName  + "\",\"mItemType\":\"" + mItemType+ "\"}");

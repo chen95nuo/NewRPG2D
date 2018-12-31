@@ -49,7 +49,7 @@ public class SDK_Google_Manager
     {
         if (mIABHelperObj != null)
         {
-            mIABHelperObj.Call("purchase", new object[3] { strSKU, reqCode, "google" });
+            mIABHelperObj.Call("purchase", new object[3] { strSKU, reqCode, payload });
         }
     }
 

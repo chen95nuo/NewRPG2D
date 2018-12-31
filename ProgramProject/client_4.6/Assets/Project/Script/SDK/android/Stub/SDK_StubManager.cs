@@ -62,7 +62,8 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
                     if (cache.ret)
                     {
                         //可使用
-                        SendOrder(cache);
+                        // SendOrder(cache);
+                        Debug.LogError(" 支付成功 == " + cache.mOriginalJson);
                     }
                     else
                     {
@@ -78,19 +79,14 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
                     if (cache.ret)
                     {
                         //可使用
-                        //if (iabConsumeCB != null)
-                        //{
-                        //    iabConsumeCB(new object[3] { true, (string)cache["desc"], (string)cache["sign"] });
-                        //}
+                        Debug.LogError(" 消耗成功 == " + cache.mOriginalJson);
+                        SendOrder(cache);
 
                     }
                     else
                     {
                         //不可使用
-                        //if (iabConsumeCB != null)
-                        //{
-                        //    iabConsumeCB(new object[3] { false, "", "" });
-                        //}
+                        Debug.LogError(" 消耗失败 == " + cache.mOriginalJson);
                     }
                 }
                 break;

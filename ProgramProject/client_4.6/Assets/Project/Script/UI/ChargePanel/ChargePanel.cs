@@ -178,7 +178,7 @@ public class ChargePanel : MonoBehaviour, ProcessResponse
 
                                // int amount = StringUtil.getInt(porj.consumValue);
 
-                                SDK_Google_Manager.ins.sdk_call_pay(porj.consumValue, porj.order + "", porj.extra);
+                                SDK_Google_Manager.ins.sdk_call_pay(porj.consumValue, porj.order + "", porj.order+"");
                             }
                         }
                     }
