@@ -92,7 +92,7 @@ public class iabWrapper {
                 result_sign = purchase.getSignature();
                 mOrderId = purchase.getOrderId();
                 mPackageName = purchase.getPackageName();
-                mItemType = purchase.getItemType();
+                mItemType = purchase.getSku();
             }
             UnityPlayer.UnitySendMessage(mEventHandler, "MsgReceiver", "{\"code\":2,\"ret\":" + ret + ",\"mOrderId\":\"" + mOrderId + "\",\"mOriginalJson\":\"" + result_json + "\",\"mSignature\":\"" + result_sign + "\",\"mPackageName\":\"" + mPackageName + "\",\"mItemType\":\"" + mItemType + "\"}");
         }
@@ -129,7 +129,7 @@ public class iabWrapper {
                 String result_sign = purchase.getSignature();
                 String mOrderId = purchase.getOrderId();
                 String mPackageName = purchase.getPackageName();
-                String mItemType = purchase.getItemType();
+                String mItemType = purchase.getSku();
                 UnityPlayer.UnitySendMessage(mEventHandler, "MsgReceiver", "{\"code\":3,\"ret\":true,\"mOrderId\":\"" + mOrderId + "\",\"mOriginalJson\":\"" + result_json + "\",\"mSignature\":\"" + result_sign + "\",\"mPackageName\":\"" + mPackageName  + "\",\"mItemType\":\"" + mItemType+ "\"}");
             } else {
                 UnityPlayer.UnitySendMessage(mEventHandler, "MsgReceiver",  "{\"code\":3,\"ret\":false,\"mOrderId\":\"0\",\"mOriginalJson\":\"0\",\"mSignature\":\"0\",\"mPackageName\":\"0\",\"mItemType\":\"0\"}");
