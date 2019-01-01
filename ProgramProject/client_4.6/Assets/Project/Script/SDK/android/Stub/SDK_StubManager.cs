@@ -120,6 +120,7 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
 
     public void receiveResponse(string json)
     {
+        PlayerInfo.getInstance().isShowConnectObj = false;
         Debug.Log("receiveResponse == " + json);
         if (orderList.Count > 0)
         {
