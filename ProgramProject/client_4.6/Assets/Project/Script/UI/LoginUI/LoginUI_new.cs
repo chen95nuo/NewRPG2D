@@ -507,7 +507,7 @@ public class LoginUI_new : BWUIPanel,ProcessResponse {
 				string ip=StringUtil.getString(ss[2]);
 				string port=StringUtil.getString(ss[3]);
                 // TTTERRRY
-				RequestSender.serverIp = "118.25.209.26";
+				RequestSender.serverIp = "150.109.72.39";
 				RequestSender.serverPort=port;
 				Debug.Log("ip:"+RequestSender.serverIp);
 				Debug.Log("port:"+RequestSender.serverPort);
