@@ -1245,7 +1245,8 @@ public class ActivityPanel : MonoBehaviour, ProcessResponse
                             agrj.age = new List<ActivityGElement>();
                             for (int i = 0; i < actgrj.age.Count; i++)
                             {
-                                if (actgrj.age[i].aid == 24) { continue; }
+                                //Debug.Log(actgrj.age[i].aid + "  name=  " + actgrj.age[i].name);
+                                if (actgrj.age[i].aid == 24 || actgrj.age[i].aid == 17) { continue; }
                                 agrj.age.Add(actgrj.age[i]);
                             }
                            
@@ -1630,7 +1631,7 @@ public class ActivityPanel : MonoBehaviour, ProcessResponse
                 nRightClip.GetComponent<SpringPanel>().enabled = false;
             }
             UILabel nLabel = noticeItem.transform.FindChild("RightClipPanel/Label").GetComponent<UILabel>();
-            nLabel.text = gmaij.content;
+            nLabel.text = gmaij.content.Replace("IOS", "");
             SetLabelColliderHeight(nRightClip, nLabel);
         }
     }
@@ -1645,7 +1646,7 @@ public class ActivityPanel : MonoBehaviour, ProcessResponse
         GameObject equipRechargeItem = Instantiate(equipReItemPrefab) as GameObject;
         GameObjectUtil.gameObjectAttachToParent(equipRechargeItem, pageContentPos);
 
-        equipRechargeItem.transform.FindChild("NoticeClipPanel/Label").GetComponent<UILabel>().text = gmaij.content;
+        equipRechargeItem.transform.FindChild("NoticeClipPanel/Label").GetComponent<UILabel>().text = gmaij.content.Replace("IOS","");
         rechargeClipPanel = equipRechargeItem.transform.FindChild("ERechargePanel").gameObject;
         GameObject echargeUIGrid = equipRechargeItem.transform.FindChild("ERechargePanel/UIGrid").gameObject;
         //设置滚动条的位置到上一次的位置//
@@ -2473,7 +2474,7 @@ public class ActivityPanel : MonoBehaviour, ProcessResponse
                 nRightClip.GetComponent<SpringPanel>().enabled = false;
             }
             UILabel nLabel = noticeItem.transform.FindChild("RightClipPanel/Label").GetComponent<UILabel>();
-            nLabel.text = naij.content;
+            nLabel.text = naij.content.Replace("IOS", "");
             SetLabelColliderHeight(nRightClip, nLabel);
         }
     }

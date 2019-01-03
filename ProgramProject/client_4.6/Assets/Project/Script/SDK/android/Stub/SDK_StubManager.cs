@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SDK_StubManager : MonoBehaviour, ProcessResponse
@@ -128,8 +129,7 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
             if (json.Contains("SUCCESS"))
             {
                 ToastWindow.mInstance.showText(TextsData.getData(399).chinese);
-                ChargePanel charge = UISceneStateControl.mInstace.GetComponentByType(UISceneStateControl.UI_STATE_TYPE.UI_STATE_CZ, "ChargePanel") as ChargePanel;
-                charge.UpdateChargePanelRequest();
+                StartCoroutine(DelayRefrensh());
             }
             else
             {
@@ -137,5 +137,12 @@ public class SDK_StubManager : MonoBehaviour, ProcessResponse
                 // ToastWindow.mInstance.showText(TextsData.getData(400).chinese);
             }
         }
+    }
+
+    private IEnumerator DelayRefrensh()
+    {
+        yield return new WaitForSeconds(0.15f);
+        ChargePanel charge = UISceneStateControl.mInstace.GetComponentByType(UISceneStateControl.UI_STATE_TYPE.UI_STATE_CZ, "ChargePanel") as ChargePanel;
+        if (charge != null) charge.UpdateChargePanelRequest();
     }
 }
