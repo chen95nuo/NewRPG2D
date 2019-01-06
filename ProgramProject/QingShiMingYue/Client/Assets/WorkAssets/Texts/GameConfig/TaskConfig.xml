@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TaskConfig>
+  <Task Id="44000001" Priority="4" TaskType="DailySignAssistant" GotoUI="UIDlgDailyReward" IsOpen="True" />
+  <Task Id="44000002" Priority="5" TaskType="AccumulatePurchaseAssistant" GotoUI="UnKonw" IsOpen="True" />
+  <Task Id="44000003" Priority="6" TaskType="TavernAssistant" GotoUI="UIPnlShopWine" IsOpen="True" />
+  <Task Id="44000004" Priority="7" TaskType="LevelRewardAssistant" GotoUI="UIPnlLevelRewardTab" IsOpen="True" />
+  <Task Id="44000005" Priority="12" TaskType="DungeonStarRewardAssistant" GotoUI="UI_Dungeon" IsOpen="True" />
+  <Task Id="44000006" Priority="13" TaskType="FixTimeRewardAssistant" GotoUI="UIPnlActivityInnTab" IsOpen="True" />
+  <Task Id="44000007" Priority="19" TaskType="RemedySignAssistant" GotoUI="UIDlgDailyReward" IsOpen="True" />
+  <Task Id="44000008" Priority="20" TaskType="GachaAssistant" GotoUI="UIPnlPackageItemTab" IsOpen="True">
+    <Data Type="GachaId" Value="07030001" />
+  </Task>
+  <Task Id="44000009" Priority="21" TaskType="GachaAssistant" GotoUI="UIPnlPackageItemTab" IsOpen="False">
+    <Data Type="GachaId" Value="00000000" />
+  </Task>
+  <Task Id="44000010" Priority="21" TaskType="AvatarIllustrationAssistant" GotoUI="UIPnlHandBook" IsOpen="True" />
+  <Task Id="44000011" Priority="22" TaskType="EquipIllustrationAssistant" GotoUI="UIPnlHandBook" IsOpen="True" />
+  <Task Id="44000012" Priority="23" TaskType="SkillIllustrationAssistant" GotoUI="UIPnlHandBook" IsOpen="True" />
+  <Task Id="44000013" Priority="26" TaskType="ArenaAssistant" GotoUI="UIPnlArena" IsOpen="True" />
+  <Task Id="44000014" Priority="36" TaskType="SecretDungeonAssistant" GotoUI="UI_ActivityDungeon" IsOpen="True">
+    <Data Type="ZoneId" Value="09005400" />
+    <Data Type="EasyDungeonId" Value="09005401" />
+    <Data Type="CommonDungeonId" Value="00000000" />
+  </Task>
+  <Task Id="44000015" Priority="38" TaskType="SecretDungeonAssistant" GotoUI="UI_ActivityDungeon" IsOpen="True">
+    <Data Type="ZoneId" Value="09005300" />
+    <Data Type="EasyDungeonId" Value="09005301" />
+    <Data Type="CommonDungeonId" Value="09005311" />
+  </Task>
+  <Task Id="44000016" Priority="1" TaskType="DungeonCanCombatAssistant" GotoUI="UI_Dungeon" IsOpen="True">
+    <Data Type="Diffity" Value="Common" />
+  </Task>
+  <Task Id="44000017" Priority="2" TaskType="DungeonCanCombatAssistant" GotoUI="UI_Dungeon" IsOpen="True">
+    <Data Type="Diffity" Value="Hard" />
+  </Task>
+  <Task Id="44000018" Priority="35" TaskType="MysteryShopAssistant" GotoUI="UnKonw" IsOpen="False" />
+  <Task Id="44000019" Priority="25" TaskType="BuyStaminaAssistant" GotoUI="UnKonw" IsOpen="True" />
+  <Task Id="44000020" Priority="3" TaskType="DungeonCombatAssistant" GotoUI="UI_Dungeon" IsOpen="True" />
+  <Task Id="44000021" Priority="39" TaskType="SecretDungeonAssistant" GotoUI="UI_ActivityDungeon" IsOpen="True">
+    <Data Type="ZoneId" Value="09005200" />
+    <Data Type="EasyDungeonId" Value="09005201" />
+    <Data Type="CommonDungeonId" Value="00000000" />
+  </Task>
+  <Task Id="44000022" Priority="40" TaskType="SecretDungeonAssistant" GotoUI="UI_ActivityDungeon" IsOpen="True">
+    <Data Type="ZoneId" Value="09005100" />
+    <Data Type="EasyDungeonId" Value="09005101" />
+    <Data Type="CommonDungeonId" Value="09005111" />
+  </Task>
+  <Task Id="44000023" Priority="24" TaskType="MelaleucaDailyPassAssistant" GotoUI="UI_Tower" IsOpen="True" />
+  <Task Id="44000024" Priority="27" TaskType="WolfSmokeChallengeNotJoinAssistant" GotoUI="UI_WolfSmoke" IsOpen="True" />
+  <Task Id="44000025" Priority="28" TaskType="WolfSmokeChallengeNotAchieveAssistant" GotoUI="UI_WolfSmoke" IsOpen="True" />
+  <Task Id="44000026" Priority="29" TaskType="WolfSmokeResetAchieveAssistant" GotoUI="UI_WolfSmoke" IsOpen="True" />
+  <Task Id="44000027" Priority="30" TaskType="WolfSmokeResetNotAchieveAssistant" GotoUI="UI_WolfSmoke" IsOpen="True" />
+  <Task Id="44000028" Priority="17" TaskType="QinInfoAssistant" GotoUI="UIPnlActivityQinInfo" IsOpen="True" />
+  <Task Id="44000029" Priority="8" TaskType="MonthCardAssistant" GotoUI="UIPnlActivityMonthCardTab" IsOpen="True">
+    <Data Type="MonthCardId" Value="47000002" />
+  </Task>
+  <Task Id="44000030" Priority="9" TaskType="MonthCardAssistant" GotoUI="UIPnlActivityMonthCardTab" IsOpen="True">
+    <Data Type="MonthCardId" Value="47000001" />
+  </Task>
+  <Task Id="44000031" Priority="16" TaskType="MelaleucaWeekRankRewardAssistant" GotoUI="UIPnlTowerWeekReward" IsOpen="True" />
+  <Task Id="44000032" Priority="42" TaskType="VipLevelGoodsAssistant" GotoUI="UIPnlShopGift" IsOpen="True" />
+  <Task Id="44000034" Priority="81" TaskType="ShopGoodsAssistant" GotoUI="UIPnlShopProp" IsOpen="True">
+    <Data Type="GroupId" Value="07010001" />
+  </Task>
+  <Task Id="44000035" Priority="82" TaskType="ShopGoodsAssistant" GotoUI="UIPnlShopProp" IsOpen="True">
+    <Data Type="GroupId" Value="07010002" />
+  </Task>
+  <Task Id="44000036" Priority="83" TaskType="ShopGoodsAssistant" GotoUI="UIPnlShopProp" IsOpen="True">
+    <Data Type="GroupId" Value="07010003" />
+  </Task>
+  <Task Id="44000037" Priority="31" TaskType="FriendCampaignNotJoinAssistant" GotoUI="UIPnlFriendStart" IsOpen="True" />
+  <Task Id="44000038" Priority="32" TaskType="FriendCampaignNotAchieveAssistant" GotoUI="UIPnlFriendStart" IsOpen="True" />
+  <Task Id="44000039" Priority="33" TaskType="FriendCampaignResetAchieveAssistant" GotoUI="UIPnlFriendStart" IsOpen="True" />
+  <Task Id="44000040" Priority="34" TaskType="FriendCampaignResetAllDeadAssistant" GotoUI="UIPnlFriendStart" IsOpen="True" />
+  <Task Id="44000041" Priority="84" TaskType="MarvellousAdventureNotJoinAssistant" GotoUI="UIPnlAdventureScene" IsOpen="True" />
+  <Task Id="44000042" Priority="85" TaskType="MarvellousDelayRewardAssistant" GotoUI="UIPnlAdventureDelayReward" IsOpen="True" />
+  <Task Id="44000043" Priority="10" TaskType="ZentiaGoods" GotoUI="UIPnlEastSeaElementItem" IsOpen="True" />
+  <Task Id="44000044" Priority="11" TaskType="ZentiaServerReward" GotoUI="UIPnlEastElementAllServerReward" IsOpen="True" />
+  <Task Id="44000045" Priority="41" TaskType="DanHomeReward" GotoUI="UIPnlDanFurnace" IsOpen="True" />
+  <Task Id="44000046" Priority="15" TaskType="GuildMoveCountAssisstant" GotoUI="UI_Guild" IsOpen="True" />
+  <Task Id="44000047" Priority="18" TaskType="GuildFreeBossChallengeAssisstant" GotoUI="UI_Guild" IsOpen="True" />
+  <Task Id="44000048" Priority="14" TaskType="GuildConstructionAssisstant" GotoUI="UIPnlGuildConstruct" IsOpen="True" />
+  <Task Id="44000049" Priority="14" TaskType="BeastActiveAssistant" GotoUI="UIPnlOrgansBeastTab" IsOpen="True" />
+  <Task Id="44000050" Priority="14" TaskType="BeastBreakthoughtAssistant" GotoUI="UIPnlOrgansBeastTab" IsOpen="True" />
+  <TaskGuidSet>
+    <TaskGuid Type="DungeonStarRewardAssistant" AttachComponentParent="UICampaignStartRewardRoot" />
+    <TaskGuid Type="GachaAssistant" AttachComponentParent="UIPnlPackageItem_OpenButtonRoot" />
+    <TaskGuid Type="DailySignAssistant" AttachComponentParent="UIDlgDailyReward_Sign" />
+    <TaskGuid Type="RemedySignAssistant" AttachComponentParent="UIDlgDailyReward_Resign" />
+    <TaskGuid Type="SecretDungeonAssistant" AttachComponentParent="" />
+    <TaskGuid Type="LevelRewardAssistant" AttachComponentParent="UIPnlLevelActivity_OpenButtonRoot" />
+    <TaskGuid Type="TavernAssistant" AttachComponentParent="UIPnlShopWine_RecruiteRoot" />
+    <TaskGuid Type="FixTimeRewardAssistant" AttachComponentParent="UIPnlFixActivity_RestButton" />
+    <TaskGuid Type="CreateAccountRewardAssistant" AttachComponentParent="UIDlgStartReward_OpenButtonRoot" />
+    <TaskGuid Type="AvatarIllustrationAssistant" AttachComponentParent="UIPnlHandBook_MixScrollButtonRoot" />
+    <TaskGuid Type="EquipIllustrationAssistant" AttachComponentParent="UIPnlHandBook_MixScrollButtonRoot" />
+    <TaskGuid Type="SkillIllustrationAssistant" AttachComponentParent="UIPnlHandBook_MixScrollButtonRoot" />
+    <TaskGuid Type="ArenaAssistant" AttachComponentParent="" />
+    <TaskGuid Type="DungeonCanCombatAssistant" AttachComponentParent="UICampaignDungeon1" />
+    <TaskGuid Type="DungeonAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="MysteryShopAssistant" AttachComponentParent="" />
+    <TaskGuid Type="AccumulatePurchaseAssistant" AttachComponentParent="" />
+    <TaskGuid Type="DungeonCombatAssistant" AttachComponentParent="UICampaignDungeon1" />
+    <TaskGuid Type="BuyStaminaAssistant" AttachComponentParent="" />
+    <TaskGuid Type="MelaleucaDailyPassAssistant" AttachComponentParent="" />
+    <TaskGuid Type="WolfSmokeChallengeNotJoinAssistant" AttachComponentParent="" />
+    <TaskGuid Type="WolfSmokeChallengeNotAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="WolfSmokeResetAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="WolfSmokeResetNotAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="QinInfoAssistant" AttachComponentParent="" />
+    <TaskGuid Type="MonthCardAssistant" AttachComponentParent="UIPnlActivityMonth_OperatorRoot" />
+    <TaskGuid Type="MelaleucaWeekRankRewardAssistant" AttachComponentParent="UIPnlTowerWeekReward" />
+    <TaskGuid Type="VipLevelGoodsAssistant" AttachComponentParent="UIPnlShopGift_List" />
+    <TaskGuid Type="ArenaShopRealMoneyAssistant" AttachComponentParent="" />
+    <TaskGuid Type="ShopGoodsAssistant" AttachComponentParent="UIPnlShopProp_List" />
+    <TaskGuid Type="FriendCampaignNotJoinAssistant" AttachComponentParent="" />
+    <TaskGuid Type="FriendCampaignNotAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="FriendCampaignResetAchieveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="FriendCampaignResetAllDeadAssistant" AttachComponentParent="" />
+    <TaskGuid Type="MarvellousAdventureNotJoinAssistant" AttachComponentParent="" />
+    <TaskGuid Type="MarvellousDelayRewardAssistant" AttachComponentParent="" />
+    <TaskGuid Type="ZentiaGoods" AttachComponentParent="" />
+    <TaskGuid Type="ZentiaServerReward" AttachComponentParent="" />
+    <TaskGuid Type="DanHomeReward" AttachComponentParent="" />
+    <TaskGuid Type="GuildMoveCountAssisstant" AttachComponentParent="" />
+    <TaskGuid Type="GuildFreeBossChallengeAssisstant" AttachComponentParent="" />
+    <TaskGuid Type="GuildConstructionAssisstant" AttachComponentParent="" />
+    <TaskGuid Type="BeastActiveAssistant" AttachComponentParent="" />
+    <TaskGuid Type="BeastBreakthoughtAssistant" AttachComponentParent="" />
+  </TaskGuidSet>
+</TaskConfig>

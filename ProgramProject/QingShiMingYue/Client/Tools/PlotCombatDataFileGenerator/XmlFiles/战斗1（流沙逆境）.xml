@@ -1,0 +1,1514 @@
+<CombatDataConfig CombatNumMax="1">
+	<BattleRecord SceneId="01000034" MaxRecordCount="20" >
+		<!-- 此处特殊处理，玩家站在对面，敌人站在玩家位置 -->
+		<!-- 敌人 -->
+		<TeamRecord TeamIndex="0" IsWinner="True" DisplayName="玩家">
+			<!--赤练-->
+			<AvatarResult AvatarIndex="6" TeamIndex="0" MaxHP="31658" LeftHP="31658">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="赤练" ResourceId="03000009" BattlePosition="0" Scale="1" >
+					<LevelAttrib Level="50" Experience=""/>
+					<Attribute Type="HP" Value="31658"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="31658"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043006" Level="1"></SkillData>
+					<SkillData Id="32044006" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!--白凤-->
+			<AvatarResult AvatarIndex="7" TeamIndex="0" MaxHP="34907" LeftHP="34907">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="白凤" ResourceId="03000008" BattlePosition="2" Scale="1" >
+					<LevelAttrib Level="50" Experience=""/>
+					<Attribute Type="HP" Value="34907"></Attribute>
+					<Attribute Type="SP" Value="50"></Attribute>
+					<Attribute Type="MaxHP" Value="34907"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043007" Level="1"></SkillData>
+					<SkillData Id="32044007" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>	
+			<!--卫庄-->
+			<AvatarResult AvatarIndex="8" TeamIndex="0" MaxHP="54145" LeftHP="54145">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="卫庄" ResourceId="03000005" BattlePosition="65537" Scale="1" >
+					<LevelAttrib Level="50" Experience=""/>
+					<Attribute Type="HP" Value="54145"></Attribute>
+					<Attribute Type="SP" Value="50"></Attribute>
+					<Attribute Type="MaxHP" Value="54145"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043008" Level="1"></SkillData>
+					<SkillData Id="32044008" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>	
+			<!--杀手头领-->
+			<AvatarResult AvatarIndex="9" TeamIndex="0" MaxHP="25480" LeftHP="25480">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="杀手头领" ResourceId="03900098" BattlePosition="1" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="25480"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="25480"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="3204A033" Level="1"></SkillData>
+					<SkillData Id="3204A501" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>	
+			<!--流沙杀手-->
+			<AvatarResult AvatarIndex="10" TeamIndex="0" MaxHP="17650" LeftHP="17650">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="流沙杀手" ResourceId="03900092" BattlePosition="0" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="17650"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="17650"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="3204A033" Level="1"></SkillData>
+					<SkillData Id="3204A501" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>	
+			<!--流沙杀手-->
+			<AvatarResult AvatarIndex="11" TeamIndex="0" MaxHP="17650" LeftHP="17650">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="流沙杀手" ResourceId="03900092" BattlePosition="2" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="17650"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="17650"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="3204A033" Level="1"></SkillData>
+					<SkillData Id="3204A501" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>				
+		</TeamRecord>
+		<!-- 玩家 -->
+		<TeamRecord TeamIndex="1" IsWinner="False" DisplayName="初梦">
+			<!--天明-->
+			<AvatarResult AvatarIndex="0" TeamIndex="0" MaxHP="19350" LeftHP="19350">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="天明" ResourceId="03000053" BattlePosition="65537" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="19350"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="19350"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043052" Level="1"></SkillData>
+					<SkillData Id="32044052" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!--少羽-->
+			<AvatarResult AvatarIndex="1" TeamIndex="0" MaxHP="20350" LeftHP="20350">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="少羽" ResourceId="03000052" BattlePosition="65536" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="20350"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="20350"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043051" Level="1"></SkillData>
+					<SkillData Id="32044051" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!--石兰-->
+			<AvatarResult AvatarIndex="2" TeamIndex="0" MaxHP="18780" LeftHP="18780">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="石兰" ResourceId="03000066" BattlePosition="65538" Scale="1" >
+					<LevelAttrib Level="30" Experience=""/>
+					<Attribute Type="HP" Value="18780"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="18780"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043067" Level="1"></SkillData>
+					<SkillData Id="32044067" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!-- 雪女 -->
+			<AvatarResult AvatarIndex="3" TeamIndex="0" MaxHP="18681" LeftHP="18681">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="雪女" ResourceId="03000030" BattlePosition="0" Scale="1" >
+					<LevelAttrib Level="40" Experience=""/>
+					<Attribute Type="HP" Value="18681"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="18681"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043002" Level="1"></SkillData>
+					<SkillData Id="32044002" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!-- 高渐离 -->
+			<AvatarResult AvatarIndex="4" TeamIndex="0" MaxHP="38576" LeftHP="38576">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="高渐离" ResourceId="03000015" BattlePosition="2" Scale="1" >
+					<LevelAttrib Level="40" Experience=""/>
+					<Attribute Type="HP" Value="38576"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="38576"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043003" Level="1"></SkillData>
+					<SkillData Id="32044003" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+			<!-- 班大师 -->
+			<AvatarResult AvatarIndex="5" TeamIndex="0" MaxHP="40609" LeftHP="40609">
+				<CombatAvatarData AvatarType="NpcAvatar" DisplayName="班大师" ResourceId="03000007" BattlePosition="1" Scale="1" >
+					<LevelAttrib Level="40" Experience=""/>
+					<Attribute Type="HP" Value="40609"></Attribute>
+					<Attribute Type="SP" Value="100"></Attribute>
+					<Attribute Type="MaxHP" Value="40609"></Attribute>
+					<Attribute Type="Speed" Value="1637"></Attribute>
+					<SkillData Id="32043015" Level="1"></SkillData>
+					<SkillData Id="32044015" Level="1"></SkillData>
+				</CombatAvatarData>
+			</AvatarResult>
+		</TeamRecord>
+	
+		<CombatRecord>
+		
+			<RoundRecord RoundType="PlotBattleInterludeEffect">
+				<RoundParameters>
+					<RoundParameter Name="PlotBattleInterludeEffectPrefab2" Value="UIEffectPlotBattleInterlude_page_01"/>
+					<RoundParameter Name="PlotBattleInterludeEffectPrefab1" Value="UIEffectPlotBattleInterlude_GC_01"/>
+				</RoundParameters>
+			</RoundRecord>		
+		
+			<RoundRecord RoundType="Custom_PrepareEnterScene"/>
+			<RoundRecord RoundType="CameraTrace" RoundIndex="0"/>
+			
+			<RoundRecord RoundType="CameraEnterBattle" RoundIndex="0"/>
+			
+			<!--入场  天明，少羽，石兰-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="1">
+				<TurnRecord AvatarIndex="0">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="1">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="1" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="2">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="2" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--对话0-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="1"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="31010003" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701825"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!-- 杀手头领入场 -->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="1">
+				<TurnRecord AvatarIndex="9">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="9">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="9" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="9">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!--对话1-->
+			<RoundRecord RoundType="NormalCombat" RoundIndex="1"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="31010003" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701826"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!--入场 流沙杀手×2-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="1">
+				<TurnRecord AvatarIndex="10">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="10">
+						<TargetAvatarIndeices>10</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="10" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="10">
+						<TargetAvatarIndeices>10</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="11">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="11">
+						<TargetAvatarIndeices>11</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="11" EventType="SetBattleTrans" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="11">
+						<TargetAvatarIndeices>11</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!-- 相机旋转 -->
+			<RoundRecord RoundType="Custom_CameraAnimRound" TeamIndex="0" RoundIndex="1"  >
+				<RoundParameters>
+					<RoundParameter Name="CameraSpeed" Value="0.8"/>
+					<RoundParameter Name="HTargetAngle" Value="180"/>
+				</RoundParameters>
+			</RoundRecord>		
+	
+			<!-- BattleStartRound会显示所有角色的BattleBar，手动配置为不显示-->
+			<RoundRecord RoundType="BattleStart" RoundIndex="1">
+				<RoundParameters>
+					<RoundParameter Name="ShowAllBattleBar" Value="False"/>
+				</RoundParameters>
+			</RoundRecord>
+			
+			<!--显示 血条-->
+			<RoundRecord RoundType="NormalCombat" RoundIndex="1">
+				<TurnRecord AvatarIndex="0">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="1">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="1" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="2">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="2" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="9">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="9">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="9" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="10">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="10">
+						<TargetAvatarIndeices>10</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="1" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="11">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="11">
+						<TargetAvatarIndeices>11</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="11" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>	
+			
+			<!--进场后移动到战斗点，固定配置方式-->
+			<RoundRecord RoundType="EnterBattleGround" RoundIndex="1"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="EnterBattleGround" Value="65537"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="1" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="1" EventType="EnterBattleGround" Value="65536"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="2" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="2" EventType="EnterBattleGround" Value="65538"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="9" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="9">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="9" EventType="EnterBattleGround" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="10" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="10">
+						<TargetAvatarIndeices>10</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="10" EventType="EnterBattleGround" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="11" >
+					<ActionRecord ActionId="31050001" SrcAvatarIndex="11">
+						<TargetAvatarIndeices>11</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="11" EventType="EnterBattleGround" Value="2"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--石兰，攻击-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="1"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="2" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="2" EventType="SkillStart" Value="839139431"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="030d0001" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+					</ActionRecord>
+					<ActionRecord ActionId="31567002" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="3249">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="1083">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="2166">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="4332">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="030e0001" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="2" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!--少羽，攻击-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="1"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="1" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="1" EventType="SkillStart" Value="839139409"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31551002" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="2636">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="2647">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="2669">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="2637">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="2648">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="2578">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="3514">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="3530">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="3557">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="9" EventType="AddBuff" Value="1" Value1="83907857"/>
+							<EventTargetRecord TargetIndex="10" EventType="AddBuff" Value="1" Value1="83907857"/>
+							<EventTargetRecord TargetIndex="11" EventType="AddBuff" Value="1" Value1="83907857"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="1" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--天明，攻击-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="1"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="0" EventType="SkillStart" Value="839139410"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31552001" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="5">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="7">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="8">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="9">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="980">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="987">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>						
+					</ActionRecord>
+					<ActionRecord ActionId="31552002" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>9</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="9" EventType="Damage" Value="2014">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+								<ActionRecord ActionId="310B0001" SrcAvatarIndex="9">
+									<TargetAvatarIndeices>9</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="10" EventType="Damage" Value="2013">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+								<ActionRecord ActionId="310B0001" SrcAvatarIndex="10">
+									<TargetAvatarIndeices>10</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="11" EventType="Damage" Value="2015">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+								<ActionRecord ActionId="310B0001" SrcAvatarIndex="11">
+									<TargetAvatarIndeices>11</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="9" EventType="AddBuff" Value="2" Value1="83907873"/>
+							<EventTargetRecord TargetIndex="10" EventType="AddBuff" Value="2" Value1="83907873"/>
+							<EventTargetRecord TargetIndex="11" EventType="AddBuff" Value="2" Value1="83907873"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="0" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--对话2-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="1"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="31010003" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701827"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--人物入场 赤练 卫庄 白凤-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2">
+				<TurnRecord AvatarIndex="6">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="6" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="7">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="7" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="8">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="8" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			<!--显示 BattleBar（血条等）-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2">
+				<TurnRecord AvatarIndex="6">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="6" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="7">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="7" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="8">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="8" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--赤炼 暴走技-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="0" RoundIndex="2"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="6" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="6" EventType="SkillStart" Value="839139334"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31506001" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+					</ActionRecord>
+					<ActionRecord ActionId="31506002" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="Damage" Value="15936">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="0">
+									<TargetAvatarIndeices>0</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="1" EventType="Damage" Value="14680">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="1">
+									<TargetAvatarIndeices>1</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="2" EventType="Damage" Value="15992">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="2">
+									<TargetAvatarIndeices>2</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="0" EventType="EnterState" Value="5"/>
+							<EventTargetRecord TargetIndex="1" EventType="EnterState" Value="5"/>
+							<EventTargetRecord TargetIndex="2" EventType="EnterState" Value="5"/>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="0" EventType="AddBuff" Value="3" Value1="83906657"/>
+							<EventTargetRecord TargetIndex="1" EventType="AddBuff" Value="3" Value1="83906657"/>
+							<EventTargetRecord TargetIndex="2" EventType="AddBuff" Value="3" Value1="83906657"/>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="0" EventType="AddBuff" Value="4" Value1="83906658"/>
+							<EventTargetRecord TargetIndex="1" EventType="AddBuff" Value="4" Value1="83906658"/>
+							<EventTargetRecord TargetIndex="2" EventType="AddBuff" Value="4" Value1="83906658"/>
+						</EventRecord>
+					</ActionRecord>
+<!-- 					<ActionRecord ActionId="0" SrcAvatarIndex="6">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="0" EventType="EnterState" Value="5"/>
+							<EventTargetRecord TargetIndex="1" EventType="EnterState" Value="5"/>
+							<EventTargetRecord TargetIndex="2" EventType="EnterState" Value="5"/>
+						</EventRecord>
+					</ActionRecord> -->
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="6" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--对话3-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2"  >
+				<TurnRecord AvatarIndex="0" >
+					<!--SrcAvatar要播放动画 虚弱时对话 Action 310A0005 -->
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701828"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>			
+			<!-- 卫庄蓄力攻击，套盾	-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2"  >
+				<TurnRecord AvatarIndex="8" >
+					<ActionRecord ActionId="31B00102" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="AddBuff" Value="20" Value1="83886123"/>
+							<EventTargetRecord TargetIndex="1" EventType="AddBuff" Value="20" Value1="83886123"/>
+							<EventTargetRecord TargetIndex="2" EventType="AddBuff" Value="20" Value1="83886123"/>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="0" EventType="Damage" Value="1"/>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="1" EventType="Damage" Value="1"/>
+						</EventRecord>
+						<EventRecord EventIdx="6">
+							<EventTargetRecord TargetIndex="2" EventType="Damage" Value="1"/>
+						</EventRecord>
+						<EventRecord EventIdx="8">
+							<EventTargetRecord TargetIndex="0" EventType="Damage" Value="1"/>
+						</EventRecord>
+						<EventRecord EventIdx="10">
+							<EventTargetRecord TargetIndex="8" EventType="SetSkillPower" Value="50">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--清Buff,其实是清人物身上挂的Buff特效。这里清除天明、少羽、石兰身上的防御罩特效 之前配的该Buff id="20" 注意buffid要匹配-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2"  >
+				<TurnRecord AvatarIndex="-1">
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="BuffTimeUp" Value="20"/>
+							<EventTargetRecord TargetIndex="1" EventType="BuffTimeUp" Value="20"/>
+							<EventTargetRecord TargetIndex="2" EventType="BuffTimeUp" Value="20"/>
+							<EventTargetRecord TargetIndex="0" EventType="BuffTimeUp" Value="4"/>
+							<EventTargetRecord TargetIndex="1" EventType="BuffTimeUp" Value="4"/>
+							<EventTargetRecord TargetIndex="2" EventType="BuffTimeUp" Value="4"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				
+			</RoundRecord>
+		
+			<!--对话4-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="2"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701829"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--人物入场 雪女-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="3">
+				<TurnRecord AvatarIndex="3">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="3" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--显示 雪女BattleBar（血条等）-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="3">
+				<TurnRecord AvatarIndex="3">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="3" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--对话5-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="3"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701830"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--人物入场 高渐离-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="3">
+				<TurnRecord AvatarIndex="4">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="4" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--显示 高渐离BattleBar（血条等）-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="3">
+				<TurnRecord AvatarIndex="4">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="4" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+	
+			<!--对话6-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="3"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701831"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--高渐离，暴走，攻击前排全体 -->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="0" RoundIndex="3"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="4" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="4" EventType="SkillStart" Value="839139331"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31503001" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+					</ActionRecord>
+					<ActionRecord ActionId="31503002" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="7" EventType="Damage" Value="12390">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="7">
+									<TargetAvatarIndeices>7</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="11892">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="6" EventType="AddBuff" Value="33" Value1="83906609"/>
+							<EventTargetRecord TargetIndex="7" EventType="AddBuff" Value="34" Value1="83906609"/>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="6" EventType="AddBuff" Value="35" Value1="83906610"/>
+							<EventTargetRecord TargetIndex="7" EventType="AddBuff" Value="36" Value1="83906610"/>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="4" EventType="AddBuff" Value="37" Value1="83906609"/>
+						</EventRecord>
+						<EventRecord EventIdx="5">
+							<EventTargetRecord TargetIndex="4" EventType="AddBuff" Value="38" Value1="83906610"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="4" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>						
+			
+			<!-- 白凤蓄力技攻击高渐离 -->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="1" RoundIndex="3"  >
+				<TurnRecord AvatarIndex="7" >
+					<ActionRecord ActionId="31107002" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="1238">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="1321">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="5">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="1183">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="7">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="613">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="9">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="582">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="11">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="1211">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="12">
+							<EventTargetRecord TargetIndex="7" EventType="SetSkillPower" Value="50">
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="13">
+							<EventTargetRecord TargetIndex="7" EventType="AddBuff" Value="8" Value1="83890289"/>
+						</EventRecord>
+						<EventRecord EventIdx="14">
+							<EventTargetRecord TargetIndex="7" EventType="AddBuff" Value="9" Value1="83890290"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>			
+		
+			<!--雪女，暴走，攻击赤练-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="0" RoundIndex="3"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="3" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="3" EventType="SkillStart" Value="839139330"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31502001" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+					</ActionRecord>
+					<ActionRecord ActionId="31502002" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>6</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="2179">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="1744">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="3051">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="871">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="6" EventType="Damage" Value="873">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="6">
+									<TargetAvatarIndeices>6</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>	
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="3" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+					
+			<!--白凤，暴走，攻击高渐离-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="4"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="7" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="7" EventType="SkillStart" Value="839139335"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31507002" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="11375" TestType="CriticalHit">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="4" EventType="AddBuff" Value="77" Value1="83906673"/>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="4" EventType="AddBuff" Value="78" Value1="83906674"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="7">
+						<TargetAvatarIndeices>7</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="7" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>			
+
+			<!--卫庄，暴走，攻击高渐离-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="4"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="8" >
+					<ActionRecord ActionId="31130001" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="8" EventType="SuperSkillEffect" Value="839139336"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31508001" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="4" EventType="Damage" Value="17493" TestType="CriticalHit">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="4">
+									<TargetAvatarIndeices>4</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31508002" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="8" EventType="AddBuff" Value="10" Value1="83906689"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="0" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="4" EventType="EnterState" Value="5"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="8" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="8" EventType="SetSkillPower" Value="0">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+		
+			<!--卫庄，暴走，攻击雪女-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="4"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="8" >
+					<ActionRecord ActionId="31130001" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="8" EventType="SuperSkillEffect" Value="839139336"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31508001" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="3" EventType="Damage" Value="17621" TestType="CriticalHit">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="3">
+									<TargetAvatarIndeices>3</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31508002" SrcAvatarIndex="8">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="8" EventType="AddBuff" Value="10" Value1="83906689"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="0" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="3" EventType="EnterState" Value="5"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>			
+
+<!-- 			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="8"  >
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="8" EventType="SetSkillPower" Value="0">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>			 -->
+			
+			<!--对话7-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701832"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!--人物入场 班大师-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4">
+				<TurnRecord AvatarIndex="5">
+					<ActionRecord ActionId="310A0003" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="5" EventType="SetBattleTrans" Value="0"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="310A0002" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--显示 班大师BattleBar（血条等）-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4">
+				<TurnRecord AvatarIndex="5">
+					<ActionRecord ActionId="310A0004" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="5" EventType="ShowBattleBar" Value="1"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>	
+			
+			<!--对话8-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701833"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+			<!--班大师，暴走技，攻击卫庄-->
+			<RoundRecord RoundType="ActiveSkillCombat" TeamIndex="1" RoundIndex="4"  >
+				<RoundParameters>
+					<RoundParameter Name="KeepBattleBarHideStatus" Value="True"/>
+				</RoundParameters>
+				<TurnRecord AvatarIndex="5" >
+					<ActionRecord ActionId="31120001" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="5" EventType="SkillStart" Value="839139349"/>
+						</EventRecord>
+					</ActionRecord>
+					<ActionRecord ActionId="31515002" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>8</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="8" EventType="Damage" Value="">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="8">
+									<TargetAvatarIndeices>8</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="2">
+							<EventTargetRecord TargetIndex="8" EventType="Damage" Value="">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="8">
+									<TargetAvatarIndeices>8</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="3">
+							<EventTargetRecord TargetIndex="8" EventType="Damage" Value="">
+								<ActionRecord ActionId="31070001" SrcAvatarIndex="8">
+									<TargetAvatarIndeices>8</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+						<EventRecord EventIdx="4">
+							<EventTargetRecord TargetIndex="8" EventType="AddBuff" Value="88" Value1="83906897">
+								<ActionRecord ActionId="03F15151" SrcAvatarIndex="8">
+									<TargetAvatarIndeices>8</TargetAvatarIndeices>
+								</ActionRecord>
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="-1" >
+					<ActionRecord ActionId="0" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+						<EventRecord>
+							<EventTargetRecord TargetIndex="5" EventType="SetSkillPower" Value="-100">
+							</EventTargetRecord>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+	
+			<!--我方全部退场-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4">
+				<TurnRecord AvatarIndex="0">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="0" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="1">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="1">
+						<TargetAvatarIndeices>1</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="1" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="2">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="2">
+						<TargetAvatarIndeices>2</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="2" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="3">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="3">
+						<TargetAvatarIndeices>3</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="3" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="4">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="4">
+						<TargetAvatarIndeices>4</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="4" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+				<TurnRecord AvatarIndex="5">
+					<ActionRecord ActionId="310A0008" SrcAvatarIndex="5">
+						<TargetAvatarIndeices>5</TargetAvatarIndeices>
+						<EventRecord EventIdx="1">
+							<EventTargetRecord TargetIndex="5" EventType="InactiveAvatar" />
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+
+			<!--对话9-->
+			<RoundRecord RoundType="NormalCombat" TeamIndex="0" RoundIndex="4"  >
+				<TurnRecord AvatarIndex="0" >
+					<ActionRecord ActionId="310A0005" SrcAvatarIndex="0">
+						<TargetAvatarIndeices>0</TargetAvatarIndeices>
+						<EventRecord EventIdx="0">
+							<EventTargetRecord TargetIndex="0" EventType="ShowDialogue" Value="318701840"/>
+						</EventRecord>
+					</ActionRecord>
+				</TurnRecord>
+			</RoundRecord>
+			
+<!-- 			<RoundRecord RoundType="PlotBattleInterludeEffect">
+				<RoundParameters>
+					<RoundParameter Name="PlotBattleInterludeEffectPrefab1" Value="UIEffectPlotBattleInterlude_duanluo_01"/>
+					<RoundParameter Name="IsEndEffect" Value="True"/>
+				</RoundParameters>
+			</RoundRecord>		 -->
+	
+		</CombatRecord>
+		
+		
+		
+		
+		
+	</BattleRecord>
+</CombatDataConfig>

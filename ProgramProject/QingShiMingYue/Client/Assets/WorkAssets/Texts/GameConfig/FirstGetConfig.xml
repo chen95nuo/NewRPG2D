@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FirstGetConfig>
+  <FirstGet Id="18000001" ShowTime="2014-01-16 00:00:00" OpenTime="2014-01-20 10:00:00" CloseTime="2014-06-20 10:00:00" RewardCount="50">
+    <Condition Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="20" />
+		<Reward Id="07040020" Count="1"/>
+	</FirstGet>
+  <FirstGet Id="18000002" ShowTime="2014-01-16 00:00:00" OpenTime="2014-01-20 10:00:00" CloseTime="2014-06-20 10:00:00" RewardCount="50">
+    <Condition Type="CampaignDungeonId" ValueCompareType="Equal" Value="09070010"/>
+		<Reward Id="07040021" Count="1"/>
+	</FirstGet>
+  <FirstGet Id="18000003" ShowTime="2014-01-16 00:00:00" OpenTime="2014-01-20 10:00:00" CloseTime="2014-06-20 10:00:00" RewardCount="50">
+    <Condition Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="30"/>
+		<Reward Id="07040022" Count="1"/>
+	</FirstGet>
+  <FirstGet Id="18000004" ShowTime="2014-01-16 00:00:00" OpenTime="2014-01-20 10:00:00" CloseTime="2014-06-20 10:00:00" RewardCount="50">
+    <Condition Type="CampaignDungeonId" ValueCompareType="Equal" Value="09100010"/>
+		<Reward Id="07040023" Count="1"/>
+	</FirstGet>
+</FirstGetConfig>

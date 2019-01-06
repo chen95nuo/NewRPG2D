@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{5544F79C-5306-909F-C855-53D6959D5DFD}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_2;UNITY_4_6;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;ENABLE_DUCK_TYPING</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Editor\AnBSoft\Editors\UICtlEditor.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Editors\UIPanelEditor.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\GUIDynamicFontInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\PluginDynamicFontInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\SpriteTextInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIActionBtnInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIBistateInteractivePanelInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIBoxInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIBtnChangePanelInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIBtnLoadSceneInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIBtnWWWInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIButton3DInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIButtonInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UICtlInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIInteractivePanelInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIListButtonInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIListItemInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIPanelBaseInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIPanelInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIPanelTabInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIPhaseProgressBarInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIProgressBarInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIRadioBtn3DInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIRadioBtnInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UISliderInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIStateToggleBtn3DInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UIStateToggleBtnInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Inspectors\UITextFieldInspector.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Utility\UITools.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\About_EZ_GUI.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\BuildAtlases.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\CopyControl.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\CopyTransitions.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\SetRenderCamera.cs" />
+     <Compile Include="Assets\Editor\AnBSoft\Wizards\SpriteSizer.cs" />
+     <Compile Include="Assets\Editor\ArtFontEditor.cs" />
+     <Compile Include="Assets\Editor\GameConfiguration\AssetDescConfigEditor.cs" />
+     <Compile Include="Assets\Editor\GameConfiguration\ClientManifestEditor.cs" />
+     <Compile Include="Assets\Editor\GameConfiguration\ServerManifestEditor.cs" />
+     <Compile Include="Assets\Editor\Help\ServerHelpWindow.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_BakeInPlace.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_BatchPrefabBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_MeshBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_MeshBakerEditorFunctions.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_MeshBakerEditorInternal.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_MeshBakerEditorWindow.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_MultiMeshBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_TextureBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_TextureBakerEditorInternal.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB3_TextureCombinerEditorFunctions.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\Editor\MB_EditorUtil.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB2_TextureBakeResults.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB2_UpdateSkinnedMeshBoundsFromBones.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB2_UpdateSkinnedMeshBoundsFromBounds.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_BatchPrefabBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_MeshBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_MeshBakerCommon.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_MeshBakerRoot.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_MultiMeshBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\MB3_TextureBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Core\MB2_MeshCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Core\MB2_MultiMeshCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Core\MB_TextureCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_BakeInPlace.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_MeshBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_MeshBakerEditorFunctions.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_MeshBakerEditorInternal.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_MultiMeshBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_TextureBakerEditor.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_TextureBakerEditorInternal.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB2_TextureCombinerEditorFunctions.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\Editor\MB_MeshBakerEditorWindow.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\MB2_MeshBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\MB2_MeshBakerCommon.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\MB2_MeshBakerRoot.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\MB2_MultiMeshBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_Legacy\MB2_TextureBaker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_testing\MB2_TestShowHide.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\_testing\MB2_TestUpdate.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB2_Core.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB2_Log.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB2_MBVersion.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB2_TexturePacker.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB3_MeshCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB3_MeshCombinerSimple.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB3_MultiMeshCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB3_TextureCombiner.cs" />
+     <Compile Include="Assets\Editor\MeshBaker\scripts\core\MB_Utility.cs" />
+     <Compile Include="Assets\Editor\SVNHelper.cs" />
+     <Compile Include="Assets\Editor\Tools\AShimSetGameSizeWindow.cs" />
+     <Compile Include="Assets\Editor\Tools\BuildDungeon.cs" />
+     <Compile Include="Assets\Editor\Tools\BuildTools.cs" />
+     <Compile Include="Assets\Editor\Tools\FindMissingScripts.cs" />
+     <Compile Include="Assets\Editor\Tools\GameTools.cs" />
+     <Compile Include="Assets\Editor\Tools\MultipleCurvesTransferer.cs" />
+     <Compile Include="Assets\Editor\Tools\UIAlignPosition.cs" />
+     <Compile Include="Assets\Editor\Tools\UIEditorWindow.cs" />
+     <Compile Include="Assets\Editor\TowerScenePathEditor.cs" />
+     <Compile Include="Assets\Scripts\Combat\Editor\BattleSceneEditor.cs" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\IllustrationConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuildPublicShopConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\GateServer.xml" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Multiply Culled.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\CampaignConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\DBServer.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Particle-Alpha-Color.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GoodConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\LocalData\战斗2（咸阳宫变）.xml" />
+     <None Include="Assets\WorkAssets\Texts\IAPProductConfig\IAPProductConfig_KodGames.xml" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Background.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\PveConfig.xml" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Vertex Colored Shaders\Mobile Transparent Vertex Color.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ClientManifest.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\TreasureBowlConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\SpecialGoodsConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\FirstGetConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Particle-Additive-Color.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\StartServerRewardConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontCN_Num.txt" />
+     <None Include="Assets\WorkAssets\Texts\LocalData\战斗1（流沙逆境）.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AvatarConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Alpha-VertexColor-Unlit.shader" />
+     <None Include="Assets\WorkAssets\Fonts\letter.txt" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_internal\ProtocolDesc.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\PartnerConfig.xml" />
+     <None Include="Assets\WorkAssets\Shader\Alpha-VertexColor-Unlit-4.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Additive.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Detail.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Toony_Gooch_RimOutlineHard.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\OperationConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_common\logback.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ZentiaConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\IAPProductConfig\IAPProductConfig_SixWave.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\RewardConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuildStageConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ArenaConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\WolfSmokeConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\QuestConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\Text.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\TaskConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\IAPProductConfig\IAPProductConfig_Tencent.xml" />
+     <None Include="Assets\link.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\QuestionConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\DialogueConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\NameBanWords.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\DailySignInConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\SkillConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\common.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ExchangeConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\SuiteConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\InviteCodeConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\NpcConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\VrtClrNormal.shader" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\PurchaseServer.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AssetDescConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontNumStyle_01.txt" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\GagBanWords.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Alpha-VertexLit.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AllPlayerGiftCounterConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\TavernConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\LevelConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AnimationConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\Num_green.txt" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AppleGoodConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\MirrorReflection\MirrorReflection.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MeridianConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GameConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\TutorialConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ItemConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontCN_Style_01.txt" />
+     <None Include="Assets\WorkAssets\Shader\Alpha-VertexColor-Unlit-1.shader" />
+     <None Include="Assets\WorkAssets\Texts\LocalData\战斗3（蜃楼阴阳）.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\SevenElevenGiftConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\letter_sys.txt" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Alpha-Color.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\InitPlayerConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\VipConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Opaque-VertexLit.shader" />
+     <None Include="Assets\Resources\Texts\Configs\ClientConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\Editor\BuildConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\BeastConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuildConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\WorldBossConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ActivityConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuildExchangeShopConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Opaque-VertexColored-Unlit.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MarvellousAdventureConfig.xml" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Reflective.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\SceneConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontCN_Titles.txt" />
+     <None Include="Assets\WorkAssets\Shader\Alpha-VertexColor-Unlit-3.shader" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\ManagerServerConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UV2.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Alpha-Ztest-Always.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Alpha.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Particles Additive Culled.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MysteryShopConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Opaque-Brightnes.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\DomineerConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\FriendConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\VrtClrPerfect.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MyCardConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\IllusionConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontNumStyle_02.txt" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Additive-Color.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\PositionConfig.xml" />
+     <None Include="Assets\Resources\Texts\Configs\Text.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\DinerConfig.xml" />
+     <None Include="Assets\Editor\MeshBaker\Release Notes.txt" />
+     <None Include="Assets\WorkAssets\Texts\LocalData\剧情战斗配置方式注解.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Alpha-Brightnes.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuildPrivateShopConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\CycleActivityConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\AvatarAssetConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\FontNumStyle_03.txt" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UIOpaque.shader" />
+     <None Include="Assets\WorkAssets\Texts\LocalData\过场跑动配置示例.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\FriendCampaignConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_common\ManagerAddress.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Opaque-Unlit.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GuideConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\IAPProductConfig\IAPProductConfig_KunLun.xml" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Vertex Colored Shaders\Mobile Vertex Colored.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\LevelRewardConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ChatAndMarqueeConfig.xml" />
+     <None Include="Assets\WorkAssets\Fonts\Num.txt" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\EquipmentConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\DanConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\FirstThreeDayConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\statistics.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MelaleucaFloorConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MysteryerConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Background.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Particle-Alpha.shader" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Opaque.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ChangeNameConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\TextUI.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\QinInfoConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\ActionConfig.xml" />
+     <None Include="Assets\Editor\MeshBaker\README.txt" />
+     <None Include="Assets\Resources\Texts\Configs\SceneConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\ServerConfig\conf_manager\playerNameConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\Environment\Particle-Additive.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\RobotConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\GoodStatusConfig.xml" />
+     <None Include="Assets\WorkAssets\Shader\Alpha-VertexColor-Unlit-2.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\PowerConfig.xml" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\LocalNotificationConfig.xml" />
+     <None Include="Assets\Scripts\Plugins\KodGames\Shaders\UI\Additive-Ztest-Always.shader" />
+     <None Include="Assets\WorkAssets\Texts\GameConfig\MonthCardConfig.xml" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="bcParser.NET">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientCommon/bcParser.NET.dll</HintPath>
+ </Reference>
+ <Reference Include="ClientCommon">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientCommon/ClientCommon.dll</HintPath>
+ </Reference>
+ <Reference Include="ClientCommon_c">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientCommon/ClientCommon_c.dll</HintPath>
+ </Reference>
+ <Reference Include="ClientClass">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/ClientClass.dll</HintPath>
+ </Reference>
+ <Reference Include="ClientHelper">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/ClientHelper.dll</HintPath>
+ </Reference>
+ <Reference Include="Common">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/Common.dll</HintPath>
+ </Reference>
+ <Reference Include="KODNetwork">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/KODNetwork.dll</HintPath>
+ </Reference>
+ <Reference Include="MiniLZO">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/MiniLZO.dll</HintPath>
+ </Reference>
+ <Reference Include="Protocols">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/Protocols.dll</HintPath>
+ </Reference>
+ <Reference Include="Protocols_c">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/Protocols_c.dll</HintPath>
+ </Reference>
+ <Reference Include="protobuf-net">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/ClientHelper/protobuf-net/protobuf-net.dll</HintPath>
+ </Reference>
+ <Reference Include="LitJson">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/Plugins/KodGames/Utility/LitJson.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/QingShiMingYue/Client/Assets/Scripts/Plugins/KodGames/Zip/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{12F44184-A422-5F27-22E6-507969043F15}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

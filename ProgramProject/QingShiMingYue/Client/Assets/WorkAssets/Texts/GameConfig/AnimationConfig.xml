@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+TypeID:
+	1 现在只有一个
+
+Animation:
+	Name: 动画名
+	AssetName: 动画所在的资源名,如果为空就是用动画名作为资源名
+	StartFrame: 动画起始帧,如果为空视为第一帧
+	EndFrame: 动画结束帧,如果为空视为最后一帧
+	MoveStartFrame: 动画位移开始的帧
+	MoveEndFrame: 动画位移结束的帧
+	
+	Event: 关键帧列表
+		ID: 
+		Frame: 所在动画帧
+
+Loop="true" 应该在Action中
+-->
+<AnimationConfig>
+	<DefaultAnimationSet>
+		<DefaultAnimation AvatarAssetType="1" AnimationName="Idle_nv"/>
+		<DefaultAnimation AvatarAssetType="2" AnimationName="Idle_nan"/>
+		<DefaultAnimation AvatarAssetType="3" AnimationName="Idle_strong"/>
+		<DefaultAnimation AvatarAssetType="4" AnimationName="Idle_fat"/>
+	</DefaultAnimationSet>
+	<!--以下为女体型动作-->
+	<Animation Name="Idle_nv" AssetName="Q-Ani_Nv" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Run_nv" AssetName="Q-Ani_Nv" StartFrame="52" EndFrame="70" Speed="1">
+	</Animation>
+	<Animation Name="GetHit_nv" AssetName="Q-Ani_Nv" StartFrame="73" EndFrame="100" Speed="1">
+	</Animation>
+	<Animation Name="Die_nv" AssetName="Q-Ani_Nv" StartFrame="102" EndFrame="139" Speed="1">
+	</Animation>
+	<Animation Name="Atk1_nv" AssetName="Q-Ani_Nv" StartFrame="141" EndFrame="175" Speed="1">
+		<Event Id="1" KeyFrame="141"/>
+		<Event Id="2" KeyFrame="158"/><!--原地转一圈-->
+	</Animation>
+	<Animation Name="Atk2_nv" AssetName="Q-Ani_Nv" StartFrame="183" EndFrame="236" Speed="1">
+		<Event Id="1" KeyFrame="183"/>
+		<Event Id="2" KeyFrame="201"/><!--双手上举-->
+	</Animation>
+	<Animation Name="Atk3_nv" AssetName="Q-Ani_Nv" StartFrame="281" EndFrame="311" Speed="1">
+		<Event Id="1" KeyFrame="281"/>		
+		<Event Id="2" KeyFrame="288"/><!--右挥剑-->		
+		<Event Id="3" KeyFrame="295"/><!--右回砍-->
+	</Animation>
+	<Animation Name="Atk4_nv" AssetName="Q-Ani_Nv" StartFrame="311" EndFrame="345" Speed="1">
+		<Event Id="1" KeyFrame="311"/>
+		<Event Id="2" KeyFrame="328"/><!--前刺-->
+	</Animation>
+	<Animation Name="Atk5_nv" AssetName="Q-Ani_Nv" StartFrame="347" EndFrame="404" Speed="1">
+		<Event Id="1" KeyFrame="347"/>		
+		<Event Id="2" KeyFrame="351"/><!--右直拳-->		
+		<Event Id="3" KeyFrame="356"/><!--左直拳-->		
+		<Event Id="4" KeyFrame="360"/><!--右直拳-->		
+		<Event Id="5" KeyFrame="375"/><!--起跳-->		
+		<Event Id="6" KeyFrame="381"/><!--飞踢-->
+	</Animation>
+	<Animation Name="Atk6_nv" AssetName="Q-Ani_Nv" StartFrame="407" EndFrame="445" Speed="1">
+		<Event Id="1" KeyFrame="407"/>
+		<Event Id="2" KeyFrame="423"/><!--前刺-->
+	</Animation>
+	<Animation Name="Atk7_nv" AssetName="Q-Ani_Nv" StartFrame="367" EndFrame="404" Speed="1">
+		<Event Id="1" KeyFrame="367"/>
+		<Event Id="2" KeyFrame="375"/><!--起跳-->
+		<Event Id="3" KeyFrame="381"/><!--回旋踢-->
+	</Animation>
+	<Animation Name="Jump_nv" AssetName="Q-Ani_Nv" StartFrame="239" EndFrame="280" MoveStartFrame="239" MoveEndFrame="253" Speed="1">
+	</Animation>
+	<Animation Name="Idle_nv_Once" AssetName="Q-Ani_Nv" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Atk1_nv_Loop" AssetName="Q-Ani_Nv" StartFrame="158" EndFrame="165" Speed="1">
+	</Animation>	
+	<!--以下为男体型动作-->
+	<Animation Name="Idle_nan" AssetName="Q-Ani_Nan" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle1_nan" AssetName="Q-Ani_Nan" StartFrame="305" EndFrame="355" Speed="1"><!--长枪IDLE-->	
+	</Animation>
+	<Animation Name="Run_nan" AssetName="Q-Ani_Nan" StartFrame="52" EndFrame="70" Speed="1">
+	</Animation>
+	<Animation Name="GetHit_nan" AssetName="Q-Ani_Nan" StartFrame="73" EndFrame="100" Speed="1">
+	</Animation>
+	<Animation Name="Die_nan" AssetName="Q-Ani_Nan" StartFrame="102" EndFrame="139" Speed="1">
+	</Animation>
+	<Animation Name="Atk1_nan" AssetName="Q-Ani_Nan" StartFrame="141" EndFrame="175" Speed="1">
+		<Event Id="1" KeyFrame="141"/>
+		<Event Id="2" KeyFrame="152"/><!--双手前推-->
+	</Animation>
+	<Animation Name="Atk2_nan" AssetName="Q-Ani_Nan" StartFrame="212" EndFrame="250" Speed="1">
+		<Event Id="1" KeyFrame="212"/>		
+		<Event Id="2" KeyFrame="216"/><!--起跳-->		
+		<Event Id="3" KeyFrame="229"/><!--下砸-->
+	</Animation>
+	<Animation Name="Atk3_nan" AssetName="Q-Ani_Nan" StartFrame="253" EndFrame="303" Speed="1">
+		<Event Id="1" KeyFrame="253"/>
+		<Event Id="2" KeyFrame="272"/><!--前刺-->
+		<Event Id="3" KeyFrame="277"/><!--前刺-->
+		<Event Id="4" KeyFrame="282"/><!--前刺-->
+	</Animation>
+	<Animation Name="Atk4_nan" AssetName="Q-Ani_Nan" StartFrame="358" EndFrame="490" Speed="1">
+		<Event Id="1" KeyFrame="358"/><!--离地-->		
+		<Event Id="2" KeyFrame="394"/><!--滞空-->		
+		<Event Id="3" KeyFrame="407"/><!--挥手-->
+		<Event Id="4" KeyFrame="463"/><!--开始下落-->
+	</Animation>
+	<Animation Name="Atk5_nan" AssetName="Q-Ani_Nan" StartFrame="493" EndFrame="545" Speed="1">
+		<Event Id="1" KeyFrame="493"/>		
+		<Event Id="2" KeyFrame="498"/><!--弓箭蓄力-->		
+		<Event Id="3" KeyFrame="518"/><!--射出-->
+	</Animation>
+	<Animation Name="Atk6_nan" AssetName="Q-Ani_Nan" StartFrame="545" EndFrame="593" Speed="1">
+		<Event Id="1" KeyFrame="545"/>		
+		<Event Id="2" KeyFrame="551"/><!--弩蓄力-->		
+		<Event Id="3" KeyFrame="572"/><!--射出-->
+	</Animation>
+	<Animation Name="Atk7_nan" AssetName="Q-Ani_Nan" StartFrame="596" EndFrame="646" Speed="1">
+		<Event Id="1" KeyFrame="596"/>		
+		<Event Id="2" KeyFrame="601"/><!--弓箭蓄力向上-->		
+		<Event Id="3" KeyFrame="622"/><!--向上射出-->
+	</Animation>
+	<Animation Name="ShengLePingAtk1_nan" AssetName="Q-Ani_Nan" StartFrame="990" EndFrame="1055" Speed="1"><!--沈乐平喇叭喊话攻击-->
+		<Event Id="1" KeyFrame="990"/>		
+		<Event Id="2" KeyFrame="1007"/><!--举起喇叭-->
+		<Event Id="3" KeyFrame="1025"/><!--举起喇叭-->
+	</Animation>
+	<Animation Name="Skill_Nan_GongBaoJiDing" AssetName="Q-Ani_Nan_Skill_GongBaoJiDing" StartFrame="0" EndFrame="85" Speed="1"><!--宫保鸡丁攻击 乱挥四下+前滚翻攻击-->
+		<Event Id="1" KeyFrame="0"/>		
+		<Event Id="2" KeyFrame="63"/><!--落地-->		
+	</Animation>
+	<Animation Name="Jump_nan" AssetName="Q-Ani_Nan" StartFrame="178" EndFrame="210" MoveStartFrame="178" MoveEndFrame="191" Speed="1">
+	</Animation>
+	<Animation Name="Idle_nan_Once" AssetName="Q-Ani_Nan" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Weak_nan" AssetName="Q-Ani_Nan" StartFrame="648" EndFrame="685" Speed="1"><!--虚弱跪地-->	
+	</Animation>
+	<Animation Name="WeakIdle_nan" AssetName="Q-Ani_Nan" StartFrame="685" EndFrame="735" Speed="1"><!--跪地Idle-->
+	</Animation>
+	<!--以下为壮体型动作-->
+	<Animation Name="Idle_strong" AssetName="Q-Ani_Strong" StartFrame="0" EndFrame="30" Speed="1">
+	</Animation>
+	<Animation Name="Idle2_strong" AssetName="Q-Ani_Strong_Idle2" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Run_strong" AssetName="Q-Ani_Strong" StartFrame="32" EndFrame="56" Speed="1">
+	</Animation>
+	<Animation Name="GetHit_strong" AssetName="Q-Ani_Strong" StartFrame="58" EndFrame="78" Speed="1">
+	</Animation>
+	<Animation Name="Die_strong" AssetName="Q-Ani_Strong" StartFrame="80" EndFrame="102" Speed="1">
+	</Animation>
+	<Animation Name="Atk1_strong" AssetName="Q-Ani_Strong" StartFrame="104" EndFrame="139" Speed="1">
+		<Event Id="1" KeyFrame="104"/>
+		<Event Id="2" KeyFrame="118"/><!--右手砸地-->
+	</Animation>
+	<Animation Name="Atk2_strong" AssetName="Q-Ani_Strong" StartFrame="180" EndFrame="221" Speed="1">
+		<Event Id="1" KeyFrame="180"/>
+		<Event Id="2" KeyFrame="198"/><!--右手砸地-->
+	</Animation>
+	<Animation Name="Jump_strong" AssetName="Q-Ani_Strong" StartFrame="141" EndFrame="177" MoveStartFrame="141" MoveEndFrame="153" Speed="1">
+	</Animation>
+	<Animation Name="Idle_strong_Once" AssetName="Q-Ani_Strong" StartFrame="0" EndFrame="30" Speed="1">
+	</Animation>
+	<Animation Name="Idle2_strong_Once" AssetName="Q-Ani_Strong_Idle2" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<!--以下为胖体型动作-->
+	<Animation Name="Idle_fat" AssetName="Q-Ani_Fat" StartFrame="0" EndFrame="40" Speed="1">
+	</Animation>
+	<Animation Name="Idle_fat_Once" AssetName="Q-Ani_Fat" StartFrame="0" EndFrame="40" Speed="1">
+	</Animation>
+	<Animation Name="Idle2_fat" AssetName="Q-Ani_Fat" StartFrame="270" EndFrame="320" Speed="1">
+	</Animation>
+	<Animation Name="Idle2_fat_Once" AssetName="Q-Ani_Fat" StartFrame="270" EndFrame="320" Speed="1">
+	</Animation>
+	<Animation Name="Run_fat" AssetName="Q-Ani_Fat" StartFrame="42" EndFrame="66" Speed="1">
+	</Animation>
+	<Animation Name="GetHit_fat" AssetName="Q-Ani_Fat" StartFrame="68" EndFrame="92" Speed="1">
+	</Animation>
+	<Animation Name="Die_fat" AssetName="Q-Ani_Fat" StartFrame="94" EndFrame="121" Speed="1">
+	</Animation>
+	<Animation Name="Atk1_fat" AssetName="Q-Ani_Fat" StartFrame="123" EndFrame="156" Speed="1">
+		<Event Id="1" KeyFrame="123"/>
+		<Event Id="2" KeyFrame="137"/><!--肚子顶-->
+	</Animation>
+	<Animation Name="Atk2_fat" AssetName="Q-Ani_Fat" StartFrame="187" EndFrame="267" Speed="1">
+		<Event Id="1" KeyFrame="187"/>		
+		<Event Id="2" KeyFrame="193"/><!--右挥攻击-->		
+		<Event Id="3" KeyFrame="201"/><!--左挥攻击-->		
+		<Event Id="4" KeyFrame="216"/><!--起跳-->		
+		<Event Id="5" KeyFrame="241"/><!--落地砸攻击-->
+	</Animation>
+	<Animation Name="Atk3_fat" AssetName="Q-Ani_Fat" StartFrame="323" EndFrame="373" Speed="1">
+		<Event Id="1" KeyFrame="323"/>		
+		<Event Id="2" KeyFrame="350"/><!--右手前推攻击-->		
+	</Animation>
+	<Animation Name="Atk4_fat" AssetName="Q-Ani_Fat" StartFrame="376" EndFrame="439" Speed="1">
+		<Event Id="1" KeyFrame="376"/>		
+		<Event Id="2" KeyFrame="404"/><!--左脚前踢-->		
+	</Animation>
+	<Animation Name="Jump_fat" AssetName="Q-Ani_Fat" StartFrame="158" EndFrame="186" MoveStartFrame="158" MoveEndFrame="172" Speed="1">
+	</Animation>	
+	<!--以下为特殊Idle动作-->
+	<Animation Name="UIIdle" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="0" EndFrame="50" Speed="1"><!--UI界面-->
+	</Animation>
+	<Animation Name="UIIdle_Once" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>	
+	<Animation Name="Idle_GeNie" AssetName="Q-Ani_SpeIdle_GeNie" StartFrame="0" EndFrame="50" Speed="1"><!--盖聂-->
+	</Animation>
+	<Animation Name="Idle_GeNie_Once" AssetName="Q-Ani_SpeIdle_GeNie" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_GuiGuZi" AssetName="Q-Ani_SpeIdle_GuiGuZi" StartFrame="0" EndFrame="50" Speed="1"><!--鬼谷子-->
+	</Animation>
+	<Animation Name="Idle_GuiGuZi_Once" AssetName="Q-Ani_SpeIdle_GuiGuZi" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_QinShiHuang" AssetName="Q-Ani_SpeIdle_QinShiHuang" StartFrame="0" EndFrame="50" Speed="1"><!--秦始皇-->
+	</Animation>
+	<Animation Name="Idle_QinShiHuang_Once" AssetName="Q-Ani_SpeIdle_QinShiHuang" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_WeiZhuang" AssetName="Q-Ani_SpeIdle_WeiZhuang" StartFrame="0" EndFrame="50" Speed="1"><!--卫庄-->
+	</Animation>
+	<Animation Name="Idle_WeiZhuang_Once" AssetName="Q-Ani_SpeIdle_WeiZhuang" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_YunZhongJun" AssetName="Q-Ani_SpeIdle_YunZhongJun" StartFrame="212" EndFrame="262" Speed="1"><!--云中君-->
+	</Animation>
+	<Animation Name="Idle_YunZhongJun_Once" AssetName="Q-Ani_SpeIdle_YunZhongJun" StartFrame="212" EndFrame="262" Speed="1">
+	</Animation>
+	<Animation Name="Idle_DongHuang" AssetName="Q-Ani_SpeIdle_DongHuang" StartFrame="316" EndFrame="366" Speed="1"><!--东皇太一-->
+	</Animation>
+	<Animation Name="Idle_DongHuang_Once" AssetName="Q-Ani_SpeIdle_DongHuang" StartFrame="316" EndFrame="366" Speed="1">
+	</Animation>
+	<Animation Name="Idle_GaoYue" AssetName="Q-Ani_SpeIdle_GaoYue" StartFrame="316" EndFrame="366" Speed="1"><!--高月-->
+	</Animation>
+	<Animation Name="Idle_GaoYue_Once" AssetName="Q-Ani_SpeIdle_GaoYue" StartFrame="316" EndFrame="366" Speed="1">
+	</Animation>
+	<Animation Name="Idle_ShiLan" AssetName="Q-Ani_SpeIdle_ShiLan" StartFrame="316" EndFrame="366" Speed="1"><!--石兰 少司命-->
+	</Animation>
+	<Animation Name="Idle_ShiLan_Once" AssetName="Q-Ani_SpeIdle_ShiLan" StartFrame="316" EndFrame="366" Speed="1">
+	</Animation>
+	<Animation Name="Idle_ShaoYu" AssetName="Q-Ani_SpeIdle_ShaoYu" StartFrame="316" EndFrame="366" Speed="1"><!--少羽-->
+	</Animation>
+	<Animation Name="Idle_ShaoYu_Once" AssetName="Q-Ani_SpeIdle_ShaoYu" StartFrame="316" EndFrame="366" Speed="1">
+	</Animation>
+	<Animation Name="Idle_TianMing" AssetName="Q-Ani_SpeIdle_TianMing" StartFrame="0" EndFrame="50" Speed="1"><!--天明-->
+	</Animation>
+	<Animation Name="Idle_TianMing_Once" AssetName="Q-Ani_SpeIdle_TianMing" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_XingHun" AssetName="Q-Ani_SpeIdle_XingHun" StartFrame="0" EndFrame="50" Speed="1"><!--星魂-->
+	</Animation>
+	<Animation Name="Idle_XingHun_Once" AssetName="Q-Ani_SpeIdle_XingHun" StartFrame="0" EndFrame="50" Speed="1">
+	</Animation>
+	<Animation Name="Idle_BaiFeng" AssetName="Q-Ani_SpeIdle_BaiFeng" StartFrame="0" EndFrame="50" Speed="1"><!--白凤-->
+	</Animation>
+	<Animation Name="Idle_BaiFeng_Once" AssetName="Q-Ani_SpeIdle_BaiFeng" StartFrame="60" EndFrame="150" Speed="1">
+	</Animation>
+	<Animation Name="UIIdle_DanShou" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="125" EndFrame="175" Speed="1"><!--正常体幻化双手-->
+	</Animation>
+	<Animation Name="UIIdle_ShuangShou" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="180" EndFrame="230" Speed="1"><!--正常体幻化持剑-->
+	</Animation>
+	<Animation Name="UIIdle_Empty" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="235" EndFrame="285" Speed="1"><!--正常体幻化空手 右手举起-->
+	</Animation>
+	<!--以下为特殊动作-->
+	<Animation Name="TianMing_Atk1" AssetName="Q-Ani_SpeIdle_TianMingAtk" StartFrame="0" EndFrame="117" Speed="1"><!-- 选人界面 - 天明点击动作 -->
+	</Animation>
+	<Animation Name="ShiLan_Atk1" AssetName="Q-Ani_SpeIdle_ShiLanAtk" StartFrame="0" EndFrame="70" Speed="1"><!-- 选人界面 - 石兰点击动作 -->
+	</Animation>
+	<Animation Name="ShaoYu_Atk1" AssetName="Q-Ani_SpeIdle_ShaoYuAtk" StartFrame="0" EndFrame="40" Speed="1"><!-- 选人界面 - 少羽点击动作 -->
+	</Animation>
+	<Animation Name="BaiFeng_Atk1" AssetName="Q-Ani_SpeIdle_BaiFeng" StartFrame="60" EndFrame="150" Speed="1"><!--白凤点击动作Idle_BaiFeng衔接专用 不可通用-->
+	</Animation>
+	<Animation Name="XingHun_Atk1" AssetName="Q-Ani_SpeIdle_XingHun" StartFrame="60" EndFrame="135" Speed="1"><!--星魂点击动作Idle_XingHun衔接专用 不可通用-->
+	</Animation>
+	<Animation Name="WeiZhuang_Atk1" AssetName="Q-Ani_SpeIdle_WeiZhuang" StartFrame="60" EndFrame="159" Speed="1"><!--卫庄点击动作Idle_WeiZhuang衔接专用 不可通用-->
+	</Animation>
+	<Animation Name="UIIdle_Atk1" AssetName="Q-Ani_SpeIdle_UIIdle" StartFrame="60" EndFrame="120" Speed="1"><!--通用点击动作UIIdle衔接专用 不可通用-->
+	</Animation>
+	<!--以下为点击动作 女-->
+	<Animation Name="Act1_nv" AssetName="Q-Ani_Nv" StartFrame="448" EndFrame="520" Speed="1"><!-- 自转一圈 月神-->
+	</Animation>
+	<!--以下为点击动作 男-->
+	<Animation Name="Act1_nan" AssetName="Q-Ani_Nan" StartFrame="739" EndFrame="812" Speed="1"><!-- 仰天长啸 卫庄-->
+	</Animation>
+	<Animation Name="Act2_nan" AssetName="Q-Ani_Nan" StartFrame="815" EndFrame="900" Speed="1"><!-- 双手胸前合十鞠躬 云中君-->
+	</Animation>
+	<Animation Name="Act3_nan" AssetName="Q-Ani_Nan" StartFrame="903" EndFrame="983" Speed="1"><!-- 用力挥手 秦始皇 -->
+	</Animation>	
+	<!--以下为创建角色动作-->
+	<Animation Name="TianMing_CreAccountIdle" AssetName="Q-Ani_CreAccount_TianMing_Idle" StartFrame="0" EndFrame="50" Speed="1"><!-- 天明 未激活IDLE -->
+	</Animation>
+	<Animation Name="TianMing_Active" AssetName="Q-Ani_CreAccount_TianMing_Active" StartFrame="0" EndFrame="140" Speed="1"><!-- 天明 激活动作 -->
+	</Animation>
+	<Animation Name="ShiLan_CreAccountIdle" AssetName="Q-Ani_CreAccount_ShiLan_Idle" StartFrame="0" EndFrame="70" Speed="1"><!-- 石兰 未激活IDLE -->
+	</Animation>
+	<Animation Name="ShiLan_Active" AssetName="Q-Ani_CreAccount_ShiLan_Active" StartFrame="0" EndFrame="94" Speed="1"><!-- 石兰 激活动作 -->
+	</Animation>
+	<Animation Name="ShiLan_ActiveIdle" AssetName="Q-Ani_CreAccount_ShiLan_ActiveIdle" StartFrame="0" EndFrame="50" Speed="1"><!-- 石兰 激活Idle -->
+	</Animation>
+	<Animation Name="ShaoYu_Active" AssetName="Q-Ani_CreAccount_ShaoYu_Active" StartFrame="0" EndFrame="50" Speed="1"><!-- 少羽 激活动作 -->
+	</Animation>
+	<Animation Name="ShaoYu_ActiveIdle" AssetName="Q-Ani_CreAccount_ShaoYu_ActiveIdle" StartFrame="0" EndFrame="50" Speed="1"><!-- 少羽 激活Idle -->
+	</Animation>
+</AnimationConfig>

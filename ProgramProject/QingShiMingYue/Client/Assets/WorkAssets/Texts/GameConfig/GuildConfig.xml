@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GuildConfig AnnouncementMaxLength="75" NameMaxLength="6" GuildCountPerPage="8" MsgCountLimitPerDay="3" MsgCountRefreshTimePerDay="23:59:59" MsgDayLimit="7" MsgLengthLimit="50" MsgShowCount="50" NewsShowCount="50" ChatShowCount="50" ApplyShowMax="20" DeclarationMaxLength="40" ChangeLeaderVipLimit="1" RoleIdLeader="58030001">
+  <GuildLevel Level="1" NextLevelNeedConstruct="15000" MemberMax="15" MaxConstructionCountPerDay="150" StageTalentPointCount="1">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="1" />
+    <CountLimit RoleId="58030004" Count="11" />
+  </GuildLevel>
+  <GuildLevel Level="2" NextLevelNeedConstruct="34000" MemberMax="17" MaxConstructionCountPerDay="170" StageTalentPointCount="2">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="1" />
+    <CountLimit RoleId="58030004" Count="13" />
+  </GuildLevel>
+  <GuildLevel Level="3" NextLevelNeedConstruct="57000" MemberMax="19" MaxConstructionCountPerDay="190" StageTalentPointCount="3">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="1" />
+    <CountLimit RoleId="58030004" Count="15" />
+  </GuildLevel>
+  <GuildLevel Level="4" NextLevelNeedConstruct="105000" MemberMax="21" MaxConstructionCountPerDay="210" StageTalentPointCount="4">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="1" />
+    <CountLimit RoleId="58030004" Count="17" />
+  </GuildLevel>
+  <GuildLevel Level="5" NextLevelNeedConstruct="161000" MemberMax="23" MaxConstructionCountPerDay="230" StageTalentPointCount="5">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="3" />
+    <CountLimit RoleId="58030004" Count="17" />
+  </GuildLevel>
+  <GuildLevel Level="6" NextLevelNeedConstruct="225000" MemberMax="25" MaxConstructionCountPerDay="250" StageTalentPointCount="8">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="3" />
+    <CountLimit RoleId="58030004" Count="19" />
+  </GuildLevel>
+  <GuildLevel Level="7" NextLevelNeedConstruct="324000" MemberMax="27" MaxConstructionCountPerDay="270" StageTalentPointCount="11">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="3" />
+    <CountLimit RoleId="58030004" Count="21" />
+  </GuildLevel>
+  <GuildLevel Level="8" NextLevelNeedConstruct="476000" MemberMax="28" MaxConstructionCountPerDay="280" StageTalentPointCount="14">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="6" />
+    <CountLimit RoleId="58030004" Count="19" />
+  </GuildLevel>
+  <GuildLevel Level="9" NextLevelNeedConstruct="696000" MemberMax="29" MaxConstructionCountPerDay="290" StageTalentPointCount="17">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="6" />
+    <CountLimit RoleId="58030004" Count="20" />
+  </GuildLevel>
+  <GuildLevel Level="10" NextLevelNeedConstruct="1044000" MemberMax="30" MaxConstructionCountPerDay="300" StageTalentPointCount="20">
+    <CountLimit RoleId="58030002" Count="2" />
+    <CountLimit RoleId="58030003" Count="6" />
+    <CountLimit RoleId="58030004" Count="21" />
+  </GuildLevel>
+  <Role Id="58030001" Name="门主" CanOffered="False" Color="RGBA(0.953, 0.592, 0.000, 1.000)" SortIndex="1" AutoSort="False" CanDownRole="False">
+    <Right>ViewApply</Right>
+    <Right>ChangeLeader</Right>
+    <Right>ChangeRoleId</Right>
+    <Right>KickMember</Right>
+    <Right>ChangeAnnouncement</Right>
+    <Right>ChangeDeclaration</Right>
+    <Right>HandResetStage</Right>
+    <Right>SetAutoEnter</Right>
+    <Right>StageTalent</Right>
+  </Role>
+  <Role Id="58030002" Name="副门主" CanOffered="True" Color="RGBA(0.702, 0.161, 0.765, 1.000)" SortIndex="2" AutoSort="False" CanDownRole="True">
+    <Right>ViewApply</Right>
+    <Right>Quit</Right>
+    <Right>KickMember</Right>
+    <Right>ChangeAnnouncement</Right>
+    <Right>ChangeDeclaration</Right>
+    <Right>HandResetStage</Right>
+    <Right>StageTalent</Right>
+  </Role>
+  <Role Id="58030003" Name="精英" CanOffered="False" Color="RGBA(0.102, 0.627, 0.957, 1.000)" SortIndex="3" AutoSort="True" CanDownRole="False">
+    <Right>Quit</Right>
+  </Role>
+  <Role Id="58030004" Name="成员" CanOffered="True" Color="RGBA(0.129, 0.675, 0.216, 1.000)" SortIndex="4" AutoSort="True" CanDownRole="False">
+    <Right>Quit</Right>
+  </Role>
+  <CreateCost Id="FF000001" Count="2000000" />
+  <Construction WaitTime="0" PlayerMaxCompletedTaskPerDay="5" RefreshTimePerDay="23:59:59">
+    <RefreshCost Id="FF000002" Count="10" />
+    <DefaultTaskGroup>
+      <Task Id="58050001" Weight="71" />
+      <Task Id="58050002" Weight="71" />
+      <Task Id="58050003" Weight="71" />
+      <Task Id="58050004" Weight="71" />
+      <Task Id="58050005" Weight="71" />
+      <Task Id="58050006" Weight="71" />
+      <Task Id="58050007" Weight="71" />
+      <Task Id="58051001" Weight="113" />
+      <Task Id="58051005" Weight="113" />
+      <Task Id="58051006" Weight="113" />
+      <Task Id="58051007" Weight="113" />
+      <Task Id="58052007" Weight="50" />
+    </DefaultTaskGroup>
+    <DefaultRefreshTaskGroup>
+      <Task Id="58050001" Weight="71" />
+      <Task Id="58050002" Weight="71" />
+      <Task Id="58050003" Weight="71" />
+      <Task Id="58050004" Weight="71" />
+      <Task Id="58050005" Weight="71" />
+      <Task Id="58050006" Weight="71" />
+      <Task Id="58050007" Weight="71" />
+      <Task Id="58051001" Weight="100" />
+      <Task Id="58051005" Weight="100" />
+      <Task Id="58051006" Weight="100" />
+      <Task Id="58051007" Weight="100" />
+      <Task Id="58052007" Weight="100" />
+    </DefaultRefreshTaskGroup>
+    <LastTaskGroup>
+      <Task Id="58050001" Weight="71" />
+      <Task Id="58050002" Weight="71" />
+      <Task Id="58050003" Weight="71" />
+      <Task Id="58050004" Weight="71" />
+      <Task Id="58050005" Weight="71" />
+      <Task Id="58050006" Weight="71" />
+      <Task Id="58050007" Weight="71" />
+      <Task Id="58051001" Weight="100" />
+      <Task Id="58051005" Weight="100" />
+      <Task Id="58051006" Weight="100" />
+      <Task Id="58051007" Weight="100" />
+      <Task Id="58052007" Weight="100" />
+    </LastTaskGroup>
+    <CostRefreshTaskGroup>
+      <Task Id="58050001" Weight="71" />
+      <Task Id="58050002" Weight="71" />
+      <Task Id="58050003" Weight="71" />
+      <Task Id="58050004" Weight="71" />
+      <Task Id="58050005" Weight="71" />
+      <Task Id="58050006" Weight="71" />
+      <Task Id="58050007" Weight="71" />
+      <Task Id="58051001" Weight="43" />
+      <Task Id="58051002" Weight="43" />
+      <Task Id="58051003" Weight="43" />
+      <Task Id="58051004" Weight="43" />
+      <Task Id="58051005" Weight="43" />
+      <Task Id="58051006" Weight="43" />
+      <Task Id="58051007" Weight="43" />
+      <Task Id="58052001" Weight="25" />
+      <Task Id="58052002" Weight="25" />
+      <Task Id="58052003" Weight="25" />
+      <Task Id="58052004" Weight="25" />
+      <Task Id="58052005" Weight="25" />
+      <Task Id="58052006" Weight="25" />
+      <Task Id="58052007" Weight="25" />
+      <Task Id="58052008" Weight="25" />
+    </CostRefreshTaskGroup>
+    <ConstructionCounter Id="58040001" Priority="1" ActiveThreshold="10" ActiveDelta="10" MaxActiveCount="2100000000">
+      <Task Id="58052001" Weight="71" />
+      <Task Id="58052002" Weight="71" />
+      <Task Id="58052003" Weight="71" />
+      <Task Id="58052004" Weight="71" />
+      <Task Id="58052005" Weight="71" />
+      <Task Id="58052006" Weight="71" />
+      <Task Id="58052007" Weight="71" />
+      <Task Id="58052008" Weight="100" />
+      <Task Id="58053001" Weight="100" />
+      <Task Id="58053002" Weight="100" />
+      <Task Id="58053007" Weight="100" />
+      <Task Id="58053008" Weight="100" />
+    </ConstructionCounter>
+    <ConstructionCounter Id="58040002" Priority="2" ActiveThreshold="20" ActiveDelta="20" MaxActiveCount="2100000000">
+      <Task Id="58053001" Weight="125" />
+      <Task Id="58053002" Weight="125" />
+      <Task Id="58053007" Weight="125" />
+      <Task Id="58053008" Weight="125" />
+      <Task Id="58054001" Weight="83" />
+      <Task Id="58054002" Weight="83" />
+      <Task Id="58054007" Weight="83" />
+      <Task Id="58054008" Weight="83" />
+      <Task Id="58054009" Weight="83" />
+      <Task Id="58054010" Weight="83" />
+    </ConstructionCounter>
+    <ConstructionTask TaskId="58050001" TaskName="RGBA(1, 1, 1, 1.000)书籍捐献" TaskQuality="1" TaskIcon="15000220" TaskDesc="捐献蓝品质书籍1本" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000220" Type="CombatTurn" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050002" TaskName="RGBA(1, 1, 1, 1.000)武器捐献" TaskQuality="1" TaskIcon="15000275" TaskDesc="捐献蓝品质武器1件" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000275" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Weapon" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050003" TaskName="RGBA(1, 1, 1, 1.000)衣服捐献" TaskQuality="1" TaskIcon="15000278" TaskDesc="捐献蓝品质衣服1件" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000278" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Armor" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050004" TaskName="RGBA(1, 1, 1, 1.000)鞋子捐献" TaskQuality="1" TaskIcon="15000281" TaskDesc="捐献蓝品质鞋子1件" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000281" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Shoe" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050005" TaskName="RGBA(1, 1, 1, 1.000)饰品捐献" TaskQuality="1" TaskIcon="15000284" TaskDesc="捐献蓝品质饰品1件" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000284" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Decoration" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050006" TaskName="RGBA(1, 1, 1, 1.000)宝物捐献" TaskQuality="1" TaskIcon="15000287" TaskDesc="捐献蓝品质宝物1件" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000287" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Treasure" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58050007" TaskName="RGBA(1, 1, 1, 1.000)内丹捐献" TaskQuality="1" TaskIcon="15000270" TaskDesc="捐献白品质内丹1个" GuildConstruct="30" PlayerContribution="30">
+      <OneClickCompletedCost Id="FF000002" Count="10" />
+      <CostAsset IconId="15000270" Type="Dan" QualityLevel="1" BreakThroughLevelFrom="1" BreakThroughLevelTo="1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="1" />
+      <Reward Id="FF000018" Count="30" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051001" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)书籍捐献" TaskQuality="2" TaskIcon="15000220" TaskDesc="捐献蓝品质书籍1本" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000220" Type="CombatTurn" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051002" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)武器捐献" TaskQuality="2" TaskIcon="15000275" TaskDesc="捐献蓝品质武器1件" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000275" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Weapon" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051003" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)衣服捐献" TaskQuality="2" TaskIcon="15000278" TaskDesc="捐献蓝品质衣服1件" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000278" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Armor" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051004" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)鞋子捐献" TaskQuality="2" TaskIcon="15000281" TaskDesc="捐献蓝品质鞋子1件" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000281" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Shoe" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051005" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)饰品捐献" TaskQuality="2" TaskIcon="15000284" TaskDesc="捐献蓝品质饰品1件" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000284" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Decoration" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051006" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)宝物捐献" TaskQuality="2" TaskIcon="15000287" TaskDesc="捐献蓝品质宝物1件" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000287" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Treasure" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58051007" TaskName="RGBA(0.129, 0.675, 0.216, 1.000)内丹捐献" TaskQuality="2" TaskIcon="15000270" TaskDesc="捐献白品质内丹1个" GuildConstruct="50" PlayerContribution="50">
+      <OneClickCompletedCost Id="FF000002" Count="20" />
+      <CostAsset IconId="15000270" Type="Dan" QualityLevel="1" BreakThroughLevelFrom="1" BreakThroughLevelTo="1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="50" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052001" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)书籍捐献" TaskQuality="3" TaskIcon="15000220" TaskDesc="捐献蓝品质书籍1本" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000220" Type="CombatTurn" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052002" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)武器捐献" TaskQuality="3" TaskIcon="15000275" TaskDesc="捐献蓝品质武器1件" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000275" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Weapon" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052003" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)衣服捐献" TaskQuality="3" TaskIcon="15000278" TaskDesc="捐献蓝品质衣服1件" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000278" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Armor" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052004" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)鞋子捐献" TaskQuality="3" TaskIcon="15000281" TaskDesc="捐献蓝品质鞋子1件" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000281" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Shoe" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052005" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)饰品捐献" TaskQuality="3" TaskIcon="15000284" TaskDesc="捐献蓝品质饰品1件" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000284" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Decoration" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052006" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)宝物捐献" TaskQuality="3" TaskIcon="15000287" TaskDesc="捐献蓝品质宝物1件" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000287" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="Treasure" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052007" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)内丹捐献" TaskQuality="3" TaskIcon="15000270" TaskDesc="捐献白品质内丹2个" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000270" Type="Dan" QualityLevel="1" BreakThroughLevelFrom="1" BreakThroughLevelTo="1" SubType="" Count="2" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58052008" TaskName="RGBA(0.102, 0.627, 0.957, 1.000)角色捐献" TaskQuality="3" TaskIcon="15000208" TaskDesc="捐献蓝品质角色1个" GuildConstruct="100" PlayerContribution="100">
+      <OneClickCompletedCost Id="FF000002" Count="30" />
+      <CostAsset IconId="15000208" Type="Avatar" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="2" />
+      <Reward Id="FF000018" Count="100" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58053001" TaskName="RGBA(0.702, 0.161, 0.765, 1.000)书籍捐献" TaskQuality="4" TaskIcon="15000220" TaskDesc="捐献蓝品质书籍2本" GuildConstruct="200" PlayerContribution="200">
+      <OneClickCompletedCost Id="FF000002" Count="40" />
+      <CostAsset IconId="15000220" Type="CombatTurn" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="2" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="200" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58053002" TaskName="RGBA(0.702, 0.161, 0.765, 1.000)装备捐献" TaskQuality="4" TaskIcon="15000217" TaskDesc="捐献蓝品质装备2件" GuildConstruct="200" PlayerContribution="200">
+      <OneClickCompletedCost Id="FF000002" Count="40" />
+      <CostAsset IconId="15000217" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="2" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="200" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58053007" TaskName="RGBA(0.702, 0.161, 0.765, 1.000)内丹捐献" TaskQuality="4" TaskIcon="15000270" TaskDesc="捐献白品质内丹3个" GuildConstruct="200" PlayerContribution="200">
+      <OneClickCompletedCost Id="FF000002" Count="40" />
+      <CostAsset IconId="15000270" Type="Dan" QualityLevel="1" BreakThroughLevelFrom="1" BreakThroughLevelTo="1" SubType="" Count="3" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="200" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58053008" TaskName="RGBA(0.702, 0.161, 0.765, 1.000)角色捐献" TaskQuality="4" TaskIcon="15000208" TaskDesc="捐献蓝品质角色1个" GuildConstruct="200" PlayerContribution="200">
+      <OneClickCompletedCost Id="FF000002" Count="40" />
+      <CostAsset IconId="15000208" Type="Avatar" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="200" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054001" TaskName="RGBA(0.953, 0.592, 0, 1.000)书籍捐献" TaskQuality="5" TaskIcon="15000220" TaskDesc="捐献蓝品质书籍3本" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000220" Type="CombatTurn" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="3" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054002" TaskName="RGBA(0.953, 0.592, 0, 1.000)装备捐献" TaskQuality="5" TaskIcon="15000217" TaskDesc="捐献蓝品质装备3件" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000217" Type="Equipment" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="3" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054007" TaskName="RGBA(0.953, 0.592, 0, 1.000)内丹捐献" TaskQuality="5" TaskIcon="15000270" TaskDesc="捐献白品质内丹4个" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000270" Type="Dan" QualityLevel="1" BreakThroughLevelFrom="1" BreakThroughLevelTo="1" SubType="" Count="4" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054008" TaskName="RGBA(0.953, 0.592, 0, 1.000)角色捐献" TaskQuality="5" TaskIcon="15000208" TaskDesc="捐献蓝品质角色1个" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000208" Type="Avatar" QualityLevel="3" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054009" TaskName="RGBA(0.953, 0.592, 0, 1.000)书籍捐献" TaskQuality="5" TaskIcon="15000221" TaskDesc="捐献紫品质书籍1本" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000221" Type="CombatTurn" QualityLevel="4" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+    <ConstructionTask TaskId="58054010" TaskName="RGBA(0.953, 0.592, 0, 1.000)装备捐献" TaskQuality="5" TaskIcon="15000218" TaskDesc="捐献紫品质装备1件" GuildConstruct="300" PlayerContribution="300">
+      <OneClickCompletedCost Id="FF000002" Count="50" />
+      <CostAsset IconId="15000218" Type="Equipment" QualityLevel="4" BreakThroughLevelFrom="-1" BreakThroughLevelTo="-1" SubType="" Count="1" />
+      <Reward Id="07140001" Count="3" />
+      <Reward Id="FF000018" Count="300" />
+    </ConstructionTask>
+  </Construction>
+  <GuildTask MaxCompletedTaskPerDay="5" FreeDiceCountPerDay="5" FreeRefreshCountPerDay="1" RefreshTimePerDay="23:59:59">
+    <DiceIncreaseCost FromStep="1">
+      <Cost Id="FF000002" Count="5" />
+    </DiceIncreaseCost>
+    <DiceIncreaseCost FromStep="5">
+      <Cost Id="FF000002" Count="25" />
+    </DiceIncreaseCost>
+    <DiceIncreaseCost FromStep="15">
+      <Cost Id="FF000002" Count="75" />
+    </DiceIncreaseCost>
+    <DiceIncreaseCost FromStep="45">
+      <Cost Id="FF000002" Count="225" />
+    </DiceIncreaseCost>
+    <RefreshIncreaseCost FromStep="1">
+      <Cost Id="FF000002" Count="10" />
+    </RefreshIncreaseCost>
+    <RefreshIncreaseCost FromStep="4">
+      <Cost Id="FF000002" Count="40" />
+    </RefreshIncreaseCost>
+    <RefreshIncreaseCost FromStep="5">
+      <Cost Id="FF000002" Count="50" />
+    </RefreshIncreaseCost>
+    <RefreshIncreaseCost FromStep="8">
+      <Cost Id="FF000002" Count="80" />
+    </RefreshIncreaseCost>
+    <TaskRefresh CompleteCount="0">
+      <DefaultRefreshTasks>
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000015" Weight="1" />
+        <Task Id="00000018" Weight="1" />
+        <Task Id="00000055" Weight="1" />
+        <Task Id="00000024" Weight="1" />
+      </DefaultRefreshTasks>
+      <CostRefreshTasks>
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000002" Weight="1" />
+        <Task Id="00000003" Weight="1" />
+        <Task Id="00000004" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+      </CostRefreshTasks>
+      <TaskCounter Id="10101010" ActiveThreshold="1" ActiveDelta="2" MaxActiveCount="2">
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+        <Task Id="00000008" Weight="1" />
+        <Task Id="00000011" Weight="1" />
+        <Task Id="00000009" Weight="1" />
+      </TaskCounter>
+    </TaskRefresh>
+    <TaskRefresh CompleteCount="1">
+      <DefaultRefreshTasks>
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000002" Weight="1" />
+        <Task Id="00000003" Weight="1" />
+        <Task Id="00000004" Weight="1" />
+        <Task Id="00000005" Weight="2" />
+      </DefaultRefreshTasks>
+      <CostRefreshTasks>
+        <Task Id="00000006" Weight="1" />
+        <Task Id="00000007" Weight="1" />
+        <Task Id="00000008" Weight="1" />
+        <Task Id="00000009" Weight="1" />
+        <Task Id="00000010" Weight="2" />
+      </CostRefreshTasks>
+      <TaskCounter Id="10101011" ActiveThreshold="2" ActiveDelta="3" MaxActiveCount="2">
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+      </TaskCounter>
+    </TaskRefresh>
+    <TaskRefresh CompleteCount="2">
+      <DefaultRefreshTasks>
+        <Task Id="00000006" Weight="1" />
+        <Task Id="00000007" Weight="1" />
+        <Task Id="00000008" Weight="1" />
+        <Task Id="00000009" Weight="1" />
+        <Task Id="00000010" Weight="3" />
+      </DefaultRefreshTasks>
+      <CostRefreshTasks>
+        <Task Id="00000011" Weight="1" />
+        <Task Id="00000012" Weight="1" />
+        <Task Id="00000013" Weight="1" />
+        <Task Id="00000014" Weight="1" />
+        <Task Id="00000015" Weight="3" />
+      </CostRefreshTasks>
+      <TaskCounter Id="10101012" ActiveThreshold="3" ActiveDelta="4" MaxActiveCount="3">
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+      </TaskCounter>
+    </TaskRefresh>
+    <TaskRefresh CompleteCount="3">
+      <DefaultRefreshTasks>
+        <Task Id="00000011" Weight="1" />
+        <Task Id="00000012" Weight="1" />
+        <Task Id="00000013" Weight="1" />
+        <Task Id="00000014" Weight="1" />
+        <Task Id="00000015" Weight="4" />
+      </DefaultRefreshTasks>
+      <CostRefreshTasks>
+        <Task Id="00000016" Weight="1" />
+        <Task Id="00000017" Weight="1" />
+        <Task Id="00000018" Weight="1" />
+        <Task Id="00000019" Weight="1" />
+        <Task Id="00000020" Weight="4" />
+      </CostRefreshTasks>
+      <TaskCounter Id="10101013" ActiveThreshold="4" ActiveDelta="5" MaxActiveCount="4">
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+      </TaskCounter>
+    </TaskRefresh>
+    <TaskRefresh CompleteCount="4">
+      <DefaultRefreshTasks>
+        <Task Id="00000016" Weight="1" />
+        <Task Id="00000017" Weight="1" />
+        <Task Id="00000018" Weight="1" />
+        <Task Id="00000019" Weight="1" />
+        <Task Id="00000020" Weight="5" />
+      </DefaultRefreshTasks>
+      <CostRefreshTasks>
+        <Task Id="00000021" Weight="1" />
+        <Task Id="00000022" Weight="1" />
+        <Task Id="00000023" Weight="1" />
+        <Task Id="00000024" Weight="1" />
+        <Task Id="00000025" Weight="5" />
+      </CostRefreshTasks>
+      <TaskCounter Id="10101014" ActiveThreshold="5" ActiveDelta="6" MaxActiveCount="4">
+        <Task Id="00000001" Weight="1" />
+        <Task Id="00000005" Weight="1" />
+      </TaskCounter>
+    </TaskRefresh>
+    <TaskGroup>
+      <Task TaskId="00000001" TaskName="康猪1" TaskIcon="07020001" TaskQuality="1" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝1">
+        <Reward Id="FF000001" Count="1000" />
+        <ExtReward Id="FF000002" Count="1" />
+      </Task>
+      <Task TaskId="00000002" TaskName="康猪猪1" TaskIcon="07020001" TaskQuality="2" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝2">
+        <Reward Id="FF000001" Count="1100" />
+        <ExtReward Id="FF000002" Count="2" />
+      </Task>
+      <Task TaskId="00000003" TaskName="康猪2" TaskIcon="07020001" TaskQuality="3" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝3">
+        <Reward Id="FF000001" Count="1200" />
+        <ExtReward Id="FF000002" Count="3" />
+      </Task>
+      <Task TaskId="00000004" TaskName="康猪猪2" TaskIcon="07020001" TaskQuality="4" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝4">
+        <Reward Id="FF000001" Count="1300" />
+        <ExtReward Id="FF000002" Count="4" />
+      </Task>
+      <Task TaskId="00000005" TaskName="康猪3" TaskIcon="07020001" TaskQuality="5" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝5">
+        <Reward Id="FF000001" Count="1400" />
+        <ExtReward Id="FF000002" Count="5" />
+      </Task>
+      <Task TaskId="00000006" TaskName="康猪猪3" TaskIcon="07020001" TaskQuality="1" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝6">
+        <Reward Id="FF000001" Count="1500" />
+        <ExtReward Id="FF000002" Count="6" />
+      </Task>
+      <Task TaskId="00000007" TaskName="康猪4" TaskIcon="07020001" TaskQuality="2" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝7">
+        <Reward Id="FF000001" Count="1600" />
+        <ExtReward Id="FF000002" Count="7" />
+      </Task>
+      <Task TaskId="00000008" TaskName="康猪猪4" TaskIcon="07020001" TaskQuality="3" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝8">
+        <Reward Id="FF000001" Count="1700" />
+        <ExtReward Id="FF000002" Count="8" />
+      </Task>
+      <Task TaskId="00000009" TaskName="康猪5" TaskIcon="07020001" TaskQuality="4" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝9">
+        <Reward Id="FF000001" Count="1800" />
+        <ExtReward Id="FF000002" Count="9" />
+      </Task>
+      <Task TaskId="00000010" TaskName="康猪猪5" TaskIcon="07020001" TaskQuality="5" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝10">
+        <Reward Id="FF000001" Count="1900" />
+        <ExtReward Id="FF000002" Count="10" />
+      </Task>
+      <Task TaskId="00000011" TaskName="康猪6" TaskIcon="07020001" TaskQuality="1" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝11">
+        <Reward Id="FF000001" Count="2000" />
+        <ExtReward Id="FF000002" Count="11" />
+      </Task>
+      <Task TaskId="00000012" TaskName="康猪猪6" TaskIcon="07020001" TaskQuality="2" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝12">
+        <Reward Id="FF000001" Count="2100" />
+        <ExtReward Id="FF000002" Count="12" />
+      </Task>
+      <Task TaskId="00000013" TaskName="康猪7" TaskIcon="07020001" TaskQuality="3" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝13">
+        <Reward Id="FF000001" Count="2200" />
+        <ExtReward Id="FF000002" Count="13" />
+      </Task>
+      <Task TaskId="00000014" TaskName="康猪猪7" TaskIcon="07020001" TaskQuality="4" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝14">
+        <Reward Id="FF000001" Count="2300" />
+        <ExtReward Id="FF000002" Count="14" />
+      </Task>
+      <Task TaskId="00000015" TaskName="康猪8" TaskIcon="07020001" TaskQuality="5" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝15">
+        <Reward Id="FF000001" Count="2400" />
+        <ExtReward Id="FF000002" Count="15" />
+      </Task>
+      <Task TaskId="00000016" TaskName="康猪猪8" TaskIcon="07020001" TaskQuality="1" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝16">
+        <Reward Id="FF000001" Count="2500" />
+        <ExtReward Id="FF000002" Count="16" />
+      </Task>
+      <Task TaskId="00000017" TaskName="康猪9" TaskIcon="07020001" TaskQuality="2" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝17">
+        <Reward Id="FF000001" Count="2600" />
+        <ExtReward Id="FF000002" Count="17" />
+      </Task>
+      <Task TaskId="00000018" TaskName="康猪猪9" TaskIcon="07020001" TaskQuality="3" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝18">
+        <Reward Id="FF000001" Count="2700" />
+        <ExtReward Id="FF000002" Count="18" />
+      </Task>
+      <Task TaskId="00000019" TaskName="康猪10" TaskIcon="07020001" TaskQuality="4" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝19">
+        <Reward Id="FF000001" Count="2800" />
+        <ExtReward Id="FF000002" Count="19" />
+      </Task>
+      <Task TaskId="00000020" TaskName="康猪猪10" TaskIcon="07020001" TaskQuality="5" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝20">
+        <Reward Id="FF000001" Count="2900" />
+        <ExtReward Id="FF000002" Count="20" />
+      </Task>
+      <Task TaskId="00000021" TaskName="康猪11" TaskIcon="07020001" TaskQuality="1" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝21">
+        <Reward Id="FF000001" Count="3000" />
+        <ExtReward Id="FF000002" Count="21" />
+      </Task>
+      <Task TaskId="00000022" TaskName="康猪猪11" TaskIcon="07020001" TaskQuality="2" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝22">
+        <Reward Id="FF000001" Count="3100" />
+        <ExtReward Id="FF000002" Count="22" />
+      </Task>
+      <Task TaskId="00000023" TaskName="康猪12" TaskIcon="07020001" TaskQuality="3" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝23">
+        <Reward Id="FF000001" Count="3200" />
+        <ExtReward Id="FF000002" Count="23" />
+      </Task>
+      <Task TaskId="00000024" TaskName="康猪猪12" TaskIcon="07020001" TaskQuality="4" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝24">
+        <Reward Id="FF000001" Count="3300" />
+        <ExtReward Id="FF000002" Count="24" />
+      </Task>
+      <Task TaskId="00000025" TaskName="康猪13" TaskIcon="07020001" TaskQuality="5" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝25">
+        <Reward Id="FF000001" Count="3400" />
+        <ExtReward Id="FF000002" Count="25" />
+      </Task>
+      <Task TaskId="00000026" TaskName="康猪猪13" TaskIcon="07020001" TaskQuality="1" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝26">
+        <Reward Id="FF000001" Count="3500" />
+        <ExtReward Id="FF000002" Count="26" />
+      </Task>
+      <Task TaskId="00000027" TaskName="康猪14" TaskIcon="07020001" TaskQuality="2" TaskType="SumRange" Total="2" ParamList="17,18" TaskDesc="2次点数和为17或18" TaskExtRewardDesc="额外获得元宝27">
+        <Reward Id="FF000001" Count="3600" />
+        <ExtReward Id="FF000002" Count="27" />
+      </Task>
+      <Task TaskId="00000028" TaskName="康猪猪14" TaskIcon="07020001" TaskQuality="3" TaskType="SumGroup" Total="3" ParamList="4,17" TaskDesc="3次点数和为4或17" TaskExtRewardDesc="额外获得元宝28">
+        <Reward Id="FF000001" Count="3700" />
+        <ExtReward Id="FF000002" Count="28" />
+      </Task>
+      <Task TaskId="00000029" TaskName="康猪15" TaskIcon="07020001" TaskQuality="4" TaskType="Count" Total="1" ParamList="1,2,3" TaskDesc="1次点数为1,2,3" TaskExtRewardDesc="额外获得元宝29">
+        <Reward Id="FF000001" Count="3800" />
+        <ExtReward Id="FF000002" Count="29" />
+      </Task>
+      <Task TaskId="00000030" TaskName="康猪猪15" TaskIcon="07020001" TaskQuality="5" TaskType="Same" Total="1" ParamList="2" TaskDesc="1次两个点数相同" TaskExtRewardDesc="额外获得元宝30">
+        <Reward Id="FF000001" Count="3900" />
+        <ExtReward Id="FF000002" Count="30" />
+      </Task>
+    </TaskGroup>
+    <InvisibaleTaskGroup>
+      <Task TaskId="00000001" TaskName="康猪1" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="6;6;6;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="1" />
+      </Task>
+      <Task TaskId="00000002" TaskName="康猪2" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="5;5;5;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="2" />
+      </Task>
+      <Task TaskId="00000003" TaskName="康猪3" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="4;4;4;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="3" />
+      </Task>
+      <Task TaskId="00000004" TaskName="康猪4" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="3;3;3;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="4" />
+      </Task>
+      <Task TaskId="00000005" TaskName="康猪5" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="2;2;2;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="5" />
+      </Task>
+      <Task TaskId="00000006" TaskName="康猪6" TaskIcon="00000000" TaskQuality="0" TaskType="Count" Total="0" ParamList="1;1;1;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="6" />
+      </Task>
+      <Task TaskId="00000007" TaskName="康猪7" TaskIcon="00000000" TaskQuality="0" TaskType="Same" Total="0" ParamList="2" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="7" />
+      </Task>
+      <Task TaskId="00000008" TaskName="康猪8" TaskIcon="00000000" TaskQuality="0" TaskType="SumRange" Total="0" ParamList="16;17;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="8" />
+      </Task>
+      <Task TaskId="00000009" TaskName="康猪9" TaskIcon="00000000" TaskQuality="0" TaskType="SumGroup" Total="0" ParamList="3;15;18;" TaskDesc="" TaskExtRewardDesc="">
+        <Reward Id="FF000002" Count="9" />
+      </Task>
+    </InvisibaleTaskGroup>
+  </GuildTask>
+  <MainTypeSet>
+    <MainType Id="45040100" Name="门派简介">
+      <SubType Id="45040101" Name="门派简介" Desc="RGBA(0.235, 0.125, 0.082, 1.000)门派为玩家进行团体活动的基础，加入门派后可参与门派相关的活动。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040200" Name="门派开启与加入">
+      <SubType Id="45040201" Name="门派开启" Desc="RGBA(0.235, 0.125, 0.082, 1.000)玩家等级达到RGBA(0, 0.278, 0.616, 1.000)16级RGBA(0.235, 0.125, 0.082, 1.000)时，即可加入门派。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040202" Name="建立门派" Desc="RGBA(0.235, 0.125, 0.082, 1.000)点击主城中的RGBA(0.659, 0.259, 0, 1.000)门派建筑RGBA(0.235, 0.125, 0.082, 1.000)，打开门派列表，在门派列表界面点击建立门派，即可进行门派建立操作。\nVIP等级到达1级的玩家才可建立门派。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040203" Name="加入门派" Desc="RGBA(0.235, 0.125, 0.082, 1.000)点击主城中的RGBA(0.659, 0.259, 0, 1.000)门派建筑RGBA(0.235, 0.125, 0.082, 1.000)，打开门派列表，在门派列表界面中点击申请按钮，即可申请加入该门派。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040204" Name="快速加入" Desc="RGBA(0.235, 0.125, 0.082, 1.000)点击门派列表界面中的快速加入按钮，即可直接加入打开了快速接收功能且人数未满的门派。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040300" Name="门派职位">
+      <SubType Id="45040301" Name="门主" Desc="RGBA(0.235, 0.125, 0.082, 1.000)每个门派都只有1位门主，门主为门派的建立者或日常的管理者。门主若想离开门派，需转让门主职位后才可离开门派。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040302" Name="副门主" Desc="RGBA(0.235, 0.125, 0.082, 1.000)每个门派都可以有2位副门主，副门主由门主设定，协助门主进行门派日常管理。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040303" Name="精英" Desc="RGBA(0.235, 0.125, 0.082, 1.000)精英为门派中的核心成员，为门派中除门主、副门主外门派贡献最高的一定数量的成员为精英，门派等级越高，精英人数越多。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040304" Name="普通成员" Desc="RGBA(0.235, 0.125, 0.082, 1.000)普通成员为门派的基础成员。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040400" Name="门派等级">
+      <SubType Id="45040401" Name="门派等级" Desc="RGBA(0.235, 0.125, 0.082, 1.000)门派等级共10级，初始创立的门派均为1级门派。\n\n1级门派，最多可容纳15名成员，门派每日所有成员最多可完成建设任务150个，门派禁地迷宫最高可探索至第3层，拥有1点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n2级门派，最多可容纳17名成员，门派每日所有成员最多可完成建设任务170个，门派禁地迷宫最高可探索至第5层，拥有2点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n3级门派，最多可容纳19名成员，门派每日所有成员最多可完成建设任务190个，门派禁地迷宫最高可探索至第7层，拥有3点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n4级门派，最多可容纳21名成员，门派每日所有成员最多可完成建设任务210个，门派禁地迷宫最高可探索至第10层，拥有4点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n5级门派，最多可容纳23名成员，门派每日所有成员最多可完成建设任务230个，门派禁地迷宫最高可探索至第10层，拥有5点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n6级门派，最多可容纳25名成员，门派每日所有成员最多可完成建设任务250个，门派禁地迷宫最高可探索至第10层，拥有8点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n7级门派，最多可容纳27名成员，门派每日所有成员最多可完成建设任务270个，门派禁地迷宫最高可探索至第10层，拥有11点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n8级门派，最多可容纳28名成员，门派每日所有成员最多可完成建设任务280个，门派禁地迷宫最高可探索至第10层，拥有14点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n9级门派，最多可容纳29名成员，门派每日所有成员最多可完成建设任务290个，门派禁地迷宫最高可探索至第10层，拥有17点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。\n\n10级门派，最多可容纳30名成员，门派每日所有成员最多可完成建设任务300个，门派禁地迷宫最高可探索至第10层，拥有20点门派禁地迷宫天赋点，可降低特定层特定迷宫守将或禁地战神的实力。" AssetIconType="LevelGuide" AssetIconId="00000000" />
+      <SubType Id="45040402" Name="等级福利" Desc="RGBA(0.235, 0.125, 0.082, 1.000)提升门派等级可以提高门派的实力，以及门派成员的福利。\n一、门派提升后，门派总人数将提升，可让更多的玩家加入，壮大门派实力。\n二、门派提升后，珍宝轩中奇珍商店每天刷新出的抢购商品种类、数量均将增加，门派成员有更多机会购买心仪的商品。\n三、门派提升后，禁地迷宫可探索层数将增加，可获得更多的探索机会以及探索奖励。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040500" Name="门派建设">
+      <SubType Id="45040501" Name="建设简介" Desc="RGBA(0.235, 0.125, 0.082, 1.000)门派建设为门派成员参与门派活动的基础，每个成员每天可完成5次建设任务，每个门派每天可完成的总建设任务设有上限，到达上限后，门派的成员无法再交付建设任务。\n建设任务分为捐献角色、装备、书籍或内丹等道具。\n" AssetIconType="Construct" AssetIconId="00000000" />
+      <SubType Id="45040502" Name="建设品质" Desc="RGBA(0.235, 0.125, 0.082, 1.000)门派建设根据奖励的不同从低到高分为白、绿、蓝、紫、橙五种难度的任务。难度越高，完成后可获得的门派建设度、探索令、门派符石也越多。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040503" Name="建设刷新" Desc="RGBA(0.235, 0.125, 0.082, 1.000)门派建设中每次出现三个任务，同一时间内只能接取一个任务，当交付已接受的任务后，才可接取新的任务。\n您也可花费元宝刷新全部任务，刷新时，当前已经接受的任务不会被刷新。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040504" Name="建设奖励" Desc="RGBA(0.235, 0.125, 0.082, 1.000)完成门派建设任务后，可获得门派建设度、探索令及门派符石等奖励。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040600" Name="珍宝轩之奇珍商店">
+      <SubType Id="45040601" Name="奇珍商店" Desc="RGBA(0.235, 0.125, 0.082, 1.000)奇珍商店为门派抢购商店，每种商品门派成员只能购买1次，并且总数量有限。RGBA(0.659, 0.259, 0, 1.000)每天中午12点RGBA(0.235, 0.125, 0.082, 1.000)珍宝轩掌柜会为奇珍商店更换新的商品。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040602" Name="商品提升" Desc="RGBA(0.235, 0.125, 0.082, 1.000)奇珍商店初始每次只会刷出两件商品，随着门派等级的提升，奇珍商店会刷新出更多的商品，同时每个商品的库存也会增加。\n1级门派，每次刷新出现两件商品。\n2级门派，每次刷新出现三件商品。\n3级门派，每次刷新出现四件商品。\n4级门派，每次刷新出现五件商品。\n5级门派至10级门派，每次刷新出现七件商品。\n以下为奇珍商店可能出现的商品：\n" AssetIconType="PublicShopGuide" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040700" Name="珍宝轩之异宝商店">
+      <SubType Id="45040701" Name="异宝商店" Desc="RGBA(0.235, 0.125, 0.082, 1.000)异宝商店为门派个人商店。门派成员可在异宝商店中购买各种需要的物品。\n以下为异宝商店出售的商品：\n" AssetIconType="PrivateShopGuide" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040800" Name="珍宝轩之活动商店">
+      <SubType Id="45040801" Name="活动商店" Desc="RGBA(0.235, 0.125, 0.082, 1.000)活动商店为特殊兑换商店。只有在活动时，并且每个商品需激活条件达成后才可激活，激活后门派成员均可进行兑换。\n每个商品激活后都有时间限制，时间结束后将无法兑换，需重新激活才可继续兑换。\n以下为本期活动商店会出现的商品：\n" AssetIconType="ExchangeShopGuide" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45040900" Name="禁地迷宫">
+      <SubType Id="45040901" Name="迷宫简介" Desc="RGBA(0.659, 0.259, 0, 1.000)禁地迷宫RGBA(0.235, 0.125, 0.082, 1.000)是一个需要门派中所有玩家共同努力进行探索的特殊副本。\n探索迷宫需要消耗探索令\n" AssetIconType="GuildStage" AssetIconId="00000000" />
+      <SubType Id="45040902" Name="如何去下一层" Desc="RGBA(0.235, 0.125, 0.082, 1.000)禁地迷宫共10层，在门派等级达到要求的前提下，RGBA(0.659, 0.259, 0, 1.000)只要击败本层一定数量的禁地守将就可开启下一层RGBA(0.235, 0.125, 0.082, 1.000)。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040903" Name="探索令从哪来" Desc="RGBA(0.235, 0.125, 0.082, 1.000)完成每日的门派建设任务以及探索鬼谷遗地时会获得探索令\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040904" Name="禁地迷宫奖励" Desc="RGBA(0.235, 0.125, 0.082, 1.000)玩家在探索迷宫时，可以获得门派符石与禁地奖章。门派符石与禁地奖章均可以在珍宝轩中购买商品，同时禁地奖章也可以在丹房中获得额外的分解化丹的次数。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040905" Name="禁地迷宫事件" Desc="RGBA(0.235, 0.125, 0.082, 1.000)在探索迷宫的过程中会碰到禁地守将与迷宫战神，也会碰到宝箱，更有携带有稀有奖励在迷宫游荡的宝藏游魂。\nRGBA(0.659, 0.259, 0, 1.000)禁地守将RGBA(0.235, 0.125, 0.082, 1.000)与RGBA(0.659, 0.259, 0, 1.000)迷宫战神RGBA(0.235, 0.125, 0.082, 1.000)需要整个门派所有成员同心协力挑战方能击败。\nRGBA(0.659, 0.259, 0, 1.000)宝箱RGBA(0.235, 0.125, 0.082, 1.000)可探索者自己获得，也可赠送给门派中的其他成员；每个成员每天最多可被赠送三个宝箱。\nRGBA(0.659, 0.259, 0, 1.000)宝藏游魂RGBA(0.235, 0.125, 0.082, 1.000)携带有大量奖励，所以『奖励不可少，游魂必须死！』\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040906" Name="迷宫排行" Desc="RGBA(0.235, 0.125, 0.082, 1.000)迷宫排行包括挑战排行、探索排行。\nRGBA(0.659, 0.259, 0, 1.000)挑战排行RGBA(0.235, 0.125, 0.082, 1.000)记录了门派中哪些玩家付出了努力，帮助门派击败RGBA(0.659, 0.259, 0, 1.000)禁地守将RGBA(0.235, 0.125, 0.082, 1.000)或RGBA(0.659, 0.259, 0, 1.000)迷宫战神RGBA(0.235, 0.125, 0.082, 1.000)。\nRGBA(0.659, 0.259, 0, 1.000)探索排行RGBA(0.235, 0.125, 0.082, 1.000)为每周每个玩家为门派探索迷宫消耗探索令数量的排行。" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45040907" Name="挑战排行奖励" Desc="RGBA(0.235, 0.125, 0.082, 1.000)禁地守将排行奖励：\n第一名：200 门派符石\n第二名：180 门派符石\n第三名：160 门派符石\n第四名：140 门派符石\n第五名：120 门派符石\n第六名：100 门派符石\n第七名：80 门派符石\n第八名：60 门派符石\n第九名：40 门派符石\n第十名：20 门派符石\n\n迷宫战神排行奖励：\n第一名：10 禁地奖章\n第二名：9 禁地奖章\n第三名：8 禁地奖章\n第四名：7 禁地奖章\n第五名：6 禁地奖章\n第六名：5 禁地奖章\n第七名：4 禁地奖章\n第八名：3 禁地奖章\n第九名：2 禁地奖章\n第十名：1 禁地奖章\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+    <MainType Id="45041000" Name="门派排行">
+      <SubType Id="45041001" Name="门派排行" Desc="RGBA(0.659, 0.259, 0, 1.000)门派排行RGBA(0.235, 0.125, 0.082, 1.000)为服务器中所有门派的等级排名。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45041002" Name="上周进度" Desc="RGBA(0.235, 0.125, 0.082, 1.000)记录了本周迷宫中哪些门派RGBA(0.659, 0.259, 0, 1.000)探索了更多的禁地迷宫和击杀了更多的禁地守将与迷宫战神RGBA(0.235, 0.125, 0.082, 1.000)。\n" AssetIconType="" AssetIconId="00000000" />
+      <SubType Id="45041003" Name="本周竞速" Desc="RGBA(0.235, 0.125, 0.082, 1.000)记录了每周系统重置后一定时间内在迷宫中哪些门派RGBA(0.659, 0.259, 0, 1.000)探索了更多的迷宫和击杀更多的禁地守将与迷宫战神RGBA(0.235, 0.125, 0.082, 1.000)。\n" AssetIconType="" AssetIconId="00000000" />
+    </MainType>
+  </MainTypeSet>
+</GuildConfig>

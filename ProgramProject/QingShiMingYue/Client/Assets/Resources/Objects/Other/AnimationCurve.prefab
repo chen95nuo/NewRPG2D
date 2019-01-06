@@ -1,0 +1,841 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 33: {fileID: 3300000}
+  - 65: {fileID: 6500000}
+  - 23: {fileID: 2300000}
+  - 111: {fileID: 11100000}
+  - 114: {fileID: 11400002}
+  m_Layer: 0
+  m_Name: AnimationCurve
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1002 &100001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!1002 &400001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!23 &2300000
+Renderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!1002 &2300001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!33 &3300000
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1002 &3300001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!65 &6500000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1002 &6500001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!111 &11100000
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 1f309c60d2de29841b35daaf6dca87b8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 1f309c60d2de29841b35daaf6dca87b8, type: 2}
+  - {fileID: 7400000, guid: 65e3e244f9209df4681620447af39cad, type: 2}
+  - {fileID: 7400000, guid: 2cd5a528943d225488ef7dc4fd49ce67, type: 2}
+  - {fileID: 7400000, guid: 1ee2e0d4778087f47990f9002965620d, type: 2}
+  - {fileID: 7400000, guid: dbe827aa59dedbf4d8df8e079f38cfba, type: 2}
+  - {fileID: 7400000, guid: 6d89bbee31bdb0b4585288fcc8ced474, type: 2}
+  - {fileID: 7400000, guid: 18d5ceccf3e2a3d4ba6adcee1e6dff09, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!1002 &11100001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!1002 &11400001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e44c76467883bb46804527d3e7cf5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animClips:
+  - name: ThrowWeapon
+    wrapMode: 0
+    frameRate: 60
+    length: .166666672
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 3.6520541e-21
+          outSlope: 3.20503303e-39
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 10
+          outSlope: 10
+          tangentMode: 10
+        - time: .0500000007
+          value: .5
+          inSlope: -0
+          outSlope: -0
+          tangentMode: 0
+        - time: .166666672
+          value: 0
+          inSlope: -4.28571415
+          outSlope: -4.28571415
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: .5
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 6.00000191
+          outSlope: 6.00000191
+          tangentMode: 10
+        - time: .166666612
+          value: 1
+          inSlope: 6.00000191
+          outSlope: 6.00000191
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    events:
+    - messageOptions: 0
+      time: 0
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .166666672
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .166666672
+      functionName: EventCallback
+      stringParameter: Destroy
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: ThrowBall
+    wrapMode: 0
+    frameRate: 60
+    length: .5
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 7.84690968e-33
+          outSlope: 3.10617157e-12
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 2.20411102e-16
+          outSlope: 3.20503303e-39
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 4.79062986
+          outSlope: 4.79062986
+          tangentMode: 0
+        - time: .5
+          value: 1
+          inSlope: .0389277749
+          outSlope: .0389277749
+          tangentMode: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    events:
+    - messageOptions: 0
+      time: 0
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .5
+      functionName: EventCallback
+      stringParameter: Destroy
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .5
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: Ani_Skill_ZhangFa01
+    wrapMode: 0
+    frameRate: 60
+    length: 1.64999998
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 2.22654279e-33
+          outSlope: 4.39414223e-18
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 1.52901855e-19
+          outSlope: 3.66420491e-39
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1.50000012
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1.60000002
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    events:
+    - messageOptions: 0
+      time: 1.5
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: 1.60000002
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: 1.64999998
+      functionName: EventCallback
+      stringParameter: Destroy
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: BaiGuZhua
+    wrapMode: 0
+    frameRate: 60
+    length: 1.31666672
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        - time: .416666657
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        - time: .75
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 4
+          outSlope: 4
+          tangentMode: 10
+        - time: .75
+          value: 3
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1
+          value: 3
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1.29999995
+          value: 0
+          inSlope: -10.0000019
+          outSlope: -10.0000019
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 3
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: -7.20000029
+          outSlope: -7.20000029
+          tangentMode: 10
+        - time: .416666657
+          value: -3
+          inSlope: .899999857
+          outSlope: .899999857
+          tangentMode: 10
+        - time: .75
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 1.29999995
+          value: 1
+          inSlope: 4.28693867
+          outSlope: 4.28693867
+          tangentMode: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: -3
+    events:
+    - messageOptions: 0
+      time: 1
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: 1.29999995
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: 1.31666672
+      functionName: EventCallback
+      stringParameter: Destroy
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: p_DuGuJiuJian_Blade
+    wrapMode: 0
+    frameRate: 60
+    length: 1.04999995
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 3.18942933e-34
+          outSlope: .00477539003
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 3.6580964e-20
+          outSlope: 3.20503303e-39
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: .883333325
+          value: 0
+          inSlope: 0
+          outSlope: 6.88809347
+          tangentMode: 1
+        - time: 1.04999995
+          value: 1
+          inSlope: .0308422074
+          outSlope: .0308422074
+          tangentMode: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    events:
+    - messageOptions: 0
+      time: .883333325
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: 1.04999995
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: Ani_JunLinTianXia_Wpn
+    wrapMode: 0
+    frameRate: 60
+    length: .699999988
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: .5
+          value: 0
+          inSlope: 0
+          outSlope: 9.72511101
+          tangentMode: 1
+        - time: .699999988
+          value: 1
+          inSlope: .0155791752
+          outSlope: .0155791752
+          tangentMode: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    events:
+    - messageOptions: 0
+      time: .5
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .699999988
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+  - name: Arrow
+    wrapMode: 0
+    frameRate: 60
+    length: .166666672
+    curves:
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 3.6520541e-21
+          outSlope: 3.20503303e-39
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 0
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 10
+          outSlope: 10
+          tangentMode: 10
+        - time: .0500000007
+          value: .5
+          inSlope: -0
+          outSlope: -0
+          tangentMode: 0
+        - time: .166666672
+          value: 0
+          inSlope: -4.28571415
+          outSlope: -4.28571415
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: .5
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalPosition.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 0
+          inSlope: 6.00000191
+          outSlope: 6.00000191
+          tangentMode: 10
+        - time: .166666612
+          value: 1
+          inSlope: 6.00000191
+          outSlope: 6.00000191
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1
+      minVal: 0
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalScale.x
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 1
+          inSlope: 3.59999943
+          outSlope: 3.59999943
+          tangentMode: 10
+        - time: .0833333358
+          value: 1.29999995
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        - time: .166666672
+          value: 1
+          inSlope: -3.59999943
+          outSlope: -3.59999943
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1.29999995
+      minVal: 1
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalScale.y
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 1
+          inSlope: 3.59999943
+          outSlope: 3.59999943
+          tangentMode: 10
+        - time: .0833333358
+          value: 1.29999995
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        - time: .166666672
+          value: 1
+          inSlope: -3.59999943
+          outSlope: -3.59999943
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1.29999995
+      minVal: 1
+    - path: 
+      type: UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      propertyName: m_LocalScale.z
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - time: 0
+          value: 1
+          inSlope: 3.59999943
+          outSlope: 3.59999943
+          tangentMode: 10
+        - time: .0833333358
+          value: 1.29999995
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 10
+        - time: .166666672
+          value: 1
+          inSlope: -3.59999943
+          outSlope: -3.59999943
+          tangentMode: 10
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+      maxVal: 1.29999995
+      minVal: 1
+    events:
+    - messageOptions: 0
+      time: 0
+      functionName: TranslateStart
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .166666672
+      functionName: TranslateEnd
+      stringParameter: 
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+    - messageOptions: 0
+      time: .166666672
+      functionName: EventCallback
+      stringParameter: Destroy
+      floatParameter: 0
+      intParameter: 0
+      objectReferenceParameter: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
+--- !u!1002 &100100001
+EditorExtensionImpl:
+  serializedVersion: 6

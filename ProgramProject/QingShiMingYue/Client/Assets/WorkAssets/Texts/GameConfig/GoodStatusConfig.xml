@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1. 状态切换是服务器被动更新,还是主动,还是客户端自己更新GoodsList增加一个下次冲刷时间, 这个时间由服务器根据最近一次状态改变的时间来确定, 客户端再打开这个界面的时候判断刷新时间, 如果超过, 向服务器更新商品列表每个Goods增加一个状态Id, 购买的时候发送当前的状态Id, 如果与服务器不一致, 更新这条商品的状态每个Goods增加相应的Limit的数据2. 重启之后状态id如何维持之前的: 保存上一次购买的时间,如果在当前状态时间段之内,保留购买记录1、每一个Good结构中的 status 中 index不能重复2、status 中Type不配置默认为Closed   Value=13、VipLimit PlayerLimit 不配置默认为04、CountLimit不配置，则没有数量控制，和冷却时间。5、CountLimit中配置CoolDowntime>0 则数量控制无效    CountLimit Count大于零才有效， cooldown大于零才有效，cooldown有效时候，count无效6、TimeLimit不能不配置7、OpenTime 不配置，则不判断开启时间，  closeTime不配置，则不判断关闭时间ShowLevel -->
+<GoodStatusConfig>
+  <Good Id="08010002">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010003">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010004">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010005">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010006">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010007">
+    <Status Index="1" Type="Discount" Value="20" MaxBuyCountCanShow="True" VipLimit="1" ShowVipLimit="0" PlayerLimit="25" ShowPlayerLimit="25">
+      <CountLimit Count="20" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2014-11-16 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010008">
+    <Status Index="1" Type="Discount" Value="20" MaxBuyCountCanShow="True" VipLimit="3" ShowVipLimit="1" PlayerLimit="25" ShowPlayerLimit="25">
+      <CountLimit Count="50" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2014-11-16 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010009">
+    <Status Index="1" Type="Discount" Value="20" MaxBuyCountCanShow="True" VipLimit="6" ShowVipLimit="3" PlayerLimit="25" ShowPlayerLimit="25">
+      <CountLimit Count="50" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2014-11-16 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010010">
+    <Status Index="1" Type="Discount" Value="20" MaxBuyCountCanShow="True" VipLimit="10" ShowVipLimit="6" PlayerLimit="25" ShowPlayerLimit="25">
+      <CountLimit Count="100" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2014-11-16 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010011">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="30" ShowPlayerLimit="30">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010012">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="32" ShowPlayerLimit="32">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010013">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="34" ShowPlayerLimit="34">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010014">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="36" ShowPlayerLimit="36">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010015">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="38" ShowPlayerLimit="38">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010016">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="40" ShowPlayerLimit="40">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010017">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="42" ShowPlayerLimit="42">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010018">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="44" ShowPlayerLimit="44">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010019">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="46" ShowPlayerLimit="46">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010020">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="48" ShowPlayerLimit="48">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010021">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="31" ShowPlayerLimit="31">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010022">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="33" ShowPlayerLimit="33">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010023">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="35" ShowPlayerLimit="35">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010024">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="37" ShowPlayerLimit="37">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010025">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="39" ShowPlayerLimit="39">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010026">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="41" ShowPlayerLimit="41">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010027">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="43" ShowPlayerLimit="43">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010028">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="45" ShowPlayerLimit="45">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010029">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="47" ShowPlayerLimit="47">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010030">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="49" ShowPlayerLimit="49">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010031">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="50" ShowPlayerLimit="50">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010032">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="51" ShowPlayerLimit="51">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010033">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="52" ShowPlayerLimit="52">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010034">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="53" ShowPlayerLimit="53">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010035">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="54" ShowPlayerLimit="54">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010036">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="55" ShowPlayerLimit="55">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010037">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="56" ShowPlayerLimit="56">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010038">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="57" ShowPlayerLimit="57">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010039">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="58" ShowPlayerLimit="58">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010040">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="59" ShowPlayerLimit="59">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010041">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="60" ShowPlayerLimit="60">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010042">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="61" ShowPlayerLimit="61">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010043">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="62" ShowPlayerLimit="62">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010044">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="63" ShowPlayerLimit="63">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010045">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="64" ShowPlayerLimit="64">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010046">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="65" ShowPlayerLimit="65">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010047">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="66" ShowPlayerLimit="66">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010048">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="67" ShowPlayerLimit="67">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010049">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="68" ShowPlayerLimit="68">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010050">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="69" ShowPlayerLimit="69">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010051">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="70" ShowPlayerLimit="70">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010052">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="26" ShowPlayerLimit="26">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010053">
+    <Status Index="1" Type="Discount" Value="198" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="28" ShowPlayerLimit="28">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010054">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="25" ShowPlayerLimit="25">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010055">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="27" ShowPlayerLimit="27">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010056">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="29" ShowPlayerLimit="29">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010057">
+    <Status Index="1" Type="Discount" Value="1998" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="29" ShowPlayerLimit="29">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2015-12-27 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010058">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="20" ShowPlayerLimit="20">
+      <CountLimit Count="5" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010059">
+    <Status Index="1" Type="Discount" Value="888" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="28" ShowPlayerLimit="28">
+      <CountLimit Count="4" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010060">
+    <Status Index="1" Type="Closed" Value="5000" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010061">
+    <Status Index="1" Type="Closed" Value="100" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010062">
+    <Status Index="1" Type="Closed" Value="500" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010063">
+    <Status Index="1" Type="Closed" Value="2998" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010064">
+    <Status Index="1" Type="Closed" Value="0" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010065">
+    <Status Index="1" Type="Closed" Value="100" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2014-11-05 00:00:00" CloseTime="2014-11-09 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010066">
+    <Status Index="1" Type="Closed" Value="100" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2014-11-10 00:00:00" CloseTime="2014-11-14 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010067">
+    <Status Index="1" Type="Discount" Value="100" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="20" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-11-22 00:00:00" CloseTime="2014-11-25 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010068">
+    <Status Index="1" Type="Discount" Value="998" MaxBuyCountCanShow="False" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="20" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-11-22 00:00:00" CloseTime="2014-11-25 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010069">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010070">
+    <Status Index="1" Type="Closed" Value="10" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010071">
+    <Status Index="1" Type="Closed" Value="20" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010072">
+    <Status Index="1" Type="Discount" Value="100" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="2" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-28 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010073">
+    <Status Index="1" Type="Discount" Value="250" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="2" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-28 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010074">
+    <Status Index="1" Type="Discount" Value="250" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="2" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-28 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010075">
+    <Status Index="1" Type="Discount" Value="1000" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="2" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-28 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010076">
+    <Status Index="1" Type="Discount" Value="5000" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="2" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-28 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010077">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2015-03-27 00:00:00" CloseTime="2015-04-10 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010078">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2015-03-27 00:00:00" CloseTime="2015-04-10 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08010079">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2015-03-27 00:00:00" CloseTime="2015-04-10 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020005">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="36000" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020001">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="5" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020002">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020003">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020004">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020006">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020007">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08020008">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="5" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-11-27 00:00:00" CloseTime="2014-11-29 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011001">
+    <Status Index="1" Type="Discount" Value="5" MaxBuyCountCanShow="True" VipLimit="1" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011002">
+    <Status Index="1" Type="Discount" Value="10" MaxBuyCountCanShow="True" VipLimit="2" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011003">
+    <Status Index="1" Type="Discount" Value="20" MaxBuyCountCanShow="True" VipLimit="3" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011004">
+    <Status Index="1" Type="Discount" Value="40" MaxBuyCountCanShow="True" VipLimit="4" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011005">
+    <Status Index="1" Type="Discount" Value="80" MaxBuyCountCanShow="True" VipLimit="5" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011006">
+    <Status Index="1" Type="Discount" Value="160" MaxBuyCountCanShow="True" VipLimit="6" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011007">
+    <Status Index="1" Type="Discount" Value="320" MaxBuyCountCanShow="True" VipLimit="7" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011008">
+    <Status Index="1" Type="Discount" Value="400" MaxBuyCountCanShow="True" VipLimit="8" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011009">
+    <Status Index="1" Type="Discount" Value="600" MaxBuyCountCanShow="True" VipLimit="9" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011010">
+    <Status Index="1" Type="Discount" Value="1300" MaxBuyCountCanShow="True" VipLimit="10" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011011">
+    <Status Index="1" Type="Discount" Value="2600" MaxBuyCountCanShow="True" VipLimit="11" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011012">
+    <Status Index="1" Type="Discount" Value="4000" MaxBuyCountCanShow="True" VipLimit="12" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011013">
+    <Status Index="1" Type="Discount" Value="6500" MaxBuyCountCanShow="True" VipLimit="13" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011014">
+    <Status Index="1" Type="Discount" Value="10000" MaxBuyCountCanShow="True" VipLimit="14" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011015">
+    <Status Index="1" Type="Discount" Value="20000" MaxBuyCountCanShow="True" VipLimit="15" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="" CloseTime="" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011016">
+    <Status Index="1" Type="Discount" Value="5" MaxBuyCountCanShow="True" VipLimit="1" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011017">
+    <Status Index="1" Type="Discount" Value="10" MaxBuyCountCanShow="True" VipLimit="7" ShowVipLimit="1" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011018">
+    <Status Index="1" Type="Discount" Value="500" MaxBuyCountCanShow="True" VipLimit="10" ShowVipLimit="7" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08011019">
+    <Status Index="1" Type="Discount" Value="998" MaxBuyCountCanShow="True" VipLimit="12" ShowVipLimit="10" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+  <Good Id="08030019">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="64" />
+    </Status>
+  </Good>
+  <Good Id="08030020">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="32" />
+    </Status>
+  </Good>
+  <Good Id="08030021">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="0" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="" EarlyShowTime="" OpenTime="2014-10-24 00:00:00" CloseTime="2014-10-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="50" />
+    </Status>
+  </Good>
+  <Good Id="08030022">
+    <Status Index="1" Type="Closed" Value="200" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekPoint" IntValue="100" />
+    </Status>
+  </Good>
+  <Good Id="08030023">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="200" />
+    </Status>
+  </Good>
+  <Good Id="08030024">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="50" />
+    </Status>
+  </Good>
+  <Good Id="08030025">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="20" />
+    </Status>
+  </Good>
+  <Good Id="08030026">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="10" />
+    </Status>
+  </Good>
+  <Good Id="08030027">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="5" />
+    </Status>
+  </Good>
+  <Good Id="08030028">
+    <Status Index="1" Type="Closed" Value="50" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Week" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="LastWeekrank" IntValue="1" />
+    </Status>
+  </Good>
+  <Good Id="08030029">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-12-04 00:00:00" CloseTime="2015-01-01 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="102" />
+    </Status>
+  </Good>
+  <Good Id="08030030">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-12-04 00:00:00" CloseTime="2015-01-01 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="126" />
+    </Status>
+  </Good>
+  <Good Id="08030031">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-12-04 00:00:00" CloseTime="2015-01-01 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="152" />
+    </Status>
+  </Good>
+  <Good Id="08030032">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-12-04 00:00:00" CloseTime="2015-01-01 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="162" />
+    </Status>
+  </Good>
+  <Good Id="08030033">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="186" />
+    </Status>
+  </Good>
+  <Good Id="08030034">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="188" />
+    </Status>
+  </Good>
+  <Good Id="08030035">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="190" />
+    </Status>
+  </Good>
+  <Good Id="08030036">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="192" />
+    </Status>
+  </Good>
+  <Good Id="08030037">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="194" />
+    </Status>
+  </Good>
+  <Good Id="08030038">
+    <Status Index="1" Type="Discount" Value="135" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2000-01-01 00:00:00" CloseTime="2999-12-31 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+      <MelaleucaLimit Type="DayLayer" IntValue="196" />
+    </Status>
+  </Good>
+  <Good Id="08040001">
+    <Status Index="1" Type="Normal" Value="0" MaxBuyCountCanShow="True" VipLimit="0" ShowVipLimit="0" PlayerLimit="0" ShowPlayerLimit="0">
+      <CountLimit Count="1" CoolDownTime="0" />
+      <TimeLimit TimeDurationType="Day" EarlyShowTime="" OpenTime="2014-09-05 00:00:00" CloseTime="2014-10-15 23:59:59" RelativeAreaEarlyShowTime="" RelativeAreaOpenTime="" RelativeAreaCloseTime="" RelativeAccountEarlyShowTime="" RelativeAccountOpenTime="" RelativeAccountCloseTime="" />
+    </Status>
+  </Good>
+</GoodStatusConfig>

@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--说明
+	Activity IsValid 活动开启状态 : Open\Close\Pause
+	ActivateAbsoluteOpenTime 				激活开启绝对时间：yyyy-MM-dd HH:mm:ss;	ActivateAbsoluteCloseTime 			激活关闭绝对时间 ：yyyy-MM-dd HH:mm:ss
+	ActivateRelativeStartServiceOpenTime 	激活开启相对开服时间: 0-0-3 00:00:00;ActivateRelativeStartServiceCloseTime 激活关闭相对开服时间:0-0-3 00:00:00
+	ActivateRelativeCreateAccountOpenTime 	激活开启相对建号时间 0-0-3 00:00:00;ActivateRelativeCreateAccountCloseTime :0-0-3 00:00:00
+	ActivatePlayerLevelLower 				激活人物等级下限 :默认值 0， ActivatePlayerLevelUpper 						激活人物等级上限 默认值 200
+	OpenTime 								绝对开启时间， yyyy-MM-dd HH:mm:ss CloseTime								 绝对关闭时间yyyy-MM-dd HH:mm:ss
+	StartRelativeStartServiceOpenTime		相对开服开启时间0-0-3 00:00:00 StartRelativeStartServiceCloseTime 			相对开服关闭时间0-0-3 0:00:00 
+	StartRelativeCreateAccountOpenTime 		相对建号开启时间 0-0-3 00:00:00 StartRelativeCreateAccountCloseTime 		相对建号关闭时间 0-0-3 0:00:00 
+	StartPlayerLevelLower 					开启人物等级下限 默认值 0 ， StartPlayerLevelUpper 							默认值 200
+	
+	ActivitySpecialTime中  				TimeDurationType 配置timecell的周期 ， 如果是Day 则，timeCell格式HH:mm:ss
+																  如果是Week，或是Month，或是Year 则，timeCell格式 yyyy-MM-dd HH:mm:ss
+							ResetType  重置周期 resetIndex 周期中第resetIndex单位 resetCount 重置单位计数 resetTime 指定日期的时间-->
+<ActivityConfig>
+  <Activity Id="0C030001" IsValid="Open" Name="兑换">
+    <ActivitySpecialTime TimeDurationType="" OpenTime="2014-6-1 00:00:00" ResetType="" />
+  </Activity>
+  <Activity Id="0C040001" IsValid="Open" Name="等级礼包">
+    <ActivitySpecialTime TimeDurationType="" OpenTime="2014-6-1 00:00:00" ResetType="" />
+  </Activity>
+  <Activity Id="0C050001" IsValid="Open" Name="秘境">
+    <ActivitySpecialTime TimeDurationType="Day" OpenTime="2014-7-1 00:00:00" CloseTime="2015-7-30 23:59:59" OpenTimeDesc="全天开放" ResetType="">
+      <TimeCell StartTime="00:00:00" EndTime="23:59:59" />
+    </ActivitySpecialTime>
+  </Activity>
+  <Activity Id="0C050002" IsValid="Open" Name="秘境">
+    <ActivitySpecialTime TimeDurationType="Week" OpenTime="2014-7-1 00:00:00" CloseTime="2015-7-30 23:59:59" OpenTimeDesc="周末开放" ResetType="">
+      <TimeCell StartTime="2014-10-04 00:00:00" EndTime="2014-10-04 23:59:59" />
+      <TimeCell StartTime="2014-10-05 00:00:00" EndTime="2014-10-05 23:59:59" />
+    </ActivitySpecialTime>
+  </Activity>
+  <Activity Id="0C050003" IsValid="Open" Name="秘境">
+    <ActivitySpecialTime TimeDurationType="Year" OpenTime="2014-7-1 00:00:00" CloseTime="2015-7-30 23:59:59" OpenTimeDesc="全天开放" ResetType="">
+      <TimeCell StartTime="2012-06-16 00:00:00" EndTime="2012-06-16 23:59:59" />
+    </ActivitySpecialTime>
+  </Activity>
+  <Activity Id="0C070010" IsValid="Close" Name="累计充值">
+    <ActivitySpecialTime Index="1" TimeDurationType="Year" OpenTime="2014-10-04 00:00:00" CloseTime="2014-10-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-04 00:00:00" EndTime="2014-10-05 23:59:59" />
+      <TimeCell StartTime="2014-10-04 00:00:00" EndTime="2014-10-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="2" TimeDurationType="Year" OpenTime="2014-10-06 00:00:00" CloseTime="2014-10-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-06 00:00:00" EndTime="2014-10-07 23:59:59" />
+      <TimeCell StartTime="2014-10-06 00:00:00" EndTime="2014-10-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="3" TimeDurationType="Year" OpenTime="2014-10-08 00:00:00" CloseTime="2014-10-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-08 00:00:00" EndTime="2014-10-09 23:59:59" />
+      <TimeCell StartTime="2014-10-08 00:00:00" EndTime="2014-10-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="4" TimeDurationType="Year" OpenTime="2014-10-13 00:00:00" CloseTime="2014-10-15 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-13 00:00:00" EndTime="2014-10-15 23:59:59" />
+      <TimeCell StartTime="2014-10-13 00:00:00" EndTime="2014-10-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="5" TimeDurationType="Year" OpenTime="2014-10-16 00:00:00" CloseTime="2014-10-18 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-16 00:00:00" EndTime="2014-10-18 23:59:59" />
+      <TimeCell StartTime="2014-10-16 00:00:00" EndTime="2014-10-18 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="6" TimeDurationType="Year" OpenTime="2014-10-19 00:00:00" CloseTime="2014-10-21 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-19 00:00:00" EndTime="2014-10-21 23:59:59" />
+      <TimeCell StartTime="2014-10-19 00:00:00" EndTime="2014-10-21 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="7" TimeDurationType="Year" OpenTime="2014-10-22 00:00:00" CloseTime="2014-10-24 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-22 00:00:00" EndTime="2014-10-24 23:59:59" />
+      <TimeCell StartTime="2014-10-22 00:00:00" EndTime="2014-10-24 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="8" TimeDurationType="Year" OpenTime="2014-10-25 00:00:00" CloseTime="2014-10-27 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-25 00:00:00" EndTime="2014-10-27 23:59:59" />
+      <TimeCell StartTime="2014-10-25 00:00:00" EndTime="2014-10-27 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="9" TimeDurationType="Year" OpenTime="2014-10-28 00:00:00" CloseTime="2014-10-30 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-28 00:00:00" EndTime="2014-10-30 23:59:59" />
+      <TimeCell StartTime="2014-10-28 00:00:00" EndTime="2014-10-30 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="10" TimeDurationType="Year" OpenTime="2014-10-31 00:00:00" CloseTime="2014-11-01 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-10-31 00:00:00" EndTime="2014-11-01 23:59:59" />
+      <TimeCell StartTime="2014-10-31 00:00:00" EndTime="2014-11-01 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="11" TimeDurationType="Year" OpenTime="2014-11-02 00:00:00" CloseTime="2014-11-02 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-02 00:00:00" EndTime="2014-11-02 23:59:59" />
+      <TimeCell StartTime="2014-11-02 00:00:00" EndTime="2014-11-02 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="12" TimeDurationType="Year" OpenTime="2014-11-03 00:00:00" CloseTime="2014-11-03 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-03 00:00:00" EndTime="2014-11-03 23:59:59" />
+      <TimeCell StartTime="2014-11-03 00:00:00" EndTime="2014-11-03 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="13" TimeDurationType="Year" OpenTime="2014-11-04 00:00:00" CloseTime="2014-11-04 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-04 00:00:00" EndTime="2014-11-04 23:59:59" />
+      <TimeCell StartTime="2014-11-04 00:00:00" EndTime="2014-11-04 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="14" TimeDurationType="Year" OpenTime="2014-11-05 00:00:00" CloseTime="2014-11-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-05 00:00:00" EndTime="2014-11-05 23:59:59" />
+      <TimeCell StartTime="2014-11-05 00:00:00" EndTime="2014-11-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="15" TimeDurationType="Year" OpenTime="2014-11-06 00:00:00" CloseTime="2014-11-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-06 00:00:00" EndTime="2014-11-07 23:59:59" />
+      <TimeCell StartTime="2014-11-06 00:00:00" EndTime="2014-11-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="16" TimeDurationType="Year" OpenTime="2014-11-08 00:00:00" CloseTime="2014-11-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-08 00:00:00" EndTime="2014-11-09 23:59:59" />
+      <TimeCell StartTime="2014-11-08 00:00:00" EndTime="2014-11-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="17" TimeDurationType="Year" OpenTime="2014-11-10 00:00:00" CloseTime="2014-11-11 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-10 00:00:00" EndTime="2014-11-11 23:59:59" />
+      <TimeCell StartTime="2014-11-10 00:00:00" EndTime="2014-11-11 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="18" TimeDurationType="Year" OpenTime="2014-11-12 00:00:00" CloseTime="2014-11-12 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-12 00:00:00" EndTime="2014-11-12 23:59:59" />
+      <TimeCell StartTime="2014-11-12 00:00:00" EndTime="2014-11-12 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="19" TimeDurationType="Year" OpenTime="2014-11-13 00:00:00" CloseTime="2014-11-13 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-13 00:00:00" EndTime="2014-11-13 23:59:59" />
+      <TimeCell StartTime="2014-11-13 00:00:00" EndTime="2014-11-13 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="20" TimeDurationType="Year" OpenTime="2014-11-14 00:00:00" CloseTime="2014-11-15 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-14 00:00:00" EndTime="2014-11-15 23:59:59" />
+      <TimeCell StartTime="2014-11-14 00:00:00" EndTime="2014-11-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="21" TimeDurationType="Year" OpenTime="2014-11-16 00:00:00" CloseTime="2014-11-17 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-16 00:00:00" EndTime="2014-11-17 23:59:59" />
+      <TimeCell StartTime="2014-11-16 00:00:00" EndTime="2014-11-17 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="22" TimeDurationType="Year" OpenTime="2014-11-18 00:00:00" CloseTime="2014-11-19 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-18 00:00:00" EndTime="2014-11-19 23:59:59" />
+      <TimeCell StartTime="2014-11-18 00:00:00" EndTime="2014-11-19 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="23" TimeDurationType="Year" OpenTime="2014-11-28 00:00:00" CloseTime="2014-11-29 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-11-28 00:00:00" EndTime="2014-11-29 23:59:59" />
+      <TimeCell StartTime="2014-11-28 00:00:00" EndTime="2014-11-29 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="24" TimeDurationType="Year" OpenTime="2014-12-06 00:00:00" CloseTime="2014-12-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-06 00:00:00" EndTime="2014-12-07 23:59:59" />
+      <TimeCell StartTime="2014-12-06 00:00:00" EndTime="2014-12-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="25" TimeDurationType="Year" OpenTime="2014-12-08 00:00:00" CloseTime="2014-12-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-08 00:00:00" EndTime="2014-12-09 23:59:59" />
+      <TimeCell StartTime="2014-12-08 00:00:00" EndTime="2014-12-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="26" TimeDurationType="Year" OpenTime="2014-12-10 00:00:00" CloseTime="2014-12-11 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-10 00:00:00" EndTime="2014-12-11 23:59:59" />
+      <TimeCell StartTime="2014-12-10 00:00:00" EndTime="2014-12-11 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="27" TimeDurationType="Year" OpenTime="2014-12-12 00:00:00" CloseTime="2014-12-13 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-12 00:00:00" EndTime="2014-12-13 23:59:59" />
+      <TimeCell StartTime="2014-12-12 00:00:00" EndTime="2014-12-13 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="28" TimeDurationType="Year" OpenTime="2014-12-14 00:00:00" CloseTime="2014-12-15 23:59:59" ResetType="Day" ResetCount="2">
+      <TimeCell StartTime="2014-12-14 00:00:00" EndTime="2014-12-15 23:59:59" />
+      <TimeCell StartTime="2014-12-14 00:00:00" EndTime="2014-12-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="29" TimeDurationType="Year" OpenTime="2014-12-16 00:00:00" CloseTime="2014-12-17 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-16 00:00:00" EndTime="2014-12-17 23:59:59" />
+      <TimeCell StartTime="2014-12-16 00:00:00" EndTime="2014-12-17 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="30" TimeDurationType="Year" OpenTime="2014-12-18 00:00:00" CloseTime="2014-12-19 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-18 00:00:00" EndTime="2014-12-19 23:59:59" />
+      <TimeCell StartTime="2014-12-18 00:00:00" EndTime="2014-12-19 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="31" TimeDurationType="Year" OpenTime="2014-12-20 00:00:00" CloseTime="2014-12-21 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-20 00:00:00" EndTime="2014-12-21 23:59:59" />
+      <TimeCell StartTime="2014-12-20 00:00:00" EndTime="2014-12-21 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="32" TimeDurationType="Year" OpenTime="2014-12-22 00:00:00" CloseTime="2014-12-23 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-22 00:00:00" EndTime="2014-12-23 23:59:59" />
+      <TimeCell StartTime="2014-12-22 00:00:00" EndTime="2014-12-23 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="33" TimeDurationType="Year" OpenTime="2014-12-24 00:00:00" CloseTime="2014-12-25 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-24 00:00:00" EndTime="2014-12-25 23:59:59" />
+      <TimeCell StartTime="2014-12-24 00:00:00" EndTime="2014-12-25 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="34" TimeDurationType="Year" OpenTime="2014-12-26 00:00:00" CloseTime="2014-12-27 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-26 00:00:00" EndTime="2014-12-27 23:59:59" />
+      <TimeCell StartTime="2014-12-26 00:00:00" EndTime="2014-12-27 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="35" TimeDurationType="Year" OpenTime="2014-12-28 00:00:00" CloseTime="2014-12-29 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-28 00:00:00" EndTime="2014-12-29 23:59:59" />
+      <TimeCell StartTime="2014-12-28 00:00:00" EndTime="2014-12-29 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="36" TimeDurationType="Year" OpenTime="2014-12-30 00:00:00" CloseTime="2014-12-30 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-30 00:00:00" EndTime="2014-12-30 23:59:59" />
+      <TimeCell StartTime="2014-12-30 00:00:00" EndTime="2014-12-30 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="37" TimeDurationType="Year" OpenTime="2014-12-31 00:00:00" CloseTime="2014-12-31 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2014-12-31 00:00:00" EndTime="2014-12-31 23:59:59" />
+      <TimeCell StartTime="2014-12-31 00:00:00" EndTime="2014-12-31 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="38" TimeDurationType="Year" OpenTime="2015-01-01 00:00:00" CloseTime="2015-01-01 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-01 00:00:00" EndTime="2015-01-01 23:59:59" />
+      <TimeCell StartTime="2015-01-01 00:00:00" EndTime="2015-01-01 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="39" TimeDurationType="Year" OpenTime="2015-01-02 00:00:00" CloseTime="2015-01-02 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-02 00:00:00" EndTime="2015-01-02 23:59:59" />
+      <TimeCell StartTime="2015-01-02 00:00:00" EndTime="2015-01-02 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="40" TimeDurationType="Year" OpenTime="2015-01-03 00:00:00" CloseTime="2015-01-03 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-03 00:00:00" EndTime="2015-01-03 23:59:59" />
+      <TimeCell StartTime="2015-01-03 00:00:00" EndTime="2015-01-03 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="41" TimeDurationType="Year" OpenTime="2015-01-04 00:00:00" CloseTime="2015-01-04 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-04 00:00:00" EndTime="2015-01-04 23:59:59" />
+      <TimeCell StartTime="2015-01-04 00:00:00" EndTime="2015-01-04 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="42" TimeDurationType="Year" OpenTime="2015-01-05 00:00:00" CloseTime="2015-01-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-05 00:00:00" EndTime="2015-01-05 23:59:59" />
+      <TimeCell StartTime="2015-01-05 00:00:00" EndTime="2015-01-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="43" TimeDurationType="Year" OpenTime="2015-01-06 00:00:00" CloseTime="2015-01-06 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-06 00:00:00" EndTime="2015-01-06 23:59:59" />
+      <TimeCell StartTime="2015-01-06 00:00:00" EndTime="2015-01-06 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="44" TimeDurationType="Year" OpenTime="2015-01-07 00:00:00" CloseTime="2015-01-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-07 00:00:00" EndTime="2015-01-07 23:59:59" />
+      <TimeCell StartTime="2015-01-07 00:00:00" EndTime="2015-01-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="45" TimeDurationType="Year" OpenTime="2015-01-08 00:00:00" CloseTime="2015-01-08 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-08 00:00:00" EndTime="2015-01-08 23:59:59" />
+      <TimeCell StartTime="2015-01-08 00:00:00" EndTime="2015-01-08 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="46" TimeDurationType="Year" OpenTime="2015-01-09 00:00:00" CloseTime="2015-01-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-09 00:00:00" EndTime="2015-01-09 23:59:59" />
+      <TimeCell StartTime="2015-01-09 00:00:00" EndTime="2015-01-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="47" TimeDurationType="Year" OpenTime="2015-01-10 00:00:00" CloseTime="2015-01-10 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-10 00:00:00" EndTime="2015-01-10 23:59:59" />
+      <TimeCell StartTime="2015-01-10 00:00:00" EndTime="2015-01-10 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="48" TimeDurationType="Year" OpenTime="2015-01-11 00:00:00" CloseTime="2015-01-11 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-11 00:00:00" EndTime="2015-01-11 23:59:59" />
+      <TimeCell StartTime="2015-01-11 00:00:00" EndTime="2015-01-11 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="49" TimeDurationType="Year" OpenTime="2015-01-12 00:00:00" CloseTime="2015-01-12 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-12 00:00:00" EndTime="2015-01-12 23:59:59" />
+      <TimeCell StartTime="2015-01-12 00:00:00" EndTime="2015-01-12 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="50" TimeDurationType="Year" OpenTime="2015-01-13 00:00:00" CloseTime="2015-01-13 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-13 00:00:00" EndTime="2015-01-13 23:59:59" />
+      <TimeCell StartTime="2015-01-13 00:00:00" EndTime="2015-01-13 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="51" TimeDurationType="Year" OpenTime="2015-01-14 00:00:00" CloseTime="2015-01-14 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-14 00:00:00" EndTime="2015-01-14 23:59:59" />
+      <TimeCell StartTime="2015-01-14 00:00:00" EndTime="2015-01-14 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="52" TimeDurationType="Year" OpenTime="2015-01-15 00:00:00" CloseTime="2015-01-15 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-15 00:00:00" EndTime="2015-01-15 23:59:59" />
+      <TimeCell StartTime="2015-01-15 00:00:00" EndTime="2015-01-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="53" TimeDurationType="Year" OpenTime="2015-01-16 00:00:00" CloseTime="2015-01-16 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-16 00:00:00" EndTime="2015-01-16 23:59:59" />
+      <TimeCell StartTime="2015-01-16 00:00:00" EndTime="2015-01-16 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="54" TimeDurationType="Year" OpenTime="2015-01-17 00:00:00" CloseTime="2015-01-17 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-17 00:00:00" EndTime="2015-01-17 23:59:59" />
+      <TimeCell StartTime="2015-01-17 00:00:00" EndTime="2015-01-17 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="55" TimeDurationType="Year" OpenTime="2015-01-18 00:00:00" CloseTime="2015-01-18 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-18 00:00:00" EndTime="2015-01-18 23:59:59" />
+      <TimeCell StartTime="2015-01-18 00:00:00" EndTime="2015-01-18 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="56" TimeDurationType="Year" OpenTime="2015-01-19 00:00:00" CloseTime="2015-01-19 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-19 00:00:00" EndTime="2015-01-19 23:59:59" />
+      <TimeCell StartTime="2015-01-19 00:00:00" EndTime="2015-01-19 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="57" TimeDurationType="Year" OpenTime="2015-01-20 00:00:00" CloseTime="2015-01-20 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-20 00:00:00" EndTime="2015-01-20 23:59:59" />
+      <TimeCell StartTime="2015-01-20 00:00:00" EndTime="2015-01-20 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="58" TimeDurationType="Year" OpenTime="2015-01-21 00:00:00" CloseTime="2015-01-21 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-21 00:00:00" EndTime="2015-01-21 23:59:59" />
+      <TimeCell StartTime="2015-01-21 00:00:00" EndTime="2015-01-21 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="59" TimeDurationType="Year" OpenTime="2015-01-22 00:00:00" CloseTime="2015-01-23 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-22 00:00:00" EndTime="2015-01-23 23:59:59" />
+      <TimeCell StartTime="2015-01-22 00:00:00" EndTime="2015-01-23 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="60" TimeDurationType="Year" OpenTime="2015-01-24 00:00:00" CloseTime="2015-01-24 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-24 00:00:00" EndTime="2015-01-24 23:59:59" />
+      <TimeCell StartTime="2015-01-24 00:00:00" EndTime="2015-01-24 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="61" TimeDurationType="Year" OpenTime="2015-01-25 00:00:00" CloseTime="2015-01-26 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-25 00:00:00" EndTime="2015-01-26 23:59:59" />
+      <TimeCell StartTime="2015-01-25 00:00:00" EndTime="2015-01-26 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="62" TimeDurationType="Year" OpenTime="2015-01-27 00:00:00" CloseTime="2015-01-27 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-27 00:00:00" EndTime="2015-01-27 23:59:59" />
+      <TimeCell StartTime="2015-01-27 00:00:00" EndTime="2015-01-27 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="63" TimeDurationType="Year" OpenTime="2015-01-28 00:00:00" CloseTime="2015-01-28 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-28 00:00:00" EndTime="2015-01-28 23:59:59" />
+      <TimeCell StartTime="2015-01-28 00:00:00" EndTime="2015-01-28 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="64" TimeDurationType="Year" OpenTime="2015-01-29 00:00:00" CloseTime="2015-01-29 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-29 00:00:00" EndTime="2015-01-29 23:59:59" />
+      <TimeCell StartTime="2015-01-29 00:00:00" EndTime="2015-01-29 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="65" TimeDurationType="Year" OpenTime="2015-01-30 00:00:00" CloseTime="2015-01-30 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-30 00:00:00" EndTime="2015-01-30 23:59:59" />
+      <TimeCell StartTime="2015-01-30 00:00:00" EndTime="2015-01-30 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="66" TimeDurationType="Year" OpenTime="2015-01-31 00:00:00" CloseTime="2015-01-31 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-01-31 00:00:00" EndTime="2015-01-31 23:59:59" />
+      <TimeCell StartTime="2015-01-31 00:00:00" EndTime="2015-01-31 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="67" TimeDurationType="Year" OpenTime="2015-02-01 00:00:00" CloseTime="2015-02-01 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-01 00:00:00" EndTime="2015-02-01 23:59:59" />
+      <TimeCell StartTime="2015-02-01 00:00:00" EndTime="2015-02-01 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="68" TimeDurationType="Year" OpenTime="2015-02-02 00:00:00" CloseTime="2015-02-02 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-02 00:00:00" EndTime="2015-02-02 23:59:59" />
+      <TimeCell StartTime="2015-02-02 00:00:00" EndTime="2015-02-02 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="69" TimeDurationType="Year" OpenTime="2015-02-03 00:00:00" CloseTime="2015-02-03 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-03 00:00:00" EndTime="2015-02-03 23:59:59" />
+      <TimeCell StartTime="2015-02-03 00:00:00" EndTime="2015-02-03 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="70" TimeDurationType="Year" OpenTime="2015-02-04 00:00:00" CloseTime="2015-02-04 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-04 00:00:00" EndTime="2015-02-04 23:59:59" />
+      <TimeCell StartTime="2015-02-04 00:00:00" EndTime="2015-02-04 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="71" TimeDurationType="Year" OpenTime="2015-02-05 00:00:00" CloseTime="2015-02-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-05 00:00:00" EndTime="2015-02-05 23:59:59" />
+      <TimeCell StartTime="2015-02-05 00:00:00" EndTime="2015-02-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="72" TimeDurationType="Year" OpenTime="2015-02-06 00:00:00" CloseTime="2015-02-06 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-06 00:00:00" EndTime="2015-02-06 23:59:59" />
+      <TimeCell StartTime="2015-02-06 00:00:00" EndTime="2015-02-06 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="73" TimeDurationType="Year" OpenTime="2015-02-07 00:00:00" CloseTime="2015-02-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-07 00:00:00" EndTime="2015-02-07 23:59:59" />
+      <TimeCell StartTime="2015-02-07 00:00:00" EndTime="2015-02-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="74" TimeDurationType="Year" OpenTime="2015-02-08 00:00:00" CloseTime="2015-02-08 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-08 00:00:00" EndTime="2015-02-08 23:59:59" />
+      <TimeCell StartTime="2015-02-08 00:00:00" EndTime="2015-02-08 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="75" TimeDurationType="Year" OpenTime="2015-02-09 00:00:00" CloseTime="2015-02-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-09 00:00:00" EndTime="2015-02-09 23:59:59" />
+      <TimeCell StartTime="2015-02-09 00:00:00" EndTime="2015-02-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="76" TimeDurationType="Year" OpenTime="2015-02-10 00:00:00" CloseTime="2015-02-10 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-10 00:00:00" EndTime="2015-02-10 23:59:59" />
+      <TimeCell StartTime="2015-02-10 00:00:00" EndTime="2015-02-10 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="77" TimeDurationType="Year" OpenTime="2015-02-11 00:00:00" CloseTime="2015-02-11 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-11 00:00:00" EndTime="2015-02-11 23:59:59" />
+      <TimeCell StartTime="2015-02-11 00:00:00" EndTime="2015-02-11 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="78" TimeDurationType="Year" OpenTime="2015-02-12 00:00:00" CloseTime="2015-02-12 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-12 00:00:00" EndTime="2015-02-12 23:59:59" />
+      <TimeCell StartTime="2015-02-12 00:00:00" EndTime="2015-02-12 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="79" TimeDurationType="Year" OpenTime="2015-02-13 00:00:00" CloseTime="2015-02-13 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-13 00:00:00" EndTime="2015-02-13 23:59:59" />
+      <TimeCell StartTime="2015-02-13 00:00:00" EndTime="2015-02-13 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="80" TimeDurationType="Year" OpenTime="2015-02-14 00:00:00" CloseTime="2015-02-14 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-14 00:00:00" EndTime="2015-02-14 23:59:59" />
+      <TimeCell StartTime="2015-02-14 00:00:00" EndTime="2015-02-14 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="81" TimeDurationType="Year" OpenTime="2015-02-15 00:00:00" CloseTime="2015-02-15 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-15 00:00:00" EndTime="2015-02-15 23:59:59" />
+      <TimeCell StartTime="2015-02-15 00:00:00" EndTime="2015-02-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="82" TimeDurationType="Year" OpenTime="2015-02-16 00:00:00" CloseTime="2015-02-16 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-16 00:00:00" EndTime="2015-02-16 23:59:59" />
+      <TimeCell StartTime="2015-02-16 00:00:00" EndTime="2015-02-16 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="83" TimeDurationType="Year" OpenTime="2015-02-17 00:00:00" CloseTime="2015-02-17 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-17 00:00:00" EndTime="2015-02-17 23:59:59" />
+      <TimeCell StartTime="2015-02-17 00:00:00" EndTime="2015-02-17 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="84" TimeDurationType="Year" OpenTime="2015-02-18 00:00:00" CloseTime="2015-02-18 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-18 00:00:00" EndTime="2015-02-18 23:59:59" />
+      <TimeCell StartTime="2015-02-18 00:00:00" EndTime="2015-02-18 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="85" TimeDurationType="Year" OpenTime="2015-02-19 00:00:00" CloseTime="2015-02-19 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-19 00:00:00" EndTime="2015-02-19 23:59:59" />
+      <TimeCell StartTime="2015-02-19 00:00:00" EndTime="2015-02-19 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="86" TimeDurationType="Year" OpenTime="2015-02-20 00:00:00" CloseTime="2015-02-20 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-20 00:00:00" EndTime="2015-02-20 23:59:59" />
+      <TimeCell StartTime="2015-02-20 00:00:00" EndTime="2015-02-20 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="87" TimeDurationType="Year" OpenTime="2015-02-21 00:00:00" CloseTime="2015-02-21 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-21 00:00:00" EndTime="2015-02-21 23:59:59" />
+      <TimeCell StartTime="2015-02-21 00:00:00" EndTime="2015-02-21 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="88" TimeDurationType="Year" OpenTime="2015-02-22 00:00:00" CloseTime="2015-02-22 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-22 00:00:00" EndTime="2015-02-22 23:59:59" />
+      <TimeCell StartTime="2015-02-22 00:00:00" EndTime="2015-02-22 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="89" TimeDurationType="Year" OpenTime="2015-02-23 00:00:00" CloseTime="2015-02-23 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-23 00:00:00" EndTime="2015-02-23 23:59:59" />
+      <TimeCell StartTime="2015-02-23 00:00:00" EndTime="2015-02-23 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="90" TimeDurationType="Year" OpenTime="2015-02-24 00:00:00" CloseTime="2015-02-24 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-24 00:00:00" EndTime="2015-02-24 23:59:59" />
+      <TimeCell StartTime="2015-02-24 00:00:00" EndTime="2015-02-24 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="91" TimeDurationType="Year" OpenTime="2015-02-25 00:00:00" CloseTime="2015-02-25 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-25 00:00:00" EndTime="2015-02-25 23:59:59" />
+      <TimeCell StartTime="2015-02-25 00:00:00" EndTime="2015-02-25 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="92" TimeDurationType="Year" OpenTime="2015-02-26 00:00:00" CloseTime="2015-02-26 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-26 00:00:00" EndTime="2015-02-26 23:59:59" />
+      <TimeCell StartTime="2015-02-26 00:00:00" EndTime="2015-02-26 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="93" TimeDurationType="Year" OpenTime="2015-02-27 00:00:00" CloseTime="2015-02-27 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-27 00:00:00" EndTime="2015-02-27 23:59:59" />
+      <TimeCell StartTime="2015-02-27 00:00:00" EndTime="2015-02-27 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="94" TimeDurationType="Year" OpenTime="2015-02-28 00:00:00" CloseTime="2015-02-28 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-02-28 00:00:00" EndTime="2015-02-28 23:59:59" />
+      <TimeCell StartTime="2015-02-28 00:00:00" EndTime="2015-02-28 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="95" TimeDurationType="Year" OpenTime="2015-03-01 00:00:00" CloseTime="2015-03-01 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-01 00:00:00" EndTime="2015-03-01 23:59:59" />
+      <TimeCell StartTime="2015-03-01 00:00:00" EndTime="2015-03-01 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="96" TimeDurationType="Year" OpenTime="2015-03-02 00:00:00" CloseTime="2015-03-02 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-02 00:00:00" EndTime="2015-03-02 23:59:59" />
+      <TimeCell StartTime="2015-03-02 00:00:00" EndTime="2015-03-02 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="97" TimeDurationType="Year" OpenTime="2015-03-03 00:00:00" CloseTime="2015-03-03 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-03 00:00:00" EndTime="2015-03-03 23:59:59" />
+      <TimeCell StartTime="2015-03-03 00:00:00" EndTime="2015-03-03 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="98" TimeDurationType="Year" OpenTime="2015-03-04 00:00:00" CloseTime="2015-03-04 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-04 00:00:00" EndTime="2015-03-04 23:59:59" />
+      <TimeCell StartTime="2015-03-04 00:00:00" EndTime="2015-03-04 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="99" TimeDurationType="Year" OpenTime="2015-03-05 00:00:00" CloseTime="2015-03-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-05 00:00:00" EndTime="2015-03-05 23:59:59" />
+      <TimeCell StartTime="2015-03-05 00:00:00" EndTime="2015-03-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="100" TimeDurationType="Year" OpenTime="2015-03-06 00:00:00" CloseTime="2015-03-06 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-06 00:00:00" EndTime="2015-03-06 23:59:59" />
+      <TimeCell StartTime="2015-03-06 00:00:00" EndTime="2015-03-06 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="101" TimeDurationType="Year" OpenTime="2015-03-07 00:00:00" CloseTime="2015-03-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-07 00:00:00" EndTime="2015-03-07 23:59:59" />
+      <TimeCell StartTime="2015-03-07 00:00:00" EndTime="2015-03-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="102" TimeDurationType="Year" OpenTime="2015-03-08 00:00:00" CloseTime="2015-03-08 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-08 00:00:00" EndTime="2015-03-08 23:59:59" />
+      <TimeCell StartTime="2015-03-08 00:00:00" EndTime="2015-03-08 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="103" TimeDurationType="Year" OpenTime="2015-03-09 00:00:00" CloseTime="2015-03-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-09 00:00:00" EndTime="2015-03-09 23:59:59" />
+      <TimeCell StartTime="2015-03-09 00:00:00" EndTime="2015-03-09 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="104" TimeDurationType="Year" OpenTime="2015-03-10 00:00:00" CloseTime="2015-03-10 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-10 00:00:00" EndTime="2015-03-10 23:59:59" />
+      <TimeCell StartTime="2015-03-10 00:00:00" EndTime="2015-03-10 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="105" TimeDurationType="Year" OpenTime="2015-03-11 00:00:00" CloseTime="2015-03-11 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-11 00:00:00" EndTime="2015-03-11 23:59:59" />
+      <TimeCell StartTime="2015-03-11 00:00:00" EndTime="2015-03-11 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="106" TimeDurationType="Year" OpenTime="2015-03-12 00:00:00" CloseTime="2015-03-12 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-12 00:00:00" EndTime="2015-03-12 23:59:59" />
+      <TimeCell StartTime="2015-03-12 00:00:00" EndTime="2015-03-12 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="107" TimeDurationType="Year" OpenTime="2015-03-13 00:00:00" CloseTime="2015-03-13 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-13 00:00:00" EndTime="2015-03-13 23:59:59" />
+      <TimeCell StartTime="2015-03-13 00:00:00" EndTime="2015-03-13 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="108" TimeDurationType="Year" OpenTime="2015-03-14 00:00:00" CloseTime="2015-03-14 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-14 00:00:00" EndTime="2015-03-14 23:59:59" />
+      <TimeCell StartTime="2015-03-14 00:00:00" EndTime="2015-03-14 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="109" TimeDurationType="Year" OpenTime="2015-03-15 00:00:00" CloseTime="2015-03-15 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-15 00:00:00" EndTime="2015-03-15 23:59:59" />
+      <TimeCell StartTime="2015-03-15 00:00:00" EndTime="2015-03-15 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="110" TimeDurationType="Year" OpenTime="2015-03-16 00:00:00" CloseTime="2015-03-16 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-16 00:00:00" EndTime="2015-03-16 23:59:59" />
+      <TimeCell StartTime="2015-03-16 00:00:00" EndTime="2015-03-16 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="111" TimeDurationType="Year" OpenTime="2015-03-17 00:00:00" CloseTime="2015-03-17 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-17 00:00:00" EndTime="2015-03-17 23:59:59" />
+      <TimeCell StartTime="2015-03-17 00:00:00" EndTime="2015-03-17 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="112" TimeDurationType="Year" OpenTime="2015-03-18 00:00:00" CloseTime="2015-03-18 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-18 00:00:00" EndTime="2015-03-18 23:59:59" />
+      <TimeCell StartTime="2015-03-18 00:00:00" EndTime="2015-03-18 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="113" TimeDurationType="Year" OpenTime="2015-03-19 00:00:00" CloseTime="2015-03-19 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-19 00:00:00" EndTime="2015-03-19 23:59:59" />
+      <TimeCell StartTime="2015-03-19 00:00:00" EndTime="2015-03-19 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="114" TimeDurationType="Year" OpenTime="2015-03-20 00:00:00" CloseTime="2015-03-20 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-20 00:00:00" EndTime="2015-03-20 23:59:59" />
+      <TimeCell StartTime="2015-03-20 00:00:00" EndTime="2015-03-20 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="115" TimeDurationType="Year" OpenTime="2015-03-21 00:00:00" CloseTime="2015-03-21 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-21 00:00:00" EndTime="2015-03-21 23:59:59" />
+      <TimeCell StartTime="2015-03-21 00:00:00" EndTime="2015-03-21 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="116" TimeDurationType="Year" OpenTime="2015-03-22 00:00:00" CloseTime="2015-03-22 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-22 00:00:00" EndTime="2015-03-22 23:59:59" />
+      <TimeCell StartTime="2015-03-22 00:00:00" EndTime="2015-03-22 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="117" TimeDurationType="Year" OpenTime="2015-03-23 00:00:00" CloseTime="2015-03-23 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-23 00:00:00" EndTime="2015-03-23 23:59:59" />
+      <TimeCell StartTime="2015-03-23 00:00:00" EndTime="2015-03-23 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="118" TimeDurationType="Year" OpenTime="2015-03-24 00:00:00" CloseTime="2015-03-24 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-24 00:00:00" EndTime="2015-03-24 23:59:59" />
+      <TimeCell StartTime="2015-03-24 00:00:00" EndTime="2015-03-24 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="119" TimeDurationType="Year" OpenTime="2015-03-25 00:00:00" CloseTime="2015-03-25 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-25 00:00:00" EndTime="2015-03-25 23:59:59" />
+      <TimeCell StartTime="2015-03-25 00:00:00" EndTime="2015-03-25 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="120" TimeDurationType="Year" OpenTime="2015-03-26 00:00:00" CloseTime="2015-03-26 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-26 00:00:00" EndTime="2015-03-26 23:59:59" />
+      <TimeCell StartTime="2015-03-26 00:00:00" EndTime="2015-03-26 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="121" TimeDurationType="Year" OpenTime="2015-03-27 00:00:00" CloseTime="2015-03-27 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-27 00:00:00" EndTime="2015-03-27 23:59:59" />
+      <TimeCell StartTime="2015-03-27 00:00:00" EndTime="2015-03-27 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="122" TimeDurationType="Year" OpenTime="2015-03-28 00:00:00" CloseTime="2015-03-28 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-28 00:00:00" EndTime="2015-03-28 23:59:59" />
+      <TimeCell StartTime="2015-03-28 00:00:00" EndTime="2015-03-28 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="123" TimeDurationType="Year" OpenTime="2015-03-29 00:00:00" CloseTime="2015-03-29 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-29 00:00:00" EndTime="2015-03-29 23:59:59" />
+      <TimeCell StartTime="2015-03-29 00:00:00" EndTime="2015-03-29 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="124" TimeDurationType="Year" OpenTime="2015-03-30 00:00:00" CloseTime="2015-03-30 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-30 00:00:00" EndTime="2015-03-30 23:59:59" />
+      <TimeCell StartTime="2015-03-30 00:00:00" EndTime="2015-03-30 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="125" TimeDurationType="Year" OpenTime="2015-03-31 00:00:00" CloseTime="2015-03-31 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-03-31 00:00:00" EndTime="2015-03-31 23:59:59" />
+      <TimeCell StartTime="2015-03-31 00:00:00" EndTime="2015-03-31 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="126" TimeDurationType="Year" OpenTime="2015-04-01 00:00:00" CloseTime="2015-04-01 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-01 00:00:00" EndTime="2015-04-01 23:59:59" />
+      <TimeCell StartTime="2015-04-01 00:00:00" EndTime="2015-04-01 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="127" TimeDurationType="Year" OpenTime="2015-04-02 00:00:00" CloseTime="2015-04-02 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-02 00:00:00" EndTime="2015-04-02 23:59:59" />
+      <TimeCell StartTime="2015-04-02 00:00:00" EndTime="2015-04-02 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="128" TimeDurationType="Year" OpenTime="2015-04-03 00:00:00" CloseTime="2015-04-03 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-03 00:00:00" EndTime="2015-04-03 23:59:59" />
+      <TimeCell StartTime="2015-04-03 00:00:00" EndTime="2015-04-03 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="129" TimeDurationType="Year" OpenTime="2015-04-04 00:00:00" CloseTime="2015-04-04 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-04 00:00:00" EndTime="2015-04-04 23:59:59" />
+      <TimeCell StartTime="2015-04-04 00:00:00" EndTime="2015-04-04 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="130" TimeDurationType="Year" OpenTime="2015-04-05 00:00:00" CloseTime="2015-04-05 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-05 00:00:00" EndTime="2015-04-05 23:59:59" />
+      <TimeCell StartTime="2015-04-05 00:00:00" EndTime="2015-04-05 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="131" TimeDurationType="Year" OpenTime="2015-04-06 00:00:00" CloseTime="2015-04-06 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-06 00:00:00" EndTime="2015-04-06 23:59:59" />
+      <TimeCell StartTime="2015-04-06 00:00:00" EndTime="2015-04-06 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="132" TimeDurationType="Year" OpenTime="2015-04-07 00:00:00" CloseTime="2015-04-07 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-07 00:00:00" EndTime="2015-04-07 23:59:59" />
+      <TimeCell StartTime="2015-04-07 00:00:00" EndTime="2015-04-07 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="133" TimeDurationType="Year" OpenTime="2015-04-08 00:00:00" CloseTime="2015-04-08 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-08 00:00:00" EndTime="2015-04-08 23:59:59" />
+      <TimeCell StartTime="2015-04-08 00:00:00" EndTime="2015-04-08 23:59:59" />
+    </ActivitySpecialTime>
+    <ActivitySpecialTime Index="134" TimeDurationType="Year" OpenTime="2015-04-09 00:00:00" CloseTime="2015-04-09 23:59:59" ResetType="Day" ResetCount="1">
+      <TimeCell StartTime="2015-04-09 00:00:00" EndTime="2015-04-09 23:59:59" />
+      <TimeCell StartTime="2015-04-09 00:00:00" EndTime="2015-04-09 23:59:59" />
+    </ActivitySpecialTime>
+  </Activity>
+  <Activity Id="0C080010" IsValid="Open" Name="神秘商人">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2014-11-18 00:00:00" CloseTime="2014-11-21 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="2" TimeDurationType="" OpenTime="2014-11-22 00:00:00" CloseTime="2014-11-25 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="3" TimeDurationType="" OpenTime="2014-11-26 00:00:00" CloseTime="2014-11-29 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="4" TimeDurationType="" OpenTime="2014-11-30 00:00:00" CloseTime="2014-12-03 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="5" TimeDurationType="" OpenTime="2014-12-04 00:00:00" CloseTime="2014-12-07 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="6" TimeDurationType="" OpenTime="2014-12-08 00:00:00" CloseTime="2014-12-11 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="7" TimeDurationType="" OpenTime="2014-12-12 00:00:00" CloseTime="2014-12-15 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="8" TimeDurationType="" OpenTime="2014-12-16 00:00:00" CloseTime="2014-12-19 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="9" TimeDurationType="" OpenTime="2014-12-20 00:00:00" CloseTime="2014-12-23 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="10" TimeDurationType="" OpenTime="2014-12-24 00:00:00" CloseTime="2014-12-27 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="11" TimeDurationType="" OpenTime="2014-12-28 00:00:00" CloseTime="2014-12-31 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="12" TimeDurationType="" OpenTime="2015-01-01 00:00:00" CloseTime="2015-01-04 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="13" TimeDurationType="" OpenTime="2015-01-05 00:00:00" CloseTime="2015-01-08 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="14" TimeDurationType="" OpenTime="2015-01-09 00:00:00" CloseTime="2015-01-12 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="15" TimeDurationType="" OpenTime="2015-01-13 00:00:00" CloseTime="2015-01-16 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="16" TimeDurationType="" OpenTime="2015-01-17 00:00:00" CloseTime="2015-01-20 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="17" TimeDurationType="" OpenTime="2015-01-22 00:00:00" CloseTime="2015-01-25 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="18" TimeDurationType="" OpenTime="2015-01-26 00:00:00" CloseTime="2015-01-29 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="19" TimeDurationType="" OpenTime="2015-01-30 00:00:00" CloseTime="2015-02-02 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="20" TimeDurationType="" OpenTime="2015-02-03 00:00:00" CloseTime="2015-02-06 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="21" TimeDurationType="" OpenTime="2015-02-07 00:00:00" CloseTime="2015-02-10 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="22" TimeDurationType="" OpenTime="2015-02-11 00:00:00" CloseTime="2015-02-14 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="23" TimeDurationType="" OpenTime="2015-02-15 00:00:00" CloseTime="2015-02-18 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="24" TimeDurationType="" OpenTime="2015-02-19 00:00:00" CloseTime="2015-02-22 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="25" TimeDurationType="" OpenTime="2015-02-23 00:00:00" CloseTime="2015-02-26 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="26" TimeDurationType="" OpenTime="2015-02-27 00:00:00" CloseTime="2015-03-02 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="27" TimeDurationType="" OpenTime="2015-03-03 00:00:00" CloseTime="2015-03-06 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="28" TimeDurationType="" OpenTime="2015-03-07 00:00:00" CloseTime="2015-03-10 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="29" TimeDurationType="" OpenTime="2015-03-11 00:00:00" CloseTime="2015-03-14 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="30" TimeDurationType="" OpenTime="2015-03-15 00:00:00" CloseTime="2015-03-18 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="31" TimeDurationType="" OpenTime="2015-03-19 00:00:00" CloseTime="2015-03-22 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="32" TimeDurationType="" OpenTime="2015-03-23 00:00:00" CloseTime="2015-03-26 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="33" TimeDurationType="" OpenTime="2015-03-27 00:00:00" CloseTime="2015-03-30 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="34" TimeDurationType="" OpenTime="2015-03-31 00:00:00" CloseTime="2015-04-03 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="35" TimeDurationType="" OpenTime="2015-04-04 00:00:00" CloseTime="2015-04-07 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="36" TimeDurationType="" OpenTime="2015-04-08 00:00:00" CloseTime="2015-04-11 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C090010" IsValid="Close" Name="东海寻仙">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2015-02-06 00:00:00" CloseTime="2015-02-13 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="2" TimeDurationType="" OpenTime="2015-02-18 00:00:00" CloseTime="2015-03-12 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="3" TimeDurationType="" OpenTime="2015-03-20 00:00:00" CloseTime="2015-03-25 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="4" TimeDurationType="" OpenTime="2015-04-03 00:00:00" CloseTime="2015-04-08 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C100010" IsValid="Open" Name="内丹炼丹">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2015-02-02 00:00:00" CloseTime="2015-02-08 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C110010" IsValid="Open" Name="内丹分解">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2014-12-04 00:00:00" CloseTime="2014-12-19 23:59:59" ResetType="" />
+    <ActivitySpecialTime Index="2" TimeDurationType="" OpenTime="2015-03-13 00:00:00" CloseTime="2015-03-18 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C120010" IsValid="Open" Name="门派活动商店">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2015-02-02 00:00:00" CloseTime="2015-02-08 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C130010" IsValid="Close" Name="门派关卡">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2015-01-04 00:00:00" CloseTime="2016-12-19 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C060001" IsValid="Close" Name="711活动">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2014-7-1 00:00:00" CloseTime="2015-7-30 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C010101" IsValid="Close" Name="三天抽卡活动">
+    <ActivitySpecialTime Index="1" TimeDurationType="" StartRelativeStartServiceOpenTime="0000-00-00 00:00:00" StartRelativeStartServiceCloseTime="0000-00-02 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C010102" IsValid="Close" Name="每日首十连">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2014-12-30 00:00:00" CloseTime="2015-01-19 23:59:59" ResetType="" />
+  </Activity>
+  <Activity Id="0C010103" IsValid="Close" Name="每日首280">
+    <ActivitySpecialTime Index="1" TimeDurationType="" OpenTime="2014-12-30 00:00:00" CloseTime="2015-01-19 23:59:59" ResetType="" />
+  </Activity>
+  <FixedTimeActivity>
+    <Activity Id="0C020001" IsValid="Open" Name="客栈">
+      <ActivitySpecialTime TimeDurationType="Day" OpenTime="2014-6-1 00:00:00" ResetType="Day">
+        <TimeCell StartTime="10:00:00" EndTime="14:00:00" />
+        <TimeCell StartTime="18:00:00" EndTime="22:00:00" />
+      </ActivitySpecialTime>
+    </Activity>
+    <Reward Id="FF000004" Count="60" />
+  </FixedTimeActivity>
+</ActivityConfig>

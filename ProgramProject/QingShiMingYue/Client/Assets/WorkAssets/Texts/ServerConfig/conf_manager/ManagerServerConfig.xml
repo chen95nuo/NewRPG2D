@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- serverID is hex -->
+	<!-- serverId必须是5位，manager必须为1开头，anth必须2开头，game必须3开头-->
+	<!-- 52000到54999 不能使用-->
+	<UniqueServer ServerName="ManagerServer"	ServerID="10001"	IPForServer="127.0.0.1"	PortForServer="26000"	TimeZone="8" PortForGM="8082" PortForProxy="8083"/>
+	<UniqueServer ServerName="AuthServer"		ServerID="20001"	IPForServer="127.0.0.1"	PortForServer="26001"	IPForClient="10.23.1.41"	PortForClient="29000"  MiniPortForClient="2001"/>
+	
+	<!-- Game serverID is hex, eg: 30001 30002 30003 -->
+	<GameServer AreaID="1" ServerName="GameServer_001"  ServerID="30001"  IPForServer="127.0.0.1"	PortForServer="26020" IPForClient="10.23.1.41"	PortForClient="3001"/>
+</config>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QuestConfig DailyResetTime="23:59:59">
+  <Quest QuestId="16000001" Index="60" Type="DailyQuest" ResetType="Day" EventType="Combat" TotalStepCount="1" GoToUI="UI_Tower" NotHideWhenFinished="true">
+    <Reward Id="FF000002" Count="30" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="15" />
+    <Condition Phase="Finished" Type="CombatType" ValueCompareType="Equal" Value="Tower" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="14" />
+  </Quest>
+  <Quest QuestId="16000002" Index="90" Type="DailyQuest" ResetType="Day" EventType="Combat" TotalStepCount="1" GoToUI="UIPnlArena" NotHideWhenFinished="true">
+    <Reward Id="FF000003" Count="1000" />
+    <Reward Id="FF00000D" Count="10" />
+    <Condition Phase="Finished" Type="CombatType" ValueCompareType="Equal" Value="Arena" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="11" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+  <Quest QuestId="16000003" Index="100" Type="DailyQuest" ResetType="Day" EventType="Combat" TotalStepCount="5" GoToUI="UI_Dungeon" NotHideWhenFinished="true">
+    <Reward Id="FF000003" Count="1000" />
+    <Reward Id="FF00000D" Count="10" />
+    <Condition Phase="Finished" Type="CombatType" ValueCompareType="Equal" Value="Campaign" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="11" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+  <Quest QuestId="16000004" Index="80" Type="DailyQuest" ResetType="Day" EventType="BuyTavern" TotalStepCount="1" GoToUI="UIPnlShopWine" NotHideWhenFinished="true">
+    <Reward Id="FF000002" Count="20" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="11" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+  <Quest QuestId="16000005" Index="70" Type="DailyQuest" ResetType="Day" EventType="UseStaminaItem" TotalStepCount="1" GoToUI="UIPnlPackageItemTab" NotHideWhenFinished="true">
+    <Reward Id="FF000001" Count="20000" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="11" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+  <Quest QuestId="16000006" Index="50" Type="DailyQuest" ResetType="Day" EventType="JoinWolfSmoke" TotalStepCount="1" GoToUI="UI_WolfSmoke" NotHideWhenFinished="true">
+    <Reward Id="FF000011" Count="500" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="20" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="20" />
+  </Quest>
+  <Quest QuestId="16000007" Index="40" Type="DailyQuest" ResetType="Day" EventType="CombatFriend" TotalStepCount="1" GoToUI="UIPnlFriendTab" NotHideWhenFinished="true">
+    <Reward Id="07010025" Count="2" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="11" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+  <Quest QuestId="16000101" Index="8" Type="RepeatedQuest" ResetType="" EventType="TowerChallenge" TotalStepCount="3" GoToUI="UI_Tower" NotHideWhenFinished="true">
+    <Reward Id="FF000010" Count="100" />
+    <Reward Id="07050001" Count="1" />
+    <Condition Phase="Active" Type="PlayerLevel" ValueCompareType="GreaterEqual" Value="15" />
+    <Condition Phase="Active" Type="PlayerShowLevel" ValueCompareType="GreaterEqual" Value="11" />
+  </Quest>
+</QuestConfig>

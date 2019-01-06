@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!---->
+<PositionConfig>
+  <DefaultOpenPositionSet>
+    <PositionId>41000001</PositionId>
+  </DefaultOpenPositionSet>
+  <PositionSet>
+    <Position Id="41000001" OpenLevel="1" OpenVipLevel="0">
+      <PositionNum OpenNum="1" Level="1" />
+      <PositionNum OpenNum="2" Level="3" />
+      <PositionNum OpenNum="3" Level="8" />
+      <PositionNum OpenNum="4" Level="16" />
+      <PositionNum OpenNum="5" Level="18" />
+      <PositionNum OpenNum="6" Level="9" />
+    </Position>
+    <Position Id="41000002" OpenLevel="20" OpenVipLevel="0">
+      <Cost Id="FF000001" Count="10000" />
+      <PositionNum OpenNum="1" Level="1" />
+      <PositionNum OpenNum="2" Level="3" />
+      <PositionNum OpenNum="3" Level="8" />
+      <PositionNum OpenNum="4" Level="16" />
+      <PositionNum OpenNum="5" Level="18" />
+      <PositionNum OpenNum="6" Level="9" />
+    </Position>
+    <Position Id="41000003" OpenLevel="30" OpenVipLevel="0">
+      <Cost Id="FF000001" Count="20000" />
+      <PositionNum OpenNum="1" Level="1" />
+      <PositionNum OpenNum="2" Level="3" />
+      <PositionNum OpenNum="3" Level="8" />
+      <PositionNum OpenNum="4" Level="16" />
+      <PositionNum OpenNum="5" Level="18" />
+      <PositionNum OpenNum="6" Level="9" />
+    </Position>
+    <Position Id="41000004" OpenLevel="40" OpenVipLevel="0">
+      <Cost Id="FF000001" Count="60000" />
+      <PositionNum OpenNum="1" Level="1" />
+      <PositionNum OpenNum="2" Level="3" />
+      <PositionNum OpenNum="3" Level="8" />
+      <PositionNum OpenNum="4" Level="16" />
+      <PositionNum OpenNum="5" Level="18" />
+      <PositionNum OpenNum="6" Level="9" />
+    </Position>
+  </PositionSet>
+  <EmBattleAttributeSet>
+    <EmBattleAttribute Type="Front" Desc="生命增加25%\n攻击降低5%">
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="PAP" Value="-0.05" />
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="MAP" Value="-0.05" />
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="MaxHP" Value="0.25" />
+    </EmBattleAttribute>
+    <EmBattleAttribute Type="Back" Desc="攻击增加10%\n速度增加5%">
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="PAP" Value="0.1" />
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="MAP" Value="0.1" />
+      <PropertyModifier Type="AttributeModifier" ModifyType="Percentage" AttributeType="Speed" Value="0.05" />
+    </EmBattleAttribute>
+  </EmBattleAttributeSet>
+</PositionConfig>
