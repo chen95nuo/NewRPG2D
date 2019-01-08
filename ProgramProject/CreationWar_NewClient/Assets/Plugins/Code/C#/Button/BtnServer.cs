@@ -157,7 +157,7 @@ public class BtnServer : MonoBehaviour {
             if (!MainMenuManage.my.Equals(null))
 			{
 
-                MainMenuManage.my.Connect(this.applicationName, "115.29.36.226", this.applicationHost, isFastBtn, this.lblServerName.text);
+                MainMenuManage.my.Connect(this.applicationName, "47.92.130.102", this.applicationHost, isFastBtn, this.lblServerName.text);
 			}
 		}
 		else

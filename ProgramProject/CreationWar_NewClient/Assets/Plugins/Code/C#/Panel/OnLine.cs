@@ -94,15 +94,15 @@ public class OnLine : MonoBehaviour {
 		{
 #if UNITY_IOS
 #if SDK_ZSYIOS
-			www = new WWW(@"http://221.229.162.251:8080/cp/AppleServerIP.html");
+			www = new WWW(@"http://47.92.130.102:80/cp/AppleServerIP.htm");
 #else
-			www = new WWW(@"http://221.229.162.251:8080/cp/1.2.6/ServerIP.html");
+			www = new WWW(@"http://47.92.130.102:80/cp/1.2.6/ServerIP.htm");
 #endif
-			//			www = new WWW(@"http://221.229.162.251:8080/cp/ServerIP.html");
+			//			www = new WWW(@"http://47.92.130.102:80/cp/ServerIP.htm");
 #elif UNITY_ANDROID
-			www = new WWW(@"http://221.229.162.251:8080/cp/1.2.6Android/ServerIP.html");
+			www = new WWW(@"http://47.92.130.102:80/cp/1.2.6Android/ServerIP.htm");
 #else
-			www = new WWW(@"http://221.229.162.251:8080/cp/1.2.6/ServerIP.html");
+			www = new WWW(@"http://47.92.130.102:80/cp/1.2.6/ServerIP.htm");
 #endif
 		}
 		catch(System.Exception ex)
@@ -197,8 +197,8 @@ public class OnLine : MonoBehaviour {
 
     public void ConMy()
     {
-        serverAddress = "115.29.36.226:9998";
-        serverAddress2 = "115.29.36.226:9998";
+        serverAddress = "47.92.130.102:9988";
+        serverAddress2 = "47.92.130.102:9998";
         StartCoroutine(Connect());
     }
 

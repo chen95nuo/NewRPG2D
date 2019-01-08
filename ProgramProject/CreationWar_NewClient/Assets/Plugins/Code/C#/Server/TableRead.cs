@@ -58,19 +58,31 @@ public class TableRead : MonoBehaviour
     private bool NeedUpdateLocalVersionFile = false;
     public static readonly string VERSION_FILE = "version.txt";
     
-    public static readonly string LOCAL_RES_URL = "file:///" + Application.persistentDataPath + "/";
-    public static readonly string LOCAL_RES_PATH = Application.persistentDataPath + "/";
-//    public static readonly string SERVER_RES_URL = "http://192.168.1.136:8080/";
-//    public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/AppleDB/";
-//	public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/ZealmDBTest/";
+    public static string LOCAL_RES_URL
+    {
+        get
+        {
+            return "file:///" + Application.persistentDataPath + "/";
+        }
+    }
+    public static string LOCAL_RES_PATH
+    {
+        get
+        {
+            return Application.persistentDataPath + "/";
+        }
+    }
+    //    public static readonly string SERVER_RES_URL = "http://192.168.1.136:8080/";
+    //    public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/AppleDB/";
+    //	public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/ZealmDBTest/";
 #if UNITY_IOS
-	public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/cp/1.2.9/Data/";
+	public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/cp/1.2.9/Data/";
 
-//	public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/100Test/";
+//	public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/100Test/";
 #elif UNITY_ANDROID
-	public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/cp/1.2.9Android/Data/";
+    public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/cp/1.2.9Android/Data/";
 #else
-	public static readonly string SERVER_RES_URL = "http://221.229.162.251:8080/100Test/";
+	public static readonly string SERVER_RES_URL = "http://47.92.130.102:80/100Test/";
 #endif
 
 	public static readonly string DATA_NAME = "GameDateZealmTest.ydat";
@@ -452,9 +464,9 @@ public class TableRead : MonoBehaviour
             canReadTable = false;
             isReadingTable = true;
             versionCompare();
-            //StartCoroutine (ReadHttp (@"http://221.229.162.251:8080/GameDate.ydat")); 
+            //StartCoroutine (ReadHttp (@"http://47.92.130.102:80/GameDate.ydat")); 
             //			StartCoroutine (ReadHttp (@"http://192.168.0.116:8080/GameDateZealmTest.ydat")); 
-            //			StartCoroutine (ReadHttp (@"http://221.229.162.251:8080/GameDateZealmTest.ydat")); 
+            //			StartCoroutine (ReadHttp (@"http://47.92.130.102:80/GameDateZealmTest.ydat")); 
             //			StartCoroutine (ReadHttp (@"http://192.168.1.123:8080/GameDateZealmTest.ydat")); 
             //StartCoroutine(ReadHttp(@"http://192.168.1.136:8080/GameData/GameDateZealmTest.ydat")); 
 
@@ -497,7 +509,7 @@ public class TableRead : MonoBehaviour
 
             objProgressbar.SetActiveRecursively(false);
             objNeedUpdate.SetActiveRecursively(true);
-            WWW www = new WWW(@"http://221.229.162.251:8080/cp/Update_Throne.html");
+            WWW www = new WWW(@"http://47.92.130.102:80/cp/Update_Throne.htm");
             yield return www;
             lbNeedUpdate.text = www.text;
         }
@@ -575,8 +587,8 @@ public class TableRead : MonoBehaviour
 #endif
     public IEnumerator GetNewPage()
     {
-        //WWW www=new WWW(@"http://221.229.162.251:8080/geturl/geturl.php?type="+strPageName);
-        WWW www = new WWW(@"http://221.229.162.251:8080/cp/geturl/geturl.php?type=" + strPageName);
+        //WWW www=new WWW(@"http://47.92.130.102:80/geturl/geturl.php?type="+strPageName);
+        WWW www = new WWW(@"http://47.92.130.102:80/cp/geturl/geturl.php?type=" + strPageName);
         yield return www;
 
         try

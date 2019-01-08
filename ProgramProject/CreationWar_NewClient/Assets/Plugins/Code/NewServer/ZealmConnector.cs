@@ -87,6 +87,7 @@ public class ZealmConnector {
 			ZealmSocketConnection.writeNetData(netData);
 		}else{
 			MonoBehaviour.print("==============warning: connection is null. request not sent");
-		}
+            UnityEngine.Debug.Log("======Log========warning: connection is null. request not sent");
+        }
 	}
 }
