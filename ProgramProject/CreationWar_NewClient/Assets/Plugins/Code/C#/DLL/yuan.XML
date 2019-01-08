@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>yuan</name>
+    </assembly>
+    <members>
+        <member name="M:yuan.YuanSocket.YuanClient.SendToServer(System.Object)">
+            <summary>
+            向服务器发送数据
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:yuan.YuanSocket.YuanClient.GetToServer(System.Object)">
+            <summary>
+            接收服务器数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanSerializationDataSet.SerializationDataSet.YuanSerializeToFile``1(``0,System.String)">
+            <summary>
+            序列化实例到文件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="mClass">实例</param>
+            <param name="mFilePath">文件地址</param>
+        </member>
+        <member name="M:yuan.YuanSerializationDataSet.SerializationDataSet.YuanDeserializeForFile``1(System.String)">
+            <summary>
+            从文件中发序列化实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="mFilePath">文件地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanSerializationDataSet.SerializationDataSet.YuanDeserializeForByte``1(System.Byte[])">
+            <summary>
+            从字节数组中反序列化实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="mFilePath">字节数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanSerializationDataSet.SerializationDataSet.Compress(System.Byte[])">
+            <summary>
+            压缩数据
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanSerializationDataSet.SerializationDataSet.Decompress(System.Byte[])">
+            <summary>
+            解压数据
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:yuan.YuanMemoryDB.YuanRowState">
+            <summary>
+            内存数据库(行)的变动状态
+            </summary>
+            
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanColumn.MyRow">
+            <summary>
+            自身所在Row
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanColumn.YuanColumnState">
+            <summary>
+            行的修改状态
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanColumn.YuanColumnText">
+            <summary>
+            行的内容
+            </summary>
+        </member>
+        <member name="T:yuan.YuanMemoryDB.YuanRow">
+            <summary>
+            内存数据库(行)
+            </summary>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanRow.Add(System.String,System.String)">
+            <summary>
+            添加列
+            </summary>
+            <param name='rowName'>
+            列名
+            </param>
+            <param name='rowValue'>
+            列值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanRow.Delete(System.String)">
+            <summary>
+            删除列
+            </summary>
+            <param name='rowName'>
+            列名
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanRow.Clear">
+            <summary>
+            清空行
+            </summary>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanRow.CopyTo">
+            <summary>
+            拷贝数据到新实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanRow.GetColumnsName">
+            <summary>
+            获取行中的所有列名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanRow.RowState">
+            <summary>
+            获取或设置行的状态
+            </summary>
+            <value>
+            
+            </value>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanRow.Item(System.String)">
+            <summary>
+            从名字索引获取或设置行<see cref="T:yuan.YuanMemoryDB.YuanRow"/> 
+            </summary>
+            <param name="rowName">
+            列名
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.Add(yuan.YuanMemoryDB.YuanRow)">
+            <summary>
+            添加行
+            </summary>
+            <param name='row'>
+            YuanRow.
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.Delete(System.Int32)">
+            <summary>
+            根据索引删除行
+            </summary>
+            <param name='index'>
+            If set to <c>true</c> index.
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.Delete(yuan.YuanMemoryDB.YuanRow)">
+            <summary>
+            根据YuanRow删除行
+            </summary>
+            <param name='row'>
+            If set to <c>true</c> row.
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.Clear">
+            <summary>
+            清空表
+            </summary>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.Refresh">
+            <summary>
+            刷新表中的所有行的标记为Noting
+            </summary>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRow(System.String,System.String)">
+            <summary>
+            根据字符串查询表,返回第一个匹配项
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRowEqual(System.String,System.String)">
+            <summary>
+            根据字符串查询表,返回第一个匹配项
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRows(System.String,System.String)">
+            <summary>
+            根据字符串查询表
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRowsEqual(System.String,System.String)">
+            <summary>
+            根据字符串查询表
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRowsList(System.String,System.String)">
+            <summary>
+            根据字符串查询表
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.SelectRowsListEqual(System.String,System.String)">
+            <summary>
+            根据字符串查询表
+            </summary>
+            <param name='strName'>
+            要搜索的字段名
+            </param>
+            <param name='strValue'>
+            要搜索的字段值
+            </param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.TableToDictionary">
+            <summary>
+            转换成字典集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.CopyToDictionary(System.Collections.Generic.Dictionary{System.Byte,System.Object})">
+            <summary>
+            从特定字典集合组合
+            </summary>
+            <param name="dic"></param>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.GetDB(System.String)">
+            <summary>
+            从服务器获取数据
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yuan.YuanMemoryDB.YuanTable.UpdateTable">
+            <summary>
+            向服务器更新数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.IsUpdate">
+            <summary>
+            表是否在更新
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Count">
+            <summary>
+            表中行数
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.TableKey">
+            <summary>
+            表中id
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Ip">
+            <summary>
+            数据库端ip
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.TableName">
+            <summary>
+            获取或设置表表的名称
+            </summary>
+            <value>
+            The name of the table.
+            </value>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Rows">
+            <summary>
+            获取或设置表中的行
+            </summary>
+            <value>
+            The rows.
+            </value>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.DeleteRows">
+            <summary>
+            获取或设置表中已删除的行
+            </summary>
+            <value>
+            The delete rows.
+            </value>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Item(System.Int32)">
+            <summary>
+            从索引获取或设置表中的行 <see cref="T:yuan.YuanMemoryDB.YuanTable"/>
+            </summary>
+            <param name="index">
+            Index.
+            </param>
+        </member>
+        <member name="P:yuan.YuanMemoryDB.YuanTable.Item(yuan.YuanMemoryDB.YuanRow)">
+            <summary>
+             从YuanRow获取或设置表中的行<see cref="T:yuan.YuanMemoryDB.YuanTable"/>
+            </summary>
+            <param name="row">
+            Row.
+            </param>
+            <exception cref="T:System.Exception">
+            Represents errors that occur during application execution.
+            </exception>
+        </member>
+    </members>
+</doc>

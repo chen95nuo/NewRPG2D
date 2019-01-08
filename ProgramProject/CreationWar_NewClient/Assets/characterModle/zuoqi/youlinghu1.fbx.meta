@@ -1,0 +1,898 @@
+fileFormatVersion: 2
+guid: 770daaad59aed074d9b6fa080731fe1f
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: group1
+    100002: H_1
+    100004: H_Jia
+    100006: joint1
+    100008: joint1 1
+    100010: joint1 10
+    100012: joint1 11
+    100014: joint1 12
+    100016: joint1 13
+    100018: joint1 14
+    100020: joint1 15
+    100022: joint1 16
+    100024: joint1 17
+    100026: joint1 18
+    100028: joint1 19
+    100030: joint1 2
+    100032: joint1 20
+    100034: joint1 21
+    100036: joint1 22
+    100038: joint1 23
+    100040: joint1 24
+    100042: joint1 3
+    100044: joint1 4
+    100046: joint1 5
+    100048: joint1 6
+    100050: joint1 7
+    100052: joint1 8
+    100054: joint1 9
+    100056: joint2
+    100058: joint3
+    100060: joint4
+    100062: joint5
+    100064: joint6
+    100066: joint7
+    100068: joint8
+    100070: joint9
+    100072: //RootNode
+    100074: zuo
+    400000: group1
+    400002: H_1
+    400004: H_Jia
+    400006: joint1
+    400008: joint1 1
+    400010: joint1 10
+    400012: joint1 11
+    400014: joint1 12
+    400016: joint1 13
+    400018: joint1 14
+    400020: joint1 15
+    400022: joint1 16
+    400024: joint1 17
+    400026: joint1 18
+    400028: joint1 19
+    400030: joint1 2
+    400032: joint1 20
+    400034: joint1 21
+    400036: joint1 22
+    400038: joint1 23
+    400040: joint1 24
+    400042: joint1 3
+    400044: joint1 4
+    400046: joint1 5
+    400048: joint1 6
+    400050: joint1 7
+    400052: joint1 8
+    400054: joint1 9
+    400056: joint2
+    400058: joint3
+    400060: joint4
+    400062: joint5
+    400064: joint6
+    400066: joint7
+    400068: joint8
+    400070: joint9
+    400072: //RootNode
+    400074: zuo
+    4300000: H_Jia
+    4300002: H_1
+    7400000: idle0
+    7400002: idle
+    7400004: jumpstart
+    7400006: jump
+    7400008: jumpend
+    7400010: walk
+    7400012: run
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: H_1
+    13700002: H_Jia
+    13700004: joint1
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 3
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: run
+      takeName: Take 001
+      firstFrame: 65
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle
+      takeName: Take 001
+      firstFrame: 185
+      lastFrame: 245
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jumpstart
+      takeName: Take 001
+      firstFrame: 248
+      lastFrame: 278
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jump
+      takeName: Take 001
+      firstFrame: 281
+      lastFrame: 311
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jumpend
+      takeName: Take 001
+      firstFrame: 65
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 347
+      lastFrame: 377
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle0
+      takeName: Take 001
+      firstFrame: 92
+      lastFrame: 182
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint1 1
+        weight: 1
+      - path: group1/joint1/joint1 1/joint1 2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint1 9/joint1 12/joint1 17/joint1
+          20
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint3/joint1 13/joint1 18/joint1
+          21/joint1 23
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/joint1 5/joint4/joint1 14/joint1 19/joint1
+          22/joint1 24
+        weight: 1
+      - path: group1/joint1/joint1 1/joint2/zuo
+        weight: 1
+      - path: group1/joint1/joint5
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10
+        weight: 1
+      - path: group1/joint1/joint5/joint1 3/joint1 6/joint1 10/joint1 15
+        weight: 1
+      - path: group1/joint1/joint5/joint6
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11
+        weight: 1
+      - path: group1/joint1/joint5/joint6/joint1 7/joint1 11/joint1 16
+        weight: 1
+      - path: group1/joint1/joint7
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint1 8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint8
+        weight: 1
+      - path: group1/joint1/joint7/joint1 4/joint9
+        weight: 1
+      - path: H_1
+        weight: 1
+      - path: H_Jia
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .5
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

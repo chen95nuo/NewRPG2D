@@ -1,0 +1,450 @@
+fileFormatVersion: 2
+guid: da8ba867bd6e59c4db102ed0b542db4c
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: monster_9
+    7400000: Take 001 //// 9
+    7400002: attack1 //// 9
+    7400004: attack2 //// 9
+    7400006: attack3 //// 9
+    7400008: attack4 //// 9
+    7400010: attack5 //// 9
+    7400012: attack6 //// 9
+    7400014: attack7 //// 9
+    7400016: die //// 9
+    7400018: battle //// 9
+    7400020: idle //// 9
+    7400022: walk //// 9
+    7400024: run //// 9
+    7400026: stun //// 9
+    7400028: hit //// 9
+    7400030: attacka1 //// 9
+    7400032: attacka2 //// 9
+    7400034: attacka3 //// 9
+    7400036: attacka4 //// 9
+    7400038: attacka5 //// 9
+    7400040: attacka6 //// 9
+    7400042: attacka7 //// 9
+    7400044: down //// 9
+    7400046: standup //// 9
+  serializedVersion: 10
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations:
+    - name: attacka1
+      firstFrame: 2
+      lastFrame: 29
+      wrapMode: 1
+      loop: 0
+    - name: attacka2
+      firstFrame: 32
+      lastFrame: 59
+      wrapMode: 1
+      loop: 0
+    - name: attacka3
+      firstFrame: 62
+      lastFrame: 82
+      wrapMode: 1
+      loop: 0
+    - name: attacka4
+      firstFrame: 85
+      lastFrame: 105
+      wrapMode: 1
+      loop: 0
+    - name: attacka5
+      firstFrame: 108
+      lastFrame: 135
+      wrapMode: 1
+      loop: 0
+    - name: attacka6
+      firstFrame: 138
+      lastFrame: 161
+      wrapMode: 1
+      loop: 0
+    - name: attacka7
+      firstFrame: 164
+      lastFrame: 182
+      wrapMode: 1
+      loop: 0
+    - name: die
+      firstFrame: 185
+      lastFrame: 249
+      wrapMode: 8
+      loop: 0
+    - name: battle
+      firstFrame: 252
+      lastFrame: 286
+      wrapMode: 2
+      loop: 0
+    - name: idle
+      firstFrame: 289
+      lastFrame: 391
+      wrapMode: 2
+      loop: 0
+    - name: walk
+      firstFrame: 394
+      lastFrame: 416
+      wrapMode: 2
+      loop: 0
+    - name: run
+      firstFrame: 419
+      lastFrame: 431
+      wrapMode: 2
+      loop: 0
+    - name: stun
+      firstFrame: 434
+      lastFrame: 492
+      wrapMode: 2
+      loop: 0
+    - name: hit
+      firstFrame: 530
+      lastFrame: 559
+      wrapMode: 1
+      loop: 0
+    - name: down
+      firstFrame: 185
+      lastFrame: 249
+      wrapMode: 1
+      loop: 0
+    - name: standup
+      firstFrame: 419
+      lastFrame: 431
+      wrapMode: 1
+      loop: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 3
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+      data:
+        first: 111
+        second: 605fa900
+    Head_0:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    Head_1:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    Jaw:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    Spine_1:
+      data:
+        first: 1
+        second: ee860100
+      data:
+        first: 4
+        second: ce1a0600
+    Spine_2:
+      data:
+        first: 1
+        second: ec860100
+      data:
+        first: 4
+        second: cc1a0600
+    Spine_3:
+      data:
+        first: 1
+        second: ea860100
+      data:
+        first: 4
+        second: ca1a0600
+    ankle_L:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    ankle_R:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+    bicep_L:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    bicep_R:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
+    clavicle_L:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    clavicle_R:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+    elbow_L:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+    elbow_R:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600
+    group1:
+      data:
+        first: 1
+        second: f2860100
+      data:
+        first: 4
+        second: d21a0600
+    joint1:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+      data:
+        first: 137
+        second: a00bd100
+    joint2:
+      data:
+        first: 1
+        second: f0860100
+      data:
+        first: 4
+        second: d01a0600
+    knee_L:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+    knee_R:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    mid_0_L:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    mid_0_R:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+    mid_1_L:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    mid_1_R:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    monster_9:
+      data:
+        first: 1
+        second: f4860100
+      data:
+        first: 4
+        second: d41a0600
+    ring_0_L:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+    ring_0_R:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    ring_1_L:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    ring_1_R:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    thigh_L:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+    thigh_R:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    thumb_0_L:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+    thumb_0_R:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    toeBase_L:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    toeBase_R:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+    toe_1__L:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    toe_1__R:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    toe_2__L:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    toe_2__R:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    toe_3__L:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    toe_3__R:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    wrist_L:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+    wrist_R:
+      data:
+        first: 1
+        second: e0860100
+      data:
+        first: 4
+        second: c01a0600

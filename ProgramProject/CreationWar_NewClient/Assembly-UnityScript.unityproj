@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{766F6D11-08BD-37F2-19AE-603CFEA5F941}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_2;UNITY_4_6;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;SDK_DOWN;SDK_UC;SDK_QH;SDK_MI;SDK_OPPO;SDK_CMGE;SDK_PEASECOD;SDK_DUOKU;SDK_LENOVO;SDK_HUAWEI;SDK_AZ;SDK_MUZI;SDK_VIVO;SDK_JYIOS;SDK_KUAIYONG;SDK_PP;SDK_ITOOLS;SDK_TONGBU</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Scripts\EditMode\testEdit.js" />
+     <Compile Include="Assets\Scripts\GUI\Adapt.js" />
+     <Compile Include="Assets\Scripts\GUI\AwakeSet.js" />
+     <Compile Include="Assets\Scripts\GUI\ButtonSelect.js" />
+     <Compile Include="Assets\Scripts\GUI\ChangeTu.js" />
+     <Compile Include="Assets\Scripts\GUI\EverydayAnimAction.js" />
+     <Compile Include="Assets\Scripts\GUI\FitScreen.js" />
+     <Compile Include="Assets\Scripts\GUI\FitUI.js" />
+     <Compile Include="Assets\Scripts\GUI\Gate.js" />
+     <Compile Include="Assets\Scripts\GUI\Joystick.js" />
+     <Compile Include="Assets\Scripts\GUI\LoadGUI.js" />
+     <Compile Include="Assets\Scripts\GUI\MapCamera.js" />
+     <Compile Include="Assets\Scripts\GUI\Minimap.js" />
+     <Compile Include="Assets\Scripts\GUI\Minimapinfo.js" />
+     <Compile Include="Assets\Scripts\GUI\NavigationBarControl.js" />
+     <Compile Include="Assets\Scripts\GUI\PanelEnabled.js" />
+     <Compile Include="Assets\Scripts\GUI\ParticalActive.js" />
+     <Compile Include="Assets\Scripts\GUI\SetToAllPCL.js" />
+     <Compile Include="Assets\Scripts\GUI\StartSetMessageTarget.js" />
+     <Compile Include="Assets\Scripts\GUI\Storycamera.js" />
+     <Compile Include="Assets\Scripts\GUI\Storyspawn.js" />
+     <Compile Include="Assets\Scripts\GUI\TransformRotate.js" />
+     <Compile Include="Assets\Scripts\GUI\TriggerExit.js" />
+     <Compile Include="Assets\Scripts\GUI\TriggerStone.js" />
+     <Compile Include="Assets\Scripts\GUI\UIFindCamera.js" />
+     <Compile Include="Assets\Scripts\GUI\UIStoreScript.js" />
+     <Compile Include="Assets\Scripts\GUI\UseItemNum.js" />
+     <Compile Include="Assets\Scripts\GUI\YuItemHuo.js" />
+     <Compile Include="Assets\Scripts\GUI\YuItemYu.js" />
+     <Compile Include="Assets\Scripts\GUI\YuanGroundBack.js" />
+     <Compile Include="Assets\Scripts\GUI\logo.js" />
+     <Compile Include="Assets\Scripts\GUI\newCamera.js" />
+     <Compile Include="Assets\Scripts\GUI\rendercamera.js" />
+     <Compile Include="Assets\Scripts\GUI\rendercamerapic.js" />
+     <Compile Include="Assets\Scripts\K_GetNumSpawnPoint\WorldBossCallSkull.js" />
+     <Compile Include="Assets\Scripts\Monster\DOTMonsterControl.js" />
+     <Compile Include="Assets\Scripts\Monster\DotTower.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterAI.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterAnimation.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterApplyBuff.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterBuffAI.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterInfo.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterNetInit.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterSkill.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterSkillNetInit.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterSkillobject.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterSpawn.js" />
+     <Compile Include="Assets\Scripts\Monster\MonsterStatus.js" />
+     <Compile Include="Assets\Scripts\Monster\ObjectContDisable.js" />
+     <Compile Include="Assets\Scripts\Monster\ObjectFinder.js" />
+     <Compile Include="Assets\Scripts\Monster\ObjectSpawn.js" />
+     <Compile Include="Assets\Scripts\Monster\ObjectbuffSpawn.js" />
+     <Compile Include="Assets\Scripts\Monster\OpenSceneDoor.js" />
+     <Compile Include="Assets\Scripts\Monster\TMonsterControl.js" />
+     <Compile Include="Assets\Scripts\Monster\TrapAI.js" />
+     <Compile Include="Assets\Scripts\Monster\TrapItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\AchorFindCamera.js" />
+     <Compile Include="Assets\Scripts\NGUI\ActionProgressControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\ArenaControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\ArenaItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\BagItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\BattlefieldCityItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\BattlefieldIceControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\BranchControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\BtnActiveWherePlace.js" />
+     <Compile Include="Assets\Scripts\NGUI\ButtonForwardInfo.js" />
+     <Compile Include="Assets\Scripts\NGUI\ButtonJoystick.js" />
+     <Compile Include="Assets\Scripts\NGUI\Buttons.js" />
+     <Compile Include="Assets\Scripts\NGUI\ButtonsZhuControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\BuyStore.js" />
+     <Compile Include="Assets\Scripts\NGUI\CardControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\CardItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\ChangePhotonView.js" />
+     <Compile Include="Assets\Scripts\NGUI\ChuanSongControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\ComboPoints.js" />
+     <Compile Include="Assets\Scripts\NGUI\CookControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\CookItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\DungeonControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\DungeonOpenBox.js" />
+     <Compile Include="Assets\Scripts\NGUI\EnableParentOn.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentBuildControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentBuildItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentHoleButton.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentItemInfo.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentPunchControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentPunchItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquepmentStoneItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquipmentBreakdownControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\EquipmentBreakdownItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\ExhibitionControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\GUICube.js" />
+     <Compile Include="Assets\Scripts\NGUI\HelpControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\InventoryCangku.js" />
+     <Compile Include="Assets\Scripts\NGUI\InventoryControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\InventoryProduceControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\InventoryProduceItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\Inventorymaker.js" />
+     <Compile Include="Assets\Scripts\NGUI\ItemDaoJu.js" />
+     <Compile Include="Assets\Scripts\NGUI\ItemMove.js" />
+     <Compile Include="Assets\Scripts\NGUI\ItemRide.js" />
+     <Compile Include="Assets\Scripts\NGUI\JumpButton.js" />
+     <Compile Include="Assets\Scripts\NGUI\LabelLinkItemInfo.js" />
+     <Compile Include="Assets\Scripts\NGUI\LanguageSelect.js" />
+     <Compile Include="Assets\Scripts\NGUI\Loading.js" />
+     <Compile Include="Assets\Scripts\NGUI\LootTable.js" />
+     <Compile Include="Assets\Scripts\NGUI\MailControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\MapNextLevel.js" />
+     <Compile Include="Assets\Scripts\NGUI\MiniMapControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\MiniMapItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\MonsterUIControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\NewBehaviourScript.js" />
+     <Compile Include="Assets\Scripts\NGUI\NewUseItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\NewUseItemControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\OnEnableMessage.js" />
+     <Compile Include="Assets\Scripts\NGUI\OpenBox.js" />
+     <Compile Include="Assets\Scripts\NGUI\OtherPlayerControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\PVPControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerCollisionControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerDead.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerSelect.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerSelect1.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerSelect2.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerStore.js" />
+     <Compile Include="Assets\Scripts\NGUI\PlayerUIControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\ProduceUIControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\QueRen.js" />
+     <Compile Include="Assets\Scripts\NGUI\ReLian.js" />
+     <Compile Include="Assets\Scripts\NGUI\Shan.js" />
+     <Compile Include="Assets\Scripts\NGUI\SkillControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\SkillItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\SkillMove.js" />
+     <Compile Include="Assets\Scripts\NGUI\SkillObjectDetails.js" />
+     <Compile Include="Assets\Scripts\NGUI\SongSelect.js" />
+     <Compile Include="Assets\Scripts\NGUI\SongSelectPlayer.js" />
+     <Compile Include="Assets\Scripts\NGUI\SoulControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\SoulDesButton.js" />
+     <Compile Include="Assets\Scripts\NGUI\StoreItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\StoreItemControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TalkControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskDescription.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskDescriptionItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskGroundOnEnable.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskJiaoChengControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskMapContact.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskNowControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskNowControlItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskNpcItem.js" />
+     <Compile Include="Assets\Scripts\NGUI\TaskSceneIcon.js" />
+     <Compile Include="Assets\Scripts\NGUI\TestButton.js" />
+     <Compile Include="Assets\Scripts\NGUI\TiShi.js" />
+     <Compile Include="Assets\Scripts\NGUI\TimeDaoJi.js" />
+     <Compile Include="Assets\Scripts\NGUI\TipsControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TransRotate.js" />
+     <Compile Include="Assets\Scripts\NGUI\TransactionControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\TriggerLoadLevel1.js" />
+     <Compile Include="Assets\Scripts\NGUI\UIAllPanelControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\UIBloodTiao.js" />
+     <Compile Include="Assets\Scripts\NGUI\UIBuildControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\UIPlayerCash.js" />
+     <Compile Include="Assets\Scripts\NGUI\UIPlayerName.js" />
+     <Compile Include="Assets\Scripts\NGUI\UpdateXuePing.js" />
+     <Compile Include="Assets\Scripts\NGUI\ViewActiveSwitch.js" />
+     <Compile Include="Assets\Scripts\NGUI\VipActive.js" />
+     <Compile Include="Assets\Scripts\NGUI\VipControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\VipTrigger.js" />
+     <Compile Include="Assets\Scripts\NGUI\WaKControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\XunLianControl.js" />
+     <Compile Include="Assets\Scripts\NGUI\hitsss.js" />
+     <Compile Include="Assets\Scripts\NGUI\jsCallGM.js" />
+     <Compile Include="Assets\Scripts\NGUI\jsMailGM.js" />
+     <Compile Include="Assets\Scripts\NGUI\mtwPhotonview.js" />
+     <Compile Include="Assets\Scripts\NPC\ButtonSwitchActive.js" />
+     <Compile Include="Assets\Scripts\NPC\NPCTrigger.js" />
+     <Compile Include="Assets\Scripts\NPC\SelectC.js" />
+     <Compile Include="Assets\Scripts\NPC\SelectPet.js" />
+     <Compile Include="Assets\Scripts\NPC\SoldierWalk.js" />
+     <Compile Include="Assets\Scripts\NewJoy\JoyClass.js" />
+     <Compile Include="Assets\Scripts\NewJoy\JoyClick.js" />
+     <Compile Include="Assets\Scripts\NewJoy\JoyDodgeroll.js" />
+     <Compile Include="Assets\Scripts\NewJoy\JoyDrag.js" />
+     <Compile Include="Assets\Scripts\NewJoy\JoySlide.js" />
+     <Compile Include="Assets\Scripts\Player\ActiveSkill.js" />
+     <Compile Include="Assets\Scripts\Player\Attack_simple.js" />
+     <Compile Include="Assets\Scripts\Player\Autoctrl.js" />
+     <Compile Include="Assets\Scripts\Player\CloneMesh.js" />
+     <Compile Include="Assets\Scripts\Player\OtherPlayerInfo.js" />
+     <Compile Include="Assets\Scripts\Player\PassiveSkill.js" />
+     <Compile Include="Assets\Scripts\Player\PetNetInit.js" />
+     <Compile Include="Assets\Scripts\Player\Petdebuff.js" />
+     <Compile Include="Assets\Scripts\Player\Pickup.js" />
+     <Compile Include="Assets\Scripts\Player\PlayerApplyBuff.js" />
+     <Compile Include="Assets\Scripts\Player\PlayerInfoInit.js" />
+     <Compile Include="Assets\Scripts\Player\PlayerNetWorkGroup.js" />
+     <Compile Include="Assets\Scripts\Player\PlayerStatus.js" />
+     <Compile Include="Assets\Scripts\Player\TeamItem.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdAnimation.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdNetworkInit.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdPersonController.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdPersonPlayerAnimation.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdPersonWeapon.js" />
+     <Compile Include="Assets\Scripts\Player\ThirdPersonWeapon1.js" />
+     <Compile Include="Assets\Scripts\Player\TriggerUdateAgentTarget.js" />
+     <Compile Include="Assets\Scripts\Player\agentLocomotion.js" />
+     <Compile Include="Assets\Scripts\Player\alljoy.js" />
+     <Compile Include="Assets\Scripts\Player\qiuai.js" />
+     <Compile Include="Assets\Scripts\Skill\BodyguardSpawn.js" />
+     <Compile Include="Assets\Scripts\Skill\Buffefmanage.js" />
+     <Compile Include="Assets\Scripts\Skill\BulletNetInit.js" />
+     <Compile Include="Assets\Scripts\Skill\Bulletobject.js" />
+     <Compile Include="Assets\Scripts\Skill\PlayerAI.js" />
+     <Compile Include="Assets\Scripts\Skill\PlayerRobot.js" />
+     <Compile Include="Assets\Scripts\Skill\SkillNetInit.js" />
+     <Compile Include="Assets\Scripts\Skill\Skillobject.js" />
+     <Compile Include="Assets\Scripts\Skill\SkillsConfiguration.js" />
+     <Compile Include="Assets\Scripts\Skill\SoulPet.js" />
+     <Compile Include="Assets\Scripts\Skill\SoulPetAI.js" />
+     <Compile Include="Assets\Scripts\Skill\SoulPetSkill.js" />
+     <Compile Include="Assets\Scripts\Skill\ride.js" />
+     <Compile Include="Assets\Scripts\TaskWork\FindEndTransform.js" />
+     <Compile Include="Assets\Scripts\TaskWork\FindStaticButtons.js" />
+     <Compile Include="Assets\Scripts\TaskWork\FindTutorialObject.js" />
+     <Compile Include="Assets\Scripts\TaskWork\MainPersonStatus.js" />
+     <Compile Include="Assets\Scripts\TaskWork\MainTaskWork.js" />
+     <Compile Include="Assets\Scripts\TaskWork\NPCControl.js" />
+     <Compile Include="Assets\Scripts\TaskWork\SceneTaskObjectMaker.js" />
+     <Compile Include="Assets\Scripts\TaskWork\ShowStaticButtons.js" />
+     <Compile Include="Assets\Scripts\TaskWork\TaskDaoda.js" />
+     <Compile Include="Assets\Scripts\TaskWork\TaskInfoItem.js" />
+     <Compile Include="Assets\Scripts\TaskWork\TaskInfoList.js" />
+     <Compile Include="Assets\Scripts\TaskWork\TaskinfoParent.js" />
+     <Compile Include="Assets\Scripts\TaskWork\ThirdPersonTask.js" />
+     <Compile Include="Assets\Scripts\TaskWork\TriggerLoadLevel.js" />
+     <Compile Include="Assets\Scripts\TaskWork\UIControl.js" />
+     <Compile Include="Assets\Scripts\TaskWork\XmlControl.js" />
+     <Compile Include="Assets\Scripts\TaskWork\XmlControl1.js" />
+     <Compile Include="Assets\Scripts\TaskWork\XmlControl2.js" />
+     <Compile Include="Assets\Scripts\TaskWork\mouseClickTarget.js" />
+     <Compile Include="Assets\Scripts\TaskWork\npcAI.js" />
+     <Compile Include="Assets\Scripts\TaskWork\xiaoguaiAI.js" />
+     <Compile Include="Assets\Scripts\UIMove\ActiveControl.js" />
+     <Compile Include="Assets\Scripts\UIMove\ActiveItem.js" />
+     <Compile Include="Assets\Scripts\UIMove\ButtonMessageControl.js" />
+     <Compile Include="Assets\Scripts\UIMove\ButtonMessageItem.js" />
+     <Compile Include="Assets\Scripts\UIMove\ColliderPosition.js" />
+     <Compile Include="Assets\Scripts\UIMove\ControlSendMessage.js" />
+     <Compile Include="Assets\Scripts\UIMove\FindObject.js" />
+     <Compile Include="Assets\Scripts\UIMove\Song.js" />
+     <Compile Include="Assets\Scripts\UIMove\SongTest.js" />
+     <Compile Include="Assets\Scripts\effect\AllManage.js" />
+     <Compile Include="Assets\Scripts\effect\AllResources.js" />
+     <Compile Include="Assets\Scripts\effect\Arrowshan.js" />
+     <Compile Include="Assets\Scripts\effect\AutoWayPoint.js" />
+     <Compile Include="Assets\Scripts\effect\Bombtong.js" />
+     <Compile Include="Assets\Scripts\effect\CloseSnow.js" />
+     <Compile Include="Assets\Scripts\effect\Explosion-Simple.js" />
+     <Compile Include="Assets\Scripts\effect\Frieground.js" />
+     <Compile Include="Assets\Scripts\effect\InstantiateAllResources.js" />
+     <Compile Include="Assets\Scripts\effect\Jitang.js" />
+     <Compile Include="Assets\Scripts\effect\Pick.js" />
+     <Compile Include="Assets\Scripts\effect\PickupGamepool.js" />
+     <Compile Include="Assets\Scripts\effect\PopAction1.js" />
+     <Compile Include="Assets\Scripts\effect\PopAction2.js" />
+     <Compile Include="Assets\Scripts\effect\Randomrotation.js" />
+     <Compile Include="Assets\Scripts\effect\cjb.js" />
+     <Compile Include="Assets\Scripts\effect\dilie.js" />
+     <Compile Include="Assets\Scripts\effect\ghost.js" />
+     <Compile Include="Assets\Scripts\effect\jianqi.js" />
+     <Compile Include="Assets\Scripts\effect\tiezhang.js" />
+     <Compile Include="Assets\cameraShaders\java\Blackinout.js" />
+     <Compile Include="Assets\cameraShaders\java\ColoredNoise.js" />
+     <Compile Include="Assets\cameraShaders\java\HeightDepthOfField.js" />
+     <Compile Include="Assets\cameraShaders\java\MobileBloom.js" />
+     <Compile Include="Assets\cameraShaders\java\PostEffects.js" />
+     <Compile Include="Assets\cameraShaders\java\QualityManager.js" />
+     <Compile Include="Assets\cameraShaders\java\RenderFogPlane.js" />
+     <Compile Include="Assets\cameraShaders\java\ShaderDatabase.js" />
+     <Compile Include="Assets\cameraShaders\java\ShowFps.js" />
+     <Compile Include="Assets\effect\Scripts\AutoUV.js" />
+     <Compile Include="Assets\effect\Scripts\EffectGamepool.js" />
+     <Compile Include="Assets\effect\Scripts\EffectUnspawn.js" />
+     <Compile Include="Assets\effect\Scripts\Fontpool.js" />
+     <Compile Include="Assets\effect\Scripts\Groundblood.js" />
+     <Compile Include="Assets\effect\Scripts\ReGamePool.js" />
+     <Compile Include="Assets\effect\Scripts\SFKUV.js" />
+     <Compile Include="Assets\effect\Scripts\Scale.js" />
+     <Compile Include="Assets\effect\Scripts\shandian.js" />
+     <Compile Include="Assets\effect\Scripts\shengji.js" />
+     <Compile Include="Assets\jiangran\AuctionFristCon.js" />
+     <Compile Include="Assets\jiangran\BackHomeControl.js" />
+     <Compile Include="Assets\jiangran\BagIteamLable.js" />
+     <Compile Include="Assets\jiangran\BagShowBool.js" />
+     <Compile Include="Assets\jiangran\BuyStoreControl.js" />
+     <Compile Include="Assets\jiangran\CloseActivity.js" />
+     <Compile Include="Assets\jiangran\CreatAndFriendTeam.js" />
+     <Compile Include="Assets\jiangran\ExhibitionEnd.js" />
+     <Compile Include="Assets\jiangran\MapTalkControl.js" />
+     <Compile Include="Assets\jiangran\NameControl.js" />
+     <Compile Include="Assets\jiangran\NowCreatTeam.js" />
+     <Compile Include="Assets\jiangran\PlayerCreatToSkill.js" />
+     <Compile Include="Assets\jiangran\ShowClickSkill.js" />
+     <Compile Include="Assets\jiangran\WaringControl.js" />
+     <Compile Include="Assets\jiangran\firedragon.js" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
+     <None Include="Assets\Fonts\NGUI Font\Cooper-white.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+     <None Include="Assets\NGUI\ReadMe - 3.5.7.txt" />
+     <None Include="Assets\characterModle\NPC2\cailiao.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 3 TexturesBumped DLM.shader" />
+     <None Include="Assets\characterModle\NPC2\laoren.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 3 TexturesSpec.shader" />
+     <None Include="Assets\characterModle\NPC2\nvgong.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 3 TexturesUnified.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder8\monster_8.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder7\monster_7.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
+     <None Include="Assets\effect\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 4 Textures.shader" />
+     <None Include="Assets\characterModle\NPC2\hairen.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures ManualAdd BeastLM_1DC.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\GUI - Text Shader (SoftClip).shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 3 Textures.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\4TexturesUnlit.shader" />
+     <None Include="Assets\characterModle\NPC2\kuangzhanshi.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
+     <None Include="Assets\Plugins\Code\NewServer\Resources\Playerinfo.xml" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (AlphaClip).shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped Mobile.shader" />
+     <None Include="Assets\Text\LanguageName\FemaleFirstName\CH.txt" />
+     <None Include="Assets\Blob-Shadow\Fx\ProjectorMultiply2.shader" />
+     <None Include="Assets\LanguageText\alltext3.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+     <None Include="Assets\LanguageText\CH.txt" />
+     <None Include="Assets\characterModle\Monster\New Folder3\monster_3.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped.shader" />
+     <None Include="Assets\characterModle\MainCharacter\YouXia.txt" />
+     <None Include="Assets\icon\Luz csm xz\ANI.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec Mobile.shader" />
+     <None Include="Assets\BRDF\TextureSimple.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\6TexturesUnlitNoLM.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder21\monster_21.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (AlphaClip) .shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 3 Textures.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 4 TexturesBumpSpec.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 2 TexturesSpec.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 4 TexturesBump.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder13\monster_13.txt" />
+     <None Include="Assets\LanguageText\CR.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 6 Textures.shader" />
+     <None Include="Assets\effect\ToolResources\EffectShader\Add_Layer.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder6\monster_6.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\MinMaxReduction.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
+     <None Include="Assets\Fonts\Resources\UserLicensingAgreement.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\RadialBlur.shader" />
+     <None Include="Assets\characterModle\Enemy\qishi3\qishi3.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (AlphaClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ContrastComposite.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 4 Textures.shader" />
+     <None Include="Assets\cameraShaders\Resources\Multiply.shader" />
+     <None Include="Assets\Photon Unity Networking\changelog.txt" />
+     <None Include="Assets\characterModle\MainCharacter\ZhanShi2.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 4 Textures Spec.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 4 TexturesBumped.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 2 Textures.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 4 TexturesSpec.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder1\monster_1.txt" />
+     <None Include="Assets\characterModle\MainCharacter\FaShi.txt" />
+     <None Include="Assets\T4M\READMEFIRST.txt" />
+     <None Include="Assets\characterModle\Monster\New Folder16\monster_16.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
+     <None Include="Assets\Blob-Shadow\Fx\Dissolve_TexturCoords.shader" />
+     <None Include="Assets\characterModle\NPC2\nvzhan.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
+     <None Include="Assets\characterModle\Monster\New Folder15\monster_15.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 2 Textures.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 3 Textures Toon.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\GUI - Text Shader (AlphaClip).shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 1.shader" />
+     <None Include="Assets\characterModle\Enemy\bing3\bing234.txt" />
+     <None Include="Assets\Blob-Shadow\Fx\RimLightRun.shader" />
+     <None Include="Assets\characterModle\NPC2\wuwang.txt" />
+     <None Include="Assets\cameraShaders\Resources\AdditiveBlend.shader" />
+     <None Include="Assets\BRDF\Mobile-BumpLightRump.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 3.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 5 Textures.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 2 Textures Toon.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder11\monster_11.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 2.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder20\monster_20.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfField34.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (SoftClip).shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\3TexturesUnlit.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder14\monster_14.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShift.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 3.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 3 Textures Spec.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\T4M World Projection Shader Unlit+LM.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 2 Textures Spec.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
+     <None Include="Assets\characterModle\Enemy\gulong\gulong.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 3 TexturesBump.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SSAOShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ConvertDepth.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
+     <None Include="Assets\Shaders\OutterLineComposer.shader" />
+     <None Include="Assets\characterModle\Enemy\qingjia\qingjia.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
+     <None Include="Assets\effect\modle\xinjiatexiao.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CreaseApply.shader" />
+     <None Include="Assets\Photon Unity Networking\readme.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
+     <None Include="Assets\characterModle\Monster\New Folder18\monster_18.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 4 TexturesUnified.shader" />
+     <None Include="Assets\characterModle\Enemy\qishi2\qishi2.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ChromaticAberrationShader.shader" />
+     <None Include="Assets\StreamingAssets\version.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder10\monster_10.txt" />
+     <None Include="Assets\Plugins\Photon3Unity3D.xml" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />
+     <None Include="Assets\BRDF\MADFINGER-Unlit-Scroll2Layers-Mul-Sine.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures ManualAdd CustoLM 1DC.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 2 TexturesUnified.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
+     <None Include="Assets\characterModle\Enemy\xt\xt.txt" />
+     <None Include="Assets\NGUI\ReadMe - 2.2.6c.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\6TexturesUnlit.shader" />
+     <None Include="Assets\GUI\load1.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (HardClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored Overlay.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
+     <None Include="Assets\Shaders\OutLine.shader" />
+     <None Include="Assets\BRDF\Mobile-BumpLight.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 6 Textures.shader" />
+     <None Include="Assets\characterModle\MainCharacter\FaShi2.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+     <None Include="Assets\LanguageText\CHT.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlurEffectConeTaps.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
+     <None Include="Assets\effect\gai\zz.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder5\monster_5.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
+     <None Include="Assets\Blob-Shadow\Fx\Illumin-Diffuse-Plus.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder1\creepw.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
+     <None Include="Assets\BRDF\SimpleTexture.shader" />
+     <None Include="Assets\characterModle\NPC2\heiqishi.txt" />
+     <None Include="Assets\characterModle\NPC2\anhei.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped Mobile.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\5TexturesUnlit.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GrayscaleEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SepiaToneEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
+     <None Include="Assets\characterModle\MainCharacter\ZhanShi.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
+     <None Include="Assets\cameraShaders\Resources\MobileBloom.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrain.shader" />
+     <None Include="Assets\characterModle\Enemy\pannan\pangnan.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (HardClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
+     <None Include="Assets\Text\LanguageName\FemaleLastName\CH.txt" />
+     <None Include="Assets\characterModle\Enemy\jianshi\jianshi.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+     <None Include="Assets\Scripts\K_GetNumSpawnPoint\Resources\SpawnPointsCount.xml" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA2.shader" />
+     <None Include="Assets\Text\LanguageName\MaleFirstName\CH.txt" />
+     <None Include="Assets\characterModle\NPC2\heipao.txt" />
+     <None Include="Assets\cameraShaders\Resources\Blend.shader" />
+     <None Include="Assets\BRDF\MADFINGER-Lightmap-Unlit-Wind.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+     <None Include="Assets\Text\LanguageName\ShieldedWord\CH.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectNormals.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures Auto BeastLM 2DrawCall.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 2 TexturesBump.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder12\monster_12.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\PrepareSunShaftsBlur.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\Blend.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder19\monster_19.txt" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+     <None Include="Assets\characterModle\Enemy\qishi1\qishi1.txt" />
+     <None Include="Assets\StreamingAssets\YuanServerRoom.xml" />
+     <None Include="Assets\BRDF\TextureSimpleRump.shader" />
+     <None Include="Assets\characterModle\Enemy\nongfu\nongfu.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
+     <None Include="Assets\characterModle\NPC2\shouyeren.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 4 Textures Toon.shader" />
+     <None Include="Assets\characterModle\Monster\New Folder17\monster_17.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\2TexturesUnlit.shader" />
+     <None Include="Assets\characterModle\NPC2\gong.txt" />
+     <None Include="Assets\Plugins\release_history.txt" />
+     <None Include="Assets\characterModle\NPC2\zhongzhanshi.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA3Console.shader" />
+     <None Include="Assets\Blob-Shadow\Fx\Add_Layer.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M World Projection Shader.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
+     <None Include="Assets\characterModle\MainCharacter\YouXia2.txt" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM mobile.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 5 Textures.shader" />
+     <None Include="Assets\Blob-Shadow\Fx\MADFINGER-cube-env.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
+     <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
+     <None Include="Assets\Text\LanguageName\MaleLastName\CH.txt" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>I:/Program Files/Unity_4.6.2f1/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Photon3Unity3D">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/Photon3Unity3D.dll</HintPath>
+ </Reference>
+ <Reference Include="TDGAAnalytics">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/TDGAAnalytics.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/Code/C#/DLL/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/Code/C#/DLL/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="yuan">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/Code/C#/DLL/yuan.dll</HintPath>
+ </Reference>
+ <Reference Include="P31RestKit">
+ <HintPath>G:/myWorkSpace/untiy/NewRPG2D/ProgramProject/CreationWar_NewClient/Assets/Plugins/Prime31/P31RestKit.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{21CA9246-07D8-D46A-FD8A-96A5D76DC625}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{C7935970-D745-11D8-A0A2-A8E8D9CECCB4}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

@@ -1,0 +1,443 @@
+fileFormatVersion: 2
+guid: 103ebae4907eee54c88bc4c16b1fbaa1
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: A02
+    4300002: A01
+    4300004: A01_1
+    7400000: Take 001 //// A01@FBX
+    7400002: run //// A01@FBX
+    7400004: idle //// A01@FBX
+    7400006: attack //// A01@FBX
+    7400008: die //// A01@FBX
+    7400010: underfire //// A01@FBX
+    7400012: hitfei //// A01@FBX
+    7400014: standup //// A01@FBX
+    7400016: attack2 //// A01@FBX
+    7400018: battle //// A01@FBX
+    7400020: walk //// A01@FBX
+    7400022: attack3 //// A01@FBX
+    7400024: attacka1 //// A01@FBX
+    7400026: attacka3 //// A01@FBX
+    7400028: attacka2 //// A01@FBX
+    7400030: down //// A01@FBX
+    7400032: hit //// A01@FBX
+    7400034: attackc1 //// A01@FBX
+    7400036: attacke1 //// A01@FBX
+    7400038: attackf1 //// A01@FBX
+    100100000: DataTemplate __Singleton__
+  serializedVersion: 10
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations:
+    - name: run
+      firstFrame: 2
+      lastFrame: 23
+      wrapMode: 0
+      loop: 0
+    - name: idle
+      firstFrame: 31
+      lastFrame: 110
+      wrapMode: 0
+      loop: 0
+    - name: attacka1
+      firstFrame: 112
+      lastFrame: 145
+      wrapMode: 0
+      loop: 0
+    - name: die
+      firstFrame: 153
+      lastFrame: 192
+      wrapMode: 0
+      loop: 0
+    - name: hit
+      firstFrame: 194
+      lastFrame: 215
+      wrapMode: 0
+      loop: 0
+    - name: down
+      firstFrame: 217
+      lastFrame: 241
+      wrapMode: 0
+      loop: 0
+    - name: standup
+      firstFrame: 241
+      lastFrame: 264
+      wrapMode: 0
+      loop: 0
+    - name: attacke1
+      firstFrame: 265
+      lastFrame: 332
+      wrapMode: 0
+      loop: 0
+    - name: battle
+      firstFrame: 31
+      lastFrame: 110
+      wrapMode: 0
+      loop: 0
+    - name: walk
+      firstFrame: 334
+      lastFrame: 360
+      wrapMode: 0
+      loop: 0
+    - name: attacka2
+      firstFrame: 362
+      lastFrame: 391
+      wrapMode: 0
+      loop: 0
+    - name: attackf1
+      firstFrame: 362
+      lastFrame: 391
+      wrapMode: 0
+      loop: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: ee860100
+      data:
+        first: 4
+        second: ce1a0600
+      data:
+        first: 111
+        second: 605fa900
+    A01_1:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    joint1:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+      data:
+        first: 137
+        second: a00bd100
+    joint11:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    joint12:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    joint13:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    joint14:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    joint16:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    joint17:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    joint18:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    joint19:
+      data:
+        first: 1
+        second: f8860100
+      data:
+        first: 4
+        second: d81a0600
+    joint2:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    joint20:
+      data:
+        first: 1
+        second: f6860100
+      data:
+        first: 4
+        second: d61a0600
+    joint22:
+      data:
+        first: 1
+        second: f0860100
+      data:
+        first: 4
+        second: d01a0600
+    joint23:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    joint25:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+    joint26:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    joint28:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    joint29:
+      data:
+        first: 1
+        second: ec860100
+      data:
+        first: 4
+        second: cc1a0600
+    joint3:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+    joint30:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+    joint31:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+    joint33:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    joint34:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    joint35:
+      data:
+        first: 1
+        second: ea860100
+      data:
+        first: 4
+        second: ca1a0600
+    joint36:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    joint38:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+    joint39:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    joint4:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    joint40:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+    joint41:
+      data:
+        first: 1
+        second: f4860100
+      data:
+        first: 4
+        second: d41a0600
+    joint42:
+      data:
+        first: 1
+        second: f2860100
+      data:
+        first: 4
+        second: d21a0600
+    joint44:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    joint45:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    joint47:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+    joint48:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    joint50:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+    joint51:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+    joint52:
+      data:
+        first: 1
+        second: e0860100
+      data:
+        first: 4
+        second: c01a0600
+    joint53:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+    joint54:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    joint6:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    joint7:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
+    joint8:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    joint9:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600

@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<YuanServerRoom>
+  <!--游戏版本-->
+  <GameVersion>0.4</GameVersion>
+  <!--数据版本-->
+  <DataVersion>3.9</DataVersion>
+  <!--游戏语言-->
+  <GameLanguage>CH</GameLanguage>
+  <!--服务器注册权限（0关闭注册，1开启注册，2需要注册码） -->
+  <LogonStatus>1</LogonStatus>
+  <!--91充值开关（0关闭，1开启） -->
+  <Yuan91SDKBuy>1</Yuan91SDKBuy>
+  <!--血石交易（0关闭，1开启） -->
+  <BloodTarn>0</BloodTarn>
+  <!--玩家最大等级 -->
+  <PlayerMaxLevel>45</PlayerMaxLevel>
+  <!--玩家最大人数 -->
+  <PlayerMaxNum>3000</PlayerMaxNum>
+  <!--每日薪金倍乘 -->
+  <Salaries>200</Salaries>
+  <!--军衔奖励倍乘-->
+  <RankBenefits>100</RankBenefits>
+  <!--公会分红倍乘-->
+  <GuildBenefits>10</GuildBenefits>
+  <!--小喇叭话费血石-->
+  <TVMessageBlood>2</TVMessageBlood>
+  <!--挂机经验倍乘-->
+  <HangUpExp>0.1</HangUpExp>
+
+  <!--玩家邀请（0关闭，1开启） -->
+  <PlayerInvite>0</PlayerInvite>
+  <!--邀请者奖励金币数-->
+  <InviterGold>1000</InviterGold>
+  <!--邀请者奖励血石数-->
+  <InviterBlood>2</InviterBlood>
+  <!--被邀请者奖励金币数-->
+  <InviteesGold>1000</InviteesGold>
+  <!--被邀请者奖励血石数-->
+  <InviteesBlood>2</InviteesBlood>
+
+  <!--战场等待时间(分钟)-->
+  <LegionWaitTime>0.5</LegionWaitTime>
+  <!--战场进行时间(分钟)-->
+  <LegionTime>5</LegionTime>
+  <!--战场开始人数-->
+  <LegionStartNum>2</LegionStartNum>
+
+  <!--挑战影魔开关-->
+  <OfflinePlayerSwitch>1</OfflinePlayerSwitch>
+  <!--宝藏开关-->
+  <GambleSwitch>1</GambleSwitch>
+  <!--制造开关-->
+  <EqupmentBuildSwitch>1</EqupmentBuildSwitch>
+  <!--宝石开关-->
+  <EqupmentHoleSwitch>1</EqupmentHoleSwitch>
+  <!--邮件开关-->
+  <MailSwitch>1</MailSwitch>
+  <!--交易开关-->
+  <TransactionSwitch>1</TransactionSwitch>
+  <!--托管开关-->
+  <AutoPlaySwitch>1</AutoPlaySwitch>
+  <!--PVP开关-->
+  <PVPSwitch>1</PVPSwitch>
+  <!--邀请至副本开关-->
+  <InviteGoPVESwitch>1</InviteGoPVESwitch>
+  <!--邀请决斗开关-->
+  <InvitePVP1Switch>1</InvitePVP1Switch>
+  <!--英雄副本开关-->
+  <HeroPVESwitch>1</HeroPVESwitch>
+  <!--炼魂开关-->
+  <MakeSoulSwitch>1</MakeSoulSwitch>
+  <!--4v4（战场军团）开关-->
+  <PVP4Switch>1</PVP4Switch>
+  <!--2v2(竞技场战队)开关-->
+  <PVP2Switch>1</PVP2Switch>
+  <!--公会开关-->
+  <GuildSwitch>1</GuildSwitch>
+  <!--坐骑开关-->
+  <PetSwitch>1</PetSwitch>
+  <!--宠物购买开关-->
+  <PetBuySwitch>1</PetBuySwitch>
+  <!--兑换码开关-->
+  <RedemptionCodeSwitch>1</RedemptionCodeSwitch>
+  <!--强化开关-->
+  <EqupmentUpdateSwitch>1</EqupmentUpdateSwitch>
+  <!--烤鱼开关-->
+  <CookSwitch>1</CookSwitch>
+  <!--训练开关-->
+  <TrainingSwitch>1</TrainingSwitch>
+
+  <!--公会升级所需建设值和公会资金(等级；建设值；贡献值)-->
+  <GuildLevelUp>
+    <Level>
+      1;100;100
+    </Level>
+    <Level>
+      2;100;100
+    </Level>
+    <Level>
+      3;100;100
+    </Level>
+    <Level>
+      4;100;100
+    </Level>
+    <Level>
+      5;100;100
+    </Level>
+    <Level>
+      6;100;100
+    </Level>
+    <Level>
+      7;100;100
+    </Level>
+    <Level>
+      8;100;100
+    </Level>
+    <Level>
+      9;100;100
+    </Level>
+    <Level>
+      10;100;100
+    </Level>
+  </GuildLevelUp>
+
+  <!--每日目标奖励（B表示血石,G表示金币,I表示物品,H表示体力,四项必须不同）-->
+  <EverydayAims>
+
+    H:20;G:20000;B:20;I:8815,01;
+  </EverydayAims>
+  
+  <!--登陆奖励（金币,血石;金币,血石）-->
+  <!-- 登录奖励改为七日奖励 <DailyBenefits>1000,0;2000,0;3000,0;3500,0;5000,5</DailyBenefits>-->
+
+  <!--炼金加成时间段-->
+  <MakeGoldTime>13:00:00,14:00:00;18:00:00,20:00:00;</MakeGoldTime>
+
+  <!--炼金固定比例-->
+  <MakeGoldScale>1:1000</MakeGoldScale>
+
+  <!--炼金加成(百分)-->
+  <MakeGoldAddtion>10</MakeGoldAddtion>
+
+  <!--系统通告-->
+  <SystemInfo>游戏于2013.12.3号更新，老版本将无法运行，请更新游戏客户端。系统每周二（10:00-15：00）将例行维护</SystemInfo>
+  <!--游戏包验证码-->
+  <KeyStore>d16013603ced52c0dcb5e37fe5013e63</KeyStore>
+
+  <!--七日奖励 -->
+  <SevenDayRewards>
+    <FirstDay>2,1,5000;1,8811,05;1,8831,01;1,8861,05;1,8841,05;1,y210433315172000000000000,1</FirstDay>
+    <!--第二日奖励 橙色通用戒指-->
+    <SecondDay>2,1,10000;2,3,100;1,8831,02;1,8861,05;1,8841,05;1,y920523221271000000000000,1</SecondDay>
+    <ThirdDay>2,1,20000;2,3,150;1,8811,05;1,8861,10;1,8841,05;1,y425431325272000000000000,1</ThirdDay>
+    <FourthDay>2,1,30000;2,3,200;1,8111,05;1,8861,10;1,8141,02;1,y530431325272000000000000,1</FourthDay>
+    <FifthDay>2,1,50000;2,3,250;1,8831,05;1,8861,15;1,8812,05;1,y330431325272000000000000,1</FifthDay>
+    <SixthDay>2,1,70000;2,3,300;1,8112,05;1,8861,15;1,8142,02;1,y730431325272000000000000,1</SixthDay>
+    <!--七日奖励修改为极地战熊-->
+    <SeventhDay>2,1,100000;2,3,350;1,8831,05;1,8861,20;1,y835421315172000000000000,1;1,7204510101,1</SeventhDay>
+  </SevenDayRewards>
+  
+  <GuildBuild>
+  	<level>
+  		<lv>1</lv>											<!--公会等级 -->
+  		<levelDay>1</levelDay>								<!--升级天数-->
+  		<GuildPeople>30</GuildPeople>						<!--公会人数-->
+  		<BuildValue>6000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>450000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>115000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>115</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>215000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  		<lv>2</lv>
+  	  	<levelDay>1</levelDay>								<!--升级天数-->
+  		<GuildPeople>40</GuildPeople>						<!--公会人数-->
+  		<BuildValue>8000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>600000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>115000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>115</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>215000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>3</lv>
+  	  	<levelDay>2</levelDay>								<!--升级天数-->
+  		<GuildPeople>50</GuildPeople>						<!--公会人数-->
+  		<BuildValue>20000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>1500000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>130000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>130</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>230000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>4</lv>
+  	  	<levelDay>2</levelDay>								<!--升级天数-->
+  		<GuildPeople>60</GuildPeople>						<!--公会人数-->
+  		<BuildValue>24000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>1800000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>130000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>130</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>230000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>5</lv>
+  	  	<levelDay>3</levelDay>								<!--升级天数-->
+  		<GuildPeople>70</GuildPeople>						<!--公会人数-->
+  		<BuildValue>42000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>3150000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>145000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>145</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>245000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>6</lv>
+  	  	<levelDay>4</levelDay>								<!--升级天数-->
+  		<GuildPeople>80</GuildPeople>						<!--公会人数-->
+  		<BuildValue>64000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>4800000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>160000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>160</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>260000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>7</lv>
+  	  	<levelDay>5</levelDay>								<!--升级天数-->
+  		<GuildPeople>90</GuildPeople>						<!--公会人数-->
+  		<BuildValue>90000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>6750000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>175000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>175</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>275000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>8</lv>
+  	  	<levelDay>6</levelDay>								<!--升级天数-->
+  		<GuildPeople>100</GuildPeople>						<!--公会人数-->
+  		<BuildValue>120000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>9000000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>190000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>190</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>290000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  	<level>
+  	  	<lv>9</lv>
+  	  	<levelDay>7</levelDay>								<!--升级天数-->
+  		<GuildPeople>110</GuildPeople>						<!--公会人数-->
+  		<BuildValue>154000</BuildValue>						<!--总建设值-->
+  		<AddGold>20</AddGold>								<!--每次增加金币建设值-->
+  		<AddBlood>80</AddBlood>								<!--每次增加血石建设值-->
+  		<OutGold>10000</OutGold>							<!--金币建设花费金币-->
+  		<OutBlood>30</OutBlood>								<!--血石建设花费血石-->
+  		<levelGold>11550000</levelGold>						<!--每次升级需要金币-->
+  		<EveryGold>205000</EveryGold>						<!--平均升级每人需要捐献金币-->
+  		<EveryBlood>205</EveryBlood>						<!--平均每人换算血石-->
+  		<EveryAll>305000</EveryAll>							<!--每个人的总开销-->
+  	</level>
+  </GuildBuild>
+  
+  
+</YuanServerRoom>
+
+

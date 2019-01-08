@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0480985-32F1-0EB5-9065-F28DFDC5A783}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>Assembly-UnityScript-Editor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{84365F2C-1DDE-431A-8C14-179ADC971E4D};{1FAC5C55-277D-4884-94A4-83DBDAF57E56}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;SDK_DOWN;SDK_UC;SDK_QH;SDK_MI;SDK_OPPO;SDK_CMGE;SDK_PEASECOD;SDK_DUOKU;SDK_LENOVO;SDK_HUAWEI;SDK_AZ;SDK_MUZI;SDK_VIVO;SDK_JYIOS;SDK_KUAIYONG;SDK_PP;SDK_ITOOLS;SDK_TONGBU</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;SDK_DOWN;SDK_UC;SDK_QH;SDK_MI;SDK_OPPO;SDK_CMGE;SDK_PEASECOD;SDK_DUOKU;SDK_LENOVO;SDK_HUAWEI;SDK_AZ;SDK_MUZI;SDK_VIVO;SDK_JYIOS;SDK_KUAIYONG;SDK_PP;SDK_ITOOLS;SDK_TONGBU</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Photon Unity Networking\Editor\PhotonNetwork\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets\Plugins\Code\C#\DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>Assets\Plugins\Code\C#\DLL\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="yuan">
+      <HintPath>Assets\Plugins\Code\C#\DLL\yuan.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
+    </Reference>
+    <Reference Include="P31RestKit">
+      <HintPath>Assets\Plugins\Prime31\P31RestKit.dll</HintPath>
+    </Reference>
+    <Reference Include="TDGAAnalytics">
+      <HintPath>Assets\Plugins\TDGAAnalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Messaging">
+      <HintPath>Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Messaging.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityVS.CreationWar_NewClient.CSharp.Plugins.csproj">
+      <Project>{11EF8A9A-676C-802B-22E1-D7D69DA0E38F}</Project>
+      <Name>UnityVS.CreationWar_NewClient.CSharp.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityVS.CreationWar_NewClient.UnityScript.Plugins.unityproj">
+      <Project>{7AE205E4-6FB3-4861-DB30-8CEBD2B5437C}</Project>
+      <Name>UnityVS.CreationWar_NewClient.UnityScript.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityVS.CreationWar_NewClient.UnityScript.unityproj">
+      <Project>{A6A38781-3F3D-C593-4194-6CA1F39391C2}</Project>
+      <Name>UnityVS.CreationWar_NewClient.UnityScript</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityVS.CreationWar_NewClient.UnityScript.Editor.Plugins.unityproj">
+      <Project>{9D0F463A-5F31-30EC-77E2-B8FF22705038}</Project>
+      <Name>UnityVS.CreationWar_NewClient.UnityScript.Editor.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityVS.CreationWar_NewClient.CSharp.csproj">
+      <Project>{2E5D4F1B-A3EE-90AD-7A5F-69DC2DF799D5}</Project>
+      <Name>UnityVS.CreationWar_NewClient.CSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Editor\ExportResource.js" />
+    <None Include="Assets\Blob-Shadow\Fx\Add_Layer.shader" />
+    <None Include="Assets\Blob-Shadow\Fx\Dissolve_TexturCoords.shader" />
+    <None Include="Assets\Blob-Shadow\Fx\Illumin-Diffuse-Plus.shader" />
+    <None Include="Assets\Blob-Shadow\Fx\MADFINGER-cube-env.shader" />
+    <None Include="Assets\Blob-Shadow\Fx\ProjectorMultiply2.shader" />
+    <None Include="Assets\Blob-Shadow\Fx\RimLightRun.shader" />
+    <None Include="Assets\BRDF\MADFINGER-Lightmap-Unlit-Wind.shader" />
+    <None Include="Assets\BRDF\MADFINGER-Unlit-Scroll2Layers-Mul-Sine.shader" />
+    <None Include="Assets\BRDF\Mobile-BumpLight.shader" />
+    <None Include="Assets\BRDF\Mobile-BumpLightRump.shader" />
+    <None Include="Assets\BRDF\SimpleTexture.shader" />
+    <None Include="Assets\BRDF\TextureSimple.shader" />
+    <None Include="Assets\BRDF\TextureSimpleRump.shader" />
+    <None Include="Assets\cameraShaders\Resources\AdditiveBlend.shader" />
+    <None Include="Assets\cameraShaders\Resources\Blend.shader" />
+    <None Include="Assets\cameraShaders\Resources\MobileBloom.shader" />
+    <None Include="Assets\cameraShaders\Resources\Multiply.shader" />
+    <None Include="Assets\characterModle\Enemy\bing3\bing234.txt" />
+    <None Include="Assets\characterModle\Enemy\gulong\gulong.txt" />
+    <None Include="Assets\characterModle\Enemy\jianshi\jianshi.txt" />
+    <None Include="Assets\characterModle\Enemy\nongfu\nongfu.txt" />
+    <None Include="Assets\characterModle\Enemy\pannan\pangnan.txt" />
+    <None Include="Assets\characterModle\Enemy\qingjia\qingjia.txt" />
+    <None Include="Assets\characterModle\Enemy\qishi1\qishi1.txt" />
+    <None Include="Assets\characterModle\Enemy\qishi2\qishi2.txt" />
+    <None Include="Assets\characterModle\Enemy\qishi3\qishi3.txt" />
+    <None Include="Assets\characterModle\Enemy\xt\xt.txt" />
+    <None Include="Assets\characterModle\MainCharacter\FaShi.txt" />
+    <None Include="Assets\characterModle\MainCharacter\FaShi2.txt" />
+    <None Include="Assets\characterModle\MainCharacter\YouXia.txt" />
+    <None Include="Assets\characterModle\MainCharacter\YouXia2.txt" />
+    <None Include="Assets\characterModle\MainCharacter\ZhanShi.txt" />
+    <None Include="Assets\characterModle\MainCharacter\ZhanShi2.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder1\creepw.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder1\monster_1.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder10\monster_10.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder11\monster_11.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder12\monster_12.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder13\monster_13.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder14\monster_14.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder15\monster_15.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder16\monster_16.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder17\monster_17.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder18\monster_18.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder19\monster_19.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder20\monster_20.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder21\monster_21.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder3\monster_3.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder5\monster_5.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder6\monster_6.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder7\monster_7.txt" />
+    <None Include="Assets\characterModle\Monster\New Folder8\monster_8.txt" />
+    <None Include="Assets\characterModle\NPC2\anhei.txt" />
+    <None Include="Assets\characterModle\NPC2\cailiao.txt" />
+    <None Include="Assets\characterModle\NPC2\gong.txt" />
+    <None Include="Assets\characterModle\NPC2\hairen.txt" />
+    <None Include="Assets\characterModle\NPC2\heipao.txt" />
+    <None Include="Assets\characterModle\NPC2\heiqishi.txt" />
+    <None Include="Assets\characterModle\NPC2\kuangzhanshi.txt" />
+    <None Include="Assets\characterModle\NPC2\laoren.txt" />
+    <None Include="Assets\characterModle\NPC2\nvgong.txt" />
+    <None Include="Assets\characterModle\NPC2\nvzhan.txt" />
+    <None Include="Assets\characterModle\NPC2\shouyeren.txt" />
+    <None Include="Assets\characterModle\NPC2\wuwang.txt" />
+    <None Include="Assets\characterModle\NPC2\zhongzhanshi.txt" />
+    <None Include="Assets\effect\gai\zz.txt" />
+    <None Include="Assets\effect\modle\xinjiatexiao.txt" />
+    <None Include="Assets\effect\ToolResources\EffectShader\Add_Layer.shader" />
+    <None Include="Assets\effect\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
+    <None Include="Assets\Fonts\NGUI Font\Cooper-white.txt" />
+    <None Include="Assets\Fonts\Resources\UserLicensingAgreement.txt" />
+    <None Include="Assets\GUI\load1.txt" />
+    <None Include="Assets\icon\Luz csm xz\ANI.txt" />
+    <None Include="Assets\LanguageText\alltext3.txt" />
+    <None Include="Assets\LanguageText\CH.txt" />
+    <None Include="Assets\LanguageText\CHT.txt" />
+    <None Include="Assets\LanguageText\CR.txt" />
+    <None Include="Assets\NGUI\ReadMe - 2.2.6c.txt" />
+    <None Include="Assets\NGUI\ReadMe - 3.5.7.txt" />
+    <None Include="Assets\NGUI\Resources\Shaders\GUI - Text Shader (AlphaClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\GUI - Text Shader (SoftClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (AlphaClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (SoftClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (AlphaClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 2.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 3.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (HardClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (AlphaClip) .shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (HardClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 1.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 3.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored Overlay.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
+    <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
+    <None Include="Assets\Photon Unity Networking\changelog.txt" />
+    <None Include="Assets\Photon Unity Networking\readme.txt" />
+    <None Include="Assets\Plugins\Code\C#\DLL\yuan.XML" />
+    <None Include="Assets\Plugins\Code\NewServer\Resources\Playerinfo.xml" />
+    <None Include="Assets\Plugins\Photon3Unity3D.xml" />
+    <None Include="Assets\Plugins\release_history.txt" />
+    <None Include="Assets\Scripts\K_GetNumSpawnPoint\Resources\SpawnPointsCount.xml" />
+    <None Include="Assets\Shaders\OutLine.shader" />
+    <None Include="Assets\Shaders\OutterLineComposer.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA3Console.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\Blend.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShift.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlurEffectConeTaps.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ChromaticAberrationShader.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionEffect.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\MinMaxReduction.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ContrastComposite.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ConvertDepth.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CreaseApply.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GrayscaleEffect.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrain.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\PrepareSunShaftsBlur.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\RadialBlur.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SepiaToneEffect.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SSAOShader.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
+    <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
+    <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
+    <None Include="Assets\StreamingAssets\version.txt" />
+    <None Include="Assets\StreamingAssets\YuanServerRoom.xml" />
+    <None Include="Assets\T4M\READMEFIRST.txt" />
+    <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures Auto BeastLM 2DrawCall.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures ManualAdd BeastLM_1DC.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel1\T4M 2 Textures ManualAdd CustoLM 1DC.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped Mobile.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped Mobile.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Bump\T4M 4 TexturesBumped.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec Mobile.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 2 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 3 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 4 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 5 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M 6 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Diffuse\T4M World Projection Shader.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM mobile.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM\T4M 3 TexturesBumped DLM.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 2 Textures Spec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 3 Textures Spec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Specular\T4M 4 Textures Spec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 2 Textures Toon.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 3 Textures Toon.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Toon\T4M 4 Textures Toon.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 2 TexturesUnified.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 3 TexturesUnified.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unified\T4M 4 TexturesUnified.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\2TexturesUnlit.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\3TexturesUnlit.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\4TexturesUnlit.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\5TexturesUnlit.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\6TexturesUnlit.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\6TexturesUnlitNoLM.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel2\Unlit\T4M World Projection Shader Unlit+LM.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 2 TexturesBump.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 3 TexturesBump.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Bump\T4M 4 TexturesBump.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec\T4M 4 TexturesBumpSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 2 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 3 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 4 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 5 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Diffuse\T4M 6 Textures.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 2 TexturesSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 3 TexturesSpec.shader" />
+    <None Include="Assets\T4M\Shaders\ShaderModel3\Specular\T4M 4 TexturesSpec.shader" />
+    <None Include="Assets\Text\LanguageName\FemaleFirstName\CH.txt" />
+    <None Include="Assets\Text\LanguageName\FemaleLastName\CH.txt" />
+    <None Include="Assets\Text\LanguageName\MaleFirstName\CH.txt" />
+    <None Include="Assets\Text\LanguageName\MaleLastName\CH.txt" />
+    <None Include="Assets\Text\LanguageName\ShieldedWord\CH.txt" />
+    <None Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Newtonsoft.Json.dll" />
+    <None Include="Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Bridge.dll" />
+    <None Include="Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Messaging.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets" />
+    <Folder Include="Assets\Blob-Shadow" />
+    <Folder Include="Assets\Blob-Shadow\Fx" />
+    <Folder Include="Assets\BRDF" />
+    <Folder Include="Assets\cameraShaders" />
+    <Folder Include="Assets\cameraShaders\Resources" />
+    <Folder Include="Assets\characterModle" />
+    <Folder Include="Assets\characterModle\Enemy" />
+    <Folder Include="Assets\characterModle\Enemy\bing3" />
+    <Folder Include="Assets\characterModle\Enemy\gulong" />
+    <Folder Include="Assets\characterModle\Enemy\jianshi" />
+    <Folder Include="Assets\characterModle\Enemy\nongfu" />
+    <Folder Include="Assets\characterModle\Enemy\pannan" />
+    <Folder Include="Assets\characterModle\Enemy\qingjia" />
+    <Folder Include="Assets\characterModle\Enemy\qishi1" />
+    <Folder Include="Assets\characterModle\Enemy\qishi2" />
+    <Folder Include="Assets\characterModle\Enemy\qishi3" />
+    <Folder Include="Assets\characterModle\Enemy\xt" />
+    <Folder Include="Assets\characterModle\MainCharacter" />
+    <Folder Include="Assets\characterModle\Monster" />
+    <Folder Include="Assets\characterModle\Monster\New Folder1" />
+    <Folder Include="Assets\characterModle\Monster\New Folder10" />
+    <Folder Include="Assets\characterModle\Monster\New Folder11" />
+    <Folder Include="Assets\characterModle\Monster\New Folder12" />
+    <Folder Include="Assets\characterModle\Monster\New Folder13" />
+    <Folder Include="Assets\characterModle\Monster\New Folder14" />
+    <Folder Include="Assets\characterModle\Monster\New Folder15" />
+    <Folder Include="Assets\characterModle\Monster\New Folder16" />
+    <Folder Include="Assets\characterModle\Monster\New Folder17" />
+    <Folder Include="Assets\characterModle\Monster\New Folder18" />
+    <Folder Include="Assets\characterModle\Monster\New Folder19" />
+    <Folder Include="Assets\characterModle\Monster\New Folder20" />
+    <Folder Include="Assets\characterModle\Monster\New Folder21" />
+    <Folder Include="Assets\characterModle\Monster\New Folder3" />
+    <Folder Include="Assets\characterModle\Monster\New Folder5" />
+    <Folder Include="Assets\characterModle\Monster\New Folder6" />
+    <Folder Include="Assets\characterModle\Monster\New Folder7" />
+    <Folder Include="Assets\characterModle\Monster\New Folder8" />
+    <Folder Include="Assets\characterModle\NPC2" />
+    <Folder Include="Assets\Editor" />
+    <Folder Include="Assets\effect" />
+    <Folder Include="Assets\effect\gai" />
+    <Folder Include="Assets\effect\modle" />
+    <Folder Include="Assets\effect\ToolResources" />
+    <Folder Include="Assets\effect\ToolResources\EffectShader" />
+    <Folder Include="Assets\Fonts" />
+    <Folder Include="Assets\Fonts\NGUI Font" />
+    <Folder Include="Assets\Fonts\Resources" />
+    <Folder Include="Assets\GUI" />
+    <Folder Include="Assets\icon" />
+    <Folder Include="Assets\icon\Luz csm xz" />
+    <Folder Include="Assets\LanguageText" />
+    <Folder Include="Assets\NGUI" />
+    <Folder Include="Assets\NGUI\Resources" />
+    <Folder Include="Assets\NGUI\Resources\Shaders" />
+    <Folder Include="Assets\Photon Unity Networking" />
+    <Folder Include="Assets\Photon Unity Networking\Editor" />
+    <Folder Include="Assets\Photon Unity Networking\Editor\PhotonNetwork" />
+    <Folder Include="Assets\Plugins" />
+    <Folder Include="Assets\Plugins\Code" />
+    <Folder Include="Assets\Plugins\Code\C#" />
+    <Folder Include="Assets\Plugins\Code\C#\DLL" />
+    <Folder Include="Assets\Plugins\Code\NewServer" />
+    <Folder Include="Assets\Plugins\Code\NewServer\Resources" />
+    <Folder Include="Assets\Scripts" />
+    <Folder Include="Assets\Scripts\K_GetNumSpawnPoint" />
+    <Folder Include="Assets\Scripts\K_GetNumSpawnPoint\Resources" />
+    <Folder Include="Assets\Shaders" />
+    <Folder Include="Assets\Standard Assets" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField" />
+    <Folder Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch" />
+    <Folder Include="Assets\Standard Assets\Water (Pro Only)" />
+    <Folder Include="Assets\Standard Assets\Water (Pro Only)\Sources" />
+    <Folder Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders" />
+    <Folder Include="Assets\StreamingAssets" />
+    <Folder Include="Assets\T4M" />
+    <Folder Include="Assets\T4M\Shaders" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel1" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Bump" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\BumpSpec" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Diffuse" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\DirectionLM" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Specular" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Toon" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Unified" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel2\Unlit" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel3" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel3\Bump" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel3\BumpSpec" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel3\Diffuse" />
+    <Folder Include="Assets\T4M\Shaders\ShaderModel3\Specular" />
+    <Folder Include="Assets\Text" />
+    <Folder Include="Assets\Text\LanguageName" />
+    <Folder Include="Assets\Text\LanguageName\FemaleFirstName" />
+    <Folder Include="Assets\Text\LanguageName\FemaleLastName" />
+    <Folder Include="Assets\Text\LanguageName\MaleFirstName" />
+    <Folder Include="Assets\Text\LanguageName\MaleLastName" />
+    <Folder Include="Assets\Text\LanguageName\ShieldedWord" />
+    <Folder Include="Assets\UnityVS" />
+    <Folder Include="Assets\UnityVS\Editor" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.UnityScript.targets" />
+</Project>
