@@ -4,6 +4,6 @@ using System.Collections;
 public class NewBehaviourScript : MonoBehaviour {
 	public GameObject obj;
 	void OnClick(){
-		obj.SetActiveRecursively(false);
+		obj.SetActive(false);
 	}
 }

@@ -55,7 +55,7 @@ public class PanelEverydayAim : MonoBehaviour {
 
         foreach(BtnAim item in listBtnAim)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
 
         int mActivyValue = 0;
@@ -69,7 +69,7 @@ public class PanelEverydayAim : MonoBehaviour {
             if (listBtnAim.Count > num)
             {
                 tempBtn = listBtnAim[num];
-                tempBtn.gameObject.SetActiveRecursively(true);
+                tempBtn.gameObject.SetActive(true);
             }
             else
             {

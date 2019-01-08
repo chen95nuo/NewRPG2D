@@ -25,7 +25,7 @@ public class ShowAndHidePanels : MonoBehaviour
         {
             if (targetPanel.active)
             {
-                targetPanel.SetActiveRecursively(false);
+                targetPanel.SetActive(false);
             }
         } 
     }
@@ -39,7 +39,7 @@ public class ShowAndHidePanels : MonoBehaviour
         {
             if (!targetPanel.active)
             {
-                targetPanel.SetActiveRecursively(true);
+                targetPanel.SetActive(true);
             }
         }
     }

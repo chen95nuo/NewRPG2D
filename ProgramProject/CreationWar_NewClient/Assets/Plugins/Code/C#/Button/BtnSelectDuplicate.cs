@@ -18,13 +18,13 @@ public class BtnSelectDuplicate : MonoBehaviour
     {
         foreach (GameObject item in listLevelBtn)
         {
-            item.SetActiveRecursively(false);
+            item.SetActive(false);
         }
         if (strLevel != string.Empty)
         {
             for (int i = 0; i < int.Parse(strLevel); i++)
             {
-                listLevelBtn[i].SetActiveRecursively(true);
+                listLevelBtn[i].SetActive(true);
             }
 
         }

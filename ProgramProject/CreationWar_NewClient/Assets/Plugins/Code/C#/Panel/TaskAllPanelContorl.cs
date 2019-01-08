@@ -18,7 +18,7 @@ public class TaskAllPanelContorl : MonoBehaviour {
 		if(OtherPanel!=null){
 		for(int i = 0;i<OtherPanel.Length;i++){
 //			if(OtherPanel[i].name=="Anchor - Task"){
-				OtherPanel[i].SetActiveRecursively(false);
+				OtherPanel[i].SetActive(false);
 //			}
 			Vector3 othLocalpos = OtherPanel[i].transform.localPosition;
 			OtherPanel[i].transform.localPosition = new Vector3(othLocalpos.x,3000,othLocalpos.z);
@@ -29,7 +29,7 @@ public class TaskAllPanelContorl : MonoBehaviour {
 		
 		if(myPanel!=null){
 //		if(myPanel.name=="Anchor - Task"){
-			myPanel.SetActiveRecursively(true);
+			myPanel.SetActive(true);
 //		}
 	
 		Vector3 localPos = myPanel.transform.localPosition;

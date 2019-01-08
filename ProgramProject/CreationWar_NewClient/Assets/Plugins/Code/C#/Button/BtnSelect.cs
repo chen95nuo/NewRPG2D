@@ -220,7 +220,7 @@ public class BtnSelect : MonoBehaviour {
 	            foreach (SpriteForBenefits item in listSprite)
 	            {
 				if(item){
-	                item.gameObject.SetActiveRecursively(false);
+	                item.gameObject.SetActive(false);
 				}
 				}
 
@@ -281,7 +281,7 @@ public class BtnSelect : MonoBehaviour {
                 invMaker.SendMessage("SpriteName", parms, SendMessageOptions.DontRequireReceiver);
                 break;
         }
-        mBtn.gameObject.SetActiveRecursively(true);
+        mBtn.gameObject.SetActive(true);
     }
 
 }

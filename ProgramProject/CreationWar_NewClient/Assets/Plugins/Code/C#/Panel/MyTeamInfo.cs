@@ -16,11 +16,11 @@ public class MyTeamInfo : MonoBehaviour {
     {
         //if (teamHeadID!=string.Empty && BtnGameManager.yt[0]["PlayerID"].YuanColumnText.Trim() == teamHeadID)
         //{
-        //    objPlayerSet.SetActiveRecursively(true);
+        //    objPlayerSet.SetActive(true);
         //}
         //else
         //{
-        //    objPlayerSet.SetActiveRecursively(false);
+        //    objPlayerSet.SetActive(false);
         //}
     }
 }

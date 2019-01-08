@@ -241,10 +241,10 @@ public class PanelStore : MonoBehaviour {
                 tempBtn.DtEnd = System.DateTime.Parse(yrStore["ItemEndTime"].YuanColumnText);
             }
 
-            tempBtn.gameObject.SetActiveRecursively(mActive);
+            tempBtn.gameObject.SetActive(mActive);
 			if(!mGrid.gameObject.active)
 			{
-				tempObj.SetActiveRecursively (false);
+				tempObj.SetActive (false);
 			}
 
             tempBtn.yr = yrStore;

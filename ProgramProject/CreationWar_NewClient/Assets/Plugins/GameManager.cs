@@ -10,7 +10,7 @@ public class GameManager : Photon.MonoBehaviour
 	public void Start(){
 		cantTan = false;
 		PhotonNetwork.isMessageQueueRunning = true;
-//		tishi.SetActiveRecursively(false);
+//		tishi.SetActive(false);
 	}
 
 //	void OnLevelWasLoaded(int level) {
@@ -42,7 +42,7 @@ public class GameManager : Photon.MonoBehaviour
         Debug.Log("OnLeftRoom (local)");
 		if(Application.loadedLevelName.Substring(0,4) != "Load"){
 			reLian.SendMessage("SetOffLineActiveAsBool" , true, SendMessageOptions.DontRequireReceiver);
-//			tishi.SetActiveRecursively(true);
+//			tishi.SetActive(true);
 //			PhotonNetwork.offlineMode = true;
 //			PhotonNetwork.offlineMode_inRoom = true;
 		}
@@ -56,7 +56,7 @@ public class GameManager : Photon.MonoBehaviour
 		Debug.Log("OnDisconnectedFromPhoton");
 		if(Application.loadedLevelName.Substring(0,4) != "Load"){
 			reLian.SendMessage("SetOffLineActiveAsBool" , true, SendMessageOptions.DontRequireReceiver);
-//			tishi.SetActiveRecursively(true);
+//			tishi.SetActive(true);
 //			PhotonNetwork.offlineMode = true;
 //			PhotonNetwork.offlineMode_inRoom = true;		
 		}

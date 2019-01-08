@@ -11,7 +11,7 @@ public class GameObjectSwich : MonoBehaviour {
     {
         if (isChild)
         {
-            targe.SetActiveRecursively(isStartSwich);
+            targe.SetActive(isStartSwich);
         }
         else
         {
@@ -23,7 +23,7 @@ public class GameObjectSwich : MonoBehaviour {
     {
         if (isChild)
         {
-            targe.SetActiveRecursively(!targe.active);
+            targe.SetActive(!targe.active);
         }
         else
         {

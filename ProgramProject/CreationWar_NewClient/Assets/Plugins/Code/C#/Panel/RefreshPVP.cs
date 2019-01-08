@@ -96,8 +96,8 @@ public class RefreshPVP : MonoBehaviour
             }
 			if(InRoom.GetInRoomInstantiate ().GetServerSwitchString (yuan.YuanPhoton.BenefitsType.PVPSwitch)!="1")
 			{
-				btnCreatePVP1.gameObject.SetActiveRecursively (false);
-				btnRemovePVP1.gameObject.SetActiveRecursively (false);
+				btnCreatePVP1.gameObject.SetActive (false);
+				btnRemovePVP1.gameObject.SetActive (false);
 			}
         }
         if (btnCreatePVP8 != null)
@@ -115,8 +115,8 @@ public class RefreshPVP : MonoBehaviour
             }
 			if(InRoom.GetInRoomInstantiate ().GetServerSwitchString (yuan.YuanPhoton.BenefitsType.PVPSwitch)!="1")
 			{
-				btnCreatePVP8.gameObject.SetActiveRecursively (false);
-				btnRemovePVP8.gameObject.SetActiveRecursively (false);
+				btnCreatePVP8.gameObject.SetActive (false);
+				btnRemovePVP8.gameObject.SetActive (false);
 			}			
 			
         }
@@ -146,14 +146,14 @@ public class RefreshPVP : MonoBehaviour
                 {
 					if(lblInPVP!=null)
 					{
-	                    lblInPVP.gameObject.SetActiveRecursively(true);
+	                    lblInPVP.gameObject.SetActive(true);
 					}
                 }
                 else
                 {
 					if(lblInPVP!=null)
 					{
-	                    lblInPVP.gameObject.SetActiveRecursively(false);
+	                    lblInPVP.gameObject.SetActive(false);
 					}
                 }
 				SetNoteString ("PVP1Info",lblCPlayerNote);
@@ -182,14 +182,14 @@ public class RefreshPVP : MonoBehaviour
                 {
 					if(lblInPVP!=null)
 				{
-                    lblInPVP.gameObject.SetActiveRecursively(true);
+                    lblInPVP.gameObject.SetActive(true);
 				}
                 }
                 else
                 {
 					if(lblInPVP!=null)
 				{
-                    lblInPVP.gameObject.SetActiveRecursively(false);
+                    lblInPVP.gameObject.SetActive(false);
 				}
                 }
 
@@ -216,14 +216,14 @@ public class RefreshPVP : MonoBehaviour
                     {
 						if(lblInPVP!=null)
 				{
-                        lblInPVP.gameObject.SetActiveRecursively(true);
+                        lblInPVP.gameObject.SetActive(true);
 					}
                     }
                     else
                     {
 						if(lblInPVP!=null)
 						{
-                        	lblInPVP.gameObject.SetActiveRecursively(false);
+                        	lblInPVP.gameObject.SetActive(false);
 						}
                     }
                     //InRoom.GetInRoomInstantiate().GetYuanTable(string.Format("Select * from Corps where id ='{0}' or id='{1}'", BtnGameManager.yt.Rows[0]["Corps2v2ID"].YuanColumnText, BtnGameManager.yt.Rows[0]["Corps4v4ID"].YuanColumnText), "DarkSword2", ytCrop);
@@ -261,7 +261,7 @@ public class RefreshPVP : MonoBehaviour
                         else
                         {
                             lblNull2.gameObject.active = true;
-                            objPVP2.SetActiveRecursively(false);
+                            objPVP2.SetActive(false);
                         }
 
                         if (yrPVP4 != null)
@@ -286,20 +286,20 @@ public class RefreshPVP : MonoBehaviour
                         else
                         {
                             lblNull4.gameObject.active = true;
-                            objPVP4.SetActiveRecursively(false);
+                            objPVP4.SetActive(false);
                         }
                     }
                     else
                     {
                         lblNull2.gameObject.active = true;
                         lblNull4.gameObject.active = true;
-                        this.gameObject.SetActiveRecursively(false);
+                        this.gameObject.SetActive(false);
                     }
                 }
                 else
                 {
                     lblNull2.gameObject.active = true;
-                    this.gameObject.SetActiveRecursively(false);
+                    this.gameObject.SetActive(false);
                 }
 
                 break;

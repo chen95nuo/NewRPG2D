@@ -1634,7 +1634,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 //	                                {
 //                                        strGO=str;
 //	                                    UICL.SendMessage("PVPGO", str, SendMessageOptions.DontRequireReceiver);
-//	                                    lblTeamInfo.gameObject.SetActiveRecursively(false);
+//	                                    lblTeamInfo.gameObject.SetActive(false);
 //	                                    if (teamPlayerMaxNum == 1)
 //	                                    {
 //	                                        isInPVPOne = false;
@@ -1669,7 +1669,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 //	                                if (isReady && isStart)
 //	                                {
 //	                                    UICL.SendMessage("PVPGO", str, SendMessageOptions.DontRequireReceiver);
-//	                                    lblTeamInfo.gameObject.SetActiveRecursively(false);
+//	                                    lblTeamInfo.gameObject.SetActive(false);
 //	                                    if (teamPlayerMaxNum == 1)
 //	                                    {
 //	                                        isInPVPOne = false;
@@ -1707,7 +1707,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                             {
                                 UICL.SendMessage("PVPTeamJieSanDone" , SendMessageOptions.DontRequireReceiver);
 								PVPCL.SendMessage ("SetDuelType",1,SendMessageOptions.DontRequireReceiver);
-                                lblTeamInfo.gameObject.SetActiveRecursively(false);
+                                lblTeamInfo.gameObject.SetActive(false);
                                 isInPVPOne = false;
                                 isInPVP = false;
                                 isInLegion = false;
@@ -1734,7 +1734,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                 break;
             case yuan.YuanPhoton.OperationCode.SendTeamTeamLeave://临时队伍有人离开
                 {
-                    lblTeamInfo.gameObject.SetActiveRecursively(false);
+                    lblTeamInfo.gameObject.SetActive(false);
                 }
                 break;				
 			}			
@@ -1779,7 +1779,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                             break;
                         case (short)yuan.YuanPhoton.ReturnCode.No:
                             {
-                                 lblTeamInfo.gameObject.SetActiveRecursively(false);
+                                 lblTeamInfo.gameObject.SetActive(false);
                             }
                             break;
                         case (short)yuan.YuanPhoton.ReturnCode.Error:
@@ -1830,7 +1830,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 								BtnGameManager.IsInTempTeam = true;
 								warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"),StaticLoc.Loc.Get("info466"));
 								lblTeamInfo.text = StaticLoc.Loc.Get("info319")+"";
-								lblTeamInfo.gameObject.SetActiveRecursively(true);
+								lblTeamInfo.gameObject.SetActive(true);
 								MainTW.SendMessage("SetPaiDuiAsID", teamID, SendMessageOptions.DontRequireReceiver);		
 								UICL.SendMessage("AddTempTeamTeamPlayerYes" , SendMessageOptions.DontRequireReceiver);
 
@@ -1844,7 +1844,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 							BtnGameManager.IsInTempTeam = true;
 							warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"),StaticLoc.Loc.Get("info466"));
 							lblTeamInfo.text = StaticLoc.Loc.Get("info319")+"";
-							lblTeamInfo.gameObject.SetActiveRecursively(true);
+							lblTeamInfo.gameObject.SetActive(true);
 							MainTW.SendMessage("SetPaiDuiAsID", teamID, SendMessageOptions.DontRequireReceiver);
 							
 								int mapInstensID = (int)mResponse.Parameters[(short)yuan.YuanPhoton.ParameterType.TeamName];//地图实例ID
@@ -1862,7 +1862,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                                 BtnGameManager.IsInTempTeam = true;
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"),StaticLoc.Loc.Get("info466"));
                                 lblTeamInfo.text = StaticLoc.Loc.Get("info319")+"";
-                                lblTeamInfo.gameObject.SetActiveRecursively(true);
+                                lblTeamInfo.gameObject.SetActive(true);
                                 MainTW.SendMessage("SetPaiDuiAsID", teamID, SendMessageOptions.DontRequireReceiver);
 
 								string mapID = (string)mResponse.Parameters[(short)yuan.YuanPhoton.ParameterType.TeamInfo];
@@ -1931,7 +1931,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                                 BtnGameManager.IsInTempTeam = false;
                                 btnGameManager.OutTempTeam();
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"),StaticLoc.Loc.Get("info469") );
-                                lblTeamInfo.gameObject.SetActiveRecursively(false);
+                                lblTeamInfo.gameObject.SetActive(false);
 								UICL.SendMessage("TempTeamHeadRemove", true, SendMessageOptions.DontRequireReceiver);
 							}
                             break;
@@ -2267,7 +2267,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                             {
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info359"), StaticLoc.Loc.Get("info401"));
                                 lblTeamInfo.text = StaticLoc.Loc.Get("info320")+"";
-                                lblTeamInfo.gameObject.SetActiveRecursively(true);
+                                lblTeamInfo.gameObject.SetActive(true);
                                 isInLegion = true;
                             }
                             break;
@@ -2323,7 +2323,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"), StaticLoc.Loc.Get("info471"));
 								PVPCL.SendMessage ("SetBattlefieldType",2,SendMessageOptions.DontRequireReceiver);
                                 lblTeamInfo.text =StaticLoc.Loc.Get("info320")+ "";
-                                lblTeamInfo.gameObject.SetActiveRecursively(true);
+                                lblTeamInfo.gameObject.SetActive(true);
                                 isInLegion = true;
                             }
                             break;
@@ -2344,7 +2344,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                                 //warnings.warningAllEnter.Show(StaticLoc.Loc.Get("info358"), "您已成功加入战场");
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"), StaticLoc.Loc.Get("info471"));
                                 lblTeamInfo.text = StaticLoc.Loc.Get("info320")+"";
-                                lblTeamInfo.gameObject.SetActiveRecursively(true);
+                                lblTeamInfo.gameObject.SetActive(true);
                             }
                             break;
                         case (short)yuan.YuanPhoton.ReturnCode.No:
@@ -2382,7 +2382,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                             {
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"),StaticLoc.Loc.Get("info472") );
 								PVPCL.SendMessage ("SetBattlefieldType",1,SendMessageOptions.DontRequireReceiver);
-                                lblTeamInfo.gameObject.SetActiveRecursively(false);
+                                lblTeamInfo.gameObject.SetActive(false);
                                 isInLegion = false;
                             }
                             break;
@@ -2517,7 +2517,7 @@ public class BtnGameManagerBack : MonoBehaviour {
                             {
                                 warnings.warningAllTime.Show(StaticLoc.Loc.Get("info358"), StaticLoc.Loc.Get("info474"));
 								PVPCL.SendMessage ("SetBattlefieldType",1,SendMessageOptions.DontRequireReceiver);
-                                lblTeamInfo.gameObject.SetActiveRecursively(false);
+                                lblTeamInfo.gameObject.SetActive(false);
                                 isInLegion = false;
                             }
                             break;

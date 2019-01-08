@@ -1063,14 +1063,14 @@ static public class NGUITools
 	static void Deactivate (Transform t) { SetActiveSelf(t.gameObject, false); }
 
 	/// <summary>
-	/// SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled
+	/// SetActive enables children before parents. This is a problem when a widget gets re-enabled
 	/// and it tries to find a panel on its parent.
 	/// </summary>
 
 	static public void SetActive (GameObject go, bool state) { SetActive(go, state, true); }
 
 	/// <summary>
-	/// SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled
+	/// SetActive enables children before parents. This is a problem when a widget gets re-enabled
 	/// and it tries to find a panel on its parent.
 	/// </summary>
 

@@ -26,8 +26,8 @@ public class MailInfoWirte : MonoBehaviour {
 	{
 		if(InRoom.GetInRoomInstantiate ().GetBloodTran()!=1)
 		{
-			picBloodStone.gameObject.SetActiveRecursively (false);
-			txtGold.gameObject.SetActiveRecursively (false);
+			picBloodStone.gameObject.SetActive (false);
+			txtGold.gameObject.SetActive (false);
 		}
 	}
 

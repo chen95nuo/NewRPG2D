@@ -33,8 +33,8 @@ public class ActivityControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if(hideObj1.active) hideObj1.SetActiveRecursively(false);
-        //if(hideObj2.active) hideObj2.SetActiveRecursively(false);
+        //if(hideObj1.active) hideObj1.SetActive(false);
+        //if(hideObj2.active) hideObj2.SetActive(false);
 	}
 	
 	/// <summary>

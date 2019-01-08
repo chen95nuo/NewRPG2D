@@ -68,7 +68,7 @@ public class CharBar : MonoBehaviour {
 
 		sendManager=PanelStatic.StaticSendManager;
 		//InsInput ();
-		this.gameObject.SetActiveRecursively (true);
+		this.gameObject.SetActive (true);
 		switch (charBarType)
 		{
 
@@ -127,7 +127,7 @@ public class CharBar : MonoBehaviour {
 		{
 			sendManager.eventManagerMainAll += AddTextPlayer;
 		}
-		this.gameObject.SetActiveRecursively (false);
+		this.gameObject.SetActive (false);
 
 
 	}

@@ -21,7 +21,7 @@ public class PanelSelect : MonoBehaviour {
 		{
 			if(btnCode!=null)
 			{
-				btnCode.SetActiveRecursively (false);
+				btnCode.SetActive (false);
 			}
 		}		
 		yuan.YuanClass.SwitchList (listPanel,true,true);

@@ -18,7 +18,7 @@ public class Warning : MonoBehaviour {
     /// </summary>
     public void Out()
     {
-        this.gameObject.SetActiveRecursively(true);
+        this.gameObject.SetActive(true);
         tweenScale.Play(true);
     }
 

@@ -9,7 +9,7 @@ public class AnnocementPanel : MonoBehaviour {
         { 
             if(go.active)
             {
-                go.SetActiveRecursively(false);
+                go.SetActive(false);
             }
         }
 	}

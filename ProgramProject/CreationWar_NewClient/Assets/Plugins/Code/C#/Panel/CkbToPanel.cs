@@ -61,14 +61,14 @@ public class CkbToPanel : MonoBehaviour {
 			{
 				if(strObjsPanel[num]==isFirstCkb.gameObject)
 				{
-                    strObjsPanel[num].SetActiveRecursively(false);
-					strObjsPanel[num].SetActiveRecursively (true);
+                    strObjsPanel[num].SetActive(false);
+					strObjsPanel[num].SetActive (true);
 					isFirstCkb.CbkClick ();
 					strCkbs[num].value=true;
 				}
 				else
 				{
-					strObjsPanel[num].SetActiveRecursively (false);
+					strObjsPanel[num].SetActive (false);
 				}
 				num++;
 		}
@@ -83,14 +83,14 @@ public class CkbToPanel : MonoBehaviour {
             {
 				if(!strObjsPanel[num].active)
 				{
-                	strObjsPanel[num].SetActiveRecursively(true);
+                	strObjsPanel[num].SetActive(true);
 				}
             }
             else
             {
 				if(strObjsPanel[num].active)
 				{
-                	strObjsPanel[num].SetActiveRecursively(false);
+                	strObjsPanel[num].SetActive(false);
 				}
             }
             num++;

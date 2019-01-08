@@ -14,8 +14,10 @@ public class ServerMonoBehaviour : MonoBehaviour {
 
 	protected virtual void OnDestroy()
 	{
-		NetDataManager.DataHandle-=this.OnOperationResponse;
-	}
+        NetDataManager.DataHandle -= this.MyOnOperationResponse;
+        NetDataManager.DataHandle-=this.OnOperationResponse;
+        NetDataManager.DataHandlePhoton -= this.MyOnOperationResponse;
+    }
 
 	private List<System.Action> listAction=new List<System.Action>();
 	private  void MyOnOperationResponse(ZMNetData mData)

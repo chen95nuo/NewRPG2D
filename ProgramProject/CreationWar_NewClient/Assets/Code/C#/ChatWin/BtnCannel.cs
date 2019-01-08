@@ -12,7 +12,7 @@ public class BtnCannel : MonoBehaviour {
     {
         foreach (GameObject cb in listCharBar)
         {
-            cb.SetActiveRecursively(false);
+            cb.SetActive(false);
         }
     }
 
@@ -21,13 +21,13 @@ public class BtnCannel : MonoBehaviour {
         int num = 0;
         foreach (GameObject cb in listCharBar)
         {
-            cb.SetActiveRecursively(false);
+            cb.SetActive(false);
         }
         foreach (UIToggle cbx in listCheckBox)
         {
             if (cbx.isChecked)
             {
-                listCharBar[num].SetActiveRecursively(true);
+                listCharBar[num].SetActive(true);
                 break;
             }
             num++;

@@ -44,7 +44,7 @@ public class SpriteForGamble : SpriteForBenefits {
 	{
 		if(!string.IsNullOrEmpty(this.itemID))
 		{
-			PanelStatic.StaticIteminfo.SetActiveRecursively (true);
+			PanelStatic.StaticIteminfo.SetActive (true);
 			PanelStatic.StaticIteminfo.transform.localPosition=new Vector3(-0.2875011f,100.1449f,-5.680656f);
 			//infoBar.transform.Translate (infoBar.transform.up);
 			PanelStatic.StaticIteminfo.SendMessage("SetItemID",this.itemID,SendMessageOptions.DontRequireReceiver);

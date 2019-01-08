@@ -70,7 +70,7 @@ public class BtnItem : MonoBehaviour {
 		if(infoBar){
 			if(isDown)
 			{
-				infoBar.SetActiveRecursively(true);
+				infoBar.SetActive(true);
 				//infoBar.transform.Translate (infoBar.transform.up);
 				//Debug.Log("-------------------" + ItemID);
 				infoBar.transform.localPosition=new Vector3(-0.2875011f,100.1449f,-5.680656f);
@@ -80,7 +80,7 @@ public class BtnItem : MonoBehaviour {
 			{
 				infoBar.transform.position=new Vector3(0,-999999,0);
 				
-				infoBar.gameObject.SetActiveRecursively (false);
+				infoBar.gameObject.SetActive (false);
 			}
 			
 		}
@@ -92,7 +92,7 @@ public class BtnItem : MonoBehaviour {
 		{
 			infoBar.transform.position=new Vector3(0,-999999,0);
 			
-			infoBar.gameObject.SetActiveRecursively (false);
+			infoBar.gameObject.SetActive (false);
 		}
 	}
 

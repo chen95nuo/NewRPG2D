@@ -159,7 +159,7 @@ public class HangUp : MonoBehaviour {
             CancelInvoke("StartHangUpTime");
         }
 		panel.SetActive (mEnable);
-        //panel.SetActiveRecursively(mEnable);
+        //panel.SetActive(mEnable);
 		panelUI.enabled = mEnable;
     }
 

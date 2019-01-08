@@ -21,7 +21,7 @@ public class GetMail : MonoBehaviour {
 
     void OnEnable()
     {
-        playerFirend.SetActiveRecursively(false);
+        playerFirend.SetActive(false);
         Invoke("OpenMail", 0.3f);
     }
 
@@ -49,7 +49,7 @@ public class GetMail : MonoBehaviour {
         foreach (CkbMail item in listMail)
         {
             Destroy(item.gameObject);
-            //item.gameObject.SetActiveRecursively(false);
+            //item.gameObject.SetActive(false);
         }
         listMail.Clear();
         if (yt.Rows.Count > 0)
@@ -130,7 +130,7 @@ public class GetMail : MonoBehaviour {
         foreach (CkbMail item in listSysMail)
         {
             Destroy(item.gameObject);
-            //item.gameObject.SetActiveRecursively(false);
+            //item.gameObject.SetActive(false);
         }
         listSysMail.Clear();
         if (ytSystem.Rows.Count > 0)

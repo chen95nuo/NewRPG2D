@@ -183,7 +183,7 @@ public class BtnSend : MonoBehaviour {
         //myPanel.enabled=true;
         //tweenChat.Play(true);
 
-        //tweenChat.gameObject.SetActiveRecursively(true);
+        //tweenChat.gameObject.SetActive(true);
         if (songShulan == null)
         {
             songShulan = GameObject.Find("Anchor - shulan");
@@ -217,7 +217,7 @@ public class BtnSend : MonoBehaviour {
         //myPanel.enabled=true;
         //tweenChat.Play(true);
 //		Debug.Log ("nnnnnnnnnnnnnnnnnnnnn");
-        //tweenChat.gameObject.SetActiveRecursively(true);
+        //tweenChat.gameObject.SetActive(true);
         if (songShulan == null)
         {
             songShulan = GameObject.Find("Anchor - shulan");
@@ -287,7 +287,7 @@ public class BtnSend : MonoBehaviour {
 
     public void RemoveFirend()
     {
-		warnings.warningAllEnterClose.gameObject.SetActiveRecursively(false);
+		warnings.warningAllEnterClose.gameObject.SetActive(false);
         if (strSomeOne != null && strSomeOne[0] != "")
         {
             string strMy = BtnGameManager.yt[0]["FriendsId"].YuanColumnText;

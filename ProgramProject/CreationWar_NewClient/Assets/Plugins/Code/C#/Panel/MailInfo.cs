@@ -78,7 +78,7 @@ public class MailInfo : MonoBehaviour {
 	
 	void OpenMail()
 	{
-		mailInfoWirte.transform.parent.gameObject.SetActiveRecursively(false);
+		mailInfoWirte.transform.parent.gameObject.SetActive(false);
 	
 	}
 
@@ -118,14 +118,14 @@ public class MailInfo : MonoBehaviour {
     public BtnEvent btnOpenBagItem;
     public void OpenPlayerList(object sender,object parm)
     {
-        playerList.SetActiveRecursively(true);
-        bagItem.SetActiveRecursively(false);
+        playerList.SetActive(true);
+        bagItem.SetActive(false);
     }
 
     public void OpenBagItem(object sender,object parm)
     {
-        playerList.SetActiveRecursively(false);
-        bagItem.SetActiveRecursively(true);
+        playerList.SetActive(false);
+        bagItem.SetActive(true);
     }
 
     public GetMail getMail;

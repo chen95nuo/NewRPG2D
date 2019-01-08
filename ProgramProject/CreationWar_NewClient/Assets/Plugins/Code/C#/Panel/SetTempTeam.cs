@@ -7,7 +7,7 @@ public class SetTempTeam : MonoBehaviour {
     public BtnGameManager btnGameManager;
     void OnEnable()
     {
-        setTempTeam.SetActiveRecursively(BtnGameManager.IsInTempTeam);
+        setTempTeam.SetActive(BtnGameManager.IsInTempTeam);
 
         PanelStatic.StaticBtnGameManager.GetTempTeam();
     }

@@ -21,16 +21,16 @@ public class CreateBtnControl : MonoBehaviour {
         if (checkbox2V2.isChecked && string.IsNullOrEmpty(BtnGameManager.yt.Rows[0]["Corps2v2ID"].YuanColumnText.Trim()))
         {
             btnCreate.GetComponent<UIButtonMessage>().functionName = "CreateCorps";
-            //btnCreate.SetActiveRecursively(true);
+            //btnCreate.SetActive(true);
         }
         else if (checkbox4V4.isChecked && string.IsNullOrEmpty(BtnGameManager.yt.Rows[0]["Corps4v4ID"].YuanColumnText.Trim()))
         {
             btnCreate.GetComponent<UIButtonMessage>().functionName = "CreatePVP4";
-            //btnCreate.SetActiveRecursively(true);
+            //btnCreate.SetActive(true);
         }
         //else
         //{
-        //    btnCreate.SetActiveRecursively(false); 
+        //    btnCreate.SetActive(false); 
         //}
     }
 }

@@ -105,13 +105,13 @@ public class RefreshGuildBuild : MonoBehaviour {
             else
             {
 //                lblNull.gameObject.active = true;
-                this.gameObject.SetActiveRecursively(false);
+                this.gameObject.SetActive(false);
             }
         }
         else
         {
   //          lblNull.gameObject.active = true;
-            this.gameObject.SetActiveRecursively(false);
+            this.gameObject.SetActive(false);
         }
     }
 

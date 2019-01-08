@@ -1077,7 +1077,7 @@ http://www.tasharen.com/forum/index.php?topic=11.msg27296#msg27296
 1.85:
 - NEW: Added Example 12: Better Scroll View.
 - NEW: Added a script that can be used to efficiently drag the contents of the panel: UIDragPanelContents.
-- NEW: Added a function replacement for SetActiveRecursively (NGUITools.SetActive), since the former has rare odd issues.
+- NEW: Added a function replacement for SetActive (NGUITools.SetActive), since the former has rare odd issues.
 
 1.84:
 - FIX: Changed the way the font data is stored, resulting in potentially better loading performance on mobile devices.

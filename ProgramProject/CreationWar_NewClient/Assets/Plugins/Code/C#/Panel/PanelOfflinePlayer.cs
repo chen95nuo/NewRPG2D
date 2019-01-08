@@ -96,7 +96,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
 //		Debug.Log ("----------------------");
         for (int i = 0; i < listPVP1.Count; i++)
         {
-            listPVP1[i].gameObject.SetActiveRecursively(false);
+            listPVP1[i].gameObject.SetActive(false);
         }
 		listTabel.SetZore ();
         while (ytRanking.IsUpdate)
@@ -113,7 +113,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
 		
         for (int i = 0; i < listPVP1.Count; i++)
         {
-            listPVP1[i].gameObject.SetActiveRecursively(false);
+            listPVP1[i].gameObject.SetActive(false);
         }
         string[] strFirend = BtnGameManager.yt[0]["FriendsId"].YuanColumnText.Split(';');
 		List<string> listFirend=new List<string>();
@@ -154,7 +154,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
 		InRoom.GetInRoomInstantiate ().GetRandomPlayer (20,10,ytRandom);
 		 for (int i = 0; i < listPVP1.Count; i++)
         {
-            listPVP1[i].gameObject.SetActiveRecursively(false);
+            listPVP1[i].gameObject.SetActive(false);
         }
 		listTabel.SetZore ();
         while (ytRandom.IsUpdate)
@@ -171,7 +171,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
     {
         for (int i = 0; i < listPVP1.Count; i++)
         {
-            listPVP1[i].gameObject.SetActiveRecursively(false);
+            listPVP1[i].gameObject.SetActive(false);
         }
 		listTabel.SetZore();
         string[] strPlayer = BtnGameManager.yt[0]["pvp1BeInfo"].YuanColumnText.Split(';');
@@ -260,7 +260,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
     {
         for (int i = 0; i < listPVP1.Count; i++)
         {
-            listPVP1[i].gameObject.SetActiveRecursively(false);
+            listPVP1[i].gameObject.SetActive(false);
         }
 		listTabel.SetZore ();
 		//InRoom.GetInRoomInstantiate().GetPlayerList(mSql,mYt,"DarkSword2","PlayerInfo");
@@ -292,7 +292,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
     {
 		for(int i=0;i<listPVP1.Count;i++)
 		{
-			listPVP1[i].gameObject.SetActiveRecursively (false);
+			listPVP1[i].gameObject.SetActive (false);
 		}
         for (int i = 0; i < mYt.Rows.Count; i++)
         {
@@ -309,7 +309,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
                 
                 if (myGrid.gameObject.active)
                 {
-                    listPVP1[i].gameObject.SetActiveRecursively(true);
+                    listPVP1[i].gameObject.SetActive(true);
                     listPVP1[i].picNew.gameObject.active = false;
                 }
             }
@@ -341,7 +341,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
                 listPVP1.Add(tempPlayer);
                 if (!myGrid.gameObject.active)
                 {
-                    tempPlayer.gameObject.SetActiveRecursively(false);
+                    tempPlayer.gameObject.SetActive(false);
                 }
             }
             myGrid.repositionNow = true;
@@ -354,7 +354,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
     {
 		for(int i=0;i<listPVP1.Count;i++)
 		{
-			listPVP1[i].gameObject.SetActiveRecursively (false);
+			listPVP1[i].gameObject.SetActive (false);
 		}
         for (int i = 0; i < mYt.Rows.Count; i++)
         {
@@ -384,7 +384,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
 
                 if (myGrid.gameObject.active)
                 {
-                    listPVP1[i].gameObject.SetActiveRecursively(true);
+                    listPVP1[i].gameObject.SetActive(true);
                     if (bePVPInfo[2].Trim() == "2")
                     {
                         listPVP1[i].btnAddLable.text = StaticLoc.Loc.Get("info341");
@@ -398,7 +398,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
                 }
                 else
                 {
-                    listPVP1[i].gameObject.SetActiveRecursively(false);
+                    listPVP1[i].gameObject.SetActive(false);
                 }
             }
             else
@@ -445,7 +445,7 @@ public class PanelOfflinePlayer : MonoBehaviour {
                 listPVP1.Add(tempPlayer);
                 if (!myGrid.gameObject.active)
                 {
-                    tempPlayer.gameObject.SetActiveRecursively(false);
+                    tempPlayer.gameObject.SetActive(false);
                 }
             }
             myGrid.repositionNow = true;

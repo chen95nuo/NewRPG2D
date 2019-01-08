@@ -29,7 +29,7 @@ public class WarningAll : MonoBehaviour {
 		string nowLuckey = string.Format("{0}:{1}:{2}",StaticLoc.Loc.Get("info796"),nLucky.ToString(),StaticLoc.Loc.Get("info297"));
 		this.lblTitle.text = StaticLoc.Loc.Get("info358");
 		this.lblText.text = nowLuckey;
-		this.gameObject.SetActiveRecursively(true);
+		this.gameObject.SetActive(true);
 		 if (showTime != 0)
         {
             this.CancelInvoke("Close");
@@ -46,7 +46,7 @@ public class WarningAll : MonoBehaviour {
     {
         this.lblTitle.text = mTitle;
         this.lblText.text = mText;
-        this.gameObject.SetActiveRecursively(true);
+        this.gameObject.SetActive(true);
 //        if (myParticle != null)
 //        {
 //           myParticle.Emit();
@@ -69,7 +69,7 @@ public class WarningAll : MonoBehaviour {
 		this.lblTitle.text = mTitle;
         this.lblText.text = mText;
 		btnEnterEvent.SetTimeOut (mActionTimeOut);
-        this.gameObject.SetActiveRecursively(true);
+        this.gameObject.SetActive(true);
 		
 	}
 

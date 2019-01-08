@@ -118,7 +118,7 @@ public class BtnServer : MonoBehaviour {
 	{
 		if(this.isTest)
 		{
-			this.gameObject.SetActiveRecursively (false);
+			this.gameObject.SetActive (false);
 		}
 	}
 	
@@ -185,7 +185,7 @@ public class BtnServer : MonoBehaviour {
 			mainMenuManage.listMenu[4].transform.localScale = new Vector3(1, 1, 1);
 			yuan.YuanClass.SwitchListOnlyOne(mainMenuManage.listMenu, 4, true, true);
 //			Debug.Log ("99999999999");
-			//mainMenuManage.YuanSetActiveRecursively(mainMenuManage.btnSelectServerCreate, false);
+			//mainMenuManage.YuanSetActive(mainMenuManage.btnSelectServerCreate, false);
             
         }
         else
@@ -207,7 +207,7 @@ public class BtnServer : MonoBehaviour {
 			
 			YuanUnityPhoton.YuanDispose ();
             yuan.YuanClass.SwitchListOnlyOne(mainMenuManage.listMenu, 9, true, true);
-            mainMenuManage.listMenu[9].SetActiveRecursively(true);
+            mainMenuManage.listMenu[9].SetActive(true);
           	InRoom.GetInRoomInstantiate ().GetPlayers(YuanUnityPhoton.GetYuanUnityPhotonInstantiate ().userID, this.applicationName, "DarkSword2", "PlayerInfo");
             PlayerPrefs.SetString("InAppServer", this.applicationName);
 			PhotonHandler.ShowLog("InAppServerIP Set:"+this.applicationIp );
@@ -224,7 +224,7 @@ public class BtnServer : MonoBehaviour {
 		}
 		if(outTime==5)
 		{
-			this.gameObject.SetActiveRecursively (true);
+			this.gameObject.SetActive (true);
 			StartCoroutine (Connect ());
 			CancelInvoke ("ReOnline");
 		}

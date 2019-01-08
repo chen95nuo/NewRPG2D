@@ -40,7 +40,7 @@ public class PanelRanking : MonoBehaviour {
             //ytPVP4 = new yuan.YuanMemoryDB.YuanTable("pvp4" + rankName, "");
             yt = new YuanRank(rankName + "rank");
             ytPVP4 = new YuanRank("pvp4" + rankName);
-        loading.SetActiveRecursively(false);
+        loading.SetActive(false);
 			insYT=true;
 		}
 	}
@@ -55,8 +55,8 @@ public class PanelRanking : MonoBehaviour {
     {
 
         InsYT();
-        loading.SetActiveRecursively(true);
-        lblPVP4.gameObject.SetActiveRecursively(false);
+        loading.SetActive(true);
+        lblPVP4.gameObject.SetActive(false);
         //string sql = string.Format("Select * from GameRanking where Ranking in (Select top 20 Ranking from GameRanking where RankType='{0}' and ApplicationName='{1}' order by Ranking asc)", (byte)rankingType, InRoom.GetInRoomInstantiate().ServerApplication);
         //Debug.Log("sql:" + sql);
         string sqlMy = string.Empty;
@@ -98,7 +98,7 @@ public class PanelRanking : MonoBehaviour {
 //                    if (BtnGameManager.yt.Rows[0]["Corps4v4ID"].YuanColumnText == "")
 //                    {
 //                        lblPVP4.text = StaticLoc.Loc.Get("info345");
-//                        lblPVP4.gameObject.SetActiveRecursively(true);
+//                        lblPVP4.gameObject.SetActive(true);
 //                    }
 //                    else
 //                    {
@@ -197,7 +197,7 @@ public class PanelRanking : MonoBehaviour {
         }
 
 
-        loading.SetActiveRecursively(false);
+        loading.SetActive(false);
         if (yt.dicMyRank != null)
         {
             if (lblMyRank != null)
@@ -271,7 +271,7 @@ public class PanelRanking : MonoBehaviour {
 
             foreach (BtnRanking btn in listBtn)
             {
-                btn.gameObject.SetActiveRecursively(false);
+                btn.gameObject.SetActive(false);
             }
             //Debug.Log(this.name+"+++"+yt.Rows.Count);
 
@@ -280,7 +280,7 @@ public class PanelRanking : MonoBehaviour {
             {
                 if (listBtn.Count > num)
                 {
-                    listBtn[num].gameObject.SetActiveRecursively(true);
+                    listBtn[num].gameObject.SetActive(true);
                     SetBtn(listBtn[num], yr.Key, yr.Value, num + 1);
                 }
                 else

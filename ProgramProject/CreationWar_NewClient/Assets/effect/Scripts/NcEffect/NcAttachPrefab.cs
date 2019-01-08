@@ -146,7 +146,7 @@ public class NcAttachPrefab : NcEffectBehaviour
 		// m_AccumStartRot
 		m_CreateGameObject.transform.localRotation	*= Quaternion.Euler(m_AccumStartRot.x*m_nCreateCount, m_AccumStartRot.y*m_nCreateCount, m_AccumStartRot.z*m_nCreateCount);
 		m_CreateGameObject.name += " " + m_nCreateCount;
-		SetActiveRecursively(m_CreateGameObject, true);
+		SetActive(m_CreateGameObject, true);
 
 		// PrefabAdjustSpeed
  		AdjustSpeedRuntime(m_CreateGameObject, m_fPrefabSpeed);

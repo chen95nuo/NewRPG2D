@@ -38,12 +38,12 @@ public class TVMessage : MonoBehaviour {
             if (canPlayer)
             {
 				this.panel.SetActive(false);
-                //this.panel.SetActiveRecursively(false);
+                //this.panel.SetActive(false);
             }
             else
             {
 				this.panel.SetActive(true);
-                //this.panel.SetActiveRecursively(true);
+                //this.panel.SetActive(true);
             }
         }
     }
@@ -58,7 +58,7 @@ public class TVMessage : MonoBehaviour {
         colliderLableEnd.eventCollider += this.OnLableEndTriggerEnter;
 		yuanInput.SendMessage ("SetMyLeble",lblText,SendMessageOptions.DontRequireReceiver);
 		this.panel.SetActive(false);
-		//this.panel.SetActiveRecursively(false);
+		//this.panel.SetActive(false);
         ResetPos();
         ResetColliderPos();
 		

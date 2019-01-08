@@ -232,7 +232,7 @@ public class YuanInput : MonoBehaviour {
 	{
 		foreach(LableLink item in listDisLink)
 		{
-			item.gameObject.SetActiveRecursively (false);
+			item.gameObject.SetActive (false);
 		}
 	}
 	
@@ -270,7 +270,7 @@ private void TextGetUpdate()
 		strb.Length=0;
 		for(int i=listUseLink.Count;listUseLink.Count>0;i=listUseLink.Count)
 		{
-			listUseLink[i-1].gameObject.SetActiveRecursively (false);
+			listUseLink[i-1].gameObject.SetActive (false);
 			listDisLink.Add (listUseLink[i-1]);
 			listUseLink.Remove (listUseLink[i-1]);
 
@@ -292,7 +292,7 @@ private void TextGetUpdate()
 						if(listDisLink.Count>0)
 						{
 							listDisLink[0].id="";
-							listDisLink[0].gameObject.SetActiveRecursively (true);
+							listDisLink[0].gameObject.SetActive (true);
 							listDisLink[0].myPic.enabled=true;
 							listDisLink[0].myPic.spriteName=listExpression[expressionNum-1].spriteName;
 							listDisLink[0].myPic.width=size;
@@ -326,7 +326,7 @@ private void TextGetUpdate()
 							tempLink.transform.localPosition=new Vector3(widthLable,0,this.transform.localPosition.z);
 
 								tempLink.id="";
-								tempLink.gameObject.SetActiveRecursively (true);
+								tempLink.gameObject.SetActive (true);
 							tempLink.myPic.enabled=true;
 							tempLink.clickCollider.isTrigger=false;
 							tempLink.clickCollider.size=Vector3.zero;
@@ -361,7 +361,7 @@ private void TextGetUpdate()
 						if(listDisLink.Count>0)
 						{
 							listDisLink[0].id=itemIDstr;
-							listDisLink[0].gameObject.SetActiveRecursively (true);
+							listDisLink[0].gameObject.SetActive (true);
 												listDisLink[0].transform.parent=this.transform;
 							listDisLink[0].transform.localPosition=Vector3.zero;
 							//listDisLink[0].myPic.enabled=false;
@@ -383,7 +383,7 @@ private void TextGetUpdate()
 							listUseLink.Add (tempLink);
 							tempLink.infoBar=this.itemInfoBar;
 								tempLink.id=itemIDstr;
-								tempLink.gameObject.SetActiveRecursively (true);
+								tempLink.gameObject.SetActive (true);
 								//tempLink.myPic.enabled=false;
 						tempLink.myPic.height=0;
 						tempLink.myPic.width=0;
@@ -417,7 +417,7 @@ private void TextGetUpdate()
 						if(listDisLink.Count>0)
 						{
 							listDisLink[0].id=itemIDstr;
-							listDisLink[0].gameObject.SetActiveRecursively (true);
+							listDisLink[0].gameObject.SetActive (true);
 							listDisLink[0].transform.parent=this.transform;
 							listDisLink[0].transform.localPosition=Vector3.zero;
 							//listDisLink[0].myPic.enabled=false;
@@ -439,7 +439,7 @@ private void TextGetUpdate()
 							tempLink.infoBar=this.itemInfoBar;
 								tempLink.id=itemIDstr;
 						tempLink.clickCollider.isTrigger=true;
-								tempLink.gameObject.SetActiveRecursively (true);
+								tempLink.gameObject.SetActive (true);
 								//tempLink.myPic.enabled=false;
 						tempLink.myPic.width=0;
 						tempLink.myPic.height=0;
@@ -475,7 +475,7 @@ private void TextGetUpdate()
 						if(listDisLink.Count>0)
 						{
 							listDisLink[0].id=itemIDstr;
-							listDisLink[0].gameObject.SetActiveRecursively (true);
+							listDisLink[0].gameObject.SetActive (true);
 						listDisLink[0].clickCollider.isTrigger=true;
 														listDisLink[0].transform.parent=this.transform;
 							listDisLink[0].transform.localPosition=Vector3.zero;
@@ -497,7 +497,7 @@ private void TextGetUpdate()
 							tempLink.infoBar=this.itemInfoBar;
 						tempLink.clickCollider.isTrigger=true;
 								tempLink.id=itemIDstr;
-								tempLink.gameObject.SetActiveRecursively (true);
+								tempLink.gameObject.SetActive (true);
 								//tempLink.myPic.enabled=false;
 						tempLink.myPic.width=0;
 						tempLink.myPic.height=0;
@@ -614,7 +614,7 @@ private void TextGetUpdate()
 				{
 					lb.text="";
 					nodeDisLable.InNode (lb);
-					lb.transform.parent.gameObject.SetActiveRecursively (false);
+					lb.transform.parent.gameObject.SetActive (false);
 					lb.expsEnable=false;
 				}
 				listLable.Clear ();
@@ -629,7 +629,7 @@ private void TextGetUpdate()
 				{
 					tempClone=nodeDisLable.NodeTop ();
                     tempClone.color = this.fontColor;
-					tempClone.transform.parent.gameObject.SetActiveRecursively (true);
+					tempClone.transform.parent.gameObject.SetActive (true);
 					tempClone.exps.gameObject.active=false;
 					nodeDisLable.OutNode ();
 				}
@@ -675,7 +675,7 @@ private void TextGetUpdate()
 							{
 								//listLable[listLable.Count-1-j].text="";
 								listLable[listLable.Count-1].text="";
-								listLable[listLable.Count-1].transform.parent.gameObject.SetActiveRecursively (false);
+								listLable[listLable.Count-1].transform.parent.gameObject.SetActive (false);
 								
 								listLable.RemoveAt (listLable.Count-1);
 							}
@@ -710,7 +710,7 @@ private void TextGetUpdate()
 							for(int k=0;k<26;k++)
 							{
 	                            listLable[listLable.Count - 1].text = "";
-									listLable[listLable.Count-1].transform.parent.gameObject.SetActiveRecursively (false);
+									listLable[listLable.Count-1].transform.parent.gameObject.SetActive (false);
 									listLable.RemoveAt (listLable.Count-1);							
 							}
 							//tempClone.text="[ff0000]["+itemName+"][-]";
@@ -741,7 +741,7 @@ private void TextGetUpdate()
 	                        for (int k = 0; k < 10; k++)
 	                        {
 	                            listLable[listLable.Count - 1].text = "";
-	                            listLable[listLable.Count - 1].transform.parent.gameObject.SetActiveRecursively(false);
+	                            listLable[listLable.Count - 1].transform.parent.gameObject.SetActive(false);
 	                            listLable.RemoveAt(listLable.Count - 1);
 	                        }
 	                        //tempClone.text = "[ff0000][" + itemName + "][-]";
@@ -772,7 +772,7 @@ private void TextGetUpdate()
 	                        for (int k = 0; k < 41; k++)
 	                        {
 	                            listLable[listLable.Count - 1].text = "";
-	                            listLable[listLable.Count - 1].transform.parent.gameObject.SetActiveRecursively(false);
+	                            listLable[listLable.Count - 1].transform.parent.gameObject.SetActive(false);
 	                            listLable.RemoveAt(listLable.Count - 1);
 	                        }
 	                        //tempClone.text = "[ff0000][" + itemName + "][-]";

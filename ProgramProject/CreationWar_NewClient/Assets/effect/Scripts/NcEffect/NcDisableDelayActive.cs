@@ -17,7 +17,7 @@ public class NcDisableDelayActive : MonoBehaviour
 	// Property -------------------------------------------------------------------------
 	public static void HideNcDelayActive(GameObject tarObj)
 	{
-		SetActiveRecursively(tarObj, false);
+		SetActive(tarObj, false);
 		NcDelayActive[]	coms = tarObj.GetComponentsInChildren<NcDelayActive>(true);
 		foreach (NcDelayActive com in coms)
 			com.CancelDelayActive();

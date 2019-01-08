@@ -37,7 +37,7 @@ public class ItemInfoBarDestroy : MonoBehaviour {
 			
 			transform.parent.position=new Vector3(0,-999999,0);
 			
-			transform.parent.gameObject.SetActiveRecursively (false);
+			transform.parent.gameObject.SetActive (false);
 			panel.enabled=false;
 		}
 	}

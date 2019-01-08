@@ -34,7 +34,7 @@ public class LableLink : MonoBehaviour {
 		{
 			Debug.Log ("LableLink!!!!!!!"+id);
 			infoBar.enabled=true;
-			infoBar.gameObject.SetActiveRecursively (true);
+			infoBar.gameObject.SetActive (true);
 			infoBar.transform.localPosition=new Vector3(-0.2875011f,100.1449f,-5.680656f);
 			//infoBar.transform.Translate (infoBar.transform.up);
 			infoBar.SendMessage("SetItemID",id,SendMessageOptions.DontRequireReceiver);

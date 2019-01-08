@@ -12,10 +12,10 @@ public class GameObjectPool  {
 	public int minNum=3;
 	public int maxNum=10;
 
-    public GameObjectPool(GameObject mPrefab, int initialCapacity, DelegateFun mFunction, bool mSetActiveRecursively)
+    public GameObjectPool(GameObject mPrefab, int initialCapacity, DelegateFun mFunction, bool mSetActive)
     {
         this.prefab = mPrefab;
-        this.setActiveRecursively = mSetActiveRecursively;
+        this.setActiveRecursively = mSetActive;
         this.listObj = new List<GameObject>();
         this.listPool = new List<GameObject>();
     }
@@ -43,7 +43,7 @@ public class GameObjectPool  {
                     listPool.Add(tempObj);
 					tempObj.transform.position=mPos;
 					tempObj.transform.rotation=mRota;
-					tempObj.SetActiveRecursively(true);
+					tempObj.SetActive(true);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ public class GameObjectPool  {
 					listPool.Add(tempObj);
 					tempObj.transform.position=mPos;
 					tempObj.transform.rotation=mRota;
-					tempObj.SetActiveRecursively(true);
+					tempObj.SetActive(true);
 				}
 				else
 				{
@@ -125,7 +125,7 @@ public class GameObjectPool  {
 	            if (listPool.Contains(mObj))
 	            {
 					listPool.Remove (mObj);
-	                mObj.SetActiveRecursively(false);
+	                mObj.SetActive(false);
 	                listObj.Add(mObj);
 	                return true;
 	            }

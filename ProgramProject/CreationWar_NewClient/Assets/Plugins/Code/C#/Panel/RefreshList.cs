@@ -34,7 +34,7 @@ public class RefreshList : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         yuanPicManager = PanelStatic.StaticYuanPicManger;
-        loading.SetActiveRecursively(false);
+        loading.SetActive(false);
         myGrid=GetComponent<UIGrid>();
         refreshList = this;
 	}
@@ -87,7 +87,7 @@ public class RefreshList : MonoBehaviour {
 	{
         foreach (BtnPlayerForTeam item in listBtn)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
 		yield return new WaitForSeconds(1);
 		 lblNull.gameObject.active = false;
@@ -104,7 +104,7 @@ public class RefreshList : MonoBehaviour {
 				ytPlayerList.Clear ();
 				 foreach (BtnPlayerForTeam item in listBtn)
 		        {
-		            item.gameObject.SetActiveRecursively(false);
+		            item.gameObject.SetActive(false);
 		        }
 				//RefreshPlayerList(ytPlayerList);
 				
@@ -137,14 +137,14 @@ public class RefreshList : MonoBehaviour {
             loading != null && 
             !loading.active)
         {
-            loading.SetActiveRecursively(true);
+            loading.SetActive(true);
         }
         else if (ytPlayerList != null && 
             !ytPlayerList.IsUpdate &&
             loading != null &&
             loading.active)
         {
-            loading.SetActiveRecursively(false);
+            loading.SetActive(false);
           
             if (listTable != null)
             {
@@ -242,7 +242,7 @@ public class RefreshList : MonoBehaviour {
 
             InActiveChild();
 
-            //this.transform.parent.gameObject.SetActiveRecursively (false);
+            //this.transform.parent.gameObject.SetActive (false);
 		}
 
     }
@@ -278,7 +278,7 @@ public class RefreshList : MonoBehaviour {
 
             InActiveChild();
 
-            //this.transform.parent.gameObject.SetActiveRecursively(false);
+            //this.transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -311,7 +311,7 @@ public class RefreshList : MonoBehaviour {
 
             InActiveChild();
 
-            //this.transform.parent.gameObject.SetActiveRecursively(false);
+            //this.transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -323,7 +323,7 @@ public class RefreshList : MonoBehaviour {
 		
         foreach (BtnPlayerForTeam item in listBtn)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
         if (mYt.Rows.Count > 0)
 		{
@@ -334,7 +334,7 @@ public class RefreshList : MonoBehaviour {
 			lblNull.gameObject.active=true;
             //if (listType != ListType.Firends&&listType!=ListType.Team)
             //{
-//                this.transform.parent.gameObject.SetActiveRecursively(false);
+//                this.transform.parent.gameObject.SetActive(false);
 
             InActiveChild();
         
@@ -362,13 +362,13 @@ public class RefreshList : MonoBehaviour {
                 else
                 {
                     //Debug.Log("+++++++++++++++++++++");
-//                    this.transform.parent.gameObject.SetActiveRecursively(false);
+//                    this.transform.parent.gameObject.SetActive(false);
 
                     InActiveChild();
 
                     foreach (BtnPlayerForTeam item in listBtn)
                     {
-                        item.gameObject.SetActiveRecursively(false);
+                        item.gameObject.SetActive(false);
                     }
                 }
             }
@@ -415,7 +415,7 @@ public class RefreshList : MonoBehaviour {
 				ckb= listBtn[num].GetComponent<UIToggle>();
 				ckb.isChecked=false;
 
-                listBtn[num].gameObject.SetActiveRecursively(true);
+                listBtn[num].gameObject.SetActive(true);
             }
             else
             {
@@ -489,7 +489,7 @@ public class RefreshList : MonoBehaviour {
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActiveRecursively(false);
+            transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
@@ -506,7 +506,7 @@ public class RefreshList : MonoBehaviour {
     {
         BtnPlayerForTeam btnPlayerTemp = obj.GetComponent<BtnPlayerForTeam>();
         txtMailAddressee.text = btnPlayerTemp.lblPlayerName.text;
-        //this.transform.parent.gameObject.SetActiveRecursively(false);
+        //this.transform.parent.gameObject.SetActive(false);
     }
 
     public GameObject[] listPlayerFunBtn;

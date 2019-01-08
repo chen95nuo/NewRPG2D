@@ -95,16 +95,16 @@ public class BtnManager : MonoBehaviour {
 		{
 			if(null != nameObj && nameObj.active)
 			{
-				nameObj.SetActiveRecursively(false);
+				nameObj.SetActive(false);
 			}
 			if(null != randomNameObj && randomNameObj.active) 
 			{
-				randomNameObj.SetActiveRecursively(false);
+				randomNameObj.SetActive(false);
 			}
 			
 			if(null != masterObj && masterObj.active)
 			{
-				masterObj.SetActiveRecursively(false);
+				masterObj.SetActive(false);
 			}
 		}
 		
@@ -208,7 +208,7 @@ public class BtnManager : MonoBehaviour {
 	{
 		try{
 			isStartTimeOut=true;
-			objLoading.SetActiveRecursively (true);
+			objLoading.SetActive (true);
 		}catch(System.Exception ex){
 			Debug.Log("BeginTimeOut___try_01"+ex.ToString());
 		}
@@ -262,7 +262,7 @@ public class BtnManager : MonoBehaviour {
 				}
 				
 				warnings.warningAllTimeOut.ShowTimeOut (StaticLoc.Loc.Get ("info358"),StaticLoc.Loc.Get ("info720"),()=>RunBeginTimeOut (mNum,mNumCon,actionConnect,action,actionTimeOut));
-				objLoading.SetActiveRecursively (false);
+				objLoading.SetActive (false);
 				isStartTimeOut=false;
 				if(actionTimeOut!=null)
 				{
@@ -279,7 +279,7 @@ public class BtnManager : MonoBehaviour {
 	public IEnumerator BeginTimeOutNoRe(int mNum,int mNumCon,ActionCon actionConnect,Action action,Action actionTimeOut)
 	{
 		isStartTimeOut=true;
-		objLoading.SetActiveRecursively (true);
+		objLoading.SetActive (true);
 		if(actionConnect!=null)
 		{
 			yield return StartCoroutine (actionConnect(mNumCon));
@@ -313,7 +313,7 @@ public class BtnManager : MonoBehaviour {
 			}
 
 			warnings.warningAllEnter.Show (StaticLoc.Loc.Get ("info358"),StaticLoc.Loc.Get ("info720"));
-			objLoading.SetActiveRecursively (false);
+			objLoading.SetActive (false);
 			isStartTimeOut=false;
 			if(actionTimeOut!=null)
 			{
@@ -334,7 +334,7 @@ public class BtnManager : MonoBehaviour {
 	public void EndTimeOut()
 	{
 		isStartTimeOut=false;
-		objLoading.SetActiveRecursively (false);
+		objLoading.SetActive (false);
 	}
 	
 	public static string strOtherLogin=string.Empty;
@@ -703,7 +703,7 @@ public class BtnManager : MonoBehaviour {
 		
         //AnimCamera.transform.localEulerAngles = new Vector3(354.2721f, 14.65f, 359.2356f);
         PlayerCreatIn();
-        btnStartGame.SetActiveRecursively(false);
+        btnStartGame.SetActive(false);
 		
 		if(isFirstInScene)
 		{
@@ -740,9 +740,9 @@ public class BtnManager : MonoBehaviour {
 	/// </summary>
 	public void BeforeSelectCharacter (bool flag)
 	{
-		if(null != randomNameObj) randomNameObj.SetActiveRecursively(flag);
-		if(null != nameObj) nameObj.SetActiveRecursively(flag);
-		if(null != masterObj && !masterObj.active) masterObj.SetActiveRecursively(true);
+		if(null != randomNameObj) randomNameObj.SetActive(flag);
+		if(null != nameObj) nameObj.SetActive(flag);
+		if(null != masterObj && !masterObj.active) masterObj.SetActive(true);
 //		enterButton.isEnabled = flag;
 	}
 
@@ -772,7 +772,7 @@ public class BtnManager : MonoBehaviour {
         string quDao = TableRead.strPageName;
 
         toggle.value = false;
-        btnStartGame.SetActiveRecursively(false);
+        btnStartGame.SetActive(false);
 
         //StartCoroutine (BeginTimeOut(15,3,ConnectInRoom,() => InRoom.GetInRoomInstantiate().GetBuyLanWei(userName, quDao),null));
         
@@ -810,7 +810,7 @@ public class BtnManager : MonoBehaviour {
         //tweenPlayerCreat.Play(false);
         //tweenPlayerSelect.Play(true);
         //tweenPlayerPwd.Play(true);
-        listMenu[4].SetActiveRecursively(true);
+        listMenu[4].SetActive(true);
         listMenu[2].transform.localScale = new Vector3(0, 0, 0);
         btnPlayerCreatBack.invokMethodName = "CameraToSelectPlayer";
         btnPlayerCreatEnter.invokMethodName="CreatPlayer";
@@ -833,7 +833,7 @@ public class BtnManager : MonoBehaviour {
         //    YuanUnityPhoton.GetYuanUnityPhotonInstantiate().PlayerLogin(YuanUnityPhoton.GetYuanUnityPhotonInstantiate().userID, YuanUnityPhoton.GetYuanUnityPhotonInstantiate().userPwd, "ZealmPass", "UserInfo", false);
         //}
 		
-		objLoading.SetActiveRecursively (true);
+		objLoading.SetActive (true);
         InRoom.GetInRoomInstantiate ().GetPlayers(YuanUnityPhoton.GetYuanUnityPhotonInstantiate().userID, PlayerPrefs.GetString("InAppServer"), "DarkSword2", "PlayerInfo");
         
        // background.gameObject.active = true;
@@ -844,7 +844,7 @@ public class BtnManager : MonoBehaviour {
     /// </summary>
     public void PlayerStartInRefresh()
     {
-    	listMenu[4].SetActiveRecursively(false);
+    	listMenu[4].SetActive(false);
         listMenu[2].transform.localScale = new Vector3(1, 1, 1);
     }
 
@@ -862,7 +862,7 @@ public class BtnManager : MonoBehaviour {
         //background.gameObject.active = true;
         yuan.YuanClass.SwitchListOnlyOne(listMenu, 8, true, true);
 		listMenu[8].transform.localScale=Vector3.one;
-		//listMenu[8].SetActiveRecursively(true);
+		//listMenu[8].SetActive(true);
 
         MainMenuManage.my.SortServer();
 
@@ -1002,7 +1002,7 @@ public class BtnManager : MonoBehaviour {
     public int warningNoNum;
     public void SetWarningNO()
     {
-        listMenu[warningNoNum].gameObject.SetActiveRecursively(true);
+        listMenu[warningNoNum].gameObject.SetActive(true);
     }
 
 

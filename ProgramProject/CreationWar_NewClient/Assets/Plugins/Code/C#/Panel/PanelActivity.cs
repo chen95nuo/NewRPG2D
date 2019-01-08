@@ -471,7 +471,7 @@ public class PanelActivity : MonoBehaviour {
     {
         foreach (BtnActivity item in listBtnActivity)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
 		
 			
@@ -500,7 +500,7 @@ public class PanelActivity : MonoBehaviour {
 					{
 		                if (num < listBtnActivity.Count)
 		                {
-		                    listBtnActivity[num].gameObject.SetActiveRecursively(true);
+		                    listBtnActivity[num].gameObject.SetActive(true);
 		                    SetBtnAcitivty(listBtnActivity[num], yr);
 		                }
 		                else
@@ -534,7 +534,7 @@ public class PanelActivity : MonoBehaviour {
 					{
 		                if (num < listBtnActivity.Count)
 		                {
-		                    listBtnActivity[num].gameObject.SetActiveRecursively(true);
+		                    listBtnActivity[num].gameObject.SetActive(true);
 		                    SetBtnAcitivty(listBtnActivity[num], yr);
 		                }
 		                else
@@ -568,7 +568,7 @@ public class PanelActivity : MonoBehaviour {
 					{
 		                if (num < listBtnActivity.Count)
 		                {
-		                    listBtnActivity[num].gameObject.SetActiveRecursively(true);
+		                    listBtnActivity[num].gameObject.SetActive(true);
 		                    SetBtnAcitivty(listBtnActivity[num], yr);
 		                }
 		                else
@@ -646,7 +646,7 @@ public class PanelActivity : MonoBehaviour {
                 if (tempBtn.yr["AcitvityTool" + i.ToString()].YuanColumnText != "")
                 {
                     string[] strTemp=tempBtn.yr["AcitvityTool" + i.ToString()].YuanColumnText.Split(',');
-                    listSprite[i-1].gameObject.SetActiveRecursively(true);
+                    listSprite[i-1].gameObject.SetActive(true);
 
                     if (strTemp.Length > 1)
                     {
@@ -665,7 +665,7 @@ public class PanelActivity : MonoBehaviour {
                 }
                 else
                 {
-                    listSprite[i-1].gameObject.SetActiveRecursively(false);
+                    listSprite[i-1].gameObject.SetActive(false);
                 }
             }
             gridReward.repositionNow = true;

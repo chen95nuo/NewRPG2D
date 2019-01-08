@@ -34,87 +34,87 @@ public class HideGo : MonoBehaviour {
 	}
 	void ShowGO(){
 		if(Go&&Application.loadedLevelName == "Map200"){
-			Go.SetActiveRecursively(false);
-			TalkAbout.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
-			HangUp.SetActiveRecursively(false);
-			BtnNextMap.SetActiveRecursively(false);
+			Go.SetActive(false);
+			TalkAbout.SetActive(false);
+			HaloHp.SetActive(false);
+			HangUp.SetActive(false);
+			BtnNextMap.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map311"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
-			ShowName.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
+			ShowName.SetActive(true);
 			ObjText.text = StaticLoc.Loc.Get("buttons040");
 		}else
 		if(Go&&Application.loadedLevelName == "Map321"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
-			ShowName.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
+			ShowName.SetActive(true);
 			ObjText.text = StaticLoc.Loc.Get("info1038");
 		}else{
-			ShowName.SetActiveRecursively(false);
+			ShowName.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map331"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map411"){
 			if(KaSi){
-				KaSi.SetActiveRecursively(false);
+				KaSi.SetActive(false);
 			}
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
-			HaloHp1.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
+			HaloHp1.SetActive(true);
 		}else{
-			HaloHp1.SetActiveRecursively(false);
+			HaloHp1.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map421"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map431"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
 		}
 		if(Go&&Application.loadedLevelName == "Map441"){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
 		}
 
 //		if(Go&&Application.loadedLevelName == "Map718"){
-//			Go.SetActiveRecursively(false);
-//			HaloHp.SetActiveRecursively(false);
+//			Go.SetActive(false);
+//			HaloHp.SetActive(false);
 //		}
 
 		if(Go&&Application.loadedLevelName == "Map711"&&HaloHp){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(false);
+			Go.SetActive(false);
+			HaloHp.SetActive(false);
 			BossRanking.SetActive(false);
 		}else
 		if(Go&&Application.loadedLevelName == "Map712"&&HaloHp){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(true);
 			BossRanking.SetActive(false);
 		}else
 		if(Go&&Application.loadedLevelName == "Map713"&&HaloHp){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(true);
 			BossRanking.SetActive(false);
 		}else
 		if(Go&&Application.loadedLevelName == "Map911"&&HaloHp){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(true);
 			BossRanking.SetActive(true);
 			MonSterName.text = StaticLoc.Loc.Get("info1026");
 		}
 		else
 		if(Go&&Application.loadedLevelName == "Map912"&&HaloHp){
-			Go.SetActiveRecursively(false);
-			HaloHp.SetActiveRecursively(true);
+			Go.SetActive(false);
+			HaloHp.SetActive(true);
 			BossRanking.SetActive(true);
 			MonSterName.text = StaticLoc.Loc.Get("info1026");
 		}else{
-			HaloHp.SetActiveRecursively(false);
+			HaloHp.SetActive(false);
 			BossRanking.SetActive(false);
 		}
 

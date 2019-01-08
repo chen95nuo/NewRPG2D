@@ -60,7 +60,7 @@ public class DailyBenefitsPanelSelect : MonoBehaviour {
 		{
 			if(btnCode!=null)
 			{
-//				btnFirst.gameObject.SetActiveRecursively (false);
+//				btnFirst.gameObject.SetActive (false);
 			}
 		}
 
@@ -113,7 +113,7 @@ public class DailyBenefitsPanelSelect : MonoBehaviour {
 		yuan.YuanClass.SwitchList (listPanel,true,true);
 //		foreach (GameObject item in listPanel)
 //		{
-//			item.SetActiveRecursively(true);
+//			item.SetActive(true);
 //		}
 
 		yield return new WaitForFixedUpdate();

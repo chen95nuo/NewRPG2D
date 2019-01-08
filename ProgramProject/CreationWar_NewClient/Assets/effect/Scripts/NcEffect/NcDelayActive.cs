@@ -75,7 +75,7 @@ public class NcDelayActive : NcEffectBehaviour
 		if (m_fDelayTime != 0)
 		{
 			if (m_bActiveRecursively)
-				SetActiveRecursively(gameObject, false);
+				SetActive(gameObject, false);
 			else gameObject.active = false;
 		}
 #if UNITY_EDITOR
@@ -93,7 +93,7 @@ public class NcDelayActive : NcEffectBehaviour
 		if (m_bAddedInvoke == false)
 		{
 			if (m_bActiveRecursively)
-				SetActiveRecursively(gameObject, false);
+				SetActive(gameObject, false);
 			else gameObject.active = false;
 
 			float	fInvokeTime = GetParentDelayTime(true) + m_fDelayTime;
@@ -183,7 +183,7 @@ public class NcDelayActive : NcEffectBehaviour
 	void OnEndActive()
 	{
 		if (m_bActiveRecursively)
-			SetActiveRecursively(gameObject, false);
+			SetActive(gameObject, false);
 		else gameObject.active = false;
 	}
 */

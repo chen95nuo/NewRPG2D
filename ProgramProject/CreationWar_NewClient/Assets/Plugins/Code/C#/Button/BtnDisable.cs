@@ -89,7 +89,7 @@ public class BtnDisable : MonoBehaviour {
 		
 		if(ItemID!="")
 		{
-			PanelStatic.StaticIteminfo.SetActiveRecursively(true);
+			PanelStatic.StaticIteminfo.SetActive(true);
 			PanelStatic.StaticIteminfo.transform.position = new Vector3(transform.position.x,100,transform.position.z);
 			PanelStatic.StaticIteminfo.SendMessage("SetItemID", ItemID, SendMessageOptions.DontRequireReceiver);
 		}

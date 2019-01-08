@@ -184,7 +184,7 @@ public class MainMenuManage : MonoBehaviour {
         }
         if (isGetPlayers)
         {
-			//btnManage.objLoading.SetActiveRecursively (false);
+			//btnManage.objLoading.SetActive (false);
 			try
 			{
 				CancelInvoke ("TimeOut");
@@ -212,7 +212,7 @@ public class MainMenuManage : MonoBehaviour {
         }
         if (isDeletePlayer)
         {
-			btnManage.objLoading.SetActiveRecursively (false);
+			btnManage.objLoading.SetActive (false);
             this.DeletePlayer();
             isDeletePlayer = false;
 			btnManage.EndTimeOut ();
@@ -344,7 +344,7 @@ public class MainMenuManage : MonoBehaviour {
                     //YuanUnityPhoton.GetYuanUnityPhotonInstantiate().PlayerLogin(PlayerPrefs.GetString("GameUserID"), PlayerPrefs.GetString("GameUserPwd"), "ZealmPass", "UserInfo",true);
                     //Debug.Log("获取玩家角色列表:" + BtnGameManager.yt.Rows[0]["PlayerID"].YuanColumnText + ";" + PlayerPrefs.GetString("InAppServer"));
                     LoginInServer(true);
-                    listMenu[8].SetActiveRecursively(false);
+                    listMenu[8].SetActive(false);
                     InRoom.GetInRoomInstantiate ().GetPlayers(BtnGameManager.yt.Rows[0]["UserInfo_userId"].YuanColumnText, PlayerPrefs.GetString("InAppServer"), "DarkSword2", "PlayerInfo");
                 }
                 break;
@@ -363,9 +363,9 @@ public class MainMenuManage : MonoBehaviour {
         yuan.YuanClass.SwitchListOnlyOne(list,num, enable, includeChild);
     }
 
-    public void YuanSetActiveRecursively(GameObject obj, bool enable)
+    public void YuanSetActive(GameObject obj, bool enable)
     {
-        obj.SetActiveRecursively(enable);
+        obj.SetActive(enable);
     }
 	
 	public BtnServer btnSelectedServer;
@@ -385,7 +385,7 @@ public class MainMenuManage : MonoBehaviour {
         //string strMeberServer=PlayerPrefs.GetString ("InAppServerIP");
         //int i = 0;
 
-        listMenu[8].SetActiveRecursively(true);
+        listMenu[8].SetActive(true);
 
         /*
 		foreach (KeyValuePair<short, object> item in dicLogin)
@@ -457,7 +457,7 @@ public class MainMenuManage : MonoBehaviour {
 			if(numMeberServer!=-1)
 			{
 				
-				lblSelectedServer.gameObject.SetActiveRecursively(false);
+				lblSelectedServer.gameObject.SetActive(false);
 				tempMeberServer.CopyTo(btnSelectedServer);
 				if(!isOnlyShow)
 				{
@@ -474,7 +474,7 @@ public class MainMenuManage : MonoBehaviour {
 						//tempServer=string.Format ("{0}:{1}",item.ApplicationIp,item.ApplicationHost);
 						if(item.NumTitle==firstServer)
 						{
-							lblSelectedServer.gameObject.SetActiveRecursively(true);
+							lblSelectedServer.gameObject.SetActive(true);
 							item.CopyTo (tempSelectServer);
 							item.CopyTo (btnSelectedServer);
 							if(!isOnlyShow)
@@ -485,7 +485,7 @@ public class MainMenuManage : MonoBehaviour {
 						}
 					}
 				}
-				lblSelectedServer.gameObject.SetActiveRecursively(true);
+				lblSelectedServer.gameObject.SetActive(true);
 	//			Debug.Log (string.Format ("{0}-----{1}",tempSelectServer,btnSelectedServer));
 				if(tempSelectServer!=null)
 				{
@@ -695,7 +695,7 @@ public class MainMenuManage : MonoBehaviour {
         //if (numMeberServer != -1)
         //{
 
-        //    lblSelectedServer.gameObject.SetActiveRecursively(false);
+        //    lblSelectedServer.gameObject.SetActive(false);
         //    tempMeberServer.CopyTo(btnSelectedServer);
         //    if (!isOnlyShow)
         //    {
@@ -712,7 +712,7 @@ public class MainMenuManage : MonoBehaviour {
         //            //tempServer=string.Format ("{0}:{1}",item.ApplicationIp,item.ApplicationHost);
         //            if (item.NumTitle == firstServer)
         //            {
-        //                lblSelectedServer.gameObject.SetActiveRecursively(true);
+        //                lblSelectedServer.gameObject.SetActive(true);
         //                item.CopyTo(tempSelectServer);
         //                item.CopyTo(btnSelectedServer);
         //                if (!isOnlyShow)
@@ -723,7 +723,7 @@ public class MainMenuManage : MonoBehaviour {
         //            }
         //        }
         //    }
-        //    lblSelectedServer.gameObject.SetActiveRecursively(true);
+        //    lblSelectedServer.gameObject.SetActive(true);
         //    //			Debug.Log (string.Format ("{0}-----{1}",tempSelectServer,btnSelectedServer));
         //    if (tempSelectServer != null)
         //    {
@@ -822,7 +822,7 @@ public class MainMenuManage : MonoBehaviour {
                     //this.gridServerBind.repositionNow = true;
                     //Debug.Log("yyyyyyyyyyyyyyyyyyyyyyy");
                     //yuan.YuanClass.SwitchListOnlyOne(listMenu, 8, true, true);
-                    listMenu[8].gameObject.SetActiveRecursively(true);
+                    listMenu[8].gameObject.SetActive(true);
 
     /*
                     BtnServer[] strBtnServerTemp = this.gridServer.transform.GetComponentsInChildren<BtnServer>();
@@ -892,13 +892,13 @@ public class MainMenuManage : MonoBehaviour {
 					if(numMeberServer!=-1)
 					{
 						
-						lblSelectedServer.gameObject.SetActiveRecursively(false);
+						lblSelectedServer.gameObject.SetActive(false);
 						tempMeberServer.CopyTo(btnSelectedServer);
 					}
 					else
 					{
 						
-						lblSelectedServer.gameObject.SetActiveRecursively(true);
+						lblSelectedServer.gameObject.SetActive(true);
 						tempSelectServer.CopyTo (btnSelectedServer);
 					}
                     */
@@ -968,8 +968,8 @@ public class MainMenuManage : MonoBehaviour {
 	
 	public void ShowLicense()
 	{
-		TableRead.my.sdklogin.SetActiveRecursively (false);
-		objLicense.gameObject.SetActiveRecursively (true);
+		TableRead.my.sdklogin.SetActive (false);
+		objLicense.gameObject.SetActive (true);
 		btnLicense.target=this.gameObject;
 		btnLicense.functionName="SetLicense";
 	}
@@ -1144,7 +1144,7 @@ public class MainMenuManage : MonoBehaviour {
                 //{
                 //    if(player.gameObject.active)
                 //    {
-                //        player.gameObject.SetActiveRecursively(false);
+                //        player.gameObject.SetActive(false);
                 //    }
                 //}
 
@@ -1157,7 +1157,7 @@ public class MainMenuManage : MonoBehaviour {
                     }
                 }
 
-				btnSelectPlayerBind.gameObject.SetActiveRecursively(false);
+				btnSelectPlayerBind.gameObject.SetActive(false);
 				int i = 0;
 				foreach (yuan.YuanMemoryDB.YuanRow yr in getPlayersYT.Rows)
 				{
@@ -1171,7 +1171,7 @@ public class MainMenuManage : MonoBehaviour {
 					{
 						// listPlayerBtn[i].text = yr["PlayerName"].YuanColumnText.Trim();
 						
-						listPlayerBtn[i].gameObject.SetActiveRecursively(true);
+						listPlayerBtn[i].gameObject.SetActive(true);
                         listPlayerBtn[i].HideSlotNumObj();
 						listPlayerBtn[i].btnType = BtnPlayer.BtnType.Read;
                         listPlayerBtn[i].EnableToggle(true);
@@ -1220,7 +1220,7 @@ public class MainMenuManage : MonoBehaviour {
 				
                 //if (itemCount < maxPlayerNum)
                 //{
-					listPlayerBtn[itemCount].gameObject.SetActiveRecursively(true);
+					listPlayerBtn[itemCount].gameObject.SetActive(true);
 //				Debug.Log("wei----------------------------" + slotNumDic[(short)yuan.YuanPhoton.lanweiNumber.itemID]);
 				int slotNum = (int)slotNumDic[(short)yuan.YuanPhoton.lanweiNumber.itemID];
                     //if(itemCount < freePlayerNum + buyPlayerNum)
@@ -1265,10 +1265,10 @@ public class MainMenuManage : MonoBehaviour {
 					player.lblNew.text = StaticLoc.Loc.Get("buttons603");
                     player.SetSlotNum(2, 2);
 					player.btnType=BtnPlayer.BtnType.New;
-					player.gameObject.SetActiveRecursively(false);
+					player.gameObject.SetActive(false);
 				}
-				btnSelectPlayerBind.gameObject.SetActiveRecursively(false);
-				listPlayerBtn[0].gameObject.SetActiveRecursively(true);
+				btnSelectPlayerBind.gameObject.SetActive(false);
+				listPlayerBtn[0].gameObject.SetActive(true);
 				
 				listPlayerBtn[0].lblNew.text = StaticLoc.Loc.Get("buttons603");
 				listPlayerBtn[0].btnType = BtnPlayer.BtnType.New;
@@ -1357,9 +1357,9 @@ public class MainMenuManage : MonoBehaviour {
 						if(ytTemp.Count>0)
 						{
 	                        btnStartGame.yr = ytTemp.Rows[0];
-	                        btnStartGame.gameObject.SetActiveRecursively(true);
-	                        txtInputName.SetActiveRecursively(false);
-							btnRandomName.SetActiveRecursively (false);
+	                        btnStartGame.gameObject.SetActive(true);
+	                        txtInputName.SetActive(false);
+							btnRandomName.SetActive (false);
 						}
 				
 						//Invoke("GoMenu" , 0.5f);
@@ -1536,10 +1536,10 @@ public class MainMenuManage : MonoBehaviour {
                     listMenu[2].transform.localScale = new Vector3(1, 1, 1);
                     foreach (BtnPlayer lbl in this.listPlayerBtn)
                     {
-                        this.YuanSetActiveRecursively(lbl.transform.gameObject, false);
+                        this.YuanSetActive(lbl.transform.gameObject, false);
                     }
                     //this.listPlayerBtn[4].text = yt.Rows[0]["PlayerName"].YuanColumnText.Trim();
-                    this.YuanSetActiveRecursively(this.listPlayerBtn[0].transform.gameObject, true);
+                    this.YuanSetActive(this.listPlayerBtn[0].transform.gameObject, true);
                     listPlayerBtn[0].lblNew.gameObject.active = false;
                     listPlayerBtn[0].lblPlayerName.text = yt[0]["PlayerName"].YuanColumnText.Trim();
                     listPlayerBtn[0].lblLevelNum.text = yt[0]["PlayerLevel"].YuanColumnText.Trim();
@@ -1547,11 +1547,11 @@ public class MainMenuManage : MonoBehaviour {
                     listPlayerBtn[0].yuanRow = yt[0];
                     listPlayerBtn[0].btnType = BtnPlayer.BtnType.Read;
 
-                    this.YuanSetActiveRecursively(this.btnSelectPlayerPwd, false);
+                    this.YuanSetActive(this.btnSelectPlayerPwd, false);
                     //this.btnSelectPlayerBack.invokMethodName = "Back";
-                    this.YuanSetActiveRecursively(this.btnSelectPlayerBind.gameObject, true);
+                    this.YuanSetActive(this.btnSelectPlayerBind.gameObject, true);
                     this.btnSelectPlayerBind.invokMethodName = "BindUserIDMenu";
-                    this.YuanSetActiveRecursively(this.btnSelectServerSelect, false);
+                    this.YuanSetActive(this.btnSelectServerSelect, false);
                     btnDeletePlayer.invokMethodName = "DeleteFastPlayerBtnClick";
 					
                     this.isLogin = false;
@@ -1755,7 +1755,7 @@ public class MainMenuManage : MonoBehaviour {
 			//	if((new System.Version(YuanUnityPhoton.GetYuanUnityPhotonInstantiate().dicBenefitsInfo[(short)yuan.YuanPhoton.BenefitsType.GameVersion].ToString())) >= YuanUnityPhoton.GameVersion)
                     if ((new System.Version(YuanUnityPhoton.dicBenefitsInfo[(short)yuan.YuanPhoton.BenefitsType.GameVersion].ToString())) >= YuanUnityPhoton.GameVersion)
 					{
-						mBtnServer.gameObject.SetActiveRecursively (false);
+						mBtnServer.gameObject.SetActive (false);
 						mBtnServer.isTest=true;
 						return;
 					}	
@@ -1790,12 +1790,12 @@ public class MainMenuManage : MonoBehaviour {
             listMenu[4].transform.localScale = new Vector3(1, 1, 1);
             btnCreatPlayerBack.invokMethodName = "Back";
             btnCreatPlayerEnter.invokMethodName = "PlayerFastLogon";
-            YuanSetActiveRecursively(btnSelectServerCreate, false);
+            YuanSetActive(btnSelectServerCreate, false);
             btnManage.AnimCamera.CrossFade("CameraToNewPlayer");
             btnManage.cameraStatus = BtnManager.CameraStatus.NewPlayer;
             isLogin = false;
             PlayerPrefs.SetString("InFastServer", mAppName);
-			btnStartGame.gameObject.SetActiveRecursively (false);
+			btnStartGame.gameObject.SetActive (false);
         }
         else
         {
@@ -1818,8 +1818,8 @@ public class MainMenuManage : MonoBehaviour {
 //	InvokeRepeating ("TimeOut",1,1);
 //	YuanUnityPhoton.YuanDispose ();
   //     yuan.YuanClass.SwitchListOnlyOne(listMenu, 9, true, true);
-  //     listMenu[9].SetActiveRecursively(true);
-//	btnManage.objLoading.SetActiveRecursively (true);
+  //     listMenu[9].SetActive(true);
+//	btnManage.objLoading.SetActive (true);
   //   	InRoom.GetInRoomInstantiate ().GetPlayers(PlayerPrefs.GetString ("GameUserID"), mAppName, "DarkSword2", "PlayerInfo");
   //     PlayerPrefs.SetString("InAppServer", mAppName);
   //     PlayerPrefs.SetString("InAppServerIP", mAppIP+ ":" + mAppHost);
@@ -1859,8 +1859,8 @@ public class MainMenuManage : MonoBehaviour {
 	private void OpenSelectServer()
 	{
 		listMenu[8].transform.localScale=Vector3.one;
-		listMenu[8].SetActiveRecursively (false);
-		listMenu[8].SetActiveRecursively (true);
+		listMenu[8].SetActive (false);
+		listMenu[8].SetActive (true);
 		 UIPanel myPanle=gridServer.transform.parent.GetComponent<UIPanel>();
 		
 	}
@@ -1872,8 +1872,8 @@ public class MainMenuManage : MonoBehaviour {
 		if(numTimeOut>=15)
 		{
 			yuan.YuanClass.SwitchListOnlyOne(listMenu, 8, true, true);
-			listMenu[8].SetActiveRecursively(true);
-			btnManage.objLoading.SetActiveRecursively (false);
+			listMenu[8].SetActive(true);
+			btnManage.objLoading.SetActive (false);
 			warnings.warningAllEnter.Show (StaticLoc.Loc.Get ("info358"),StaticLoc.Loc.Get ("info720"));
 			CancelInvoke ("TimeOut");
 		}

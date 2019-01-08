@@ -78,7 +78,7 @@ public class BtnGameManager : MonoBehaviour {
 		if(Application.loadedLevelName!="Map200")
 		{
 			isStartTimeOut=true;
-			objLoading.SetActiveRecursively (true);
+			objLoading.SetActive (true);
 			int outTime=0;
 			if(null!=mAction)
 			{
@@ -103,7 +103,7 @@ public class BtnGameManager : MonoBehaviour {
 	            }
 	            
 				warnings.warningAllTimeOut.ShowTimeOut (StaticLoc.Loc.Get ("info358"),StaticLoc.Loc.Get ("info720"),()=>RunOpenLoading(mAction));
-				objLoading.SetActiveRecursively (false);
+				objLoading.SetActive (false);
 				isStartTimeOut=false;
 
 	            PanelGamble.canStartEnter = true;
@@ -119,12 +119,12 @@ public class BtnGameManager : MonoBehaviour {
 	public void CloseLoading()
 	{
 		isStartTimeOut=false;
-		objLoading.SetActiveRecursively (false);
+		objLoading.SetActive (false);
 	}
 	
 	public void CloseCreate()
 	{
-		tranCreatePath.gameObject.SetActiveRecursively (false);
+		tranCreatePath.gameObject.SetActive (false);
 	}
 
     /// <summary>
@@ -256,8 +256,8 @@ public class BtnGameManager : MonoBehaviour {
     /// <param name="objClose">关闭按钮</param>
     private void CreateWindow(GameObject objOpen,GameObject objClose)
     {
-//		objClose.SetActiveRecursively(false);
-        objOpen.SetActiveRecursively(true);
+//		objClose.SetActive(false);
+        objOpen.SetActive(true);
       
         UIButtonMessage tempMessage = objOpen.transform.FindChild("btnClose").GetComponent<UIButtonMessage>();
         tempMessage.target = this.gameObject;
@@ -274,9 +274,9 @@ public class BtnGameManager : MonoBehaviour {
     public void BtnClose()
     {
 //		Debug.Log ("-======================================0000000000000000000000000");
-        objCloseClose.SetActiveRecursively(false);
+        objCloseClose.SetActive(false);
 		ObjGuild.SetActive(false);
-//        objCloseOpen.SetActiveRecursively(true);
+//        objCloseOpen.SetActive(true);
 //        objCloseOpen.GetComponent<CkbToPanel>().CbkClick();
     }
 
@@ -549,7 +549,7 @@ public class BtnGameManager : MonoBehaviour {
         //BtnTeamForCreate[] tempListBtn = gridTeam.transform.GetComponentsInChildren<BtnTeamForCreate>();
         foreach (BtnTeamForCreate item in listBtnTeamForCreate)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
         Dictionary<short, string> dicTempTeam;
         string teamID = string.Empty;
@@ -575,7 +575,7 @@ public class BtnGameManager : MonoBehaviour {
             if (num < listBtnTeamForCreate.Count)
             {
                 SetTeamPlayerBtn(listBtnTeamForCreate[num],teamID,teamHeadID,teamName,teamInfo,strTeamMemver);
-                listBtnTeamForCreate[num].gameObject.SetActiveRecursively(true);
+                listBtnTeamForCreate[num].gameObject.SetActive(true);
             }
             else
             {
@@ -633,7 +633,7 @@ public class BtnGameManager : MonoBehaviour {
         //BtnTeamForCreate[] tempListBtn = gridTeam.transform.GetComponentsInChildren<BtnTeamForCreate>();
         foreach (BtnTeamForCreate item in listBtnTeamForTask)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
         Dictionary<short, string> dicTempTeam;
         string teamID = string.Empty;
@@ -678,7 +678,7 @@ public class BtnGameManager : MonoBehaviour {
                 if (num < listBtnTeamForTask.Count)
                 {
 					SetTeamPlayerBtn(listBtnTeamForTask[num], teamID, teamHeadID, teamName, teamInfo, strTeamMemver,teamPass,teamInstensID);
-                    listBtnTeamForTask[num].gameObject.SetActiveRecursively(true);
+                    listBtnTeamForTask[num].gameObject.SetActive(true);
                 }
                 else
                 {
@@ -779,7 +779,7 @@ public class BtnGameManager : MonoBehaviour {
         //BtnTeamForCreate[] tempListBtn = gridTeam.transform.GetComponentsInChildren<BtnTeamForCreate>();
         foreach (BtnTeamForCreate item in listBtnTeamForCreate)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
         Dictionary<short, string> dicTempTeam;
         string teamID = string.Empty;
@@ -855,7 +855,7 @@ public class BtnGameManager : MonoBehaviour {
                 if (num < listBtnTeamForCreate.Count)
                 {
                     SetTeamPlayerBtn(listBtnTeamForCreate[num], teamID, teamHeadID, teamName, teamInfo, strTeamMemver);
-                    listBtnTeamForCreate[num].gameObject.SetActiveRecursively(true);
+                    listBtnTeamForCreate[num].gameObject.SetActive(true);
                 }
                 else
                 {
@@ -1015,7 +1015,7 @@ public class BtnGameManager : MonoBehaviour {
     {
         getTeamReturnCode = yuan.YuanPhoton.ReturnCode.Yes;
         GetTeamRequset();
-        warnings.warningAllEnterClose.gameObject.SetActiveRecursively(false);
+        warnings.warningAllEnterClose.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -1124,7 +1124,7 @@ public class BtnGameManager : MonoBehaviour {
         
         foreach (BtnArena item in mListBtns)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
 			UIToggle ckb=item.GetComponent<UIToggle>();
 			ckb.value=false;
         }
@@ -1143,7 +1143,7 @@ public class BtnGameManager : MonoBehaviour {
                 if (num < mListBtns.Count)
                 {
                     degSetBtn(mListBtns[num], item);
-                    mListBtns[num].gameObject.SetActiveRecursively(mGrid.gameObject.active);
+                    mListBtns[num].gameObject.SetActive(mGrid.gameObject.active);
                 }
                 else
                 {
@@ -1162,7 +1162,7 @@ public class BtnGameManager : MonoBehaviour {
 					ckb.group=1;
 					
                     degSetBtn(tempBtnArena, item);
-                    tempBtnArena.gameObject.SetActiveRecursively(mGrid.gameObject.active);
+                    tempBtnArena.gameObject.SetActive(mGrid.gameObject.active);
                     mListBtns.Add(tempBtnArena);
                 }
                 num++;
@@ -1328,7 +1328,7 @@ public class BtnGameManager : MonoBehaviour {
                 }
                 else if (setEnable)
                 {
-                    item.gameObject.SetActiveRecursively(false);
+                    item.gameObject.SetActive(false);
                 }
             }
         }
@@ -1339,7 +1339,7 @@ public class BtnGameManager : MonoBehaviour {
             {
                 if (item.lblName.text != "")
                 {
-                    item.gameObject.SetActiveRecursively(true);
+                    item.gameObject.SetActive(true);
                     item.transform.localScale = tempScale;
                 }
             }
@@ -1367,7 +1367,7 @@ public class BtnGameManager : MonoBehaviour {
                 }
                 else if (setEnable)
                 {
-                    item.gameObject.SetActiveRecursively(false);
+                    item.gameObject.SetActive(false);
                 }
             }
         }
@@ -1378,7 +1378,7 @@ public class BtnGameManager : MonoBehaviour {
             {
                 if (item.lblName.text != "")
                 {
-                    item.gameObject.SetActiveRecursively(true);
+                    item.gameObject.SetActive(true);
                     item.transform.localScale = tempScale;
                 }
             }
@@ -1434,12 +1434,12 @@ public class BtnGameManager : MonoBehaviour {
         if (cbxLegionTemp.value)
         {
             //yuan.YuanClass.SwitchList(objsLegionPicPanel, false, true);
-			objsLegionPicPanel.gameObject.SetActiveRecursively (false);
+			objsLegionPicPanel.gameObject.SetActive (false);
         }
         else if (cbxLegionForever.value)
         {
             //yuan.YuanClass.SwitchList(objsLegionPicPanel, true, true);
-			objsLegionPicPanel.gameObject.SetActiveRecursively (false);
+			objsLegionPicPanel.gameObject.SetActive (false);
         }
 
     }
@@ -1456,7 +1456,7 @@ public class BtnGameManager : MonoBehaviour {
     {
         foreach (BtnLengionDB item in listBtnLengion)
         {
-            item.gameObject.SetActiveRecursively(false);
+            item.gameObject.SetActive(false);
         }
         int num = 0;
         Dictionary<byte,string> dicTemp;
@@ -1559,7 +1559,7 @@ public class BtnGameManager : MonoBehaviour {
         btnLegion.teamHeadID = mTeamHeadID;
         btnLegion.teamMemver = mTeamMemver;
         btnLegion.getPic.PicID = mPicID;
-        btnLegion.gameObject.SetActiveRecursively(true);
+        btnLegion.gameObject.SetActive(true);
         //btnLegion.teamPicID = mTeamPicID;
         btnLegion.SetMyInfo();
         btnLegion.transform.localScale = new Vector3(1, 1, 1);
@@ -1808,7 +1808,7 @@ public class BtnGameManager : MonoBehaviour {
 		{
 			if(null!=setTempTeam)
 			{
-	        	setTempTeam.SetActiveRecursively(false);
+	        	setTempTeam.SetActive(false);
 			}
 	        this.GetTempTeam();
 		}
@@ -1985,7 +1985,7 @@ public class BtnGameManager : MonoBehaviour {
 			objBind=obj;
 			yield return new WaitForSeconds(0.5f);
 		}
-		objBind.SetActiveRecursively (true);
+		objBind.SetActive (true);
 	}
 	
     private UIInput txtPlayerBindName;
@@ -2101,9 +2101,9 @@ public class BtnGameManager : MonoBehaviour {
 		StartCoroutine (GetPacks ());
         InvokeRepeating("NetSignal", 0, 10);
 		if(btnSend!=null){
-		btnSend.SetActiveRecursively (true);
+		btnSend.SetActive (true);
 		yield return new WaitForSeconds(0.1f);
-		btnSend.SetActiveRecursively (false);
+		btnSend.SetActive (false);
 		}
 		if(PlayerPrefs.GetInt ("SwichBattery",0)==1)
 		{
@@ -2766,7 +2766,7 @@ public class BtnGameManager : MonoBehaviour {
 		//Debug.Log ("---------------------------------------:mParm.Count):"+mParm.Count);
         foreach (BtnPlayerForTeam team in listOnePVP)
         {
-            team.gameObject.SetActiveRecursively(false);
+            team.gameObject.SetActive(false);
         }
 
         int num = 0;
@@ -2782,7 +2782,7 @@ public class BtnGameManager : MonoBehaviour {
 				 listOnePVP[num].picPlayer.atlas = yuanPicManager.picPlayer[int.Parse((string)myItem[(byte)yuan.YuanPhoton.ParameterType.UserPro])-1].atlas;
                 listOnePVP[num].picPlayer.spriteName = yuanPicManager.picPlayer[int.Parse((string)myItem[(byte)yuan.YuanPhoton.ParameterType.UserPro])-1].spriteName;
                
-                listOnePVP[num].gameObject.SetActiveRecursively(true);
+                listOnePVP[num].gameObject.SetActive(true);
             }
             else
             {
@@ -2867,7 +2867,7 @@ public class BtnGameManager : MonoBehaviour {
 	{
 	      foreach (BtnPlayerForTeam team in listLegionOneCity)
         {
-            team.gameObject.SetActiveRecursively(false);
+            team.gameObject.SetActive(false);
         }
 
         int num = 0;
@@ -2893,8 +2893,8 @@ public class BtnGameManager : MonoBehaviour {
 
                 listLegionOneCity[num].lblPlayerPro.text = "";
                 listLegionOneCity[num].lblPlayerLevel.text = StaticLoc.Loc.Get("info314")+""+(int)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOnePlayerNum] + "人";
-                listLegionOneCity[num].gameObject.SetActiveRecursively(true);
-                listLegionOneCity[num].picPlayer.gameObject.SetActiveRecursively(false);
+                listLegionOneCity[num].gameObject.SetActive(true);
+                listLegionOneCity[num].picPlayer.gameObject.SetActive(false);
 
             }
             else
@@ -2919,7 +2919,7 @@ public class BtnGameManager : MonoBehaviour {
                     tempPlayer.picPlayer.spriteName = "64";
                 }
                 tempPlayer.lblPlayerPro.text = "";
-                tempPlayer.picPlayer.gameObject.SetActiveRecursively(true);
+                tempPlayer.picPlayer.gameObject.SetActive(true);
                 tempPlayer.lblPlayerLevel.text = StaticLoc.Loc.Get("info314")+"" + (int)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOnePlayerNum] + "人";
                 listLegionOneCity.Add(tempPlayer);
             }
@@ -2934,7 +2934,7 @@ public class BtnGameManager : MonoBehaviour {
 	{
 		foreach (BtnPlayerForTeam team in listLegionOneOut)
         {
-            team.gameObject.SetActiveRecursively(false);
+            team.gameObject.SetActive(false);
         }
 
         int num = 0;
@@ -2951,8 +2951,8 @@ public class BtnGameManager : MonoBehaviour {
                 listLegionOneOut[num].lblPlayerName.text = (string)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOneMap] + listLegionOneOut[num].playerID;
                 listLegionOneOut[num].lblPlayerPro.text = "";
                 listLegionOneOut[num].lblPlayerLevel.text = StaticLoc.Loc.Get("info314")+""+(int)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOnePlayerNum] + "人";
-                listLegionOneOut[num].gameObject.SetActiveRecursively(true);
-                listLegionOneOut[num].picPlayer.gameObject.SetActiveRecursively(false);
+                listLegionOneOut[num].gameObject.SetActive(true);
+                listLegionOneOut[num].picPlayer.gameObject.SetActive(false);
             }
             else
             {
@@ -2969,7 +2969,7 @@ public class BtnGameManager : MonoBehaviour {
                 tempPlayer.yr.Add("map", (string)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOneMap]);
                 tempPlayer.lblPlayerName.text = (string)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOneMap] + listLegionOneOut[num].playerID;
                 tempPlayer.lblPlayerPro.text = "";
-                tempPlayer.picPlayer.gameObject.SetActiveRecursively(true);
+                tempPlayer.picPlayer.gameObject.SetActive(true);
                 tempPlayer.lblPlayerLevel.text = StaticLoc.Loc.Get("info314")+"" + (int)myItem[(byte)yuan.YuanPhoton.ParameterType.LegionOnePlayerNum] + "人";
                 listOnePVP.Add(tempPlayer);
             }
@@ -3091,7 +3091,7 @@ public class BtnGameManager : MonoBehaviour {
 	public void SendTalkSomeBody(string[] listBody)
 	{
 		GameReonline.isEnable=false;
-		btnSend.gameObject.SetActiveRecursively (true);
+		btnSend.gameObject.SetActive (true);
 		btnSend.SendMessage ("SendTalkSomeBody",listBody,SendMessageOptions.DontRequireReceiver);
 	}
 	
@@ -3144,7 +3144,7 @@ public class BtnGameManager : MonoBehaviour {
 	{
 		for(int i=0;i<listPVP1.Count;i++)
 		{
-			listPVP1[i].gameObject.SetActiveRecursively (false);
+			listPVP1[i].gameObject.SetActive (false);
 		}		
         for (int i=0;i<mYt.Rows.Count;i++)
         {
@@ -3158,7 +3158,7 @@ public class BtnGameManager : MonoBehaviour {
                 listPVP1[i].picPlayer.spriteName = yuanPicManager.picPlayer[int.Parse(mYt.Rows[i]["ProID"].YuanColumnText)-1].spriteName;
                if(gridOnePVP.gameObject.active)
 				{
-                listPVP1[i].gameObject.SetActiveRecursively(true);
+                listPVP1[i].gameObject.SetActive(true);
 				}
             }
             else
@@ -3180,7 +3180,7 @@ public class BtnGameManager : MonoBehaviour {
                 listPVP1.Add(tempPlayer);
 				if(!gridOnePVP.gameObject.active)
 				{
-					tempPlayer.gameObject.SetActiveRecursively (false);
+					tempPlayer.gameObject.SetActive (false);
 				}
             }
             gridOnePVP.repositionNow = true;

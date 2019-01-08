@@ -68,7 +68,7 @@ public class SpriteForBenefits : MonoBehaviour
 
 		if(itemID!="")
 		{
-	        PanelStatic.StaticIteminfo.SetActiveRecursively(true);
+	        PanelStatic.StaticIteminfo.SetActive(true);
 	        PanelStatic.StaticIteminfo.transform.position = transform.position;
 	        PanelStatic.StaticIteminfo.SendMessage("SetItemID", itemID, SendMessageOptions.DontRequireReceiver);
 		}

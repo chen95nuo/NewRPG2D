@@ -21,7 +21,7 @@ public class ShowReward : MonoBehaviour {
 		
 		if(itemID!="")
 		{
-			PanelStatic.StaticIteminfo.SetActiveRecursively(true);
+			PanelStatic.StaticIteminfo.SetActive(true);
 			PanelStatic.StaticIteminfo.transform.position = new Vector3(transform.position.x,100,transform.position.z);
 			PanelStatic.StaticIteminfo.SendMessage("SetItemID", itemID, SendMessageOptions.DontRequireReceiver);
 			}

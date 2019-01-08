@@ -411,7 +411,7 @@ public class TableRead : MonoBehaviour
         if (lblOnline != null && isOnlineFiled && null != objProgressbar && objProgressbar.active)
         {
             //lblOnline.text = "链接失败，您的网络不给力";
-            btnReonline.SetActiveRecursively(true);
+            btnReonline.SetActive(true);
 
 
         }
@@ -447,7 +447,7 @@ public class TableRead : MonoBehaviour
 
             if (online != null && online.active)
             {
-                online.SetActiveRecursively(false);
+                online.SetActive(false);
             }
 
 
@@ -498,17 +498,17 @@ public class TableRead : MonoBehaviour
         {
             //            if (logoObj != null && !logoObj.active)
             //            {
-            //                logoObj.SetActiveRecursively(true);
+            //                logoObj.SetActive(true);
             //            }
 
             if (AnnouncementPanel != null && AnnouncementPanel.active)
             {
-                AnnouncementPanel.SetActiveRecursively(false);
+                AnnouncementPanel.SetActive(false);
                 isAnnouncementPanelClosed = true;
             }
 
-            objProgressbar.SetActiveRecursively(false);
-            objNeedUpdate.SetActiveRecursively(true);
+            objProgressbar.SetActive(false);
+            objNeedUpdate.SetActive(true);
             WWW www = new WWW(@"http://47.92.130.102:80/cp/Update_Throne.htm");
             yield return www;
             lbNeedUpdate.text = www.text;
@@ -683,15 +683,15 @@ public class TableRead : MonoBehaviour
 
         if (objBtns != null && !objBtns.active)
         {
-            objBtns.SetActiveRecursively(true);
-            sdklogin.SetActiveRecursively(true);
+            objBtns.SetActive(true);
+            sdklogin.SetActive(true);
         }
 
         isLoadingEnd = true;
 
         //if (online != null)
         //{
-        //    online.SetActiveRecursively(false);
+        //    online.SetActive(false);
         //}
     }
 
@@ -699,7 +699,7 @@ public class TableRead : MonoBehaviour
     {
         if (online != null)
         {
-            online.SetActiveRecursively(false);
+            online.SetActive(false);
         }
     }
 
@@ -714,7 +714,7 @@ public class TableRead : MonoBehaviour
     {
         if (AnnouncementPanel != null && !AnnouncementPanel.active)
         {
-            AnnouncementPanel.SetActiveRecursively(true);
+            AnnouncementPanel.SetActive(true);
             isAnnouncementPanelClosed = false;
         }
     }
@@ -726,24 +726,24 @@ public class TableRead : MonoBehaviour
         //TD_info.NoticeSuccess();//TD接入关闭公告
         if (AnnouncementPanel != null && AnnouncementPanel.active)
         {
-            AnnouncementPanel.SetActiveRecursively(false);
+            AnnouncementPanel.SetActive(false);
             isAnnouncementPanelClosed = true;
         }
 
         //        if (logoObj != null && !logoObj.active)
         //        {
-        //            logoObj.SetActiveRecursively(true);
+        //            logoObj.SetActive(true);
         //        }
 
         if (btnInfo != null && !btnInfo.active)
         {
-            btnInfo.SetActiveRecursively(true);
+            btnInfo.SetActive(true);
         }
 
         if (objBtns != null && !objBtns.active && isLoadingEnd)
         {
-            objBtns.SetActiveRecursively(true);
-            sdklogin.SetActiveRecursively(true);
+            objBtns.SetActive(true);
+            sdklogin.SetActive(true);
         }
     }
 
@@ -755,23 +755,23 @@ public class TableRead : MonoBehaviour
     {
         if (btnInfo != null && btnInfo.active)
         {
-            btnInfo.SetActiveRecursively(false);
+            btnInfo.SetActive(false);
         }
 
         if (AnnouncementPanel != null && !AnnouncementPanel.active)
         {
-            AnnouncementPanel.SetActiveRecursively(true);
+            AnnouncementPanel.SetActive(true);
             isAnnouncementPanelClosed = false;
         }
 
         if (objBtns != null && objBtns.active)
         {
-            objBtns.SetActiveRecursively(false);
+            objBtns.SetActive(false);
 
         }
         if (sdklogin != null && sdklogin.active)
         {
-            sdklogin.SetActiveRecursively(false);
+            sdklogin.SetActive(false);
         }
     }
 

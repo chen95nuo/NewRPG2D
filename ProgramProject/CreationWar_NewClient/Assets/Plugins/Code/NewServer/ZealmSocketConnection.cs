@@ -74,7 +74,7 @@ public class ZealmSocketConnection
         }*/
         tcpClient = new TcpClient(url, port);
         netStream = tcpClient.GetStream();
-        IsConnected = true;
+      
 //        Debug.Log("-------------------------IsConnected");
     //    netStream.ReadTimeout = 200;
         //socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -121,7 +121,7 @@ public class ZealmSocketConnection
 		connectThread = new Thread(new ThreadStart(this.run));
 		connectThread.IsBackground = true; //设置主线程为后台线程，在托管进程中停止后，会关闭所有线程。
         connectThread.Start();
-
+        IsConnected = true;
     }
 
     public void run()

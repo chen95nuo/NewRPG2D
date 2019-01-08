@@ -13,13 +13,13 @@ public class Warnings : MonoBehaviour {
     void Start()
     {
 
-        warningAllEnter.gameObject.SetActiveRecursively(false);
-        warningAllEnterClose.gameObject.SetActiveRecursively(false);
-		warningAllEnterHonor.gameObject.SetActiveRecursively(false);
-        warningAllTime.gameObject.SetActiveRecursively(false);
-		warningAllTimeOut.gameObject.SetActiveRecursively(false);
+        warningAllEnter.gameObject.SetActive(false);
+        warningAllEnterClose.gameObject.SetActive(false);
+		warningAllEnterHonor.gameObject.SetActive(false);
+        warningAllTime.gameObject.SetActive(false);
+		warningAllTimeOut.gameObject.SetActive(false);
 		if(warningAllTime1){
-			warningAllTime1.gameObject.SetActiveRecursively(false);
+			warningAllTime1.gameObject.SetActive(false);
 		}
 
     }

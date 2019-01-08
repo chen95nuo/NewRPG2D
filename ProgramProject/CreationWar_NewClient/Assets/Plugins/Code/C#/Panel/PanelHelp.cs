@@ -48,7 +48,7 @@ public class PanelHelp : MonoBehaviour {
 		List<yuan.YuanMemoryDB.YuanRow> listRow=YuanUnityPhoton.GetYuanUnityPhotonInstantiate().ytHelp.SelectRowsListEqual("HelpType",mType);
 		foreach(BtnHelp item in listTitle)
 		{
-			item.gameObject.SetActiveRecursively (false);
+			item.gameObject.SetActive (false);
 		}
 		
 		if(listRow!=null)
@@ -62,7 +62,7 @@ public class PanelHelp : MonoBehaviour {
 					listTitle[num].yr=item;
 					listTitle[num].title.text=item["HelpName"].YuanColumnText;
 					listTitle[num].info=this.lblInfo;
-					listTitle[num].gameObject.SetActiveRecursively (true);
+					listTitle[num].gameObject.SetActive (true);
 					btn=listTitle[num];
 				}
 				else

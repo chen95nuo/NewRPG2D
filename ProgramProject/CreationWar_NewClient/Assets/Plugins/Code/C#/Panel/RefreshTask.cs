@@ -58,7 +58,7 @@ public class RefreshTask : MonoBehaviour {
         grid.repositionNow=true;
         foreach (GameObject item in listLevelBtn)
         {
-            item.SetActiveRecursively(false);
+            item.SetActive(false);
         }
     }
 	

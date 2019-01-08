@@ -18,13 +18,13 @@ public class Logon : MonoBehaviour {
         //{
         //    lblLicense.gameObject.active = true;
         //    lblLicenseWarning.gameObject.active = true;
-        //    txtLicense.gameObject.SetActiveRecursively(true);
+        //    txtLicense.gameObject.SetActive(true);
         //}
         //else
         //{
         //    lblLicense.gameObject.active = false;
         //    lblLicenseWarning.gameObject.active = false;
-        //    txtLicense.gameObject.SetActiveRecursively(false);
+        //    txtLicense.gameObject.SetActive(false);
         //}
 
         //if (YuanUnityPhoton.GetYuanUnityPhotonInstantiate().dicBenefitsInfo!=null&&
@@ -32,12 +32,12 @@ public class Logon : MonoBehaviour {
         //    (int)YuanUnityPhoton.GetYuanUnityPhotonInstantiate().dicBenefitsInfo[(byte)yuan.YuanPhoton.BenefitsType.PlayerInvite] == 1)
         //{
         //    lblPlayerInvite.gameObject.active = true;
-        //    txtPlayerInvite.gameObject.SetActiveRecursively(true);
+        //    txtPlayerInvite.gameObject.SetActive(true);
         //}
         //else
         //{
         //    lblPlayerInvite.gameObject.active = false;
-        //    txtPlayerInvite.gameObject.SetActiveRecursively(false);
+        //    txtPlayerInvite.gameObject.SetActive(false);
         //}
         if (YuanUnityPhoton.dicBenefitsInfo != null &&
     YuanUnityPhoton.dicBenefitsInfo.ContainsKey((byte)yuan.YuanPhoton.BenefitsType.LogonStatus) &&
@@ -45,13 +45,13 @@ public class Logon : MonoBehaviour {
         {
             lblLicense.gameObject.active = true;
             lblLicenseWarning.gameObject.active = true;
-            txtLicense.gameObject.SetActiveRecursively(true);
+            txtLicense.gameObject.SetActive(true);
         }
         else
         {
             lblLicense.gameObject.active = false;
             lblLicenseWarning.gameObject.active = false;
-            txtLicense.gameObject.SetActiveRecursively(false);
+            txtLicense.gameObject.SetActive(false);
         }
 
         if (YuanUnityPhoton.dicBenefitsInfo != null &&
@@ -59,12 +59,12 @@ public class Logon : MonoBehaviour {
             (int)YuanUnityPhoton.dicBenefitsInfo[(byte)yuan.YuanPhoton.BenefitsType.PlayerInvite] == 1)
         {
             lblPlayerInvite.gameObject.active = true;
-            txtPlayerInvite.gameObject.SetActiveRecursively(true);
+            txtPlayerInvite.gameObject.SetActive(true);
         }
         else
         {
             lblPlayerInvite.gameObject.active = false;
-            txtPlayerInvite.gameObject.SetActiveRecursively(false);
+            txtPlayerInvite.gameObject.SetActive(false);
         }
     }
 }

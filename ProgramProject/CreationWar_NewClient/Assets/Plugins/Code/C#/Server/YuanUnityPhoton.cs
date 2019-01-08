@@ -212,6 +212,7 @@ public class YuanUnityPhoton : IPhotonPeerListener
 		try
 		{
             //!john.add.alive.gate
+           
             m_dwKeepAliveInternal = 1;
 			if(yuanUnityPhotonInstantiate!=null)
 			{
@@ -398,7 +399,9 @@ public class YuanUnityPhoton : IPhotonPeerListener
 //        }
 
 		ZealmSocketConnection.SetConnectionEvent (this.OnStatusChanged2);
-		NetDataManager.DataHandle+=this.OnOperationResponse;
+        NetDataManager.DataHandlePhoton -= this.OnOperationResponse;
+        NetDataManager.DataHandle -= this.OnOperationResponse;
+        NetDataManager.DataHandle+=this.OnOperationResponse;
 		NetDataManager.DataHandlePhoton+=this.OnOperationResponse;
 		ZealmConnector.createConnection(ServerAddress);
 
@@ -3178,9 +3181,9 @@ public class YuanUnityPhoton : IPhotonPeerListener
                                 //MMManage.SwitchListOnlyOne(listMenu,2, true, true);
                                 //foreach (UILabel lbl in listPlayerBtn)
                                 //{
-                                //    lbl.transform.parent.gameObject.SetActiveRecursively(false);
+                                //    lbl.transform.parent.gameObject.SetActive(false);
                                 //}
-                                //btnSelectPlayerBind.gameObject.SetActiveRecursively(false);
+                                //btnSelectPlayerBind.gameObject.SetActive(false);
                                 //int i = 0;
                                 //obj.SendMessage("GetYT",yt,SendMessageOptions.DontRequireReceiver);
                                 //foreach (YuanRow yr in yt.Rows)
@@ -3189,14 +3192,14 @@ public class YuanUnityPhoton : IPhotonPeerListener
                                 //    {
                                 //        listPlayerBtn[i].text = yr["PlayerName"].YuanColumnText.Trim();
 
-                                //        listPlayerBtn[i].transform.parent.gameObject.SetActiveRecursively(true);
+                                //        listPlayerBtn[i].transform.parent.gameObject.SetActive(true);
 
                                 //    }
                                 //    i++;
                                 //}
                                 //if (i >= 6)
                                 //{
-                                //    btnCreatPlayer.gameObject.SetActiveRecursively(false);
+                                //    btnCreatPlayer.gameObject.SetActive(false);
                                 //}
 
                             }
@@ -3310,14 +3313,14 @@ public class YuanUnityPhoton : IPhotonPeerListener
                     //            MMManage.SwitchListOnlyOne(MMManage.listMenu, 2, true, true);
                     //            foreach (BtnPlayer lbl in MMManage.listPlayerBtn)
                     //            {
-                    //                MMManage.YuanSetActiveRecursively(lbl.transform.parent.gameObject,true);
+                    //                MMManage.YuanSetActive(lbl.transform.parent.gameObject,true);
                     //            }
                     //            //MMManage.listPlayerBtn[4].text = yt.Rows[0]["PlayerName"].YuanColumnText.Trim();
-                    //            MMManage.YuanSetActiveRecursively(MMManage.listPlayerBtn[4].transform.parent.gameObject,true);
-                    //            MMManage.YuanSetActiveRecursively(MMManage.btnCreatPlayer.gameObject,false);
-                    //            MMManage.YuanSetActiveRecursively(MMManage.btnSelectPlayerPwd, false);
+                    //            MMManage.YuanSetActive(MMManage.listPlayerBtn[4].transform.parent.gameObject,true);
+                    //            MMManage.YuanSetActive(MMManage.btnCreatPlayer.gameObject,false);
+                    //            MMManage.YuanSetActive(MMManage.btnSelectPlayerPwd, false);
                     //            MMManage.btnSelectPlayerBack.invokMethodName = "Back";
-                    //            MMManage.YuanSetActiveRecursively(MMManage.btnSelectPlayerBind.gameObject,true);
+                    //            MMManage.YuanSetActive(MMManage.btnSelectPlayerBind.gameObject,true);
                     //            MMManage.btnSelectPlayerBind.invokMethodName = "BindUserIDMenu";
 
                     //            this.fastLoginStatus = yuan.YuanPhoton.ReturnCode.Yes;

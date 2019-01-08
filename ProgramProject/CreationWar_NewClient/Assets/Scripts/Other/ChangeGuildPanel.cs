@@ -20,8 +20,8 @@ public class ChangeGuildPanel : MonoBehaviour {
     /// </summary>
     public void SwitchToGuildsPanel()
     {
-        guilds.SetActiveRecursively(true);
-        myGuild.SetActiveRecursively(false);
+        guilds.SetActive(true);
+        myGuild.SetActive(false);
     }
 
     /// <summary>
@@ -29,8 +29,8 @@ public class ChangeGuildPanel : MonoBehaviour {
     /// </summary>
     void SwitchToMyGuildPanel()
     {
-        guilds.SetActiveRecursively(false);
-        myGuild.SetActiveRecursively(true);
+        guilds.SetActive(false);
+        myGuild.SetActive(true);
     }
 
     /// <summary>
@@ -38,6 +38,6 @@ public class ChangeGuildPanel : MonoBehaviour {
     /// </summary>
     void HideMyGuildsPanel() 
     {
-        myGuild.SetActiveRecursively(false);
+        myGuild.SetActive(false);
     }
 }

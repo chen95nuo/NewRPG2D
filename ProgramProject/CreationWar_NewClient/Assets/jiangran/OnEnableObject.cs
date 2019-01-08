@@ -21,9 +21,9 @@ public class OnEnableObject : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 		CkbCreat.value = true;
 		if(MyObj!=null){
-		MyObj.SetActiveRecursively(true);
+		MyObj.SetActive(true);
 			for(int i = 0; i<OtherObj.Length;i++){
-		OtherObj[i].SetActiveRecursively(false);
+		OtherObj[i].SetActive(false);
 			
 			}
 		}

@@ -5,7 +5,7 @@ public class BtnWarningClose : MonoBehaviour {
 
     void OnClick()
     {
-        this.transform.parent.gameObject.SetActiveRecursively(false);
+        this.transform.parent.gameObject.SetActive(false);
     }
 
 }

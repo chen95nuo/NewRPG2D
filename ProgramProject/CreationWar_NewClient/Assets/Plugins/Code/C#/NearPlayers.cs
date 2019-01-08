@@ -30,7 +30,7 @@ public class NearPlayers : MonoBehaviour {
 			int num = 0;
 //			if (listBtnNear.Count > num)
 //			{
-//				listBtnNear[num].gameObject.SetActiveRecursively(true);
+//				listBtnNear[num].gameObject.SetActive(true);
 //			}else{
 			if(i>=grid.transform.childCount){
 				GameObject obj = (GameObject)Instantiate(ObjBtnNear);
