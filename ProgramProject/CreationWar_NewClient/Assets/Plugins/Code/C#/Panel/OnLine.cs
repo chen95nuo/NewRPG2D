@@ -197,7 +197,7 @@ public class OnLine : MonoBehaviour {
 
     public void ConMy()
     {
-        serverAddress = "47.92.130.102:9988";
+        serverAddress = "47.92.130.102:9998";
         serverAddress2 = "47.92.130.102:9998";
         StartCoroutine(Connect());
     }
