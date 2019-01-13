@@ -52,7 +52,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-//		if(Application.loadedLevelName!="Loading 1"&&Application.loadedLevelName!="Loading 1")
+//		if(Application.loadedLevelName!="Loading"&&Application.loadedLevelName!="Loading")
         InvokeRepeating("GetInfo", 3, ReadDicBenefitsInfo.RefreshTime);
 		InRoom.GetInRoomInstantiate ().GetClientPrams();
 		//InvokeRepeating("RemoveGC",2,2);
@@ -93,7 +93,7 @@ public class BtnGameManagerBack : MonoBehaviour {
 			//NGUIDebug.Log ("------------------------11111");
 			if (operationResponse.Count>0&&Application.loadedLevelName!="Map200")
 	        {
-					if(Application.loadedLevelName=="Loading"||Application.loadedLevelName=="Loading 1")
+					if(Application.loadedLevelName=="Loading"||Application.loadedLevelName=="Loading")
 					{
 						if((OpCode)operationResponse[0].OperationCode==OpCode.OtherLogin)
 						{

@@ -810,8 +810,8 @@ public class BtnManager : MonoBehaviour {
         //tweenPlayerCreat.Play(false);
         //tweenPlayerSelect.Play(true);
         //tweenPlayerPwd.Play(true);
-        listMenu[4].SetActive(true);
-        listMenu[2].transform.localScale = new Vector3(0, 0, 0);
+        yuan.YuanClass.SwitchListOnlyOne(listMenu, 4, true, true);
+       // listMenu[2].transform.localScale = new Vector3(0, 0, 0);
         btnPlayerCreatBack.invokMethodName = "CameraToSelectPlayer";
         btnPlayerCreatEnter.invokMethodName="CreatPlayer";
     }

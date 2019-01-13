@@ -70,14 +70,14 @@ function StartGame(){
 					if(yr["Place"].YuanColumnText == ""){
 						Loading.PlayerName = yr["PlayerName"].YuanColumnText;
 						Loading.Level = "Map200";
-						AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+						AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 		
 					}else{			
 						Loading.Level ="Map" + yr["Place"].YuanColumnText;
-						AllResources.ar.AllLoadLevel("Loading 1");
-//												AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+						AllResources.ar.AllLoadLevel("Loading");
+//												AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 
 					}
 				}else{
@@ -139,13 +139,13 @@ function BangDingOK(){
 	if(useYr["Place"].YuanColumnText == ""){
 		Loading.PlayerName = useYr["PlayerName"].YuanColumnText;
 		Loading.Level = "Map200";
-								AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+								AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 		
 	}else{			
 		Loading.Level ="Map" + useYr["Place"].YuanColumnText;
-								AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+								AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 
 	}
 }
@@ -172,13 +172,13 @@ function StartGameYuan(yr:yuan.YuanMemoryDB.YuanRow)
 				if(yr["Place"].YuanColumnText == ""){
 					Loading.PlayerName = yr["PlayerName"].YuanColumnText;
 					Loading.Level = "Map200";
-											AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+											AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 		
 				}else{			
 					Loading.Level ="Map" + yr["Place"].YuanColumnText;
-											AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+											AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 
 				}
 }
@@ -253,8 +253,8 @@ function Select6(){
 function SongLoad(Level : String){
 	Loading.isLogin = true;
 	Loading.Level = Level;
-							AllResources.ar.AllLoadLevel("Loading 1");
-//						Application.LoadLevel("Loading 1");
+							AllResources.ar.AllLoadLevel("Loading");
+//						Application.LoadLevel("Loading");
 
 }
 
