@@ -618,6 +618,11 @@ function myLoadLevel(level : int){
 	
 	private var useRealLevel : String = "";
 	function AllLoadLevel(level : String){
+	    if(level == "Loading 1")
+	    {
+	        level = "Loading";
+	    }
+
 		useRealLevel = level;
 		
 		if(IsActivity()){
