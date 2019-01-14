@@ -64,7 +64,11 @@ private var py : int;
 function SpawnEffect(i : int , spawnP : Transform){
 try
 {
-//	print("123123123123123");
+    //	print("123123123123123");
+    if(EffectP.length < i -1 )
+    {
+        return;
+    }
     var spawnPoint = spawnP.transform.position + spawnP.transform.up*EffectP[i].offsetup +  spawnP.transform.forward*EffectP[i].offsetforward;
     var spawnRotation = spawnP.transform.rotation;
         px = spawnPoint.x*0.03125 +11;

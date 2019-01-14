@@ -30,7 +30,7 @@ function Start () {
 //	print("Level.Substring(3,3) == " + Level.Substring(3,3));
 	canOffLine = true;
 	if(isLevel1){
-			AllResources.ar.AllLoadLevel("Loading 1");
+			AllResources.ar.AllLoadLevel("Loading");
 //	PhotonNetwork.LoadLevel("Loading 1");
 	
 		return;
@@ -392,7 +392,7 @@ function GoMenu(){
  		if(isLoading){
 			return;
 		}
-							AllResources.ar.AllLoadLevel("Loading 1");
+							AllResources.ar.AllLoadLevel("Loading");
 //						Application.LoadLevel("Loading 1");
 
 }
@@ -501,7 +501,7 @@ function OfflineMode(){
 	PhotonNetwork.offlineMode = true;
 //		  PhotonNetwork.offlineMode_inRoom = true;
 //			print("loading ===222==== ");
-	AllResources.ar.AllLoadLevel("Loading 1");
+	AllResources.ar.AllLoadLevel("Loading");
 //	PhotonNetwork.LoadLevel("Loading 1");
 
 }
